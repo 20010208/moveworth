@@ -1,0 +1,89 @@
+"use client";
+
+import { useState } from "react";
+import { SimulationInput, SimulationResult } from "@/lib/simulation/types";
+import { runSimulation } from "@/lib/simulation/basic-calculator";
+import { InputPanel } from "@/components/simulator/input-panel";
+import { ResultsPanel } from "@/components/simulator/results-panel";
+import { useTranslation } from "@/lib/i18n";
+import { useAuth } from "@/lib/auth";
+import { BarChart3 } from "lucide-react";
+
+const defaultInput: SimulationInput = {
+  countryFrom: "",
+  countryTo: "",
+  incomeCurrent: 0,
+  incomeTarget: 0,
+  currencyCurrent: "",
+  currencyTarget: "",
+  salaryGrowthRate: 0.02,
+  currentSavings: 0,
+  savingsCurrency: "",
+  rentCurrent: 0,
+  rentTarget: 0,
+  livingCostCurrent: 0,
+  livingCostTarget: 0,
+  taxRateCurrent: 0.3,
+  taxRateTarget: 0.15,
+  exchangeRate: 1,
+  inflationCurrent: 0.025,
+  inflationTarget: 0.03,
+  investmentReturn: 0,
+  simulationYears: 5,
+};
+
+export default function SimulatePage() {
+  const { t } = useTranslation();
+  const { isAuthenticated, setShowRegisterModal, setOnRegisterCallback } = useAuth();
+  const [input, setInput] = useState<SimulationInput>(defaultInput);
+  const [result, setResult] = useState<SimulationResult | null>(null);
+
+  const doSimulate = () => {
+    const savingsCurrency = input.savingsCurrency || input.currencyCurrent;
+    const simulationResult = runSimulation({
+      ...input,
+      savingsCurrency,
+    });
+    setResult(simulationResult);
+  };
+
+  const handleSimulate = () => {
+    if (!isAuthenticated) {
+      setOnRegisterCallback(() => doSimulate);
+      setShowRegisterModal(true);
+      return;
+    }
+    doSimulate();
+  };
+
+  return (
+    <div className="bg-surface min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-primary-light text-primary">
+              <BarChart3 className="h-5 w-5" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-foreground">
+                {t("simulate.title")}
+              </h1>
+              <p className="text-sm text-muted">
+                {t("simulate.subtitle")}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <InputPanel
+            input={input}
+            onChange={setInput}
+            onSimulate={handleSimulate}
+          />
+          <ResultsPanel result={result} />
+        </div>
+      </div>
+    </div>
+  );
+}
