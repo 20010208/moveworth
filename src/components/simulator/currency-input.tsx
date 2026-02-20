@@ -14,6 +14,19 @@ interface CurrencyInputProps {
   hint?: string;
 }
 
+// Format number with commas (e.g., 5000000 → "5,000,000")
+function formatWithCommas(num: number): string {
+  if (num === 0) return "";
+  const parts = String(num).split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return parts.join(".");
+}
+
+// Remove commas from string (e.g., "5,000,000" → "5000000")
+function stripCommas(str: string): string {
+  return str.replace(/,/g, "");
+}
+
 export function CurrencyInput({
   label,
   value,
@@ -25,18 +38,18 @@ export function CurrencyInput({
   step = 1,
   hint,
 }: CurrencyInputProps) {
-  const [displayValue, setDisplayValue] = useState(value === 0 ? "" : String(value));
+  const [displayValue, setDisplayValue] = useState(value === 0 ? "" : formatWithCommas(value));
   const [focused, setFocused] = useState(false);
 
   // Sync from parent when not focused
   useEffect(() => {
     if (!focused) {
-      setDisplayValue(value === 0 ? "" : String(value));
+      setDisplayValue(value === 0 ? "" : formatWithCommas(value));
     }
   }, [value, focused]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const raw = e.target.value;
+    const raw = stripCommas(e.target.value);
 
     // Allow empty, digits, decimal point, and minus
     if (raw === "" || raw === "-" || raw === ".") {
@@ -53,15 +66,21 @@ export function CurrencyInput({
     }
   };
 
+  const handleFocus = () => {
+    setFocused(true);
+    // Show raw number without commas when editing
+    setDisplayValue(value === 0 ? "" : String(value));
+  };
+
   const handleBlur = () => {
     setFocused(false);
-    // Normalize display on blur
-    const num = Number(displayValue);
+    // Normalize and format with commas on blur
+    const num = Number(stripCommas(displayValue));
     if (isNaN(num) || displayValue === "" || displayValue === "-" || displayValue === ".") {
       setDisplayValue("");
       onChange(0);
     } else {
-      setDisplayValue(num === 0 ? "" : String(num));
+      setDisplayValue(num === 0 ? "" : formatWithCommas(num));
     }
   };
 
@@ -81,7 +100,7 @@ export function CurrencyInput({
           inputMode="decimal"
           value={displayValue}
           onChange={handleChange}
-          onFocus={() => setFocused(true)}
+          onFocus={handleFocus}
           onBlur={handleBlur}
           className={`w-full border border-border/60 rounded-xl py-2.5 text-sm bg-white hover:border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all ${
             currency ? "pl-14 pr-3" : suffix ? "pl-3 pr-12" : "px-3"
