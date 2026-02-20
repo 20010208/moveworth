@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/footer";
 import { LanguageProvider } from "@/lib/i18n";
 import { AuthProvider } from "@/lib/auth";
 import { RegisterModal } from "@/components/auth/register-modal";
+import { LoginModal } from "@/components/auth/login-modal";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -100,6 +101,7 @@ export default function RootLayout({
             <main className="flex-1">{children}</main>
             <Footer />
             <RegisterModal />
+            <LoginModal />
           </AuthProvider>
         </LanguageProvider>
       </body>

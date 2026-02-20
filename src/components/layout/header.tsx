@@ -9,7 +9,7 @@ import { useAuth } from "@/lib/auth";
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { locale, setLocale, t } = useTranslation();
-  const { isAuthenticated, user, logout, setShowRegisterModal } = useAuth();
+  const { isAuthenticated, user, logout, setShowRegisterModal, setShowLoginModal } = useAuth();
 
   const toggleLocale = () => {
     setLocale(locale === "en" ? "ja" : "en");
@@ -80,12 +80,20 @@ export function Header() {
                 </button>
               </div>
             ) : (
-              <button
-                onClick={() => setShowRegisterModal(true)}
-                className="ml-1 bg-primary text-white px-5 py-2 rounded-xl text-sm font-semibold hover:bg-primary-dark transition-all shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30"
-              >
-                {t("header.register")}
-              </button>
+              <div className="flex items-center gap-2 ml-1">
+                <button
+                  onClick={() => setShowLoginModal(true)}
+                  className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
+                >
+                  {t("header.login")}
+                </button>
+                <button
+                  onClick={() => setShowRegisterModal(true)}
+                  className="bg-primary text-white px-5 py-2 rounded-xl text-sm font-semibold hover:bg-primary-dark transition-all shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30"
+                >
+                  {t("header.register")}
+                </button>
+              </div>
             )}
           </nav>
 
@@ -157,12 +165,20 @@ export function Header() {
                   </button>
                 </div>
               ) : (
-                <button
-                  onClick={() => { setShowRegisterModal(true); setMobileOpen(false); }}
-                  className="block w-[calc(100%-1.5rem)] mx-3 bg-primary text-white px-4 py-2.5 rounded-xl text-sm font-semibold text-center shadow-md shadow-primary/20"
-                >
-                  {t("header.register")}
-                </button>
+                <div className="space-y-2 mx-3">
+                  <button
+                    onClick={() => { setShowLoginModal(true); setMobileOpen(false); }}
+                    className="block w-full border border-primary text-primary px-4 py-2.5 rounded-xl text-sm font-semibold text-center"
+                  >
+                    {t("header.login")}
+                  </button>
+                  <button
+                    onClick={() => { setShowRegisterModal(true); setMobileOpen(false); }}
+                    className="block w-full bg-primary text-white px-4 py-2.5 rounded-xl text-sm font-semibold text-center shadow-md shadow-primary/20"
+                  >
+                    {t("header.register")}
+                  </button>
+                </div>
               )}
             </div>
           </nav>

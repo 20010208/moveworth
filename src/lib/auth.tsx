@@ -8,74 +8,94 @@ import {
   useCallback,
   ReactNode,
 } from "react";
+import { supabase } from "@/lib/supabase";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 
-export interface User {
+export interface UserProfile {
+  id: string;
   lastName: string;
   middleName?: string;
   firstName: string;
   email: string;
   nationality: string;
-  registeredAt: string;
 }
 
 interface AuthContextType {
-  user: User | null;
+  user: UserProfile | null;
   isAuthenticated: boolean;
-  register: (data: Omit<User, "registeredAt">) => void;
-  logout: () => void;
+  logout: () => Promise<void>;
   showRegisterModal: boolean;
   setShowRegisterModal: (show: boolean) => void;
+  showLoginModal: boolean;
+  setShowLoginModal: (show: boolean) => void;
   onRegisterCallback: (() => void) | null;
   setOnRegisterCallback: (cb: (() => void) | null) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-const STORAGE_KEY = "moveworth_user";
+function toUserProfile(supabaseUser: SupabaseUser): UserProfile {
+  const meta = supabaseUser.user_metadata;
+  return {
+    id: supabaseUser.id,
+    lastName: meta?.lastName || "",
+    middleName: meta?.middleName || undefined,
+    firstName: meta?.firstName || "",
+    email: supabaseUser.email || "",
+    nationality: meta?.nationality || "",
+  };
+}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [mounted, setMounted] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [onRegisterCallback, setOnRegisterCallback] = useState<(() => void) | null>(null);
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        setUser(JSON.parse(saved));
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        setUser(toUserProfile(session.user));
       }
-    } catch {}
-    setMounted(true);
+      setMounted(true);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setUser(toUserProfile(session.user));
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  const register = useCallback((data: Omit<User, "registeredAt">) => {
-    const newUser: User = {
-      ...data,
-      registeredAt: new Date().toISOString(),
-    };
-    setUser(newUser);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(newUser));
-    setShowRegisterModal(false);
-  }, []);
-
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
+    await supabase.auth.signOut();
     setUser(null);
-    localStorage.removeItem(STORAGE_KEY);
   }, []);
+
+  const contextValue: AuthContextType = {
+    user,
+    isAuthenticated: !!user,
+    logout,
+    showRegisterModal,
+    setShowRegisterModal,
+    showLoginModal,
+    setShowLoginModal,
+    onRegisterCallback,
+    setOnRegisterCallback,
+  };
 
   if (!mounted) {
     return (
       <AuthContext.Provider
         value={{
+          ...contextValue,
           user: null,
           isAuthenticated: false,
-          register,
-          logout,
-          showRegisterModal: false,
-          setShowRegisterModal,
-          onRegisterCallback: null,
-          setOnRegisterCallback,
         }}
       >
         {children}
@@ -84,18 +104,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isAuthenticated: !!user,
-        register,
-        logout,
-        showRegisterModal,
-        setShowRegisterModal,
-        onRegisterCallback,
-        setOnRegisterCallback,
-      }}
-    >
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );

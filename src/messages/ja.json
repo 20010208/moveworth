@@ -8,7 +8,8 @@
     "toggleMenu": "メニュー切替",
     "myAccount": "マイアカウント",
     "logout": "ログアウト",
-    "register": "登録"
+    "register": "登録",
+    "login": "ログイン"
   },
   "footer": {
     "rights": "All rights reserved.",
@@ -139,6 +140,8 @@
     "middleName": "ミドルネーム",
     "firstName": "名",
     "email": "メールアドレス",
+    "password": "パスワード",
+    "passwordPlaceholder": "8文字以上",
     "nationality": "国籍",
     "selectNationality": "国籍を選択",
     "required": "必須",
@@ -149,7 +152,22 @@
     "firstNameRequired": "名を入力してください",
     "emailRequired": "メールアドレスを入力してください",
     "emailInvalid": "有効なメールアドレスを入力してください",
-    "nationalityRequired": "国籍を選択してください"
+    "passwordRequired": "パスワードを入力してください",
+    "passwordTooShort": "パスワードは8文字以上にしてください",
+    "nationalityRequired": "国籍を選択してください",
+    "registerSuccess": "確認メールを送信しました。メール内のリンクをクリックして認証を完了してください。",
+    "registerError": "登録に失敗しました。もう一度お試しください。",
+    "emailAlreadyUsed": "このメールアドレスは既に登録されています。",
+    "loginTitle": "ログイン",
+    "loginSubtitle": "メールアドレスとパスワードでログイン",
+    "loginButton": "ログイン",
+    "loggingIn": "ログイン中...",
+    "loginError": "メールアドレスまたはパスワードが正しくありません。",
+    "noAccount": "アカウントをお持ちでない方は",
+    "registerHere": "こちらから登録",
+    "hasAccount": "すでにアカウントをお持ちの方は",
+    "loginHere": "こちらからログイン",
+    "login": "ログイン"
   },
   "subscribe": {
     "title": "プランを選択",

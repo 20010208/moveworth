@@ -8,7 +8,8 @@
     "toggleMenu": "Toggle menu",
     "myAccount": "My Account",
     "logout": "Logout",
-    "register": "Register"
+    "register": "Register",
+    "login": "Log In"
   },
   "footer": {
     "rights": "All rights reserved.",
@@ -139,6 +140,8 @@
     "middleName": "Middle Name",
     "firstName": "First Name",
     "email": "Email Address",
+    "password": "Password",
+    "passwordPlaceholder": "8 characters or more",
     "nationality": "Nationality",
     "selectNationality": "Select your nationality",
     "required": "Required",
@@ -149,7 +152,22 @@
     "firstNameRequired": "First name is required",
     "emailRequired": "Email is required",
     "emailInvalid": "Please enter a valid email address",
-    "nationalityRequired": "Nationality is required"
+    "passwordRequired": "Password is required",
+    "passwordTooShort": "Password must be at least 8 characters",
+    "nationalityRequired": "Nationality is required",
+    "registerSuccess": "A confirmation email has been sent. Please click the link in the email to verify your account.",
+    "registerError": "Registration failed. Please try again.",
+    "emailAlreadyUsed": "This email address is already registered.",
+    "loginTitle": "Log In",
+    "loginSubtitle": "Log in with your email and password",
+    "loginButton": "Log In",
+    "loggingIn": "Logging in...",
+    "loginError": "Incorrect email address or password.",
+    "noAccount": "Don't have an account?",
+    "registerHere": "Register here",
+    "hasAccount": "Already have an account?",
+    "loginHere": "Log in here",
+    "login": "Log In"
   },
   "subscribe": {
     "title": "Choose Your Plan",
