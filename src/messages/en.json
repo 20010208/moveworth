@@ -162,5 +162,42 @@
     "notifyButton": "Notify Me",
     "notifySuccess": "We'll notify you when this plan is available!",
     "backHome": "Back to Home"
+  },
+  "history": {
+    "title": "Past Simulations",
+    "empty": "No simulations saved yet",
+    "emptyDesc": "Run a simulation to see it saved here",
+    "from": "From",
+    "to": "To",
+    "difference": "Difference",
+    "delete": "Delete",
+    "clearAll": "Clear All",
+    "clearConfirm": "Delete all simulation history?",
+    "load": "Load"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Have a question or feedback? We'd love to hear from you.",
+    "name": "Your Name",
+    "email": "Email Address",
+    "subject": "Subject",
+    "message": "Message",
+    "messagePlaceholder": "Tell us what's on your mind...",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "nameRequired": "Name is required",
+    "emailRequired": "Email is required",
+    "subjectRequired": "Subject is required",
+    "messageRequired": "Message is required",
+    "success": "Thank you! Your message has been sent successfully.",
+    "error": "Something went wrong. Please try again.",
+    "backHome": "Back to Home"
+  },
+  "share": {
+    "title": "Share Results",
+    "shareOn": "Share on",
+    "copyLink": "Copy Link",
+    "copied": "Copied!",
+    "shareText": "If I move from {from} to {to}, my asset difference in {years} years would be {difference}! Try MoveWorth's free simulation."
   }
 }

@@ -5,8 +5,10 @@ import { SimulationInput, SimulationResult } from "@/lib/simulation/types";
 import { runSimulation } from "@/lib/simulation/basic-calculator";
 import { InputPanel } from "@/components/simulator/input-panel";
 import { ResultsPanel } from "@/components/simulator/results-panel";
+import { HistoryPanel } from "@/components/simulator/history-panel";
 import { useTranslation } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
+import { saveHistory } from "@/lib/simulation-history";
 import { BarChart3 } from "lucide-react";
 
 const defaultInput: SimulationInput = {
@@ -37,14 +39,15 @@ export default function SimulatePage() {
   const { isAuthenticated, setShowRegisterModal, setOnRegisterCallback } = useAuth();
   const [input, setInput] = useState<SimulationInput>(defaultInput);
   const [result, setResult] = useState<SimulationResult | null>(null);
+  const [historyKey, setHistoryKey] = useState(0);
 
   const doSimulate = () => {
     const savingsCurrency = input.savingsCurrency || input.currencyCurrent;
-    const simulationResult = runSimulation({
-      ...input,
-      savingsCurrency,
-    });
+    const finalInput = { ...input, savingsCurrency };
+    const simulationResult = runSimulation(finalInput);
     setResult(simulationResult);
+    saveHistory(finalInput, simulationResult);
+    setHistoryKey((k) => k + 1);
   };
 
   const handleSimulate = () => {
@@ -54,6 +57,11 @@ export default function SimulatePage() {
       return;
     }
     doSimulate();
+  };
+
+  const handleLoadHistory = (loadedInput: SimulationInput, loadedResult: SimulationResult) => {
+    setInput(loadedInput);
+    setResult(loadedResult);
   };
 
   return (
@@ -74,6 +82,8 @@ export default function SimulatePage() {
             </div>
           </div>
         </div>
+
+        <HistoryPanel key={historyKey} onLoad={handleLoadHistory} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <InputPanel

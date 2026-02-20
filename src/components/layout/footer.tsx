@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Globe } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
@@ -26,9 +27,9 @@ export function Footer() {
             <a href="#" className="hover:text-foreground transition-colors">
               {t("footer.privacy")}
             </a>
-            <a href="#" className="hover:text-foreground transition-colors">
+            <Link href="/contact" className="hover:text-foreground transition-colors">
               {t("footer.contact")}
-            </a>
+            </Link>
           </div>
         </div>
       </div>

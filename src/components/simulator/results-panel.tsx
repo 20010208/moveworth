@@ -4,6 +4,7 @@ import { SimulationResult } from "@/lib/simulation/types";
 import { SummaryCards } from "./summary-cards";
 import { AssetChart } from "./asset-chart";
 import { BreakdownChart } from "./breakdown-chart";
+import { ShareButtons } from "./share-buttons";
 import { Lock, BarChart3, Sparkles } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
@@ -35,6 +36,7 @@ export function ResultsPanel({ result }: ResultsPanelProps) {
   return (
     <div className="space-y-4">
       <SummaryCards result={result} />
+      <ShareButtons result={result} />
       <AssetChart result={result} />
       <BreakdownChart result={result} />
 

@@ -162,5 +162,42 @@
     "notifyButton": "通知を受け取る",
     "notifySuccess": "公開時にお知らせします！",
     "backHome": "ホームに戻る"
+  },
+  "history": {
+    "title": "過去のシミュレーション",
+    "empty": "保存されたシミュレーションはありません",
+    "emptyDesc": "シミュレーションを実行すると、ここに保存されます",
+    "from": "現在地",
+    "to": "移住先",
+    "difference": "資産差額",
+    "delete": "削除",
+    "clearAll": "すべて削除",
+    "clearConfirm": "シミュレーション履歴をすべて削除しますか？",
+    "load": "読み込む"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "subtitle": "ご質問やフィードバックがありましたら、お気軽にどうぞ。",
+    "name": "お名前",
+    "email": "メールアドレス",
+    "subject": "件名",
+    "message": "メッセージ",
+    "messagePlaceholder": "お気軽にご連絡ください...",
+    "send": "送信する",
+    "sending": "送信中...",
+    "nameRequired": "お名前を入力してください",
+    "emailRequired": "メールアドレスを入力してください",
+    "subjectRequired": "件名を入力してください",
+    "messageRequired": "メッセージを入力してください",
+    "success": "送信しました！メッセージを受け取りました。",
+    "error": "送信に失敗しました。もう一度お試しください。",
+    "backHome": "ホームに戻る"
+  },
+  "share": {
+    "title": "結果をシェア",
+    "shareOn": "シェア",
+    "copyLink": "リンクをコピー",
+    "copied": "コピーしました！",
+    "shareText": "{from}から{to}に移住したら、{years}年後の資産差額は{difference}！MoveWorthで無料シミュレーション。"
   }
 }
