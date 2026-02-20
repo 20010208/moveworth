@@ -67,6 +67,51 @@ export interface SimulationResult {
   monthlyBreakdown: MonthlyBreakdown;
 }
 
+// Phase 3: Sensitivity Analysis
+export interface SensitivityResult {
+  paramName: string;
+  baseValue: number;
+  lowValue: number;
+  highValue: number;
+  lowDelta: number;
+  highDelta: number;
+}
+
+// Phase 3: FIRE Calculator
+export interface FireResult {
+  fireTargetAmountCurrent: number;
+  fireTargetAmountTarget: number;
+  currentCountryAge: number | null;
+  targetCountryAge: number | null;
+  currentCountryYears: number | null;
+  targetCountryYears: number | null;
+  annualExpensesCurrent: number;
+  annualExpensesTarget: number;
+}
+
+// Phase 3: Monte Carlo
+export interface MonteCarloPercentileYear {
+  year: number;
+  p10: number;
+  p25: number;
+  p50: number;
+  p75: number;
+  p90: number;
+}
+
+export interface MonteCarloResult {
+  percentiles: MonteCarloPercentileYear[];
+  finalAssets: number[];
+  stats: {
+    mean: number;
+    median: number;
+    min: number;
+    max: number;
+    stdDev: number;
+    probabilityOfLoss: number;
+  };
+}
+
 export interface CountryPreset {
   code: string;
   name: { en: string; ja: string };
