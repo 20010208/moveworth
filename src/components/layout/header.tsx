@@ -37,19 +37,19 @@ export function Header() {
               {t("header.simulator")}
             </Link>
             <Link
-              href="#how-it-works"
+              href="/#how-it-works"
               className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
             >
               {t("header.howItWorks")}
             </Link>
             <Link
-              href="#features"
+              href="/#features"
               className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
             >
               {t("header.features")}
             </Link>
             <Link
-              href="#pricing"
+              href="/#pricing"
               className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
             >
               {t("header.pricing")}
@@ -129,21 +129,21 @@ export function Header() {
               {t("header.simulator")}
             </Link>
             <Link
-              href="#how-it-works"
+              href="/#how-it-works"
               className="block px-3 py-2.5 text-sm font-medium text-muted hover:text-foreground hover:bg-secondary/80 rounded-lg transition-all"
               onClick={() => setMobileOpen(false)}
             >
               {t("header.howItWorks")}
             </Link>
             <Link
-              href="#features"
+              href="/#features"
               className="block px-3 py-2.5 text-sm font-medium text-muted hover:text-foreground hover:bg-secondary/80 rounded-lg transition-all"
               onClick={() => setMobileOpen(false)}
             >
               {t("header.features")}
             </Link>
             <Link
-              href="#pricing"
+              href="/#pricing"
               className="block px-3 py-2.5 text-sm font-medium text-muted hover:text-foreground hover:bg-secondary/80 rounded-lg transition-all"
               onClick={() => setMobileOpen(false)}
             >
