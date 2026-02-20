@@ -10,7 +10,8 @@ export interface SimulationHistoryEntry {
 }
 
 const STORAGE_KEY = "moveworth_history";
-const MAX_ENTRIES = 10;
+const MAX_ENTRIES_FREE = 3;
+const MAX_ENTRIES_PRO = 50;
 
 export function getHistory(): SimulationHistoryEntry[] {
   if (typeof window === "undefined") return [];
@@ -24,8 +25,17 @@ export function getHistory(): SimulationHistoryEntry[] {
 
 export function saveHistory(
   input: SimulationInput,
-  result: SimulationResult
-): SimulationHistoryEntry {
+  result: SimulationResult,
+  isPro: boolean = false
+): SimulationHistoryEntry | null {
+  const history = getHistory();
+  const maxEntries = isPro ? MAX_ENTRIES_PRO : MAX_ENTRIES_FREE;
+
+  // If at limit for free plan, don't save
+  if (!isPro && history.length >= MAX_ENTRIES_FREE) {
+    return null;
+  }
+
   const entry: SimulationHistoryEntry = {
     id: crypto.randomUUID(),
     date: new Date().toISOString(),
@@ -35,14 +45,17 @@ export function saveHistory(
     result,
   };
 
-  const history = getHistory();
   history.unshift(entry);
 
   // Keep only the most recent entries
-  const trimmed = history.slice(0, MAX_ENTRIES);
+  const trimmed = history.slice(0, maxEntries);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed));
 
   return entry;
+}
+
+export function isAtFreeLimit(): boolean {
+  return getHistory().length >= MAX_ENTRIES_FREE;
 }
 
 export function deleteHistory(id: string): void {

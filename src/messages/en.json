@@ -131,7 +131,10 @@
     "rent": "Rent",
     "living": "Living",
     "tax": "Tax",
-    "savings": "Savings"
+    "savings": "Savings",
+    "proFeatures": "Pro Features",
+    "unlimitedSaves": "Unlimited simulation saves",
+    "upgradePro": "Upgrade to Pro"
   },
   "auth": {
     "registerTitle": "Create Your Account",
@@ -191,7 +194,8 @@
     "delete": "Delete",
     "clearAll": "Clear All",
     "clearConfirm": "Delete all simulation history?",
-    "load": "Load"
+    "load": "Load",
+    "freeLimit": "Free plan: 3 saves max. Upgrade to Pro for unlimited."
   },
   "contact": {
     "title": "Contact Us",

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Clock, Trash2, ArrowRight, X } from "lucide-react";
+import { Clock, Trash2, ArrowRight, X, Lock } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
-import { SimulationHistoryEntry, getHistory, deleteHistory, clearHistory } from "@/lib/simulation-history";
+import { SimulationHistoryEntry, getHistory, deleteHistory, clearHistory, isAtFreeLimit } from "@/lib/simulation-history";
 import { SimulationInput, SimulationResult } from "@/lib/simulation/types";
 import { countryPresets } from "@/data/country-presets";
 import { formatCurrency } from "@/lib/utils";
@@ -63,6 +63,12 @@ export function HistoryPanel({ onLoad }: HistoryPanelProps) {
           {t("history.clearAll")}
         </button>
       </div>
+      {isAtFreeLimit() && (
+        <div className="flex items-center gap-1.5 mb-2 text-xs text-muted">
+          <Lock className="h-3 w-3" />
+          <span>{t("history.freeLimit")}</span>
+        </div>
+      )}
       <div className="flex gap-3 overflow-x-auto pb-2">
         {history.map((entry) => (
           <button

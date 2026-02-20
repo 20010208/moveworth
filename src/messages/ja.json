@@ -131,7 +131,10 @@
     "rent": "家賃",
     "living": "生活費",
     "tax": "税金",
-    "savings": "貯蓄"
+    "savings": "貯蓄",
+    "proFeatures": "Pro機能",
+    "unlimitedSaves": "シミュレーション保存 無制限",
+    "upgradePro": "Proにアップグレード"
   },
   "auth": {
     "registerTitle": "アカウント作成",
@@ -191,7 +194,8 @@
     "delete": "削除",
     "clearAll": "すべて削除",
     "clearConfirm": "シミュレーション履歴をすべて削除しますか？",
-    "load": "読み込む"
+    "load": "読み込む",
+    "freeLimit": "Freeプラン: 保存は最大3件まで。Proにアップグレードで無制限。"
   },
   "contact": {
     "title": "お問い合わせ",
