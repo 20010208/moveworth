@@ -29,6 +29,7 @@ export default function SubscribePage() {
         "pricing.freeFeature4",
       ],
       highlight: false,
+      status: "current" as const,
     },
     {
       nameKey: "pricing.proName",
@@ -42,6 +43,7 @@ export default function SubscribePage() {
         "pricing.proFeature5",
       ],
       highlight: true,
+      status: "coming_soon" as const,
     },
     {
       nameKey: "pricing.premium",
@@ -54,6 +56,7 @@ export default function SubscribePage() {
         "pricing.premiumFeature4",
       ],
       highlight: false,
+      status: "coming_soon" as const,
     },
   ];
 
@@ -137,13 +140,13 @@ export default function SubscribePage() {
                     </li>
                   ))}
                 </ul>
-                {isSelected ? (
-                  <span className="block text-center py-2.5 rounded-xl font-semibold text-sm bg-primary text-white shadow-md shadow-primary/20">
+                {plan.status === "current" ? (
+                  <span className="block text-center py-2.5 rounded-xl font-semibold text-sm bg-primary/10 text-primary">
                     {t("subscribe.currentPlan")}
                   </span>
                 ) : (
-                  <span className="block text-center py-2.5 rounded-xl font-semibold text-sm bg-secondary text-muted hover:bg-primary/10 hover:text-primary transition-all">
-                    {t("subscribe.upgrade")}
+                  <span className="block text-center py-2.5 rounded-xl font-semibold text-sm bg-secondary text-muted">
+                    {t("subscribe.comingSoon")}
                   </span>
                 )}
               </button>
