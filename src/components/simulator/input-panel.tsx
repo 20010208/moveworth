@@ -192,11 +192,14 @@ export function InputPanel({ input, onChange, onSimulate }: InputPanelProps) {
           />
           <div className="relative">
             <CurrencyInput
-              label={t("input.exchangeRate")}
+              label={
+                fromCountry && toCountry && input.exchangeRate > 0
+                  ? `${t("input.exchangeRate")} (1 ${toCountry.currency} = ${input.exchangeRate} ${fromCountry.currency})`
+                  : t("input.exchangeRate")
+              }
               value={input.exchangeRate}
               onChange={(v) => update({ exchangeRate: v })}
               step={0.01}
-              hint={`1 ${toCountry?.currency || ""} = ? ${fromCountry?.currency || ""}`}
             />
             {fetchingRate && (
               <div className="absolute right-3 top-7 flex items-center">
