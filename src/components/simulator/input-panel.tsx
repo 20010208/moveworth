@@ -1,11 +1,13 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import { SimulationInput } from "@/lib/simulation/types";
 import { countryPresets } from "@/data/country-presets";
 import { CountrySelector } from "./country-selector";
 import { CurrencyInput } from "./currency-input";
-import { ArrowRight, Plane } from "lucide-react";
+import { ArrowRight, Plane, Loader2 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
+import { fetchExchangeRate } from "@/lib/exchange-rate";
 
 interface InputPanelProps {
   input: SimulationInput;
@@ -15,6 +17,10 @@ interface InputPanelProps {
 
 export function InputPanel({ input, onChange, onSimulate }: InputPanelProps) {
   const { t } = useTranslation();
+  const [fetchingRate, setFetchingRate] = useState(false);
+  const inputRef = useRef(input);
+  inputRef.current = input;
+
   const fromCountry = countryPresets.find((c) => c.code === input.countryFrom);
   const toCountry = countryPresets.find((c) => c.code === input.countryTo);
 
@@ -22,31 +28,59 @@ export function InputPanel({ input, onChange, onSimulate }: InputPanelProps) {
     onChange({ ...input, ...partial });
   };
 
+  // Auto-fetch exchange rate when both currencies are set
+  const fetchAndSetRate = async (fromCurrency: string, toCurrency: string) => {
+    if (!fromCurrency || !toCurrency || fromCurrency === toCurrency) return;
+    setFetchingRate(true);
+    try {
+      const rate = await fetchExchangeRate(fromCurrency, toCurrency);
+      if (rate !== null) {
+        onChange({ ...inputRef.current, exchangeRate: Math.round(rate * 100) / 100 });
+      }
+    } finally {
+      setFetchingRate(false);
+    }
+  };
+
   const handleCountryFromChange = (code: string) => {
     const country = countryPresets.find((c) => c.code === code);
     if (country) {
-      update({
+      const newInput = {
+        ...input,
         countryFrom: code,
         currencyCurrent: country.currency,
         taxRateCurrent: country.defaultTaxRate,
         inflationCurrent: country.defaultInflation,
         rentCurrent: country.referenceRent,
         livingCostCurrent: country.referenceLivingCost,
-      });
+      };
+      onChange(newInput);
+      // Fetch rate with the new from currency and existing to currency
+      const toPreset = countryPresets.find((c) => c.code === input.countryTo);
+      if (toPreset) {
+        fetchAndSetRate(country.currency, toPreset.currency);
+      }
     }
   };
 
   const handleCountryToChange = (code: string) => {
     const country = countryPresets.find((c) => c.code === code);
     if (country) {
-      update({
+      const newInput = {
+        ...input,
         countryTo: code,
         currencyTarget: country.currency,
         taxRateTarget: country.defaultTaxRate,
         inflationTarget: country.defaultInflation,
         rentTarget: country.referenceRent,
         livingCostTarget: country.referenceLivingCost,
-      });
+      };
+      onChange(newInput);
+      // Fetch rate with existing from currency and new to currency
+      const fromPreset = countryPresets.find((c) => c.code === input.countryFrom);
+      if (fromPreset) {
+        fetchAndSetRate(fromPreset.currency, country.currency);
+      }
     }
   };
 
@@ -156,13 +190,20 @@ export function InputPanel({ input, onChange, onSimulate }: InputPanelProps) {
             suffix="%"
             max={100}
           />
-          <CurrencyInput
-            label={t("input.exchangeRate")}
-            value={input.exchangeRate}
-            onChange={(v) => update({ exchangeRate: v })}
-            step={0.01}
-            hint={`1 ${toCountry?.currency || ""} = ? ${fromCountry?.currency || ""}`}
-          />
+          <div className="relative">
+            <CurrencyInput
+              label={t("input.exchangeRate")}
+              value={input.exchangeRate}
+              onChange={(v) => update({ exchangeRate: v })}
+              step={0.01}
+              hint={`1 ${toCountry?.currency || ""} = ? ${fromCountry?.currency || ""}`}
+            />
+            {fetchingRate && (
+              <div className="absolute right-3 top-7 flex items-center">
+                <Loader2 className="h-4 w-4 animate-spin text-primary" />
+              </div>
+            )}
+          </div>
           <CurrencyInput
             label={t("input.salaryGrowth")}
             value={Math.round(input.salaryGrowthRate * 100)}
