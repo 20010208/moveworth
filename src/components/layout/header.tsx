@@ -36,24 +36,24 @@ export function Header() {
             >
               {t("header.simulator")}
             </Link>
-            <Link
+            <a
               href="/#how-it-works"
               className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
             >
               {t("header.howItWorks")}
-            </Link>
-            <Link
+            </a>
+            <a
               href="/#features"
               className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
             >
               {t("header.features")}
-            </Link>
-            <Link
+            </a>
+            <a
               href="/#pricing"
               className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
             >
               {t("header.pricing")}
-            </Link>
+            </a>
 
             <div className="w-px h-5 bg-border mx-2" />
 
@@ -128,27 +128,27 @@ export function Header() {
             >
               {t("header.simulator")}
             </Link>
-            <Link
+            <a
               href="/#how-it-works"
               className="block px-3 py-2.5 text-sm font-medium text-muted hover:text-foreground hover:bg-secondary/80 rounded-lg transition-all"
               onClick={() => setMobileOpen(false)}
             >
               {t("header.howItWorks")}
-            </Link>
-            <Link
+            </a>
+            <a
               href="/#features"
               className="block px-3 py-2.5 text-sm font-medium text-muted hover:text-foreground hover:bg-secondary/80 rounded-lg transition-all"
               onClick={() => setMobileOpen(false)}
             >
               {t("header.features")}
-            </Link>
-            <Link
+            </a>
+            <a
               href="/#pricing"
               className="block px-3 py-2.5 text-sm font-medium text-muted hover:text-foreground hover:bg-secondary/80 rounded-lg transition-all"
               onClick={() => setMobileOpen(false)}
             >
               {t("header.pricing")}
-            </Link>
+            </a>
             <div className="pt-2">
               {isAuthenticated ? (
                 <div className="flex items-center justify-between mx-3 px-3 py-2.5">
