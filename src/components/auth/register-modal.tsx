@@ -60,7 +60,7 @@ export function RegisterModal() {
     setSubmitting(true);
     setServerError("");
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email: form.email.trim(),
       password: form.password,
       options: {
@@ -76,11 +76,13 @@ export function RegisterModal() {
     setSubmitting(false);
 
     if (error) {
-      if (error.message.includes("already registered") || error.message.includes("already been registered")) {
-        setServerError(t("auth.emailAlreadyUsed"));
-      } else {
-        setServerError(t("auth.registerError"));
-      }
+      setServerError(t("auth.registerError"));
+      return;
+    }
+
+    // Supabaseは重複メールでも成功を返すため identities で判定
+    if (data.user?.identities?.length === 0) {
+      setServerError(t("auth.emailAlreadyUsed"));
       return;
     }
 
