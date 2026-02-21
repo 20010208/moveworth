@@ -43,24 +43,27 @@ export default function Home() {
       ctaKey: "pricing.getStarted",
       highlight: false,
       disabled: false,
+      href: "/simulate",
     },
     {
       nameKey: "pricing.proName",
       price: "$5",
       period: "pricing.month",
       featureKeys: ["pricing.proFeature1", "pricing.proFeature2", "pricing.proFeature3", "pricing.proFeature4", "pricing.proFeature5"],
-      ctaKey: "pricing.comingSoon",
+      ctaKey: "pricing.getStarted",
       highlight: true,
-      disabled: true,
+      disabled: false,
+      href: "/subscribe",
     },
     {
       nameKey: "pricing.premium",
       price: "$15",
       period: "pricing.month",
       featureKeys: ["pricing.premiumFeature1", "pricing.premiumFeature2", "pricing.premiumFeature3", "pricing.premiumFeature4"],
-      ctaKey: "pricing.comingSoon",
+      ctaKey: "pricing.getStarted",
       highlight: false,
-      disabled: true,
+      disabled: false,
+      href: "/subscribe",
     },
   ];
 
@@ -247,21 +250,12 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                {plan.disabled ? (
-                  <Link
-                    href="/subscribe"
-                    className="block text-center py-2.5 rounded-xl font-semibold text-sm bg-secondary text-muted hover:bg-secondary/80 transition-all"
-                  >
-                    {t(plan.ctaKey)}
-                  </Link>
-                ) : (
-                  <Link
-                    href="/simulate"
-                    className="block text-center py-2.5 rounded-xl font-semibold text-sm bg-primary text-white hover:bg-primary-dark transition-all shadow-md shadow-primary/20"
-                  >
-                    {t(plan.ctaKey)}
-                  </Link>
-                )}
+                <Link
+                  href={plan.href}
+                  className="block text-center py-2.5 rounded-xl font-semibold text-sm bg-primary text-white hover:bg-primary-dark transition-all shadow-md shadow-primary/20"
+                >
+                  {t(plan.ctaKey)}
+                </Link>
               </div>
             ))}
           </div>
