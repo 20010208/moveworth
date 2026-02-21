@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { SimulationResult } from "@/lib/simulation/types";
 import { UserPlan } from "@/lib/auth";
 import { SummaryCards } from "./summary-cards";
@@ -8,7 +9,7 @@ import { AssetChart } from "./asset-chart";
 import { BreakdownChart } from "./breakdown-chart";
 import { ShareButtons } from "./share-buttons";
 import { AdvancedTabs } from "./advanced-tabs";
-import { Lock, BarChart3, Sparkles, FileText } from "lucide-react";
+import { Lock, BarChart3, Sparkles, FileText, Loader2 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
 interface ResultsPanelProps {
@@ -17,7 +18,92 @@ interface ResultsPanelProps {
 }
 
 export function ResultsPanel({ result, plan }: ResultsPanelProps) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
+  const [generating, setGenerating] = useState(false);
+  const [reportError, setReportError] = useState("");
+
+  const handleGenerateReport = async () => {
+    if (!result) return;
+    setGenerating(true);
+    setReportError("");
+
+    try {
+      const res = await fetch("/api/generate-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ result, locale }),
+      });
+
+      if (!res.ok) throw new Error("API error");
+      const { report } = await res.json();
+
+      // jsPDF でPDF生成・ダウンロード
+      const { jsPDF } = await import("jspdf");
+      const doc = new jsPDF({ unit: "mm", format: "a4" });
+
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const margin = 20;
+      const contentWidth = pageWidth - margin * 2;
+
+      // タイトル
+      doc.setFontSize(18);
+      doc.setFont("helvetica", "bold");
+      doc.text("MoveWorth AI Financial Report", margin, 25);
+
+      // サブタイトル
+      doc.setFontSize(11);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(100);
+      doc.text(
+        `${result.input.countryFrom} → ${result.input.countryTo}  |  ${new Date().toLocaleDateString()}`,
+        margin,
+        33
+      );
+
+      // 区切り線
+      doc.setDrawColor(80, 80, 220);
+      doc.setLineWidth(0.5);
+      doc.line(margin, 37, pageWidth - margin, 37);
+
+      // レポート本文
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(40);
+
+      const lines = doc.splitTextToSize(report, contentWidth);
+      let y = 45;
+      const lineHeight = 5.5;
+      const pageHeight = doc.internal.pageSize.getHeight();
+
+      for (const line of lines) {
+        if (y + lineHeight > pageHeight - 20) {
+          doc.addPage();
+          y = 20;
+        }
+        doc.text(line, margin, y);
+        y += lineHeight;
+      }
+
+      // フッター
+      doc.setFontSize(8);
+      doc.setTextColor(150);
+      const totalPages = doc.getNumberOfPages();
+      for (let i = 1; i <= totalPages; i++) {
+        doc.setPage(i);
+        doc.text(
+          `MoveWorth AI Report  |  Page ${i} / ${totalPages}  |  moveworth-alpha.vercel.app`,
+          margin,
+          pageHeight - 10
+        );
+      }
+
+      doc.save(`moveworth-report-${result.input.countryFrom}-${result.input.countryTo}.pdf`);
+    } catch {
+      setReportError(locale === "ja" ? "レポート生成に失敗しました。もう一度お試しください。" : "Failed to generate report. Please try again.");
+    } finally {
+      setGenerating(false);
+    }
+  };
 
   if (!result) {
     return (
@@ -69,12 +155,22 @@ export function ResultsPanel({ result, plan }: ResultsPanelProps) {
               <p className="text-sm text-muted mb-4">
                 {t("results.aiReportDesc")}
               </p>
+              {reportError && (
+                <p className="text-sm text-red-500 mb-3">{reportError}</p>
+              )}
               <button
-                className="inline-flex items-center gap-1.5 bg-amber-500 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-amber-600 transition-all shadow-md shadow-amber-500/20"
-                onClick={() => alert("AI Report generation coming soon!")}
+                className="inline-flex items-center gap-1.5 bg-amber-500 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-amber-600 transition-all shadow-md shadow-amber-500/20 disabled:opacity-50"
+                onClick={handleGenerateReport}
+                disabled={generating}
               >
-                <FileText className="h-4 w-4" />
-                {t("results.downloadReport")}
+                {generating ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <FileText className="h-4 w-4" />
+                )}
+                {generating
+                  ? (locale === "ja" ? "生成中..." : "Generating...")
+                  : t("results.downloadReport")}
               </button>
             </div>
           )}
