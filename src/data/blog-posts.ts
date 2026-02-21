@@ -232,9 +232,9 @@ MoveWorthでは各国のデフォルトインフレ率が設定されていま�
 例えば、マレーシアリンギット対円は：
 - 2021年: 1 MYR ≒ 26円
 - 2024年: 1 MYR ≒ 34円
-- 2026年: 1 MYR ≒ 33円
+- 2026年: 1 MYR ≒ 40円
 
-約30%もの変動があります。MoveWorthではリアルタイム為替レートを自動取得しますが、「もし円安がさらに進んだら」というシナリオも考えておくべきです。
+約55%もの変動があります。MoveWorthではリアルタイム為替レートを自動取得しますが、「もし円安がさらに進んだら」というシナリオも考えておくべきです。
 
 ### まとめ
 
@@ -269,9 +269,9 @@ Exchange rates fluctuate daily. Check the 5-year range, not just today's rate.
 For example, MYR to JPY:
 - 2021: 1 MYR ≒ ¥26
 - 2024: 1 MYR ≒ ¥34
-- 2026: 1 MYR ≒ ¥33
+- 2026: 1 MYR ≒ ¥40
 
-That's about 30% variation. MoveWorth auto-fetches real-time rates, but consider "what if the yen weakens further" scenarios too.
+That's about 55% variation. MoveWorth auto-fetches real-time rates, but consider "what if the yen weakens further" scenarios too.
 
 ### Conclusion
 
@@ -417,10 +417,10 @@ FIREの基本的な考え方は「4%ルール」です。年間支出の25倍の
 
 MoveWorthのシミュレーターでは、以下のステップでFIRE計画を検証できます。
 
-1. **現在の貯蓄額と年収を入力**
-2. **移住先の生活費を入力**（家賃・生活費を分けて入力可能）
-3. **投資リターン率を設定**（保守的な4〜5%がおすすめ）
-4. **シミュレーション期間を「FIRE目標年齢 - 現在年齢」に設定**
+1. 現在の貯蓄額と年収を入力
+2. 移住先の生活費を入力（家賃・生活費を分けて入力可能）
+3. 投資リターン率を設定（保守的な4〜5%がおすすめ）
+4. シミュレーション期間を「FIRE目標年齢 - 現在年齢」に設定
 
 結果のグラフで、FIRE目標額に到達するタイミングを確認しましょう。
 
@@ -458,10 +458,10 @@ Whether that 8% risk is acceptable depends on your personal risk tolerance. If c
 
 ### Using MoveWorth for FIRE Planning
 
-1. **Input current savings and income**
-2. **Input destination living costs** (rent and expenses separately)
-3. **Set investment return rate** (conservative 4-5% recommended)
-4. **Set period to "FIRE target age minus current age"**
+1. Input current savings and income
+2. Input destination living costs (rent and expenses separately)
+3. Set investment return rate (conservative 4-5% recommended)
+4. Set period to "FIRE target age minus current age"
 
 Check the results graph for when you reach your FIRE target amount.
 
@@ -913,7 +913,7 @@ Try a free simulation today. Your overseas relocation possibilities will become 
 
 ### 現在利用可能な機能
 
-#### Freeプラン（無料）
+### Freeプラン（無料）
 すべてのユーザーが利用できる基本機能です。
 
 - **資産シミュレーション**: 現在の国と移住先の資産推移を最大30年間予測
@@ -927,7 +927,7 @@ Try a free simulation today. Your overseas relocation possibilities will become 
 
 ### 今後追加予定の機能
 
-#### 高度分析機能（開発中）
+### 高度分析機能（開発中）
 
 - **感度分析**: 各パラメータ（年収、投資リターン、インフレ率、家賃、生活費）が資産にどの程度影響するかを視覚的に表示。トルネードチャートで一目でわかります。
 
@@ -935,11 +935,11 @@ Try a free simulation today. Your overseas relocation possibilities will become 
 
 - **モンテカルロシミュレーション**: 1,000回の試行で資産推移の確率分布を算出。「最悪のケースでも大丈夫か？」をファンチャートで確認できます。元本割れ確率も表示。
 
-#### AI機能（企画中）
+### AI機能（企画中）
 
 - **AI PDFレポート**: シミュレーション結果をAIが分析し、パーソナライズされたアドバイスを含むPDFレポートを生成。移住の判断材料として活用できます。
 
-#### コミュニティ機能（検討中）
+### コミュニティ機能（検討中）
 
 - **移住体験談**: 実際に移住した人の体験談を国別に閲覧
 - **Q&A掲示板**: 移住に関する質問と回答
@@ -971,7 +971,7 @@ MoveWorthは、海外移住を考えるすべての人のためのプラット�
 
 ### Currently Available Features
 
-#### Free Plan
+### Free Plan
 Core features available to all users:
 
 - **Asset Simulation**: Project asset trajectories up to 30 years for current and target countries
@@ -985,7 +985,7 @@ Core features available to all users:
 
 ### Planned Features
 
-#### Advanced Analytics (In Development)
+### Advanced Analytics (In Development)
 
 - **Sensitivity Analysis**: Visualize how each parameter (income, returns, inflation, rent, living costs) impacts assets via tornado charts.
 
@@ -993,11 +993,11 @@ Core features available to all users:
 
 - **Monte Carlo Simulation**: 1,000-trial probability distributions for asset trajectories. Fan charts show "am I safe even in worst cases?" with principal loss probability.
 
-#### AI Features (Planning)
+### AI Features (Planning)
 
 - **AI PDF Report**: AI-analyzed simulation results with personalized advice in downloadable PDF format.
 
-#### Community Features (Under Consideration)
+### Community Features (Under Consideration)
 
 - **Relocation Stories**: Country-specific experiences from actual relocators
 - **Q&A Board**: Questions and answers about relocation
