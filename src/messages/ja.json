@@ -9,7 +9,8 @@
     "myAccount": "マイアカウント",
     "logout": "ログアウト",
     "register": "登録",
-    "login": "ログイン"
+    "login": "ログイン",
+    "blog": "ブログ"
   },
   "footer": {
     "rights": "All rights reserved.",
@@ -329,5 +330,18 @@
     "backHome": "ホームに戻る",
     "errorTitle": "認証に失敗しました",
     "errorDesc": "認証リンクが無効または期限切れです。もう一度登録をお試しください。"
+  },
+  "blog": {
+    "title": "ブログ",
+    "description": "海外移住に関する最新情報、資産シミュレーションのコツ、国別ケーススタディなどをお届けします。",
+    "all": "すべて",
+    "minRead": "分で読める",
+    "readMore": "続きを読む",
+    "backToList": "記事一覧に戻る",
+    "notFound": "記事が見つかりません",
+    "share": "シェア",
+    "ctaTitle": "あなたの移住プランをシミュレーションしてみませんか？",
+    "ctaDescription": "MoveWorthの無料シミュレーターで、海外移住後の資産推移を今すぐ確認。",
+    "ctaButton": "無料シミュレーションを試す"
   }
 }

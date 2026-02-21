@@ -54,6 +54,12 @@ export function Header() {
             >
               {t("header.pricing")}
             </a>
+            <Link
+              href="/blog"
+              className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
+            >
+              {t("header.blog")}
+            </Link>
 
             <div className="w-px h-5 bg-border mx-2" />
 
@@ -152,6 +158,13 @@ export function Header() {
             >
               {t("header.pricing")}
             </a>
+            <Link
+              href="/blog"
+              className="block px-3 py-2.5 text-sm font-medium text-muted hover:text-foreground hover:bg-secondary/80 rounded-lg transition-all"
+              onClick={() => setMobileOpen(false)}
+            >
+              {t("header.blog")}
+            </Link>
             <div className="pt-2">
               {isAuthenticated ? (
                 <div className="flex items-center justify-between mx-3 px-3 py-2.5">

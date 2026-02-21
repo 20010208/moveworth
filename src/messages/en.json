@@ -9,7 +9,8 @@
     "myAccount": "My Account",
     "logout": "Logout",
     "register": "Register",
-    "login": "Log In"
+    "login": "Log In",
+    "blog": "Blog"
   },
   "footer": {
     "rights": "All rights reserved.",
@@ -329,5 +330,18 @@
     "backHome": "Back to Home",
     "errorTitle": "Verification Failed",
     "errorDesc": "The verification link is invalid or has expired. Please try registering again."
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Latest insights on overseas relocation, simulation tips, and country case studies.",
+    "all": "All",
+    "minRead": "min read",
+    "readMore": "Read more",
+    "backToList": "Back to all articles",
+    "notFound": "Article not found",
+    "share": "Share",
+    "ctaTitle": "Ready to simulate your relocation plan?",
+    "ctaDescription": "Try MoveWorth's free simulator to see your post-relocation asset trajectory.",
+    "ctaButton": "Try Free Simulation"
   }
 }
