@@ -10,6 +10,7 @@ import { useTranslation } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
 import { saveHistory } from "@/lib/simulation-history";
 import { BarChart3 } from "lucide-react";
+import { SidebarAd } from "@/components/ads/sidebar-ad";
 
 const defaultInput: SimulationInput = {
   countryFrom: "",
@@ -65,7 +66,12 @@ export default function SimulatePage() {
   };
 
   return (
-    <div className="bg-surface min-h-screen">
+    <div className="bg-surface min-h-screen relative">
+      {/* Left sidebar ad - visible on 2xl+ screens */}
+      <SidebarAd side="left" slot="LEFT_AD_SLOT" />
+      {/* Right sidebar ad - visible on 2xl+ screens */}
+      <SidebarAd side="right" slot="RIGHT_AD_SLOT" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
