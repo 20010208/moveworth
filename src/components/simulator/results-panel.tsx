@@ -53,7 +53,15 @@ export function ResultsPanel({ result, plan }: ResultsPanelProps) {
       const footer = "moveworth-alpha.vercel.app";
 
       const printWindow = window.open("", "_blank");
-      if (!printWindow) throw new Error("Popup blocked");
+      if (!printWindow) {
+        setReportError(
+          locale === "ja"
+            ? "ポップアップがブロックされました。ブラウザのアドレスバー右端の「ポップアップがブロックされました」を押して許可し、もう一度お試しください。"
+            : "Popup was blocked. Please click the popup blocked icon in your browser's address bar to allow it, then try again."
+        );
+        setGenerating(false);
+        return;
+      }
 
       printWindow.document.write(`<!DOCTYPE html>
 <html lang="${locale}">
@@ -173,6 +181,11 @@ export function ResultsPanel({ result, plan }: ResultsPanelProps) {
                   ? (locale === "ja" ? "生成中..." : "Generating...")
                   : t("results.downloadReport")}
               </button>
+              <p className="text-xs text-muted mt-2 leading-relaxed">
+                {locale === "ja"
+                  ? "※ ボタンを押すと印刷画面が開きます。「送信先」から「PDFとして保存」を選択してください。ポップアップの許可が必要な場合があります。"
+                  : "※ A print dialog will open. Select 'Save as PDF' from the destination options. You may need to allow popups."}
+              </p>
             </div>
           )}
         </>
