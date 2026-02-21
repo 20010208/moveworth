@@ -11,6 +11,8 @@ import {
 import { supabase } from "@/lib/supabase";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 
+export type UserPlan = "free" | "pro" | "premium";
+
 export interface UserProfile {
   id: string;
   lastName: string;
@@ -18,6 +20,7 @@ export interface UserProfile {
   firstName: string;
   email: string;
   nationality: string;
+  plan: UserPlan;
 }
 
 interface AuthContextType {
@@ -36,6 +39,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 function toUserProfile(supabaseUser: SupabaseUser): UserProfile {
   const meta = supabaseUser.user_metadata;
+  const plan = (meta?.plan as UserPlan) || "free";
   return {
     id: supabaseUser.id,
     lastName: meta?.lastName || "",
@@ -43,6 +47,7 @@ function toUserProfile(supabaseUser: SupabaseUser): UserProfile {
     firstName: meta?.firstName || "",
     email: supabaseUser.email || "",
     nationality: meta?.nationality || "",
+    plan,
   };
 }
 

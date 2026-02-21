@@ -37,17 +37,19 @@ const defaultInput: SimulationInput = {
 
 export default function SimulatePage() {
   const { t } = useTranslation();
-  const { isAuthenticated, setShowRegisterModal, setOnRegisterCallback } = useAuth();
+  const { isAuthenticated, user, setShowRegisterModal, setOnRegisterCallback } = useAuth();
   const [input, setInput] = useState<SimulationInput>(defaultInput);
   const [result, setResult] = useState<SimulationResult | null>(null);
   const [historyKey, setHistoryKey] = useState(0);
+
+  const plan = user?.plan ?? "free";
 
   const doSimulate = () => {
     const savingsCurrency = input.savingsCurrency || input.currencyCurrent;
     const finalInput = { ...input, savingsCurrency };
     const simulationResult = runSimulation(finalInput);
     setResult(simulationResult);
-    saveHistory(finalInput, simulationResult);
+    saveHistory(finalInput, simulationResult, plan);
     setHistoryKey((k) => k + 1);
   };
 
@@ -97,7 +99,7 @@ export default function SimulatePage() {
             onChange={setInput}
             onSimulate={handleSimulate}
           />
-          <ResultsPanel result={result} />
+          <ResultsPanel result={result} plan={plan} />
         </div>
       </div>
     </div>

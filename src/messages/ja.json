@@ -67,11 +67,12 @@
     "proFeature2": "モンテカルロシミュレーション",
     "proFeature3": "FIRE達成年齢計算",
     "proFeature4": "感度分析",
-    "proFeature5": "無制限の保存",
+    "proFeature5": "最大30件の保存",
     "premiumFeature1": "Proの全機能",
     "premiumFeature2": "月2回のAIレポート",
-    "premiumFeature3": "複数国比較",
-    "premiumFeature4": "優先サポート"
+    "premiumFeature3": "最大100件の保存",
+    "premiumFeature4": "複数国比較",
+    "premiumFeature5": "優先サポート"
   },
   "cta": {
     "title": "移住の計画を始めませんか？",
@@ -116,6 +117,8 @@
     "fireAge": "FIRE達成年齢計算",
     "sensitivity": "感度分析",
     "aiReport": "AI PDFレポート",
+    "aiReportDesc": "AIがシミュレーション結果を分析し、あなたの移住プランに最適化された詳細なPDFレポートを生成します。",
+    "downloadReport": "AIレポートを生成・ダウンロード",
     "comingSoon": "近日公開",
     "annualSavingsCurrent": "年間貯蓄額（現在）",
     "annualSavingsTarget": "年間貯蓄額（移住先）",

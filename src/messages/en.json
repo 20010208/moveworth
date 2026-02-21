@@ -67,11 +67,12 @@
     "proFeature2": "Monte Carlo simulation",
     "proFeature3": "FIRE age calculator",
     "proFeature4": "Sensitivity analysis",
-    "proFeature5": "Unlimited saves",
+    "proFeature5": "Save up to 30 simulations",
     "premiumFeature1": "Everything in Pro",
     "premiumFeature2": "2 AI reports/month",
-    "premiumFeature3": "Multi-country comparison",
-    "premiumFeature4": "Priority support"
+    "premiumFeature3": "Save up to 100 simulations",
+    "premiumFeature4": "Multi-country comparison",
+    "premiumFeature5": "Priority support"
   },
   "cta": {
     "title": "Ready to plan your move?",
@@ -116,6 +117,8 @@
     "fireAge": "FIRE Age Calculator",
     "sensitivity": "Sensitivity Analysis",
     "aiReport": "AI-Powered PDF Report",
+    "aiReportDesc": "AI analyzes your simulation results and generates a detailed PDF report tailored to your relocation plan.",
+    "downloadReport": "Generate & Download AI Report",
     "comingSoon": "Coming soon",
     "annualSavingsCurrent": "Annual Savings (Current)",
     "annualSavingsTarget": "Annual Savings (Target)",

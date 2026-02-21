@@ -54,6 +54,7 @@ export default function SubscribePage() {
         "pricing.premiumFeature2",
         "pricing.premiumFeature3",
         "pricing.premiumFeature4",
+        "pricing.premiumFeature5",
       ],
       highlight: false,
       status: "coming_soon" as const,
