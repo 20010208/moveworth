@@ -69,7 +69,7 @@ export default function SubscribePage() {
     setNotifyError("");
     const { error } = await supabase.from("waitlist_emails").insert({ email: email.trim() });
     if (error) {
-      if (error.code === "23505") {
+      if (error.code === "23505" || error.message?.toLowerCase().includes("duplicate") || error.message?.toLowerCase().includes("unique")) {
         setNotifyError(locale === "ja" ? "このメールアドレスはすでに登録されています。" : "This email is already registered.");
       } else {
         setNotifyError(locale === "ja" ? "エラーが発生しました。もう一度お試しください。" : "An error occurred. Please try again.");
