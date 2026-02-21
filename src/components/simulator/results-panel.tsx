@@ -37,67 +37,68 @@ export function ResultsPanel({ result, plan }: ResultsPanelProps) {
       if (!res.ok) throw new Error("API error");
       const { report } = await res.json();
 
-      // jsPDF でPDF生成・ダウンロード
-      const { jsPDF } = await import("jspdf");
-      const doc = new jsPDF({ unit: "mm", format: "a4" });
+      // Markdown の ## 見出しを <h2>、** 太字 ** を <strong> に変換
+      const htmlContent = report
+        .replace(/^### (.+)$/gm, "<h3>$1</h3>")
+        .replace(/^## (.+)$/gm, "<h2>$1</h2>")
+        .replace(/^# (.+)$/gm, "<h1>$1</h1>")
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/^- (.+)$/gm, "<li>$1</li>")
+        .replace(/(<li>.*<\/li>(\n|$))+/g, (m: string) => `<ul>${m}</ul>`)
+        .replace(/\n{2,}/g, "</p><p>")
+        .replace(/\n/g, "<br/>");
 
-      const pageWidth = doc.internal.pageSize.getWidth();
-      const margin = 20;
-      const contentWidth = pageWidth - margin * 2;
+      const title = locale === "ja" ? "MoveWorth AI 財務レポート" : "MoveWorth AI Financial Report";
+      const subtitle = `${result.input.countryFrom} → ${result.input.countryTo}  |  ${new Date().toLocaleDateString()}`;
+      const footer = "moveworth-alpha.vercel.app";
 
-      // タイトル
-      doc.setFontSize(18);
-      doc.setFont("helvetica", "bold");
-      doc.text("MoveWorth AI Financial Report", margin, 25);
+      const printWindow = window.open("", "_blank");
+      if (!printWindow) throw new Error("Popup blocked");
 
-      // サブタイトル
-      doc.setFontSize(11);
-      doc.setFont("helvetica", "normal");
-      doc.setTextColor(100);
-      doc.text(
-        `${result.input.countryFrom} → ${result.input.countryTo}  |  ${new Date().toLocaleDateString()}`,
-        margin,
-        33
-      );
-
-      // 区切り線
-      doc.setDrawColor(80, 80, 220);
-      doc.setLineWidth(0.5);
-      doc.line(margin, 37, pageWidth - margin, 37);
-
-      // レポート本文
-      doc.setFontSize(10);
-      doc.setFont("helvetica", "normal");
-      doc.setTextColor(40);
-
-      const lines = doc.splitTextToSize(report, contentWidth);
-      let y = 45;
-      const lineHeight = 5.5;
-      const pageHeight = doc.internal.pageSize.getHeight();
-
-      for (const line of lines) {
-        if (y + lineHeight > pageHeight - 20) {
-          doc.addPage();
-          y = 20;
-        }
-        doc.text(line, margin, y);
-        y += lineHeight;
-      }
-
-      // フッター
-      doc.setFontSize(8);
-      doc.setTextColor(150);
-      const totalPages = doc.getNumberOfPages();
-      for (let i = 1; i <= totalPages; i++) {
-        doc.setPage(i);
-        doc.text(
-          `MoveWorth AI Report  |  Page ${i} / ${totalPages}  |  moveworth-alpha.vercel.app`,
-          margin,
-          pageHeight - 10
-        );
-      }
-
-      doc.save(`moveworth-report-${result.input.countryFrom}-${result.input.countryTo}.pdf`);
+      printWindow.document.write(`<!DOCTYPE html>
+<html lang="${locale}">
+<head>
+  <meta charset="UTF-8" />
+  <title>${title}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 11pt;
+      color: #1a1a2e;
+      padding: 20mm 20mm 25mm;
+      line-height: 1.8;
+    }
+    .header { border-bottom: 2px solid #5050dc; padding-bottom: 8px; margin-bottom: 20px; }
+    h1 { font-size: 20pt; font-weight: 700; color: #1a1a2e; }
+    .subtitle { font-size: 10pt; color: #666; margin-top: 4px; }
+    h2 { font-size: 13pt; font-weight: 700; color: #3030b0; margin: 18px 0 6px; border-left: 3px solid #5050dc; padding-left: 8px; }
+    h3 { font-size: 11pt; font-weight: 700; margin: 12px 0 4px; }
+    p { margin: 6px 0; }
+    ul { margin: 6px 0 6px 20px; }
+    li { margin: 3px 0; }
+    strong { font-weight: 700; }
+    .footer { position: fixed; bottom: 10mm; left: 20mm; right: 20mm; font-size: 8pt; color: #999; text-align: center; border-top: 1px solid #eee; padding-top: 4px; }
+    @media print {
+      body { padding: 15mm 15mm 20mm; }
+      .no-print { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>${title}</h1>
+    <div class="subtitle">${subtitle}</div>
+  </div>
+  <div class="content"><p>${htmlContent}</p></div>
+  <div class="footer">${footer}</div>
+  <script>
+    window.onload = function() { window.print(); };
+  </script>
+</body>
+</html>`);
+      printWindow.document.close();
     } catch {
       setReportError(locale === "ja" ? "レポート生成に失敗しました。もう一度お試しください。" : "Failed to generate report. Please try again.");
     } finally {
