@@ -8,8 +8,6 @@ import {
   Check,
   ArrowLeft,
   Crown,
-  Sparkles,
-  Bell,
   Loader2,
 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
@@ -17,16 +15,16 @@ import { useTranslation } from "@/lib/i18n";
 export default function SubscribePage() {
   const { t, locale } = useTranslation();
   const { user, setShowRegisterModal } = useAuth();
-  const [email, setEmail] = useState("");
-  const [notified, setNotified] = useState(false);
-  const [notifyError, setNotifyError] = useState("");
   const [selectedPlan, setSelectedPlan] = useState<string>("pricing.free");
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+
+  const userPlan = user?.plan ?? "free";
 
   const plans = [
     {
       nameKey: "pricing.free",
       planKey: null as null | "pro" | "premium",
+      planId: "free" as const,
       price: "$0",
       period: "",
       featureKeys: [
@@ -36,11 +34,11 @@ export default function SubscribePage() {
         "pricing.freeFeature4",
       ],
       highlight: false,
-      status: "current" as const,
     },
     {
       nameKey: "pricing.proName",
       planKey: "pro" as const,
+      planId: "pro" as const,
       price: "$5",
       period: "pricing.month",
       featureKeys: [
@@ -51,11 +49,11 @@ export default function SubscribePage() {
         "pricing.proFeature5",
       ],
       highlight: true,
-      status: "available" as const,
     },
     {
       nameKey: "pricing.premium",
       planKey: "premium" as const,
+      planId: "premium" as const,
       price: "$15",
       period: "pricing.month",
       featureKeys: [
@@ -66,7 +64,6 @@ export default function SubscribePage() {
         "pricing.premiumFeature5",
       ],
       highlight: false,
-      status: "available" as const,
     },
   ];
 
@@ -100,23 +97,6 @@ export default function SubscribePage() {
     }
   };
 
-  const handleNotify = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    if (!email.trim()) return;
-    setNotifyError("");
-    const { error } = await supabase.from("waitlist_emails").insert({ email: email.trim() });
-    if (error) {
-      if (error.code === "23505" || error.message?.toLowerCase().includes("duplicate") || error.message?.toLowerCase().includes("unique")) {
-        setNotifyError(locale === "ja" ? "このメールアドレスはすでに登録されています。" : "This email is already registered.");
-      } else {
-        setNotifyError(locale === "ja" ? "エラーが発生しました。もう一度お試しください。" : "An error occurred. Please try again.");
-      }
-      return;
-    }
-    setNotified(true);
-    setEmail("");
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50/60 via-white to-slate-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -144,10 +124,11 @@ export default function SubscribePage() {
         </div>
 
         {/* Plans */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {plans.map((plan) => {
             const isSelected = selectedPlan === plan.nameKey;
             const isLoading = checkoutLoading === plan.planKey;
+            const isCurrent = userPlan === plan.planId;
             return (
               <div
                 key={plan.nameKey}
@@ -187,11 +168,11 @@ export default function SubscribePage() {
                     </li>
                   ))}
                 </ul>
-                {plan.status === "current" ? (
+                {isCurrent ? (
                   <span className="block text-center py-2.5 rounded-xl font-semibold text-sm bg-primary/10 text-primary">
                     {t("subscribe.currentPlan")}
                   </span>
-                ) : (
+                ) : plan.planKey ? (
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -212,50 +193,17 @@ export default function SubscribePage() {
                       </>
                     )}
                   </button>
+                ) : (
+                  <Link
+                    href="/simulate"
+                    className="block text-center py-2.5 rounded-xl font-semibold text-sm bg-primary/10 text-primary hover:bg-primary/20 transition-all"
+                  >
+                    {locale === "ja" ? "無料で始める" : "Start Free"}
+                  </Link>
                 )}
               </div>
             );
           })}
-        </div>
-
-        {/* Notify section */}
-        <div className="max-w-lg mx-auto">
-          <div className="bg-white border border-border/60 rounded-2xl p-6 shadow-sm text-center">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary-light text-primary mb-4">
-              <Bell className="h-6 w-6" />
-            </div>
-            <h3 className="text-lg font-bold text-foreground mb-2">
-              {t("subscribe.notifyMe")}
-            </h3>
-            {notified ? (
-              <div className="flex items-center justify-center gap-2 text-accent font-medium py-3">
-                <Sparkles className="h-5 w-5" />
-                {t("subscribe.notifySuccess")}
-              </div>
-            ) : (
-              <form onSubmit={handleNotify} className="flex flex-col gap-2 mt-4">
-                <div className="flex gap-2">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => { setEmail(e.target.value); setNotifyError(""); }}
-                    placeholder={t("subscribe.notifyPlaceholder")}
-                    className="flex-1 border border-border/60 rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                    required
-                  />
-                  <button
-                    type="submit"
-                    className="bg-primary text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-primary-dark transition-all shadow-md shadow-primary/20"
-                  >
-                    {t("subscribe.notifyButton")}
-                  </button>
-                </div>
-                {notifyError && (
-                  <p className="text-sm text-red-500 text-left">{notifyError}</p>
-                )}
-              </form>
-            )}
-          </div>
         </div>
       </div>
     </div>

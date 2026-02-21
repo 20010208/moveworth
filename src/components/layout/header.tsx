@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Globe, Menu, X, Languages, User, LogOut } from "lucide-react";
+import { Globe, Menu, X, Languages, User, LogOut, Crown } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
 
@@ -79,6 +79,17 @@ export function Header() {
                 >
                   <User className="h-4 w-4 text-primary" />
                   {user?.firstName}
+                  {user?.plan === "premium" && (
+                    <span className="inline-flex items-center gap-0.5 bg-amber-100 text-amber-700 text-xs font-bold px-1.5 py-0.5 rounded-full">
+                      <Crown className="h-3 w-3" />
+                      Premium
+                    </span>
+                  )}
+                  {user?.plan === "pro" && (
+                    <span className="inline-flex items-center gap-0.5 bg-primary/10 text-primary text-xs font-bold px-1.5 py-0.5 rounded-full">
+                      Pro
+                    </span>
+                  )}
                 </Link>
                 <button
                   onClick={logout}

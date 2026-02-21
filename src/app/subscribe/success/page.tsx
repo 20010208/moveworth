@@ -1,11 +1,21 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { CheckCircle, Crown } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
+import { supabase } from "@/lib/supabase";
 
 export default function SubscribeSuccessPage() {
-  const { t, locale } = useTranslation();
+  const { locale } = useTranslation();
+
+  useEffect(() => {
+    // Webhookがプランを更新するまで少し待ってからセッションをリフレッシュ
+    const timer = setTimeout(async () => {
+      await supabase.auth.refreshSession();
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50/60 via-white to-slate-50 flex items-center justify-center p-4">
