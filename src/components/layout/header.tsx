@@ -67,10 +67,13 @@ export function Header() {
             </button>
             {isAuthenticated ? (
               <div className="flex items-center gap-2 ml-1">
-                <span className="text-sm font-medium text-foreground flex items-center gap-1.5">
+                <Link
+                  href="/account"
+                  className="text-sm font-medium text-foreground flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
+                >
                   <User className="h-4 w-4 text-primary" />
                   {user?.firstName}
-                </span>
+                </Link>
                 <button
                   onClick={logout}
                   className="text-sm font-medium text-muted hover:text-foreground px-2 py-1.5 rounded-lg hover:bg-secondary/80 transition-all"
@@ -152,10 +155,14 @@ export function Header() {
             <div className="pt-2">
               {isAuthenticated ? (
                 <div className="flex items-center justify-between mx-3 px-3 py-2.5">
-                  <span className="text-sm font-medium text-foreground flex items-center gap-1.5">
+                  <Link
+                    href="/account"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-sm font-medium text-foreground flex items-center gap-1.5 hover:text-primary transition-colors"
+                  >
                     <User className="h-4 w-4 text-primary" />
                     {user?.firstName} {user?.lastName}
-                  </span>
+                  </Link>
                   <button
                     onClick={() => { logout(); setMobileOpen(false); }}
                     className="text-sm font-medium text-muted hover:text-foreground flex items-center gap-1"

@@ -301,6 +301,26 @@
     "contactTitle": "お問い合わせ",
     "contactContent": "本規約に関するご質問は、お問い合わせページよりご連絡ください。"
   },
+  "account": {
+    "title": "マイアカウント",
+    "back": "シミュレーターに戻る",
+    "profileTitle": "プロフィール編集",
+    "emailNote": "メールアドレスは変更できません",
+    "save": "保存する",
+    "saving": "保存中...",
+    "saveSuccess": "保存しました",
+    "saveError": "保存に失敗しました",
+    "dangerZone": "危険な操作",
+    "deleteDescription": "アカウントを削除すると、すべてのデータが完全に削除され、元に戻すことはできません。シミュレーション履歴やプロフィール情報もすべて失われます。",
+    "deleteButton": "アカウントを削除する",
+    "deleteWarningTitle": "本当にアカウントを削除しますか？",
+    "deleteWarningDesc": "この操作は取り消せません。すべてのデータ（プロフィール、シミュレーション履歴等）が完全に削除されます。",
+    "deleteConfirmLabel": "確認のため「{word}」と入力してください",
+    "deleteConfirmButton": "完全に削除する",
+    "deleting": "削除中...",
+    "deleteError": "アカウントの削除に失敗しました。もう一度お試しください。",
+    "cancel": "キャンセル"
+  },
   "authConfirm": {
     "verifying": "メールアドレスを確認中...",
     "successTitle": "認証が完了しました",

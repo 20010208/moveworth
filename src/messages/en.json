@@ -301,6 +301,26 @@
     "contactTitle": "Contact Us",
     "contactContent": "For questions regarding these Terms, please contact us through the Contact page."
   },
+  "account": {
+    "title": "My Account",
+    "back": "Back to Simulator",
+    "profileTitle": "Edit Profile",
+    "emailNote": "Email address cannot be changed",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "saveSuccess": "Saved successfully",
+    "saveError": "Failed to save",
+    "dangerZone": "Danger Zone",
+    "deleteDescription": "Deleting your account will permanently remove all your data and cannot be undone. All simulation history and profile information will be lost.",
+    "deleteButton": "Delete Account",
+    "deleteWarningTitle": "Are you sure you want to delete your account?",
+    "deleteWarningDesc": "This action cannot be undone. All your data (profile, simulation history, etc.) will be permanently deleted.",
+    "deleteConfirmLabel": "Type \"{word}\" to confirm",
+    "deleteConfirmButton": "Permanently Delete",
+    "deleting": "Deleting...",
+    "deleteError": "Failed to delete account. Please try again.",
+    "cancel": "Cancel"
+  },
   "authConfirm": {
     "verifying": "Verifying your email...",
     "successTitle": "Email Verified!",
