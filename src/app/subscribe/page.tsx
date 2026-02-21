@@ -3,25 +3,30 @@
 import { useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/lib/auth";
 import {
   Check,
   ArrowLeft,
   Crown,
   Sparkles,
   Bell,
+  Loader2,
 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
 export default function SubscribePage() {
   const { t, locale } = useTranslation();
+  const { user, setShowRegisterModal } = useAuth();
   const [email, setEmail] = useState("");
   const [notified, setNotified] = useState(false);
   const [notifyError, setNotifyError] = useState("");
   const [selectedPlan, setSelectedPlan] = useState<string>("pricing.free");
+  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
 
   const plans = [
     {
       nameKey: "pricing.free",
+      planKey: null as null | "pro" | "premium",
       price: "$0",
       period: "",
       featureKeys: [
@@ -35,6 +40,7 @@ export default function SubscribePage() {
     },
     {
       nameKey: "pricing.proName",
+      planKey: "pro" as const,
       price: "$5",
       period: "pricing.month",
       featureKeys: [
@@ -45,10 +51,11 @@ export default function SubscribePage() {
         "pricing.proFeature5",
       ],
       highlight: true,
-      status: "coming_soon" as const,
+      status: "available" as const,
     },
     {
       nameKey: "pricing.premium",
+      planKey: "premium" as const,
       price: "$15",
       period: "pricing.month",
       featureKeys: [
@@ -59,11 +66,41 @@ export default function SubscribePage() {
         "pricing.premiumFeature5",
       ],
       highlight: false,
-      status: "coming_soon" as const,
+      status: "available" as const,
     },
   ];
 
-  const handleNotify = async (e: React.FormEvent) => {
+  const handleCheckout = async (planKey: "pro" | "premium") => {
+    if (!user) {
+      setShowRegisterModal(true);
+      return;
+    }
+    setCheckoutLoading(planKey);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      const res = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token && { "Authorization": `Bearer ${token}` }),
+        },
+        body: JSON.stringify({ plan: planKey, locale }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert(locale === "ja" ? "エラーが発生しました。" : "An error occurred.");
+      }
+    } catch {
+      alert(locale === "ja" ? "エラーが発生しました。" : "An error occurred.");
+    } finally {
+      setCheckoutLoading(null);
+    }
+  };
+
+  const handleNotify = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
     setNotifyError("");
@@ -96,7 +133,7 @@ export default function SubscribePage() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-white/80 border border-primary/20 rounded-full px-4 py-1.5 text-sm font-medium text-primary mb-6 shadow-sm">
             <Crown className="h-4 w-4" />
-            <span>{t("subscribe.comingSoon")}</span>
+            <span>{t("subscribe.title")}</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight mb-3">
             {t("subscribe.title")}
@@ -110,8 +147,9 @@ export default function SubscribePage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
           {plans.map((plan) => {
             const isSelected = selectedPlan === plan.nameKey;
+            const isLoading = checkoutLoading === plan.planKey;
             return (
-              <button
+              <div
                 key={plan.nameKey}
                 onClick={() => setSelectedPlan(plan.nameKey)}
                 className={`relative rounded-2xl p-7 border-2 transition-all text-left cursor-pointer ${
@@ -154,11 +192,28 @@ export default function SubscribePage() {
                     {t("subscribe.currentPlan")}
                   </span>
                 ) : (
-                  <span className="block text-center py-2.5 rounded-xl font-semibold text-sm bg-secondary text-muted">
-                    {t("subscribe.comingSoon")}
-                  </span>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (plan.planKey) handleCheckout(plan.planKey);
+                    }}
+                    disabled={isLoading}
+                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-primary to-indigo-600 text-white hover:from-primary-dark hover:to-indigo-700 transition-all shadow-md shadow-primary/20 disabled:opacity-60"
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        {locale === "ja" ? "処理中..." : "Processing..."}
+                      </>
+                    ) : (
+                      <>
+                        <Crown className="h-4 w-4" />
+                        {locale === "ja" ? "このプランにする" : "Get Started"}
+                      </>
+                    )}
+                  </button>
                 )}
-              </button>
+              </div>
             );
           })}
         </div>
