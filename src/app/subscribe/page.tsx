@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase";
 import {
   Check,
   ArrowLeft,
@@ -61,13 +62,10 @@ export default function SubscribePage() {
     },
   ];
 
-  const handleNotify = (e: React.FormEvent) => {
+  const handleNotify = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
-    // Save to localStorage for now
-    const existing = JSON.parse(localStorage.getItem("moveworth_notify_emails") || "[]");
-    existing.push({ email: email.trim(), date: new Date().toISOString() });
-    localStorage.setItem("moveworth_notify_emails", JSON.stringify(existing));
+    await supabase.from("waitlist_emails").upsert({ email: email.trim() }, { onConflict: "email" });
     setNotified(true);
     setEmail("");
   };

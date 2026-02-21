@@ -1,13 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import { createClient } from "@supabase/supabase-js";
 import { SimulationResult } from "@/lib/simulation/types";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
 export async function POST(req: NextRequest) {
   try {
+    // 認証チェック：Premiumユーザーのみ許可
+    const token = req.headers.get("Authorization")?.replace("Bearer ", "");
+    if (!token) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+    if (authError || !user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    if (user.user_metadata?.plan !== "premium") {
+      return NextResponse.json({ error: "Premium plan required" }, { status: 403 });
+    }
+
     const { result, locale }: { result: SimulationResult; locale: string } = await req.json();
 
     if (!result) {

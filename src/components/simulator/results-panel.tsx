@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { SimulationResult } from "@/lib/simulation/types";
 import { UserPlan } from "@/lib/auth";
+import { supabase } from "@/lib/supabase";
 import { SummaryCards } from "./summary-cards";
 import { AssetChart } from "./asset-chart";
 import { BreakdownChart } from "./breakdown-chart";
@@ -28,9 +29,15 @@ export function ResultsPanel({ result, plan }: ResultsPanelProps) {
     setReportError("");
 
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+
       const res = await fetch("/api/generate-report", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token && { "Authorization": `Bearer ${token}` }),
+        },
         body: JSON.stringify({ result, locale }),
       });
 
