@@ -7,12 +7,14 @@ import { SimulationHistoryEntry, getHistory, deleteHistory, clearHistory, isAtFr
 import { SimulationInput, SimulationResult } from "@/lib/simulation/types";
 import { countryPresets } from "@/data/country-presets";
 import { formatCurrency } from "@/lib/utils";
+import { UserPlan } from "@/lib/auth";
 
 interface HistoryPanelProps {
   onLoad: (input: SimulationInput, result: SimulationResult) => void;
+  plan: UserPlan;
 }
 
-export function HistoryPanel({ onLoad }: HistoryPanelProps) {
+export function HistoryPanel({ onLoad, plan }: HistoryPanelProps) {
   const { locale, t } = useTranslation();
   const [history, setHistory] = useState<SimulationHistoryEntry[]>([]);
 
@@ -63,7 +65,7 @@ export function HistoryPanel({ onLoad }: HistoryPanelProps) {
           {t("history.clearAll")}
         </button>
       </div>
-      {isAtFreeLimit() && (
+      {plan === "free" && isAtFreeLimit() && (
         <div className="flex items-center gap-1.5 mb-2 text-xs text-muted">
           <Lock className="h-3 w-3" />
           <span>{t("history.freeLimit")}</span>

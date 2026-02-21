@@ -91,7 +91,7 @@ export default function SimulatePage() {
           </div>
         </div>
 
-        <HistoryPanel key={historyKey} onLoad={handleLoadHistory} />
+        <HistoryPanel key={historyKey} onLoad={handleLoadHistory} plan={plan} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <InputPanel
