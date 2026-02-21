@@ -13,9 +13,10 @@ import {
 import { useTranslation } from "@/lib/i18n";
 
 export default function SubscribePage() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const [email, setEmail] = useState("");
   const [notified, setNotified] = useState(false);
+  const [notifyError, setNotifyError] = useState("");
   const [selectedPlan, setSelectedPlan] = useState<string>("pricing.free");
 
   const plans = [
@@ -65,7 +66,16 @@ export default function SubscribePage() {
   const handleNotify = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
-    await supabase.from("waitlist_emails").upsert({ email: email.trim() }, { onConflict: "email" });
+    setNotifyError("");
+    const { error } = await supabase.from("waitlist_emails").insert({ email: email.trim() });
+    if (error) {
+      if (error.code === "23505") {
+        setNotifyError(locale === "ja" ? "このメールアドレスはすでに登録されています。" : "This email is already registered.");
+      } else {
+        setNotifyError(locale === "ja" ? "エラーが発生しました。もう一度お試しください。" : "An error occurred. Please try again.");
+      }
+      return;
+    }
     setNotified(true);
     setEmail("");
   };
@@ -168,21 +178,26 @@ export default function SubscribePage() {
                 {t("subscribe.notifySuccess")}
               </div>
             ) : (
-              <form onSubmit={handleNotify} className="flex gap-2 mt-4">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder={t("subscribe.notifyPlaceholder")}
-                  className="flex-1 border border-border/60 rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="bg-primary text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-primary-dark transition-all shadow-md shadow-primary/20"
-                >
-                  {t("subscribe.notifyButton")}
-                </button>
+              <form onSubmit={handleNotify} className="flex flex-col gap-2 mt-4">
+                <div className="flex gap-2">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => { setEmail(e.target.value); setNotifyError(""); }}
+                    placeholder={t("subscribe.notifyPlaceholder")}
+                    className="flex-1 border border-border/60 rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="bg-primary text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-primary-dark transition-all shadow-md shadow-primary/20"
+                  >
+                    {t("subscribe.notifyButton")}
+                  </button>
+                </div>
+                {notifyError && (
+                  <p className="text-sm text-red-500 text-left">{notifyError}</p>
+                )}
               </form>
             )}
           </div>
