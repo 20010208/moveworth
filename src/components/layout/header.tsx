@@ -17,7 +17,7 @@ export function Header() {
     else setLocale("en");
   };
 
-  const nextLocaleLabel = locale === "en" ? "JA" : locale === "ja" ? "ZH" : "EN";
+  const currentLocaleLabel = locale === "en" ? "EN" : locale === "ja" ? "JA" : "ZH";
 
   return (
     <header className="glass border-b border-border/50 sticky top-0 z-50">
@@ -73,7 +73,7 @@ export function Header() {
               aria-label="Switch language"
             >
               <Languages className="h-4 w-4" />
-              {nextLocaleLabel}
+              {currentLocaleLabel}
             </button>
             {isAuthenticated ? (
               <div className="flex items-center gap-2 ml-1">
