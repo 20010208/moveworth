@@ -76,8 +76,8 @@ export default function SimulatePage() {
       setExtraResults([]);
     }
 
-    // 追加比較国のデータも含めて履歴に保存
-    saveHistory(finalInput, simulationResult, plan, validExtras, extras);
+    // 追加比較国のデータも含めて履歴に保存（ユーザーIDで個人別管理）
+    saveHistory(finalInput, simulationResult, plan, validExtras, extras, user?.id);
     setHistoryKey((k) => k + 1);
   };
 
@@ -126,7 +126,7 @@ export default function SimulatePage() {
           </div>
         </div>
 
-        <HistoryPanel key={historyKey} onLoad={handleLoadHistory} plan={plan} />
+        <HistoryPanel key={historyKey} onLoad={handleLoadHistory} plan={plan} userId={user?.id} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <InputPanel

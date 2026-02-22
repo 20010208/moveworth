@@ -17,16 +17,17 @@ interface HistoryPanelProps {
     extraResults?: SimulationResult[]
   ) => void;
   plan: UserPlan;
+  userId?: string;
 }
 
-export function HistoryPanel({ onLoad, plan }: HistoryPanelProps) {
+export function HistoryPanel({ onLoad, plan, userId }: HistoryPanelProps) {
   const { locale, t } = useTranslation();
   const [history, setHistory] = useState<SimulationHistoryEntry[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    setHistory(getHistory());
-  }, []);
+    setHistory(getHistory(userId));
+  }, [userId]);
 
   if (history.length === 0) return null;
 
@@ -36,13 +37,13 @@ export function HistoryPanel({ onLoad, plan }: HistoryPanelProps) {
   };
 
   const handleDelete = (id: string) => {
-    deleteHistory(id);
-    setHistory(getHistory());
+    deleteHistory(id, userId);
+    setHistory(getHistory(userId));
   };
 
   const handleClearAll = () => {
     if (confirm(t("history.clearConfirm"))) {
-      clearHistory();
+      clearHistory(userId);
       setHistory([]);
     }
   };
@@ -114,7 +115,7 @@ export function HistoryPanel({ onLoad, plan }: HistoryPanelProps) {
         </div>
       )}
 
-      {plan === "free" && isAtFreeLimit() && (
+      {plan === "free" && isAtFreeLimit(userId) && (
         <div className="flex items-center gap-1.5 mb-2 text-xs text-muted">
           <Lock className="h-3 w-3" />
           <span>{t("history.freeLimit")}</span>

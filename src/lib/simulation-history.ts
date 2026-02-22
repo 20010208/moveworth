@@ -11,17 +11,21 @@ export interface SimulationHistoryEntry {
   extraResults?: SimulationResult[];
 }
 
-const STORAGE_KEY = "moveworth_history";
 const MAX_ENTRIES_FREE = 3;
 const MAX_ENTRIES_PRO = 30;
 const MAX_ENTRIES_PREMIUM = 100;
 
 export type UserPlan = "free" | "pro" | "premium";
 
-export function getHistory(): SimulationHistoryEntry[] {
+// ユーザーIDごとに別キーを使用して履歴を分離
+function storageKey(userId?: string): string {
+  return userId ? `moveworth_history_${userId}` : "moveworth_history";
+}
+
+export function getHistory(userId?: string): SimulationHistoryEntry[] {
   if (typeof window === "undefined") return [];
   try {
-    const data = localStorage.getItem(STORAGE_KEY);
+    const data = localStorage.getItem(storageKey(userId));
     return data ? JSON.parse(data) : [];
   } catch {
     return [];
@@ -33,9 +37,11 @@ export function saveHistory(
   result: SimulationResult,
   plan: UserPlan = "free",
   extraInputs?: ExtraComparisonInput[],
-  extraResults?: SimulationResult[]
+  extraResults?: SimulationResult[],
+  userId?: string
 ): SimulationHistoryEntry | null {
-  const history = getHistory();
+  const key = storageKey(userId);
+  const history = getHistory(userId);
   const maxEntries =
     plan === "premium"
       ? MAX_ENTRIES_PREMIUM
@@ -61,20 +67,21 @@ export function saveHistory(
   history.unshift(entry);
 
   const trimmed = history.slice(0, maxEntries);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed));
+  localStorage.setItem(key, JSON.stringify(trimmed));
 
   return entry;
 }
 
-export function isAtFreeLimit(): boolean {
-  return getHistory().length >= MAX_ENTRIES_FREE;
+export function isAtFreeLimit(userId?: string): boolean {
+  return getHistory(userId).length >= MAX_ENTRIES_FREE;
 }
 
-export function deleteHistory(id: string): void {
-  const history = getHistory().filter((entry) => entry.id !== id);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+export function deleteHistory(id: string, userId?: string): void {
+  const key = storageKey(userId);
+  const history = getHistory(userId).filter((entry) => entry.id !== id);
+  localStorage.setItem(key, JSON.stringify(history));
 }
 
-export function clearHistory(): void {
-  localStorage.removeItem(STORAGE_KEY);
+export function clearHistory(userId?: string): void {
+  localStorage.removeItem(storageKey(userId));
 }
