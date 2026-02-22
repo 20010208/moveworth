@@ -16,9 +16,12 @@ import { useTranslation } from "@/lib/i18n";
 
 interface AssetChartProps {
   result: SimulationResult;
+  extraResults?: SimulationResult[];
 }
 
-export function AssetChart({ result }: AssetChartProps) {
+const EXTRA_COLORS = ["#f59e0b", "#ef4444", "#8b5cf6"];
+
+export function AssetChart({ result, extraResults = [] }: AssetChartProps) {
   const { locale, t } = useTranslation();
 
   const fromPreset = countryPresets.find((c) => c.code === result.input.countryFrom);
@@ -26,11 +29,29 @@ export function AssetChart({ result }: AssetChartProps) {
   const fromName = fromPreset?.name[locale] || result.input.countryFrom;
   const toName = toPreset?.name[locale] || result.input.countryTo;
 
-  const data = result.yearlyResults.map((yr) => ({
-    year: t("results.year", { n: yr.year }),
-    [fromName]: Math.round(yr.assetCurrent),
-    [toName]: Math.round(yr.assetTargetConverted),
-  }));
+  // Extra country names (deduplicate if same country selected)
+  const extraNames = extraResults.map((er) => {
+    const preset = countryPresets.find((c) => c.code === er.input.countryTo);
+    return preset?.name[locale] || er.input.countryTo;
+  });
+
+  const data = result.yearlyResults.map((yr, yearIndex) => {
+    const entry: Record<string, number | string> = {
+      year: t("results.year", { n: yr.year }),
+      [fromName]: Math.round(yr.assetCurrent),
+      [toName]: Math.round(yr.assetTargetConverted),
+    };
+
+    // Add extra countries (all converted to base currency)
+    extraResults.forEach((er, i) => {
+      const erYr = er.yearlyResults[yearIndex];
+      if (erYr) {
+        entry[extraNames[i]] = Math.round(erYr.assetTargetConverted);
+      }
+    });
+
+    return entry;
+  });
 
   const formatValue = (value: number) => {
     if (Math.abs(value) >= 1_000_000) {
@@ -75,6 +96,17 @@ export function AssetChart({ result }: AssetChartProps) {
               dot={{ r: 4 }}
               activeDot={{ r: 6 }}
             />
+            {extraResults.map((_, i) => (
+              <Line
+                key={i}
+                type="monotone"
+                dataKey={extraNames[i]}
+                stroke={EXTRA_COLORS[i] ?? "#94a3b8"}
+                strokeWidth={2}
+                dot={{ r: 4 }}
+                activeDot={{ r: 6 }}
+              />
+            ))}
           </LineChart>
         </ResponsiveContainer>
       </div>

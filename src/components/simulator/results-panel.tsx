@@ -148,7 +148,7 @@ export function ResultsPanel({ result, plan, extraResults = [] }: ResultsPanelPr
     <div className="space-y-4">
       <SummaryCards result={result} />
       <ShareButtons result={result} />
-      <AssetChart result={result} />
+      <AssetChart result={result} extraResults={isPremium ? extraResults : []} />
       <BreakdownChart result={result} />
 
       {isPro ? (
