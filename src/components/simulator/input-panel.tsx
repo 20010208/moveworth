@@ -426,6 +426,18 @@ export function InputPanel({
                       </div>
                     )}
                   </div>
+                  <CurrencyInput
+                    label={`${t("input.rentTarget")} (${extraCountry?.currency || ""})`}
+                    value={extra.rentTarget}
+                    onChange={(v) => updateExtra(index, { rentTarget: v })}
+                    currency={extraCountry?.currencySymbol}
+                  />
+                  <CurrencyInput
+                    label={`${t("input.livingTarget")} (${extraCountry?.currency || ""})`}
+                    value={extra.livingCostTarget}
+                    onChange={(v) => updateExtra(index, { livingCostTarget: v })}
+                    currency={extraCountry?.currencySymbol}
+                  />
                 </div>
               </div>
             );
