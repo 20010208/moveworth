@@ -1,4 +1,4 @@
-import { SimulationInput, SimulationResult } from "@/lib/simulation/types";
+import { SimulationInput, SimulationResult, ExtraComparisonInput } from "@/lib/simulation/types";
 
 export interface SimulationHistoryEntry {
   id: string;
@@ -7,6 +7,8 @@ export interface SimulationHistoryEntry {
   countryTo: string;
   input: SimulationInput;
   result: SimulationResult;
+  extraInputs?: ExtraComparisonInput[];
+  extraResults?: SimulationResult[];
 }
 
 const STORAGE_KEY = "moveworth_history";
@@ -29,7 +31,9 @@ export function getHistory(): SimulationHistoryEntry[] {
 export function saveHistory(
   input: SimulationInput,
   result: SimulationResult,
-  plan: UserPlan = "free"
+  plan: UserPlan = "free",
+  extraInputs?: ExtraComparisonInput[],
+  extraResults?: SimulationResult[]
 ): SimulationHistoryEntry | null {
   const history = getHistory();
   const maxEntries =
@@ -50,6 +54,8 @@ export function saveHistory(
     countryTo: input.countryTo,
     input,
     result,
+    ...(extraInputs && extraInputs.length > 0 && { extraInputs }),
+    ...(extraResults && extraResults.length > 0 && { extraResults }),
   };
 
   history.unshift(entry);

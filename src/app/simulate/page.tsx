@@ -51,13 +51,13 @@ export default function SimulatePage() {
     const finalInput = { ...input, savingsCurrency };
     const simulationResult = runSimulation(finalInput);
     setResult(simulationResult);
-    saveHistory(finalInput, simulationResult, plan);
-    setHistoryKey((k) => k + 1);
 
     // Premium: 追加比較国のシミュレーションを実行
+    let validExtras: ExtraComparisonInput[] = [];
+    let extras: SimulationResult[] = [];
     if (plan === "premium" && extraInputs.length > 0) {
-      const validExtras = extraInputs.filter(e => e.countryTo && e.incomeTarget > 0);
-      const extras = validExtras.map(extra => {
+      validExtras = extraInputs.filter(e => e.countryTo && e.incomeTarget > 0);
+      extras = validExtras.map(extra => {
         const fullInput: SimulationInput = {
           ...finalInput,
           countryTo: extra.countryTo,
@@ -75,6 +75,10 @@ export default function SimulatePage() {
     } else {
       setExtraResults([]);
     }
+
+    // 追加比較国のデータも含めて履歴に保存
+    saveHistory(finalInput, simulationResult, plan, validExtras, extras);
+    setHistoryKey((k) => k + 1);
   };
 
   const handleSimulate = () => {
@@ -86,9 +90,16 @@ export default function SimulatePage() {
     doSimulate();
   };
 
-  const handleLoadHistory = (loadedInput: SimulationInput, loadedResult: SimulationResult) => {
+  const handleLoadHistory = (
+    loadedInput: SimulationInput,
+    loadedResult: SimulationResult,
+    loadedExtraInputs?: ExtraComparisonInput[],
+    loadedExtraResults?: SimulationResult[]
+  ) => {
     setInput(loadedInput);
     setResult(loadedResult);
+    setExtraInputs(loadedExtraInputs ?? []);
+    setExtraResults(loadedExtraResults ?? []);
   };
 
   return (
