@@ -15,9 +15,12 @@ import {
   MapPin,
 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
+import { useAuth } from "@/lib/auth";
 
 export default function Home() {
   const { t } = useTranslation();
+  const { user } = useAuth();
+  const isPaid = user?.plan === "pro" || user?.plan === "premium";
 
   const steps = [
     { titleKey: "howItWorks.step1Title", descKey: "howItWorks.step1Desc", icon: Calculator, step: "01" },
@@ -99,7 +102,7 @@ export default function Home() {
               href="/simulate"
               className="group bg-primary text-white px-8 py-3.5 rounded-2xl font-semibold text-lg hover:bg-primary-dark transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 flex items-center gap-2"
             >
-              {t("hero.cta")}
+              {isPaid ? t("hero.ctaPaid") : t("hero.cta")}
               <ArrowRight className="h-5 w-5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
             <a
