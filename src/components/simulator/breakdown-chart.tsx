@@ -16,9 +16,12 @@ import { useTranslation } from "@/lib/i18n";
 
 interface BreakdownChartProps {
   result: SimulationResult;
+  extraResults?: SimulationResult[];
 }
 
-export function BreakdownChart({ result }: BreakdownChartProps) {
+const EXTRA_COLORS = ["#f59e0b", "#ef4444", "#8b5cf6"];
+
+export function BreakdownChart({ result, extraResults = [] }: BreakdownChartProps) {
   const { locale, t } = useTranslation();
   const { monthlyBreakdown, input } = result;
 
@@ -27,13 +30,28 @@ export function BreakdownChart({ result }: BreakdownChartProps) {
   const fromName = fromPreset?.name[locale] || input.countryFrom;
   const toName = toPreset?.name[locale] || input.countryTo;
 
+  const extraNames = extraResults.map((er) => {
+    const preset = countryPresets.find((c) => c.code === er.input.countryTo);
+    return preset?.name[locale] || er.input.countryTo;
+  });
+
   const categoryKeys = ["income", "rent", "living", "tax", "savings"] as const;
 
-  const data = categoryKeys.map((key) => ({
-    category: t(`results.${key}`),
-    [fromName]: monthlyBreakdown.current[key],
-    [toName]: monthlyBreakdown.target[key],
-  }));
+  const data = categoryKeys.map((key) => {
+    const entry: Record<string, number | string> = {
+      category: t(`results.${key}`),
+      [fromName]: monthlyBreakdown.current[key],
+      [toName]: monthlyBreakdown.target[key],
+    };
+    extraResults.forEach((er, i) => {
+      entry[extraNames[i]] = er.monthlyBreakdown.target[key];
+    });
+    return entry;
+  });
+
+  const extraCurrencyLabels = extraResults
+    .map((er, i) => ` vs ${extraNames[i]} (${er.input.currencyTarget})`)
+    .join("");
 
   return (
     <div className="bg-white border border-border/60 rounded-2xl p-6 shadow-sm">
@@ -41,8 +59,8 @@ export function BreakdownChart({ result }: BreakdownChartProps) {
         {t("results.monthlyBreakdown")}
       </h3>
       <p className="text-xs text-muted mb-4">
-        {fromName} ({input.currencyCurrent}) vs {toName} ({input.currencyTarget}
-        ) - {t("results.eachInLocal")}
+        {fromName} ({input.currencyCurrent}) vs {toName} ({input.currencyTarget})
+        {extraCurrencyLabels} - {t("results.eachInLocal")}
       </p>
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
@@ -54,6 +72,14 @@ export function BreakdownChart({ result }: BreakdownChartProps) {
             <Legend />
             <Bar dataKey={fromName} fill="#4f46e5" radius={[6, 6, 0, 0]} />
             <Bar dataKey={toName} fill="#06d6a0" radius={[6, 6, 0, 0]} />
+            {extraResults.map((_, i) => (
+              <Bar
+                key={i}
+                dataKey={extraNames[i]}
+                fill={EXTRA_COLORS[i] ?? "#94a3b8"}
+                radius={[6, 6, 0, 0]}
+              />
+            ))}
           </BarChart>
         </ResponsiveContainer>
       </div>

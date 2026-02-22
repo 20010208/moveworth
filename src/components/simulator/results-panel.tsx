@@ -149,7 +149,7 @@ export function ResultsPanel({ result, plan, extraResults = [] }: ResultsPanelPr
       <SummaryCards result={result} />
       <ShareButtons result={result} />
       <AssetChart result={result} extraResults={isPremium ? extraResults : []} />
-      <BreakdownChart result={result} />
+      <BreakdownChart result={result} extraResults={isPremium ? extraResults : []} />
 
       {isPro ? (
         <>
@@ -157,7 +157,7 @@ export function ResultsPanel({ result, plan, extraResults = [] }: ResultsPanelPr
             <MultiCountryPanel mainResult={result} extraResults={extraResults} />
           )}
 
-          <AdvancedTabs result={result} />
+          <AdvancedTabs result={result} extraResults={isPremium ? extraResults : []} />
 
           {isPremium && (
             /* Premium: AI PDF Report */

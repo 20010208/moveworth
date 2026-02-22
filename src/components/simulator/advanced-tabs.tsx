@@ -1,51 +1,65 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { SimulationInput, SimulationResult, SensitivityResult, FireResult, MonteCarloResult } from "@/lib/simulation/types";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { SimulationResult, SensitivityResult, FireResult, MonteCarloResult } from "@/lib/simulation/types";
 import { runSensitivityAnalysis } from "@/lib/simulation/sensitivity";
 import { calculateFire } from "@/lib/simulation/fire-calculator";
 import { runMonteCarlo } from "@/lib/simulation/monte-carlo";
 import { SensitivityChart } from "./sensitivity-chart";
 import { FirePanel } from "./fire-panel";
 import { MonteCarloChart } from "./monte-carlo-chart";
+import { countryPresets } from "@/data/country-presets";
 import { Activity, Flame, BarChart3, Loader2 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
 interface AdvancedTabsProps {
   result: SimulationResult;
+  extraResults?: SimulationResult[];
 }
 
 type TabId = "sensitivity" | "fire" | "montecarlo";
 
-export function AdvancedTabs({ result }: AdvancedTabsProps) {
-  const { t } = useTranslation();
+export function AdvancedTabs({ result, extraResults = [] }: AdvancedTabsProps) {
+  const { t, locale } = useTranslation();
   const [activeTab, setActiveTab] = useState<TabId>("sensitivity");
+  const [selectedCountryIndex, setSelectedCountryIndex] = useState(0);
+
+  const allResults = [result, ...extraResults];
+  const activeResult = allResults[selectedCountryIndex] ?? result;
+
+  // Keep a ref to avoid stale closure in runMC
+  const activeResultRef = useRef(activeResult);
+  activeResultRef.current = activeResult;
 
   const [sensitivityData, setSensitivityData] = useState<SensitivityResult[] | null>(null);
   const [fireData, setFireData] = useState<FireResult | null>(null);
+  const [extraFireData, setExtraFireData] = useState<FireResult[]>([]);
   const [monteCarloData, setMonteCarloData] = useState<MonteCarloResult | null>(null);
   const [mcProgress, setMcProgress] = useState(0);
   const [mcRunning, setMcRunning] = useState(false);
 
-  // Run sensitivity on mount
+  // Run sensitivity when selected country or results change
   useEffect(() => {
-    setSensitivityData(runSensitivityAnalysis(result.input));
-  }, [result]);
+    const ar = allResults[selectedCountryIndex] ?? result;
+    setSensitivityData(runSensitivityAnalysis(ar.input));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCountryIndex, result, extraResults]);
 
-  // Run FIRE on mount
+  // Run FIRE for all countries
   useEffect(() => {
     setFireData(calculateFire(result.input));
-  }, [result]);
+    setExtraFireData(extraResults.map((er) => calculateFire(er.input)));
+  }, [result, extraResults]);
 
-  // Run Monte Carlo when tab selected
+  // Run Monte Carlo when tab selected (uses ref to avoid stale closure)
   const runMC = useCallback(async () => {
     if (monteCarloData || mcRunning) return;
     setMcRunning(true);
     setMcProgress(0);
-    const mcResult = await runMonteCarlo(result.input, (p) => setMcProgress(p));
+    const mcResult = await runMonteCarlo(activeResultRef.current.input, (p) => setMcProgress(p));
     setMonteCarloData(mcResult);
     setMcRunning(false);
-  }, [result, monteCarloData, mcRunning]);
+  }, [monteCarloData, mcRunning]);
 
   useEffect(() => {
     if (activeTab === "montecarlo") {
@@ -53,11 +67,16 @@ export function AdvancedTabs({ result }: AdvancedTabsProps) {
     }
   }, [activeTab, runMC]);
 
-  // Reset when result changes
+  // Reset MC when result or selected country changes
   useEffect(() => {
     setMonteCarloData(null);
     setMcRunning(false);
     setMcProgress(0);
+  }, [result, selectedCountryIndex]);
+
+  // Reset selected country index when main result changes
+  useEffect(() => {
+    setSelectedCountryIndex(0);
   }, [result]);
 
   const tabs: { id: TabId; label: string; icon: React.ReactNode }[] = [
@@ -68,9 +87,39 @@ export function AdvancedTabs({ result }: AdvancedTabsProps) {
 
   return (
     <div className="bg-white border border-border/60 rounded-2xl p-6 shadow-sm">
-      <h3 className="text-sm font-bold text-foreground mb-4">
-        {t("advanced.title")}
-      </h3>
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
+        <h3 className="text-sm font-bold text-foreground">
+          {t("advanced.title")}
+        </h3>
+
+        {/* Country selector for sensitivity/MC tabs */}
+        {extraResults.length > 0 && activeTab !== "fire" && (
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-muted">
+              {locale === "ja" ? "対象国:" : "Country:"}
+            </span>
+            <div className="flex flex-wrap gap-1">
+              {allResults.map((r, i) => {
+                const preset = countryPresets.find((c) => c.code === r.input.countryTo);
+                const name = preset?.name[locale] || r.input.countryTo;
+                return (
+                  <button
+                    key={i}
+                    onClick={() => setSelectedCountryIndex(i)}
+                    className={`px-2.5 py-1 text-xs rounded-full font-medium transition-all ${
+                      selectedCountryIndex === i
+                        ? "bg-primary text-white"
+                        : "bg-surface text-muted hover:text-foreground"
+                    }`}
+                  >
+                    {name}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Tab buttons */}
       <div className="flex gap-1 mb-5 border-b border-border/50 pb-px">
@@ -92,11 +141,16 @@ export function AdvancedTabs({ result }: AdvancedTabsProps) {
 
       {/* Tab content */}
       {activeTab === "sensitivity" && sensitivityData && (
-        <SensitivityChart results={sensitivityData} currency={result.input.currencyTarget} />
+        <SensitivityChart results={sensitivityData} currency={activeResult.input.currencyTarget} />
       )}
 
       {activeTab === "fire" && fireData && (
-        <FirePanel result={fireData} input={result.input} />
+        <FirePanel
+          result={fireData}
+          input={result.input}
+          extraResults={extraResults}
+          extraFireData={extraFireData}
+        />
       )}
 
       {activeTab === "montecarlo" && (
@@ -119,7 +173,7 @@ export function AdvancedTabs({ result }: AdvancedTabsProps) {
             </div>
           )}
           {monteCarloData && !mcRunning && (
-            <MonteCarloChart result={monteCarloData} currency={result.input.currencyTarget} />
+            <MonteCarloChart result={monteCarloData} currency={activeResult.input.currencyTarget} />
           )}
         </>
       )}
