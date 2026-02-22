@@ -3,17 +3,17 @@ export interface BlogPost {
   category: "money" | "lifeplan" | "casestudy" | "about" | "visa";
   date: string;
   readingTime: number;
-  title: { ja: string; en: string };
-  description: { ja: string; en: string };
-  content: { ja: string; en: string };
+  title: { ja: string; en: string; zh?: string };
+  description: { ja: string; en: string; zh?: string };
+  content: { ja: string; en: string; zh?: string };
 }
 
 export const blogCategories = {
-  money: { ja: "移住とお金", en: "Money & Relocation" },
-  lifeplan: { ja: "ライフプラン", en: "Life Planning" },
-  casestudy: { ja: "国別ケーススタディ", en: "Country Case Studies" },
-  about: { ja: "MoveWorthについて", en: "About MoveWorth" },
-  visa: { ja: "ビザ・移住条件", en: "Visa & Requirements" },
+  money: { ja: "移住とお金", en: "Money & Relocation", zh: "移居与财务" },
+  lifeplan: { ja: "ライフプラン", en: "Life Planning", zh: "生活规划" },
+  casestudy: { ja: "国別ケーススタディ", en: "Country Case Studies", zh: "各国案例研究" },
+  about: { ja: "MoveWorthについて", en: "About MoveWorth", zh: "关于MoveWorth" },
+  visa: { ja: "ビザ・移住条件", en: "Visa & Requirements", zh: "签证与移居条件" },
 } as const;
 
 export const blogPosts: BlogPost[] = [
@@ -25,10 +25,12 @@ export const blogPosts: BlogPost[] = [
     title: {
       ja: "海外移住の失敗理由1位は『お金の問題』？失敗しないためのシミュレーションの重要性",
       en: "The #1 Reason for Failed Relocations Is Money — Why Simulation Matters",
+      zh: "海外移居失败头号原因是『钱』？——财务模拟的重要性",
     },
     description: {
       ja: "なぜ「なんとなく」の移住が危険なのか。事前の資産シミュレーションで防げる失敗パターンを解説します。",
       en: "Why vague relocation plans are risky and how asset simulation can prevent common failure patterns.",
+      zh: "为什么漫无目的的移居计划很危险？事先做好财务模拟，可以避免常见的失败模式。",
     },
     content: {
       ja: `海外移住は人生を大きく変える決断です。新しい文化、新しい環境、新しいキャリア。夢は膨らみますが、現実的な問題として最も多くの人を悩ませるのが「お金」です。
@@ -89,10 +91,12 @@ The biggest factor separating successful and failed relocations is financial pre
     title: {
       ja: "【2026年最新】海外移住にかかる初期費用の目安：ビザ、航空券、住居デポジットまで",
       en: "Overseas Relocation Costs in 2026: Visas, Flights, and Housing Deposits",
+      zh: "【2026年最新】海外移居初期费用指南：签证、机票、押金全解析",
     },
     description: {
       ja: "海外移住で実際にかかる初期費用を項目別に解説。シミュレーションの入力値を考える際の参考に。",
       en: "A breakdown of actual initial costs for overseas relocation, useful as reference when inputting simulation values.",
+      zh: "按项目详解海外移居的实际初期费用，可作为模拟器输入值的参考。",
     },
     content: {
       ja: `海外移住を決意したら、まず把握すべきなのが「初期費用」です。毎月の生活費とは別に、移住開始時にまとまった出費が発生します。2026年の最新情報をもとに、主な費用項目を整理しました。
@@ -197,10 +201,12 @@ Accurately understanding initial costs is the first step to a secure relocation 
     title: {
       ja: "円安・物価高に負けない！海外移住の『生活コスト』を正確に見積もる3つのコツ",
       en: "3 Tips to Accurately Estimate Living Costs for Your Move Abroad",
+      zh: "不惧日元贬值！精准估算海外移居生活成本的3个技巧",
     },
     description: {
       ja: "シミュレーションの精度を上げるための、生活コスト見積もりのアドバイス。",
       en: "Practical advice to improve your simulation accuracy with better cost estimates.",
+      zh: "提高模拟精度的生活成本估算建议。",
     },
     content: {
       ja: `2026年現在、円安と世界的な物価上昇が続いています。「海外は安い」という従来のイメージが通用しなくなりつつある中、正確な生活コストの見積もりがますます重要になっています。
@@ -287,10 +293,12 @@ The key to cost estimation is being "neither too optimistic nor too pessimistic.
     title: {
       ja: "5年後の資産はどうなる？シミュレーション結果から考えるキャリアプラン",
       en: "What Will Your Assets Look Like in 5 Years? Career Planning with Simulation",
+      zh: "5年后资产会怎样？用模拟结果规划职业生涯",
     },
     description: {
       ja: "シミュレーション期間の活用法と、結果を基にしたキャリアプランの考え方。",
       en: "How to use simulation timeframes and plan your career based on results.",
+      zh: "如何设置模拟时间跨度，并根据结果制定职业规划。",
     },
     content: {
       ja: `「5年後、自分の資産はどうなっているだろう？」——この問いに具体的な数字で答えられる人は少ないのではないでしょうか。特に海外移住を検討している場合、不確定要素が多く、先の見通しが立ちにくいものです。
@@ -379,10 +387,12 @@ Career planning needs both "what I want to do" and "what's financially possible.
     title: {
       ja: "FIREを目指す海外移住。モンテカルロ分析でわかる『資産リスク』の真実",
       en: "FIRE Through Overseas Relocation: Asset Risk Revealed by Monte Carlo Analysis",
+      zh: "以海外移居实现FIRE——蒙特卡洛分析揭示资产风险真相",
     },
     description: {
       ja: "FIRE（経済的自立・早期退職）と海外移住の関係性、モンテカルロ分析の活用法を解説。",
       en: "How FIRE and overseas relocation connect, and how Monte Carlo analysis reveals asset risks.",
+      zh: "解析FIRE与海外移居的关系，以及蒙特卡洛分析的应用方法。",
     },
     content: {
       ja: `FIRE（Financial Independence, Retire Early）を目指す人にとって、海外移住は強力な選択肢です。日本より生活費が低い国に移住すれば、FIRE達成に必要な資産額を大幅に引き下げることができます。
@@ -479,10 +489,12 @@ FIRE combined with overseas relocation is attractive, but understanding risks is
     title: {
       ja: "独身vs家族。ライフ構成別・海外移住シミュレーションのチェックポイント",
       en: "Single vs. Family: Overseas Relocation Simulation Checkpoints by Life Stage",
+      zh: "单身vs家庭——按人生阶段划分的海外移居模拟要点",
     },
     description: {
       ja: "独身と家族帯同では移住シミュレーションの考慮点が大きく異なります。それぞれのポイントを解説。",
       en: "Simulation considerations differ greatly between single and family relocations. Key points for each.",
+      zh: "单身移居与携家移居的模拟注意事项大不相同，本文分别解析各自的要点。",
     },
     content: {
       ja: `海外移住のシミュレーションで重要なのは、「誰と移住するか」によって考慮すべきポイントが大きく変わるということです。独身での移住と、家族帯同の移住では、コスト構造も生活の優先事項もまったく異なります。
@@ -579,10 +591,12 @@ In both cases, use MoveWorth's comparison feature. Check the difference between 
     title: {
       ja: "マレーシアvsタイ！人気アジア移住で資産はどう変わる？（シミュレーション比較付）",
       en: "Malaysia vs Thailand: How Do Assets Change? (With Simulation Comparison)",
+      zh: "马来西亚vs泰国！热门亚洲移居地资产对比（附模拟数据）",
     },
     description: {
       ja: "日本人に人気のマレーシアとタイ、シミュレーション結果を比較して違いを解説。",
       en: "Comparing simulation results between Malaysia and Thailand, two popular destinations for Japanese expats.",
+      zh: "对比马来西亚与泰国的模拟结果，解析两国移居的财务差异。",
     },
     content: {
       ja: `マレーシアとタイは、日本人の海外移住先として常に上位にランクインする人気国です。どちらも温暖な気候、日本人コミュニティの存在、比較的低い生活費が魅力ですが、経済的な面では違いがあります。MoveWorthのシミュレーションで比較してみましょう。
@@ -707,10 +721,12 @@ Try both simulations on MoveWorth with your personal conditions.`,
     title: {
       ja: "日本での年収500万円は、海外ではそれだけに相当するのか？『購買力平価』で考える",
       en: "Is ¥5M in Japan Worth the Same Abroad? Thinking in Purchasing Power Parity",
+      zh: "日本年收入500万日元，在海外价值几何？用购买力平价来思考",
     },
     description: {
       ja: "年収の額面だけでは判断できない、購買力平価（PPP）の考え方と活用法。",
       en: "Why nominal income isn't enough — understanding and using Purchasing Power Parity (PPP).",
+      zh: "不能只看收入数字——购买力平价（PPP）的概念与应用方法。",
     },
     content: {
       ja: `「年収500万円」と聞くと、日本では中間層の標準的な収入というイメージがあります。では、この500万円は海外ではどの程度の価値があるのでしょうか？
@@ -818,10 +834,12 @@ Think beyond nominal income — consider "what lifestyle that income provides in
     title: {
       ja: "What is MoveWorth？：なぜ私たちが海外移住の資産分析にこだわる理由",
       en: "What Is MoveWorth? Why We're Passionate About Relocation Financial Analysis",
+      zh: "什么是MoveWorth？——我们专注于海外移居财务分析的理由",
     },
     description: {
       ja: "MoveWorthが生まれた背景と、資産シミュレーションにこだわる理由を紹介します。",
       en: "The story behind MoveWorth and why we focus on asset simulation for relocation.",
+      zh: "介绍MoveWorth的诞生背景，以及我们坚持资产模拟的原因。",
     },
     content: {
       ja: `海外移住を考えたことはありますか？
@@ -904,10 +922,12 @@ Try a free simulation today. Your overseas relocation possibilities will become 
     title: {
       ja: "ロードマップ：FreeからPremiumまで、MoveWorthが提供する新機能のすべて",
       en: "Roadmap: All New Features from Free to Premium",
+      zh: "路线图：MoveWorth从免费版到高级版的全部新功能介绍",
     },
     description: {
       ja: "MoveWorthの現在の機能と、今後追加予定の機能をプラン別に紹介します。",
       en: "Current features and planned additions across all MoveWorth plans.",
+      zh: "按套餐介绍MoveWorth现有功能及未来计划新增的功能。",
     },
     content: {
       ja: `MoveWorthは現在も進化を続けています。この記事では、現在利用可能な機能と、今後追加予定の新機能をプラン別にご紹介します。
@@ -1036,10 +1056,12 @@ MoveWorth is a platform for everyone considering overseas relocation. Stay tuned
     title: {
       ja: "シンガポールのビザ・就労許可完全ガイド2026年版",
       en: "Singapore Visa & Work Permit Complete Guide 2026",
+      zh: "新加坡签证与就业准证完全指南2026年版",
     },
     description: {
       ja: "就労パス（EP）からEntrePassまで、シンガポールの主要ビザの種類・要件・費用を徹底解説。",
       en: "From Employment Pass to EntrePass — a complete breakdown of Singapore's main visa types, requirements, and costs.",
+      zh: "从就业准证（EP）到EntrePass，全面解析新加坡主要签证的种类、要求与费用。",
     },
     content: {
       ja: `シンガポールは、アジアのビジネスハブとして多くの外国人労働者や起業家を受け入れています。高い生活水準と低い税率が魅力のシンガポールへの移住を検討している方向けに、主要なビザ・就労許可証を解説します。
@@ -1128,10 +1150,12 @@ Singapore offers a high standard of living but comes with high housing and educa
     title: {
       ja: "マレーシアのビザ・移住条件完全ガイド2026年版",
       en: "Malaysia Visa & Relocation Requirements Complete Guide 2026",
+      zh: "马来西亚签证与移居条件完全指南2026年版",
     },
     description: {
       ja: "MM2H、DE Rantau、就労ビザまで。マレーシアの主要ビザの種類・要件・費用を徹底解説。",
       en: "From MM2H to DE Rantau and work visas — a complete guide to Malaysia's main visa types, requirements, and costs.",
+      zh: "从MM2H到DE Rantau及就业签证，全面解析马来西亚主要签证的种类、要求与费用。",
     },
     content: {
       ja: `マレーシアは、物価の安さ・英語の通じやすさ・豊かな文化などから、日本人に人気の移住先のひとつです。2022年にはMM2Hが大幅改定され、2023年には新しい就労ビザ「DE Rantau」も登場しました。
@@ -1228,10 +1252,12 @@ Malaysia offers relatively low living costs in Southeast Asia, often showing fav
     title: {
       ja: "タイのビザ・就労許可完全ガイド2026年版",
       en: "Thailand Visa & Work Permit Complete Guide 2026",
+      zh: "泰国签证与工作许可完全指南2026年版",
     },
     description: {
       ja: "LTRビザ、タイエリートビザ、就労許可証まで。タイの主要ビザの種類・要件・費用を徹底解説。",
       en: "From LTR Visa to Thai Elite and work permits — a complete breakdown of Thailand's main visa types, requirements, and costs.",
+      zh: "从LTR签证到泰国精英签证及工作许可，全面解析泰国主要签证的种类、要求与费用。",
     },
     content: {
       ja: `タイは温暖な気候・豊かな食文化・比較的低い生活コストから、日本人の移住先として人気上位の国です。近年はデジタルノマド向けの新ビザ制度も整備されています。
@@ -1324,10 +1350,12 @@ Thailand has one of the largest Japanese expatriate communities in Southeast Asi
     title: {
       ja: "韓国のビザ・就労許可完全ガイド2026年版",
       en: "South Korea Visa & Work Permit Complete Guide 2026",
+      zh: "韩国签证与工作许可完全指南2026年版",
     },
     description: {
       ja: "就労ビザ（E系統）からF-2-7ポイント制まで。韓国の主要ビザの種類・要件・費用を徹底解説。",
       en: "From E-series work visas to the F-2-7 points system — a complete guide to South Korea's main visa types, requirements, and costs.",
+      zh: "从E系列就业签证到F-2-7积分制度，全面解析韩国主要签证的种类、要求与费用。",
     },
     content: {
       ja: `韓国は日本から近く、文化的な親近感もあることから、アジア圏での移住先として注目されています。IT・エンタメ・製造業など多様な就労機会があります。
@@ -1416,10 +1444,12 @@ Korea's tech industry is booming, with growing opportunities at global companies
     title: {
       ja: "台湾のビザ・就労許可完全ガイド2026年版",
       en: "Taiwan Visa & Work Permit Complete Guide 2026",
+      zh: "台湾签证与工作许可完全指南2026年版",
     },
     description: {
       ja: "エンプロイメントゴールドカードから就労許可まで。台湾の主要ビザの種類・要件・費用を徹底解説。",
       en: "From the Employment Gold Card to standard work permits — a complete guide to Taiwan's main visa types and requirements.",
+      zh: "从就业金卡到一般工作许可，全面解析台湾主要签证的种类、要求与费用。",
     },
     content: {
       ja: `台湾は親日感情が強く、食文化・自然環境・生活コストのバランスが良いことから、日本人移住者に人気の国です。近年は半導体産業を中心に外国人労働者への需要も高まっています。
@@ -1507,10 +1537,12 @@ Taiwan's Gold Card tax incentives are particularly attractive for IT and semicon
     title: {
       ja: "香港のビザ・就労許可完全ガイド2026年版",
       en: "Hong Kong Visa & Work Permit Complete Guide 2026",
+      zh: "香港签证与工作许可完全指南2026年版",
     },
     description: {
       ja: "Quality Migrant Admission Schemeから就労ビザまで。香港の主要ビザの種類・要件・費用を徹底解説。",
       en: "From Quality Migrant Admission Scheme to employment visas — a complete guide to Hong Kong's main visa types and requirements.",
+      zh: "从优秀人才入境计划到就业签证，全面解析香港主要签证的种类、要求与费用。",
     },
     content: {
       ja: `香港はアジアの国際金融センターとして、金融・法律・IT分野の高度人材を積極的に受け入れています。一律15%の低税率が魅力です。
@@ -1601,10 +1633,12 @@ Hong Kong's low tax rate and financial sector concentration are major attraction
     title: {
       ja: "インドネシアのビザ・就労許可完全ガイド2026年版",
       en: "Indonesia Visa & Work Permit Complete Guide 2026",
+      zh: "印度尼西亚签证与工作许可完全指南2026年版",
     },
     description: {
       ja: "就労ビザ（KITAS）からデジタルノマドビザまで。インドネシアの主要ビザの種類・要件・費用を徹底解説。",
       en: "From KITAS work visas to digital nomad visas — a complete guide to Indonesia's main visa types, requirements, and costs.",
+      zh: "从KITAS工作签证到数字游民签证，全面解析印度尼西亚主要签证的种类、要求与费用。",
     },
     content: {
       ja: `インドネシアはASEANの中で最大の経済規模を持つ国で、バリ島を中心にデジタルノマドや移住者に人気が高まっています。
@@ -1691,10 +1725,12 @@ Indonesia is popular for its Bali appeal, but obtaining a work visa can be compl
     title: {
       ja: "フィリピンのビザ・移住条件完全ガイド2026年版",
       en: "Philippines Visa & Relocation Complete Guide 2026",
+      zh: "菲律宾签证与移居条件完全指南2026年版",
     },
     description: {
       ja: "SRRV、就労ビザ（9G）から13aまで。フィリピンの主要ビザの種類・要件・費用を徹底解説。",
       en: "From SRRV and 9G work visas to 13a resident visas — a complete guide to the Philippines' main visa types and requirements.",
+      zh: "从SRRV、9G就业签证到13a居民签证，全面解析菲律宾主要签证的种类、要求与费用。",
     },
     content: {
       ja: `フィリピンは英語が公用語で、温暖な気候と安い生活コストが魅力です。セブ島や首都マニラを拠点に多くの外国人が生活しています。
@@ -1783,10 +1819,12 @@ The Philippines' SRRV retirement visa is well-established, making it a popular d
     title: {
       ja: "ベトナムのビザ・就労許可完全ガイド2026年版",
       en: "Vietnam Visa & Work Permit Complete Guide 2026",
+      zh: "越南签证与工作许可完全指南2026年版",
     },
     description: {
       ja: "就労許可証から一時居留証まで。ベトナムの主要ビザの種類・要件・費用を徹底解説。",
       en: "From work permits to temporary residence cards — a complete guide to Vietnam's main visa types, requirements, and costs.",
+      zh: "从工作许可证到临时居留证，全面解析越南主要签证的种类、要求与费用。",
     },
     content: {
       ja: `ベトナムはホーチミン市・ハノイを中心に急速な経済成長を続けており、製造業・IT・サービス業など多様な就労機会があります。日系企業の進出も多く、日本人移住者が増加しています。
@@ -1881,10 +1919,12 @@ Vietnam's young population and economic growth create strong demand for IT profe
     title: {
       ja: "アメリカのビザ・就労許可完全ガイド2026年版",
       en: "United States Visa & Work Authorization Complete Guide 2026",
+      zh: "美国签证与工作授权完全指南2026年版",
     },
     description: {
       ja: "H-1Bから就労グリーンカードまで。アメリカの主要ビザの種類・要件・費用を徹底解説。",
       en: "From H-1B to employment-based green cards — a complete guide to U.S. visa types, requirements, and costs.",
+      zh: "从H-1B到就业类绿卡，全面解析美国主要签证的种类、要求与费用。",
     },
     content: {
       ja: `アメリカは世界最大の経済大国であり、IT・金融・医療・アカデミアなど多くの分野でトップクラスのキャリア機会があります。ただし、就労ビザの取得競争は激しく、移民プロセスも複雑です。
@@ -1981,10 +2021,12 @@ The U.S. offers high income potential but also high taxes, healthcare costs, and
     title: {
       ja: "カナダのビザ・移住条件完全ガイド2026年版",
       en: "Canada Visa & Immigration Complete Guide 2026",
+      zh: "加拿大签证与移民条件完全指南2026年版",
     },
     description: {
       ja: "エクスプレスエントリーからPNPまで。カナダの主要な移民ビザの種類・要件・費用を徹底解説。",
       en: "From Express Entry to PNP — a complete guide to Canada's main immigration visa types, requirements, and costs.",
+      zh: "从快速通道到省提名计划，全面解析加拿大主要移民签证的种类、要求与费用。",
     },
     content: {
       ja: `カナダは積極的な移民受け入れ政策を持つ国で、永住権（PR）取得のしやすさと高い生活水準から世界中からの移民が集まります。
@@ -2075,10 +2117,12 @@ Canada is known for its transparent immigration system and suits those planning 
     title: {
       ja: "イギリスのビザ・就労許可完全ガイド2026年版",
       en: "United Kingdom Visa & Work Permit Complete Guide 2026",
+      zh: "英国签证与工作许可完全指南2026年版",
     },
     description: {
       ja: "Skilled Worker Visaからグローバルタレントビザまで。イギリスの主要ビザの種類・要件・費用を徹底解説。",
       en: "From Skilled Worker Visa to Global Talent Visa — a complete guide to the UK's main visa types, requirements, and costs.",
+      zh: "从技术工人签证到全球人才签证，全面解析英国主要签证的种类、要求与费用。",
     },
     content: {
       ja: `イギリスはBrexit後の独自移民制度を2021年に導入し、EUを含む全ての外国人に対して統一的なポイントベース制度を適用しています。
@@ -2171,10 +2215,12 @@ The UK is an attractive European base, but housing costs, the cost of living, an
     title: {
       ja: "ドイツのビザ・就労許可完全ガイド2026年版",
       en: "Germany Visa & Work Permit Complete Guide 2026",
+      zh: "德国签证与工作许可完全指南2026年版",
     },
     description: {
       ja: "EUブルーカードから就労ビザまで。ドイツの主要ビザの種類・要件・費用を徹底解説。",
       en: "From EU Blue Card to work visas — a complete guide to Germany's main visa types, requirements, and costs.",
+      zh: "从欧盟蓝卡到就业签证，全面解析德国主要签证的种类、要求与费用。",
     },
     content: {
       ja: `ドイツはEU最大の経済大国で、製造業・IT・エンジニアリングを中心に外国人専門職の需要が高い国です。2023年に移民法が改正され、第三国出身者にも門戸が開かれています。
@@ -2259,10 +2305,12 @@ Germany's 2023 immigration reform has made it easier for non-EU nationals to rel
     title: {
       ja: "フランスのビザ・就労許可完全ガイド2026年版",
       en: "France Visa & Work Permit Complete Guide 2026",
+      zh: "法国签证与工作许可完全指南2026年版",
     },
     description: {
       ja: "タレントパスポートから就労ビザまで。フランスの主要ビザの種類・要件・費用を徹底解説。",
       en: "From Talent Passport to work visas — a complete guide to France's main visa types, requirements, and costs.",
+      zh: "从人才护照到就业签证，全面解析法国主要签证的种类、要求与费用。",
     },
     content: {
       ja: `フランスはファッション・食・芸術だけでなく、スタートアップエコシステム（ステーション F）やIT産業でも外国人人材を積極的に求めています。
@@ -2347,10 +2395,12 @@ France is well-suited for those pursuing careers in startups, arts, or research.
     title: {
       ja: "オランダのビザ・就労許可完全ガイド2026年版",
       en: "Netherlands Visa & Work Permit Complete Guide 2026",
+      zh: "荷兰签证与工作许可完全指南2026年版",
     },
     description: {
       ja: "高度技能移住者ビザから30%ルーリングまで。オランダの主要ビザの種類・要件・費用を徹底解説。",
       en: "From Highly Skilled Migrant Visa to the 30% ruling — a complete guide to the Netherlands' main visa types and benefits.",
+      zh: "从高技能移民签证到30%税收优惠，全面解析荷兰主要签证的种类、要求与福利。",
     },
     content: {
       ja: `オランダはアムステルダムを中心に多国籍企業のヨーロッパ本社が集まる国で、英語が広く通じる環境が外国人に人気です。
@@ -2451,10 +2501,12 @@ The Netherlands is one of the few European countries where you can work primaril
     title: {
       ja: "スイスのビザ・就労許可完全ガイド2026年版",
       en: "Switzerland Visa & Work Permit Complete Guide 2026",
+      zh: "瑞士签证与居留许可完全指南2026年版",
     },
     description: {
       ja: "LビザからBビザまで。スイスの主要ビザ・就労許可の種類・要件・費用を徹底解説。",
       en: "From L permit to B permit — a complete guide to Switzerland's main visa types, requirements, and costs.",
+      zh: "从L居留许可到B居留许可，全面解析瑞士主要签证与就业许可的种类、要求与费用。",
     },
     content: {
       ja: `スイスは世界最高水準の給与と生活水準を誇る国で、金融・製薬・時計・テクノロジー産業を中心に外国人専門職が活躍しています。
@@ -2543,10 +2595,12 @@ Switzerland's high salaries are attractive, but its cost of living is also excep
     title: {
       ja: "オーストラリアのビザ・移住条件完全ガイド2026年版",
       en: "Australia Visa & Immigration Complete Guide 2026",
+      zh: "澳大利亚签证与移民条件完全指南2026年版",
     },
     description: {
       ja: "スキルドビザ（482・189・190）からワーキングホリデーまで。オーストラリアの主要ビザの種類・要件・費用を徹底解説。",
       en: "From 482/189/190 skilled visas to working holiday — a complete guide to Australia's main visa types, requirements, and costs.",
+      zh: "从482/189/190技术签证到打工度假签证，全面解析澳大利亚主要签证的种类、要求与费用。",
     },
     content: {
       ja: `オーストラリアはポイントベースの移民制度を採用しており、英語力・職歴・学歴によって永住権（PR）を取得できる国として人気です。
@@ -2647,10 +2701,12 @@ Australia's clear pathway to PR makes it popular with those seeking English-spea
     title: {
       ja: "ニュージーランドのビザ・移住条件完全ガイド2026年版",
       en: "New Zealand Visa & Immigration Complete Guide 2026",
+      zh: "新西兰签证与移民条件完全指南2026年版",
     },
     description: {
       ja: "認定雇用主就労ビザから熟練移住者ビザまで。ニュージーランドの主要ビザの種類・要件・費用を徹底解説。",
       en: "From Accredited Employer Work Visa to Skilled Migrant Visa — a complete guide to New Zealand's main visa types, requirements, and costs.",
+      zh: "从认证雇主工作签证到技术移民签证，全面解析新西兰主要签证的种类、要求与费用。",
     },
     content: {
       ja: `ニュージーランドは豊かな自然環境と高い生活水準を持つ国で、オーストラリアと並んでオセアニアへの移住先として人気があります。2022年に移民制度が大幅に改革されました。
@@ -2743,10 +2799,12 @@ New Zealand has a smaller immigrant population than Australia, and certain Green
     title: {
       ja: "UAE（ドバイ）のビザ・就労許可完全ガイド2026年版",
       en: "UAE (Dubai) Visa & Work Permit Complete Guide 2026",
+      zh: "阿联酋（迪拜）签证与工作许可完全指南2026年版",
     },
     description: {
       ja: "ゴールデンビザから就労ビザまで。UAEの主要ビザの種類・要件・費用を徹底解説。",
       en: "From Golden Visa to employment visas — a complete guide to the UAE's main visa types, requirements, and costs.",
+      zh: "从黄金签证到就业签证，全面解析阿联酋主要签证的种类、要求与费用。",
     },
     content: {
       ja: `UAEは個人所得税ゼロの国として、金融・IT・ビジネス分野の外国人専門職を惹きつけています。ドバイを中心に世界中の高度人材が集まるグローバルハブです。
@@ -2849,10 +2907,12 @@ The UAE offers a unique combination of zero income tax and high living standards
     title: {
       ja: "日本のビザ・就労条件完全ガイド2026年版（外国人向け）",
       en: "Japan Visa & Work Authorization Complete Guide 2026 (For Foreign Nationals)",
+      zh: "日本签证与就业条件完全指南2026年版（面向外国人）",
     },
     description: {
       ja: "高度専門職ビザから技術・人文知識・国際業務ビザまで。日本の主要就労ビザの種類・要件・費用を徹底解説。",
       en: "From Highly Skilled Professional Visa to Engineer/Specialist in Humanities — a complete guide to Japan's main work visa types for foreign nationals.",
+      zh: "从高度专业人才签证到技术·人文知识·国际业务签证，全面解析日本主要就业签证的种类、要求与费用。",
     },
     content: {
       ja: `日本は少子高齢化による人材不足を背景に、外国人の高度人材受け入れを積極的に推進しています。2023年には「特別高度人材制度（J-Skip）」や「未来創造人材制度（J-Find）」も導入されました。

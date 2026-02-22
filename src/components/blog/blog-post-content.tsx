@@ -7,8 +7,10 @@ import { getBlogPost, blogCategories } from "@/data/blog-posts";
 
 export function BlogPostContent({ slug }: { slug: string }) {
   const { t, locale } = useTranslation();
-  const lang = locale as "en" | "ja";
+  const lang = locale as "en" | "ja" | "zh";
   const post = getBlogPost(slug);
+  const getLabel = (obj: { ja: string; en: string; zh?: string }) =>
+    (obj[lang as keyof typeof obj] as string | undefined) ?? obj.en;
 
   if (!post) {
     return (
@@ -31,7 +33,7 @@ export function BlogPostContent({ slug }: { slug: string }) {
 
   const handleShare = async () => {
     const url = window.location.href;
-    const title = post.title[lang];
+    const title = getLabel(post.title);
     if (navigator.share) {
       try {
         await navigator.share({ title, url });
@@ -176,7 +178,7 @@ export function BlogPostContent({ slug }: { slug: string }) {
           <div className="flex items-center gap-3 mb-4">
             <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary-light px-2.5 py-0.5 rounded-full">
               <Tag className="h-3 w-3" />
-              {blogCategories[post.category][lang]}
+              {getLabel(blogCategories[post.category])}
             </span>
             <span className="text-xs text-muted flex items-center gap-1">
               <Clock className="h-3 w-3" />
@@ -185,13 +187,13 @@ export function BlogPostContent({ slug }: { slug: string }) {
             <span className="text-xs text-muted">{post.date}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight mb-4">
-            {post.title[lang]}
+            {getLabel(post.title)}
           </h1>
-          <p className="text-muted text-sm">{post.description[lang]}</p>
+          <p className="text-muted text-sm">{getLabel(post.description)}</p>
         </header>
 
         <div className="bg-white border border-border/60 rounded-2xl p-6 sm:p-8 shadow-sm">
-          {renderContent(post.content[lang])}
+          {renderContent(getLabel(post.content))}
         </div>
 
         <footer className="mt-8 flex items-center justify-between">

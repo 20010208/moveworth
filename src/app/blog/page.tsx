@@ -8,13 +8,20 @@ import { useState } from "react";
 
 export default function BlogPage() {
   const { t, locale } = useTranslation();
-  const lang = locale as "en" | "ja";
+  const lang = locale as "en" | "ja" | "zh";
   const [activeCategory, setActiveCategory] = useState<string>("all");
+
+  const sortedPosts = [...blogPosts].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 
   const filteredPosts =
     activeCategory === "all"
-      ? blogPosts
-      : blogPosts.filter((p) => p.category === activeCategory);
+      ? sortedPosts
+      : sortedPosts.filter((p) => p.category === activeCategory);
+
+  const getLabel = (obj: { ja: string; en: string; zh?: string }) =>
+    (obj[lang as keyof typeof obj] as string | undefined) ?? obj.en;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50/60 via-white to-slate-50">
@@ -50,7 +57,7 @@ export default function BlogPage() {
                   : "bg-white border border-border/60 text-muted hover:text-foreground hover:border-primary/30"
               }`}
             >
-              {val[lang]}
+              {getLabel(val)}
             </button>
           ))}
         </div>
@@ -66,7 +73,7 @@ export default function BlogPage() {
               <div className="flex items-center gap-2 mb-2">
                 <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary-light px-2.5 py-0.5 rounded-full">
                   <Tag className="h-3 w-3" />
-                  {blogCategories[post.category][lang]}
+                  {getLabel(blogCategories[post.category])}
                 </span>
                 <span className="text-xs text-muted flex items-center gap-1">
                   <Clock className="h-3 w-3" />
@@ -75,10 +82,10 @@ export default function BlogPage() {
                 <span className="text-xs text-muted">{post.date}</span>
               </div>
               <h2 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors mb-2">
-                {post.title[lang]}
+                {getLabel(post.title)}
               </h2>
               <p className="text-sm text-muted line-clamp-2 mb-3">
-                {post.description[lang]}
+                {getLabel(post.description)}
               </p>
               <span className="text-sm font-medium text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
                 {t("blog.readMore")}
