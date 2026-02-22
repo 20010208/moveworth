@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { SimulationInput, SimulationResult } from "@/lib/simulation/types";
+import { SimulationInput, SimulationResult, ExtraComparisonInput } from "@/lib/simulation/types";
 import { runSimulation } from "@/lib/simulation/basic-calculator";
 import { InputPanel } from "@/components/simulator/input-panel";
 import { ResultsPanel } from "@/components/simulator/results-panel";
@@ -41,6 +41,8 @@ export default function SimulatePage() {
   const [input, setInput] = useState<SimulationInput>(defaultInput);
   const [result, setResult] = useState<SimulationResult | null>(null);
   const [historyKey, setHistoryKey] = useState(0);
+  const [extraInputs, setExtraInputs] = useState<ExtraComparisonInput[]>([]);
+  const [extraResults, setExtraResults] = useState<SimulationResult[]>([]);
 
   const plan = user?.plan ?? "free";
 
@@ -51,6 +53,28 @@ export default function SimulatePage() {
     setResult(simulationResult);
     saveHistory(finalInput, simulationResult, plan);
     setHistoryKey((k) => k + 1);
+
+    // Premium: 追加比較国のシミュレーションを実行
+    if (plan === "premium" && extraInputs.length > 0) {
+      const validExtras = extraInputs.filter(e => e.countryTo && e.incomeTarget > 0);
+      const extras = validExtras.map(extra => {
+        const fullInput: SimulationInput = {
+          ...finalInput,
+          countryTo: extra.countryTo,
+          incomeTarget: extra.incomeTarget,
+          currencyTarget: extra.currencyTarget,
+          rentTarget: extra.rentTarget,
+          livingCostTarget: extra.livingCostTarget,
+          taxRateTarget: extra.taxRateTarget,
+          inflationTarget: extra.inflationTarget,
+          exchangeRate: extra.exchangeRate,
+        };
+        return runSimulation(fullInput);
+      });
+      setExtraResults(extras);
+    } else {
+      setExtraResults([]);
+    }
   };
 
   const handleSimulate = () => {
@@ -98,8 +122,11 @@ export default function SimulatePage() {
             input={input}
             onChange={setInput}
             onSimulate={handleSimulate}
+            plan={plan}
+            extraInputs={extraInputs}
+            onExtraInputsChange={setExtraInputs}
           />
-          <ResultsPanel result={result} plan={plan} />
+          <ResultsPanel result={result} plan={plan} extraResults={extraResults} />
         </div>
       </div>
     </div>

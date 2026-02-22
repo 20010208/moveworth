@@ -10,15 +10,17 @@ import { AssetChart } from "./asset-chart";
 import { BreakdownChart } from "./breakdown-chart";
 import { ShareButtons } from "./share-buttons";
 import { AdvancedTabs } from "./advanced-tabs";
+import { MultiCountryPanel } from "./multi-country-panel";
 import { Lock, BarChart3, Sparkles, FileText, Loader2 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
 interface ResultsPanelProps {
   result: SimulationResult | null;
   plan: UserPlan;
+  extraResults?: SimulationResult[];
 }
 
-export function ResultsPanel({ result, plan }: ResultsPanelProps) {
+export function ResultsPanel({ result, plan, extraResults = [] }: ResultsPanelProps) {
   const { t, locale } = useTranslation();
   const [generating, setGenerating] = useState(false);
   const [reportError, setReportError] = useState("");
@@ -151,6 +153,10 @@ export function ResultsPanel({ result, plan }: ResultsPanelProps) {
 
       {isPro ? (
         <>
+          {isPremium && extraResults.length > 0 && (
+            <MultiCountryPanel mainResult={result} extraResults={extraResults} />
+          )}
+
           <AdvancedTabs result={result} />
 
           {isPremium && (

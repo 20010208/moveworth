@@ -71,7 +71,7 @@
     "premiumFeature1": "Proの全機能",
     "premiumFeature2": "月2回のAIレポート",
     "premiumFeature3": "最大100件の保存",
-    "premiumFeature4": "複数国比較",
+    "premiumFeature4": "最大4カ国の多国間比較",
     "premiumFeature5": "優先サポート"
   },
   "cta": {
@@ -81,7 +81,7 @@
   },
   "simulate": {
     "title": "移住ファイナンシャルシミュレーター",
-    "subtitle": "2カ国間の経済的な未来を比較"
+    "subtitle": "最大4カ国の経済的な未来を比較"
   },
   "input": {
     "title": "データ入力",
@@ -107,7 +107,9 @@
     "investmentReturn": "投資リターン",
     "simulationYears": "シミュレーション年数",
     "runSimulation": "シミュレーション実行",
-    "selectCountry": "国を選択"
+    "selectCountry": "国を選択",
+    "additionalCountries": "追加比較国",
+    "addCountry": "国を追加"
   },
   "results": {
     "enterData": "データを入力してシミュレーションを実行",
@@ -138,7 +140,8 @@
     "savings": "貯蓄",
     "proFeatures": "Pro機能",
     "unlimitedSaves": "シミュレーション保存 無制限",
-    "upgradePro": "Proにアップグレード"
+    "upgradePro": "Proにアップグレード",
+    "multiCountryComparison": "多国間比較"
   },
   "auth": {
     "registerTitle": "アカウント作成",

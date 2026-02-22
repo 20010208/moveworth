@@ -71,7 +71,7 @@
     "premiumFeature1": "Everything in Pro",
     "premiumFeature2": "2 AI reports/month",
     "premiumFeature3": "Save up to 100 simulations",
-    "premiumFeature4": "Multi-country comparison",
+    "premiumFeature4": "Multi-country comparison (up to 4 countries)",
     "premiumFeature5": "Priority support"
   },
   "cta": {
@@ -81,7 +81,7 @@
   },
   "simulate": {
     "title": "Migration Financial Simulator",
-    "subtitle": "Compare your financial future between two countries"
+    "subtitle": "Compare your financial future across up to 4 countries"
   },
   "input": {
     "title": "Input Your Data",
@@ -107,7 +107,9 @@
     "investmentReturn": "Investment Return",
     "simulationYears": "Simulation Years",
     "runSimulation": "Run Simulation",
-    "selectCountry": "Select a country"
+    "selectCountry": "Select a country",
+    "additionalCountries": "Additional Comparison Countries",
+    "addCountry": "Add Country"
   },
   "results": {
     "enterData": "Enter your data and run a simulation",
@@ -138,7 +140,8 @@
     "savings": "Savings",
     "proFeatures": "Pro Features",
     "unlimitedSaves": "Unlimited simulation saves",
-    "upgradePro": "Upgrade to Pro"
+    "upgradePro": "Upgrade to Pro",
+    "multiCountryComparison": "Multi-Country Comparison"
   },
   "auth": {
     "registerTitle": "Create Your Account",

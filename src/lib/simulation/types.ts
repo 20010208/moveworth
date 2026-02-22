@@ -112,6 +112,17 @@ export interface MonteCarloResult {
   };
 }
 
+export interface ExtraComparisonInput {
+  countryTo: string;
+  incomeTarget: number;
+  currencyTarget: string;
+  rentTarget: number;
+  livingCostTarget: number;
+  taxRateTarget: number;
+  inflationTarget: number;
+  exchangeRate: number;
+}
+
 export interface CountryPreset {
   code: string;
   name: { en: string; ja: string };
