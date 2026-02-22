@@ -58,7 +58,7 @@ export function BreakdownChart({ result, extraResults = [] }: BreakdownChartProp
   };
 
   return (
-    <div className="bg-white border border-border/60 rounded-2xl p-6 shadow-sm">
+    <div className="bg-white border border-border/60 rounded-2xl p-4 sm:p-6 shadow-sm">
       <h3 className="text-sm font-bold text-foreground mb-1">
         {t("results.monthlyBreakdown")}
       </h3>
@@ -67,7 +67,7 @@ export function BreakdownChart({ result, extraResults = [] }: BreakdownChartProp
           ? `全て ${input.currencyCurrent} 換算で比較`
           : `All values converted to ${input.currencyCurrent}`}
       </p>
-      <div className="h-64">
+      <div className="h-52 sm:h-64">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />

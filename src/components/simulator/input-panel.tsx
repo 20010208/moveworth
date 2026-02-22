@@ -360,7 +360,7 @@ export function InputPanel({
             {extraInputs.length < MAX_EXTRA && (
               <button
                 onClick={addExtraCountry}
-                className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary-dark px-2 py-1 rounded-lg hover:bg-primary/5 transition-all"
+                className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary-dark px-3 py-2 rounded-lg hover:bg-primary/5 transition-all"
               >
                 <Plus className="h-3.5 w-3.5" />
                 {t("input.addCountry")}
@@ -389,10 +389,10 @@ export function InputPanel({
                   </span>
                   <button
                     onClick={() => removeExtraCountry(index)}
-                    className="p-1 text-muted hover:text-foreground rounded hover:bg-secondary/80 transition-all"
+                    className="p-2 text-muted hover:text-foreground rounded hover:bg-secondary/80 transition-all"
                     aria-label="Remove"
                   >
-                    <X className="h-3.5 w-3.5" />
+                    <X className="h-4 w-4" />
                   </button>
                 </div>
 

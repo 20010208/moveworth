@@ -69,7 +69,7 @@ export function SummaryCards({ result }: SummaryCardsProps) {
               <card.icon className={`h-4 w-4 ${card.color}`} />
               <p className="text-[11px] font-semibold text-muted uppercase tracking-wider">{card.title}</p>
             </div>
-            <p className={`text-xl font-extrabold ${card.color} tracking-tight`}>{card.value}</p>
+            <p className={`text-base sm:text-xl font-extrabold ${card.color} tracking-tight break-all`}>{card.value}</p>
           </div>
         ))}
       </div>
@@ -97,7 +97,7 @@ export function SummaryCards({ result }: SummaryCardsProps) {
           </p>
         </div>
         <p
-          className={`text-3xl font-extrabold tracking-tight ${
+          className={`text-2xl sm:text-3xl font-extrabold tracking-tight break-all ${
             isPositive ? "text-emerald-600" : "text-red-600"
           }`}
         >
