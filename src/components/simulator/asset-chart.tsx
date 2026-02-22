@@ -79,7 +79,25 @@ export function AssetChart({ result, extraResults = [] }: AssetChartProps) {
                 `${result.input.currencyCurrent} ${Number(value).toLocaleString()}`
               }
             />
-            <Legend />
+            <Legend
+              content={() => {
+                const items = [
+                  { name: fromName, color: "#4f46e5" },
+                  { name: toName, color: "#10b981" },
+                  ...extraNames.map((name, i) => ({ name, color: EXTRA_COLORS[i] ?? "#94a3b8" })),
+                ];
+                return (
+                  <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 pt-2">
+                    {items.map((item) => (
+                      <span key={item.name} className="flex items-center gap-1.5 text-xs text-muted">
+                        <span className="inline-block w-4 h-0.5 rounded" style={{ backgroundColor: item.color }} />
+                        {item.name}
+                      </span>
+                    ))}
+                  </div>
+                );
+              }}
+            />
             <Line
               type="monotone"
               dataKey={fromName}
