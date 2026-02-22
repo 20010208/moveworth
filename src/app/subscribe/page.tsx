@@ -9,7 +9,10 @@ import {
   ArrowLeft,
   Crown,
   Loader2,
+  Clock,
 } from "lucide-react";
+
+const PAYMENT_ENABLED = false;
 import { useTranslation } from "@/lib/i18n";
 
 export default function SubscribePage() {
@@ -123,6 +126,20 @@ export default function SubscribePage() {
           </p>
         </div>
 
+        {/* Maintenance banner */}
+        {!PAYMENT_ENABLED && (
+          <div className="max-w-4xl mx-auto mb-8 flex items-center gap-3 bg-amber-50 border border-amber-200 text-amber-800 rounded-2xl px-5 py-4">
+            <Clock className="h-5 w-5 shrink-0 text-amber-500" />
+            <p className="text-sm font-medium">
+              {locale === "ja"
+                ? "現在、決済システムの準備中です。まもなく有料プランがご利用いただけます。"
+                : locale === "zh"
+                ? "支付系统正在准备中，付费计划即将上线。"
+                : "Payment system is currently being set up. Paid plans will be available soon."}
+            </p>
+          </div>
+        )}
+
         {/* Plans */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {plans.map((plan) => {
@@ -176,15 +193,20 @@ export default function SubscribePage() {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      if (plan.planKey) handleCheckout(plan.planKey);
+                      if (plan.planKey && PAYMENT_ENABLED) handleCheckout(plan.planKey);
                     }}
-                    disabled={isLoading}
-                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-primary to-indigo-600 text-white hover:from-primary-dark hover:to-indigo-700 transition-all shadow-md shadow-primary/20 disabled:opacity-60"
+                    disabled={isLoading || !PAYMENT_ENABLED}
+                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-primary to-indigo-600 text-white hover:from-primary-dark hover:to-indigo-700 transition-all shadow-md shadow-primary/20 disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     {isLoading ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
                         {locale === "ja" ? "処理中..." : "Processing..."}
+                      </>
+                    ) : !PAYMENT_ENABLED ? (
+                      <>
+                        <Clock className="h-4 w-4" />
+                        {locale === "ja" ? "準備中" : locale === "zh" ? "准备中" : "Coming Soon"}
                       </>
                     ) : (
                       <>
