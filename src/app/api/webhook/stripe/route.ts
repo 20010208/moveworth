@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
     const session = event.data.object as Stripe.Checkout.Session;
     const userId = session.metadata?.userId;
     const plan = session.metadata?.plan;
+    const customerId = session.customer as string;
 
     if (userId && plan) {
       const { error } = await supabase.auth.admin.updateUserById(userId, {
@@ -37,6 +38,13 @@ export async function POST(req: NextRequest) {
       if (error) {
         console.error("Failed to update user plan:", error);
       }
+
+      // Stripe顧客メタデータにuserIdを保存（キャンセル時のWebhookで使用するため）
+      if (customerId) {
+        await stripe.customers.update(customerId, {
+          metadata: { userId },
+        });
+      }
     }
   }
 
@@ -44,9 +52,8 @@ export async function POST(req: NextRequest) {
     const subscription = event.data.object as Stripe.Subscription;
     const customerId = subscription.customer as string;
 
-    const { data: customers } = await stripe.customers.list({ limit: 1 });
-    const customer = customers.find((c) => c.id === customerId);
-    if (customer?.metadata?.userId) {
+    const customer = await stripe.customers.retrieve(customerId);
+    if (!customer.deleted && customer.metadata?.userId) {
       await supabase.auth.admin.updateUserById(customer.metadata.userId, {
         user_metadata: { plan: "free" },
       });
