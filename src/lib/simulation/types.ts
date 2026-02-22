@@ -125,12 +125,12 @@ export interface ExtraComparisonInput {
 
 export interface CountryPreset {
   code: string;
-  name: { en: string; ja: string };
+  name: { en: string; ja: string; zh: string };
   currency: string;
   currencySymbol: string;
   defaultTaxRate: number;
   defaultInflation: number;
   referenceRent: number;
   referenceLivingCost: number;
-  notes: { en: string; ja: string };
+  notes: { en: string; ja: string; zh: string };
 }
