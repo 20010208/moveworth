@@ -45,6 +45,24 @@ export function BlogPostContent({ slug }: { slug: string }) {
     }
   };
 
+  const renderInline = (text: string): React.ReactNode => {
+    const parts = text.split(/(\*\*[^*]+\*\*)/g);
+    if (parts.length === 1) return text;
+    return (
+      <>
+        {parts.map((part, i) =>
+          part.startsWith("**") && part.endsWith("**") ? (
+            <strong key={i} className="font-semibold text-foreground">
+              {part.slice(2, -2)}
+            </strong>
+          ) : (
+            part
+          )
+        )}
+      </>
+    );
+  };
+
   const renderContent = (text: string) => {
     const lines = text.split("\n");
     const elements: React.ReactNode[] = [];
@@ -123,26 +141,38 @@ export function BlogPostContent({ slug }: { slug: string }) {
             {line.slice(2, -2)}
           </p>
         );
+      } else if (line.match(/^  - /)) {
+        elements.push(
+          <li key={i} className="ml-8 text-sm text-muted mb-1 list-disc">
+            {renderInline(line.slice(4))}
+          </li>
+        );
       } else if (line.startsWith("- **")) {
         const match = line.match(/^- \*\*(.+?)\*\*:?\s*(.*)$/);
         if (match) {
           elements.push(
             <li key={i} className="ml-4 text-sm text-muted mb-1 list-disc">
               <span className="font-semibold text-foreground">{match[1]}</span>
-              {match[2] ? `: ${match[2]}` : ""}
+              {match[2] ? `: ${renderInline(match[2])}` : ""}
             </li>
           );
         } else {
           elements.push(
             <li key={i} className="ml-4 text-sm text-muted mb-1 list-disc">
-              {line.slice(2)}
+              {renderInline(line.slice(2))}
             </li>
           );
         }
       } else if (line.startsWith("- ")) {
         elements.push(
           <li key={i} className="ml-4 text-sm text-muted mb-1 list-disc">
-            {line.slice(2)}
+            {renderInline(line.slice(2))}
+          </li>
+        );
+      } else if (line.match(/^\d+\. /)) {
+        elements.push(
+          <li key={i} className="ml-4 text-sm text-muted mb-1 list-decimal">
+            {renderInline(line.replace(/^\d+\. /, ""))}
           </li>
         );
       } else if (line.trim() === "") {
@@ -150,7 +180,7 @@ export function BlogPostContent({ slug }: { slug: string }) {
       } else {
         elements.push(
           <p key={i} className="text-sm text-muted leading-relaxed">
-            {line}
+            {renderInline(line)}
           </p>
         );
       }
