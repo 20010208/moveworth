@@ -19,12 +19,12 @@ interface SensitivityChartProps {
   currency: string;
 }
 
-const PARAM_LABELS: Record<string, { en: string; ja: string }> = {
-  income: { en: "Income", ja: "年収" },
-  investmentReturn: { en: "Investment Return", ja: "投資リターン" },
-  inflation: { en: "Inflation", ja: "インフレ率" },
-  rent: { en: "Rent", ja: "家賃" },
-  livingCost: { en: "Living Cost", ja: "生活費" },
+const PARAM_LABELS: Record<string, { en: string; ja: string; zh: string }> = {
+  income: { en: "Income", ja: "年収", zh: "收入" },
+  investmentReturn: { en: "Investment Return", ja: "投資リターン", zh: "投资回报" },
+  inflation: { en: "Inflation", ja: "インフレ率", zh: "通胀率" },
+  rent: { en: "Rent", ja: "家賃", zh: "房租" },
+  livingCost: { en: "Living Cost", ja: "生活費", zh: "生活费" },
 };
 
 export function SensitivityChart({ results, currency }: SensitivityChartProps) {
