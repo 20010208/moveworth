@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, User, Save, Trash2, AlertTriangle, CheckCircle, Loader2 } from "lucide-react";
+import { ArrowLeft, User, Save, Trash2, AlertTriangle, CheckCircle, Loader2, CreditCard, Crown, ExternalLink } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
@@ -22,6 +22,8 @@ export default function AccountPage() {
   });
   const [saving, setSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState<"idle" | "success" | "error">("idle");
+  const [portalLoading, setPortalLoading] = useState(false);
+  const [portalError, setPortalError] = useState("");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteConfirmText, setDeleteConfirmText] = useState("");
   const [deleting, setDeleting] = useState(false);
@@ -79,6 +81,32 @@ export default function AccountPage() {
       setSaveStatus("error");
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleManageSubscription = async () => {
+    setPortalLoading(true);
+    setPortalError("");
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        setPortalError(t("account.portalError"));
+        return;
+      }
+      const res = await fetch("/api/create-portal-session", {
+        method: "POST",
+        headers: { "Authorization": `Bearer ${session.access_token}` },
+      });
+      if (!res.ok) {
+        setPortalError(t("account.portalError"));
+        return;
+      }
+      const { url } = await res.json();
+      window.location.href = url;
+    } catch {
+      setPortalError(t("account.portalError"));
+    } finally {
+      setPortalLoading(false);
     }
   };
 
@@ -233,6 +261,61 @@ export default function AccountPage() {
               <span className="text-sm text-danger">{t("account.saveError")}</span>
             )}
           </div>
+        </div>
+
+        {/* Subscription Section */}
+        <div className="bg-white border border-border/60 rounded-2xl p-6 sm:p-8 shadow-sm mb-8">
+          <h2 className="text-base font-bold text-foreground flex items-center gap-2 mb-4">
+            <CreditCard className="h-5 w-5" />
+            {t("account.subscriptionTitle")}
+          </h2>
+
+          <div className="flex items-center gap-3 mb-5">
+            <span className="text-sm text-muted">{t("account.currentPlan")}</span>
+            {user.plan === "premium" ? (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700">
+                <Crown className="h-3 w-3" />
+                Premium
+              </span>
+            ) : user.plan === "pro" ? (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary">
+                <Crown className="h-3 w-3" />
+                Pro
+              </span>
+            ) : (
+              <span className="inline-flex px-2.5 py-1 rounded-full text-xs font-bold bg-surface text-muted">
+                Free
+              </span>
+            )}
+          </div>
+
+          {user.plan === "free" ? (
+            <Link
+              href="/subscribe"
+              className="inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-primary-dark transition-all shadow-md shadow-primary/20"
+            >
+              <Crown className="h-4 w-4" />
+              {t("account.upgradePlan")}
+            </Link>
+          ) : (
+            <div>
+              <button
+                onClick={handleManageSubscription}
+                disabled={portalLoading}
+                className="inline-flex items-center gap-2 border border-border/60 text-foreground px-5 py-2.5 rounded-xl font-semibold text-sm hover:border-primary/40 hover:text-primary transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {portalLoading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <ExternalLink className="h-4 w-4" />
+                )}
+                {portalLoading ? t("account.portalLoading") : t("account.manageSub")}
+              </button>
+              {portalError && (
+                <p className="text-sm text-danger mt-2">{portalError}</p>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Danger Zone - Account Deletion */}

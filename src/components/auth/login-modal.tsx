@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useAuth } from "@/lib/auth";
 import { useTranslation } from "@/lib/i18n";
 import { supabase } from "@/lib/supabase";
@@ -140,6 +141,15 @@ export function LoginModal() {
             {errors.password && (
               <p className="text-xs text-red-500 mt-1">{errors.password}</p>
             )}
+            <div className="flex justify-end mt-1">
+              <Link
+                href="/auth/forgot-password"
+                onClick={handleClose}
+                className="text-xs text-primary hover:underline"
+              >
+                {t("auth.forgotPassword")}
+              </Link>
+            </div>
           </div>
 
           <button

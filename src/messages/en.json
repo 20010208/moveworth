@@ -177,7 +177,26 @@
     "registerHere": "Register here",
     "hasAccount": "Already have an account?",
     "loginHere": "Log in here",
-    "login": "Log In"
+    "login": "Log In",
+    "forgotPassword": "Forgot password?",
+    "forgotPasswordTitle": "Forgot Password",
+    "forgotPasswordSubtitle": "Enter your email to receive a reset link",
+    "forgotPasswordError": "Failed to send reset email. Please try again.",
+    "resetEmailSentTitle": "Check your email",
+    "resetEmailSentDesc": "We've sent a password reset link to your email address. Please check your inbox.",
+    "backToLogin": "Back to login",
+    "sendResetEmail": "Send Reset Link",
+    "sending": "Sending...",
+    "updatePasswordTitle": "Set New Password",
+    "updatePasswordSubtitle": "Enter your new password below",
+    "updatePasswordError": "Failed to update password. Please try again.",
+    "passwordMismatch": "Passwords do not match",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "passwordUpdatedTitle": "Password Updated",
+    "passwordUpdatedDesc": "Your password has been updated successfully. Redirecting to home...",
+    "updating": "Updating...",
+    "updatePasswordButton": "Update Password"
   },
   "subscribe": {
     "title": "Choose Your Plan",
@@ -326,7 +345,13 @@
     "deleteConfirmButton": "Permanently Delete",
     "deleting": "Deleting...",
     "deleteError": "Failed to delete account. Please try again.",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "subscriptionTitle": "Subscription",
+    "currentPlan": "Current Plan",
+    "manageSub": "Manage Subscription",
+    "portalLoading": "Loading...",
+    "upgradePlan": "Upgrade Plan",
+    "portalError": "Failed to open subscription management. Please try again."
   },
   "authConfirm": {
     "verifying": "Verifying your email...",
