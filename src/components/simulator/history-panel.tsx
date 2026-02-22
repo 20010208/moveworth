@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Clock, Trash2, ArrowRight, X, Lock } from "lucide-react";
+import { Clock, Trash2, ArrowRight, X, Lock, Search } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { SimulationHistoryEntry, getHistory, deleteHistory, clearHistory, isAtFreeLimit } from "@/lib/simulation-history";
 import { SimulationInput, SimulationResult, ExtraComparisonInput } from "@/lib/simulation/types";
@@ -22,6 +22,7 @@ interface HistoryPanelProps {
 export function HistoryPanel({ onLoad, plan }: HistoryPanelProps) {
   const { locale, t } = useTranslation();
   const [history, setHistory] = useState<SimulationHistoryEntry[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     setHistory(getHistory());
@@ -55,12 +56,32 @@ export function HistoryPanel({ onLoad, plan }: HistoryPanelProps) {
     });
   };
 
+  // 検索フィルター: 国名（from/to/extra全て）に対してマッチ
+  const filteredHistory = history.filter((entry) => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase();
+    const fromName = getCountryName(entry.countryFrom).toLowerCase();
+    const toName = getCountryName(entry.countryTo).toLowerCase();
+    const extraNames = (entry.extraInputs ?? []).map((ei) =>
+      getCountryName(ei.countryTo).toLowerCase()
+    );
+    return (
+      fromName.includes(q) ||
+      toName.includes(q) ||
+      extraNames.some((n) => n.includes(q))
+    );
+  });
+
+  // 検索バーはPro/Premiumで多くの履歴がある場合、または4件以上の時に表示
+  const showSearch = plan !== "free" || history.length > 3;
+
   return (
     <div className="mb-6">
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-sm font-semibold text-muted flex items-center gap-1.5">
           <Clock className="h-4 w-4" />
           {t("history.title")}
+          <span className="text-xs font-normal text-muted/60">({history.length})</span>
         </h2>
         <button
           onClick={handleClearAll}
@@ -70,14 +91,45 @@ export function HistoryPanel({ onLoad, plan }: HistoryPanelProps) {
           {t("history.clearAll")}
         </button>
       </div>
+
+      {/* 検索バー */}
+      {showSearch && (
+        <div className="relative mb-3">
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted pointer-events-none" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={locale === "ja" ? "国名で検索..." : "Search by country..."}
+            className="w-full pl-8 pr-8 py-1.5 text-xs border border-border/60 rounded-lg bg-white focus:outline-none focus:border-primary/40 text-foreground placeholder:text-muted/60"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted hover:text-foreground"
+            >
+              <X className="h-3 w-3" />
+            </button>
+          )}
+        </div>
+      )}
+
       {plan === "free" && isAtFreeLimit() && (
         <div className="flex items-center gap-1.5 mb-2 text-xs text-muted">
           <Lock className="h-3 w-3" />
           <span>{t("history.freeLimit")}</span>
         </div>
       )}
+
+      {/* 検索結果なし */}
+      {filteredHistory.length === 0 && searchQuery && (
+        <p className="text-xs text-muted py-3 text-center">
+          {locale === "ja" ? `"${searchQuery}" に一致する履歴はありません` : `No history matching "${searchQuery}"`}
+        </p>
+      )}
+
       <div className="flex gap-3 overflow-x-auto pb-2">
-        {history.map((entry) => {
+        {filteredHistory.map((entry) => {
           const hasExtra = entry.extraInputs && entry.extraInputs.length > 0;
           return (
             <button

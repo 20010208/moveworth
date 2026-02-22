@@ -37,21 +37,25 @@ export function BreakdownChart({ result, extraResults = [] }: BreakdownChartProp
 
   const categoryKeys = ["income", "rent", "living", "tax", "savings"] as const;
 
+  // 全ての値を currencyCurrent に換算して比較
   const data = categoryKeys.map((key) => {
     const entry: Record<string, number | string> = {
       category: t(`results.${key}`),
       [fromName]: monthlyBreakdown.current[key],
-      [toName]: monthlyBreakdown.target[key],
+      [toName]: Math.round(monthlyBreakdown.target[key] * input.exchangeRate),
     };
     extraResults.forEach((er, i) => {
-      entry[extraNames[i]] = er.monthlyBreakdown.target[key];
+      entry[extraNames[i]] = Math.round(er.monthlyBreakdown.target[key] * er.input.exchangeRate);
     });
     return entry;
   });
 
-  const extraCurrencyLabels = extraResults
-    .map((er, i) => ` vs ${extraNames[i]} (${er.input.currencyTarget})`)
-    .join("");
+  const formatValue = (value: number) => {
+    const abs = Math.abs(value);
+    if (abs >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M`;
+    if (abs >= 1_000) return `${(value / 1_000).toFixed(0)}K`;
+    return value.toString();
+  };
 
   return (
     <div className="bg-white border border-border/60 rounded-2xl p-6 shadow-sm">
@@ -59,16 +63,21 @@ export function BreakdownChart({ result, extraResults = [] }: BreakdownChartProp
         {t("results.monthlyBreakdown")}
       </h3>
       <p className="text-xs text-muted mb-4">
-        {fromName} ({input.currencyCurrent}) vs {toName} ({input.currencyTarget})
-        {extraCurrencyLabels} - {t("results.eachInLocal")}
+        {locale === "ja"
+          ? `全て ${input.currencyCurrent} 換算で比較`
+          : `All values converted to ${input.currencyCurrent}`}
       </p>
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
             <XAxis dataKey="category" tick={{ fontSize: 12 }} />
-            <YAxis tick={{ fontSize: 12 }} />
-            <Tooltip />
+            <YAxis tickFormatter={formatValue} tick={{ fontSize: 12 }} />
+            <Tooltip
+              formatter={(value) =>
+                `${input.currencyCurrent} ${Number(value).toLocaleString()}`
+              }
+            />
             <Legend />
             <Bar dataKey={fromName} fill="#4f46e5" radius={[6, 6, 0, 0]} />
             <Bar dataKey={toName} fill="#06d6a0" radius={[6, 6, 0, 0]} />
