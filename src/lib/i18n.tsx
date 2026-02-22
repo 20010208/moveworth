@@ -10,10 +10,11 @@ import {
 } from "react";
 import en from "@/messages/en.json";
 import ja from "@/messages/ja.json";
+import zh from "@/messages/zh.json";
 
-export type Locale = "en" | "ja";
+export type Locale = "en" | "ja" | "zh";
 
-const messages: Record<Locale, Record<string, unknown>> = { en, ja };
+const messages: Record<Locale, Record<string, unknown>> = { en, ja, zh };
 
 function getNestedValue(obj: Record<string, unknown>, path: string): string {
   const keys = path.split(".");
@@ -39,9 +40,10 @@ const I18nContext = createContext<I18nContextType | null>(null);
 function detectLocale(): Locale {
   if (typeof window === "undefined") return "en";
   const saved = localStorage.getItem("locale");
-  if (saved === "en" || saved === "ja") return saved;
+  if (saved === "en" || saved === "ja" || saved === "zh") return saved;
   const browserLang = navigator.language;
   if (browserLang.startsWith("ja")) return "ja";
+  if (browserLang.startsWith("zh")) return "zh";
   return "en";
 }
 

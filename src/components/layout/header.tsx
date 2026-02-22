@@ -11,9 +11,13 @@ export function Header() {
   const { locale, setLocale, t } = useTranslation();
   const { isAuthenticated, user, logout, setShowRegisterModal, setShowLoginModal } = useAuth();
 
-  const toggleLocale = () => {
-    setLocale(locale === "en" ? "ja" : "en");
+  const cycleLocale = () => {
+    if (locale === "en") setLocale("ja");
+    else if (locale === "ja") setLocale("zh");
+    else setLocale("en");
   };
+
+  const nextLocaleLabel = locale === "en" ? "JA" : locale === "ja" ? "ZH" : "EN";
 
   return (
     <header className="glass border-b border-border/50 sticky top-0 z-50">
@@ -64,12 +68,12 @@ export function Header() {
             <div className="w-px h-5 bg-border mx-2" />
 
             <button
-              onClick={toggleLocale}
+              onClick={cycleLocale}
               className="flex items-center gap-1.5 text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
               aria-label="Switch language"
             >
               <Languages className="h-4 w-4" />
-              {locale === "en" ? "JA" : "EN"}
+              {nextLocaleLabel}
             </button>
             {isAuthenticated ? (
               <div className="flex items-center gap-2 ml-1">
@@ -119,7 +123,7 @@ export function Header() {
 
           <div className="flex items-center gap-2 md:hidden">
             <button
-              onClick={toggleLocale}
+              onClick={cycleLocale}
               className="p-2 text-muted hover:text-foreground"
               aria-label="Switch language"
             >
