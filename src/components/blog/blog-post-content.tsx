@@ -69,6 +69,35 @@ export function BlogPostContent({ slug }: { slug: string }) {
     let inTable = false;
     let tableRows: string[][] = [];
 
+    type ListType = "ul" | "ol" | null;
+    let currentListType: ListType = null;
+    let listItems: React.ReactNode[] = [];
+
+    const flushList = () => {
+      if (listItems.length === 0) return;
+      if (currentListType === "ol") {
+        elements.push(
+          <ol
+            key={`ol-${elements.length}`}
+            className="list-decimal ml-5 space-y-1 my-2 text-sm text-muted"
+          >
+            {listItems}
+          </ol>
+        );
+      } else {
+        elements.push(
+          <ul
+            key={`ul-${elements.length}`}
+            className="list-disc ml-5 space-y-1 my-2 text-sm text-muted"
+          >
+            {listItems}
+          </ul>
+        );
+      }
+      listItems = [];
+      currentListType = null;
+    };
+
     const flushTable = () => {
       if (tableRows.length > 0) {
         elements.push(
@@ -111,6 +140,7 @@ export function BlogPostContent({ slug }: { slug: string }) {
       const line = lines[i];
 
       if (line.startsWith("|")) {
+        flushList();
         inTable = true;
         const cells = line
           .split("|")
@@ -124,60 +154,60 @@ export function BlogPostContent({ slug }: { slug: string }) {
       }
 
       if (line.startsWith("### ")) {
+        flushList();
         elements.push(
           <h3 key={i} className="text-lg font-bold text-foreground mt-8 mb-3">
             {line.slice(4)}
           </h3>
         );
       } else if (line.startsWith("## ")) {
+        flushList();
         elements.push(
           <h2 key={i} className="text-xl font-bold text-foreground mt-10 mb-4">
             {line.slice(3)}
           </h2>
         );
       } else if (line.startsWith("**") && line.endsWith("**")) {
+        flushList();
         elements.push(
           <p key={i} className="font-semibold text-foreground mt-4 mb-1">
             {line.slice(2, -2)}
           </p>
         );
       } else if (line.match(/^  - /)) {
-        elements.push(
-          <li key={i} className="ml-8 text-sm text-muted mb-1 list-disc">
+        if (currentListType !== "ul") { flushList(); currentListType = "ul"; }
+        listItems.push(
+          <li key={listItems.length} className="ml-4 list-disc">
             {renderInline(line.slice(4))}
           </li>
         );
-      } else if (line.startsWith("- **")) {
+      } else if (line.startsWith("- ")) {
+        if (currentListType !== "ul") { flushList(); currentListType = "ul"; }
         const match = line.match(/^- \*\*(.+?)\*\*:?\s*(.*)$/);
         if (match) {
-          elements.push(
-            <li key={i} className="ml-4 text-sm text-muted mb-1 list-disc">
+          listItems.push(
+            <li key={listItems.length}>
               <span className="font-semibold text-foreground">{match[1]}</span>
               {match[2] ? `: ${renderInline(match[2])}` : ""}
             </li>
           );
         } else {
-          elements.push(
-            <li key={i} className="ml-4 text-sm text-muted mb-1 list-disc">
-              {renderInline(line.slice(2))}
-            </li>
+          listItems.push(
+            <li key={listItems.length}>{renderInline(line.slice(2))}</li>
           );
         }
-      } else if (line.startsWith("- ")) {
-        elements.push(
-          <li key={i} className="ml-4 text-sm text-muted mb-1 list-disc">
-            {renderInline(line.slice(2))}
-          </li>
-        );
       } else if (line.match(/^\d+\. /)) {
-        elements.push(
-          <li key={i} className="ml-4 text-sm text-muted mb-1 list-decimal">
+        if (currentListType !== "ol") { flushList(); currentListType = "ol"; }
+        listItems.push(
+          <li key={listItems.length}>
             {renderInline(line.replace(/^\d+\. /, ""))}
           </li>
         );
       } else if (line.trim() === "") {
+        flushList();
         elements.push(<div key={i} className="h-2" />);
       } else {
+        flushList();
         elements.push(
           <p key={i} className="text-sm text-muted leading-relaxed">
             {renderInline(line)}
@@ -186,6 +216,7 @@ export function BlogPostContent({ slug }: { slug: string }) {
       }
     }
 
+    flushList();
     if (tableRows.length > 0) {
       flushTable();
     }
