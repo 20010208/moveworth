@@ -1140,6 +1140,44 @@ Eligible after several years on EP/S Pass. Approval rates are undisclosed; incom
 3. **Estimate housing costs**: Singapore rents are high — use MoveWorth simulation for accurate projections
 
 Singapore offers a high standard of living but comes with high housing and education costs. We recommend running a comprehensive financial simulation before making your decision.`,
+      zh: `新加坡是亚洲商业中心，积极吸纳海外专业人才和创业者。以下是新加坡主要签证与就业准证的详细介绍。
+
+### 主要就业签证种类
+
+**就业准证（EP）**
+新加坡最常见的就业签证，面向专业人士、管理人员和高管。2023年修订后，最低月薪为SGD 5,000（金融行业为SGD 5,500）。2025年起，COMPASS积分制度成为强制要求。
+- 申请费用：SGD 105（新申请）
+- 有效期：最长2年（续签最长3年）
+
+**S准证**
+面向中级技术人员。2023年后最低月薪为SGD 3,150。受雇主名额限制。
+
+**EntrePass**
+面向在新加坡创办创新型企业的创业者。需提交商业计划书审查，获得风险投资机构或政府认可孵化器推荐有利于审批。
+
+**One Pass（EPOL）**
+月薪SGD 30,000以上顶尖人才的5年期特别准证。家属更易获得就业准证。
+
+### 永久居留权与公民身份
+
+**永久居留权（PR）**
+在EP/S准证下工作数年后可申请。审批率不公开，收入、纳税额、教育背景和家庭状况均纳入评估。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| EP申请费 | SGD 105 |
+| S准证申请费 | SGD 70 |
+| 个人化就业准证 | SGD 200 |
+
+### 移居前注意事项
+
+1. **确认薪资标准**：最低薪资要求每年修订，需提前确认
+2. **了解COMPASS积分**：积分因雇主外籍员工比例、学历、薪资而异
+3. **估算住房成本**：新加坡租金较高，建议使用MoveWorth进行精准模拟
+
+新加坡生活水平高，但住房和教育费用也相当昂贵。建议移居前进行全面的财务模拟。`,
     },
   },
   {
@@ -1242,6 +1280,44 @@ Malaysian PR is generally difficult to obtain, requiring long-term employment, m
 3. **Arrange health insurance**: Private insurance is typically required for foreigners
 
 Malaysia offers relatively low living costs in Southeast Asia, often showing favorable simulation results in MoveWorth. However, since MM2H requirements are subject to change, always verify current information.`,
+      zh: `马来西亚因生活费低廉、英语普及、文化多元，是日本人移居的热门目的地之一。2022年MM2H大幅修订，2023年又新增了DE Rantau数字游民签证。
+
+### 主要签证种类
+
+**MM2H（马来西亚第二家园计划）**
+以长期居留为目的的5年多次入境签证，2022年修订后门槛大幅提高。
+- 海外最低月收入：RM 40,000
+- 定期存款：RM 1,000,000
+- 流动资产：RM 1,500,000以上
+- 申请费用：RM 5,000
+
+**DE Rantau准证**
+面向数字游民和远程工作者的新签证（2023年推出）。
+- 最低年收入：USD 24,000（技术领域）/ USD 60,000（非技术领域）
+- 有效期：12个月（可续签一次）
+- 申请费用：RM 1,000（个人）
+
+**就业准证（Employment Pass）**
+面向受雇于马来西亚企业的外国人，由雇主申请，月薪参考标准为RM 5,000以上。
+
+**REP（居留准证—人才）**
+10年长期就业签证，面向具有高收入和长期就业记录的熟练外国专业人士。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| MM2H申请费 | RM 5,000 |
+| DE Rantau准证 | RM 1,000 |
+| 就业签证申请费 | RM 500～2,000 |
+
+### 移居前注意事项
+
+1. **确认MM2H最新要求**：政策变动频繁，需查阅官方最新信息
+2. **估算住房成本**：吉隆坡市中心租金约RM 3,000～8,000/月
+3. **购买医疗保险**：外国人通常需要自费购买私人保险
+
+马来西亚在东南亚中生活成本相对较低，在MoveWorth模拟中往往呈现有利结果。但由于MM2H要求随时可能变动，请务必核实最新信息。`,
     },
   },
   {
@@ -1340,6 +1416,46 @@ For those 50+ years old. Requires a pension or bank balance of THB 800,000+.
 3. **Health insurance**: LTR visa requires minimum USD 40,000 medical coverage
 
 Thailand has one of the largest Japanese expatriate communities in Southeast Asia, making it a highly livable destination.`,
+      zh: `泰国气候温暖、美食丰富、生活成本相对较低，长期位居日本人移居目的地前列。近年来，针对数字游民和高技能人才的新签证制度也日趋完善。
+
+### 主要签证种类
+
+**LTR（长期居留）签证**
+2022年推出的10年期签证，面向富裕人士、退休人员及高技能专业人才，共有4类。
+- 富裕全球公民：海外年收入USD 80,000以上或资产USD 1,000,000以上
+- 富裕退休人员：年金收入USD 40,000以上（50岁以上）
+- 在泰远程工作专业人员：海外年收入USD 40,000以上
+- 高技能专业人员：高收入特定领域专家
+- 申请费用：THB 50,000（10年有效）
+
+**泰国精英签证（Thailand Privilege Card）**
+面向富裕人士的会员制签证，享有5～20年居留权及机场礼宾等特权。
+- 5年方案：THB 600,000起
+- 20年方案：THB 2,400,000起
+
+**非移民B类签证 + 工作许可证**
+外籍劳工最常申请的签证，需雇主支持。
+- 签证费用：THB 2,000（单次入境）
+- 工作许可证费用：THB 3,000起
+
+**退休签证（Non-OA）**
+50岁以上人群适用，需有养老金或银行存款THB 800,000以上。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| LTR签证（10年） | THB 50,000 |
+| 泰国精英签证（5年） | THB 600,000起 |
+| 工作许可证 | THB 3,000起 |
+
+### 移居前注意事项
+
+1. **工作限制**：泰国法律规定外国人禁止从事某些职业
+2. **90天报到**：部分签证要求每季度向移民局报到
+3. **医疗保险**：LTR签证要求最低USD 40,000的医疗保险
+
+泰国是东南亚日本人社区最为活跃的国家之一，宜居性极高。`,
     },
   },
   {
@@ -1434,6 +1550,44 @@ Requires 5+ years of lawful residence, stable income, and Korean language profic
 3. **Housing system**: Understand Korea's unique jeonse (전세) long-term deposit rental system
 
 Korea's tech industry is booming, with growing opportunities at global companies based there.`,
+      zh: `韩国与日本距离近，文化亲近感强，IT、娱乐和制造业提供了多样的就业机会，作为亚洲移居目的地备受关注。
+
+### 主要签证种类
+
+**E-7（特定活动）签证**
+面向专业技术人员的就业签证，通常受雇于韩国企业。一般要求本科以上学历及相关工作经验。
+
+**E-1至E-6（专业技术）签证**
+- E-1：大学教授、研究员
+- E-2：语言讲师（英语、日语等）
+- E-3：研究
+- E-4：技术指导
+- E-5：专业人士（律师、会计师等）
+- E-6：艺术、演出
+
+**F-2-7（居住签证·积分制）**
+高技能人才居住签证，根据年龄、学历、韩语能力、收入、资产等评分（需80分以上方可申请）。
+
+**D-10（求职签证）**
+面向在韩求职的外国人，适用于韩国大学毕业生或特定资质持有者。
+
+**永久居留权（F-5）**
+需合法居留5年以上、收入稳定、具备韩语能力等条件，通常经F-2-7过渡至F-5。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 签证申请费（驻日韩国领事馆） | 约¥6,000～¥10,000 |
+| 签证签发手续费 | KRW 60,000起 |
+
+### 移居前注意事项
+
+1. **韩语能力**：TOPIK 3级以上可为F-2-7积分加分
+2. **社会保险**：外国人可能须强制参加国民健康保险和国民年金
+3. **住房制度**：了解韩国独特的全租房（전세）制度
+
+韩国科技产业蓬勃发展，在全球化企业就职的机会也日益增多。`,
     },
   },
   {
@@ -1527,6 +1681,40 @@ Available after 5+ years of continuous residence. Requires proof of Chinese/Engl
 3. **Housing**: Taipei city center rents range NTD 20,000–50,000/month
 
 Taiwan's Gold Card tax incentives are particularly attractive for IT and semiconductor professionals.`,
+      zh: `台湾亲日情感浓厚，饮食文化、自然风光与生活成本的平衡备受日本移居者青睐。随着半导体产业蓬勃发展，对外籍人才的需求也持续攀升。
+
+### 主要签证种类
+
+**就业金卡（Employment Gold Card）**
+高技能专业人士的3年期综合签证，集工作许可、居留许可和重入境许可于一卡。符合以下任一条件即可申请：
+- 月薪NTD 160,000以上
+- 在科技、科学、经济、教育、文化、艺术或体育领域的优秀人才
+- 申请费用：NTD 5,380
+
+**工作许可 + 居留证（ARC）**
+标准就业途径，由雇主向劳动部申请。
+- 目标岗位：专业技术人员、企业内部调任等
+- 最低月薪：NTD 47,971以上（一般专业人员）
+- 申请费用：NTD 500～1,000
+
+**永久居留证**
+连续居留5年以上后可申请，需具备中文或英文生活能力证明及纳税记录。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 就业金卡申请费 | NTD 5,380 |
+| 工作许可申请费 | NTD 500～1,000 |
+| 居留证（ARC）签发费 | NTD 1,000 |
+
+### 移居前注意事项
+
+1. **金卡税收优惠**：前3年享有所得税30%扣除优惠
+2. **全民健保**：居留满6个月后可加入（保费负担较低）
+3. **住房成本**：台北市中心租金约NTD 20,000～50,000/月
+
+台湾的就业金卡税收优惠对IT和半导体领域的专业人士尤为吸引。`,
     },
   },
   {
@@ -1623,6 +1811,42 @@ Reopened in 2023. Requires HKD 30,000,000+ invested in Hong Kong assets.
 3. **MPF (Mandatory Provident Fund)**: Employees must contribute 5% of salary
 
 Hong Kong's low tax rate and financial sector concentration are major attractions, but the extremely high cost of housing is the biggest challenge.`,
+      zh: `香港是亚洲国际金融中心，积极吸引金融、法律和科技领域的顶尖人才。15%的统一税率是主要吸引力之一。
+
+### 主要签证种类
+
+**就业签证（Employment Visa）**
+外籍人士在港就业最常见的签证，由雇主向入境事务处申请。
+- 申请费用：HKD 230
+- 有效期：最长2年（可续签）
+- 要求：持有香港难以寻觅的技能、知识或经验
+
+**优秀人才入境计划（QMAS）**
+面向无需雇主担保即希望移居香港的高技能人士，设两种积分测试：通用积分测试（年龄、学历、工作经验、语言能力等）和成就积分测试（具有国际公认成就者）。设年度配额。
+
+**高端人才通行证计划（TTPS）**
+2022年推出，符合以下任一条件可申请：
+- 过去一年年收入达HKD 2,500,000以上
+- 全球百强大学毕业生
+- 同校毕业且5年内年收入达HKD 1,500,000以上
+
+**资本投资者入境计划**
+2023年重启，需在香港资产投资HKD 30,000,000以上。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 就业签证申请费 | HKD 230 |
+| QMAS申请费 | HKD 460 |
+
+### 移居前注意事项
+
+1. **政治形势变化**：制度近年持续变动，需随时确认最新规定
+2. **高昂住房成本**：香港租金位居全球最高之列，务必使用MoveWorth仔细模拟
+3. **强积金（MPF）**：受雇人员须强制缴纳薪酬的5%
+
+香港的低税率和金融业集聚是其最大优势，但极高的住房成本是最大挑战。`,
     },
   },
   {
@@ -1715,6 +1939,37 @@ Long-term visa (5–10 years) requiring assets or fixed deposits of IDR 2,000,00
 3. **Bali cost of living**: Significant gap between local and expat pricing
 
 Indonesia is popular for its Bali appeal, but obtaining a work visa can be complex. Consider consulting a specialized agent beforehand.`,
+      zh: `印度尼西亚是东盟最大经济体，以巴厘岛为中心，在数字游民和移居者中越来越受欢迎。
+
+### 主要签证种类
+
+**KITAS（有限居留许可）**
+外国人在印尼生活和工作的主要许可证，就业KITAS需与Imta（外籍劳工就业许可）一同申请，需要担保人（雇主或印尼籍配偶等）。有效期1～2年（可续签）。
+
+**外籍劳工就业许可（RPTKA + Imta）**
+希望雇用外国人的印尼企业需申请，每位外籍员工须支付补偿金USD 1,200/年。
+
+**B211A签证（投资/商务签证）**
+60天商务活动签证，不允许就业。
+
+**第二家园签证**
+资产或定期存款IDR 2,000,000,000以上（约合人民币90万元）可申请的5～10年长期签证。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| KITAS申请费（政府手续费） | USD 200～300 |
+| Imta补偿金 | USD 1,200/年（每位外籍员工） |
+| 第二家园签证 | 需确认（约数百美元） |
+
+### 移居前注意事项
+
+1. **职业限制**：印尼许多职业禁止外国人从事
+2. **税务**：印尼境内来源收入原则上须纳税
+3. **巴厘岛生活成本**：本地居民与外籍人士定价差距较大
+
+印度尼西亚因巴厘岛的魅力而备受移居者青睐，但工作签证的申请流程较为复杂，建议事先咨询专业中介。`,
     },
   },
   {
@@ -1809,6 +2064,41 @@ As of 2023, the Philippines has no dedicated digital nomad visa. Many foreigners
 3. **Healthcare quality**: High-standard private hospitals in cities; quality drops in rural areas
 
 The Philippines' SRRV retirement visa is well-established, making it a popular destination for Japanese retirees.`,
+      zh: `菲律宾以英语为官方语言，气候温暖，生活费低廉，许多外籍人士以宿务或马尼拉为据点定居生活。
+
+### 主要签证种类
+
+**SRRV（特别居民退休人员签证）**
+退休人员专属居留签证，由菲律宾退休局（PRA）管理。
+- 50岁以上（领取养老金者）：USD 10,000定期存款
+- 50岁以下：USD 20,000定期存款
+- 条件因是否领取养老金而有所不同
+- 申请费用：USD 1,400（本人）
+
+**9G签证（就业签证）**
+面向受雇于菲律宾企业的外国人，雇主需取得外籍就业许可后向移民局申请。
+
+**13a签证（菲律宾公民配偶）**
+外籍配偶专属移民签证，首年为附条件永久居留，之后转为正式永久居留。
+
+**数字游民签证**
+截至2023年，菲律宾尚无专门的数字游民签证，许多外籍人士选择延期旅游签证（最长可延至36个月）。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| SRRV申请费 | USD 1,400 |
+| 9G签证申请费 | PHP 8,620起 |
+| 13a签证申请费 | PHP 8,620起 |
+
+### 移居前注意事项
+
+1. **外国人土地所有限制**：外国人不得拥有土地，但可购买公寓（外籍持有比例上限40%）
+2. **避免双重征税**：日本与菲律宾之间存在租税协定，部分双重征税可规避
+3. **医疗水平**：城市私立医院水准较高，农村地区需注意
+
+菲律宾的SRRV退休签证制度完善，是日本退休人员移居的热门目的地。`,
     },
   },
   {
@@ -1909,6 +2199,40 @@ Long-term visa for foreigners investing a certain amount in Vietnam.
 3. **Bank account**: Opening a bank account without a TRC can be difficult
 
 Vietnam's young population and economic growth create strong demand for IT professionals and Japanese-language speakers.`,
+      zh: `越南以胡志明市和河内为中心持续快速发展，制造业、IT和服务业提供了多样的就业机会。日资企业众多，日本移居者数量也在不断增加。
+
+### 主要签证种类
+
+**工作许可证（Work Permit）**
+几乎所有在越工作的外国人都需要此许可证，由雇主向劳动荣军社会部（MOLISA）申请。有效期最长2年（可续签）。申请费用：VND 600,000起。
+
+常见所需文件：
+- 经认证翻译的学历证明
+- 无犯罪记录证明
+- 健康证明
+- 3年以上工作经历证明
+
+**临时居留证（TRC）**
+取得工作许可证后申请的居留许可，持有后无需每次入境申请签证。有效期1～2年（与工作许可证挂钩），申请费用：USD 20起。
+
+**电子签证（E-Visa）**
+90天（2023年8月起延长）的旅游及短期商务签证，不可用于就业。费用：USD 25。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 工作许可证申请费 | VND 600,000起 |
+| 临时居留证签发费 | USD 20起 |
+| 电子签证费 | USD 25 |
+
+### 移居前注意事项
+
+1. **工作许可证豁免**：外资企业高管等部分人员可免申请工作许可证
+2. **税务居民认定**：在越居留183天以上将被认定为税务居民，境内外所得均须纳税
+3. **银行开户**：无临时居留证可能难以开设银行账户
+
+越南年轻的人口结构和旺盛的经济增长，使IT专业人才和日语人才的需求尤为突出。`,
     },
   },
   {
@@ -2011,6 +2335,42 @@ Grants ~50,000 green cards annually by lottery. Japan is not an eligible country
 3. **Health insurance**: Employer-provided insurance is standard; individual coverage is expensive if unemployed
 
 The U.S. offers high income potential but also high taxes, healthcare costs, and housing expenses. We recommend thorough simulation in MoveWorth before committing.`,
+      zh: `美国是全球最大的经济体，在科技、金融、医疗和学术等众多领域提供顶尖职业发展机会。然而，就业签证竞争激烈，移民流程也较为复杂。
+
+### 主要就业签证种类
+
+**H-1B（专业工作签证）**
+美国最常见的就业签证，适用于需要本科以上学历的专业岗位。
+- 每年4月抽签（65,000个名额 + 美国硕士持有者20,000个名额）
+- 有效期：3年（最长6年，等待就业类绿卡期间可延期）
+- 申请费用：USD 730～4,730（由雇主承担）
+
+**L-1（跨国公司内部调任签证）**
+面向从美国企业的海外关联公司调任的管理人员和专业技术人员。
+- L-1A（管理人员/高管）：最长7年
+- L-1B（专业知识人员）：最长5年
+
+**O-1（杰出能力签证）**
+面向在科学、艺术、教育、商业或体育领域拥有卓越成就的人士，无需抽签。
+
+**EB-1/EB-2/EB-3（就业类绿卡）**
+永久居留权的就业类别。EB-2 NIW（国家利益豁免）在研究人员和专业人士中颇受欢迎，整体流程可能历时数年乃至十余年。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| H-1B申请费（雇主） | USD 730～4,730 |
+| 绿卡申请费 | USD 1,225起 |
+| O-1申请费 | USD 460起 |
+
+### 移居前注意事项
+
+1. **H-1B抽签风险**：每年竞争比例高达3～5倍以上，可能需要多次尝试
+2. **税务复杂性**：联邦税+州税+地方税多层结构，各州税率差异显著
+3. **医疗保险**：通常由雇主提供，失业时个人保险费用高昂
+
+美国收入潜力高，但税负、医疗费和住房成本同样不低，建议在MoveWorth中进行充分模拟后再做决定。`,
     },
   },
   {
@@ -2107,6 +2467,44 @@ Required for those employed by Canadian companies. LMIA may or may not be requir
 3. **Taxes**: Federal + provincial two-tier tax system; Quebec has its own tax structure
 
 Canada is known for its transparent immigration system and suits those planning long-term settlement.`,
+      zh: `加拿大移民政策积极开放，以相对便捷的永久居留路径和高水平的生活质量吸引全球移民。
+
+### 主要移民途径
+
+**快速通道（Express Entry）**
+面向技术型外籍劳工的联邦移民管理系统，涵盖3个项目：
+- 联邦技术工人计划（FSW）：根据学历、工作经验、语言能力等计算CRS综合排名分数
+- 加拿大经验类（CEC）：须具备加拿大境内工作经验
+- 联邦技工类（Federal Skilled Trades）：面向特定技能职业
+CRS分数越高，越早收到邀请函
+
+**省提名计划（PNP）**
+各省及领地依据自身标准提名移民，与快速通道结合可为CRS额外加600分。
+
+**创业签证（Start-Up Visa）**
+面向获得加拿大认可孵化器、风险投资机构或天使投资人支持的创业者，直接获得永久居留权。
+
+**打工度假（IEC）**
+面向18～35岁的日本人，年度名额最多6,500人（2024年度），可在加拿大工作并居留1年。申请费用：CAD 161。
+
+**工作许可证**
+受雇于加拿大企业时需要，部分情况需LMIA（劳动力市场影响评估），部分情况可豁免。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 快速通道（PR）申请费 | CAD 1,365（本人） |
+| 打工度假（IEC）申请费 | CAD 161 |
+| 工作许可证申请费 | CAD 155 |
+
+### 移居前注意事项
+
+1. **CRS分数**：英语（IELTS）成绩对CRS分数影响重大
+2. **省份选择**：各省生活成本和就业市场差异显著（温哥华与草原省份等）
+3. **税务**：联邦税+省税两级制度，魁北克省有独立税制
+
+加拿大移民制度透明度高，适合以定居为目标进行长期规划的人士。`,
     },
   },
   {
@@ -2205,6 +2603,44 @@ Permanent residency after 5+ years of lawful residence. Requires passing the Lif
 3. **English language proof**: IELTS score of B1 or above required
 
 The UK is an attractive European base, but housing costs, the cost of living, and visa fees must be carefully evaluated together.`,
+      zh: `英国在2021年脱欧后推出新的积分制移民制度，对包括欧盟国家在内的所有外籍人士统一适用。
+
+### 主要签证种类
+
+**技术工人签证（Skilled Worker Visa）**
+英国主要就业签证，需获得持牌雇主的担保证书（CoS）。
+- 要求：持牌雇主担保 + 英语能力（B1级以上）+ 最低薪资门槛
+- 最低年薪：GBP 38,700或职业最低工资标准（取较高者，2024年修订）
+- 有效期：最长5年
+- 申请费用：GBP 610～1,235（因居留期限和申请地点而异）
+
+**全球人才签证（Global Talent Visa）**
+面向科学、人文、工程、艺术和数字技术领域的顶尖人才，无需雇主担保，需获得指定机构（如英国皇家工程院）的认可。
+
+**青年交流计划（打工度假）**
+面向18～30岁日本人（2023年起上限提高至30岁），可在英国工作并居留2年，日本人年度名额6,000人。申请费用：GBP 259。
+
+**英国创业创新签证**
+面向在英创办创新型企业的创业者，需获得认可机构认可并备有GBP 50,000的投资资金。
+
+**无限期居留权（ILR）**
+合法居留5年以上后可申请，需通过英国生活测试。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 技术工人签证（海外申请） | GBP 610～1,235 |
+| 青年交流计划 | GBP 259 |
+| 移民医疗附加费（IHS）/年 | GBP 1,035 |
+
+### 移居前注意事项
+
+1. **IHS（移民医疗附加费）**：申请时须一次性预付全部费用（现为GBP 1,035/年）
+2. **生活成本高企**：伦敦是全球物价最高的城市之一，住房成本尤需注意
+3. **英语能力证明**：需要IELTS B1级以上成绩
+
+英国是进军欧洲市场的理想据点，但住房成本、生活费和签证费用须综合评估。`,
     },
   },
   {
@@ -2295,6 +2731,42 @@ New points-based system introduced in 2024 for those wanting to seek work in Ger
 3. **Social insurance**: Combined health, pension, unemployment, and care insurance is approximately 20% of salary
 
 Germany's 2023 immigration reform has made it easier for non-EU nationals to relocate, making it an ideal destination for those pursuing careers in technical and engineering fields.`,
+      zh: `德国是欧盟最大经济体，制造业、IT和工程领域对外籍专业人才的需求旺盛。2023年移民法改革为第三国公民打开了更多渠道。
+
+### 主要签证种类
+
+**欧盟蓝卡（EU Blue Card）**
+面向高素质人才的欧盟统一就业居留许可，在德国尤为普及。
+- 要求：大学学历 + 雇用合同 + 最低年薪EUR 43,992（2024年）；IT等紧缺职业为EUR 39,682
+- 有效期：4年（或合同期限+3个月）
+- 持卡2年（具备德语B1水平则21个月）后可申请永久居留权
+
+**技术工人签证（Fachkräftevisum）**
+面向职业培训或资质认证人员（2023年法改革扩大适用范围），需有认可资质和雇用合同。
+
+**求职签证（Job-Seeker Visa）**
+在德国求职用的6个月签证，需具备大学学历和生活费证明。
+
+**自由职业签证（Freiberufler Visa）**
+适用于艺术、语言、科学、技术或医疗领域的自由职业者。
+
+**机会卡（Chancenkarte）**
+2024年推出的新积分制度（学历、语言、工作经验、年龄、与德国的关联性评分），可获得以求职为目的的居留许可。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 签证申请费（驻日德国大使馆） | EUR 75 |
+| 居留许可续签费 | EUR 100起 |
+
+### 移居前注意事项
+
+1. **德语能力**：德语（B1级以上）在求职和申请永久居留方面具有重要优势
+2. **资质认定**：海外取得的学历和资质需在anabin数据库确认认定状态
+3. **社会保险**：医疗、养老、失业、护理保险合计约占薪资的20%
+
+德国2023年移民法改革使第三国公民移居德国比以往更为便利，尤其适合有意发展技术和工程领域职业的人士。`,
     },
   },
   {
@@ -2385,6 +2857,41 @@ Simplified work visa procedure for foreign nationals employed by startups on the
 3. **Housing challenges**: Paris rental market is competitive; guarantor requirements can be strict for foreigners
 
 France is well-suited for those pursuing careers in startups, arts, or research. Whether you qualify for the Talent Passport is a key consideration.`,
+      zh: `法国不仅以时尚、美食和艺术闻名，其蓬勃发展的创业生态（Station F）和IT产业也在积极吸引外籍人才。
+
+### 主要签证种类
+
+**人才护照（Passeport Talent）**
+法国面向高技能人才和创业者的优惠签证，设有多个类别：
+- 研究人员及高技能专业人士：雇用合同或研究协议 + 本科以上学历
+- 企业高管及专业人员：年薪EUR 35,000以上
+- 创业者：在法国创办具有经济或社会价值的事业
+- 创新型企业员工：受雇于La French Tech认可初创企业等
+- 有效期：最长4年（可携带家属）
+
+**长期签证附居留许可（Visa de long séjour valant titre de séjour）**
+一般就业签证，需事先取得劳动局批准，由雇主协助申请。
+
+**打工度假签证（PVT）**
+面向18～30岁日本人，可在法国工作并居留1年。申请费用：约EUR 100。
+
+**法国科技签证（La French Tech Visa）**
+为受雇于La French Tech合作伙伴名单中初创企业的外籍人士提供简化就业签证流程。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 长期签证申请费 | EUR 99 |
+| 打工度假（PVT） | 约EUR 100 |
+
+### 移居前注意事项
+
+1. **法语能力**：巴黎以外地区英语使用率较低，日常生活需要法语
+2. **社会保险费高**：雇主负担的社会保险约占薪资的23%，实际到手收入因国而异
+3. **租房难题**：巴黎租房市场竞争激烈，担保人要求对外国人可能较为严苛
+
+法国适合有意在初创企业、艺术或研究领域发展职业的人士，是否符合人才护照申请条件是关键。`,
     },
   },
   {
@@ -2491,6 +2998,50 @@ A unique Dutch tax incentive for qualifying foreign workers. Up to 30% of salary
 3. **Cycling culture**: Bicycles are the primary transport mode, which also helps reduce living costs
 
 The Netherlands is one of the few European countries where you can work primarily in English. It suits those pursuing careers in IT, finance, or logistics. The 30% ruling tax incentive is an additional draw.`,
+      zh: `荷兰以阿姆斯特丹为中心，汇聚了众多跨国企业的欧洲总部，英语环境令外国人向往。
+
+### 主要签证类型
+
+**高技能移民签证（Highly Skilled Migrant Visa：HSM）**
+荷兰使用最广泛的工作签证，需要获得IND（荷兰移民局）认可的雇主担保。
+- 最低月薪要求（2024年）：
+  - 30岁及以上：EUR 5,331/月
+  - 30岁以下：EUR 3,909/月
+  - 大学毕业后1年内：EUR 2,801/月
+- 有效期：最长3年（可续签）
+
+**欧盟蓝卡（荷兰版）**
+作为HSM的替代方案，2024年最低年薪EUR 73,071。
+
+**创业签证**
+面向创立创新型企业的创业者，1年居留许可后可转为自雇签证。
+
+**打工度假**
+荷兰与日本没有打工度假协议，日本人不适用。
+
+**定向年签证（Orientation Year Visa）**
+面向欧盟/欧洲经济区或荷兰大学毕业生的1年期求职签证。
+
+### 30%税收优惠制度（30% Ruling）
+
+荷兰独特的外籍员工优惠税制：符合条件的外籍劳动者可将薪资的30%作为免税津贴领取（最长5年）。
+- 对象：从海外引进的稀缺技能人才
+- 最低薪资条件（2024年）：EUR 46,107以上
+
+### 费用概览
+
+| 项目 | 费用 |
+|------|------|
+| HSM签证申请费（IND） | EUR 345 |
+| 创业签证申请费 | EUR 345 |
+
+### 移居前注意事项
+
+1. **住房紧张**：阿姆斯特丹租房市场供需失衡，寻找合适住所颇具挑战
+2. **30%税收优惠的变化**：制度每年都会调整，请确认最新要求
+3. **自行车文化**：通勤和出行以自行车为主，有助于节省生活费用
+
+荷兰是少数几个可以主要用英语工作的欧洲国家，非常适合希望在IT、金融或物流领域发展职业的人士，30%税收优惠制度带来的节税效果也是一大吸引力。`,
     },
   },
   {
@@ -2585,6 +3136,44 @@ Switzerland sets annual quotas for workers from outside the EU/EFTA: 8,500 L per
 3. **Language**: German, French, or Italian depending on region — learning the local language is important
 
 Switzerland's high salaries are attractive, but its cost of living is also exceptionally high. Detailed simulation in MoveWorth is especially important for this destination.`,
+      zh: `瑞士拥有世界一流的薪资水平和生活质量，在金融、制药、钟表和科技产业，外籍专业人才大显身手。
+
+### 瑞士就业许可制度
+
+瑞士通过「居留许可证（Permit）」而非传统签证来管理工作资格。欧盟/欧洲自由贸易联盟公民与第三国公民（包括日本人）的待遇差异显著。
+
+**L居留许可（短期居留许可）**
+用于1年以内的就业和居住，对第三国公民设有严格的年度配额限制。
+
+**B居留许可（居留许可）**
+适用于1年以上的就业。持有B许可5年后可申请C许可（永久居留权）。
+
+**C居留许可（永久居留权）**
+居住10年以上（欧盟公民为5年）后可申请。申请条件包括掌握瑞士语言（德语、法语或意大利语）。
+
+**第三国公民配额**
+瑞士对来自欧盟/欧洲自由贸易联盟以外国家的就业人员设置年度配额：第三国公民可获L许可8,500个、B许可4,500个（2024年）。高技能专业人才通常在配额内处理。
+
+### 主要申请要求
+
+- 与瑞士雇主签订劳动合同
+- 证明具备瑞士国内难以替代的专业技能
+- 由就业所在州（Canton）审查批准
+
+### 费用概览
+
+| 项目 | 费用 |
+|------|------|
+| B居留许可申请费（因州而异） | CHF 65起 |
+| 瑞士大使馆签证申请费（在日本） | CHF 80起 |
+
+### 移居前注意事项
+
+1. **高生活成本**：瑞士是全球生活费用最高的国家之一，薪资虽高，但房租、食品和医疗保险费用同样高昂
+2. **强制医疗保险（KVG/LAMal）**：瑞士居民必须强制参加私人医疗保险，每月约CHF 300〜700
+3. **语言问题**：不同地区使用德语、法语或意大利语，学习当地语言至关重要
+
+瑞士高薪固然诱人，但生活成本同样异常高昂，特别需要在MoveWorth上进行详细的财务模拟。`,
     },
   },
   {
@@ -2691,6 +3280,50 @@ Points awarded for age, English proficiency (IELTS), education, work experience,
 3. **Regional work advantage**: Regional work can add points and enable Working Holiday extensions
 
 Australia's clear pathway to PR makes it popular with those seeking English-speaking country relocation.`,
+      zh: `澳大利亚采用积分制移民体系，凭借英语能力、工作经验和学历可获得永久居留权（PR），是海外移居的热门目的地。
+
+### 主要签证类型
+
+**482签证（临时技术短缺签证）**
+雇主担保型工作签证，分两个流向：
+- 中期流向（MLTSSL职业）：最长4年，可申请PR
+- 短期流向（STSOL职业）：最长2年
+- 申请费用：AUD 3,115起
+
+**189签证（独立技术移民签证）**
+无需雇主或州担保的永久居留签证，通过SkillSelect提交意向表（EOI），需65分以上。
+- 申请费用：AUD 4,640起
+
+**190签证（州提名技术移民签证）**
+需要州/准州政府提名的永久居留签证，竞争可能低于189签证。
+- 申请费用：AUD 4,640起
+
+**491签证（技术工作地区签证）**
+需在地区澳大利亚就业和居住的5年临时签证，3年后可转为191签证（永久居留）。
+
+**打工度假签证（Subclass 417）**
+面向18〜30岁（部分至35岁）日本人，可在澳大利亚工作和旅行1年。农业、建设等地区工作可获得第2次、第3次延签。
+- 申请费用：AUD 635
+
+### 积分制度（SkillSelect）
+
+根据年龄、英语水平（IELTS）、学历、工作经验、NAATI证书等综合评分，获得邀请函（ITA）所需的最低分数随每轮申请而变化。
+
+### 费用概览
+
+| 项目 | 费用 |
+|------|------|
+| 482签证申请费 | AUD 3,115起 |
+| 189/190签证申请费 | AUD 4,640起 |
+| 打工度假（417）申请费 | AUD 635 |
+
+### 移居前注意事项
+
+1. **英语能力**：工作签证需达到胜任级别（IELTS平均6.0），PR申请视职业需达到精通级别（平均7.0）
+2. **职业技能清单（SOL）**：必须确认目标职业是否在相关SOL上列出
+3. **地区工作的优势**：地区工作可增加积分，并可延长打工度假签证
+
+澳大利亚通往PR的道路相对清晰，是希望移居英语国家人士的热门选择。`,
     },
   },
   {
@@ -2789,6 +3422,46 @@ Pathway to PR through investment (NZD 3,000,000–15,000,000 depending on catego
 3. **Housing costs**: Auckland housing prices and rents have surged in recent years
 
 New Zealand has a smaller immigrant population than Australia, and certain Green List occupations offer a relatively smooth path to permanent residency.`,
+      zh: `新西兰拥有壮丽的自然风光和高品质的生活，是与澳大利亚并列的热门大洋洲移居目的地。2022年移民制度进行了重大改革。
+
+### 主要签证类型
+
+**认证雇主工作签证（AEWV）**
+2022年7月推出的新西兰主要工作签证，需要获得认证雇主的工作邀请。
+- 要求：获得ImmNZ认证雇主的录用邀请 + 满足最低工资标准
+- 有效期：最长5年
+- 申请费用：NZD 750起
+
+**技术移民签证（Skilled Migrant Category：SMC）**
+积分制永久居留签证，根据职业、就业状况、资历和英语能力等综合评分。
+- 需160分以上方可申请
+- 申请费用：NZD 4,190起
+
+**绿色清单签证（Green List Visa）**
+2022年推出，面向特定紧缺技能职业。第一层级职业可直接申请PR，第二层级可在工作2年后申请PR。
+
+**打工度假签证**
+面向18〜30岁（部分至35岁）日本人，可在新西兰工作和居住1年。
+- 申请费用：NZD 315
+
+**投资者签证**
+通过一定金额投资（视类别为NZD 3,000,000〜15,000,000）获得永久居留权。
+
+### 费用概览
+
+| 项目 | 费用 |
+|------|------|
+| AEWV申请费 | NZD 750起 |
+| SMC申请费 | NZD 4,190起 |
+| 打工度假签证申请费 | NZD 315 |
+
+### 移居前注意事项
+
+1. **英语能力**：工作签证和永久居留签证均有英语能力要求（IELTS、PTE等）
+2. **确认绿色清单**：确认自身职业是否属于绿色清单（第一层级/第二层级）
+3. **住房成本**：奥克兰的住房价格和租金近年来大幅上涨
+
+与澳大利亚相比，新西兰移民规模较小，某些绿色清单职业可相对顺利地获得永久居留权。`,
     },
   },
   {
@@ -2897,6 +3570,51 @@ Introduced by Dubai in 2021 for remote workers earning USD 5,000+/month. 1 year 
 3. **Cultural norms**: Islamic culture means restrictions such as no public drinking
 
 The UAE offers a unique combination of zero income tax and high living standards. Use MoveWorth to calculate the tax advantage against your cost of living.`,
+      zh: `阿联酋以零个人所得税吸引着金融、IT和商业领域的外籍专业人才。以迪拜为中心，汇聚了来自世界各地的顶尖人才，是真正的全球枢纽。
+
+### 主要签证类型
+
+**黄金签证（10年居留签证）**
+面向高技能专业人才、投资者、创业者和优秀学生的长期居留签证。
+- 投资者：在阿联酋房产投资AED 2,000,000以上
+- 创业者：获得阿联酋当局认可的创新型商业项目
+- 高技能专业人才：特定战略性职业（医生、工程师、IT专家等），月薪AED 30,000以上
+- 优秀学生/研究人员：GPA 3.75以上或证明学术卓越性
+- 申请费用：AED 2,800起
+
+**就业签证（Employment Visa）**
+受雇于阿联酋企业的标准签证，雇主作为担保人同时申请劳动许可和签证。
+- 有效期：2〜3年（可续签）
+- 申请费用：约AED 1,200〜1,600（通常由雇主承担）
+
+**自由职业签证（Freelance Visa）**
+面向自由职业者和个体经营者，由迪拜媒体城等自由区提供。
+- 申请费用：约AED 7,500〜15,000（视自由区而定）
+
+**退休签证**
+55岁以上且满足以下任一条件：
+- 月养老金收入AED 20,000以上
+- 持有价值AED 2,000,000以上的阿联酋房产
+- 储蓄AED 1,000,000以上
+
+**数字游民签证（Virtual Working Programme）**
+迪拜于2021年推出，面向月收入USD 5,000以上的远程工作者，有效期1年（可续签）。
+
+### 费用概览
+
+| 项目 | 费用 |
+|------|------|
+| 黄金签证申请费 | AED 2,800起 |
+| 就业签证（有时由雇主承担） | AED 1,200〜1,600 |
+| 数字游民签证 | USD 287起（手续费） |
+
+### 移居前注意事项
+
+1. **零所得税的优惠**：无个人所得税意味着高收入专业人士的税后收入大幅增加。注意：2023年起征收9%企业所得税
+2. **高生活成本**：迪拜的房租、教育和餐饮费用较高——请通过MoveWorth平衡节税效果与生活成本
+3. **文化规范**：伊斯兰文化国家，禁止在公共场所饮酒等规定需要注意
+
+阿联酋集零所得税和高生活水准于一体，是独特的移居目的地。请使用MoveWorth计算节税优势与生活成本之间的平衡。`,
     },
   },
   {
@@ -3001,6 +3719,49 @@ Introduced in 2023. Graduates of top-100 world-ranked universities can stay in J
 3. **Japanese language ability**: Not required for work visas, but significantly impacts daily life and career advancement
 
 Japan offers a high standard of living and safety in Asia, but tax burden, aging population challenges, and language barriers are important factors to consider.`,
+      zh: `日本因少子老龄化导致人力短缺，正积极推进接受外籍高技能人才。2023年还推出了「特别高技能人才制度（J-Skip）」和「未来创造人才制度（J-Find）」等新项目。
+
+### 主要就业签证类型
+
+**高度专业人才签证（积分制）**
+日本面向高技能外籍人才的优惠签证，综合年收入、学历、工作经验、日语能力等积分评审（需70分以上）。
+- 高度专业职业1号甲（学术研究）
+- 高度专业职业1号乙（技术·人文知识）
+- 高度专业职业1号丙（经营·管理）
+- 5年后可申请永久居留权（高度专业职业2号）（70分以上可缩短至3年，80分以上可缩短至1年）
+
+**技术·人文知识·国际业务（技人国）**
+日本发放量最多的工作签证，需要大学学历或同等实务经验，常见于IT、外资企业和语言教学等领域。
+
+**经营·管理**
+面向在日本经营或管理企业的外国人，需满足设立办公室、雇用员工等要求。
+
+**特定技能1号·2号**
+面向从事人力短缺行业（护理、建设、农业等）的外籍劳动者，需通过技能评估考试。
+
+**J-Skip（特别高技能人才制度）**
+2023年推出，满足以下任一条件可即时获得高度专业人才签证：
+- 年收入2,000万日元以上
+- 毕业于世界大学排名前300名的大学 + 年收入1,000万日元以上
+
+**J-Find（未来创造人才制度）**
+2023年推出，毕业于世界大学排名前100名的大学生可在毕业后2年内以求职或创业为目的在日本居住最长2年。
+
+### 费用概览
+
+| 项目 | 费用 |
+|------|------|
+| 在留资格认定证明书（COE）申请费 | 免费 |
+| 签证申请费（日本大使馆） | 因国籍和签证种类而异（约¥3,000〜¥6,000） |
+| 在留卡发行费 | 免费 |
+
+### 移居前注意事项
+
+1. **永久居留权要求**：原则上需在日居住10年以上（高技能人才可据积分缩短），品行良好，能够自给自足
+2. **税负**：日本所得税加社会保险费合计约30%，请通过MoveWorth模拟确认
+3. **日语能力**：工作签证不强制要求，但日语能力对日常生活和职业发展影响重大
+
+日本在亚洲拥有较高的生活水准和安全性，但税负、老龄化挑战和语言障碍是移居时需要充分考量的因素。`,
     },
   },
 ];
