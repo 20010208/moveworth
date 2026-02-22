@@ -49,10 +49,6 @@ export function saveHistory(
       ? MAX_ENTRIES_PRO
       : MAX_ENTRIES_FREE;
 
-  if (history.length >= maxEntries) {
-    return null;
-  }
-
   const entry: SimulationHistoryEntry = {
     id: crypto.randomUUID(),
     date: new Date().toISOString(),
