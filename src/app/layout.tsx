@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     url: "https://moveworth-alpha.vercel.app",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "MoveWorth - 海外移住 資産シミュレーター",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MoveWorth - 海外移住 資産シミュレーター",
     description: "海外移住したら資産はどうなる？20カ国以上を無料で比較シミュレーション。",
-    images: ["/og-image.png"],
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,
