@@ -79,6 +79,18 @@ export default function Home() {
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-primary/3 to-accent/3 rounded-full blur-3xl" />
+          {/* Globe video */}
+          <div className="absolute right-[-60px] top-1/2 -translate-y-1/2 w-[480px] h-[480px] hidden lg:block opacity-25">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover rounded-full"
+            >
+              <source src="/globe.mp4" type="video/mp4" />
+            </video>
+          </div>
         </div>
 
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
