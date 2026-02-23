@@ -289,7 +289,7 @@ export default function Home() {
             href="/simulate"
             className="group inline-flex items-center gap-2 bg-white text-primary px-8 py-3.5 rounded-2xl font-semibold text-lg hover:bg-indigo-50 transition-all shadow-xl"
           >
-            {t("cta.button")}
+            {isPaid ? t("hero.ctaPaid") : t("cta.button")}
             <ArrowRight className="h-5 w-5 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
