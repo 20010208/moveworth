@@ -18,6 +18,215 @@ export const blogCategories = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "moveworth-plan-guide-2026",
+    category: "about",
+    date: "2026-02-23",
+    readingTime: 5,
+    title: {
+      ja: "Free・Pro・Premium徹底比較｜あなたに合うMoveWorthプランはどれ？",
+      en: "Free vs Pro vs Premium: Which MoveWorth Plan Is Right for You?",
+      zh: "免费版・专业版・高级版全面对比｜哪个MoveWorth套餐最适合你？",
+    },
+    description: {
+      ja: "MoveWorthの各プランで使える機能を徹底解説。無料から始めて、必要な機能に合わせてアップグレードしましょう。",
+      en: "A complete breakdown of every feature across MoveWorth plans. Start free and upgrade when you need more.",
+      zh: "全面解析MoveWorth各套餐功能。从免费版开始，按需升级。",
+    },
+    content: {
+      ja: `MoveWorthは**Free・Pro・Premium**の3つのプランを提供しています。この記事では、各プランで使える機能をわかりやすく解説します。
+
+### Freeプラン（$0 / 無料）
+
+まずは無料で試せる基本機能です。登録するだけですぐに使い始められます。
+
+- **基本シミュレーション**: 現在地と移住先の資産推移を最大30年間シミュレーション
+- **2カ国比較**: 現在の国と移住先の1カ国を並べて比較
+- **資産推移チャート**: 折れ線グラフで将来の資産を視覚化
+- **最大3件のシミュレーション保存**: ログイン後、過去の結果を保存・再確認
+
+**こんな人におすすめ**: 「まず移住の財務的なイメージをつかみたい」という方に最適です。
+
+---
+
+### Proプラン（$5 / 月）
+
+より深く分析したい方向けのプランです。Freeの全機能に加えて以下が使えます。
+
+- **モンテカルロシミュレーション**: 1,000回の試行で資産推移の確率分布を算出。リスクを数値で把握できます
+- **FIRE達成年齢計算**: 現在地と移住先で、経済的自立（FIRE）を達成できる年齢を比較。4%ルールに基づく目標資産額も自動計算
+- **感度分析**: 年収・生活費・インフレ率などのパラメータが資産にどれだけ影響するかをトルネードチャートで表示
+- **最大30件のシミュレーション保存**: さまざまなシナリオを保存して比較検討
+
+**こんな人におすすめ**: 「移住のリスクとリターンを数字で理解したい」「FIREを目指している」方に。
+
+---
+
+### Premiumプラン（$15 / 月）
+
+移住を本気で検討している方のための最上位プランです。Proの全機能に加えて以下が使えます。
+
+- **月2回のAIレポート**: シミュレーション結果をAIが分析し、あなたの移住プランに最適化されたパーソナライズドPDFレポートを生成
+- **最大4カ国の多国間比較**: 複数の移住候補国を同時に比較できます
+- **最大100件の保存**: 長期間にわたる多様なシナリオを管理
+- **優先サポート**: 問題が発生した際に優先的に対応
+
+**こんな人におすすめ**: 「複数の候補国を絞り込みたい」「専門的なアドバイスをもとに意思決定したい」方に。
+
+---
+
+### プラン比較表
+
+| 機能 | Free | Pro | Premium |
+|------|:----:|:---:|:-------:|
+| 基本シミュレーション | ✓ | ✓ | ✓ |
+| 2カ国比較 | ✓ | ✓ | ✓ |
+| 資産推移チャート | ✓ | ✓ | ✓ |
+| シミュレーション保存 | 3件 | 30件 | 100件 |
+| モンテカルロシミュレーション | - | ✓ | ✓ |
+| FIRE達成年齢計算 | - | ✓ | ✓ |
+| 感度分析 | - | ✓ | ✓ |
+| 多国間比較（最大4カ国） | - | - | ✓ |
+| AIレポート（月2回） | - | - | ✓ |
+| 優先サポート | - | - | ✓ |
+
+---
+
+### まずは無料で始めましょう
+
+どのプランが合うかわからない場合は、まずFreeプランで実際にシミュレーションしてみてください。使いながら「もっと詳しく分析したい」と感じたタイミングでアップグレードするのがおすすめです。
+
+シミュレーションページはこちら：[無料でシミュレーションを試す](/simulate)`,
+
+      en: `MoveWorth offers three plans: **Free, Pro, and Premium**. Here's a complete breakdown of what you get with each.
+
+### Free Plan ($0 / Forever Free)
+
+Get started instantly — no credit card required.
+
+- **Basic Simulation**: Project asset trajectories up to 30 years for your current and destination country
+- **2-Country Comparison**: Compare your current location with one destination side by side
+- **Asset Chart**: Visualize your financial future with line charts
+- **Save up to 3 simulations**: Revisit and compare your past results after logging in
+
+**Best for**: Anyone who wants to get a financial picture of what relocation might look like.
+
+---
+
+### Pro Plan ($5 / month)
+
+For those who want deeper analysis. Includes everything in Free, plus:
+
+- **Monte Carlo Simulation**: Run 1,000 scenarios to understand the probability distribution of your assets. Know your risk in numbers
+- **FIRE Age Calculator**: Compare the age at which you can achieve financial independence (FIRE) in your current country vs. your destination. Based on the 4% rule
+- **Sensitivity Analysis**: See how income, living costs, inflation, and other parameters affect your wealth via tornado charts
+- **Save up to 30 simulations**: Store and compare multiple scenarios
+
+**Best for**: Those who want to understand relocation risk and return quantitatively, or anyone pursuing FIRE.
+
+---
+
+### Premium Plan ($15 / month)
+
+For serious relocation planning. Includes everything in Pro, plus:
+
+- **AI Reports (2x/month)**: AI analyzes your simulation and generates a personalized PDF report with tailored advice for your relocation plan
+- **Multi-country comparison (up to 4)**: Compare multiple destination candidates simultaneously
+- **Save up to 100 simulations**: Manage long-term, multi-scenario planning
+- **Priority support**: Get faster responses when you need help
+
+**Best for**: Those narrowing down multiple destination countries, or anyone who wants data-driven, expert-level guidance.
+
+---
+
+### Plan Comparison
+
+| Feature | Free | Pro | Premium |
+|---------|:----:|:---:|:-------:|
+| Basic Simulation | ✓ | ✓ | ✓ |
+| 2-Country Comparison | ✓ | ✓ | ✓ |
+| Asset Chart | ✓ | ✓ | ✓ |
+| Saved Simulations | 3 | 30 | 100 |
+| Monte Carlo Simulation | - | ✓ | ✓ |
+| FIRE Age Calculator | - | ✓ | ✓ |
+| Sensitivity Analysis | - | ✓ | ✓ |
+| Multi-country (up to 4) | - | - | ✓ |
+| AI Reports (2x/month) | - | - | ✓ |
+| Priority Support | - | - | ✓ |
+
+---
+
+### Start Free Today
+
+Not sure which plan is right for you? Start with the Free plan and upgrade when you're ready. There's no risk — you can simulate your financial future right now.
+
+Try the simulator: [Start Free Simulation](/simulate)`,
+
+      zh: `MoveWorth提供**免费版、专业版和高级版**三个套餐。本文将详细介绍各套餐的功能。
+
+### 免费版（$0 / 永久免费）
+
+无需信用卡，立即开始使用。
+
+- **基础模拟**：预测当前居住地与目标移居国最长30年的资产变化
+- **双国对比**：将当前居住地与1个目标国家并排比较
+- **资产图表**：用折线图直观呈现财务未来
+- **最多保存3个模拟记录**：登录后可随时查看历史结果
+
+**适合人群**：想初步了解移居财务影响的用户。
+
+---
+
+### 专业版（$5 / 月）
+
+适合需要深度分析的用户。包含免费版全部功能，另增加：
+
+- **蒙特卡洛模拟**：通过1,000次模拟计算资产变化的概率分布，用数字量化风险
+- **FIRE达成年龄计算**：比较在当前国家与目标国家实现财务自由（FIRE）的年龄。基于4%法则自动计算目标资产额
+- **敏感性分析**：通过龙卷风图直观显示收入、生活费、通胀率等参数对资产的影响程度
+- **最多保存30个模拟记录**：存储并比较多种情景
+
+**适合人群**：希望量化移居风险与收益、或正在追求FIRE目标的用户。
+
+---
+
+### 高级版（$15 / 月）
+
+为认真规划移居的用户打造。包含专业版全部功能，另增加：
+
+- **AI报告（每月2次）**：AI分析您的模拟结果，生成个性化PDF报告，提供针对您移居计划的专属建议
+- **多国对比（最多4国）**：同时比较多个候选国
+- **最多保存100个模拟记录**：管理长期多场景规划
+- **优先支持**：遇到问题时享受优先响应服务
+
+**适合人群**：正在筛选多个候选国、或希望获得数据驱动专业指导的用户。
+
+---
+
+### 套餐对比表
+
+| 功能 | 免费版 | 专业版 | 高级版 |
+|------|:-----:|:-----:|:-----:|
+| 基础模拟 | ✓ | ✓ | ✓ |
+| 双国对比 | ✓ | ✓ | ✓ |
+| 资产图表 | ✓ | ✓ | ✓ |
+| 模拟记录保存 | 3个 | 30个 | 100个 |
+| 蒙特卡洛模拟 | - | ✓ | ✓ |
+| FIRE达成年龄计算 | - | ✓ | ✓ |
+| 敏感性分析 | - | ✓ | ✓ |
+| 多国对比（最多4国） | - | - | ✓ |
+| AI报告（每月2次） | - | - | ✓ |
+| 优先支持 | - | - | ✓ |
+
+---
+
+### 立即免费开始
+
+不确定哪个套餐适合您？先从免费版开始，感受够了再升级。现在就可以免费模拟您的财务未来。
+
+前往模拟页面：[免费开始模拟](/simulate)`,
+    },
+  },
+  {
     slug: "overseas-relocation-failure-money",
     category: "money",
     date: "2026-02-20",
