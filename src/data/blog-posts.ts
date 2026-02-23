@@ -93,9 +93,7 @@ export const blogPosts: BlogPost[] = [
 
 ### まずは無料で始めましょう
 
-どのプランが合うかわからない場合は、まずFreeプランで実際にシミュレーションしてみてください。使いながら「もっと詳しく分析したい」と感じたタイミングでアップグレードするのがおすすめです。
-
-[シミュレーションページはこちら](/simulate)`,
+どのプランが合うかわからない場合は、まずFreeプランで実際にシミュレーションしてみてください。使いながら「もっと詳しく分析したい」と感じたタイミングでアップグレードするのがおすすめです。`,
 
       en: `MoveWorth offers three plans: **Free, Pro, and Premium**. Here's a complete breakdown of what you get with each.
 
@@ -157,9 +155,7 @@ For serious relocation planning. Includes everything in Pro, plus:
 
 ### Start Free Today
 
-Not sure which plan is right for you? Start with the Free plan and upgrade when you're ready. There's no risk — you can simulate your financial future right now.
-
-[Try the simulator here](/simulate)`,
+Not sure which plan is right for you? Start with the Free plan and upgrade when you're ready. There's no risk — you can simulate your financial future right now.`,
 
       zh: `MoveWorth提供**免费版、专业版和高级版**三个套餐。本文将详细介绍各套餐的功能。
 
@@ -221,9 +217,7 @@ Not sure which plan is right for you? Start with the Free plan and upgrade when 
 
 ### 立即免费开始
 
-不确定哪个套餐适合您？先从免费版开始，感受够了再升级。现在就可以免费模拟您的财务未来。
-
-[前往模拟页面](/simulate)`,
+不确定哪个套餐适合您？先从免费版开始，感受够了再升级。现在就可以免费模拟您的财务未来。`,
     },
   },
   {
