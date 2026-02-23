@@ -73,53 +73,47 @@ export default function Home() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-blue-50/30 to-slate-50 py-20 sm:py-32">
-        {/* Background decorations */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-primary/3 to-accent/3 rounded-full blur-3xl" />
-          {/* Globe video */}
-          <div className="absolute right-[-60px] top-1/2 -translate-y-1/2 w-[480px] h-[480px] hidden lg:block opacity-25">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover rounded-full"
-            >
-              <source src="/globe.mp4" type="video/mp4" />
-            </video>
-          </div>
-        </div>
+      <section className="relative overflow-hidden py-20 sm:py-32">
+        {/* Video background */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/globe.mp4" type="video/mp4" />
+        </video>
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-950/80 via-blue-950/75 to-slate-950/80" />
 
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 bg-white/80 border border-primary/20 rounded-full px-4 py-1.5 text-sm font-medium text-primary mb-8 shadow-sm">
+          <div className="inline-flex items-center gap-2 bg-white/15 border border-white/20 rounded-full px-4 py-1.5 text-sm font-medium text-white mb-8 shadow-sm backdrop-blur-sm">
             <Sparkles className="h-4 w-4" />
             <span>20+ Countries Supported</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-foreground leading-[1.1] tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white leading-[1.1] tracking-tight">
             {t("hero.title1")}
             <br />
-            <span className="bg-gradient-to-r from-primary via-indigo-500 to-primary bg-clip-text text-transparent animate-gradient">
+            <span className="bg-gradient-to-r from-blue-300 via-indigo-300 to-blue-300 bg-clip-text text-transparent animate-gradient">
               {t("hero.title2")}
             </span>
           </h1>
-          <p className="mt-6 text-lg sm:text-xl text-muted max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-6 text-lg sm:text-xl text-white/75 max-w-2xl mx-auto leading-relaxed">
             {t("hero.description")}
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/simulate"
-              className="group bg-primary text-white px-8 py-3.5 rounded-2xl font-semibold text-lg hover:bg-primary-dark transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 flex items-center gap-2"
+              className="group bg-white text-primary px-8 py-3.5 rounded-2xl font-semibold text-lg hover:bg-indigo-50 transition-all shadow-lg shadow-black/20 hover:shadow-xl flex items-center gap-2"
             >
               {isPaid ? t("hero.ctaPaid") : t("hero.cta")}
               <ArrowRight className="h-5 w-5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
             <a
               href="#how-it-works"
-              className="text-muted font-medium hover:text-foreground transition-colors flex items-center gap-1"
+              className="text-white/70 font-medium hover:text-white transition-colors flex items-center gap-1"
             >
               {t("hero.learnMore")}
               <span className="text-lg">&darr;</span>
@@ -127,17 +121,17 @@ export default function Home() {
           </div>
 
           {/* Trust indicators */}
-          <div className="mt-16 flex flex-wrap items-center justify-center gap-6 text-sm text-muted">
+          <div className="mt-16 flex flex-wrap items-center justify-center gap-6 text-sm text-white/60">
             <div className="flex items-center gap-1.5">
               <MapPin className="h-4 w-4 text-accent" />
               <span>20+ Countries</span>
             </div>
-            <div className="w-1 h-1 bg-border rounded-full" />
+            <div className="w-1 h-1 bg-white/30 rounded-full" />
             <div className="flex items-center gap-1.5">
               <Shield className="h-4 w-4 text-accent" />
               <span>Data-Driven</span>
             </div>
-            <div className="w-1 h-1 bg-border rounded-full" />
+            <div className="w-1 h-1 bg-white/30 rounded-full" />
             <div className="flex items-center gap-1.5">
               <Zap className="h-4 w-4 text-accent" />
               <span>Instant Results</span>
