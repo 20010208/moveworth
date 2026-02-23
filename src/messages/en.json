@@ -374,6 +374,9 @@
     "share": "Share",
     "ctaTitle": "Ready to simulate your relocation plan?",
     "ctaDescription": "Try MoveWorth's free simulator to see your post-relocation asset trajectory.",
-    "ctaButton": "Try Free Simulation"
+    "ctaButton": "Try Free Simulation",
+    "ctaTitlePaid": "Ready to run another simulation?",
+    "ctaDescriptionPaid": "Use MoveWorth's simulator for deeper analysis of your relocation plan.",
+    "ctaButtonPaid": "Start Simulation"
   }
 }

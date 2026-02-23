@@ -374,6 +374,9 @@
     "share": "シェア",
     "ctaTitle": "あなたの移住プランをシミュレーションしてみませんか？",
     "ctaDescription": "MoveWorthの無料シミュレーターで、海外移住後の資産推移を今すぐ確認。",
-    "ctaButton": "無料シミュレーションを試す"
+    "ctaButton": "無料シミュレーションを試す",
+    "ctaTitlePaid": "シミュレーションを続けますか？",
+    "ctaDescriptionPaid": "MoveWorthのシミュレーターで、より詳細な分析をお試しください。",
+    "ctaButtonPaid": "シミュレーションを開始"
   }
 }

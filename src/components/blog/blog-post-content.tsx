@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { ArrowLeft, Clock, Tag, Share2 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
+import { useAuth } from "@/lib/auth";
 import { getBlogPost, blogCategories } from "@/data/blog-posts";
 
 export function BlogPostContent({ slug }: { slug: string }) {
   const { t, locale } = useTranslation();
+  const { user } = useAuth();
+  const isPaid = user?.plan === "pro" || user?.plan === "premium";
   const lang = locale as "en" | "ja" | "zh";
   const post = getBlogPost(slug);
   const getLabel = (obj: { ja: string; en: string; zh?: string }) =>
@@ -276,16 +279,16 @@ export function BlogPostContent({ slug }: { slug: string }) {
 
         <div className="mt-10 bg-gradient-to-r from-primary/5 to-indigo-500/5 border border-primary/20 rounded-2xl p-6 text-center">
           <h3 className="text-lg font-bold text-foreground mb-2">
-            {t("blog.ctaTitle")}
+            {isPaid ? t("blog.ctaTitlePaid") : t("blog.ctaTitle")}
           </h3>
           <p className="text-sm text-muted mb-4">
-            {t("blog.ctaDescription")}
+            {isPaid ? t("blog.ctaDescriptionPaid") : t("blog.ctaDescription")}
           </p>
           <Link
             href="/simulate"
             className="inline-block bg-primary text-white px-6 py-2.5 rounded-xl font-semibold text-sm hover:bg-primary-dark transition-all shadow-md shadow-primary/20"
           >
-            {t("blog.ctaButton")}
+            {isPaid ? t("blog.ctaButtonPaid") : t("blog.ctaButton")}
           </Link>
         </div>
       </article>

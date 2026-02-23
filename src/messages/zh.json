@@ -374,6 +374,9 @@
     "share": "分享",
     "ctaTitle": "准备好模拟您的移居计划了吗？",
     "ctaDescription": "使用MoveWorth的免费模拟器，立即查看移居后的资产变化趋势。",
-    "ctaButton": "免费开始模拟"
+    "ctaButton": "免费开始模拟",
+    "ctaTitlePaid": "继续进行模拟？",
+    "ctaDescriptionPaid": "使用MoveWorth的模拟器，对您的移居计划进行更深入的分析。",
+    "ctaButtonPaid": "开始模拟"
   }
 }
