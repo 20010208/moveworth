@@ -104,10 +104,9 @@ export default function SimulatePage() {
 
   return (
     <div className="bg-surface min-h-screen relative">
-      {/* Left sidebar ad - visible on 2xl+ screens */}
-      <SidebarAd side="left" slot="LEFT_AD_SLOT" />
-      {/* Right sidebar ad - visible on 2xl+ screens */}
-      <SidebarAd side="right" slot="RIGHT_AD_SLOT" />
+      {/* Sidebar ads - hidden until AdSense approved */}
+      {/* <SidebarAd side="left" slot="LEFT_AD_SLOT" /> */}
+      {/* <SidebarAd side="right" slot="RIGHT_AD_SLOT" /> */}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
