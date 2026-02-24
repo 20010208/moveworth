@@ -48,6 +48,25 @@ export async function POST(req: NextRequest) {
     }
   }
 
+  if (event.type === "customer.subscription.updated") {
+    const subscription = event.data.object as Stripe.Subscription;
+    const customerId = subscription.customer as string;
+    const priceId = subscription.items.data[0]?.price.id;
+
+    const proPriceId = process.env.STRIPE_PRO_PRICE_ID;
+    const premiumPriceId = process.env.STRIPE_PREMIUM_PRICE_ID;
+    const newPlan = priceId === premiumPriceId ? "premium" : priceId === proPriceId ? "pro" : null;
+
+    if (newPlan) {
+      const customer = await stripe.customers.retrieve(customerId);
+      if (!customer.deleted && customer.metadata?.userId) {
+        await supabase.auth.admin.updateUserById(customer.metadata.userId, {
+          user_metadata: { plan: newPlan },
+        });
+      }
+    }
+  }
+
   if (event.type === "customer.subscription.deleted") {
     const subscription = event.data.object as Stripe.Subscription;
     const customerId = subscription.customer as string;
