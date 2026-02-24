@@ -35,6 +35,11 @@ export function Footer() {
             </Link>
           </div>
         </div>
+        <div className="mt-6 pt-6 border-t border-border/30">
+          <p className="text-xs text-muted/70 text-center leading-relaxed">
+            {t("footer.disclaimer")}
+          </p>
+        </div>
       </div>
     </footer>
   );
