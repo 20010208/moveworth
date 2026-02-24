@@ -12,7 +12,7 @@ import {
   Clock,
 } from "lucide-react";
 
-const PAYMENT_ENABLED = false;
+const PAYMENT_ENABLED = process.env.NEXT_PUBLIC_PAYMENT_ENABLED === "true";
 import { useTranslation } from "@/lib/i18n";
 
 export default function SubscribePage() {

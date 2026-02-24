@@ -93,7 +93,7 @@ export default function RootLayout({
         />
         <script
           async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT || "ca-pub-XXXXXXXXXXXXXXXX"}`}
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT || "ca-pub-5849589587373412"}`}
           crossOrigin="anonymous"
         />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-GZ0JC5F97D"></script>

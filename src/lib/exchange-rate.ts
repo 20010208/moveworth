@@ -43,9 +43,9 @@ export async function fetchExchangeRate(
       return cached[fromCurrency];
     }
 
-    // Frankfurter API: free, no key needed
+    // open.er-api.com: free, no key needed, supports 160+ currencies including MYR
     const res = await fetch(
-      `https://api.frankfurter.app/latest?from=${toCurrency}&to=${fromCurrency}`
+      `https://open.er-api.com/v6/latest/${toCurrency}`
     );
 
     if (!res.ok) return null;

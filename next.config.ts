@@ -2,12 +2,12 @@ import type { NextConfig } from "next";
 
 const cspHeader = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://pagead2.googlesyndication.com https://www.googletagmanager.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self'",
   "frame-src https://js.stripe.com https://hooks.stripe.com",
-  "connect-src 'self' https://api.stripe.com https://*.supabase.co wss://*.supabase.co",
+  "connect-src 'self' https://api.stripe.com https://*.supabase.co wss://*.supabase.co https://pagead2.googlesyndication.com https://www.google-analytics.com https://open.er-api.com",
   "object-src 'none'",
   "base-uri 'self'",
 ].join("; ");
