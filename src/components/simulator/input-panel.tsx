@@ -9,6 +9,7 @@ import { CurrencyInput } from "./currency-input";
 import { ArrowRight, Plane, Loader2, Plus, X, Globe } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { fetchExchangeRate } from "@/lib/exchange-rate";
+import { INDUSTRIES, INDUSTRY_SALARIES, IndustryKey } from "@/data/industry-salaries";
 
 const MAX_EXTRA = 3;
 
@@ -32,6 +33,8 @@ export function InputPanel({
   const { t, locale } = useTranslation();
   const [fetchingRate, setFetchingRate] = useState(false);
   const [fetchingExtraRates, setFetchingExtraRates] = useState<boolean[]>([]);
+  const [selectedIndustry, setSelectedIndustry] = useState<IndustryKey | "">("");
+  const [selectedExtraIndustries, setSelectedExtraIndustries] = useState<(IndustryKey | "")[]>([]);
   const inputRef = useRef(input);
   inputRef.current = input;
   const extraInputsRef = useRef(extraInputs);
@@ -217,6 +220,35 @@ export function InputPanel({
             currency={toCountry?.currencySymbol}
           />
         </div>
+        {toCountry && INDUSTRY_SALARIES[toCountry.code] && (
+          <div className="mt-2">
+            <select
+              value={selectedIndustry}
+              onChange={(e) => {
+                const key = e.target.value as IndustryKey | "";
+                setSelectedIndustry(key);
+                if (key) {
+                  const salary = INDUSTRY_SALARIES[toCountry.code]?.[key];
+                  if (salary) update({ incomeTarget: salary });
+                }
+              }}
+              className="w-full text-xs border border-border/60 rounded-lg py-1.5 px-2 bg-white text-muted focus:outline-none focus:ring-1 focus:ring-primary/30 cursor-pointer"
+            >
+              <option value="">
+                {locale === "ja" ? "📊 業種別平均年収を参照して入力..." : locale === "zh" ? "📊 按行业查看平均薪资..." : "📊 Browse avg. salary by industry..."}
+              </option>
+              {INDUSTRIES.map((ind) => {
+                const salary = INDUSTRY_SALARIES[toCountry.code]?.[ind.key];
+                const label = locale === "ja" ? ind.ja : locale === "zh" ? ind.zh : ind.en;
+                return (
+                  <option key={ind.key} value={ind.key}>
+                    {label}{salary ? ` — ${salary.toLocaleString()}` : ""}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        )}
       </div>
 
       {/* Savings */}
@@ -408,17 +440,51 @@ export function InputPanel({
                 />
 
                 <div className="grid grid-cols-2 gap-3">
-                  <CurrencyInput
-                    label={`${locale === "ja" ? "年収" : "Annual Income"} (${extraCountry?.currency || ""})`}
-                    value={extra.incomeTarget}
-                    onChange={(v) => updateExtra(index, { incomeTarget: v })}
-                    onCurrencyClick={
-                      input.incomeCurrent > 0 && extra.exchangeRate > 0
-                        ? () => updateExtra(index, { incomeTarget: Math.round(input.incomeCurrent / extra.exchangeRate) })
-                        : undefined
-                    }
-                    currency={extraCountry?.currencySymbol}
-                  />
+                  <div className="col-span-2 sm:col-span-1 flex flex-col gap-1.5">
+                    <CurrencyInput
+                      label={`${locale === "ja" ? "年収" : "Annual Income"} (${extraCountry?.currency || ""})`}
+                      value={extra.incomeTarget}
+                      onChange={(v) => updateExtra(index, { incomeTarget: v })}
+                      onCurrencyClick={
+                        input.incomeCurrent > 0 && extra.exchangeRate > 0
+                          ? () => updateExtra(index, { incomeTarget: Math.round(input.incomeCurrent / extra.exchangeRate) })
+                          : undefined
+                      }
+                      currency={extraCountry?.currencySymbol}
+                    />
+                    {extraCountry && INDUSTRY_SALARIES[extraCountry.code] && (
+                      <select
+                        value={selectedExtraIndustries[index] ?? ""}
+                        onChange={(e) => {
+                          const key = e.target.value as IndustryKey | "";
+                          setSelectedExtraIndustries((prev) => {
+                            const next = [...prev];
+                            while (next.length <= index) next.push("");
+                            next[index] = key;
+                            return next;
+                          });
+                          if (key) {
+                            const salary = INDUSTRY_SALARIES[extraCountry.code]?.[key];
+                            if (salary) updateExtra(index, { incomeTarget: salary });
+                          }
+                        }}
+                        className="w-full text-xs border border-border/60 rounded-lg py-1.5 px-2 bg-white text-muted focus:outline-none focus:ring-1 focus:ring-primary/30 cursor-pointer"
+                      >
+                        <option value="">
+                          {locale === "ja" ? "📊 業種別平均年収..." : "📊 Avg. salary by industry..."}
+                        </option>
+                        {INDUSTRIES.map((ind) => {
+                          const salary = INDUSTRY_SALARIES[extraCountry.code]?.[ind.key];
+                          const label = locale === "ja" ? ind.ja : locale === "zh" ? ind.zh : ind.en;
+                          return (
+                            <option key={ind.key} value={ind.key}>
+                              {label}{salary ? ` — ${salary.toLocaleString()}` : ""}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    )}
+                  </div>
                   <div className="relative">
                     <CurrencyInput
                       label={
