@@ -4,6 +4,19 @@ import Link from "next/link";
 import { ArrowLeft, Shield } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
+function renderContent(content: string) {
+  const parts = content.split(/(https?:\/\/[^\s)]+)/);
+  return parts.map((part, i) =>
+    /^https?:\/\//.test(part) ? (
+      <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="text-primary underline break-all">
+        {part}
+      </a>
+    ) : (
+      part
+    )
+  );
+}
+
 export default function PrivacyPage() {
   const { t } = useTranslation();
 
@@ -52,7 +65,7 @@ export default function PrivacyPage() {
                 {i + 1}. {section.title}
               </h2>
               <p className="text-sm text-muted leading-relaxed whitespace-pre-line">
-                {section.content}
+                {renderContent(section.content)}
               </p>
             </div>
           ))}
