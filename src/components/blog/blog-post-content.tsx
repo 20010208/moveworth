@@ -171,7 +171,20 @@ export function BlogPostContent({ slug }: { slug: string }) {
         flushTable();
       }
 
-      if (line.startsWith("### ")) {
+      if (line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/)) {
+        flushList();
+        const imgMatch = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+        if (imgMatch) {
+          elements.push(
+            <img
+              key={i}
+              src={imgMatch[2]}
+              alt={imgMatch[1]}
+              className="w-full rounded-xl my-4 border border-border/40"
+            />
+          );
+        }
+      } else if (line.startsWith("### ")) {
         flushList();
         elements.push(
           <h3 key={i} className="text-lg font-bold text-foreground mt-8 mb-3">
