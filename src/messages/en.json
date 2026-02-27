@@ -12,6 +12,12 @@
     "login": "Log In",
     "blog": "Blog"
   },
+  "cookie": {
+    "message": "We use cookies to improve your experience and serve relevant ads. For details, see our",
+    "privacyLink": "Privacy Policy",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
   "footer": {
     "rights": "All rights reserved.",
     "terms": "Terms",

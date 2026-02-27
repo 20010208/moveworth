@@ -12,6 +12,12 @@
     "login": "登录",
     "blog": "博客"
   },
+  "cookie": {
+    "message": "本网站使用Cookie以改善用户体验并投放相关广告。详情请参阅",
+    "privacyLink": "隐私政策",
+    "accept": "同意",
+    "decline": "拒绝"
+  },
   "footer": {
     "rights": "All rights reserved.",
     "terms": "服务条款",

@@ -12,6 +12,12 @@
     "login": "ログイン",
     "blog": "ブログ"
   },
+  "cookie": {
+    "message": "当サービスでは、利便性の向上および広告配信のためにCookieを使用しています。詳しくは",
+    "privacyLink": "プライバシーポリシー",
+    "accept": "同意する",
+    "decline": "拒否する"
+  },
   "footer": {
     "rights": "All rights reserved.",
     "terms": "利用規約",

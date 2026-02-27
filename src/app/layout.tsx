@@ -7,6 +7,7 @@ import { LanguageProvider } from "@/lib/i18n";
 import { AuthProvider } from "@/lib/auth";
 import { RegisterModal } from "@/components/auth/register-modal";
 import { LoginModal } from "@/components/auth/login-modal";
+import { CookieBanner } from "@/components/ui/cookie-banner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -116,6 +117,7 @@ export default function RootLayout({
             <Footer />
             <RegisterModal />
             <LoginModal />
+            <CookieBanner />
           </AuthProvider>
         </LanguageProvider>
       </body>
