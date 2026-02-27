@@ -23,6 +23,7 @@
     "terms": "服务条款",
     "privacy": "隐私政策",
     "contact": "联系我们",
+    "legal": "商业交易说明",
     "disclaimer": "本服务的模拟结果仅供参考，不保证未来的投资表现。本服务不提供投资建议，请自行承担投资决策的风险。"
   },
   "hero": {
@@ -391,5 +392,26 @@
     "ctaTitlePaid": "继续进行模拟？",
     "ctaDescriptionPaid": "使用MoveWorth的模拟器，对您的移居计划进行更深入的分析。",
     "ctaButtonPaid": "开始模拟"
+  },
+  "legal": {
+    "title": "基于特定商业交易法的说明",
+    "lastUpdated": "最后更新：2026年2月27日",
+    "backHome": "返回首页",
+    "section1Title": "销售方名称",
+    "section1Content": "MoveWorth",
+    "section2Title": "所在地",
+    "section2Content": "日本东京都",
+    "section3Title": "联系方式",
+    "section3Content": "电子邮件：moveworth.app@gmail.com\n如有任何疑问，请通过电子邮件联系我们。",
+    "section4Title": "销售价格",
+    "section4Content": "Pro方案：每月 $8（美元）\nPremium方案：每月 $15（美元）\n※价格以美元计算。实际支付金额可能因结算时的汇率而有所不同。",
+    "section5Title": "付款时间及方式",
+    "section5Content": "付款方式：信用卡（Visa / Mastercard / American Express 等）\n\nPro方案（含3天免费试用）：\n免费试用期结束后，将自动开始每月 $8 的收费。\n此后每月自动续费。\n\nPremium方案：\n付款完成后立即开始每月 $15 的收费。\n此后每月自动续费。\n\n所有付款均通过 Stripe, Inc. 提供的安全支付系统处理。",
+    "section6Title": "服务提供时间",
+    "section6Content": "付款完成后（或免费试用开始后），即可立即使用本服务。",
+    "section7Title": "取消及退款政策",
+    "section7Content": "由于本服务为数字内容及在线服务，原则上付款后不予退款。\n\n您可以随时取消订阅。取消后，您可以继续使用服务直至当前计费周期结束。\n\n在免费试用期间取消，不会产生任何费用。\n\n如需取消，请访问账户页面，或通过 moveworth.app@gmail.com 联系我们。",
+    "section8Title": "运行环境",
+    "section8Content": "本服务可通过网络浏览器（推荐使用 Chrome / Firefox / Safari / Edge 最新版）访问。需要互联网连接。"
   }
 }

@@ -27,6 +27,9 @@ export function Footer() {
             <Link href="/privacy" className="hover:text-foreground transition-colors">
               {t("footer.privacy")}
             </Link>
+            <Link href="/legal" className="hover:text-foreground transition-colors">
+              {t("footer.legal")}
+            </Link>
             <Link href="/blog" className="hover:text-foreground transition-colors">
               {t("header.blog")}
             </Link>

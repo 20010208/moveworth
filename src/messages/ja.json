@@ -23,6 +23,7 @@
     "terms": "利用規約",
     "privacy": "プライバシー",
     "contact": "お問い合わせ",
+    "legal": "特定商取引法",
     "disclaimer": "本サービスのシミュレーション結果は参考値であり、将来の運用成果を保証するものではありません。本サービスは投資助言を提供するものではなく、投資判断はご自身の責任においてお願いします。"
   },
   "hero": {
@@ -391,5 +392,26 @@
     "ctaTitlePaid": "シミュレーションを続けますか？",
     "ctaDescriptionPaid": "MoveWorthのシミュレーターで、より詳細な分析をお試しください。",
     "ctaButtonPaid": "シミュレーションを開始"
+  },
+  "legal": {
+    "title": "特定商取引法に基づく表記",
+    "lastUpdated": "最終更新: 2026年2月27日",
+    "backHome": "ホームに戻る",
+    "section1Title": "販売事業者名",
+    "section1Content": "MoveWorth",
+    "section2Title": "所在地",
+    "section2Content": "東京都",
+    "section3Title": "お問い合わせ先",
+    "section3Content": "メールアドレス: moveworth.app@gmail.com\nお問い合わせはメールにて承ります。",
+    "section4Title": "販売価格",
+    "section4Content": "Proプラン: 月額 $8（USD）\nPremiumプラン: 月額 $15（USD）\n※表示価格は米ドル建てです。円換算額は決済時の為替レートによって異なります。\n※消費税等の適用については、お客様のご利用状況および居住地によって異なります。",
+    "section5Title": "代金の支払い時期・方法",
+    "section5Content": "支払い方法: クレジットカード（Visa / Mastercard / American Express など）\n\nProプラン（3日間無料体験あり）:\n無料体験期間終了後、自動的に月額 $8 の課金が開始されます。\n以降は毎月自動更新されます。\n\nPremiumプラン:\n決済完了後、即時に月額 $15 の課金が開始されます。\n以降は毎月自動更新されます。\n\n決済処理はStripe, Inc.が提供する安全な決済システムを使用しています。",
+    "section6Title": "サービスの提供時期",
+    "section6Content": "決済完了後（または無料体験開始後）、直ちにご利用いただけます。",
+    "section7Title": "返品・キャンセルについて",
+    "section7Content": "本サービスはデジタルコンテンツおよびオンラインサービスであるため、原則として決済後の返金は承っておりません。\n\nサブスクリプションのキャンセルはいつでも可能です。キャンセル後は現在の請求期間終了まで引き続きご利用いただけます。\n\n無料体験期間中にキャンセルされた場合は、料金は発生しません。\n\nキャンセル手続きはアカウントページから行うか、moveworth.app@gmail.com までご連絡ください。",
+    "section8Title": "動作環境",
+    "section8Content": "本サービスはWebブラウザ（Chrome / Firefox / Safari / Edge 最新版推奨）にてご利用いただけます。インターネット接続環境が必要です。"
   }
 }

@@ -23,6 +23,7 @@
     "terms": "Terms",
     "privacy": "Privacy",
     "contact": "Contact",
+    "legal": "Legal Notice",
     "disclaimer": "The simulation results on this service are for reference only and do not guarantee future investment performance. This service does not provide investment advice. Please make all investment decisions at your own risk."
   },
   "hero": {
@@ -391,5 +392,26 @@
     "ctaTitlePaid": "Ready to run another simulation?",
     "ctaDescriptionPaid": "Use MoveWorth's simulator for deeper analysis of your relocation plan.",
     "ctaButtonPaid": "Start Simulation"
+  },
+  "legal": {
+    "title": "Specified Commercial Transactions Act",
+    "lastUpdated": "Last Updated: February 27, 2026",
+    "backHome": "Back to Home",
+    "section1Title": "Service Provider",
+    "section1Content": "MoveWorth",
+    "section2Title": "Location",
+    "section2Content": "Tokyo, Japan",
+    "section3Title": "Contact",
+    "section3Content": "Email: moveworth.app@gmail.com\nPlease contact us via email for any inquiries.",
+    "section4Title": "Pricing",
+    "section4Content": "Pro Plan: $8 USD / month\nPremium Plan: $15 USD / month\n※Prices are in US dollars. The equivalent amount in your local currency may vary depending on the exchange rate at the time of payment.",
+    "section5Title": "Payment Timing & Method",
+    "section5Content": "Payment Method: Credit card (Visa / Mastercard / American Express, etc.)\n\nPro Plan (3-day free trial available):\nAfter the free trial period ends, you will be automatically charged $8/month.\nSubscription renews monthly thereafter.\n\nPremium Plan:\nCharging of $15/month begins immediately upon purchase.\nSubscription renews monthly thereafter.\n\nAll payments are processed securely via Stripe, Inc.",
+    "section6Title": "Service Availability",
+    "section6Content": "The service is available immediately after payment is completed (or after the free trial begins).",
+    "section7Title": "Cancellation & Refund Policy",
+    "section7Content": "As this is a digital service, we generally do not offer refunds after payment has been processed.\n\nYou may cancel your subscription at any time. After cancellation, you will continue to have access until the end of the current billing period.\n\nIf you cancel during the free trial period, you will not be charged.\n\nTo cancel, please visit your Account page or contact us at moveworth.app@gmail.com.",
+    "section8Title": "System Requirements",
+    "section8Content": "This service can be accessed via a web browser (latest versions of Chrome / Firefox / Safari / Edge recommended). An internet connection is required."
   }
 }
