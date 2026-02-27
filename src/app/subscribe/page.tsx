@@ -42,7 +42,7 @@ export default function SubscribePage() {
       nameKey: "pricing.proName",
       planKey: "pro" as const,
       planId: "pro" as const,
-      price: "$9.99",
+      price: "$8",
       period: "pricing.month",
       featureKeys: [
         "pricing.proFeature1",
@@ -58,7 +58,7 @@ export default function SubscribePage() {
       nameKey: "pricing.premium",
       planKey: "premium" as const,
       planId: "premium" as const,
-      price: "$19.99",
+      price: "$15",
       period: "pricing.month",
       featureKeys: [
         "pricing.premiumFeature1",

@@ -50,7 +50,7 @@ export default function Home() {
     },
     {
       nameKey: "pricing.proName",
-      price: "$9.99",
+      price: "$8",
       period: "pricing.month",
       featureKeys: ["pricing.proFeature1", "pricing.proFeature2", "pricing.proFeature3", "pricing.proFeature4", "pricing.proFeature5", "pricing.proFeature6"],
       ctaKey: "pricing.getStarted",
@@ -60,7 +60,7 @@ export default function Home() {
     },
     {
       nameKey: "pricing.premium",
-      price: "$19.99",
+      price: "$15",
       period: "pricing.month",
       featureKeys: ["pricing.premiumFeature1", "pricing.premiumFeature2", "pricing.premiumFeature3", "pricing.premiumFeature4"],
       ctaKey: "pricing.getStarted",
