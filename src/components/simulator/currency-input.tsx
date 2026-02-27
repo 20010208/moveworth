@@ -6,7 +6,7 @@ interface CurrencyInputProps {
   label: string;
   value: number;
   onChange: (value: number) => void;
-  onFocus?: () => void;
+  onCurrencyClick?: () => void;
   currency?: string;
   suffix?: string;
   min?: number;
@@ -32,7 +32,7 @@ export function CurrencyInput({
   label,
   value,
   onChange,
-  onFocus: onFocusCallback,
+  onCurrencyClick,
   currency,
   suffix,
   min = 0,
@@ -72,7 +72,6 @@ export function CurrencyInput({
     setFocused(true);
     // Show raw number without commas when editing
     setDisplayValue(value === 0 ? "" : String(value));
-    onFocusCallback?.();
   };
 
   const handleBlur = () => {
@@ -94,9 +93,20 @@ export function CurrencyInput({
       </label>
       <div className="relative group">
         {currency && (
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-muted/70 bg-surface px-1.5 py-0.5 rounded">
-            {currency}
-          </span>
+          onCurrencyClick ? (
+            <button
+              type="button"
+              onClick={onCurrencyClick}
+              title="クリックして換算"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-primary bg-primary/10 hover:bg-primary/20 active:bg-primary/30 px-1.5 py-0.5 rounded transition-colors cursor-pointer"
+            >
+              {currency}
+            </button>
+          ) : (
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-muted/70 bg-surface px-1.5 py-0.5 rounded">
+              {currency}
+            </span>
+          )
         )}
         <input
           type="text"
