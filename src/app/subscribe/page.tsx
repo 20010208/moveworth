@@ -50,6 +50,7 @@ export default function SubscribePage() {
         "pricing.proFeature3",
         "pricing.proFeature4",
         "pricing.proFeature5",
+        "pricing.proFeature6",
       ],
       highlight: true,
     },

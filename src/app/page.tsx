@@ -52,7 +52,7 @@ export default function Home() {
       nameKey: "pricing.proName",
       price: "$5",
       period: "pricing.month",
-      featureKeys: ["pricing.proFeature1", "pricing.proFeature2", "pricing.proFeature3", "pricing.proFeature4", "pricing.proFeature5"],
+      featureKeys: ["pricing.proFeature1", "pricing.proFeature2", "pricing.proFeature3", "pricing.proFeature4", "pricing.proFeature5", "pricing.proFeature6"],
       ctaKey: "pricing.getStarted",
       highlight: true,
       disabled: false,
