@@ -291,7 +291,7 @@
     "section4Title": "第三方共享",
     "section4Content": "除以下情况外，本服务不向第三方提供您的个人信息：\n\n• 征得您同意的情况\n• 法律要求的情况\n• 运营所需的服务提供商（Supabase、Vercel、Google Analytics等）",
     "section5Title": "Cookie与追踪",
-    "section5Content": "本服务使用Google Analytics分析网站使用情况，也可能使用Google AdSense进行广告投放。这些服务使用Cookie收集数据。您可以在浏览器设置中禁用Cookie，但部分功能可能受到限制。",
+    "section5Content": "本服务使用Google Analytics分析网站使用情况，也可能使用Google AdSense进行广告投放。这些服务使用Cookie收集数据。您可以在浏览器设置中禁用Cookie，但部分功能可能受到限制。\n\n■ 关于广告投放\n本网站刊登由第三方广告商（包括Google AdSense）提供的广告。这些广告商可能会根据您访问本网站及其他网站的信息，使用Cookie向您展示感兴趣的商品和服务广告。Cookie中不包含姓名、地址、电子邮件地址或电话号码。\n\nGoogle可能通过广告Cookie，根据您访问本网站及其他网站的情况，向您展示相关广告。\n\n您可以通过广告设置关闭个性化广告。详情请参阅Google广告政策：https://policies.google.com/technologies/ads",
     "section6Title": "数据保留期限",
     "section6Content": "账户信息在账户有效期间保留。收到账户删除申请后，我们将在合理期限内删除您的个人信息。使用日志最多保留12个月，之后进行匿名化处理或删除。",
     "section7Title": "用户权利",
