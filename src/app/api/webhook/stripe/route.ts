@@ -32,8 +32,10 @@ export async function POST(req: NextRequest) {
     const customerId = session.customer as string;
 
     if (userId && plan) {
+      const userMeta: Record<string, string | boolean> = { plan };
+      if (plan === "pro") userMeta.trial_used = true;
       const { error } = await supabase.auth.admin.updateUserById(userId, {
-        user_metadata: { plan },
+        user_metadata: userMeta,
       });
       if (error) {
         console.error("Failed to update user plan:", error);

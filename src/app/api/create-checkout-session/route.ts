@@ -33,6 +33,7 @@ export async function POST(req: NextRequest) {
     }
 
     const origin = req.headers.get("origin") ?? "http://localhost:3000";
+    const trialUsed = user.user_metadata?.trial_used === true;
 
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
@@ -43,7 +44,7 @@ export async function POST(req: NextRequest) {
       success_url: `${origin}/subscribe/success?plan=${plan}`,
       cancel_url: `${origin}/subscribe`,
       locale: locale === "ja" ? "ja" : "en",
-      ...(plan === "pro" && {
+      ...(plan === "pro" && !trialUsed && {
         subscription_data: {
           trial_period_days: 3,
         },
