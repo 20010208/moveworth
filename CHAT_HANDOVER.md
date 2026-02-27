@@ -1,6 +1,6 @@
 # MoveWorth チャット引き継ぎファイル
 
-最終更新: 2026-02-27
+最終更新: 2026-02-27（午後追記）
 
 ## プロジェクト概要
 - **サービス名**: MoveWorth（海外移住財務シミュレーター）
@@ -27,6 +27,13 @@
 | NEXT_PUBLIC_PAYMENT_ENABLED=true（Vercel環境変数） | 完了 |
 | 為替レートAPI変更（Frankfurter → open.er-api.com、MYR対応） | 完了 |
 | Google Search Console サイトマップ送信（36ページ） | 完了 |
+| プライバシーポリシーにAdSense・Cookie・アフィリエイト開示追加 | 完了 |
+| クッキー同意バナー実装（localStorage保存） | 完了 |
+| NordVPNアフィリエイト記事追加（A8.net・Wチャンスボーナス申請済み） | 完了 |
+| AIレポート生成に月次制限追加（Pro:5回/月、Premium:10回/月） | 完了 |
+| Supabase ai_report_usage テーブル作成済み | 完了 |
+| 料金改定（Pro: $8/月、Premium: $15/月）・Stripe価格更新済み | 完了 |
+| AIレポート機能をProユーザーにも開放 | 完了 |
 
 ---
 
@@ -58,6 +65,8 @@
 | AdSense審査通過後：広告スロットID設定 | simulate/page.tsx の SidebarAd コメントを外してスロットIDを設定 |
 | generateMetadata多言語対応 | blog/[slug]/page.tsx のmetadataが日本語のみ |
 | ブログ投稿継続 | 週2〜3投稿がSEO的に理想。新記事追加後はSearch ConsoleでURLリクエストを押す |
+| NordVPN Wチャンスボーナス申請 | 申請済み（2026-02-27）。期限4/30。+2,000円 |
+| AdSense審査通過後：広告スロットID設定 | simulate/page.tsx の SidebarAd コメントを外してスロットIDを設定 |
 
 ---
 
@@ -87,14 +96,29 @@
 | src/app/api/webhook/stripe/route.ts | Stripe Webhook（checkout.completed / subscription.updated / subscription.deleted） |
 | src/app/api/create-checkout-session/route.ts | Stripe決済セッション作成 |
 | src/lib/exchange-rate.ts | 為替レート取得（open.er-api.com、MYR等160通貨対応） |
-| src/data/blog-posts.ts | ブログ記事データ（31記事） |
+| src/data/blog-posts.ts | ブログ記事データ（32記事、NordVPN記事含む） |
 | src/components/ads/sidebar-ad.tsx | サイドバー広告コンポーネント（現在非表示） |
 | next.config.ts | セキュリティヘッダー・CSP設定 |
 | public/ads.txt | AdSense認証ファイル |
 | public/og-image.jpg | OGP画像（1200x630） |
 | public/globe.mp4 | ヒーロー背景動画 |
+| public/images/ | ブログ記事用画像（nordvpn-cafe.jpg.jpg 等） |
+| src/app/privacy/page.tsx | プライバシーポリシー（URL自動リンク化） |
+| src/components/ui/cookie-banner.tsx | クッキー同意バナー |
+| src/app/api/generate-report/route.ts | AIレポート生成API（Pro/Premium月次制限付き） |
 
 ---
+
+## プラン設定（2026-02-27時点）
+
+| プラン | 価格 | AIレポート上限 |
+|---|---|---|
+| Free | $0 | なし |
+| Pro | $8/月 | 月5回 |
+| Premium | $15/月 | 月10回 |
+
+- AIレポート使用記録テーブル: Supabase `ai_report_usage`（user_id, created_at）
+- 制限ロジック: `src/app/api/generate-report/route.ts` の `PLAN_LIMITS`
 
 ## AdSense 審査通過後の手順
 1. AdSenseダッシュボードで広告ユニットを作成してスロットIDを取得
