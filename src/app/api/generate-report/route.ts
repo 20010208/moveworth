@@ -9,8 +9,10 @@ const openai = new OpenAI({
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
+
+const MONTHLY_LIMIT = 2;
 
 export async function POST(req: NextRequest) {
   try {
@@ -27,6 +29,29 @@ export async function POST(req: NextRequest) {
 
     if (user.user_metadata?.plan !== "premium") {
       return NextResponse.json({ error: "Premium plan required" }, { status: 403 });
+    }
+
+    // 月次使用回数チェック
+    const startOfMonth = new Date();
+    startOfMonth.setDate(1);
+    startOfMonth.setHours(0, 0, 0, 0);
+
+    const { count, error: countError } = await supabase
+      .from("ai_report_usage")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .gte("created_at", startOfMonth.toISOString());
+
+    if (countError) {
+      console.error("Usage count error:", countError);
+      return NextResponse.json({ error: "Failed to check usage" }, { status: 500 });
+    }
+
+    if ((count ?? 0) >= MONTHLY_LIMIT) {
+      return NextResponse.json(
+        { error: "Monthly limit reached", limit: MONTHLY_LIMIT },
+        { status: 429 }
+      );
     }
 
     const { result, locale }: { result: SimulationResult; locale: string } = await req.json();
@@ -116,7 +141,14 @@ Include specific numbers in each section and provide practical advice.`;
 
     const reportText = completion.choices[0].message.content ?? "";
 
-    return NextResponse.json({ report: reportText });
+    // 使用回数を記録
+    await supabase.from("ai_report_usage").insert({ user_id: user.id });
+
+    const usedCount = (count ?? 0) + 1;
+    return NextResponse.json({
+      report: reportText,
+      remaining: MONTHLY_LIMIT - usedCount,
+    });
   } catch (error) {
     console.error("Report generation error:", error);
     return NextResponse.json(

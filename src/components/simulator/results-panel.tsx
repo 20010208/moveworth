@@ -43,6 +43,15 @@ export function ResultsPanel({ result, plan, extraResults = [] }: ResultsPanelPr
         body: JSON.stringify({ result, locale }),
       });
 
+      if (res.status === 429) {
+        setReportError(
+          locale === "ja"
+            ? "今月の利用上限（2回）に達しました。来月1日にリセットされます。"
+            : "You have reached this month's limit (2 reports). Resets on the 1st of next month."
+        );
+        setGenerating(false);
+        return;
+      }
       if (!res.ok) throw new Error("API error");
       const { report } = await res.json();
 
