@@ -5,7 +5,7 @@ import { ArrowLeft, Shield } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
 function renderContent(content: string) {
-  const parts = content.split(/(https?:\/\/[^\s)]+)/);
+  const parts = content.split(/(https?:\/\/[^\s)）。、」』\]]+)/);
   return parts.map((part, i) =>
     /^https?:\/\//.test(part) ? (
       <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="text-primary underline break-all">
