@@ -209,6 +209,11 @@ export function InputPanel({
             label={`${t("input.target")} (${toCountry?.currency || ""})`}
             value={input.incomeTarget}
             onChange={(v) => update({ incomeTarget: v })}
+            onFocus={() => {
+              if (input.incomeCurrent > 0 && input.incomeTarget === 0 && input.exchangeRate > 0) {
+                update({ incomeTarget: Math.round(input.incomeCurrent / input.exchangeRate) });
+              }
+            }}
             currency={toCountry?.currencySymbol}
           />
         </div>
@@ -407,6 +412,11 @@ export function InputPanel({
                     label={`${locale === "ja" ? "年収" : "Annual Income"} (${extraCountry?.currency || ""})`}
                     value={extra.incomeTarget}
                     onChange={(v) => updateExtra(index, { incomeTarget: v })}
+                    onFocus={() => {
+                      if (input.incomeCurrent > 0 && extra.incomeTarget === 0 && extra.exchangeRate > 0) {
+                        updateExtra(index, { incomeTarget: Math.round(input.incomeCurrent / extra.exchangeRate) });
+                      }
+                    }}
                     currency={extraCountry?.currencySymbol}
                   />
                   <div className="relative">

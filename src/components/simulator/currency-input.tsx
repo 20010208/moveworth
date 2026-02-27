@@ -6,6 +6,7 @@ interface CurrencyInputProps {
   label: string;
   value: number;
   onChange: (value: number) => void;
+  onFocus?: () => void;
   currency?: string;
   suffix?: string;
   min?: number;
@@ -31,6 +32,7 @@ export function CurrencyInput({
   label,
   value,
   onChange,
+  onFocus: onFocusCallback,
   currency,
   suffix,
   min = 0,
@@ -70,6 +72,7 @@ export function CurrencyInput({
     setFocused(true);
     // Show raw number without commas when editing
     setDisplayValue(value === 0 ? "" : String(value));
+    onFocusCallback?.();
   };
 
   const handleBlur = () => {
