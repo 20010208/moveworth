@@ -12,11 +12,14 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-const MONTHLY_LIMIT = 2;
+const PLAN_LIMITS: Record<string, number> = {
+  pro: 5,
+  premium: 10,
+};
 
 export async function POST(req: NextRequest) {
   try {
-    // 認証チェック：Premiumユーザーのみ許可
+    // 認証チェック：Pro/Premiumユーザーのみ許可
     const token = req.headers.get("Authorization")?.replace("Bearer ", "");
     if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -27,8 +30,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    if (user.user_metadata?.plan !== "premium") {
-      return NextResponse.json({ error: "Premium plan required" }, { status: 403 });
+    const userPlan = user.user_metadata?.plan as string;
+    const monthlyLimit = PLAN_LIMITS[userPlan];
+    if (!monthlyLimit) {
+      return NextResponse.json({ error: "Pro or Premium plan required" }, { status: 403 });
     }
 
     // 月次使用回数チェック
@@ -47,9 +52,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Failed to check usage" }, { status: 500 });
     }
 
-    if ((count ?? 0) >= MONTHLY_LIMIT) {
+    if ((count ?? 0) >= monthlyLimit) {
       return NextResponse.json(
-        { error: "Monthly limit reached", limit: MONTHLY_LIMIT },
+        { error: "Monthly limit reached", limit: monthlyLimit },
         { status: 429 }
       );
     }
@@ -147,7 +152,7 @@ Include specific numbers in each section and provide practical advice.`;
     const usedCount = (count ?? 0) + 1;
     return NextResponse.json({
       report: reportText,
-      remaining: MONTHLY_LIMIT - usedCount,
+      remaining: monthlyLimit - usedCount,
     });
   } catch (error) {
     console.error("Report generation error:", error);

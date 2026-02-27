@@ -44,10 +44,12 @@ export function ResultsPanel({ result, plan, extraResults = [] }: ResultsPanelPr
       });
 
       if (res.status === 429) {
+        const data = await res.json();
+        const limit = data.limit as number;
         setReportError(
           locale === "ja"
-            ? "今月の利用上限（2回）に達しました。来月1日にリセットされます。"
-            : "You have reached this month's limit (2 reports). Resets on the 1st of next month."
+            ? `今月の利用上限（${limit}回）に達しました。来月1日にリセットされます。`
+            : `You have reached this month's limit (${limit} reports). Resets on the 1st of next month.`
         );
         setGenerating(false);
         return;
@@ -168,8 +170,8 @@ export function ResultsPanel({ result, plan, extraResults = [] }: ResultsPanelPr
 
           <AdvancedTabs result={result} extraResults={isPremium ? extraResults : []} />
 
-          {isPremium && (
-            /* Premium: AI PDF Report */
+          {isPro && (
+            /* Pro+: AI PDF Report */
             <div className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-white to-orange-50 border border-amber-200/60 rounded-2xl p-6">
               <div className="absolute top-3 right-3">
                 <Sparkles className="h-5 w-5 text-amber-400/40" />
@@ -180,7 +182,7 @@ export function ResultsPanel({ result, plan, extraResults = [] }: ResultsPanelPr
                   {t("results.aiReport")}
                 </h3>
                 <span className="bg-amber-100 text-amber-700 text-xs font-bold px-2 py-0.5 rounded-full">
-                  Premium
+                  {isPremium ? "Premium" : "Pro"}
                 </span>
               </div>
               <p className="text-sm text-muted mb-4">
