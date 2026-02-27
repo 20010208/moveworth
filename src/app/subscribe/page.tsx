@@ -157,10 +157,10 @@ export default function SubscribePage() {
                     : "border-border/60 bg-white hover:border-primary/40 hover:shadow-md"
                 }`}
               >
-                {plan.highlight && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-primary to-indigo-600 text-white text-xs font-bold px-4 py-1 rounded-full shadow-md">
-                      POPULAR
+                {plan.planId === "pro" && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                    <span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xs font-bold px-4 py-1 rounded-full shadow-md">
+                      {t("pricing.trialBadge")}
                     </span>
                   </div>
                 )}
@@ -191,31 +191,43 @@ export default function SubscribePage() {
                     {t("subscribe.currentPlan")}
                   </span>
                 ) : plan.planKey ? (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (plan.planKey && PAYMENT_ENABLED) handleCheckout(plan.planKey);
-                    }}
-                    disabled={isLoading || !PAYMENT_ENABLED}
-                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-primary to-indigo-600 text-white hover:from-primary-dark hover:to-indigo-700 transition-all shadow-md shadow-primary/20 disabled:opacity-40 disabled:cursor-not-allowed"
-                  >
-                    {isLoading ? (
-                      <>
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        {locale === "ja" ? "処理中..." : "Processing..."}
-                      </>
-                    ) : !PAYMENT_ENABLED ? (
-                      <>
-                        <Clock className="h-4 w-4" />
-                        {locale === "ja" ? "準備中" : locale === "zh" ? "准备中" : "Coming Soon"}
-                      </>
-                    ) : (
-                      <>
-                        <Crown className="h-4 w-4" />
-                        {locale === "ja" ? "このプランにする" : "Get Started"}
-                      </>
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (plan.planKey && PAYMENT_ENABLED) handleCheckout(plan.planKey);
+                      }}
+                      disabled={isLoading || !PAYMENT_ENABLED}
+                      className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-primary to-indigo-600 text-white hover:from-primary-dark hover:to-indigo-700 transition-all shadow-md shadow-primary/20 disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                          {locale === "ja" ? "処理中..." : "Processing..."}
+                        </>
+                      ) : !PAYMENT_ENABLED ? (
+                        <>
+                          <Clock className="h-4 w-4" />
+                          {locale === "ja" ? "準備中" : locale === "zh" ? "准备中" : "Coming Soon"}
+                        </>
+                      ) : plan.planId === "pro" ? (
+                        <>
+                          <Crown className="h-4 w-4" />
+                          {t("pricing.trialButton")}
+                        </>
+                      ) : (
+                        <>
+                          <Crown className="h-4 w-4" />
+                          {locale === "ja" ? "このプランにする" : "Get Started"}
+                        </>
+                      )}
+                    </button>
+                    {plan.planId === "pro" && PAYMENT_ENABLED && (
+                      <p className="text-xs text-muted mt-2 leading-relaxed text-center">
+                        {t("pricing.trialNote")}
+                      </p>
                     )}
-                  </button>
+                  </>
                 ) : (
                   <Link
                     href="/simulate"

@@ -43,6 +43,11 @@ export async function POST(req: NextRequest) {
       success_url: `${origin}/subscribe/success?plan=${plan}`,
       cancel_url: `${origin}/subscribe`,
       locale: locale === "ja" ? "ja" : "en",
+      ...(plan === "pro" && {
+        subscription_data: {
+          trial_period_days: 3,
+        },
+      }),
     });
 
     return NextResponse.json({ url: session.url });

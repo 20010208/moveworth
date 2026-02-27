@@ -233,10 +233,10 @@ export default function Home() {
                     : "border-border/60 bg-white hover:border-primary/30 hover:shadow-lg"
                 }`}
               >
-                {plan.highlight && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-primary to-indigo-600 text-white text-xs font-bold px-4 py-1 rounded-full shadow-md">
-                      POPULAR
+                {plan.nameKey === "pricing.proName" && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                    <span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xs font-bold px-4 py-1 rounded-full shadow-md">
+                      {t("pricing.trialBadge")}
                     </span>
                   </div>
                 )}
@@ -263,7 +263,7 @@ export default function Home() {
                   href={plan.href}
                   className="block text-center py-2.5 rounded-xl font-semibold text-sm bg-primary text-white hover:bg-primary-dark transition-all shadow-md shadow-primary/20"
                 >
-                  {t(plan.ctaKey)}
+                  {plan.nameKey === "pricing.proName" ? t("pricing.trialButton") : t(plan.ctaKey)}
                 </Link>
               </div>
             ))}
