@@ -326,6 +326,13 @@ export function InputPanel({
                 );
               })}
             </select>
+            <p className="text-[10px] text-muted/60 mt-1 pl-1">
+              {locale === "ja"
+                ? "※ Numbeo等を参考にした推定値です。実際の相場と異なる場合があります。"
+                : locale === "zh"
+                ? "※ 数据为基于Numbeo等来源的估算值，实际情况可能有所不同。"
+                : "※ Estimated values based on Numbeo and similar sources. Actual costs may vary."}
+            </p>
           </div>
         )}
       </div>
