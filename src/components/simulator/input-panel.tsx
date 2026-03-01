@@ -251,10 +251,10 @@ export function InputPanel({
             </select>
             <p className="text-[10px] text-muted/60 mt-1 pl-1">
               {locale === "ja"
-                ? "※ 実際の相場と異なる場合があります。"
+                ? "※ 外国人プロフェッショナルの参考値です。実際の年収は経験・スキルにより異なります。"
                 : locale === "zh"
-                ? "※ 实际情况可能有所不同。"
-                : "※ Actual costs may vary."}
+                ? "※ 为外籍专业人士参考值，实际薪资因经验技能而异。"
+                : "※ Reference for expat professionals. Actual salary varies by experience & skills."}
             </p>
           </div>
         )}
@@ -537,10 +537,10 @@ export function InputPanel({
                         </select>
                         <p className="text-[10px] text-muted/60 mt-1 pl-1">
                           {locale === "ja"
-                            ? "※ 実際の相場と異なる場合があります。"
+                            ? "※ 外国人プロフェッショナルの参考値です。実際の年収は経験・スキルにより異なります。"
                             : locale === "zh"
-                            ? "※ 实际情况可能有所不同。"
-                            : "※ Actual costs may vary."}
+                            ? "※ 为外籍专业人士参考值，实际薪资因经验技能而异。"
+                            : "※ Reference for expat professionals. Actual salary varies by experience & skills."}
                         </p>
                       </>
                     )}
