@@ -111,17 +111,19 @@ export default function Home() {
             {t("hero.description")}
           </p>
 
-          {/* Supported countries */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 max-w-3xl mx-auto">
-            {countryPresets.map((country) => (
-              <span
-                key={country.code}
-                className="inline-flex items-center gap-1 bg-white/10 border border-white/15 backdrop-blur-sm rounded-full px-2.5 py-1 text-xs text-white/80 hover:bg-white/20 transition-colors"
-              >
-                <span>{getFlag(country.code)}</span>
-                <span>{country.name[locale]}</span>
-              </span>
-            ))}
+          {/* Supported countries - marquee */}
+          <div className="marquee-wrapper mt-8 overflow-hidden w-full max-w-3xl mx-auto [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+            <div className="animate-marquee flex gap-2 w-max">
+              {[...countryPresets, ...countryPresets].map((country, i) => (
+                <span
+                  key={i}
+                  className="inline-flex items-center gap-1 bg-white/10 border border-white/15 backdrop-blur-sm rounded-full px-2.5 py-1 text-xs text-white/80 shrink-0"
+                >
+                  <span>{getFlag(country.code)}</span>
+                  <span>{country.name[locale]}</span>
+                </span>
+              ))}
+            </div>
           </div>
 
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
