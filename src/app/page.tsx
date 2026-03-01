@@ -16,9 +16,16 @@ import {
 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
+import { countryPresets } from "@/data/country-presets";
+
+function getFlag(code: string): string {
+  return code.toUpperCase().replace(/./g, (c) =>
+    String.fromCodePoint(127397 + c.charCodeAt(0))
+  );
+}
 
 export default function Home() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const { user } = useAuth();
   const isPaid = user?.plan === "pro" || user?.plan === "premium";
 
@@ -103,6 +110,20 @@ export default function Home() {
           <p className="mt-6 text-lg sm:text-xl text-white/75 max-w-2xl mx-auto leading-relaxed">
             {t("hero.description")}
           </p>
+
+          {/* Supported countries */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 max-w-3xl mx-auto">
+            {countryPresets.map((country) => (
+              <span
+                key={country.code}
+                className="inline-flex items-center gap-1 bg-white/10 border border-white/15 backdrop-blur-sm rounded-full px-2.5 py-1 text-xs text-white/80 hover:bg-white/20 transition-colors"
+              >
+                <span>{getFlag(country.code)}</span>
+                <span>{country.name[locale]}</span>
+              </span>
+            ))}
+          </div>
+
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/simulate"
