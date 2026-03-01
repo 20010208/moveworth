@@ -37,6 +37,7 @@ export function InputPanel({
   const [selectedIndustry, setSelectedIndustry] = useState<IndustryKey | "">("");
   const [selectedExtraIndustries, setSelectedExtraIndustries] = useState<(IndustryKey | "")[]>([]);
   const [selectedHousehold, setSelectedHousehold] = useState<HouseholdType | "">("");
+  const [selectedExtraHouseholds, setSelectedExtraHouseholds] = useState<(HouseholdType | "")[]>([]);
   const inputRef = useRef(input);
   inputRef.current = input;
   const extraInputsRef = useRef(extraInputs);
@@ -310,6 +311,17 @@ export function InputPanel({
                 if (key) {
                   const costs = HOUSING_COSTS[toCountry.code]?.[key];
                   if (costs) update({ rentTarget: costs.rent, livingCostTarget: costs.living });
+                  // 比較国（2〜4か国目）にも同じ世帯タイプを反映
+                  if (onExtraInputsChange && extraInputsRef.current.length > 0) {
+                    const updatedExtras = extraInputsRef.current.map((extra) => {
+                      const extraCosts = extra.countryTo ? HOUSING_COSTS[extra.countryTo]?.[key] : undefined;
+                      return extraCosts
+                        ? { ...extra, rentTarget: extraCosts.rent, livingCostTarget: extraCosts.living }
+                        : extra;
+                    });
+                    onExtraInputsChange(updatedExtras);
+                    setSelectedExtraHouseholds(extraInputsRef.current.map(() => key));
+                  }
                 }
               }}
               className="w-full text-xs border border-border/60 rounded-lg py-1.5 px-2 bg-white text-muted focus:outline-none focus:ring-1 focus:ring-primary/30 cursor-pointer"
@@ -574,6 +586,53 @@ export function InputPanel({
                     onChange={(v) => updateExtra(index, { livingCostTarget: v })}
                     currency={extraCountry?.currencySymbol}
                   />
+                  {extraCountry && HOUSING_COSTS[extraCountry.code] && (
+                    <div className="col-span-2">
+                      <select
+                        value={selectedExtraHouseholds[index] ?? ""}
+                        onChange={(e) => {
+                          const key = e.target.value as HouseholdType | "";
+                          setSelectedExtraHouseholds((prev) => {
+                            const next = [...prev];
+                            while (next.length <= index) next.push("");
+                            next[index] = key;
+                            return next;
+                          });
+                          if (key) {
+                            const costs = HOUSING_COSTS[extraCountry.code]?.[key];
+                            if (costs) updateExtra(index, { rentTarget: costs.rent, livingCostTarget: costs.living });
+                          }
+                        }}
+                        className="w-full text-xs border border-border/60 rounded-lg py-1.5 px-2 bg-white text-muted focus:outline-none focus:ring-1 focus:ring-primary/30 cursor-pointer"
+                      >
+                        <option value="">
+                          {locale === "ja" ? "🏠 世帯タイプ別の平均家賃・生活費を参照..." : locale === "zh" ? "🏠 按家庭类型查看平均租金和生活费..." : "🏠 Browse avg. rent & living cost by household type..."}
+                        </option>
+                        {HOUSEHOLD_TYPES.map((ht) => {
+                          const costs = HOUSING_COSTS[extraCountry.code]?.[ht.key];
+                          const label = locale === "ja" ? ht.ja : locale === "zh" ? ht.zh : ht.en;
+                          return (
+                            <option key={ht.key} value={ht.key}>
+                              {label}{costs
+                                ? locale === "ja"
+                                  ? ` — 家賃 ${costs.rent.toLocaleString()} / 生活費 ${costs.living.toLocaleString()}`
+                                  : locale === "zh"
+                                  ? ` — 租金 ${costs.rent.toLocaleString()} / 生活费 ${costs.living.toLocaleString()}`
+                                  : ` — Rent ${costs.rent.toLocaleString()} / Living ${costs.living.toLocaleString()}`
+                                : ""}
+                            </option>
+                          );
+                        })}
+                      </select>
+                      <p className="text-[10px] text-muted/60 mt-1 pl-1">
+                        {locale === "ja"
+                          ? "※ 実際の相場と異なる場合があります。"
+                          : locale === "zh"
+                          ? "※ 实际情况可能有所不同。"
+                          : "※ Actual costs may vary."}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             );
