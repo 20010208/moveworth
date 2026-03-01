@@ -233,6 +233,15 @@ export function InputPanel({
                 if (key) {
                   const salary = INDUSTRY_SALARIES[toCountry.code]?.[key];
                   if (salary) update({ incomeTarget: salary });
+                  // 比較国（2〜4か国目）にも同じ業種の給与を反映
+                  if (onExtraInputsChange && extraInputsRef.current.length > 0) {
+                    const updatedExtras = extraInputsRef.current.map((extra) => {
+                      const extraSalary = extra.countryTo ? INDUSTRY_SALARIES[extra.countryTo]?.[key] : undefined;
+                      return extraSalary ? { ...extra, incomeTarget: extraSalary } : extra;
+                    });
+                    onExtraInputsChange(updatedExtras);
+                    setSelectedExtraIndustries(extraInputsRef.current.map(() => key));
+                  }
                 }
               }}
               className="w-full text-xs border border-border/60 rounded-lg py-1.5 px-2 bg-white text-muted focus:outline-none focus:ring-1 focus:ring-primary/30 cursor-pointer"
