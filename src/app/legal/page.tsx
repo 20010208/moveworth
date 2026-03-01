@@ -16,6 +16,9 @@ export default function LegalPage() {
     { title: t("legal.section6Title"), content: t("legal.section6Content") },
     { title: t("legal.section7Title"), content: t("legal.section7Content") },
     { title: t("legal.section8Title"), content: t("legal.section8Content") },
+    { title: t("legal.section9Title"), content: t("legal.section9Content") },
+    { title: t("legal.section10Title"), content: t("legal.section10Content") },
+    { title: t("legal.section11Title"), content: t("legal.section11Content") },
   ];
 
   return (
