@@ -10,6 +10,7 @@ import { ArrowRight, Plane, Loader2, Plus, X, Globe } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { fetchExchangeRate } from "@/lib/exchange-rate";
 import { INDUSTRIES, INDUSTRY_SALARIES, IndustryKey } from "@/data/industry-salaries";
+import { HOUSEHOLD_TYPES, HOUSING_COSTS, HouseholdType } from "@/data/housing-costs";
 
 const MAX_EXTRA = 3;
 
@@ -35,6 +36,7 @@ export function InputPanel({
   const [fetchingExtraRates, setFetchingExtraRates] = useState<boolean[]>([]);
   const [selectedIndustry, setSelectedIndustry] = useState<IndustryKey | "">("");
   const [selectedExtraIndustries, setSelectedExtraIndustries] = useState<(IndustryKey | "")[]>([]);
+  const [selectedHousehold, setSelectedHousehold] = useState<HouseholdType | "">("");
   const inputRef = useRef(input);
   inputRef.current = input;
   const extraInputsRef = useRef(extraInputs);
@@ -291,6 +293,41 @@ export function InputPanel({
             currency={toCountry?.currencySymbol}
           />
         </div>
+        {toCountry && HOUSING_COSTS[toCountry.code] && (
+          <div className="mt-2">
+            <select
+              value={selectedHousehold}
+              onChange={(e) => {
+                const key = e.target.value as HouseholdType | "";
+                setSelectedHousehold(key);
+                if (key) {
+                  const costs = HOUSING_COSTS[toCountry.code]?.[key];
+                  if (costs) update({ rentTarget: costs.rent, livingCostTarget: costs.living });
+                }
+              }}
+              className="w-full text-xs border border-border/60 rounded-lg py-1.5 px-2 bg-white text-muted focus:outline-none focus:ring-1 focus:ring-primary/30 cursor-pointer"
+            >
+              <option value="">
+                {locale === "ja" ? "🏠 世帯タイプ別の平均家賃・生活費を参照..." : locale === "zh" ? "🏠 按家庭类型查看平均租金和生活费..." : "🏠 Browse avg. rent & living cost by household type..."}
+              </option>
+              {HOUSEHOLD_TYPES.map((ht) => {
+                const costs = HOUSING_COSTS[toCountry.code]?.[ht.key];
+                const label = locale === "ja" ? ht.ja : locale === "zh" ? ht.zh : ht.en;
+                return (
+                  <option key={ht.key} value={ht.key}>
+                    {label}{costs
+                      ? locale === "ja"
+                        ? ` — 家賃 ${costs.rent.toLocaleString()} / 生活費 ${costs.living.toLocaleString()}`
+                        : locale === "zh"
+                        ? ` — 租金 ${costs.rent.toLocaleString()} / 生活费 ${costs.living.toLocaleString()}`
+                        : ` — Rent ${costs.rent.toLocaleString()} / Living ${costs.living.toLocaleString()}`
+                      : ""}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        )}
       </div>
 
       {/* Tax & Macro */}
