@@ -249,6 +249,13 @@ export function InputPanel({
                 );
               })}
             </select>
+            <p className="text-[10px] text-muted/60 mt-1 pl-1">
+              {locale === "ja"
+                ? "※ 実際の相場と異なる場合があります。"
+                : locale === "zh"
+                ? "※ 实际情况可能有所不同。"
+                : "※ Actual costs may vary."}
+            </p>
           </div>
         )}
       </div>
@@ -497,36 +504,45 @@ export function InputPanel({
                       currency={extraCountry?.currencySymbol}
                     />
                     {extraCountry && INDUSTRY_SALARIES[extraCountry.code] && (
-                      <select
-                        value={selectedExtraIndustries[index] ?? ""}
-                        onChange={(e) => {
-                          const key = e.target.value as IndustryKey | "";
-                          setSelectedExtraIndustries((prev) => {
-                            const next = [...prev];
-                            while (next.length <= index) next.push("");
-                            next[index] = key;
-                            return next;
-                          });
-                          if (key) {
-                            const salary = INDUSTRY_SALARIES[extraCountry.code]?.[key];
-                            if (salary) updateExtra(index, { incomeTarget: salary });
-                          }
-                        }}
-                        className="w-full text-xs border border-border/60 rounded-lg py-1.5 px-2 bg-white text-muted focus:outline-none focus:ring-1 focus:ring-primary/30 cursor-pointer"
-                      >
-                        <option value="">
-                          {locale === "ja" ? "📊 業種別平均年収..." : "📊 Avg. salary by industry..."}
-                        </option>
-                        {INDUSTRIES.map((ind) => {
-                          const salary = INDUSTRY_SALARIES[extraCountry.code]?.[ind.key];
-                          const label = locale === "ja" ? ind.ja : locale === "zh" ? ind.zh : ind.en;
-                          return (
-                            <option key={ind.key} value={ind.key}>
-                              {label}{salary ? ` — ${salary.toLocaleString()}` : ""}
-                            </option>
-                          );
-                        })}
-                      </select>
+                      <>
+                        <select
+                          value={selectedExtraIndustries[index] ?? ""}
+                          onChange={(e) => {
+                            const key = e.target.value as IndustryKey | "";
+                            setSelectedExtraIndustries((prev) => {
+                              const next = [...prev];
+                              while (next.length <= index) next.push("");
+                              next[index] = key;
+                              return next;
+                            });
+                            if (key) {
+                              const salary = INDUSTRY_SALARIES[extraCountry.code]?.[key];
+                              if (salary) updateExtra(index, { incomeTarget: salary });
+                            }
+                          }}
+                          className="w-full text-xs border border-border/60 rounded-lg py-1.5 px-2 bg-white text-muted focus:outline-none focus:ring-1 focus:ring-primary/30 cursor-pointer"
+                        >
+                          <option value="">
+                            {locale === "ja" ? "📊 業種別平均年収..." : "📊 Avg. salary by industry..."}
+                          </option>
+                          {INDUSTRIES.map((ind) => {
+                            const salary = INDUSTRY_SALARIES[extraCountry.code]?.[ind.key];
+                            const label = locale === "ja" ? ind.ja : locale === "zh" ? ind.zh : ind.en;
+                            return (
+                              <option key={ind.key} value={ind.key}>
+                                {label}{salary ? ` — ${salary.toLocaleString()}` : ""}
+                              </option>
+                            );
+                          })}
+                        </select>
+                        <p className="text-[10px] text-muted/60 mt-1 pl-1">
+                          {locale === "ja"
+                            ? "※ 実際の相場と異なる場合があります。"
+                            : locale === "zh"
+                            ? "※ 实际情况可能有所不同。"
+                            : "※ Actual costs may vary."}
+                        </p>
+                      </>
                     )}
                   </div>
                   <div className="relative">
