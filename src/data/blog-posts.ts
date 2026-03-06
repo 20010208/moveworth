@@ -3,6 +3,7 @@ export interface BlogPost {
   category: "money" | "lifeplan" | "casestudy" | "about" | "visa";
   date: string;
   readingTime: number;
+  locales?: string[]; // 未指定の場合は全言語に表示
   title: { ja: string; en: string; zh?: string };
   description: { ja: string; en: string; zh?: string };
   content: { ja: string; en: string; zh?: string };
@@ -1275,14 +1276,151 @@ Try a free simulation today. Your overseas relocation possibilities will become 
     },
   },
   {
+    slug: "moveworth-march-2026-update-en",
+    category: "about",
+    date: "2026-03-07",
+    readingTime: 4,
+    locales: ["en"],
+    title: {
+      ja: "",
+      en: "【Update】Major Update: 30 Countries, Salary Reference, Improved Country Search & More",
+    },
+    description: {
+      ja: "",
+      en: "MoveWorth's March 2026 update brings 30+ country support, industry salary & housing cost references, smarter country search with currency lookup, and the official launch of advanced analytics.",
+    },
+    content: {
+      ja: "",
+      en: `MoveWorth has received several major updates in March 2026. Here's a full breakdown of what's new.
+
+### 1. Now Supporting 30+ Countries
+
+We've expanded from 20 to **30+ countries**, giving you more destinations to compare when planning your relocation:
+
+**Newly added:**
+Portugal, Spain, Georgia, Ireland, Sweden, Norway, Denmark, Brazil, Colombia, Greece
+
+All data is based on **March 2026 figures for foreign professionals** — not local averages — so you get a realistic picture of what expat life actually looks like financially.
+
+### 2. Industry Salary & Housing Cost Reference
+
+The simulator now shows **salary benchmarks by industry** for your destination country. Just select a country and an industry to see the average annual income for expats working there.
+
+**Supported industries:**
+Manufacturing, IT & Telecoms, Finance & Insurance, Service Industry, Retail & Wholesale, Construction & Real Estate, Transport & Logistics, Media & Broadcasting, Infrastructure & Energy
+
+We've also added **monthly housing cost estimates** by household type:
+- Single
+- Couple (2 people)
+- Family of 4
+
+These figures help you build a simulation grounded in real-world expat costs from the start.
+
+### 3. Smarter Country Selector
+
+The country dropdown has been fully redesigned:
+
+- **Search by name or currency**: Type "EUR" to find all Eurozone countries, or "SGD" for Singapore — instantly
+- **No duplicate selection**: The same country can't be chosen as both origin and destination
+- **Alphabetical sorting**: Countries are listed A–Z for quick scanning
+
+### 4. Advanced Analytics Now Live
+
+Three features previously listed as "coming soon" are now officially available:
+
+**Sensitivity Analysis** *(Pro plan+)*
+A tornado chart showing which inputs — income, investment return, inflation, rent, or living costs — have the biggest impact on your projected assets. Great for understanding where to focus.
+
+**FIRE Calculator** *(Pro plan+)*
+See at what age you could achieve Financial Independence, Retire Early (FIRE) in your current country versus your target destination. Calculated using the 4% rule.
+
+**Monte Carlo Simulation** *(Premium plan)*
+Run 1,000 scenarios to see the probability distribution of your asset growth. A fan chart visualizes best-case, median, and worst-case outcomes — so you can plan with confidence.
+
+---
+
+We're continuously improving MoveWorth based on user feedback. If you have suggestions or questions, feel free to reach out through our contact page.`,
+    },
+  },
+  {
+    slug: "moveworth-march-2026-update-zh",
+    category: "about",
+    date: "2026-03-07",
+    readingTime: 4,
+    locales: ["zh"],
+    title: {
+      ja: "",
+      en: "",
+      zh: "【更新】重大升级：支持30个以上国家、薪资参考、货币搜索等新功能正式上线",
+    },
+    description: {
+      ja: "",
+      en: "",
+      zh: "MoveWorth 2026年3月重大升级，新增30个以上国家支持、行业薪资与住房费用参考、支持货币代码搜索国家、以及高级分析功能正式发布。",
+    },
+    content: {
+      ja: "",
+      en: "",
+      zh: `2026年3月，MoveWorth迎来多项重大升级。以下是本次更新的完整介绍。
+
+### 1. 现已支持30个以上国家
+
+我们将支持国家数量从20个扩展至**30个以上**，为您提供更多移居目的地选择：
+
+**新增国家：**
+葡萄牙、西班牙、格鲁吉亚、爱尔兰、瑞典、挪威、丹麦、巴西、哥伦比亚、希腊
+
+所有数据均基于**2026年3月外籍专业人士**的实际情况，而非当地平均水平，让您对移居后的财务状况有更真实的把握。
+
+### 2. 行业薪资与住房费用参考
+
+模拟器现在可根据目的地国家和所选行业，自动显示**外籍人士的平均年薪参考值**。
+
+**支持的行业：**
+制造业、IT・信息通信、金融・保险、服务业、零售・批发、建设・房地产、运输・物流、媒体・传媒、基础设施・能源
+
+同时新增按家庭类型显示的**月均住房费用参考**：
+- 单身（1人）
+- 两人同住
+- 四口之家
+
+这些数据帮助您从一开始就构建更贴近现实的模拟场景。
+
+### 3. 更智能的国家选择器
+
+国家下拉菜单已全面升级：
+
+- **按名称或货币代码搜索**：输入"EUR"即可找到所有欧元区国家，输入"SGD"直接定位新加坡
+- **防重复选择**：同一国家不能同时作为出发地和目的地
+- **按字母顺序排列**：国家列表从A到Z快速浏览
+
+### 4. 高级分析功能正式上线
+
+三项此前标注为"即将推出"的功能现已正式发布：
+
+**敏感性分析** *(Pro套餐及以上)*
+通过龙卷风图展示收入、投资回报率、通胀率、租金、生活费等各参数对未来资产影响的大小排序，帮助您了解重点优化方向。
+
+**FIRE计算器** *(Pro套餐及以上)*
+计算您在当前国家与目标移居地实现财务独立、提前退休（FIRE）的年龄，基于4%法则自动计算目标资产额。
+
+**蒙特卡罗模拟** *(Premium套餐)*
+通过1,000次情景模拟，计算资产增长的概率分布。扇形图直观呈现最佳、中位和最差情景，让您的规划更有底气。
+
+---
+
+我们将持续根据用户反馈改进MoveWorth。如有任何建议或问题，欢迎通过联系页面告知我们。`,
+    },
+  },
+  {
     slug: "moveworth-march-2026-update",
     category: "about",
     date: "2026-03-07",
     readingTime: 4,
+    locales: ["ja"],
     title: {
       ja: "【アップデート】30カ国対応・給与参照・検索改善など大型アップデートを実施しました",
-      en: "【Update】Major Update: 30 Countries, Salary Reference, Improved Search & More",
-      zh: "【更新】重大升级：支持30个国家、薪资参考、搜索改进等新功能上线",
+      en: "",
     },
     description: {
       ja: "2026年3月、MoveWorthに複数の大型アップデートを実施しました。対応国の拡大、業種別給与・住居費参照、国選択UIの改善、高度分析機能の正式リリースをご紹介します。",

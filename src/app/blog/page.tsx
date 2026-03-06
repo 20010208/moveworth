@@ -11,9 +11,9 @@ export default function BlogPage() {
   const lang = locale as "en" | "ja" | "zh";
   const [activeCategory, setActiveCategory] = useState<string>("all");
 
-  const sortedPosts = [...blogPosts].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  const sortedPosts = [...blogPosts]
+    .filter((p) => !p.locales || p.locales.includes(lang))
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const filteredPosts =
     activeCategory === "all"
