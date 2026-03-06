@@ -4466,6 +4466,1606 @@ Japan offers a high standard of living and safety in Asia, but tax burden, aging
 日本在亚洲拥有较高的生活水准和安全性，但税负、老龄化挑战和语言障碍是移居时需要充分考量的因素。`,
     },
   },
+  // ===== NEW 10 COUNTRIES VISA GUIDES =====
+  {
+    slug: "visa-pt",
+    category: "visa",
+    date: "2026-03-07",
+    readingTime: 6,
+    title: {
+      ja: "ポルトガルのビザ・就労許可完全ガイド2026年版",
+      en: "Portugal Visa & Residency Complete Guide 2026",
+      zh: "葡萄牙签证与居留许可完全指南2026年版",
+    },
+    description: {
+      ja: "D7ビザ・NHR税制からゴールデンビザまで、ポルトガル移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "From the D7 Passive Income Visa to the Golden Visa — everything you need to know about moving to Portugal.",
+      zh: "从D7被动收入签证到黄金签证，全面解析移居葡萄牙所需的签证类型、要求与费用。",
+    },
+    content: {
+      ja: `ポルトガルは、温暖な気候・低い生活費・優遇税制を背景に、欧州移住先として高い人気を誇ります。2026年時点の主要ビザと税制をご紹介します。
+
+### 主なビザの種類
+
+**D7ビザ（受動的収入・デジタルノマドビザ）**
+年金・配当・賃貸収入・フリーランス収入など、ポルトガル国外からの収入を持つ方向けのビザです。
+- 最低月収の目安：ポルトガルの最低賃金以上（約€1,020/月）
+- 有効期間：初回2年、更新後3年
+- 申請先：最寄りのポルトガル領事館
+
+**D2ビザ（フリーランサー・起業家ビザ）**
+ポルトガルで独立した事業活動を行う方向けのビザです。事業計画書の提出が必要です。
+
+**D3ビザ（高度技能者・EUブルーカード）**
+EU加盟企業からの雇用オファーがある高度技能者向け。年収要件はEU平均給与の1.5倍以上。
+
+**ゴールデンビザ（ARI）**
+不動産への投資ルートは2023年に廃止されましたが、以下のルートは継続中：
+- ファンドへの投資：€500,000以上
+- 雇用創出：10名以上
+- 文化遺産への寄付：€250,000以上
+
+### IFICI（旧NHR）優遇税制
+
+2024年より旧NHR制度はIFICI（非慣習的税務居住者）に改変されました。
+- 認定職種（IT・科学技術・起業家等）に限定
+- ポルトガル国内源泉所得に**20%の優遇税率**（通常最大48%）
+- 外国源泉所得は**免税**（一部例外あり）
+- 優遇期間：10年間
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| D7ビザ申請費 | 約€90 |
+| 居留許可申請費（AIMA） | 約€320 |
+| ゴールデンビザ申請費 | 約€533〜€5,332 |
+
+### 移住前のチェックポイント
+
+1. **AIMA（旧SEF）への登録**：ポルトガル到着後4ヶ月以内に居留許可を申請
+2. **NIF取得**：税務番号。口座開設・賃貸契約に必須
+3. **社会保障加入**：フリーランサーはCaixa Geral de Aposentaçõesへの登録が必要
+
+ポルトガルは欧州の中でも生活コストが低く、英語が通じやすい移住先です。MoveWorthで資産シミュレーションをしてから移住計画を立てることをおすすめします。`,
+      en: `Portugal has become one of Europe's most popular destinations for expats, digital nomads, and retirees thanks to its warm climate, affordable living costs, and favorable tax regimes.
+
+### Main Visa Types
+
+**D7 Visa (Passive Income / Digital Nomad)**
+For those with stable income from outside Portugal — pensions, dividends, rental income, or freelance work.
+- Minimum income: approx. €1,020/month (Portugal's minimum wage equivalent)
+- Validity: 2 years initially, renewable for 3 years
+- Apply at: Portuguese consulate in your country
+
+**D2 Visa (Freelancer / Entrepreneur)**
+For those who want to run an independent business or work as a freelancer in Portugal. A business plan is required.
+
+**D3 Visa (Highly Qualified / EU Blue Card)**
+For highly skilled professionals with a job offer from a Portuguese or EU employer. Requires salary at least 1.5x the EU average.
+
+**Golden Visa (ARI)**
+The real estate investment route was closed in 2023, but the following remain open:
+- Fund investment: €500,000+
+- Job creation: 10+ employees
+- Cultural heritage donation: €250,000+
+
+### IFICI Tax Regime (formerly NHR)
+
+In 2024, the NHR (Non-Habitual Resident) regime was replaced by IFICI (Incentivo Fiscal à Investigação Científica e Inovação).
+- Limited to qualifying professions (IT, science/tech, entrepreneurs, etc.)
+- **20% flat tax** on Portuguese-sourced income (vs. standard up to 48%)
+- Foreign-sourced income often **exempt** from Portuguese tax
+- Duration: 10 years
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| D7 visa fee | ~€90 |
+| Residence permit (AIMA) | ~€320 |
+| Golden Visa fee | ~€533–€5,332 |
+
+### Key Checklist Before You Move
+
+1. **Register with AIMA** (formerly SEF): Apply for a residence permit within 4 months of arrival
+2. **Get a NIF**: Portuguese tax number — required for bank accounts, leases, and almost everything else
+3. **Social security**: Freelancers must register with Caixa Geral de Aposentações
+
+Portugal offers an accessible entry point to EU residency with relatively low bureaucracy compared to other European countries. Use MoveWorth to simulate your financial position before making the move.`,
+      zh: `葡萄牙以温暖的气候、低廉的生活成本和优惠的税收制度，成为欧洲最受欢迎的移居目的地之一。
+
+### 主要签证类型
+
+**D7签证（被动收入/数字游民签证）**
+适用于拥有葡萄牙境外稳定收入的申请者（养老金、股息、租金收入或自由职业）。
+- 最低月收入要求：约€1,020（相当于葡萄牙最低工资）
+- 有效期：首次2年，续签3年
+- 申请地点：所在国葡萄牙领事馆
+
+**D2签证（自由职业者/创业者签证）**
+适用于希望在葡萄牙开展独立业务或自由职业的申请者，需提交商业计划书。
+
+**D3签证（高技能/EU蓝卡）**
+适用于持有葡萄牙或欧盟雇主工作邀约的高技能专业人士，薪资要求不低于欧盟平均工资的1.5倍。
+
+**黄金签证（ARI）**
+房产投资渠道已于2023年关闭，但以下渠道仍然有效：
+- 基金投资：€500,000以上
+- 创造就业：10人以上
+- 文化遗产捐赠：€250,000以上
+
+### IFICI税收优惠制度（原NHR）
+
+2024年，NHR（非惯常居民）制度更名为IFICI（科学研究与创新财税激励）。
+- 仅限特定职业（IT、科技、创业者等）
+- 葡萄牙境内收入享受**20%优惠税率**（标准税率最高48%）
+- 境外收入通常**免税**
+- 优惠期限：10年
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| D7签证申请费 | 约€90 |
+| 居留许可（AIMA） | 约€320 |
+| 黄金签证费 | 约€533〜€5,332 |
+
+### 移居前注意事项
+
+1. **向AIMA登记**：抵达后4个月内申请居留许可
+2. **申请NIF税务号**：开设银行账户、签订租约必备
+3. **社会保险登记**：自由职业者须向Caixa Geral de Aposentações登记`,
+    },
+  },
+  {
+    slug: "visa-es",
+    category: "visa",
+    date: "2026-03-07",
+    readingTime: 6,
+    title: {
+      ja: "スペインのビザ・就労許可完全ガイド2026年版",
+      en: "Spain Visa & Work Permit Complete Guide 2026",
+      zh: "西班牙签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "デジタルノマドビザ・ベッカム法・非収益ビザまで、スペイン移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "From the Digital Nomad Visa to the Beckham Law tax break — a complete guide to visas and residency in Spain.",
+      zh: "从数字游民签证到贝克汉姆法税收优惠，全面解析移居西班牙所需的签证类型与要求。",
+    },
+    content: {
+      ja: `スペインは温暖な気候・豊かな食文化・比較的手ごろな生活費で、欧州移住先として人気が高まっています。2023年のスタートアップ法施行により、デジタルノマドにとってもより魅力的な選択肢となりました。
+
+### 主なビザの種類
+
+**非収益ビザ（Non-Lucrative Visa）**
+スペインでの就労を行わず、十分な資産・収入で生活する方向けのビザです。
+- 最低月収目安：€2,400以上（申請者本人）
+- 有効期間：初回1年、更新後2年・さらに2年
+- 就労は原則不可（後でワークパーミットに変更可能）
+
+**デジタルノマドビザ（Ley de Startups）**
+2023年に導入。海外の企業にリモートで働く外国人向け。
+- 最低月収：€2,646以上（スペイン最低賃金の200%）
+- スペイン国内クライアントからの収入は全体の20%以内
+- 有効期間：初回1年（居留許可として3年に変換可能）
+
+**高度技能者ビザ（EUブルーカード）**
+スペインの企業からの就労オファーがある高度技能者向け。年収要件あり。
+
+**起業家ビザ（Emprendedores）**
+スペインでの事業創業・投資活動を行う起業家向け。事業計画の審査が必要。
+
+**ゴールデンビザ（Visa Dorada）**
+- 不動産投資：€500,000以上
+- ゴールデンビザの廃止が議会で審議中（2026年時点）
+
+### ベッカム法（Ley Beckham）
+
+スペインに初めて税務居住者として転入した外国人に適用できる特別税制。
+- スペイン源泉所得に対して**24%の一律税率**（通常最大47%）
+- 適用期間：転入年 + 5年間、計6年
+- 申請条件：過去5年間スペインに居住していないこと、雇用または事業目的での移住
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| 非収益ビザ申請費 | 約€80〜160 |
+| デジタルノマドビザ申請費 | 約€80〜160 |
+| NIE（外国人識別番号）取得 | 約€10 |
+
+### 移住前のチェックポイント
+
+1. **NIE取得**：スペインでの生活に必須の外国人識別番号
+2. **パドロン登録**：市区町村への住民登録（公共サービス利用に必要）
+3. **ベッカム法の申請期限**：スペイン到着後6ヶ月以内に申請が必要
+
+スペインは生活コストと生活の質のバランスが取れた移住先です。MoveWorthで事前にシミュレーションして準備を整えましょう。`,
+      en: `Spain's combination of warm weather, rich culture, and relatively affordable living has made it an increasingly popular destination for expats. The 2023 Startups Law made it even more attractive for digital nomads and remote workers.
+
+### Main Visa Types
+
+**Non-Lucrative Visa (NLV)**
+For those who can support themselves financially without working in Spain.
+- Minimum monthly income: ~€2,400 (applicant only)
+- Validity: 1 year initially, renewable for 2+2 years
+- Work is generally not permitted (can later convert to a work permit)
+
+**Digital Nomad Visa (Ley de Startups)**
+Introduced in 2023, for remote workers employed by non-Spanish companies.
+- Minimum monthly income: €2,646 (200% of Spain's minimum wage)
+- Spanish clients must not exceed 20% of total income
+- Validity: 1 year (can convert to 3-year residence permit)
+
+**EU Blue Card**
+For highly skilled professionals with a job offer from a Spanish company. Salary requirements apply.
+
+**Entrepreneur Visa (Emprendedores)**
+For those starting or investing in a business in Spain. Requires submission of a business plan.
+
+**Golden Visa (Visa Dorada)**
+- Real estate investment: €500,000+
+- Note: Abolition of the Golden Visa is under parliamentary discussion as of 2026
+
+### Beckham Law (Régimen Especial de Trabajadores Desplazados)
+
+A special tax regime for new tax residents in Spain.
+- **24% flat tax** on Spanish-sourced income (vs. standard up to 47%)
+- Applies for the year of arrival + 5 subsequent years (6 years total)
+- Requirements: must not have been tax resident in Spain for the past 5 years; must relocate for employment or business
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Non-Lucrative Visa fee | ~€80–160 |
+| Digital Nomad Visa fee | ~€80–160 |
+| NIE (foreign ID number) | ~€10 |
+
+### Key Checklist Before You Move
+
+1. **Get your NIE**: Spain's foreign identification number — essential for almost everything
+2. **Empadronamiento**: Register at your local town hall (required for public services)
+3. **Beckham Law deadline**: Must apply within 6 months of arriving in Spain
+
+Spain offers an excellent quality of life at a reasonable cost. Use MoveWorth to simulate your financial situation and plan your move with confidence.`,
+      zh: `西班牙以温暖的气候、丰富的文化和相对实惠的生活成本，成为越来越多外籍人士的移居首选。2023年《创业法》的实施，使其对数字游民更具吸引力。
+
+### 主要签证类型
+
+**非盈利签证（NLV）**
+适用于无需在西班牙工作、依靠境外收入或资产生活的申请者。
+- 最低月收入约：€2,400
+- 有效期：首次1年，续签2+2年
+- 原则上不得在西班牙工作
+
+**数字游民签证（Ley de Startups）**
+2023年推出，适用于为非西班牙公司远程工作的外籍人士。
+- 最低月收入：€2,646（西班牙最低工资的200%）
+- 西班牙客户收入不超过总收入的20%
+- 有效期：1年（可转换为3年居留许可）
+
+**EU蓝卡**
+适用于持有西班牙企业工作邀约的高技能专业人士，有薪资要求。
+
+**黄金签证（Visa Dorada）**
+- 房产投资：€500,000以上
+- 注：截至2026年，废除黄金签证的议案正在议会审议中
+
+### 贝克汉姆法（Régimen Especial）
+
+适用于新转入西班牙的税务居民的特别税收制度。
+- 西班牙境内收入适用**24%固定税率**（标准税率最高47%）
+- 适用期：转入年份 + 随后5年，共6年
+- 条件：过去5年内未在西班牙居住，因就业或创业目的移居
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 非盈利签证费 | 约€80〜160 |
+| 数字游民签证费 | 约€80〜160 |
+| NIE外国人识别号 | 约€10 |
+
+### 移居前注意事项
+
+1. **申请NIE**：西班牙外国人识别号，生活必备
+2. **Empadronamiento登记**：在居住地市政厅办理户籍登记
+3. **贝克汉姆法申请期限**：抵达西班牙后6个月内提交申请`,
+    },
+  },
+  {
+    slug: "visa-ge",
+    category: "visa",
+    date: "2026-03-07",
+    readingTime: 5,
+    title: {
+      ja: "ジョージアのビザ・就労許可完全ガイド2026年版",
+      en: "Georgia Visa & Residency Complete Guide 2026",
+      zh: "格鲁吉亚签证与居留许可完全指南2026年版",
+    },
+    description: {
+      ja: "ノービザ長期滞在・バーチャルゾーン・小規模ビジネス制度まで、ジョージア移住に必要な情報を徹底解説。",
+      en: "Visa-free long stays, Virtual Zone status, and Small Business tax perks — everything about moving to Georgia.",
+      zh: "免签长期居留、虚拟区制度、小企业税收优惠——移居格鲁吉亚所需的全部信息。",
+    },
+    content: {
+      ja: `ジョージア（グルジア）は、コーカサス地方に位置する国で、ビザなし長期滞在・超低税率・低生活費から、デジタルノマドや起業家に人気急上昇中の移住先です。
+
+### 入国・滞在
+
+**ビザなし滞在（最長1年）**
+日本・米国・EU・英国など多くの国籍の方は、ビザなしで最長1年間ジョージアに滞在可能です。
+- パスポートを出入国スタンプで更新することで継続滞在するケースもある（グレーゾーン）
+- 正式に1年を超えて滞在する場合は居留許可の取得が必要
+
+**居留許可（Residence Permit）**
+1年以上滞在する場合に必要。以下の活動で取得可能：
+- 就労（雇用契約が必要）
+- 自営業・事業活動
+- 不動産購入（価格要件あり）
+- ジョージア人との婚姻
+
+### ビジネス登録・税制
+
+**バーチャルゾーン（Virtual Zone）**
+IT系サービスをジョージア国外に提供する企業に対して、法人税・VATが免除されます。
+- 対象：IT、ソフトウェア開発等
+- ジョージア国内売上は対象外
+
+**小規模ビジネス制度（Individual Entrepreneur - Small Business Status）**
+年間売上が500,000ラリ（約€17,000）以下の個人事業主向け。
+- 税率：売上の1%（上限500,000ラリまで）
+- 500,000ラリ超の場合は3%
+
+**個人所得税**
+- 標準税率：20%
+- 外国からの給与収入（ジョージア国外の雇用主から）は非課税の解釈もある
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| 居留許可申請費 | 約280〜580ラリ |
+| 個人事業主登録費 | 無料〜約50ラリ |
+| 銀行口座開設 | 無料（要パスポート） |
+
+### 移住前のチェックポイント
+
+1. **銀行口座の開設**：TBC Bank、Bank of Georgiaなど主要行で開設可能
+2. **個人IDコードの取得**：ジョージアの行政サービス局（LEPL）で発行
+3. **生活コストの確認**：首都トビリシでも月€600〜900程度で生活可能
+
+ジョージアは欧州へのアクセスが良く、インターネット速度も優秀で、コーカサスの豊かな文化を楽しめる移住先です。MoveWorthで生活コスト・税負担のシミュレーションをお試しください。`,
+      en: `Georgia (the country in the Caucasus) has become one of the most popular destinations for digital nomads and entrepreneurs thanks to visa-free long stays, very low taxes, and an affordable cost of living.
+
+### Entry & Stay
+
+**Visa-Free Stay (Up to 1 Year)**
+Citizens of Japan, the US, EU, UK, and many other countries can stay in Georgia for up to 1 year without a visa.
+- Some expats renew via border runs (grey area — not officially endorsed)
+- For stays beyond 1 year, a formal residence permit is required
+
+**Residence Permit**
+Required for stays over 1 year. Can be obtained through:
+- Employment (requires a work contract)
+- Self-employment / business activity
+- Property purchase (subject to value requirements)
+- Marriage to a Georgian citizen
+
+### Business Registration & Tax
+
+**Virtual Zone Status**
+IT companies providing services to clients outside Georgia are exempt from corporate tax and VAT on those revenues.
+- Eligible sectors: IT, software development, etc.
+- Revenue from Georgian clients is not exempt
+
+**Small Business Status (Individual Entrepreneur)**
+For sole traders with annual turnover under 500,000 GEL (~€17,000).
+- Tax rate: 1% of turnover (up to 500,000 GEL)
+- 3% on turnover above 500,000 GEL
+
+**Personal Income Tax**
+- Standard rate: 20%
+- Salary income from a foreign employer (outside Georgia) may be non-taxable under certain interpretations
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Residence permit | ~280–580 GEL |
+| Individual entrepreneur registration | Free–~50 GEL |
+| Bank account opening | Free (passport required) |
+
+### Key Checklist Before You Move
+
+1. **Open a bank account**: TBC Bank and Bank of Georgia are the main options
+2. **Get a personal ID code**: Issued by Georgia's Public Service Development Agency (LEPL)
+3. **Check living costs**: Tbilisi is very affordable — expect around €600–900/month
+
+Georgia offers excellent internet connectivity, easy EU access, and a rich culture at a fraction of European living costs. Use MoveWorth to simulate your financial position before making the move.`,
+      zh: `格鲁吉亚（高加索地区国家）以免签长期居留、极低税率和低廉的生活成本，迅速成为数字游民和创业者最热门的移居目的地之一。
+
+### 入境与居留
+
+**免签居留（最长1年）**
+日本、美国、欧盟、英国等多国公民可在格鲁吉亚免签居留最长1年。
+- 1年以上居留需申请正式居留许可
+
+**居留许可**
+1年以上居留所必需，可通过以下方式获得：
+- 就业（需劳动合同）
+- 个体经营/商业活动
+- 购置房产（有金额要求）
+- 与格鲁吉亚公民结婚
+
+### 商业注册与税收
+
+**虚拟区制度（Virtual Zone）**
+向格鲁吉亚境外客户提供IT服务的企业可享受企业所得税和增值税豁免。
+- 适用行业：IT、软件开发等
+- 境内客户收入不在豁免范围
+
+**小企业身份（个体经营者）**
+年营业额不超过500,000拉里（约€17,000）的个体经营者：
+- 税率：营业额的1%
+- 超过500,000拉里部分按3%征税
+
+**个人所得税**
+- 标准税率：20%
+- 来自境外雇主的薪资收入在某些情况下可免税
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 居留许可申请费 | 约280〜580拉里 |
+| 个体经营者注册 | 免费〜约50拉里 |
+| 开设银行账户 | 免费（需护照） |
+
+### 移居前注意事项
+
+1. **开设银行账户**：TBC银行和格鲁吉亚银行是主要选择
+2. **申请个人ID编码**：由格鲁吉亚公共服务发展局发放
+3. **了解生活成本**：第比利斯每月约€600〜900即可生活`,
+    },
+  },
+  {
+    slug: "visa-ie",
+    category: "visa",
+    date: "2026-03-07",
+    readingTime: 6,
+    title: {
+      ja: "アイルランドのビザ・就労許可完全ガイド2026年版",
+      en: "Ireland Visa & Work Permit Complete Guide 2026",
+      zh: "爱尔兰签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "クリティカルスキル就労許可から一般就労許可まで、アイルランド移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "From the Critical Skills Employment Permit to the General Employment Permit — a complete guide to working in Ireland.",
+      zh: "从关键技能就业许可到一般就业许可，全面解析在爱尔兰工作所需的签证类型与要求。",
+    },
+    content: {
+      ja: `アイルランドは欧州最大のテックハブのひとつで、Google・Meta・Apple・Microsoftなど多くのグローバル企業が欧州本社を構えています。英語が公用語で、欧州で活躍したい方にとって有力な移住先です。
+
+### 主な就労許可の種類
+
+**クリティカルスキル就労許可（CSEP）**
+アイルランドが人材不足と認定した職種向けの最も優遇された就労許可です。
+- 対象：IT・エンジニアリング・医療・金融等の高技能職
+- 最低年収：€38,000以上（一部職種は€32,000以上）
+- 有効期間：2年間（更新後は無制限就労許可が取得可能）
+- 配偶者の就労許可も同時取得可能
+
+**一般就労許可（GEP）**
+CSEP対象外の職種向けの就労許可。
+- 雇用主がアイルランド国内で採用活動を行ったことを証明する必要あり（EEA優先）
+- 最低年収：€34,000以上
+- 有効期間：2年間
+
+**企業内転勤（ICT）許可**
+多国籍企業の社員がアイルランド拠点に転勤する場合に利用。最長5年。
+
+**スタートアップ起業家プログラム（STEP）**
+革新的な事業をアイルランドで立ち上げる起業家向け。事業計画の審査があります。
+
+### EUブルーカード
+
+年収€60,000以上の高度技能者向け。EU域内での移動が比較的しやすくなります。
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| CSEP申請費 | €1,000 |
+| GEP申請費 | €1,000 |
+| Stamp変更申請 | €300 |
+| 居留登録（GNIB/IRP登録） | €300 |
+
+### スタンプ制度（許可区分）
+
+アイルランドでは入国許可の種類を「スタンプ」で管理します。
+- **Stamp 1**：就労許可保有者
+- **Stamp 1G**：卒業後の就職活動（Graduated Graduate Scheme）
+- **Stamp 4**：5年以上の合法滞在後に取得可能。就労許可なしで就労可
+
+### 移住前のチェックポイント
+
+1. **PPS番号の取得**：アイルランドの社会保険番号。就労・医療・行政手続きに必須
+2. **住宅問題**：ダブリンの住宅不足は深刻で、家賃は高騰しています
+3. **税率について**：所得税最大40%＋USC（社会保障）＋PRSIで実効税率は高め
+
+アイルランドはIT業界への就職・転職を考える方には特に魅力的な移住先です。MoveWorthで税引き後の手取りと生活費を事前にシミュレーションしてみてください。`,
+      en: `Ireland is one of Europe's leading tech hubs, home to the European headquarters of Google, Meta, Apple, Microsoft, and many others. With English as its official language, it's a top destination for professionals looking to build a career in Europe.
+
+### Main Work Permit Types
+
+**Critical Skills Employment Permit (CSEP)**
+The most favorable permit, for roles on Ireland's Critical Skills Occupations List.
+- Eligible roles: IT, engineering, healthcare, finance, and more
+- Minimum salary: €38,000+ (€32,000+ for some roles)
+- Validity: 2 years (can lead to an Unrestricted Work Permit)
+- Spouse can also obtain a work permit simultaneously
+
+**General Employment Permit (GEP)**
+For roles not covered by the CSEP.
+- Employer must demonstrate that the EEA labor market was considered first
+- Minimum salary: €34,000+
+- Validity: 2 years
+
+**Intra-Company Transfer (ICT) Permit**
+For employees transferring from a multinational's overseas office to its Irish base. Up to 5 years.
+
+**Startup Entrepreneur Programme (STEP)**
+For innovative entrepreneurs wanting to establish a business in Ireland. Requires a business plan assessment.
+
+### EU Blue Card
+
+For highly skilled workers earning €60,000+. Facilitates movement across EU member states.
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| CSEP application fee | €1,000 |
+| GEP application fee | €1,000 |
+| Stamp change | €300 |
+| Residence registration (IRP) | €300 |
+
+### The Stamp System
+
+Ireland manages residence permission through a stamp system:
+- **Stamp 1**: Work permit holder
+- **Stamp 1G**: Graduate job seeker (Graduate Scheme)
+- **Stamp 4**: Obtainable after 5+ years of legal residence — no work permit required for employment
+
+### Key Checklist Before You Move
+
+1. **Get a PPS Number**: Ireland's social insurance number — essential for employment, healthcare, and public services
+2. **Housing**: Dublin's housing shortage is severe, with high rents and limited availability
+3. **Tax rates**: Income tax up to 40% + USC + PRSI results in a relatively high effective tax rate
+
+Ireland is particularly compelling for IT and finance professionals. Use MoveWorth to simulate your take-home pay and living costs before making the move.`,
+      zh: `爱尔兰是欧洲最重要的科技中心之一，谷歌、Meta、苹果、微软等众多跨国企业在此设立欧洲总部。以英语为官方语言，是希望在欧洲发展职业生涯的最佳选择之一。
+
+### 主要就业许可类型
+
+**关键技能就业许可（CSEP）**
+针对爱尔兰短缺职业名单中职位的最优惠许可。
+- 适用岗位：IT、工程、医疗、金融等高技能职位
+- 最低年薪：€38,000以上（部分职位€32,000以上）
+- 有效期：2年（可获得无限制就业许可）
+- 配偶可同时申请就业许可
+
+**一般就业许可（GEP）**
+适用于CSEP未涵盖的职位，有效期2年。
+
+**企业内部调动许可（ICT）**
+适用于跨国公司员工从境外调至爱尔兰分支机构，最长5年。
+
+**创业企业家计划（STEP）**
+适用于希望在爱尔兰创业的创新型企业家，需提交商业计划审核。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| CSEP申请费 | €1,000 |
+| GEP申请费 | €1,000 |
+| 居留注册（IRP） | €300 |
+
+### 盖章制度（居留类别）
+
+- **Stamp 1**：持就业许可者
+- **Stamp 1G**：毕业生求职期
+- **Stamp 4**：合法居留5年以上可获得，无需就业许可即可工作
+
+### 移居前注意事项
+
+1. **申请PPS号码**：爱尔兰社会保险号，就业、医疗、行政手续必备
+2. **住房问题**：都柏林住房短缺严重，租金高涨
+3. **税率**：所得税最高40%加USC和PRSI，实际税负较高`,
+    },
+  },
+  {
+    slug: "visa-se",
+    category: "visa",
+    date: "2026-03-07",
+    readingTime: 5,
+    title: {
+      ja: "スウェーデンのビザ・就労許可完全ガイド2026年版",
+      en: "Sweden Visa & Work Permit Complete Guide 2026",
+      zh: "瑞典签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "就労許可・自営業許可・高度技能者向けスキームまで、スウェーデン移住に必要な情報を徹底解説。",
+      en: "Work permits, self-employment visas, and special schemes for highly skilled workers — a complete guide to moving to Sweden.",
+      zh: "工作许可、自雇签证与高技能人才专项计划——移居瑞典所需的全部信息。",
+    },
+    content: {
+      ja: `スウェーデンは高水準の社会保障・教育・医療制度を誇る北欧の国です。高税率ではあるものの、生活の質・幸福度の高さで世界トップクラスにランクされます。
+
+### 主な就労ビザ・許可の種類
+
+**就労許可（Arbetstillstånd）**
+EU/EEA圏外の国籍者がスウェーデンで就労するために必要な許可です。
+- 雇用主側がスウェーデン移民庁（Migrationsverket）を通じて申請を主導
+- 雇用契約が必要（採用決定後に申請開始）
+- 最低賃金要件：スウェーデン国内の同職種の標準賃金以上（組合との合意賃金）
+- 有効期間：最大2年（雇用期間連動）、更新可能
+- 4年間の就労後、永住権申請が可能
+
+**EUブルーカード（EU Blue Card）**
+高度技能者向けのEU共通就労許可。スウェーデンが高度技能職とみなす職種で、年収SEK 572,400以上が目安。
+
+**自営業ビザ（Tillstånd för eget företag）**
+スウェーデアで自分の会社を設立・経営する方向けの許可。事業の持続可能性の証明が求められます。
+
+**研究者・学生ビザ**
+スウェーデンの大学や研究機関で研究・学習を行う方向けのビザ（学生はスウェーデン語能力が必要な場合あり）。
+
+### 研究者・高度技能者向け優遇税制
+
+スウェーデンには「専門家税制（Expertskatt）」があります。
+- 対象：スウェーデア国外から招聘された研究者・専門家・高給与者
+- 月収が基準額（2026年時点で約SEK 88,200/月）以上であること
+- 所得の25%が課税対象外（実効税率が下がる）
+- 適用期間：スウェーデア到着後最大7年間
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| 就労許可申請費 | SEK 2,000（雇用主負担）|
+| 永住権申請費 | SEK 1,500 |
+| 市民権申請費 | 無料 |
+
+### 移住前のチェックポイント
+
+1. **個人番号（Personnummer）**：スウェーデアの住民番号。取得までは銀行口座開設や公共サービスの利用が制限される
+2. **BankID**：スウェーデアでの電子認証システム。行政・銀行・医療のオンラインサービスに必須
+3. **住宅事情**：特にストックホルムは住宅不足で、待機リストが数年に及ぶ場合も
+
+スウェーデアは高い税率の一方で、育児・医療・教育の充実した社会保障が魅力です。MoveWorthで税引き後の生活水準をシミュレーションしてみてください。`,
+      en: `Sweden is a Nordic country known for its high-quality social security, healthcare, and education systems. Despite high taxes, it consistently ranks among the world's happiest and most livable countries.
+
+### Main Work Visa / Permit Types
+
+**Work Permit (Arbetstillstånd)**
+Required for non-EU/EEA nationals to work in Sweden.
+- The employer leads the application process through the Swedish Migration Agency (Migrationsverket)
+- A signed employment contract is required before applying
+- Minimum wage: must meet or exceed the union-agreed wage for the role
+- Validity: up to 2 years (tied to employment duration), renewable
+- After 4 years of work, permanent residency can be applied for
+
+**EU Blue Card**
+EU-wide work permit for highly skilled workers. In Sweden, it targets high-skill roles with a salary of approximately SEK 572,400/year or more.
+
+**Self-Employment Permit (Tillstånd för eget företag)**
+For those who want to run their own company in Sweden. Must demonstrate the business is financially sustainable.
+
+**Researcher / Student Visa**
+For those studying or conducting research at Swedish universities or research institutes.
+
+### Expert Tax Scheme (Expertskatt)
+
+Sweden offers a special tax benefit for foreign specialists:
+- Eligible: researchers, experts, and high earners recruited from abroad
+- Monthly salary must exceed ~SEK 88,200/month (2026 threshold)
+- 25% of income is excluded from taxation, lowering the effective tax rate
+- Duration: up to 7 years from arrival in Sweden
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Work permit fee | SEK 2,000 (paid by employer) |
+| Permanent residency fee | SEK 1,500 |
+| Citizenship application | Free |
+
+### Key Checklist Before You Move
+
+1. **Personnummer (Personal ID Number)**: Sweden's equivalent of a social security number. Until you receive it, access to banking and public services is limited
+2. **BankID**: Sweden's digital ID system — required for online banking, healthcare, and government services
+3. **Housing**: Stockholm in particular has a severe housing shortage, with waitlists stretching several years
+
+Sweden's high taxes are offset by comprehensive social services. Use MoveWorth to simulate your after-tax income and quality of life before making the move.`,
+      zh: `瑞典以高水准的社会保障、医疗和教育体系著称，尽管税率较高，但始终位居全球最幸福、最宜居国家前列。
+
+### 主要签证/许可类型
+
+**工作许可（Arbetstillstånd）**
+非欧盟/欧洲经济区公民在瑞典工作的必要许可。
+- 由雇主通过瑞典移民局（Migrationsverket）主导申请
+- 申请前需签订劳动合同
+- 薪资须满足所在岗位工会协议标准
+- 有效期：最长2年（与雇佣期挂钩），可续签
+- 工作满4年后可申请永久居留权
+
+**EU蓝卡**
+适用于高技能专业人士，年薪约SEK 572,400以上。
+
+**自雇许可（Tillstånd för eget företag）**
+适用于希望在瑞典开设并经营自己公司的申请者，需证明业务可持续性。
+
+### 专家税收优惠（Expertskatt）
+
+- 适用于从海外招募的研究人员、专家和高薪人才
+- 月薪须超过约SEK 88,200（2026年标准）
+- 25%的收入免于征税，有效降低实际税率
+- 适用期：抵达瑞典后最长7年
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 工作许可申请费 | SEK 2,000（由雇主承担）|
+| 永久居留申请费 | SEK 1,500 |
+| 入籍申请 | 免费 |
+
+### 移居前注意事项
+
+1. **个人号码（Personnummer）**：瑞典居民身份号码，未获取前银行和公共服务受限
+2. **BankID**：瑞典电子身份认证，网上银行、医疗、政府服务必备
+3. **住房**：斯德哥尔摩住房严重短缺，等待名单可长达数年`,
+    },
+  },
+  {
+    slug: "visa-no",
+    category: "visa",
+    date: "2026-03-07",
+    readingTime: 5,
+    title: {
+      ja: "ノルウェーのビザ・就労許可完全ガイド2026年版",
+      en: "Norway Visa & Work Permit Complete Guide 2026",
+      zh: "挪威签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "熟練労働者許可・EU/EEA登録から永住権まで、ノルウェー移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "Skilled worker permits, EU/EEA registration, and the path to permanent residency in Norway — a complete guide.",
+      zh: "技能工人许可、欧盟/欧洲经济区登记到永久居留权——移居挪威的完整指南。",
+    },
+    content: {
+      ja: `ノルウェーは世界最高水準の生活の質・高い賃金・充実した社会保障を誇る北欧の国です。石油基金（政府年金基金グローバル）を背景とした豊かな経済が特徴で、生活コストは高いものの、その分給与水準も非常に高いです。
+
+### 主な就労ビザ・許可の種類
+
+**EU/EEAおよびスイス市民**
+届出・登録のみで就労可能です（ビザ・就労許可不要）。
+- 3ヶ月以内：登録不要
+- 3ヶ月超：移民局への登録が必要
+
+**熟練労働者許可（Skilled Worker Permit）**
+EU/EEA圏外の方がノルウェーで就労するための主要な許可です。
+- 要件：当該職種における専門的な技能・資格の証明
+- 雇用オファーが必要（申請前に仕事が決まっている必要あり）
+- 最低賃金：ノルウェーの業種別最低賃金以上
+- 有効期間：最大3年、更新可能
+- 申請はノルウェー領事館またはUDI（移民局）のオンラインポータルから
+
+**スペシャリスト許可**
+特定の専門分野で高度な技術・知識を持つ方向け。熟練労働者許可の一区分です。
+
+**自営業許可（Selvstendig næringsdrivende）**
+ノルウェーで独立した事業活動を行う方向けの許可。事業の実行可能性の証明が必要。
+
+**就職活動ビザ（Job Seeker Visa）**
+一部の職種で就職活動を目的として短期間滞在できる場合があります（要確認）。
+
+### 永住権・市民権
+
+**永住権（Permanent Oppholdstillatelse）**
+- 要件：3年以上の合法滞在 + ノルウェー語テスト合格（300時間の語学研修）
+- 財政的自立の証明
+
+**市民権（Statsborgerskap）**
+- 要件：7年以上のノルウェー合法滞在 + ノルウェー語能力証明
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| 熟練労働者許可申請費 | NOK 6,300 |
+| 永住権申請費 | NOK 5,900 |
+| 市民権申請費 | 無料 |
+
+### 移住前のチェックポイント
+
+1. **D番号（D-nummer）**：ノルウェーの税務番号。到着後に雇用主を通じて取得
+2. **国民識別番号（Fødselsnummer）**：3ヶ月以上の登録後に取得できる本格的な居住番号
+3. **生活コスト**：オスロの家賃・食費は欧州でもトップクラスに高い
+
+ノルウェーは世界有数の高給与国ですが、その分生活コストも高額です。MoveWorthでシミュレーションして、移住後の資産形成計画を立ててみましょう。`,
+      en: `Norway offers one of the world's highest standards of living, excellent wages, and a comprehensive social security system. Backed by its sovereign wealth fund (the Government Pension Fund Global), Norway has a very strong economy — though the high cost of living matches its high salaries.
+
+### Main Work Visa / Permit Types
+
+**EU/EEA and Swiss Citizens**
+Can work in Norway with registration only — no visa or work permit required.
+- Stays under 3 months: no registration needed
+- Stays over 3 months: must register with the Norwegian Immigration Directorate (UDI)
+
+**Skilled Worker Permit**
+The primary route for non-EU/EEA nationals to work in Norway.
+- Requirements: relevant qualifications or professional skills for the role
+- A job offer is required before applying
+- Minimum wages: must meet Norway's sector-specific minimum wage requirements
+- Validity: up to 3 years, renewable
+- Apply via the Norwegian consulate or UDI's online portal
+
+**Specialist Permit**
+A sub-category of the skilled worker permit, for those with highly specialized expertise.
+
+**Self-Employment Permit (Selvstendig næringsdrivende)**
+For those establishing and running an independent business in Norway. Must demonstrate viability.
+
+### Permanent Residency & Citizenship
+
+**Permanent Residency (Permanent Oppholdstillatelse)**
+- Requirements: 3+ years of legal stay + Norwegian language test (300-hour course)
+- Must demonstrate financial independence
+
+**Citizenship (Statsborgerskap)**
+- Requirements: 7+ years of legal residence + Norwegian language proficiency
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Skilled worker permit fee | NOK 6,300 |
+| Permanent residency fee | NOK 5,900 |
+| Citizenship application | Free |
+
+### Key Checklist Before You Move
+
+1. **D-Number (D-nummer)**: Norway's tax identification number — obtained through your employer after arrival
+2. **National ID Number (Fødselsnummer)**: A full resident number issued after 3+ months of registration
+3. **Cost of living**: Oslo's rents and food costs are among the highest in Europe
+
+Norway offers exceptional salaries, but the cost of living is equally high. Use MoveWorth to simulate your financial position and plan your asset growth after moving.`,
+      zh: `挪威以世界顶级的生活水准、高薪资和完善的社会保障体系著称。凭借主权财富基金（政府养老基金全球）的支撑，挪威经济实力雄厚，尽管生活成本高，但薪资水平也非常高。
+
+### 主要签证/许可类型
+
+**欧盟/欧洲经济区及瑞士公民**
+仅需登记即可在挪威工作，无需签证或工作许可。
+- 3个月以内：无需登记
+- 3个月以上：须向挪威移民局（UDI）登记
+
+**技能工人许可**
+非欧盟/欧洲经济区公民在挪威工作的主要途径。
+- 要求：具备相关职业资质或专业技能
+- 申请前须持有工作邀约
+- 薪资须满足挪威各行业最低工资标准
+- 有效期：最长3年，可续签
+
+**自雇许可**
+适用于在挪威独立经营业务的申请者，需证明业务可行性。
+
+### 永久居留权与入籍
+
+**永久居留权**
+- 要求：合法居留3年以上 + 通过挪威语考试（300小时语言课程）
+
+**入籍**
+- 要求：合法居留7年以上 + 证明挪威语能力
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 技能工人许可申请费 | NOK 6,300 |
+| 永久居留申请费 | NOK 5,900 |
+| 入籍申请 | 免费 |
+
+### 移居前注意事项
+
+1. **D号码（D-nummer）**：挪威税务识别号，通过雇主在抵达后申请
+2. **国民识别号（Fødselsnummer）**：登记3个月以上后发放
+3. **生活成本**：奥斯陆的房租和食品费用是欧洲最高之一`,
+    },
+  },
+  {
+    slug: "visa-dk",
+    category: "visa",
+    date: "2026-03-07",
+    readingTime: 5,
+    title: {
+      ja: "デンマークのビザ・就労許可完全ガイド2026年版",
+      en: "Denmark Visa & Work Permit Complete Guide 2026",
+      zh: "丹麦签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "ファストトラック制度・ポジティブリスト・給与上限制度まで、デンマーク移住に必要なビザの種類・要件を徹底解説。",
+      en: "Fast Track, Positive List, Pay Limit — a complete guide to Denmark's work permit schemes and residency options.",
+      zh: "快速通道、正面清单、薪资上限制度——丹麦就业许可与居留选项完整指南。",
+    },
+    content: {
+      ja: `デンマークは「世界一幸福な国」として知られ、高い生活水準・優れた福祉制度・先進的なビジネス環境を提供しています。北欧諸国の中でも特に税率が高いですが、教育・医療・育児支援の充実が魅力です。
+
+### 主な就労ビザ・許可の種類
+
+**EU/EEAおよびノルディック市民**
+自由に就労可能。3ヶ月超の滞在は登録証明書の取得が必要。
+
+**ファストトラック制度（Fast Track）**
+Businessdanmark（デンマーク企業認定機関）に認定された企業に採用された外国人向けの高速審査制度。
+- 申請から認定まで最短1ヶ月程度
+- 給与上限制度またはポジティブリストとの組み合わせで利用
+
+**給与上限制度（Pay Limit Scheme / Beløbsordningen）**
+高給与の専門職向けの就労許可制度。
+- 最低年収：DKK 502,000以上（2026年現在）
+- 有効期間：最大4年
+- 職種・学歴の要件なし（給与要件のみ）
+
+**ポジティブリスト制度（Positive List）**
+デンマークが人材不足と認定した職種向けの就労許可。
+- 対象職種：ITエンジニア・医師・看護師・建築家等
+- 学歴・経験の証明が必要
+- 給与は標準以上であること
+
+**EUブルーカード**
+EU域内高度技能者向け就労許可。年収DKK 528,000以上が目安。
+
+### 研究者・高度技能者向け優遇税制
+
+**27%優遇税率（Forskerordningen）**
+- 海外からデンマークに採用された研究者・高度技能者向け
+- 最長7年間、所得の27%の税率が適用（通常最大52%）
+- 月収が基準額以上であること（2026年時点でDKK 73,500/月以上）
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| 給与上限・ポジティブリスト申請費 | DKK 4,165 |
+| 居留許可証（biometrics） | DKK 1,405 |
+| 配偶者の就労許可申請費 | DKK 4,165 |
+
+### 移住前のチェックポイント
+
+1. **CPR番号（中央個人登録番号）**：デンマークの住民番号。銀行・医療・行政手続きに必須
+2. **デジタル署名（MitID）**：行政・金融のオンラインサービスに必要
+3. **住宅事情**：コペンハーゲンは住宅需要が高く、家賃は上昇傾向
+
+デンマークは高い税率ながらも、生活の質・仕事と生活のバランス・社会保障の面で世界トップクラスの国です。MoveWorthで資産推移をシミュレーションして、移住後の生活設計を立ててみましょう。`,
+      en: `Denmark is consistently ranked as one of the world's happiest countries, offering a high quality of life, excellent welfare system, and an innovative business environment. While taxes are among the highest in the world, strong social services make it worthwhile for many expats.
+
+### Main Work Visa / Permit Types
+
+**EU/EEA and Nordic Citizens**
+Full right to work. For stays over 3 months, a registration certificate is required.
+
+**Fast Track Scheme**
+An accelerated processing scheme for foreign nationals hired by companies certified by Businessdanmark.
+- Processing time: as little as 1 month
+- Used in combination with Pay Limit or Positive List schemes
+
+**Pay Limit Scheme (Beløbsordningen)**
+For high-earning professionals — no specific educational or occupational requirements.
+- Minimum annual salary: DKK 502,000+ (2026)
+- Validity: up to 4 years
+- Open to all occupations if the salary threshold is met
+
+**Positive List**
+For occupations designated as shortage roles in Denmark.
+- Examples: IT engineers, doctors, nurses, architects
+- Requires proof of relevant qualifications and experience
+- Salary must be at or above the standard rate
+
+**EU Blue Card**
+For highly skilled workers with an annual salary of approximately DKK 528,000 or more.
+
+### Researcher / Specialist Tax Scheme (Forskerordningen)
+
+- For researchers and highly paid specialists recruited from abroad
+- A flat **27% tax rate** applies for up to 7 years (vs. standard rate up to 52%)
+- Monthly salary must exceed ~DKK 73,500/month (2026)
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Pay Limit / Positive List permit fee | DKK 4,165 |
+| Residence permit (biometrics) | DKK 1,405 |
+| Spouse work permit fee | DKK 4,165 |
+
+### Key Checklist Before You Move
+
+1. **CPR Number (Central Person Register)**: Denmark's personal ID number — essential for banking, healthcare, and all public services
+2. **MitID (Digital Signature)**: Required for online government and banking services
+3. **Housing**: Copenhagen has high demand and rising rents — plan ahead
+
+Denmark's high taxes come with world-class social services, work-life balance, and quality of life. Use MoveWorth to simulate your after-tax income and long-term asset trajectory.`,
+      zh: `丹麦长期被评为全球最幸福的国家之一，提供高质量的生活水准、优秀的福利制度和先进的商业环境。尽管税率是全球最高之一，但完善的社会服务让众多外籍人士趋之若鹜。
+
+### 主要签证/许可类型
+
+**欧盟/欧洲经济区及北欧国家公民**
+可自由工作，居留超过3个月须申请登记证明。
+
+**快速通道制度（Fast Track）**
+由Businessdanmark认证企业雇用的外籍人士可享受加速审批，最短约1个月完成认定。
+
+**薪资上限制度（Beløbsordningen）**
+适用于高薪专业人士，无特定学历或职业要求。
+- 最低年薪：DKK 502,000以上（2026年）
+- 有效期：最长4年
+
+**正面清单制度（Positive List）**
+适用于丹麦认定的短缺职业，需证明相关资质和经验。
+
+**EU蓝卡**
+适用于年薪约DKK 528,000以上的高技能专业人士。
+
+### 研究者/专家税收优惠（Forskerordningen）
+
+- 适用于从海外招募的研究人员和高薪专业人士
+- 最长7年适用**27%固定税率**（标准税率最高52%）
+- 月薪须超过约DKK 73,500（2026年标准）
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 薪资上限/正面清单许可费 | DKK 4,165 |
+| 居留许可（生物特征） | DKK 1,405 |
+
+### 移居前注意事项
+
+1. **CPR号码**：丹麦居民身份号码，银行、医疗、行政手续必备
+2. **MitID（数字签名）**：政府和银行在线服务必备
+3. **住房**：哥本哈根需求旺盛，租金持续上涨，需提前规划`,
+    },
+  },
+  {
+    slug: "visa-br",
+    category: "visa",
+    date: "2026-03-07",
+    readingTime: 6,
+    title: {
+      ja: "ブラジルのビザ・就労許可完全ガイド2026年版",
+      en: "Brazil Visa & Work Permit Complete Guide 2026",
+      zh: "巴西签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "就労ビザ・デジタルノマドビザ・永住権まで、ブラジル移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "Work visas, the digital nomad visa, and pathways to permanent residency in Brazil — a complete guide for expats.",
+      zh: "工作签证、数字游民签证到永久居留权——外籍人士移居巴西的完整指南。",
+    },
+    content: {
+      ja: `ブラジルは南米最大の経済大国で、サンパウロのような世界都市と豊かな自然を併せ持つ多様な国です。近年デジタルノマドに向けた新しいビザ制度も整備されました。
+
+### 主なビザの種類
+
+**就労ビザ（VITEM V）**
+ブラジルの企業から雇用オファーを受けた外国人向けの就労ビザです。
+- 雇用主がCNIg（国家移民評議会）に申請
+- 有効期間：最大2年間、更新可能
+- 一時的就労許可（CTPS）の取得が必要
+
+**デジタルノマドビザ（VITEM XIII）**
+2022年導入。ブラジル国外の企業・クライアントのためにリモートで働く外国人向け。
+- 最低月収：約R$14,000（約USD 2,800）または預金残高証明
+- 有効期間：最初1年間（1年更新可能）
+- ブラジル源泉の収入が全体の30%を超えない
+
+**退職者ビザ（Aposentado）**
+月額USD 2,000以上の年金・退職所得を証明できる方向けのビザ。
+
+**投資家ビザ（VITEM X）**
+ブラジルに一定額以上の投資を行う外国人向け。
+
+**配偶者・家族ビザ**
+ブラジル市民または永住者との婚姻・家族関係による移住ビザ。
+
+### 永住権（Visto de Residente Permanente）
+
+以下の場合に申請可能：
+- ブラジル人との婚姻
+- ブラジル国籍の子どもを持つ外国人親
+- 4年以上の合法滞在
+- 一定額以上の投資
+
+### 重要書類
+
+**CPF（納税者番号）**
+ブラジアでの生活に必須。銀行口座開設・不動産賃貸・各種契約に必要です。ブラジア領事館でも申請可能。
+
+**CTPS（労働手帳）**
+就労者に必要な労働許可証。雇用主を通じて取得。
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| 就労ビザ申請費 | 約R$500〜1,000 |
+| デジタルノマドビザ申請費 | 約USD 150 |
+| CPF取得 | 無料（領事館経由）|
+
+### 移住前のチェックポイント
+
+1. **安全対策**：サンパウロ・リオデジャネイロなど大都市では犯罪に注意が必要
+2. **ポルトガル語**：ブラジアでは英語があまり通じないため、基礎的な語学力が重要
+3. **医療保険**：公的医療制度（SUS）はあるが、外国人は民間保険の加入を推奨
+
+ブラジアは生活コストが比較的低く、豊かな文化・自然が魅力の移住先です。MoveWorthでシミュレーションして、南米移住の準備を始めましょう。`,
+      en: `Brazil is South America's largest economy, combining world-class cities like São Paulo with incredible natural diversity. In recent years, a new digital nomad visa has made it even more accessible for remote workers.
+
+### Main Visa Types
+
+**Work Visa (VITEM V)**
+For foreign nationals with a job offer from a Brazilian employer.
+- The employer applies through CNIg (National Immigration Council)
+- Validity: up to 2 years, renewable
+- A temporary work permit (CTPS) is also required
+
+**Digital Nomad Visa (VITEM XIII)**
+Introduced in 2022, for remote workers serving clients or employers outside Brazil.
+- Minimum monthly income: ~R$14,000 (~USD 2,800) or proof of savings
+- Validity: 1 year, renewable for another year
+- Brazilian-sourced income must not exceed 30% of total income
+
+**Retirement Visa (Aposentado)**
+For those with proven monthly retirement or pension income of USD 2,000+.
+
+**Investor Visa (VITEM X)**
+For those making qualifying investments in Brazil.
+
+**Spouse / Family Visa**
+For spouses and family members of Brazilian citizens or permanent residents.
+
+### Permanent Residency (Visto de Residente Permanente)
+
+Can be obtained through:
+- Marriage to a Brazilian citizen
+- Having a Brazilian child
+- 4+ years of legal stay
+- Qualifying investment
+
+### Key Documents
+
+**CPF (Taxpayer ID Number)**
+Essential for almost everything in Brazil — bank accounts, leases, contracts. Can be obtained via a Brazilian consulate before arrival.
+
+**CTPS (Work Permit Card)**
+Required for employed workers. Obtained through the employer.
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Work visa fee | ~R$500–1,000 |
+| Digital Nomad Visa fee | ~USD 150 |
+| CPF registration | Free (via consulate) |
+
+### Key Checklist Before You Move
+
+1. **Safety**: Be aware of crime risks in major cities like São Paulo and Rio de Janeiro — research your neighborhood carefully
+2. **Portuguese**: English is not widely spoken in Brazil — basic Portuguese is essential for daily life
+3. **Health insurance**: Brazil has a public health system (SUS), but expats are strongly advised to get private insurance
+
+Brazil offers a relatively low cost of living and a vibrant culture. Use MoveWorth to simulate your finances and start planning your South American move.`,
+      zh: `巴西是南美洲最大的经济体，拥有圣保罗等国际化大都市和丰富的自然资源。近年来，新推出的数字游民签证使其对远程工作者更具吸引力。
+
+### 主要签证类型
+
+**工作签证（VITEM V）**
+适用于持有巴西企业工作邀约的外籍人士。
+- 由雇主通过CNIg（国家移民委员会）申请
+- 有效期：最长2年，可续签
+
+**数字游民签证（VITEM XIII）**
+2022年推出，适用于为巴西境外企业或客户远程工作的外籍人士。
+- 最低月收入：约R$14,000（约USD 2,800）或存款证明
+- 有效期：1年，可续签1年
+- 巴西境内收入不超过总收入的30%
+
+**退休人员签证（Aposentado）**
+适用于月养老金或退休收入不低于USD 2,000的申请者。
+
+**投资者签证（VITEM X）**
+适用于在巴西进行符合条件投资的外籍人士。
+
+### 永久居留权
+
+可通过以下方式申请：
+- 与巴西公民结婚
+- 拥有巴西国籍子女
+- 合法居留4年以上
+- 符合条件的投资
+
+### 重要证件
+
+**CPF（纳税人识别号）**
+巴西生活必备，开户、租房、各类合同均需。可在巴西领事馆提前申请。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 工作签证申请费 | 约R$500〜1,000 |
+| 数字游民签证费 | 约USD 150 |
+| CPF注册 | 免费（领事馆） |
+
+### 移居前注意事项
+
+1. **安全问题**：圣保罗、里约热内卢等大城市需注意犯罪风险
+2. **葡萄牙语**：英语普及率低，基础葡萄牙语至关重要
+3. **医疗保险**：建议购买私人保险`,
+    },
+  },
+  {
+    slug: "visa-co",
+    category: "visa",
+    date: "2026-03-07",
+    readingTime: 5,
+    title: {
+      ja: "コロンビアのビザ・就労許可完全ガイド2026年版",
+      en: "Colombia Visa & Work Permit Complete Guide 2026",
+      zh: "哥伦比亚签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "デジタルノマドビザ・M（移住者）ビザ・永住権まで、コロンビア移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "Digital nomad visa, migrant (M) visa, and the path to permanent residency in Colombia — a complete guide.",
+      zh: "数字游民签证、移民（M）签证到永久居留权——移居哥伦比亚的完整指南。",
+    },
+    content: {
+      ja: `コロンビアは、デジタルノマドのハブとして近年急速に注目を集めている南米の国です。特にメデジンは春のような気候・充実したインフラ・活発なノマドコミュニティで世界有数のノマド都市として知られています。
+
+### コロンビアのビザ制度
+
+コロンビアのビザは大きく3カテゴリに分かれます：
+- **V（Visitante）ビザ**：短期滞在・観光・デジタルノマド向け
+- **M（Migrante）ビザ**：就労・事業・家族等の中長期滞在向け
+- **R（Residente）ビザ**：永住に近い長期滞在向け
+
+### 主なビザの種類
+
+**デジタルノマドビザ（V-TP-7）**
+海外の企業・クライアントのためにリモートで働く外国人向け。
+- 有効期間：最大2年間
+- 収入証明または就労契約が必要
+- コロンビア国内からの収入が一定割合を超えないこと
+
+**就労ビザ（M-3）**
+コロンビアの企業から雇用オファーを受けた外国人向け。
+- 雇用契約書の提出が必要
+- 有効期間：最大3年
+
+**退職者ビザ（M-11）**
+月額COP 3,000,000以上（約USD 700）の年金・退職収入を証明できる方向け。
+
+**投資家ビザ（M-1）**
+コロンビアへの投資（不動産・企業等）を行う方向け。
+
+### 永住権（R-Visa）
+
+以下の条件を満たすと申請可能：
+- 5年間の合法滞在
+- コロンビア人との婚姻（2年間の滞在後）
+- コロンビア国籍の子どもを持つ外国人親
+
+### 重要書類
+
+**Cédula de Extranjería（外国人IDカード）**
+コロンビアでの生活に必要な外国人識別カードです。Mビザ・Rビザ保有者に発行されます。
+
+**RUT（税務登録）**
+DIAN（国家税務・関税局）に登録する税務番号。事業活動に必要。
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| デジタルノマドビザ申請費 | 約COP 258,000（約USD 65） |
+| Mビザ申請費 | 約COP 258,000〜516,000 |
+| Cédula de Extranjería発行費 | 約COP 130,000 |
+
+### 移住前のチェックポイント
+
+1. **安全対策**：地域によって治安の差が大きい。メデジン・ボゴタの安全地区を選ぶことが重要
+2. **スペイン語**：英語対応が限られるため、基本的なスペイン語が必要
+3. **生活コスト**：メデジンはデジタルノマドに最もコスパが高い都市のひとつ
+
+コロンビアは低い生活費・温暖な気候・ノマドフレンドリーな環境で、新興の移住先として人気急上昇中です。MoveWorthで資産シミュレーションを行い、南米移住の計画を立ててみましょう。`,
+      en: `Colombia has rapidly emerged as one of the top destinations for digital nomads and expats. Medellín in particular is globally recognized for its spring-like climate, excellent infrastructure, and vibrant nomad community.
+
+### Colombia's Visa System
+
+Colombia's visas fall into three main categories:
+- **V (Visitante)**: Short-stay, tourism, digital nomads
+- **M (Migrante)**: Work, business, family — medium to long-term stays
+- **R (Residente)**: Near-permanent long-term residence
+
+### Main Visa Types
+
+**Digital Nomad Visa (V-TP-7)**
+For remote workers serving foreign companies or clients.
+- Validity: up to 2 years
+- Requires proof of income or a remote work contract
+- Colombian-sourced income must remain below a certain threshold
+
+**Work Visa (M-3)**
+For foreign nationals with a job offer from a Colombian employer.
+- Requires an employment contract
+- Validity: up to 3 years
+
+**Retirement Visa (M-11)**
+For those with proven monthly pension or retirement income of COP 3,000,000+ (~USD 700).
+
+**Investor Visa (M-1)**
+For those making qualifying investments in Colombia (real estate, companies, etc.).
+
+### Permanent Residency (R-Visa)
+
+Can be applied for after:
+- 5 years of legal residence
+- Marriage to a Colombian citizen (after 2 years)
+- Having a Colombian child
+
+### Key Documents
+
+**Cédula de Extranjería (Foreign ID Card)**
+The official foreign identification card issued to M and R visa holders. Required for most official transactions.
+
+**RUT (Tax Registration)**
+Tax registration number issued by DIAN (national tax authority). Required for business activities.
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Digital Nomad Visa fee | ~COP 258,000 (~USD 65) |
+| M Visa fee | ~COP 258,000–516,000 |
+| Cédula de Extranjería issuance | ~COP 130,000 |
+
+### Key Checklist Before You Move
+
+1. **Safety**: Security varies widely by neighborhood — choose established expat-friendly areas in Medellín or Bogotá
+2. **Spanish**: English is not widely spoken outside of expat hubs — basic Spanish is important
+3. **Cost of living**: Medellín offers one of the best value-for-money ratios of any digital nomad city
+
+Colombia's low cost of living, warm climate, and growing nomad infrastructure make it one of South America's most exciting emerging destinations. Use MoveWorth to simulate your financial situation and plan your move.`,
+      zh: `哥伦比亚近年来迅速崛起为数字游民和外籍人士的热门目的地。麦德林尤以四季如春的气候、完善的基础设施和活跃的游民社区，跻身全球最佳数字游民城市之列。
+
+### 哥伦比亚签证体系
+
+哥伦比亚签证分为三大类：
+- **V（访客）签证**：短期居留、旅游、数字游民
+- **M（移民）签证**：工作、商务、家庭等中长期居留
+- **R（居民）签证**：接近永久居留的长期居留
+
+### 主要签证类型
+
+**数字游民签证（V-TP-7）**
+适用于为境外企业或客户远程工作的外籍人士。
+- 有效期：最长2年
+- 需提供收入证明或远程工作合同
+
+**工作签证（M-3）**
+适用于持有哥伦比亚企业工作邀约的外籍人士，有效期最长3年。
+
+**退休人员签证（M-11）**
+适用于月养老金或退休收入不低于COP 3,000,000（约USD 700）的申请者。
+
+**投资者签证（M-1）**
+适用于在哥伦比亚进行合规投资的外籍人士。
+
+### 永久居留权（R签证）
+
+满足以下条件可申请：
+- 合法居留5年
+- 与哥伦比亚公民结婚（居留2年后）
+- 拥有哥伦比亚国籍子女
+
+### 重要证件
+
+**Cédula de Extranjería（外国人身份证）**
+M签证和R签证持有者的官方身份证明，大多数官方事务必备。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 数字游民签证费 | 约COP 258,000（约USD 65）|
+| M签证费 | 约COP 258,000〜516,000 |
+| 外国人身份证 | 约COP 130,000 |
+
+### 移居前注意事项
+
+1. **安全问题**：不同地区治安差异较大，选择麦德林或波哥大的知名外籍人士聚居区
+2. **西班牙语**：英语普及率有限，基础西班牙语必不可少
+3. **生活成本**：麦德林是性价比最高的数字游民城市之一`,
+    },
+  },
+  {
+    slug: "visa-gr",
+    category: "visa",
+    date: "2026-03-07",
+    readingTime: 5,
+    title: {
+      ja: "ギリシャのビザ・就労許可完全ガイド2026年版",
+      en: "Greece Visa & Work Permit Complete Guide 2026",
+      zh: "希腊签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "デジタルノマドビザ・ゴールデンビザ・非居住者税制まで、ギリシャ移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "Digital Nomad Visa, Golden Visa, and favorable tax regimes — a complete guide to living and working in Greece.",
+      zh: "数字游民签证、黄金签证与优惠税收制度——移居希腊生活和工作的完整指南。",
+    },
+    content: {
+      ja: `ギリシャは地中海の温暖な気候・低い生活費・美しい自然景観に加え、近年は外国人向けの優遇税制・デジタルノマドビザを整備し、移住先として急速に人気が高まっています。
+
+### 主なビザの種類
+
+**デジタルノマドビザ**
+2022年導入。ギリシャ国外の企業・クライアントのためにリモートで働く外国人向け。
+- 最低月収：€3,500以上
+- 有効期間：最初1年間、さらに1年間更新可能（最大2年）
+- 配偶者・扶養家族の同行が可能
+- 申請はギリシャ領事館（在日本：在日ギリシャ大使館）
+
+**ゴールデンビザ（不動産投資）**
+不動産投資によるギリシャ居留許可プログラム。
+- 主要都市（アテネ・テサロニキ・ミコノス・サントリーニなど）：€800,000以上
+- その他地域：€400,000以上
+- 更新：5年ごと
+- EU域内の移動が可能になるが、就労権は原則なし
+
+**EUブルーカード**
+ギリシャ企業からの雇用オファーがある高度技能者向け。
+
+**一般就労許可**
+ギリシャ企業からの雇用オファーを持つEU/EEA圏外の外国人向け。
+
+### 優遇税制
+
+**新規居住者向け50%所得税控除**
+- 対象：新たにギリシャで雇用される外国人居住者
+- 適用期間：最初の7年間
+- 控除額：所得の50%が課税対象外
+
+**退職者向け7%一律課税**
+- 他国から年金をギリシャに移して受給する退職者向け
+- 外国源泉所得に対して**7%の一律税率**が適用
+- 適用期間：最大15年間
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| デジタルノマドビザ申請費 | 約€75 |
+| ゴールデンビザ申請費 | €2,000（投資家本人）|
+| 居留許可証発行費 | €16 |
+
+### 移住前のチェックポイント
+
+1. **AFM（税務番号）の取得**：ギリシャ税務署（AADE）で取得。銀行口座・不動産取引に必須
+2. **AMKAの取得**：ギリシャ社会保障番号。医療・社会保険に必要
+3. **住宅事情**：アテネ・テサロニキは家賃が上昇中。島部はシーズンオフが狙い目
+
+ギリシャは欧州の中でも生活コストが低く、日本人にも人気の高い移住先のひとつです。MoveWorthで税制・生活費のシミュレーションを行い、地中海移住を検討してみてください。`,
+      en: `Greece has become an increasingly attractive destination for expats and digital nomads, combining a warm Mediterranean climate, low cost of living, and a growing set of tax incentives and visa options for foreigners.
+
+### Main Visa Types
+
+**Digital Nomad Visa**
+Introduced in 2022, for remote workers serving clients or employers outside Greece.
+- Minimum monthly income: €3,500+
+- Validity: 1 year, renewable for another year (max 2 years)
+- Spouse and dependents can join
+- Apply at the Greek consulate in your country
+
+**Golden Visa (Real Estate Investment)**
+Greece's investor residency program through real estate.
+- Major cities (Athens, Thessaloniki, Mykonos, Santorini, etc.): €800,000+
+- Other areas: €400,000+
+- Renewal: every 5 years
+- Provides EU travel rights but generally no right to work
+
+**EU Blue Card**
+For highly skilled professionals with a job offer from a Greek employer.
+
+**General Work Permit**
+For non-EU/EEA nationals with a job offer from a Greek company.
+
+### Tax Incentives
+
+**50% Income Tax Exemption for New Residents**
+- For foreign nationals taking up employment in Greece for the first time
+- Duration: 7 years
+- 50% of income is excluded from Greek taxation
+
+**7% Flat Tax for Retirees**
+- For pensioners who transfer their tax residency to Greece
+- A **flat 7% tax rate** applies to all foreign-sourced pension income
+- Duration: up to 15 years
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Digital Nomad Visa fee | ~€75 |
+| Golden Visa fee | €2,000 (main applicant) |
+| Residence permit issuance | €16 |
+
+### Key Checklist Before You Move
+
+1. **AFM (Tax Number)**: Issued by Greece's tax authority (AADE) — required for bank accounts, property purchases, and most contracts
+2. **AMKA (Social Security Number)**: Required for healthcare and social insurance access
+3. **Housing**: Athens and Thessaloniki rents are rising — island off-season can be good value
+
+Greece offers one of Europe's lowest costs of living with an exceptional quality of life. Use MoveWorth to simulate your tax burden and living costs before making the move to the Mediterranean.`,
+      zh: `希腊以地中海温暖的气候、低廉的生活成本和日益完善的外籍人士优惠税制，迅速成为越来越多移居者的热门选择。
+
+### 主要签证类型
+
+**数字游民签证**
+2022年推出，适用于为希腊境外企业或客户远程工作的外籍人士。
+- 最低月收入：€3,500以上
+- 有效期：1年，可续签1年（最长2年）
+- 配偶及受抚养人可同行
+
+**黄金签证（房产投资）**
+通过房产投资获得希腊居留许可。
+- 主要城市（雅典、塞萨洛尼基、米科诺斯、圣托里尼等）：€800,000以上
+- 其他地区：€400,000以上
+- 每5年续签一次，享有欧盟境内旅行权
+
+**EU蓝卡**
+适用于持有希腊企业工作邀约的高技能专业人士。
+
+### 税收优惠
+
+**新居民所得税50%豁免**
+- 适用于首次在希腊受雇的外籍居民
+- 适用期：首7年
+- 50%的收入免于征税
+
+**退休人员7%固定税率**
+- 适用于将税务居所迁至希腊的退休人员
+- 境外养老金收入适用**7%固定税率**
+- 适用期：最长15年
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 数字游民签证费 | 约€75 |
+| 黄金签证费 | €2,000（申请人本人）|
+| 居留许可证签发费 | €16 |
+
+### 移居前注意事项
+
+1. **AFM（税务号码）**：由希腊税务局（AADE）签发，银行开户、房产交易必备
+2. **AMKA（社会保障号码）**：医疗和社会保险必备
+3. **住房**：雅典和塞萨洛尼基租金上涨，岛屿淡季性价比较高`,
+    },
+  },
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
