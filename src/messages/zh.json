@@ -29,7 +29,7 @@
   "hero": {
     "title1": "如果移居海外，",
     "title2": "您的财富将会怎样？",
-    "description": "针对20多个国家，模拟您的财务未来。比较资产、预测储蓄，做出基于数据的移居决策。",
+    "description": "针对30多个国家，模拟您的财务未来。比较资产、预测储蓄，做出基于数据的移居决策。",
     "cta": "免费开始模拟",
     "ctaPaid": "开始模拟",
     "learnMore": "了解使用方法"
@@ -45,7 +45,7 @@
   },
   "features": {
     "title": "主要功能",
-    "countries": "20多个国家",
+    "countries": "30多个国家",
     "countriesDesc": "内置主要移居目的地的税率、通胀率和生活费等数据。",
     "assetProjection": "资产预测",
     "assetProjectionDesc": "包含薪资增长率和投资回报的多年资产增长比较。",

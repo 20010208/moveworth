@@ -97,7 +97,7 @@ export default function Home() {
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 bg-white/15 border border-white/20 rounded-full px-4 py-1.5 text-sm font-medium text-white mb-8 shadow-sm backdrop-blur-sm">
             <Sparkles className="h-4 w-4" />
-            <span>20+ Countries Supported</span>
+            <span>30+ Countries Supported</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white leading-[1.1] tracking-tight">
@@ -147,7 +147,7 @@ export default function Home() {
           <div className="mt-16 flex flex-wrap items-center justify-center gap-6 text-sm text-white/60">
             <div className="flex items-center gap-1.5">
               <MapPin className="h-4 w-4 text-accent" />
-              <span>20+ Countries</span>
+              <span>30+ Countries</span>
             </div>
             <div className="w-1 h-1 bg-white/30 rounded-full" />
             <div className="flex items-center gap-1.5">

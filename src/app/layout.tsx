@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | MoveWorth",
   },
   description:
-    "海外移住したら資産はどうなる？20カ国以上の国を対象に、収入・支出・税金・インフレを考慮した資産シミュレーションを無料で実行。移住先の生活費比較や資産推移予測で、データに基づいた移住の意思決定を支援します。",
+    "海外移住したら資産はどうなる？30カ国以上の国を対象に、収入・支出・税金・インフレを考慮した資産シミュレーションを無料で実行。移住先の生活費比較や資産推移予測で、データに基づいた移住の意思決定を支援します。",
   keywords: [
     "海外移住", "移住 シミュレーション", "資産 シミュレーター", "海外移住 費用",
     "生活費 比較", "海外 資産運用", "移住 資産計算", "expat finance",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "MoveWorth - 海外移住したら資産はどうなる？",
     description:
-      "20カ国以上の移住先を比較。収入・税金・生活費を入力するだけで、移住後の資産推移を無料シミュレーション。",
+      "30カ国以上の移住先を比較。収入・税金・生活費を入力するだけで、移住後の資産推移を無料シミュレーション。",
     type: "website",
     siteName: "MoveWorth",
     locale: "ja_JP",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "MoveWorth - 海外移住 資産シミュレーター",
-    description: "海外移住したら資産はどうなる？20カ国以上を無料で比較シミュレーション。",
+    description: "海外移住したら資産はどうなる？30カ国以上を無料で比較シミュレーション。",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -80,7 +80,7 @@ export default function RootLayout({
               "@type": "WebApplication",
               name: "MoveWorth",
               url: "https://www.moveworthapp.com",
-              description: "海外移住したら資産はどうなる？20カ国以上の移住先の資産推移を無料シミュレーション。",
+              description: "海外移住したら資産はどうなる？30カ国以上の移住先の資産推移を無料シミュレーション。",
               applicationCategory: "FinanceApplication",
               operatingSystem: "Web",
               offers: {

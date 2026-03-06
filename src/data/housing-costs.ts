@@ -111,4 +111,54 @@ export const HOUSING_COSTS: Record<string, Record<HouseholdType, { rent: number;
     couple: { rent:  6000, living:  5000 },
     family: { rent:  9000, living:  8500 },
   },
+  PT: {
+    single: { rent:  1000, living:   700 },
+    couple: { rent:  1400, living:  1100 },
+    family: { rent:  1900, living:  2000 },
+  },
+  ES: {
+    single: { rent:   900, living:   650 },
+    couple: { rent:  1300, living:  1050 },
+    family: { rent:  1800, living:  1900 },
+  },
+  GE: {
+    single: { rent:   600, living:   500 },
+    couple: { rent:   900, living:   800 },
+    family: { rent:  1300, living:  1400 },
+  },
+  IE: {
+    single: { rent:  2000, living:  1200 },
+    couple: { rent:  2800, living:  1900 },
+    family: { rent:  3800, living:  3400 },
+  },
+  SE: {
+    single: { rent: 10000, living:  8000 },
+    couple: { rent: 14000, living: 13000 },
+    family: { rent: 18000, living: 22000 },
+  },
+  NO: {
+    single: { rent: 13000, living: 11000 },
+    couple: { rent: 18000, living: 17000 },
+    family: { rent: 24000, living: 30000 },
+  },
+  DK: {
+    single: { rent: 10000, living:  8000 },
+    couple: { rent: 14000, living: 13000 },
+    family: { rent: 18000, living: 22000 },
+  },
+  BR: {
+    single: { rent:  2000, living:  1800 },
+    couple: { rent:  3000, living:  2800 },
+    family: { rent:  4500, living:  5000 },
+  },
+  CO: {
+    single: { rent: 1200000, living: 1100000 },
+    couple: { rent: 1800000, living: 1700000 },
+    family: { rent: 2800000, living: 3000000 },
+  },
+  GR: {
+    single: { rent:   650, living:   600 },
+    couple: { rent:   950, living:   950 },
+    family: { rent:  1400, living:  1700 },
+  },
 };
