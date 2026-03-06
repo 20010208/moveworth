@@ -188,6 +188,7 @@ export function InputPanel({
           label={t("input.currentCountry")}
           value={input.countryFrom}
           onChange={handleCountryFromChange}
+          excludeCodes={[input.countryTo, ...extraInputs.map(e => e.countryTo)].filter(Boolean)}
         />
         <div className="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-primary-light text-primary mb-0.5">
           <Plane className="h-4 w-4" />
@@ -196,6 +197,7 @@ export function InputPanel({
           label={t("input.movingTo")}
           value={input.countryTo}
           onChange={handleCountryToChange}
+          excludeCodes={[input.countryFrom, ...extraInputs.map(e => e.countryTo)].filter(Boolean)}
         />
       </div>
 
@@ -509,6 +511,11 @@ export function InputPanel({
                   label={t("input.movingTo")}
                   value={extra.countryTo}
                   onChange={(code) => handleExtraCountryChange(index, code)}
+                  excludeCodes={[
+                    input.countryFrom,
+                    input.countryTo,
+                    ...extraInputs.filter((_, i) => i !== index).map(e => e.countryTo),
+                  ].filter(Boolean)}
                 />
 
                 <div className="grid grid-cols-2 gap-3">
