@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { blogPosts } from "@/data/blog-posts";
 
-const BASE_URL = "https://moveworth-alpha.vercel.app";
+const BASE_URL = "https://www.moveworthapp.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [

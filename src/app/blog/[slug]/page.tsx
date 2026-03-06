@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getBlogPost, blogPosts } from "@/data/blog-posts";
 import { BlogPostContent } from "@/components/blog/blog-post-content";
 
-const BASE_URL = "https://moveworth-alpha.vercel.app";
+const BASE_URL = "https://www.moveworthapp.com";
 
 type Props = {
   params: Promise<{ slug: string }>;

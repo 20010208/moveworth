@@ -15,7 +15,7 @@ export function ShareButtons({ result }: ShareButtonsProps) {
   const { locale, t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
-  const siteUrl = "https://moveworth-alpha.vercel.app/simulate";
+  const siteUrl = "https://www.moveworthapp.com/simulate";
 
   const getCountryName = (code: string) => {
     const preset = countryPresets.find((c) => c.code === code);

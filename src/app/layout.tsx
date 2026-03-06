@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     "海外転職 年収", "FIRE 海外", "移住先 生活費", "海外移住 税金",
     "cost of living comparison", "migration simulator", "international relocation",
   ],
-  metadataBase: new URL("https://moveworth-alpha.vercel.app"),
+  metadataBase: new URL("https://www.moveworthapp.com"),
   alternates: {
     canonical: "/",
   },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "MoveWorth",
     locale: "ja_JP",
-    url: "https://moveworth-alpha.vercel.app",
+    url: "https://www.moveworthapp.com",
     images: [
       {
         url: "/og-image.jpg",
@@ -79,7 +79,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebApplication",
               name: "MoveWorth",
-              url: "https://moveworth-alpha.vercel.app",
+              url: "https://www.moveworthapp.com",
               description: "海外移住したら資産はどうなる？20カ国以上の移住先の資産推移を無料シミュレーション。",
               applicationCategory: "FinanceApplication",
               operatingSystem: "Web",

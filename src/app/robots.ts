@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://moveworth-alpha.vercel.app/sitemap.xml",
+    sitemap: "https://www.moveworthapp.com/sitemap.xml",
   };
 }

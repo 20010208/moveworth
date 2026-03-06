@@ -70,7 +70,7 @@ export function ResultsPanel({ result, plan, extraResults = [] }: ResultsPanelPr
 
       const title = locale === "ja" ? "MoveWorth AI 財務レポート" : "MoveWorth AI Financial Report";
       const subtitle = `${result.input.countryFrom} → ${result.input.countryTo}  |  ${new Date().toLocaleDateString()}`;
-      const footer = "moveworth-alpha.vercel.app";
+      const footer = "www.moveworthapp.com";
 
       const printWindow = window.open("", "_blank");
       if (!printWindow) {
