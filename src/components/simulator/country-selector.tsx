@@ -18,6 +18,28 @@ function getFlag(code: string): string {
   );
 }
 
+// ひらがな → カタカナ
+function toKatakana(str: string): string {
+  return str.replace(/[\u3041-\u3096]/g, (c) =>
+    String.fromCharCode(c.charCodeAt(0) + 0x60)
+  );
+}
+
+// カタカナ → ひらがな
+function toHiragana(str: string): string {
+  return str.replace(/[\u30A1-\u30F6]/g, (c) =>
+    String.fromCharCode(c.charCodeAt(0) - 0x60)
+  );
+}
+
+// 漢字表記の国のひらがなよみがな
+const jaYomi: Record<string, string> = {
+  JP: "にほん にっぽん",
+  KR: "かんこく",
+  TW: "たいわん",
+  HK: "ほんこん",
+};
+
 export function CountrySelector({
   label,
   value,
@@ -41,6 +63,17 @@ export function CountrySelector({
     if (!query) return true;
     const q = query.toLowerCase();
     const name = (c.name[locale as keyof typeof c.name] ?? c.name.en).toLowerCase();
+    if (locale === "ja") {
+      const qKana = toKatakana(q);
+      const nameKana = toKatakana(name);
+      const yomi = jaYomi[c.code] ?? "";
+      const yomiMatch = yomi !== "" && (
+        yomi.includes(q) ||
+        yomi.includes(toHiragana(q)) ||
+        toKatakana(yomi).includes(qKana)
+      );
+      return name.includes(q) || nameKana.includes(qKana) || yomiMatch || c.currency.toLowerCase().includes(q);
+    }
     return name.includes(q) || c.currency.toLowerCase().includes(q);
   });
 
