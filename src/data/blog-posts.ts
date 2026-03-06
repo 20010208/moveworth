@@ -1275,6 +1275,210 @@ Try a free simulation today. Your overseas relocation possibilities will become 
     },
   },
   {
+    slug: "moveworth-march-2026-update",
+    category: "about",
+    date: "2026-03-07",
+    readingTime: 4,
+    title: {
+      ja: "【アップデート】30カ国対応・給与参照・検索改善など大型アップデートを実施しました",
+      en: "【Update】Major Update: 30 Countries, Salary Reference, Improved Search & More",
+      zh: "【更新】重大升级：支持30个国家、薪资参考、搜索改进等新功能上线",
+    },
+    description: {
+      ja: "2026年3月、MoveWorthに複数の大型アップデートを実施しました。対応国の拡大、業種別給与・住居費参照、国選択UIの改善、高度分析機能の正式リリースをご紹介します。",
+      en: "In March 2026, MoveWorth received several major updates including 30-country support, salary & housing cost references, improved country selector, and official launch of advanced analytics.",
+      zh: "2026年3月，MoveWorth进行了多项重大升级，包括扩展至30个国家、行业薪资与住房费用参考、国家选择界面优化，以及高级分析功能正式上线。",
+    },
+    content: {
+      ja: `2026年3月、MoveWorthに複数の大型アップデートを実施しました。このたびの主な変更点をご紹介します。
+
+### 1. 対応国を30カ国に拡大
+
+これまで20カ国だった対応国を、新たに10カ国追加し**30カ国以上**に拡大しました。
+
+新たに追加された国：
+- 🇵🇹 ポルトガル
+- 🇪🇸 スペイン
+- 🇬🇪 ジョージア
+- 🇮🇪 アイルランド
+- 🇸🇪 スウェーデン
+- 🇳🇴 ノルウェー
+- 🇩🇰 デンマーク
+- 🇧🇷 ブラジル
+- 🇨🇴 コロンビア
+- 🇬🇷 ギリシャ
+
+各国のデータは外国人プロフェッショナルの実態に合わせた**2026年3月時点の最新値**を採用しています。
+
+### 2. 業種別給与・住居費の参照機能を追加
+
+シミュレーター入力画面に、国と業種を選ぶだけで**平均年収の目安を自動表示**する機能を追加しました。対象業種は以下の9種類です。
+
+- メーカー（製造業）
+- IT・情報通信業
+- 金融・保険業
+- サービス業
+- 流通・小売・卸売業
+- 建設・不動産業
+- 運輸・物流業
+- メディア・マスコミ
+- インフラ・インダストリー
+
+また、世帯タイプ（単身・2人暮らし・4人家族）別の**家賃と生活費の目安**も表示されるようになりました。これにより、現地の生活コストを把握しながらシミュレーションを進めることができます。
+
+データはすべて、その国に住む**外国人プロフェッショナルの実績値**を参考に作成しています。
+
+### 3. 国選択UIを大幅改善
+
+これまでスクロールのみだった国選択ドロップダウンを、使いやすく刷新しました。
+
+**主な改善点：**
+- **検索機能**: 国名または通貨コード（例：EUR、SGD）で絞り込み可能
+- **ひらがな・カタカナ対応**: 「にほん」「ニホン」「日本」すべてで検索できます
+- **アルファベット順・あいうえお順ソート**: 言語設定に応じて自動で並び替え
+- **重複選択防止**: 同じ国を出発国と移住先の両方に選べないよう制御
+
+### 4. 高度分析機能が正式リリース
+
+以前のロードマップ記事で「開発中」としてご紹介していた高度分析機能が、正式にリリースされました。
+
+**感度分析**（Proプラン以上）
+年収・投資リターン・インフレ率・家賃・生活費の各パラメータが、将来の資産にどれほど影響するかをトルネードチャートで視覚化します。
+
+**FIRE計算機**（Proプラン以上）
+現在の国と移住先それぞれでFIRE（経済的自立・早期退職）を達成できる年齢を比較。4%ルールに基づく目標資産額も自動算出します。
+
+**モンテカルロシミュレーション**（Premiumプラン）
+1,000回の試行で資産推移の確率分布を算出し、最悪のシナリオでも安全かどうかをファンチャートで確認できます。
+
+---
+
+今後もMoveWorthは機能拡充を続けてまいります。ご意見・ご要望はお問い合わせページからお気軽にお寄せください。`,
+      en: `In March 2026, MoveWorth received several major updates. Here's a summary of what's new.
+
+### 1. Expanded to 30+ Countries
+
+We've expanded our supported countries from 20 to **30+**, adding 10 new destinations:
+
+- 🇵🇹 Portugal
+- 🇪🇸 Spain
+- 🇬🇪 Georgia
+- 🇮🇪 Ireland
+- 🇸🇪 Sweden
+- 🇳🇴 Norway
+- 🇩🇰 Denmark
+- 🇧🇷 Brazil
+- 🇨🇴 Colombia
+- 🇬🇷 Greece
+
+All data reflects **March 2026 values** based on real-world figures for foreign professionals living in each country.
+
+### 2. Industry Salary & Housing Cost Reference
+
+The simulator now shows **average salary benchmarks** based on the country and industry you select. Supported industries include:
+
+- Manufacturing
+- IT & Telecoms
+- Finance & Insurance
+- Service Industry
+- Retail & Wholesale
+- Construction & Real Estate
+- Transport & Logistics
+- Media & Broadcasting
+- Infrastructure & Energy
+
+We've also added **rent and living cost estimates** by household type (single, couple, family of 4), so you can build a more realistic simulation from the start.
+
+All data is based on actual figures for **foreign professionals** living in each country.
+
+### 3. Improved Country Selector
+
+The country dropdown has been completely redesigned for ease of use:
+
+- **Search**: Filter by country name or currency code (e.g., EUR, SGD)
+- **Hiragana/Katakana support** (Japanese): Search with any script — "にほん", "ニホン", or "日本" all work
+- **Alphabetical sorting**: Automatically sorted by language setting
+- **Duplicate prevention**: You can't select the same country as both origin and destination
+
+### 4. Advanced Analytics Now Live
+
+Features previously listed as "in development" in our roadmap are now officially released:
+
+**Sensitivity Analysis** (Pro plan+)
+A tornado chart showing how each parameter — income, investment return, inflation, rent, living costs — affects your future assets.
+
+**FIRE Calculator** (Pro plan+)
+Compare the age at which you can achieve FIRE (Financial Independence, Retire Early) in your current country vs. your destination. Target amounts are auto-calculated using the 4% rule.
+
+**Monte Carlo Simulation** (Premium plan)
+Run 1,000 simulations to get a probability distribution of your asset trajectory. A fan chart shows whether you're safe even in the worst-case scenario.
+
+---
+
+We'll continue improving MoveWorth based on your feedback. Feel free to reach out through our contact page with any questions or suggestions.`,
+      zh: `2026年3月，MoveWorth进行了多项重大升级。以下是主要更新内容。
+
+### 1. 扩展至30个以上国家
+
+我们将支持国家从20个扩展至**30个以上**，新增了以下10个目的地：
+
+- 🇵🇹 葡萄牙
+- 🇪🇸 西班牙
+- 🇬🇪 格鲁吉亚
+- 🇮🇪 爱尔兰
+- 🇸🇪 瑞典
+- 🇳🇴 挪威
+- 🇩🇰 丹麦
+- 🇧🇷 巴西
+- 🇨🇴 哥伦比亚
+- 🇬🇷 希腊
+
+所有数据均采用**2026年3月的最新数值**，参考了在各国生活的外籍专业人士的实际情况。
+
+### 2. 行业薪资与住房费用参考功能
+
+模拟器现在可根据所选国家和行业，自动显示**平均薪资参考值**。支持的行业包括：
+
+- 制造业
+- IT・信息通信
+- 金融・保险
+- 服务业
+- 零售・批发
+- 建设・房地产
+- 运输・物流
+- 媒体・传媒
+- 基础设施・能源
+
+同时新增了按家庭类型（单身、两人、四口之家）显示的**租金与生活费参考值**，让您从一开始就能进行更贴近现实的模拟。
+
+### 3. 国家选择界面大幅优化
+
+国家下拉菜单经过全面重新设计：
+
+- **搜索功能**：可按国家名称或货币代码（如EUR、SGD）筛选
+- **支持平假名/片假名**（日语界面）：用任意文字均可搜索
+- **字母顺序排列**：根据语言设置自动排序
+- **防重复选择**：同一国家不能同时作为出发地和目的地
+
+### 4. 高级分析功能正式上线
+
+此前在路线图中标注为"开发中"的高级分析功能现已正式发布：
+
+**敏感性分析**（Pro套餐及以上）
+通过龙卷风图直观展示收入、投资回报率、通胀率、租金、生活费等各参数对未来资产的影响程度。
+
+**FIRE计算器**（Pro套餐及以上）
+比较在当前国家与目的地实现FIRE（财务独立、提前退休）的年龄。根据4%法则自动计算目标资产额。
+
+**蒙特卡罗模拟**（Premium套餐）
+通过1,000次模拟计算资产推移的概率分布，用扇形图直观呈现即便在最坏情况下是否依然安全。
+
+---
+
+我们将持续根据用户反馈改进MoveWorth。如有任何问题或建议，欢迎通过联系页面告知我们。`,
+    },
+  },
+  {
     slug: "moveworth-roadmap-features",
     category: "about",
     date: "2026-01-28",
