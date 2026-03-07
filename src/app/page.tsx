@@ -87,6 +87,7 @@ export default function Home() {
           loop
           muted
           playsInline
+          poster="/og-image.jpg"
           className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/globe.mp4" type="video/mp4" />
