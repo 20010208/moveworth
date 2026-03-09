@@ -359,4 +359,16 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     media:           42000,
     infrastructure:  46000,
   },
+  IT: {
+    // ミラノ・ローマ在住外国人プロフェッショナルの平均年収（EUR）2026年3月
+    manufacturing:   46000,
+    it:              65000,
+    finance:         72000,
+    service:         34000,
+    retail:          36000,
+    construction:    48000,
+    logistics:       42000,
+    media:           56000,
+    infrastructure:  58000,
+  },
 };
