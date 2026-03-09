@@ -38,6 +38,7 @@ const jaYomi: Record<string, string> = {
   KR: "かんこく",
   TW: "たいわん",
   HK: "ほんこん",
+  IT: "いたりあ",
 };
 
 export function CountrySelector({

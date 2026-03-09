@@ -321,6 +321,17 @@ export const countryPresets: CountryPreset[] = [
     notes: { en: "Growing digital nomad hub, Medellín popular. Progressive tax 0-39%", ja: "成長中のノマドハブ、メデジン人気。累進課税 0-39%", zh: "新兴数字游民胜地，麦德林热门。累进税率 0-39%" },
   },
   {
+    code: "IT",
+    name: { en: "Italy", ja: "イタリア", zh: "意大利" },
+    currency: "EUR",
+    currencySymbol: "€",
+    defaultTaxRate: 0.38,
+    defaultInflation: 0.025,
+    referenceRent: 1000,
+    referenceLivingCost: 800,
+    notes: { en: "Progressive tax 23-43% + regional/municipal taxes. Flat tax €100k/yr for new residents", ja: "累進課税23-43%+地方税。新規移住者向け年額10万ユーロの定額税制あり", zh: "累进税率23-43%+地方税。新居民可享受每年10万欧元固定税制" },
+  },
+  {
     code: "GR",
     name: { en: "Greece", ja: "ギリシャ", zh: "希腊" },
     currency: "EUR",
