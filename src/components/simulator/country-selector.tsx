@@ -131,6 +131,7 @@ export function CountrySelector({
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={placeholder}
+                style={{ fontSize: '16px' }}
                 className="w-full pl-8 pr-7 py-1.5 text-xs border border-border/40 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary/20 focus:border-primary"
               />
               {query && (
