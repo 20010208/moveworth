@@ -6066,6 +6066,194 @@ Greece offers one of Europe's lowest costs of living with an exceptional quality
 3. **住房**：雅典和塞萨洛尼基租金上涨，岛屿淡季性价比较高`,
     },
   },
+  {
+    slug: "visa-it",
+    category: "visa",
+    date: "2026-03-09",
+    readingTime: 5,
+    title: {
+      ja: "イタリアのビザ・就労許可完全ガイド2026年版",
+      en: "Italy Visa & Work Permit Complete Guide 2026",
+      zh: "意大利签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "デジタルノマドビザ・帰国者優遇税制・ゴールデンビザまで、イタリア移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "Digital Nomad Visa, Impatriates Tax Regime, Golden Visa and more — a complete guide to living and working in Italy.",
+      zh: "数字游民签证、回归者优惠税制、黄金签证——移居意大利生活和工作的完整指南。",
+    },
+    content: {
+      ja: `イタリアは美食・芸術・歴史的景観で世界的に有名なだけでなく、近年は外国人向けの優遇税制やデジタルノマドビザを整備し、移住先として注目度が急上昇しています。
+
+### 主なビザの種類
+
+**デジタルノマドビザ（リモートワークビザ）**
+2024年導入。イタリア国外の企業・クライアントのためにリモートで働く外国人向け。
+- 最低月収：€2,700以上（年収約€32,400）
+- 有効期間：1年間、更新可能
+- 就労許可証と組み合わせて申請
+- 申請先：在外イタリア領事館
+
+**選択的居住ビザ（Elective Residency Visa）**
+イタリアで就労せず、年金・不動産収入などパッシブインカムで生活する人向け。
+- 必要収入：個人€31,000/年以上
+- 就労は認められないため注意
+
+**ゴールデンビザ（投資家ビザ）**
+イタリアへの投資を通じて居留許可を取得するプログラム。
+- 革新的スタートアップへの投資：€250,000以上
+- イタリア企業への投資：€500,000以上
+- イタリア国債への投資：€2,000,000以上
+- 慈善団体への寄付：€1,000,000以上
+
+**EUブルーカード**
+イタリア企業からの雇用オファーがある高度技能者向け。
+
+**一般就労ビザ（Nulla Osta）**
+イタリア企業からの雇用オファーを持つEU/EEA圏外の外国人向け。毎年一定の枠（Decreto Flussi）が設けられる。
+
+### 優遇税制
+
+**帰国者・新規移住者優遇税制（Impatriates Regime）**
+イタリアに移住し就労・事業所得を得る外国人向けの大幅減税制度。
+- 所得の**50%が課税対象外**（南部イタリアでは**70%免税**）
+- 適用期間：5年間（条件を満たせばさらに5年延長可能）
+- 対象：過去2年間イタリア非居住の外国人
+
+**高額所得者向け定額税制（Flat Tax Regime）**
+- 外国源泉所得に対して**年額€100,000の定額課税**のみ
+- 通常の累進課税が免除される
+- 適用期間：最大15年間
+- 対象：新規居住者で過去9年中少なくとも9年間イタリア非居住の者
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| デジタルノマドビザ申請費 | 約€116 |
+| ゴールデンビザ申請費 | €20,000（政府手数料）|
+| 居留許可証（Permesso di Soggiorno）| €30〜€200 |
+
+### 移住前のチェックポイント
+
+1. **Codice Fiscale（税務番号）の取得**：イタリアの税務番号。銀行口座開設・不動産契約・医療機関受診に必須
+2. **AIRE登録**：イタリア国外在住イタリア人登録。日本人は不要だが、在イタリア日本大使館への在留届が必要
+3. **住宅事情**：ミラノ・ローマは家賃が高騰中。フィレンツェ・ナポリ・南部地方はコスパが良い
+4. **医療保険**：Servizio Sanitario Nazionale（SSN）への加入が可能。ビザ種別によって条件が異なる
+
+イタリアは欧州の中でも独自の文化・生活環境を持ち、優れた食文化や芸術に囲まれた生活が魅力です。MoveWorthで税制・生活費のシミュレーションを行い、イタリア移住を検討してみてください。`,
+      en: `Italy is world-famous for its cuisine, art, and historic landscapes — but in recent years, it has also developed competitive visa options and tax incentives, making it an increasingly attractive destination for expats and remote workers.
+
+### Main Visa Types
+
+**Digital Nomad Visa (Remote Work Visa)**
+Introduced in 2024, for remote workers serving clients or employers outside Italy.
+- Minimum monthly income: €2,700+ (approx. €32,400/year)
+- Validity: 1 year, renewable
+- Apply at the Italian consulate in your country
+
+**Elective Residency Visa**
+For those who wish to live in Italy without working there, supported by passive income (pension, investment, etc.).
+- Minimum income: €31,000/year for individuals
+- No employment is permitted
+
+**Golden Visa (Investor Visa)**
+Italy's investor residency program with multiple investment routes.
+- Innovative Italian startups: €250,000+
+- Italian company investment: €500,000+
+- Italian government bonds: €2,000,000+
+- Charitable donation: €1,000,000+
+
+**EU Blue Card**
+For highly skilled professionals with a job offer from an Italian employer.
+
+**General Work Visa (Nulla Osta)**
+For non-EU/EEA nationals with a job offer from an Italian company, subject to annual quotas (Decreto Flussi).
+
+### Tax Incentives
+
+**Impatriates Tax Regime**
+Significant tax relief for foreign nationals who relocate to Italy for work or business.
+- **50% of employment/business income is tax-exempt** (70% in southern Italy)
+- Duration: 5 years (extendable for another 5 years under certain conditions)
+- Eligibility: Tax non-residents of Italy for at least 2 prior years
+
+**Flat Tax Regime for High-Net-Worth Individuals**
+- A **flat €100,000 annual tax** on all foreign-sourced income, regardless of amount
+- Duration: up to 15 years
+- Eligibility: New residents who were non-residents of Italy for at least 9 of the prior 10 years
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Digital Nomad Visa fee | ~€116 |
+| Golden Visa government fee | €20,000 |
+| Permesso di Soggiorno (Residence Permit) | €30–€200 |
+
+### Key Checklist Before You Move
+
+1. **Codice Fiscale (Tax Code)**: Italy's tax identification number — essential for banking, contracts, and healthcare
+2. **Residence Registration**: Register at your local municipality (Comune) upon arrival
+3. **Housing**: Milan and Rome are expensive — Florence, Naples, and southern Italy offer better value
+4. **Healthcare**: Enrollment in the National Health Service (SSN) is available depending on your visa type
+
+Italy offers a unique blend of culture, quality of life, and now competitive tax benefits. Use MoveWorth to simulate your tax burden and living costs before making the move to Italy.`,
+      zh: `意大利以美食、艺术和历史景观闻名于世，近年来还为外籍人士提供了颇具竞争力的签证选项和税收优惠，成为越来越受欢迎的移居目的地。
+
+### 主要签证类型
+
+**数字游民签证（远程工作签证）**
+2024年推出，适用于为意大利境外企业或客户远程工作的外籍人士。
+- 最低月收入：€2,700以上（年收入约€32,400）
+- 有效期：1年，可续签
+- 在所在国意大利领事馆申请
+
+**选择性居留签证**
+适用于希望在意大利生活、但不在当地工作的人士（依靠养老金、投资等被动收入）。
+- 最低年收入：€31,000以上
+- 不允许在意大利就业
+
+**黄金签证（投资者签证）**
+通过多种投资方式获得意大利居留许可。
+- 投资意大利创新型初创企业：€250,000以上
+- 投资意大利公司：€500,000以上
+- 购买意大利国债：€2,000,000以上
+- 向慈善机构捐款：€1,000,000以上
+
+**EU蓝卡**
+适用于持有意大利企业工作邀约的高技能专业人士。
+
+### 税收优惠
+
+**回归者/移居者税收优惠制度（Impatriates Regime）**
+为迁居意大利从事工作或经营的外籍人士提供大幅减税。
+- **50%的就业/经营收入免税**（意大利南部地区为**70%免税**）
+- 适用期：5年（满足条件可再延长5年）
+- 适用条件：移居前至少2年非意大利税务居民
+
+**高净值人士固定税率制度**
+- 境外来源收入仅需缴纳**每年€100,000固定税**，无论金额多少
+- 适用期：最长15年
+- 适用条件：新居民，且过去10年中至少9年非意大利税务居民
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 数字游民签证费 | 约€116 |
+| 黄金签证政府手续费 | €20,000 |
+| 居留许可证（Permesso di Soggiorno）| €30〜€200 |
+
+### 移居前注意事项
+
+1. **Codice Fiscale（税务代码）**：意大利税务识别号，开设银行账户、签订合同和就医均需使用
+2. **居民登记**：抵达后需在当地市政厅（Comune）进行居民登记
+3. **住房**：米兰和罗马房租较贵，佛罗伦萨、那不勒斯及南部地区性价比更高
+4. **医疗保险**：根据签证类型，可加入国家卫生服务（SSN）
+
+意大利融合了独特的文化魅力、优质的生活环境与如今极具竞争力的税收优惠。使用MoveWorth模拟您的税负和生活成本，规划您的意大利移居之旅。`,
+    },
+  },
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
