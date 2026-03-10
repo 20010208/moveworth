@@ -8,6 +8,7 @@ import { AuthProvider } from "@/lib/auth";
 import { RegisterModal } from "@/components/auth/register-modal";
 import { LoginModal } from "@/components/auth/login-modal";
 import { CookieBanner } from "@/components/ui/cookie-banner";
+import { headers } from "next/headers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -64,11 +65,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const isStudySite = headersList.get("x-is-study") === "1";
+
   return (
     <html lang="ja" suppressHydrationWarning>
       <head>
@@ -113,11 +117,11 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased min-h-screen flex flex-col font-sans`}>
         <LanguageProvider>
           <AuthProvider>
-            <Header />
+            {!isStudySite && <Header />}
             <main className="flex-1">{children}</main>
-            <Footer />
-            <RegisterModal />
-            <LoginModal />
+            {!isStudySite && <Footer />}
+            {!isStudySite && <RegisterModal />}
+            {!isStudySite && <LoginModal />}
             <CookieBanner />
           </AuthProvider>
         </LanguageProvider>
