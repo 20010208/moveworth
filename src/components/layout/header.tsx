@@ -64,12 +64,14 @@ export function Header() {
             >
               {t("header.blog")}
             </Link>
-            <Link
-              href="/study"
+            <a
+              href="https://study.moveworthapp.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
             >
               {t("header.study")}
-            </Link>
+            </a>
 
             <div className="w-px h-5 bg-border mx-2" />
 
@@ -186,13 +188,15 @@ export function Header() {
             >
               {t("header.blog")}
             </Link>
-            <Link
-              href="/study"
+            <a
+              href="https://study.moveworthapp.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="block px-3 py-2.5 text-sm font-medium text-muted hover:text-foreground hover:bg-secondary/80 rounded-lg transition-all"
               onClick={() => setMobileOpen(false)}
             >
               {t("header.study")}
-            </Link>
+            </a>
             <div className="pt-2">
               {isAuthenticated ? (
                 <div className="flex items-center justify-between mx-3 px-3 py-2.5">
