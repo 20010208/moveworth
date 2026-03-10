@@ -10,7 +10,8 @@
     "logout": "Logout",
     "register": "Register",
     "login": "Log In",
-    "blog": "Blog"
+    "blog": "Blog",
+    "study": "Study Abroad"
   },
   "cookie": {
     "message": "We use cookies to improve your experience and serve relevant ads. For details, see our",

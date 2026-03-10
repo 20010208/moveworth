@@ -10,7 +10,8 @@
     "logout": "退出登录",
     "register": "注册",
     "login": "登录",
-    "blog": "博客"
+    "blog": "博客",
+    "study": "留学信息"
   },
   "cookie": {
     "message": "本网站使用Cookie以改善用户体验并投放相关广告。详情请参阅",
