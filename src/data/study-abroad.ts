@@ -942,6 +942,270 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       zh: "香港拥有规模庞大且成熟的日本人社区，日系企业众多，日本料理丰富，日本总领事馆支持完善。",
     },
   },
+
+  JP: {
+    code: "JP",
+    overview: {
+      ja: "日本は海外からの留学先として人気が急上昇しています。アニメ・マンガ・武道・茶道など日本文化を学びたい外国人に特に人気ですが、日本語を母語とする方が他国の大学に入学するための日本国内大学での英語プログラムも充実しています。アジアビジネスの拠点として東京・大阪は国際的な教育環境を提供しています。",
+      en: "Japan is a rapidly growing study destination, especially popular among those interested in Japanese culture, language, anime, martial arts, and tea ceremony. English-taught programs at Japanese universities are also expanding, making Japan an option for study within Asia.",
+      zh: "日本作为留学目的地人气迅速上升，尤其受对日本文化、语言、动漫、武道和茶道感兴趣的学生欢迎。日本大学的英语授课课程也在不断扩大，使其成为亚洲内部留学的选择之一。",
+    },
+    studentVisa: {
+      name: { ja: "留学ビザ（在留資格・留学）", en: "Student Visa (Zairyu Shikaku - Study)", zh: "留学签证（在留资格·留学）" },
+      requirements: {
+        ja: ["日本の大学・日本語学校からの入学許可書", "在留資格認定証明書（学校が申請代行）", "パスポート", "財政証明書", "ビザ申請は在外日本大使館・領事館で"],
+        en: ["Acceptance letter from Japanese institution", "Certificate of Eligibility (applied by school)", "Valid passport", "Financial proof", "Visa application at Japanese Embassy/Consulate"],
+        zh: ["日本院校录取通知书", "在留资格认定证明书（学校代为申请）", "有效护照", "经济证明", "在当地日本大使馆/领事馆申请签证"],
+      },
+      duration: { ja: "就学期間（最長4年3ヶ月、更新可）", en: "Duration of study (up to 4 years 3 months, renewable)", zh: "学习期间（最长4年3个月，可续签）" },
+      cost: { ja: "短期無料・長期約¥3,000", en: "Short-stay free; long-stay approx. ¥3,000", zh: "短期免费；长期约¥3,000" },
+    },
+    costs: { tuitionMin: 500000, tuitionMax: 1500000, livingMonthly: 100000, currency: "JPY", currencySymbol: "¥" },
+    popularCities: { ja: ["東京", "大阪", "京都", "福岡", "名古屋"], en: ["Tokyo", "Osaka", "Kyoto", "Fukuoka", "Nagoya"], zh: ["东京", "大阪", "京都", "福冈", "名古屋"] },
+    popularUniversities: { ja: ["東京大学", "京都大学", "早稲田大学", "慶應義塾大学", "東京工業大学"], en: ["University of Tokyo", "Kyoto University", "Waseda University", "Keio University", "Tokyo Institute of Technology"], zh: ["东京大学", "京都大学", "早稻田大学", "庆应义塾大学", "东京工业大学"] },
+    tips: { ja: ["文科省の国費奨学金など充実した奨学金あり", "アルバイトは週28時間まで許可", "JLPT N2以上取得で就職に有利", "東京・大阪は生活費が高め、地方は安い"], en: ["MEXT scholarships are generous for international students", "Part-time work up to 28 hours/week permitted", "JLPT N2+ improves job prospects significantly", "Tokyo/Osaka are expensive; regional cities are affordable"], zh: ["文部科学省国费奖学金资源丰富", "每周最多允许打工28小时", "JLPT N2以上有助于在日就业", "东京大阪生活成本高，地方城市相对便宜"] },
+    japaneseInfo: { ja: "日本への留学は日本語・文化・ビジネス慣習を深く理解する最良の機会です。留学後に日本企業でキャリアを築く外国人も増えています。", en: "Studying in Japan offers deep understanding of language, culture, and business etiquette. An increasing number of international graduates pursue careers at Japanese companies.", zh: "赴日留学是深入了解日语、文化和商业礼仪的最佳机会，越来越多的国际毕业生在日本企业发展职业。" },
+  },
+
+  ID: {
+    code: "ID",
+    overview: {
+      ja: "インドネシアは東南アジア最大の経済大国で急成長中。バリ島を中心にデジタルノマドや語学学習者に人気が高まっており、物価が非常に安く長期滞在のコストを抑えられます。",
+      en: "Indonesia is Southeast Asia's largest and fastest-growing economy. Bali has become a hub for digital nomads and language learners, with very low living costs ideal for long-term stays.",
+      zh: "印度尼西亚是东南亚最大且增长最快的经济体。巴厘岛已成为数字游民和语言学习者的聚集地，极低的生活成本非常适合长期居留。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（Visa Pelajar）", en: "Student Visa (Visa Pelajar)", zh: "学生签证（Visa Pelajar）" },
+      requirements: {
+        ja: ["入学許可書", "パスポート（有効期限18ヶ月以上）", "財政証明書", "健康診断書", "申請料USD$50〜"],
+        en: ["Acceptance letter", "Passport valid 18+ months", "Financial proof", "Health certificate", "Visa fee USD$50+"],
+        zh: ["录取通知书", "护照（有效期18个月以上）", "经济证明", "健康证明", "签证费USD$50以上"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "申請料USD$50〜", en: "Application fee USD$50+", zh: "申请费USD$50以上" },
+    },
+    costs: { tuitionMin: 10000000, tuitionMax: 50000000, livingMonthly: 5000000, currency: "IDR", currencySymbol: "Rp" },
+    popularCities: { ja: ["バリ（ウブド・チャングー）", "ジャカルタ", "スラバヤ", "ジョグジャカルタ"], en: ["Bali (Ubud / Canggu)", "Jakarta", "Surabaya", "Yogyakarta"], zh: ["巴厘岛（乌布/水明漾）", "雅加达", "泗水", "日惹"] },
+    popularUniversities: { ja: ["インドネシア大学（UI）", "バンドン工科大学（ITB）", "ガジャマダ大学", "バリ語学学校（多数）", "RMIT大学インドネシア校"], en: ["University of Indonesia (UI)", "Bandung Institute of Technology (ITB)", "Gadjah Mada University", "Bali language schools (many)", "RMIT University Indonesia"], zh: ["印度尼西亚大学（UI）", "万隆理工学院（ITB）", "加贾马达大学", "巴厘岛语言学校（众多）", "RMIT大学印尼校区"] },
+    tips: { ja: ["バリ島は世界有数のデジタルノマドハブ", "生活費は東南アジアでも最安水準", "インドネシア語は文法が比較的シンプル", "熱帯性気候で年間温暖"], en: ["Bali is one of the world's top digital nomad hubs", "Cost of living is very low even by Southeast Asian standards", "Bahasa Indonesia has relatively simple grammar", "Tropical climate is warm year-round"], zh: ["巴厘岛是全球顶级数字游民中心之一", "即使在东南亚，生活成本也属极低水平", "印度尼西亚语语法相对简单", "热带气候全年温暖"] },
+    japaneseInfo: { ja: "バリ島・ジャカルタには日本人コミュニティがあります。日系企業の進出も多く、製造業・IT・観光での就職機会も豊富です。", en: "Bali and Jakarta have Japanese communities. Many Japanese companies operate here, offering opportunities in manufacturing, IT, and tourism.", zh: "巴厘岛和雅加达拥有日本人社区，日系企业众多，在制造业、IT和旅游业提供丰富机会。" },
+  },
+
+  VN: {
+    code: "VN",
+    overview: {
+      ja: "ベトナムは急成長するASEAN諸国のひとつで、ホーチミン・ハノイを中心にビジネス・語学留学の拠点として人気が高まっています。物価が非常に安く、日系企業の進出も多く、留学後のキャリアパスも描きやすい国です。",
+      en: "Vietnam is one of ASEAN's fastest-growing economies. Ho Chi Minh City and Hanoi are growing hubs for business and language study, with very low living costs and strong Japanese corporate presence offering clear post-graduation career paths.",
+      zh: "越南是东盟增长最快的经济体之一。胡志明市和河内是商业和语言学习的新兴中心，生活成本极低，日系企业众多，毕业后职业发展路径清晰。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（DH ビザ）", en: "Student Visa (DH Visa)", zh: "学生签证（DH签证）" },
+      requirements: {
+        ja: ["入学許可書", "パスポート", "財政証明書", "健康診断書", "申請料USD$25〜"],
+        en: ["Acceptance letter", "Valid passport", "Financial proof", "Health certificate", "Application fee USD$25+"],
+        zh: ["录取通知书", "有效护照", "经济证明", "健康证明", "申请费USD$25以上"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "申請料USD$25〜", en: "Application fee USD$25+", zh: "申请费USD$25以上" },
+    },
+    costs: { tuitionMin: 20000000, tuitionMax: 80000000, livingMonthly: 8000000, currency: "VND", currencySymbol: "₫" },
+    popularCities: { ja: ["ホーチミン市", "ハノイ", "ダナン", "ホイアン"], en: ["Ho Chi Minh City", "Hanoi", "Da Nang", "Hoi An"], zh: ["胡志明市", "河内", "岘港", "会安"] },
+    popularUniversities: { ja: ["ベトナム国家大学ハノイ", "ベトナム国家大学ホーチミン", "ハノイ外国語大学", "ベトナム語学校（多数）", "RMIT大学ベトナム校"], en: ["Vietnam National University Hanoi", "Vietnam National University HCMC", "Hanoi University", "Vietnamese language schools (many)", "RMIT University Vietnam"], zh: ["越南国家大学河内", "越南国家大学胡志明", "河内外国语大学", "越南语语言学校（众多）", "RMIT大学越南校区"] },
+    tips: { ja: ["ベトナム語は声調言語で習得に時間がかかるが日系企業での需要が高い", "生活費は東南アジア最安水準", "グラブ（Grab）が交通手段として便利", "ホーチミンはビジネス、ハノイは文化・歴史が豊か"], en: ["Vietnamese is tonal but highly valued at Japanese companies", "Living costs are among the lowest in Southeast Asia", "Grab is the most convenient transport", "Ho Chi Minh City is a business hub; Hanoi is rich in culture"], zh: ["越南语是声调语言，但在日系企业中需求旺盛", "生活成本是东南亚最低水准之一", "Grab是最方便的出行方式", "胡志明市是商业中心，河内文化历史底蕴深厚"] },
+    japaneseInfo: { ja: "ホーチミン市・ハノイには多くの日系企業が進出し、日本人コミュニティも充実。日本語を活かした就職・インターン機会が豊富です。", en: "Many Japanese companies operate in Ho Chi Minh City and Hanoi with established Japanese communities. Japanese-language career and internship opportunities are growing.", zh: "胡志明市和河内聚集众多日系企业，日本人社区完善，以日语为优势的就业和实习机会快速增长。" },
+  },
+
+  AE: {
+    code: "AE",
+    overview: {
+      ja: "UAE（ドバイ・アブダビ）は所得税ゼロの国際ビジネスハブで、世界中のビジネス・金融・テクノロジー人材が集まります。多くの世界トップ大学のキャンパスが進出しており、砂漠の都市でグローバルな教育環境を体験できます。",
+      en: "The UAE (Dubai / Abu Dhabi) is a zero-income-tax international business hub attracting global talent. Many top universities have branch campuses here, offering a world-class education in a dynamic desert metropolis.",
+      zh: "阿联酋（迪拜/阿布扎比）是零所得税的国际商业中心，吸引全球精英。众多世界顶尖大学在此设有分校，可在充满活力的沙漠大都市体验世界级教育。",
+    },
+    studentVisa: {
+      name: { ja: "UAE 学生ビザ", en: "UAE Student Visa", zh: "阿联酋学生签证" },
+      requirements: {
+        ja: ["UAE教育機関の入学許可書", "パスポート（有効期限6ヶ月以上）", "健康診断・医療検査", "財政証明書", "ビザは通常大学経由で申請"],
+        en: ["Acceptance from UAE institution", "Passport valid 6+ months", "Medical examination", "Financial proof", "Usually applied through the university"],
+        zh: ["阿联酋院校录取通知书", "护照（有效期6个月以上）", "体检报告", "经济证明", "通常通过大学申请"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "約AED2,000〜3,000（大学経由）", en: "Approx. AED2,000–3,000 (via university)", zh: "约AED2,000至3,000（通过大学）" },
+    },
+    costs: { tuitionMin: 40000, tuitionMax: 90000, livingMonthly: 6000, currency: "AED", currencySymbol: "AED" },
+    popularCities: { ja: ["ドバイ", "アブダビ", "シャルジャ"], en: ["Dubai", "Abu Dhabi", "Sharjah"], zh: ["迪拜", "阿布扎比", "沙迦"] },
+    popularUniversities: { ja: ["NYUアブダビ", "ソルボンヌ大学アブダビ校", "ヘリオット・ワット大学ドバイ校", "アメリカン大学ドバイ（AUD）", "ドバイ大学"], en: ["NYU Abu Dhabi", "Sorbonne University Abu Dhabi", "Heriot-Watt University Dubai", "American University in Dubai (AUD)", "University of Dubai"], zh: ["纽约大学阿布扎比分校", "索邦大学阿布扎比分校", "赫瑞瓦特大学迪拜分校", "迪拜美国大学（AUD）", "迪拜大学"] },
+    tips: { ja: ["所得税ゼロで卒業後の手取りが非常に高い", "ドバイはビジネス・テクノロジーの国際的ハブ", "砂漠気候で夏（5〜9月）は40℃超えの高温", "多国籍社会で英語が通じやすい環境"], en: ["Zero income tax means high take-home pay after graduation", "Dubai is a global hub for business and technology", "Desert climate — summers (May–Sep) exceed 40°C", "Highly international society with English widely spoken"], zh: ["零所得税意味着毕业后到手收入极高", "迪拜是商业和科技的全球中心", "沙漠气候，夏季（5至9月）超过40°C", "国际化程度高，英语广泛通用"] },
+    japaneseInfo: { ja: "ドバイには日本人コミュニティがあり、日系企業も進出。日本食レストランや日本語対応サービスも増えています。", en: "Dubai has a Japanese community and Japanese companies. Japanese restaurants and Japanese-language services are growing.", zh: "迪拜拥有日本人社区，日系企业已进驻，日本料理餐厅和日语服务不断增加。" },
+  },
+
+  GE: {
+    code: "GE",
+    overview: {
+      ja: "ジョージア（グルジア）はコーカサス地方に位置するヨーロッパとアジアの交差点で、近年デジタルノマドや長期滞在者に非常に人気の国です。日本人はビザなしで1年間滞在可能で、物価が非常に安く語学留学・自己研修に最適です。",
+      en: "Georgia (Caucasus) sits at the crossroads of Europe and Asia and has become very popular with digital nomads and long-term visitors. Japanese nationals can stay visa-free for 1 year, with very low costs ideal for language study and self-development.",
+      zh: "格鲁吉亚位于欧亚交汇处，近年来深受数字游民和长期居留者的青睐。日本人可免签居留1年，生活成本极低，是语言学习和自我提升的理想之地。",
+    },
+    studentVisa: {
+      name: { ja: "日本人はビザ不要（1年間）", en: "Visa-free for Japanese (1 year)", zh: "日本人免签（1年）" },
+      requirements: {
+        ja: ["日本人はビザなしで最大1年間滞在可能", "長期居住証明が必要な場合は移民局へ届け出", "パスポート有効期限の確認"],
+        en: ["Japanese nationals can stay up to 1 year without a visa", "Register at immigration for long-term stay documents if needed", "Verify passport expiry"],
+        zh: ["日本人无需签证可停留最长1年", "如需长期居留证明，向移民局登记", "确认护照有效期"],
+      },
+      duration: { ja: "最大1年間（ビザなし）", en: "Up to 1 year (visa-free)", zh: "最长1年（免签）" },
+      cost: { ja: "無料（ビザ不要）", en: "Free (no visa required)", zh: "免费（无需签证）" },
+    },
+    costs: { tuitionMin: 3000, tuitionMax: 15000, livingMonthly: 600, currency: "GEL", currencySymbol: "₾" },
+    popularCities: { ja: ["トビリシ", "バトゥミ", "クタイシ"], en: ["Tbilisi", "Batumi", "Kutaisi"], zh: ["第比利斯", "巴统", "库塔伊西"] },
+    popularUniversities: { ja: ["トビリシ国立大学", "ジョージア工科大学", "コーカサス大学", "トビリシ語学学校（多数）"], en: ["Tbilisi State University", "Georgian Technical University", "Caucasus University", "Tbilisi language schools (many)"], zh: ["第比利斯国立大学", "格鲁吉亚理工大学", "高加索大学", "第比利斯语言学校（众多）"] },
+    tips: { ja: ["日本人はビザなしで1年間滞在できる（世界的にも珍しい優遇）", "生活費はヨーロッパ最安水準（月6〜8万円程度）", "ワインの発祥地とも言われる食文化が豊か", "ジョージア語は独自の文字を持つ特殊な言語"], en: ["Japanese can stay visa-free for 1 year — a rare global privilege", "Living costs among Europe's lowest (~¥60–80k/month)", "Georgia is believed to be the birthplace of wine", "Georgian language uses a unique script"], zh: ["日本人免签居留1年——全球罕见的优惠待遇", "生活成本是欧洲最低水准之一（每月约6至8万日元）", "格鲁吉亚被认为是葡萄酒的发源地", "格鲁吉亚语使用独特文字"] },
+    japaneseInfo: { ja: "近年トビリシには日本人ノマドや長期滞在者が増加中。日本人コミュニティのSNSグループも活発で情報交換しやすい環境です。", en: "Tbilisi is seeing a growing number of Japanese nomads and long-term residents, with active Japanese community SNS groups.", zh: "近年来第比利斯的日本游民和长期居留者增加，日语社区社交媒体群组活跃。" },
+  },
+
+  NO: {
+    code: "NO",
+    overview: {
+      ja: "ノルウェーは公立大学の授業料が無料（英語コース含む）で、世界最高レベルの福祉制度のもとで高水準の教育を受けられます。石油産業・海洋技術・再生可能エネルギー分野が特に強く、オーロラやフィヨルドなど圧倒的な自然環境も魅力です。",
+      en: "Norway offers tuition-free education at public universities including English programs. With a world-class welfare system, strong industries in oil, marine tech, and renewables, plus spectacular Northern Lights and fjords, Norway is a truly unique study destination.",
+      zh: "挪威公立大学（包括英语课程）免除学费，在世界一流福利制度下接受高水平教育。石油、海洋技术和可再生能源领域尤为突出，壮观的极光和峡湾是独特的自然魅力。",
+    },
+    studentVisa: {
+      name: { ja: "学生居住許可（Studietillatelse）", en: "Student Residence Permit", zh: "学生居留许可" },
+      requirements: {
+        ja: ["大学の入学許可書", "財政証明書（年NOK116,239以上）", "住宅確保証明", "英語力証明（B2以上）", "申請料NOK5,900"],
+        en: ["University acceptance letter", "Financial proof (NOK116,239+/year)", "Proof of accommodation", "English proficiency (B2+)", "Application fee NOK5,900"],
+        zh: ["大学录取通知书", "经济证明（每年NOK116,239以上）", "住宿证明", "英语能力证明（B2以上）", "申请费NOK5,900"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "申請料NOK5,900（約¥80,000）", en: "Application fee NOK5,900 (approx. ¥80,000)", zh: "申请费NOK5,900（约¥80,000）" },
+    },
+    costs: { tuitionMin: 0, tuitionMax: 15000, livingMonthly: 15000, currency: "NOK", currencySymbol: "kr" },
+    popularCities: { ja: ["オスロ", "ベルゲン", "トロンハイム", "トロムソ（オーロラ）"], en: ["Oslo", "Bergen", "Trondheim", "Tromsø (Northern Lights)"], zh: ["奥斯陆", "卑尔根", "特隆赫姆", "特罗姆瑟（极光）"] },
+    popularUniversities: { ja: ["オスロ大学", "ノルウェー科学技術大学（NTNU）", "ベルゲン大学", "BIノルウェービジネススクール", "アークティック大学（UiT）"], en: ["University of Oslo", "Norwegian University of Science and Technology (NTNU)", "University of Bergen", "BI Norwegian Business School", "UiT The Arctic University"], zh: ["奥斯陆大学", "挪威科技大学（NTNU）", "卑尔根大学", "BI挪威商学院", "北极大学（UiT）"] },
+    tips: { ja: ["公立大学は学費無料だが生活費は非常に高い", "英語が堪能なノルウェー人が多く英語だけで生活可能", "オーロラ・フィヨルドなど世界的な自然体験が可能", "卒業後1年間の求職ビザが取得可能"], en: ["Public university tuition is free but living costs are very high", "Most Norwegians speak excellent English", "Northern Lights and fjords offer world-class nature experiences", "1-year job seeker permit available after graduation"], zh: ["公立大学免学费，但生活成本极高", "大多数挪威人英语流利", "极光和峡湾提供世界级自然体验", "毕业后可获得1年求职许可"] },
+    japaneseInfo: { ja: "オスロには日本大使館があり、日本人コミュニティも存在。水産・エネルギー分野での日挪交流も活発です。", en: "Oslo has a Japanese Embassy and community. Norway and Japan have strong exchange in fisheries and energy sectors.", zh: "奥斯陆设有日本大使馆，拥有日本人社区。挪威与日本在水产和能源领域的交流十分活跃。" },
+  },
+
+  DK: {
+    code: "DK",
+    overview: {
+      ja: "デンマークは世界幸福度ランキングで常にトップクラスに位置し、デザイン・建築・持続可能性・ノルディック料理などの分野で世界的に有名です。英語コースが充実しており、ワークライフバランスの国際的モデルとして学べます。",
+      en: "Denmark consistently tops global happiness indexes and is world-renowned for design, architecture, sustainability, and Nordic cuisine. English-taught programs are widely available, making Denmark a model for work-life balance to study and experience firsthand.",
+      zh: "丹麦在全球幸福指数中始终名列前茅，在设计、建筑、可持续发展和北欧美食领域享誉全球。英语授课课程广泛，可亲身体验工作与生活平衡的世界典范。",
+    },
+    studentVisa: {
+      name: { ja: "学生居住許可（Opholdstilladelse）", en: "Student Residence Permit", zh: "学生居留许可" },
+      requirements: {
+        ja: ["大学の入学許可書", "財政証明書（月DKK6,243以上）", "健康保険", "住宅確保証明", "申請料DKK3,980"],
+        en: ["University acceptance letter", "Financial proof (DKK6,243+/month)", "Health insurance", "Proof of accommodation", "Application fee DKK3,980"],
+        zh: ["大学录取通知书", "经济证明（每月DKK6,243以上）", "医疗保险", "住宿证明", "申请费DKK3,980"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "申請料DKK3,980（約¥85,000）", en: "Application fee DKK3,980 (approx. ¥85,000)", zh: "申请费DKK3,980（约¥85,000）" },
+    },
+    costs: { tuitionMin: 45000, tuitionMax: 160000, livingMonthly: 10000, currency: "DKK", currencySymbol: "kr" },
+    popularCities: { ja: ["コペンハーゲン", "オーフス", "オーデンセ", "アールボー"], en: ["Copenhagen", "Aarhus", "Odense", "Aalborg"], zh: ["哥本哈根", "奥胡斯", "欧登塞", "奥尔堡"] },
+    popularUniversities: { ja: ["コペンハーゲン大学", "デンマーク工科大学（DTU）", "オーフス大学", "コペンハーゲンビジネススクール（CBS）", "デザインスクール・コペンハーゲン"], en: ["University of Copenhagen", "Technical University of Denmark (DTU)", "Aarhus University", "Copenhagen Business School (CBS)", "The Royal Danish Academy"], zh: ["哥本哈根大学", "丹麦技术大学（DTU）", "奥胡斯大学", "哥本哈根商学院（CBS）", "丹麦皇家美术学院"] },
+    tips: { ja: ["デンマーク語は難しいがほぼ全員が英語を流暢に話す", "ワークライフバランス文化（Hygge）を体感できる", "デザイン・建築・フードテックで世界トップの教育", "コペンハーゲンは自転車都市で環境に優しい生活"], en: ["Danish is hard but almost everyone speaks fluent English", "Experience Danish work-life balance culture (Hygge) firsthand", "World-leading education in design, architecture, and food tech", "Copenhagen is a cycling city with a sustainable lifestyle"], zh: ["丹麦语较难，但几乎所有人都会说流利英语", "亲身体验丹麦工作与生活平衡文化（Hygge）", "设计、建筑和食品科技领域全球顶尖教育", "哥本哈根是自行车城市，生活方式环保健康"] },
+    japaneseInfo: { ja: "コペンハーゲンには日本人コミュニティがあります。レゴやノボ ノルディスクなどデンマーク企業への就職を目指す日本人も多く、北欧と日本のデザイン文化には親和性があります。", en: "Copenhagen has a Japanese community. Many Japanese professionals target careers at Danish companies like LEGO and Novo Nordisk, reflecting shared design culture between Nordic and Japanese traditions.", zh: "哥本哈根拥有日本人社区。许多日本专业人士以乐高和诺和诺德等丹麦企业为目标，北欧与日本设计文化有着显著共通之处。" },
+  },
+
+  BR: {
+    code: "BR",
+    overview: {
+      ja: "ブラジルはポルトガル語圏最大の国で、南米最大の経済大国です。サッカー・音楽・カーニバルで世界的に知られ、ポルトガル語習得とともに南米ビジネスのキャリアを目指す留学生に人気です。世界最大の日系人コミュニティ（約150万人）も存在します。",
+      en: "Brazil is the largest Portuguese-speaking country and South America's biggest economy. Known for football, music, and Carnival, it's popular with students learning Portuguese while targeting Latin American business careers. Home to the world's largest Japanese diaspora (~1.5 million).",
+      zh: "巴西是最大的葡语国家和南美最大的经济体。以足球、音乐和狂欢节闻名，深受学习葡语并以拉丁美洲商业职业为目标的留学生欢迎。拥有全球最大的日裔社区（约150万人）。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（VITEM IV）", en: "Student Visa (VITEM IV)", zh: "学生签证（VITEM IV）" },
+      requirements: {
+        ja: ["入学許可書", "パスポート（有効期限6ヶ月以上）", "財政証明書", "健康診断・ワクチン接種証明", "申請料USD$20〜"],
+        en: ["Acceptance letter", "Passport valid 6+ months", "Financial proof", "Health certificate / vaccination record", "Visa fee USD$20+"],
+        zh: ["录取通知书", "护照（有效期6个月以上）", "经济证明", "健康证明/接种记录", "签证费USD$20以上"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "申請料USD$20〜", en: "Application fee USD$20+", zh: "申请费USD$20以上" },
+    },
+    costs: { tuitionMin: 15000, tuitionMax: 50000, livingMonthly: 3000, currency: "BRL", currencySymbol: "R$" },
+    popularCities: { ja: ["サンパウロ", "リオデジャネイロ", "ブラジリア", "フロリアノポリス"], en: ["São Paulo", "Rio de Janeiro", "Brasília", "Florianópolis"], zh: ["圣保罗", "里约热内卢", "巴西利亚", "弗洛里亚诺波利斯"] },
+    popularUniversities: { ja: ["サンパウロ大学（USP）", "カンピーナス州立大学（UNICAMP）", "ブラジリア大学（UnB）", "リオ連邦大学（UFRJ）", "ポルトガル語語学学校（多数）"], en: ["University of São Paulo (USP)", "UNICAMP", "University of Brasília (UnB)", "Federal University of Rio de Janeiro (UFRJ)", "Portuguese language schools (many)"], zh: ["圣保罗大学（USP）", "坎皮纳斯州立大学（UNICAMP）", "巴西利亚大学（UnB）", "里约热内卢联邦大学（UFRJ）", "葡语语言学校（众多）"] },
+    tips: { ja: ["ポルトガル語（ブラジル方言）は南米ビジネスで非常に有用", "公立大学は学費無料だが競争が激しい", "治安の差があるため住む地域の選択が重要", "音楽・ダンス（サンバ・ボサノバ）文化の体験も醍醐味"], en: ["Brazilian Portuguese is highly valuable for South American business", "Public university tuition is free but highly competitive", "Safety varies widely by area — neighborhood choice is crucial", "Music and dance culture (samba, bossa nova) is a unique experience"], zh: ["巴西葡语对南美商业职业极具价值", "公立大学免学费，但竞争激烈", "各地区治安差异较大，选择居住区域至关重要", "桑巴和波萨诺瓦等音乐舞蹈文化是独特体验"] },
+    japaneseInfo: { ja: "ブラジルには世界最大の日系人コミュニティ（約150万人）があります。サンパウロのリベルダーデ地区は日本人街として有名で、日本文化・日本食が生活に溶け込んでいます。", en: "Brazil has the world's largest Japanese diaspora (~1.5 million). São Paulo's Liberdade district is a famous Japanese town with Japanese culture and food deeply embedded in daily life.", zh: "巴西拥有全球最大的日裔社区（约150万人）。圣保罗自由区以日本人街著称，日本文化和料理深深融入日常生活。" },
+  },
+
+  CO: {
+    code: "CO",
+    overview: {
+      ja: "コロンビアは南米の中でも特にデジタルノマドや語学留学者に人気が高まっている国です。メデジンはかつての負のイメージを覆し、世界的なテック・イノベーションハブとして変貌を遂げました。スペイン語留学の拠点として物価が安く、コーヒー文化も豊かです。",
+      en: "Colombia — especially Medellín — has transformed from its troubled past into a thriving tech and innovation hub. A growing destination for digital nomads and Spanish language students, with very low living costs and world-famous coffee culture.",
+      zh: "哥伦比亚，尤其是麦德林，已从昔日的负面形象转变为蓬勃发展的科技创新中心。作为数字游民和西班牙语学习者的热门目的地，生活成本极低，咖啡文化享誉全球。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（Visa V - Estudiante）", en: "Student Visa (Visa V - Estudiante)", zh: "学生签证（V类学生签证）" },
+      requirements: {
+        ja: ["入学許可書", "パスポート（有効期限6ヶ月以上）", "財政証明書（最低賃金の3倍以上）", "健康保険", "申請料USD$52〜"],
+        en: ["Acceptance letter", "Passport valid 6+ months", "Financial proof (3x minimum wage)", "Health insurance", "Application fee USD$52+"],
+        zh: ["录取通知书", "护照（有效期6个月以上）", "经济证明（最低工资的3倍以上）", "医疗保险", "申请费USD$52以上"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "申請料USD$52〜", en: "Application fee USD$52+", zh: "申请费USD$52以上" },
+    },
+    costs: { tuitionMin: 3000000, tuitionMax: 20000000, livingMonthly: 1500000, currency: "COP", currencySymbol: "COL$" },
+    popularCities: { ja: ["メデジン", "ボゴタ", "カルタヘナ", "カリ"], en: ["Medellín", "Bogotá", "Cartagena", "Cali"], zh: ["麦德林", "波哥大", "卡塔赫纳", "卡利"] },
+    popularUniversities: { ja: ["ロス・アンデス大学", "コロンビア国立大学", "アンティオキア大学", "スペイン語語学学校（多数）", "Nueva Lengua語学学校"], en: ["Universidad de Los Andes", "National University of Colombia", "University of Antioquia", "Spanish language schools (throughout Colombia)", "Nueva Lengua Language School"], zh: ["安第斯大学", "哥伦比亚国立大学", "安蒂奥基亚大学", "西班牙语语言学校（遍布哥伦比亚）", "Nueva Lengua语言学校"] },
+    tips: { ja: ["メデジンはかつて「最もイノベーティブな都市」に選ばれたこともある", "生活費は南米の中でも非常に安い", "コロンビアのスペイン語は発音がクリアで学びやすい", "コーヒー農園訪問などユニークな文化体験も可能"], en: ["Medellín was once named the World's Most Innovative City", "Living costs are very low even for South America", "Colombian Spanish has clear pronunciation — great for learners", "Unique cultural experiences include coffee farm visits"], zh: ["麦德林曾被评为全球最具创新力城市", "即使在南美，生活成本也属于极低水平", "哥伦比亚西班牙语发音清晰，非常适合学习", "可体验参观咖啡农场等独特文化活动"] },
+    japaneseInfo: { ja: "コロンビアの日本人コミュニティはまだ小規模ですが、メデジン・ボゴタには日本人ノマドや留学生が増えています。在コロンビア日本大使館のサポートを受けることができます。", en: "The Japanese community in Colombia is small but growing — particularly in Medellín and Bogotá. The Japanese Embassy in Colombia provides consular support.", zh: "哥伦比亚的日本人社区规模尚小，但麦德林和波哥大的日本游民和留学生正在增加，日本驻哥伦比亚大使馆提供领事支持。" },
+  },
+
+  IT: {
+    code: "IT",
+    overview: {
+      ja: "イタリアはアート・建築・ファッション・料理・音楽など、あらゆるクリエイティブ分野で世界のトップに立つ国です。ローマ・ミラノ・フィレンツェには世界遺産が点在し、その環境で学ぶこと自体が類稀な体験です。イタリア語留学の目的地としても世界的に人気があります。",
+      en: "Italy leads the world in art, architecture, fashion, cuisine, and music. Rome, Milan, and Florence are filled with UNESCO World Heritage Sites, making study here an unparalleled experience. Italy is also a top global destination for learning Italian.",
+      zh: "意大利在艺术、建筑、时尚、美食和音乐等所有创意领域引领世界。罗马、米兰和佛罗伦萨遍布世界遗产，在这样的环境中学习本身就是无与伦比的体验，也是学习意大利语的全球热门目的地。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（Visto per Studio）", en: "Student Visa (Visto per Studio)", zh: "学生签证（Visto per Studio）" },
+      requirements: {
+        ja: ["入学許可書", "財政証明書（月€461以上）", "滞在先証明", "健康保険加入証明", "ビザ申請料€116"],
+        en: ["Acceptance from university or language school", "Financial proof (€461+/month)", "Proof of accommodation", "Health insurance", "Visa fee €116"],
+        zh: ["院校录取通知书", "经济证明（每月€461以上）", "住宿证明", "医疗保险证明", "签证费€116"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "ビザ申請料€116", en: "Visa fee €116", zh: "签证费€116" },
+    },
+    costs: { tuitionMin: 1000, tuitionMax: 20000, livingMonthly: 900, currency: "EUR", currencySymbol: "€" },
+    popularCities: { ja: ["ローマ", "ミラノ", "フィレンツェ", "ボローニャ", "ベネチア"], en: ["Rome", "Milan", "Florence", "Bologna", "Venice"], zh: ["罗马", "米兰", "佛罗伦萨", "博洛尼亚", "威尼斯"] },
+    popularUniversities: { ja: ["ボローニャ大学（欧州最古）", "ラ・サピエンツァ大学（ローマ）", "ポリテクニコ・ディ・ミラノ（工学・デザイン）", "ボッコーニ大学（ビジネス）", "美術アカデミー（美術）"], en: ["University of Bologna (oldest in Europe)", "Sapienza University of Rome", "Politecnico di Milano (Engineering & Design)", "Bocconi University (Business)", "Accademia di Belle Arti (Fine Arts)"], zh: ["博洛尼亚大学（欧洲最古老）", "罗马第一大学（萨皮恩扎）", "米兰理工大学（工程与设计）", "博科尼大学（商科）", "国立美术学院（美术）"] },
+    tips: { ja: ["公立大学は学費が年€1,000〜と安く所得に応じた減額制度あり", "イタリア語は音楽・料理・ファッション・ビジネスで世界的需要がある", "食・ワイン・アートを日常的に楽しめる豊かな文化環境", "ヨーロッパ内の移動が便利（フライト・鉄道）"], en: ["Public university tuition starts at ~€1,000/year with income-based reductions", "Italian has global demand in music, cuisine, fashion, and business", "Rich daily culture: food, wine, and art as a way of life", "Easy travel across Europe by flight and train"], zh: ["公立大学学费每年约€1,000起，并有基于收入的减免制度", "意大利语在音乐、美食、时尚和商业领域有全球需求", "丰富的日常文化：美食、葡萄酒和艺术融入生活", "欧洲内部交通便利（航班和铁路）"] },
+    japaneseInfo: { ja: "イタリアには日本人コミュニティがあり、ローマ・ミラノには日本大使館・総領事館があります。ファッション・デザイン・料理を志す日本人留学生が多く、日伊の文化的親和性も高いです。", en: "Italy has Japanese communities in Rome and Milan with embassies and consulates. Many Japanese students pursue fashion, design, and culinary arts, reflecting the strong cultural affinity between Italy and Japan.", zh: "意大利罗马和米兰拥有日本人社区，设有大使馆和总领事馆。许多日本留学生从事时尚、设计和烹饪艺术，体现了意大利与日本深厚的文化亲和力。" },
+  },
+
+  GR: {
+    code: "GR",
+    overview: {
+      ja: "ギリシャは西洋文明の発祥地として哲学・歴史・考古学分野で留学先として独自の魅力を持ちます。近年はデジタルノマドビザの導入や所得税優遇制度などで外国人居住者が増加しています。地中海性気候と美しい島々が魅力的な生活環境を提供します。",
+      en: "Greece, the cradle of Western civilization, offers a unique study experience in philosophy, history, and archaeology. Recent initiatives including a Digital Nomad Visa and 50% income tax reduction for new residents have attracted growing numbers of international students.",
+      zh: "希腊作为西方文明的发源地，在哲学、历史和考古学领域提供独特的留学体验。数字游民签证和新居民所得税减免50%等新政策吸引了越来越多的国际学生。地中海气候和美丽的岛屿提供了迷人的生活环境。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（Visa Type D）", en: "Student Visa (Type D)", zh: "学生签证（D类签证）" },
+      requirements: {
+        ja: ["入学許可書", "財政証明書（月€430以上）", "健康保険加入証明", "住宅確保証明", "ビザ申請料€150"],
+        en: ["Acceptance from Greek institution", "Financial proof (€430+/month)", "Health insurance", "Proof of accommodation", "Visa fee €150"],
+        zh: ["希腊院校录取通知书", "经济证明（每月€430以上）", "医疗保险证明", "住宿证明", "签证费€150"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "ビザ申請料€150", en: "Visa fee €150", zh: "签证费€150" },
+    },
+    costs: { tuitionMin: 1500, tuitionMax: 12000, livingMonthly: 800, currency: "EUR", currencySymbol: "€" },
+    popularCities: { ja: ["アテネ", "テッサロニキ", "パトラ", "イラクリオン（クレタ島）"], en: ["Athens", "Thessaloniki", "Patras", "Heraklion (Crete)"], zh: ["雅典", "塞萨洛尼基", "帕特雷", "伊拉克利翁（克里特岛）"] },
+    popularUniversities: { ja: ["アテネ大学（NKUA）", "アテネ工科大学（NTUA）", "テッサロニキ大学（AUTH）", "ギリシャ語語学学校（多数）", "アメリカンカレッジ・ギリシャ"], en: ["University of Athens (NKUA)", "National Technical University of Athens (NTUA)", "Aristotle University of Thessaloniki (AUTH)", "Greek language schools (many)", "American College of Greece"], zh: ["雅典大学（NKUA）", "雅典国立技术大学（NTUA）", "塞萨洛尼基亚里士多德大学（AUTH）", "希腊语语言学校（众多）", "希腊美国学院"] },
+    tips: { ja: ["デジタルノマドビザで最大1年間就労しながら滞在可能", "生活費はヨーロッパ最安水準のひとつ（月8〜10万円程度）", "外国人転入者向けの所得税50%減税（最初の7年間）制度あり", "世界遺産・遺跡を日常的に楽しめる歴史的環境"], en: ["Digital Nomad Visa allows up to 1 year of stay while working remotely", "Living costs among Europe's lowest (~¥80–100k/month)", "50% income tax reduction for foreign residents for the first 7 years", "Daily access to UNESCO World Heritage Sites and ancient ruins"], zh: ["数字游民签证允许边远程工作边居留最长1年", "生活成本是欧洲最低水准之一（每月约8至10万日元）", "外国迁入者前7年可享受所得税减免50%的优惠", "日常可游览联合国教科文组织世界遗产和古代遗迹"] },
+    japaneseInfo: { ja: "アテネには在ギリシャ日本大使館があり、日本人コミュニティも存在します。古代ギリシャ哲学・歴史を学ぶ場として独自の魅力があり、ギリシャ料理・文化に魅了された日本人留学生も多いです。", en: "Athens has a Japanese Embassy and a small but active Japanese community. Many Japanese students are drawn by Greek cuisine, culture, and the unique opportunity to study ancient philosophy and history firsthand.", zh: "雅典设有日本大使馆，拥有规模虽小但活跃的日本人社区。许多日本留学生被希腊美食、文化以及亲身研究古希腊哲学和历史的独特机会所吸引。" },
+  },
 };
 
 export function getStudyAbroadData(code: string): StudyAbroadData | undefined {
