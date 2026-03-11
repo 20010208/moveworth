@@ -482,6 +482,466 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       zh: "柏林和慕尼黑拥有日系企业社区，德国日本研究所（DIJ）等日德交流机构也十分活跃。",
     },
   },
+
+  TH: {
+    code: "TH",
+    overview: {
+      ja: "タイは東南アジアで最も人気のある語学留学先のひとつで、特に英語語学学校のコストパフォーマンスが高いです。バンコクやチェンマイには多くの日本人コミュニティがあり、物価も安く生活しやすい環境です。タイ語・英語・中国語の学習拠点としても注目されています。",
+      en: "Thailand is one of Southeast Asia's most popular study abroad destinations, especially for affordable English language schools. Bangkok and Chiang Mai have large Japanese communities, low living costs, and a welcoming atmosphere for international students.",
+      zh: "泰国是东南亚最受欢迎的留学目的地之一，尤其以英语语言学校性价比高而著称。曼谷和清迈拥有大量日本人社区，生活费用低廉，环境友好。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（ED ビザ）", en: "Education Visa (ED Visa)", zh: "教育签证（ED签证）" },
+      requirements: {
+        ja: ["学校の入学許可書", "パスポート（有効期限18ヶ月以上）", "証明写真", "申請料（在日タイ大使館）", "財政証明書"],
+        en: ["Enrollment letter from school", "Passport valid 18+ months", "Passport photos", "Application fee at Thai Embassy", "Financial support proof"],
+        zh: ["学校录取通知书", "护照（有效期18个月以上）", "证件照", "申请费（泰国大使馆）", "经济担保证明"],
+      },
+      duration: { ja: "90日（現地で1年ごとに更新可）", en: "90 days (extendable annually in Thailand)", zh: "90天（可在泰国境内每年续签）" },
+      cost: { ja: "約¥3,000〜¥5,000（在日タイ大使館）", en: "Approx. ¥3,000–¥5,000 at Thai Embassy in Japan", zh: "约¥3,000至¥5,000（驻日泰国大使馆）" },
+    },
+    costs: {
+      tuitionMin: 30000,
+      tuitionMax: 200000,
+      livingMonthly: 40000,
+      currency: "THB",
+      currencySymbol: "฿",
+    },
+    popularCities: {
+      ja: ["バンコク", "チェンマイ", "パタヤ", "プーケット"],
+      en: ["Bangkok", "Chiang Mai", "Pattaya", "Phuket"],
+      zh: ["曼谷", "清迈", "芭提雅", "普吉岛"],
+    },
+    popularUniversities: {
+      ja: ["チュラロンコン大学", "タマサート大学", "マヒドン大学", "カセサート大学", "AUAランゲージセンター"],
+      en: ["Chulalongkorn University", "Thammasat University", "Mahidol University", "Kasetsart University", "AUA Language Center"],
+      zh: ["朱拉隆功大学", "泰玛萨特大学", "玛希敦大学", "农业大学", "AUA语言中心"],
+    },
+    tips: {
+      ja: ["語学学校（英語・タイ語）は費用が非常に安い", "EDビザは現地のイミグレーションオフィスで更新可能", "バンコクは交通インフラが充実（BTSスカイトレイン・MRT）", "年間を通じて温暖な気候で過ごしやすい"],
+      en: ["Language schools (English/Thai) are very affordable", "ED visa can be renewed at local immigration offices", "Bangkok has excellent public transport (BTS / MRT)", "Warm climate year-round makes daily life comfortable"],
+      zh: ["语言学校（英语/泰语）费用非常低廉", "ED签证可在当地移民局续签", "曼谷公共交通发达（BTS空铁/地铁）", "全年气候温暖，生活舒适"],
+    },
+    japaneseInfo: {
+      ja: "バンコクのスクンビット周辺には多くの日本人が在住。日本語対応の病院・学校・飲食店が充実しており、初めての海外生活でも安心です。日本人向け語学学校も多数あります。",
+      en: "Bangkok's Sukhumvit area has a large Japanese expat community with Japanese-speaking hospitals, schools, and restaurants — ideal for first-time abroad students.",
+      zh: "曼谷素坤逸一带聚集了大量日本人，日语医院、学校和餐厅一应俱全，非常适合首次海外生活的学生。",
+    },
+  },
+
+  FR: {
+    code: "FR",
+    overview: {
+      ja: "フランスはアート・ファッション・料理・語学など多彩な分野で留学先として世界的に人気です。パリをはじめとする都市には多数の名門大学・グランゼコールがあり、EU圏での就職にも有利な環境です。フランス語が公用語ですが、英語コースも増えています。",
+      en: "France is a world-renowned study destination for art, fashion, culinary arts, and language learning. Home to prestigious universities and Grandes Écoles, France offers excellent career prospects within the EU.",
+      zh: "法国是艺术、时尚、烹饪和语言学习领域享誉全球的留学目的地。拥有众多名校和大学校（Grandes Écoles），在欧盟就业前景优越。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（VLS-TS Étudiant）", en: "Long-Stay Student Visa (VLS-TS Étudiant)", zh: "长期学生签证（VLS-TS Étudiant）" },
+      requirements: {
+        ja: ["キャンパスフランスでの事前手続き", "大学・語学学校の入学許可書", "財政証明書（月額€615以上）", "滞在先証明", "健康保険加入証明", "ビザ申請料€99"],
+        en: ["Campus France pre-registration", "Acceptance letter from institution", "Financial proof (€615+/month)", "Proof of accommodation", "Health insurance", "Visa fee €99"],
+        zh: ["Campus France预注册", "院校录取通知书", "经济证明（每月€615以上）", "住宿证明", "医疗保险证明", "签证费€99"],
+      },
+      duration: { ja: "就学期間（1年更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "ビザ申請料€99", en: "Visa fee €99", zh: "签证费€99" },
+    },
+    costs: {
+      tuitionMin: 170,
+      tuitionMax: 15000,
+      livingMonthly: 900,
+      currency: "EUR",
+      currencySymbol: "€",
+    },
+    popularCities: {
+      ja: ["パリ", "リヨン", "ボルドー", "トゥールーズ", "マルセイユ"],
+      en: ["Paris", "Lyon", "Bordeaux", "Toulouse", "Marseille"],
+      zh: ["巴黎", "里昂", "波尔多", "图卢兹", "马赛"],
+    },
+    popularUniversities: {
+      ja: ["パリ大学（ソルボンヌ）", "エコール・ポリテクニーク", "HECパリ", "リヨン大学", "フランス語研修（アリアンス・フランセーズ）"],
+      en: ["University of Paris (Sorbonne)", "École Polytechnique", "HEC Paris", "University of Lyon", "Alliance Française (French language)"],
+      zh: ["巴黎大学（索邦）", "巴黎综合理工学院", "巴黎高等商学院（HEC）", "里昂大学", "法语联盟（法语培训）"],
+    },
+    tips: {
+      ja: ["公立大学の学費は年間約€170〜と非常に安い", "CAF（住宅補助金）申請で家賃補助が受けられる", "フランス語は事前にB1〜B2レベルを目指すと良い", "グランゼコールはエリートコースで就職に非常に有利"],
+      en: ["Public university tuition is remarkably low (~€170/year)", "CAF housing allowance can reduce rent costs", "Aim for B1–B2 French level before enrollment", "Grandes Écoles offer elite education with outstanding career outcomes"],
+      zh: ["公立大学学费极低（约每年€170）", "可申请CAF住房补贴降低租金支出", "入学前建议法语达到B1至B2水平", "大学校提供精英教育，就业前景卓越"],
+    },
+    japaneseInfo: {
+      ja: "パリには多くの日本人が居住し、日本食レストラン・日本人コミュニティが充実。ルーブル美術館周辺の日本人観光客・留学生も多く、パリ日本文化会館も活発に活動しています。",
+      en: "Paris has a well-established Japanese community with Japanese restaurants and cultural organizations. The Japan Cultural Institute in Paris (Maison de la culture du Japon) is a great resource for Japanese students.",
+      zh: "巴黎拥有完善的日本人社区，日本料理店和文化团体齐全。驻法国日本文化会馆是日本留学生的重要资源。",
+    },
+  },
+
+  TW: {
+    code: "TW",
+    overview: {
+      ja: "台湾は日本から近く、親日的な文化・安全な治安・安い物価が魅力の留学先です。中国語（繁体字）を学ぶ環境として最適で、アジアビジネスのキャリアを目指す方にも人気です。台湾の大学は国際的な評価も高まっており、英語コースも増えています。",
+      en: "Taiwan is a popular study destination for Japanese students, offering a safe environment, affordable cost of living, and a pro-Japan culture. It's an ideal place to learn Traditional Chinese, and universities are gaining international recognition.",
+      zh: "台湾对日本留学生来说是热门目的地，亲日文化、安全治安和低廉物价是其魅力所在。是学习繁体中文的最佳环境，也是追求亚洲商业职业的理想选择。",
+    },
+    studentVisa: {
+      name: { ja: "居留ビザ（学生居留証）", en: "Resident Visa (Student ARC)", zh: "居留签证（学生居留证）" },
+      requirements: {
+        ja: ["大学の入学許可書", "パスポート", "財政証明書（TWD$200,000以上相当）", "在学証明書", "証明写真", "申請料（在日台北経済文化代表処）"],
+        en: ["University acceptance letter", "Valid passport", "Financial proof (TWD$200,000+)", "Enrollment certificate", "Passport photos", "Application fee at TECRO office"],
+        zh: ["大学录取通知书", "有效护照", "经济证明（TWD$200,000以上）", "在学证明", "证件照", "申请费（台北经济文化代表处）"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "申請料約¥3,000〜¥6,000", en: "Application fee approx. ¥3,000–¥6,000", zh: "申请费约¥3,000至¥6,000" },
+    },
+    costs: {
+      tuitionMin: 50000,
+      tuitionMax: 200000,
+      livingMonthly: 25000,
+      currency: "TWD",
+      currencySymbol: "NT$",
+    },
+    popularCities: {
+      ja: ["台北", "台中", "高雄", "台南"],
+      en: ["Taipei", "Taichung", "Kaohsiung", "Tainan"],
+      zh: ["台北", "台中", "高雄", "台南"],
+    },
+    popularUniversities: {
+      ja: ["国立台湾大学（NTU）", "国立政治大学", "国立成功大学", "台湾師範大学（中国語研修）", "輔仁大学"],
+      en: ["National Taiwan University (NTU)", "National Chengchi University", "National Cheng Kung University", "NTNU (Mandarin Training Center)", "Fu Jen Catholic University"],
+      zh: ["台湾大学（NTU）", "政治大学", "成功大学", "台湾师范大学（华语中心）", "辅仁大学"],
+    },
+    tips: {
+      ja: ["台湾師範大学の華語教学中心は中国語研修で有名", "物価は日本より安く、生活費を抑えやすい", "日本語が通じる場面も多く初めての海外でも安心", "奨学金制度（台湾政府奨学金）も充実"],
+      en: ["NTNU's Mandarin Training Center is world-famous for Chinese language study", "Cost of living is lower than Japan", "Japanese is widely understood — great for first-time students abroad", "Taiwan Ministry of Education scholarships are available"],
+      zh: ["台师大华语教学中心以中文培训闻名世界", "生活成本低于日本", "日语在许多场合通用，非常适合首次出国留学的学生", "台湾教育部奖学金资源丰富"],
+    },
+    japaneseInfo: {
+      ja: "台湾は親日国として知られ、日本語が通じる場面も多いです。台北の中山・信義エリアには日本人コミュニティがあります。日台間の文化交流も活発です。",
+      en: "Taiwan is known for its pro-Japan sentiment, and Japanese is widely understood in many contexts. Taipei's Zhongshan and Xinyi districts have active Japanese communities.",
+      zh: "台湾以亲日著称，日语在许多场合通用。台北中山和信义区拥有活跃的日本人社区，日台文化交流频繁。",
+    },
+  },
+
+  PH: {
+    code: "PH",
+    overview: {
+      ja: "フィリピンは英語を公用語とする国で、日本人に最も人気のある格安英語留学先です。セブ島・マニラを中心に多くの語学学校があり、マンツーマン授業が受けられる点が大きな特徴です。費用はアメリカ・オーストラリアの数分の一で、短期〜長期まで柔軟に対応できます。",
+      en: "The Philippines is one of the most popular English study destinations for Japanese students, offering affordable tuition and one-on-one lessons. With English as an official language, it provides an immersive environment at a fraction of the cost of the US or Australia.",
+      zh: "菲律宾是日本留学生最受欢迎的英语学习目的地之一，学费低廉且提供一对一课程。英语为官方语言，学习环境沉浸式，费用仅为美国或澳大利亚的几分之一。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（Special Study Permit）", en: "Special Study Permit (SSP)", zh: "特别学习许可证（SSP）" },
+      requirements: {
+        ja: ["語学学校の入学許可書", "パスポート", "財政証明書", "入国時に観光ビザで入国後SSPを現地で取得が一般的"],
+        en: ["Enrollment letter from language school", "Valid passport", "Financial proof", "Most students enter on tourist visa and obtain SSP locally"],
+        zh: ["语言学校录取通知书", "有效护照", "经济证明", "大多数学生以旅游签证入境后在当地申请SSP"],
+      },
+      duration: { ja: "就学期間中（最長1年）", en: "Duration of study (up to 1 year)", zh: "学习期间（最长1年）" },
+      cost: { ja: "SSP申請料約PHP10,000〜", en: "SSP fee approx. PHP10,000+", zh: "SSP申请费约PHP10,000以上" },
+    },
+    costs: {
+      tuitionMin: 80000,
+      tuitionMax: 300000,
+      livingMonthly: 40000,
+      currency: "PHP",
+      currencySymbol: "₱",
+    },
+    popularCities: {
+      ja: ["セブ市", "マニラ（パサイ・BGC）", "バコロド", "ダバオ"],
+      en: ["Cebu City", "Manila (Pasay / BGC)", "Bacolod", "Davao"],
+      zh: ["宿雾市", "马尼拉（帕赛/BGC）", "巴科洛德", "达沃"],
+    },
+    popularUniversities: {
+      ja: ["CI（クリフォード・インターナショナル）", "PINES語学学校", "OEG語学学校", "フィリピン大学（UP Diliman）", "デ・ラ・サール大学"],
+      en: ["Clifford International (CI)", "PINES Language School", "OEG Language School", "University of the Philippines (UP Diliman)", "De La Salle University"],
+      zh: ["克利福德国际语言学校（CI）", "PINES语言学校", "OEG语言学校", "菲律宾大学（UP Diliman）", "德拉萨大学"],
+    },
+    tips: {
+      ja: ["1日8〜10コマのマンツーマン授業が受けられる", "費用はアメリカの約5分の1以下", "日本人学生が多いため英語環境の徹底が重要", "セブ島はリゾート地でもあり生活の質が高い"],
+      en: ["8–10 one-on-one lessons per day is standard", "Costs are roughly 1/5 or less of studying in the US", "Many Japanese students — self-discipline for English immersion is important", "Cebu is a resort destination with excellent quality of life"],
+      zh: ["每天可上8至10节一对一课程", "费用约为在美国留学的五分之一以下", "日本学生众多，保持英语沉浸环境需要自律", "宿雾是度假胜地，生活质量高"],
+    },
+    japaneseInfo: {
+      ja: "セブ島の語学学校は日本人向けに特化したプログラムが多く、日本語スタッフも常駐しています。日本からの直行便もあり、アクセスも良好です。",
+      en: "Many language schools in Cebu specialize in Japanese students, with Japanese-speaking staff and Japan-friendly programs. Direct flights from Japan make access easy.",
+      zh: "宿雾的许多语言学校专门面向日本学生，配有日语工作人员并提供针对性课程。日本直飞航班交通便利。",
+    },
+  },
+
+  NL: {
+    code: "NL",
+    overview: {
+      ja: "オランダはEU圏の中でも英語力が非常に高く、多くの大学が英語で授業を提供しています。アムステルダムをはじめとする都市はビジネス・テクノロジー・デザインのハブとして知られ、外国人に開かれたオープンな社会です。「30%ルーリング」という外国人向け税制優遇もあります。",
+      en: "The Netherlands has one of the highest English proficiency rates in Europe, with many universities offering full English-taught programs. As a hub for business, tech, and design, Dutch cities offer excellent international career opportunities.",
+      zh: "荷兰英语普及率居欧洲前列，众多大学提供全英语授课课程。阿姆斯特丹等城市是商业、科技和设计的中心，拥有优越的国际职业发展机会。",
+    },
+    studentVisa: {
+      name: { ja: "学生居住許可（MVV + 居住許可）", en: "Student Residence Permit (MVV + Residence)", zh: "学生居留许可（MVV + 居留许可）" },
+      requirements: {
+        ja: ["大学の入学許可書（日本はMVV免除の場合あり）", "財政証明書（月€1,000以上）", "健康保険", "住宅確保証明", "申請は大学経由が一般的"],
+        en: ["University acceptance letter (Japanese may be MVV-exempt)", "Financial proof (€1,000+/month)", "Health insurance", "Proof of accommodation", "Application often via the university"],
+        zh: ["大学录取通知书（日本人可能免除MVV）", "经济证明（每月€1,000以上）", "医疗保险", "住宿证明", "通常通过大学申请"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "居住許可申請料€225", en: "Residence permit fee €225", zh: "居留许可申请费€225" },
+    },
+    costs: {
+      tuitionMin: 8000,
+      tuitionMax: 20000,
+      livingMonthly: 1100,
+      currency: "EUR",
+      currencySymbol: "€",
+    },
+    popularCities: {
+      ja: ["アムステルダム", "デルフト", "アイントホーフェン", "ロッテルダム", "ユトレヒト"],
+      en: ["Amsterdam", "Delft", "Eindhoven", "Rotterdam", "Utrecht"],
+      zh: ["阿姆斯特丹", "代尔夫特", "埃因霍温", "鹿特丹", "乌得勒支"],
+    },
+    popularUniversities: {
+      ja: ["デルフト工科大学（TU Delft）", "アムステルダム大学", "エラスムス大学ロッテルダム", "アイントホーフェン工科大学", "ワーヘニンゲン大学"],
+      en: ["Delft University of Technology (TU Delft)", "University of Amsterdam", "Erasmus University Rotterdam", "Eindhoven University of Technology", "Wageningen University"],
+      zh: ["代尔夫特理工大学（TU Delft）", "阿姆斯特丹大学", "鹿特丹伊拉斯姆斯大学", "埃因霍温理工大学", "瓦赫宁根大学"],
+    },
+    tips: {
+      ja: ["ほぼすべての国民が英語を話すため、生活に困らない", "自転車文化が根付いており移動手段として便利", "30%ルーリング（外国人向け税制）で就職後の税負担を軽減できる可能性あり", "学費は英語圏に比べて安め"],
+      en: ["Almost everyone speaks excellent English — no language barrier in daily life", "Cycling is the primary mode of transport", "30% ruling may reduce your tax burden when working after graduation", "Tuition is lower than in English-speaking countries"],
+      zh: ["几乎所有人都会说流利英语，日常生活无语言障碍", "自行车是主要交通工具", "30%裁定制度可能减轻毕业后工作的税务负担", "学费低于英语国家"],
+    },
+    japaneseInfo: {
+      ja: "アムステルダムには日本人コミュニティがあり、日系企業も進出しています。オランダは日本との経済的つながりが強く、就職後も活躍しやすい環境です。",
+      en: "Amsterdam has a Japanese community and a number of Japanese companies. The Netherlands has strong economic ties with Japan, making it a good base for careers in international business.",
+      zh: "阿姆斯特丹拥有日本人社区，日系企业也在此落户。荷兰与日本经济联系紧密，毕业后在国际商业领域发展的机会较多。",
+    },
+  },
+
+  CH: {
+    code: "CH",
+    overview: {
+      ja: "スイスはETH チューリッヒ・EPFLなど世界トップクラスの大学を有し、工学・自然科学・経営学分野で特に高い評価を受けています。4つの公用語（ドイツ語・フランス語・イタリア語・ロマンシュ語）の環境で多言語スキルを磨けます。生活費は高いですが、給与水準も非常に高い国です。",
+      en: "Switzerland is home to ETH Zurich and EPFL — two of the world's top universities — with exceptional programs in engineering, natural sciences, and business. Its multilingual environment (German, French, Italian, Romansh) is a unique asset for language learners.",
+      zh: "瑞士拥有苏黎世联邦理工学院（ETH）和洛桑联邦理工学院（EPFL）等世界顶尖大学，在工程、自然科学和商科领域评价极高。四种官方语言的环境（德语、法语、意大利语、罗曼什语）是语言学习者的独特优势。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（Visum D / 居住許可）", en: "Student Visa (Visum D / Residence Permit)", zh: "学生签证（Visum D / 居留许可）" },
+      requirements: {
+        ja: ["大学の入学許可書", "財政証明書（年CHF21,000以上）", "健康保険加入証明", "住宅確保証明", "語学力証明（ドイツ語C1またはフランス語B2等）"],
+        en: ["University acceptance letter", "Financial proof (CHF21,000+/year)", "Health insurance", "Proof of accommodation", "Language proof (German C1 or French B2 etc.)"],
+        zh: ["大学录取通知书", "经济证明（每年CHF21,000以上）", "医疗保险证明", "住宿证明", "语言能力证明（德语C1或法语B2等）"],
+      },
+      duration: { ja: "就学期間（年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "申請料CHF80〜200程度", en: "Application fee approx. CHF80–200", zh: "申请费约CHF80至200" },
+    },
+    costs: {
+      tuitionMin: 730,
+      tuitionMax: 35000,
+      livingMonthly: 2000,
+      currency: "CHF",
+      currencySymbol: "CHF",
+    },
+    popularCities: {
+      ja: ["チューリッヒ", "ジュネーブ", "ローザンヌ", "バーゼル", "ベルン"],
+      en: ["Zurich", "Geneva", "Lausanne", "Basel", "Bern"],
+      zh: ["苏黎世", "日内瓦", "洛桑", "巴塞尔", "伯尔尼"],
+    },
+    popularUniversities: {
+      ja: ["ETHチューリッヒ（世界トップ工科大学）", "EPFL（ローザンヌ工科大学）", "チューリッヒ大学", "ジュネーブ大学", "IMD（ビジネススクール）"],
+      en: ["ETH Zurich (top global tech university)", "EPFL (Lausanne)", "University of Zurich", "University of Geneva", "IMD Business School"],
+      zh: ["苏黎世联邦理工学院（ETH，全球顶尖理工大学）", "洛桑联邦理工学院（EPFL）", "苏黎世大学", "日内瓦大学", "IMD商学院"],
+    },
+    tips: {
+      ja: ["ETH・EPFLの公立大学は学費が年間CHF730程度と安い", "生活費はヨーロッパ最高水準のため資金計画が重要", "卒業後は高水準の給与が期待できる（製薬・金融・テックなど）", "スキーやハイキングなど自然アクティビティが豊富"],
+      en: ["ETH and EPFL public university tuition is only ~CHF730/year", "Cost of living is the highest in Europe — budget planning is essential", "Graduates can expect high salaries in pharma, finance, and tech", "Excellent outdoor activities: skiing, hiking, and more"],
+      zh: ["ETH和EPFL公立大学学费每年仅约CHF730", "生活成本是欧洲最高，财务规划至关重要", "毕业后可在制药、金融和科技领域期待高薪", "户外活动丰富：滑雪、徒步等"],
+    },
+    japaneseInfo: {
+      ja: "スイスには在スイス日本大使館のサポートがあります。チューリッヒ・ジュネーブには日本人コミュニティが存在し、日系企業も多数進出しています。",
+      en: "Switzerland has a Japanese embassy and consulates providing support for students. Both Zurich and Geneva have Japanese communities and Japanese companies.",
+      zh: "瑞士驻日本大使馆为学生提供支持。苏黎世和日内瓦均拥有日本人社区，日系企业也大量进驻。",
+    },
+  },
+
+  ES: {
+    code: "ES",
+    overview: {
+      ja: "スペインはアート・建築・フラメンコ・スペイン語学習など多彩な分野で留学先として人気です。スペイン語は世界で約5億人が話す言語で、習得すると中南米でのキャリアにも直結します。物価はヨーロッパの中でも安く、温暖な気候と活気ある文化が魅力です。",
+      en: "Spain is a popular study destination for art, architecture, flamenco, and Spanish language learning. Spanish is spoken by ~500 million people worldwide, making it a valuable career asset for Latin American markets. Affordable cost of living and warm climate add to its appeal.",
+      zh: "西班牙在艺术、建筑、弗拉门戈和西班牙语学习等领域深受留学生欢迎。西班牙语拥有约5亿使用者，掌握它将直接提升在拉丁美洲的职业竞争力。生活成本在欧洲较为低廉，温暖气候和活力文化更增添吸引力。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（Visado de Estudios）", en: "Student Visa (Visado de Estudios)", zh: "学生签证（Visado de Estudios）" },
+      requirements: {
+        ja: ["入学許可書", "財政証明書（月€700以上）", "健康保険加入証明", "犯罪歴証明書", "ビザ申請料€60〜80"],
+        en: ["Enrollment letter", "Financial proof (€700+/month)", "Health insurance", "Criminal background check", "Visa fee €60–80"],
+        zh: ["录取通知书", "经济证明（每月€700以上）", "医疗保险证明", "无犯罪记录证明", "签证费€60至80"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "ビザ申請料€60〜80", en: "Visa fee €60–80", zh: "签证费€60至80" },
+    },
+    costs: {
+      tuitionMin: 1000,
+      tuitionMax: 20000,
+      livingMonthly: 900,
+      currency: "EUR",
+      currencySymbol: "€",
+    },
+    popularCities: {
+      ja: ["マドリード", "バルセロナ", "バレンシア", "セビリア", "グラナダ"],
+      en: ["Madrid", "Barcelona", "Valencia", "Seville", "Granada"],
+      zh: ["马德里", "巴塞罗那", "瓦伦西亚", "塞维利亚", "格拉纳达"],
+    },
+    popularUniversities: {
+      ja: ["マドリード・コンプルテンセ大学", "バルセロナ大学", "ポンペウ・ファブラ大学", "IEビジネススクール", "セルバンテス文化センター（スペイン語）"],
+      en: ["Complutense University of Madrid", "University of Barcelona", "Pompeu Fabra University", "IE Business School", "Instituto Cervantes (Spanish language)"],
+      zh: ["马德里康普顿斯大学", "巴塞罗那大学", "庞培法布拉大学", "IE商学院", "塞万提斯学院（西班牙语）"],
+    },
+    tips: {
+      ja: ["公立大学の学費はEU圏の中でも安め（年間€1,000〜）", "シエスタ文化など日本と異なる生活リズムに慣れることが必要", "スペイン語は習得後に南米でも活用できる", "バルセロナはアートとデザインの都市としても有名"],
+      en: ["Public university tuition is affordable (~€1,000+/year)", "Be ready to adapt to local rhythms — siesta culture and late evenings are the norm", "Spanish skills open doors across Latin America", "Barcelona is world-famous for art, architecture, and design"],
+      zh: ["公立大学学费在欧洲较为低廉（每年约€1,000以上）", "需适应当地生活节奏——午睡文化和晚间活动是常态", "掌握西班牙语可在整个拉丁美洲拓展机会", "巴塞罗那以艺术、建筑和设计闻名于世"],
+    },
+    japaneseInfo: {
+      ja: "マドリード・バルセロナには日本人コミュニティがあります。スペインは日本との文化交流も活発で、スペイン語と日本語を活かした仕事も多くあります。",
+      en: "Madrid and Barcelona have active Japanese communities. Spain has strong cultural ties with Japan, and bilingual Japanese-Spanish professionals are in demand.",
+      zh: "马德里和巴塞罗那拥有活跃的日本人社区。西班牙与日本文化交流频繁，日西双语专业人才需求旺盛。",
+    },
+  },
+
+  PT: {
+    code: "PT",
+    overview: {
+      ja: "ポルトガルは温暖な気候・低い物価・美しい自然で近年急速に人気が高まっている留学先です。デジタルノマドビザや NHR（非居住者税制）など外国人に優しい制度があります。英語教育も充実しており、ヨーロッパ留学の穴場として注目されています。",
+      en: "Portugal has rapidly gained popularity as a study destination thanks to its warm climate, affordable living, and expat-friendly policies like the Digital Nomad Visa and NHR tax regime. English-taught programs are growing at Portuguese universities.",
+      zh: "葡萄牙以温暖气候、低廉物价和优美自然风光迅速成为热门留学目的地。数字游民签证和NHR税制等对外国人友好的政策更增添了吸引力。葡萄牙大学的英语授课课程也在不断增加。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（Visto de Estudo）", en: "Student Visa (Visto de Estudo)", zh: "学生签证（Visto de Estudo）" },
+      requirements: {
+        ja: ["入学許可書", "財政証明書（月€760以上）", "健康保険加入証明", "滞在先証明", "ビザ申請料€90"],
+        en: ["Enrollment letter", "Financial proof (€760+/month)", "Health insurance", "Proof of accommodation", "Visa fee €90"],
+        zh: ["录取通知书", "经济证明（每月€760以上）", "医疗保险证明", "住宿证明", "签证费€90"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "ビザ申請料€90", en: "Visa fee €90", zh: "签证费€90" },
+    },
+    costs: {
+      tuitionMin: 1000,
+      tuitionMax: 7000,
+      livingMonthly: 900,
+      currency: "EUR",
+      currencySymbol: "€",
+    },
+    popularCities: {
+      ja: ["リスボン", "ポルト", "コインブラ", "ブラガ"],
+      en: ["Lisbon", "Porto", "Coimbra", "Braga"],
+      zh: ["里斯本", "波尔图", "科英布拉", "布拉加"],
+    },
+    popularUniversities: {
+      ja: ["リスボン大学", "ポルト大学", "コインブラ大学（欧州最古の大学のひとつ）", "Nova SBE（ビジネス）", "テクニコ・リスボア（工学）"],
+      en: ["University of Lisbon", "University of Porto", "University of Coimbra (one of Europe's oldest)", "Nova SBE (Business)", "Técnico Lisboa (Engineering)"],
+      zh: ["里斯本大学", "波尔图大学", "科英布拉大学（欧洲最古老大学之一）", "Nova SBE（商科）", "里斯本理工学院（工程）"],
+    },
+    tips: {
+      ja: ["学費はヨーロッパ最安水準（年€1,000〜）", "英語話者が多くポルトガル語が話せなくても生活できる", "NHR制度（税制優遇）や D8デジタルノマドビザも選択肢のひとつ", "リスボン・ポルトはテックスタートアップのハブとして急成長中"],
+      en: ["Tuition is among the lowest in Europe (~€1,000/year)", "Many Portuguese speak English well — manageable without Portuguese", "NHR tax regime and D8 Digital Nomad Visa offer attractive options for graduates", "Lisbon and Porto are booming tech and startup hubs"],
+      zh: ["学费是欧洲最低水平之一（每年约€1,000）", "许多葡萄牙人英语流利，不会葡语也能正常生活", "NHR税制和D8数字游民签证为毕业生提供了有吸引力的选择", "里斯本和波尔图是快速成长的科技创业中心"],
+    },
+    japaneseInfo: {
+      ja: "リスボンには日本人コミュニティがあり、日本食レストランも増えています。ポルトガルは治安が良く、日本人留学生にとって安心して生活できる国として人気が高まっています。",
+      en: "Lisbon has a growing Japanese community with Japanese restaurants and expat networks. Portugal's excellent safety record makes it a comfortable choice for Japanese students.",
+      zh: "里斯本的日本人社区不断壮大，日本料理餐厅也在增加。葡萄牙治安良好，越来越受到日本留学生的青睐。",
+    },
+  },
+
+  SE: {
+    code: "SE",
+    overview: {
+      ja: "スウェーデンはイノベーション・デザイン・サステナビリティ分野で世界をリードする国で、多くの大学が英語で授業を提供しています。EU圏外からの留学生には学費がかかりますが、奨学金制度が充実しており、高福祉・高品質な生活環境が整っています。",
+      en: "Sweden is a world leader in innovation, design, and sustainability, with many universities offering English-taught programs. While tuition fees apply for non-EU students, scholarships are available, and the quality of life is exceptionally high.",
+      zh: "瑞典在创新、设计和可持续发展领域引领全球，众多大学提供英语授课课程。虽然非欧盟留学生需缴纳学费，但奖学金机会丰富，生活质量极高。",
+    },
+    studentVisa: {
+      name: { ja: "学生居住許可（Uppehållstillstånd）", en: "Student Residence Permit (Uppehållstillstånd)", zh: "学生居留许可（Uppehållstillstånd）" },
+      requirements: {
+        ja: ["大学の入学許可書", "財政証明書（月SEK8,514以上）", "健康保険", "申請料SEK1,000"],
+        en: ["University acceptance letter", "Financial proof (SEK8,514+/month)", "Health insurance", "Application fee SEK1,000"],
+        zh: ["大学录取通知书", "经济证明（每月SEK8,514以上）", "医疗保险", "申请费SEK1,000"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "申請料SEK1,000（約¥14,000）", en: "Application fee SEK1,000 (approx. ¥14,000)", zh: "申请费SEK1,000（约¥14,000）" },
+    },
+    costs: {
+      tuitionMin: 80000,
+      tuitionMax: 200000,
+      livingMonthly: 10000,
+      currency: "SEK",
+      currencySymbol: "kr",
+    },
+    popularCities: {
+      ja: ["ストックホルム", "ヨーテボリ", "マルメ", "ルンド", "ウプサラ"],
+      en: ["Stockholm", "Gothenburg", "Malmö", "Lund", "Uppsala"],
+      zh: ["斯德哥尔摩", "哥德堡", "马尔默", "隆德", "乌普萨拉"],
+    },
+    popularUniversities: {
+      ja: ["ストックホルム大学", "王立工科大学（KTH）", "カロリンスカ研究所（医学）", "ルンド大学", "チャルマース工科大学"],
+      en: ["Stockholm University", "KTH Royal Institute of Technology", "Karolinska Institutet (Medicine)", "Lund University", "Chalmers University of Technology"],
+      zh: ["斯德哥尔摩大学", "皇家理工学院（KTH）", "卡罗林斯卡研究所（医学）", "隆德大学", "查尔姆斯理工大学"],
+    },
+    tips: {
+      ja: ["スウェーデン政府奨学金（SI奨学金）が日本人にも開放されている", "冬は非常に寒く日照時間が短いため精神的な準備が必要", "SpotifyやIKEAなどの発祥地でありスタートアップ文化が盛ん", "自転車・公共交通が発達しており生活しやすい"],
+      en: ["Swedish Institute (SI) scholarships are available for Japanese students", "Winters are very cold and dark — mental preparation helps", "Birthplace of Spotify, IKEA, and a thriving startup culture", "Excellent public transport and cycling infrastructure"],
+      zh: ["瑞典学院（SI）奖学金向日本学生开放", "冬季极寒且日照时间短，需做好心理准备", "Spotify和IKEA的发源地，创业文化蓬勃发展", "公共交通和自行车基础设施完善，生活便利"],
+    },
+    japaneseInfo: {
+      ja: "ストックホルムには日本人コミュニティがあり、在スウェーデン日本大使館のサポートも受けられます。スウェーデンの企業文化はフラットで働きやすく、日本人エンジニア・デザイナーにも人気があります。",
+      en: "Stockholm has a Japanese community and support from the Japanese Embassy in Sweden. Swedish flat corporate culture is popular with Japanese engineers and designers.",
+      zh: "斯德哥尔摩拥有日本人社区，可获得日本驻瑞典大使馆的支持。瑞典扁平化的企业文化深受日本工程师和设计师的青睐。",
+    },
+  },
+
+  HK: {
+    code: "HK",
+    overview: {
+      ja: "香港はアジアの国際金融センターとして、ビジネス・金融・法律などの分野で世界的に評価の高い大学が集まっています。英語と中国語（広東語・北京語）が日常的に使われており、アジアビジネスのキャリアを目指す留学生に最適です。",
+      en: "Hong Kong is a world-class international financial center with globally ranked universities in business, finance, and law. English and Chinese (Cantonese/Mandarin) are used daily, making it ideal for students targeting careers in Asian business.",
+      zh: "香港是国际金融中心，拥有多所在商科、金融和法律领域享有全球声誉的大学。英语和中文（粤语/普通话）日常并用，非常适合以亚洲商业职业为目标的留学生。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（入境許可証）", en: "Student Entry Permit", zh: "学生入境许可证" },
+      requirements: {
+        ja: ["大学の入学許可書", "パスポート", "財政証明書", "入学する大学が代理で申請するケースが多い", "申請料HKD$230"],
+        en: ["University acceptance letter", "Valid passport", "Financial proof", "Usually applied through the university", "Application fee HKD$230"],
+        zh: ["大学录取通知书", "有效护照", "经济证明", "通常由大学代为申请", "申请费HKD$230"],
+      },
+      duration: { ja: "就学期間中", en: "Duration of study", zh: "学习期间" },
+      cost: { ja: "申請料HKD$230（約¥4,500）", en: "Application fee HKD$230 (approx. ¥4,500)", zh: "申请费HKD$230（约¥4,500）" },
+    },
+    costs: {
+      tuitionMin: 120000,
+      tuitionMax: 200000,
+      livingMonthly: 12000,
+      currency: "HKD",
+      currencySymbol: "HK$",
+    },
+    popularCities: {
+      ja: ["香港島", "九龍", "新界"],
+      en: ["Hong Kong Island", "Kowloon", "New Territories"],
+      zh: ["香港岛", "九龙", "新界"],
+    },
+    popularUniversities: {
+      ja: ["香港大学（HKU）", "香港科技大学（HKUST）", "香港中文大学（CUHK）", "香港城市大学（CityU）", "香港理工大学（PolyU）"],
+      en: ["University of Hong Kong (HKU)", "HKUST", "Chinese University of Hong Kong (CUHK)", "City University of Hong Kong (CityU)", "Hong Kong Polytechnic University (PolyU)"],
+      zh: ["香港大学（HKU）", "香港科技大学（HKUST）", "香港中文大学（CUHK）", "香港城市大学（CityU）", "香港理工大学（PolyU）"],
+    },
+    tips: {
+      ja: ["HKU・HKUSTは世界大学ランキングで常に上位にランクイン", "英語・広東語・北京語の3言語環境でマルチリンガルになれる", "香港は法人税・所得税が低く、ビジネスに有利な環境", "物価・家賃は非常に高い（世界最高水準）"],
+      en: ["HKU and HKUST consistently rank among the world's top universities", "Trilingual environment (English, Cantonese, Mandarin) is a unique advantage", "Low corporate and income taxes make Hong Kong business-friendly", "Cost of living and rent are among the highest in the world"],
+      zh: ["港大和科大始终位居全球顶尖大学之列", "英语、粤语、普通话三语环境是独特优势", "低企业税和所得税，营商环境极具竞争力", "生活成本和租金居全球最高水准之列"],
+    },
+    japaneseInfo: {
+      ja: "香港には大規模な日本人コミュニティがあり、日系企業も多数進出しています。日本総領事館のサポートも充実しており、日本食・日本語対応サービスも豊富です。",
+      en: "Hong Kong has a large and well-established Japanese expat community, with many Japanese companies, Japanese restaurants, and support from the Japanese Consulate-General.",
+      zh: "香港拥有规模庞大且成熟的日本人社区，日系企业众多，日本料理丰富，日本总领事馆支持完善。",
+    },
+  },
 };
 
 export function getStudyAbroadData(code: string): StudyAbroadData | undefined {
