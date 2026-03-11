@@ -960,7 +960,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       duration: { ja: "就学期間（最長4年3ヶ月、更新可）", en: "Duration of study (up to 4 years 3 months, renewable)", zh: "学习期间（最长4年3个月，可续签）" },
       cost: { ja: "短期無料・長期約¥3,000", en: "Short-stay free; long-stay approx. ¥3,000", zh: "短期免费；长期约¥3,000" },
     },
-    costs: { tuitionMin: 500000, tuitionMax: 1500000, livingMonthly: 100000, currency: "JPY", currencySymbol: "¥" },
+    costs: { tuitionMin: 500000, tuitionMax: 1500000, livingMonthly: 120000, currency: "JPY", currencySymbol: "¥" },
     popularCities: { ja: ["東京", "大阪", "京都", "福岡", "名古屋"], en: ["Tokyo", "Osaka", "Kyoto", "Fukuoka", "Nagoya"], zh: ["东京", "大阪", "京都", "福冈", "名古屋"] },
     popularUniversities: { ja: ["東京大学", "京都大学", "早稲田大学", "慶應義塾大学", "東京工業大学"], en: ["University of Tokyo", "Kyoto University", "Waseda University", "Keio University", "Tokyo Institute of Technology"], zh: ["东京大学", "京都大学", "早稻田大学", "庆应义塾大学", "东京工业大学"] },
     tips: { ja: ["文科省の国費奨学金など充実した奨学金あり", "アルバイトは週28時間まで許可", "JLPT N2以上取得で就職に有利", "東京・大阪は生活費が高め、地方は安い"], en: ["MEXT scholarships are generous for international students", "Part-time work up to 28 hours/week permitted", "JLPT N2+ improves job prospects significantly", "Tokyo/Osaka are expensive; regional cities are affordable"], zh: ["文部科学省国费奖学金资源丰富", "每周最多允许打工28小时", "JLPT N2以上有助于在日就业", "东京大阪生活成本高，地方城市相对便宜"] },
