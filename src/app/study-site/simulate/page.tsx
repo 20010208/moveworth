@@ -332,7 +332,7 @@ export default function StudySimulatePage() {
                         tickFormatter={(v) => `${v}`}
                       />
                       <Tooltip
-                        formatter={(value: number) => [`${value.toLocaleString()}${text.unit}`, ""]}
+                        formatter={(value: number | string | undefined) => [`${Number(value ?? 0).toLocaleString()}${text.unit}`, ""]}
                         contentStyle={{ borderRadius: "12px", border: "1px solid #e2e8f0", fontSize: 12 }}
                       />
                       <Legend wrapperStyle={{ fontSize: 12 }} />
