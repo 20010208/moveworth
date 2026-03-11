@@ -27,13 +27,51 @@ function toKatakana(str: string): string {
   );
 }
 
-function matchesQuery(name: string, query: string): boolean {
+// 国コード → ひらがな読み（漢字入力対応）
+const jaYomi: Record<string, string> = {
+  JP: "にほん にっぽん",
+  KR: "かんこく みなみこりあ",
+  TW: "たいわん",
+  HK: "ほんこん",
+  IT: "いたりあ",
+  MY: "まれーしあ",
+  US: "あめりか うちゅうこく べいこく",
+  AU: "おーすとらりあ ごうしゅう",
+  GB: "いぎりす えいこく うぇーるず",
+  CA: "かなだ",
+  NZ: "にゅーじーらんど しんせかい",
+  SG: "しんがぽーる",
+  IE: "あいるらんど あいるらんどきょうわこく",
+  DE: "どいつ どいつれんぽうきょうわこく",
+  TH: "たい たいらんど",
+  FR: "ふらんす",
+  PH: "ふぃりぴん ひりぴん",
+  NL: "おらんだ ねーでるらんど",
+  CH: "すいす すいすれんぽう",
+  ES: "すぺいん えすぱにゃ",
+  PT: "ぽるとがる",
+  SE: "すうぇーでん すえーでん",
+  ID: "いんどねしあ",
+  VN: "べとなむ べとなむしゃかいしゅぎきょうわこく",
+  AE: "どばい あぶだび UAE うぇー",
+  GE: "じょーじあ ぐるじあ",
+  NO: "のるうぇー",
+  DK: "でんまーく",
+  BR: "ぶらじる",
+  CO: "ころんびあ めでじん",
+  GR: "ぎりしあ",
+};
+
+function matchesQuery(code: string, name: string, query: string): boolean {
   const n = name.toLowerCase();
   const q = query.toLowerCase();
+  const yomi = jaYomi[code] ?? "";
   return (
     n.includes(q) ||
     toHiragana(n).includes(toHiragana(q)) ||
-    toKatakana(n).includes(toKatakana(q))
+    toKatakana(n).includes(toKatakana(q)) ||
+    yomi.includes(toHiragana(q)) ||
+    yomi.includes(q)
   );
 }
 
@@ -96,9 +134,9 @@ export default function StudySitePage() {
     ? availableCountries.filter((c) => {
         const q = query.trim();
         return (
-          matchesQuery(c.name.ja, q) ||
-          matchesQuery(c.name.en, q) ||
-          matchesQuery(c.name.zh, q) ||
+          matchesQuery(c.code, c.name.ja, q) ||
+          matchesQuery(c.code, c.name.en, q) ||
+          matchesQuery(c.code, c.name.zh, q) ||
           c.code.toLowerCase().includes(q.toLowerCase())
         );
       })
