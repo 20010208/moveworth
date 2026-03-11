@@ -13,6 +13,30 @@ function getFlag(code: string): string {
   );
 }
 
+// カタカナ → ひらがな
+function toHiragana(str: string): string {
+  return str.replace(/[\u30A1-\u30F6]/g, (c) =>
+    String.fromCharCode(c.charCodeAt(0) - 0x60)
+  );
+}
+
+// ひらがな → カタカナ
+function toKatakana(str: string): string {
+  return str.replace(/[\u3041-\u3096]/g, (c) =>
+    String.fromCharCode(c.charCodeAt(0) + 0x60)
+  );
+}
+
+function matchesQuery(name: string, query: string): boolean {
+  const n = name.toLowerCase();
+  const q = query.toLowerCase();
+  return (
+    n.includes(q) ||
+    toHiragana(n).includes(toHiragana(q)) ||
+    toKatakana(n).includes(toKatakana(q))
+  );
+}
+
 const pageText = {
   ja: {
     badge: "MoveWorth.study",
@@ -70,9 +94,13 @@ export default function StudySitePage() {
 
   const filtered = query.trim()
     ? availableCountries.filter((c) => {
-        const q = query.toLowerCase();
-        const name = (c.name[lang as keyof typeof c.name] ?? c.name.en).toLowerCase();
-        return name.includes(q) || c.code.toLowerCase().includes(q);
+        const q = query.trim();
+        return (
+          matchesQuery(c.name.ja, q) ||
+          matchesQuery(c.name.en, q) ||
+          matchesQuery(c.name.zh, q) ||
+          c.code.toLowerCase().includes(q.toLowerCase())
+        );
       })
     : availableCountries;
 
