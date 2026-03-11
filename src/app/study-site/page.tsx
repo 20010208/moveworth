@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { GraduationCap, MapPin, ArrowRight, BookOpen, Globe, Search, X } from "lucide-react";
+import { GraduationCap, ArrowRight, BookOpen, Globe, Search, X } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { studyAbroadCountries } from "@/data/study-abroad";
 import { countryPresets } from "@/data/country-presets";
@@ -213,12 +213,6 @@ export default function StudySitePage() {
                       </div>
                     </div>
                     <ArrowRight className="h-4 w-4 text-muted group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-                  </div>
-                  <div className="flex gap-4 text-xs text-muted">
-                    <span className="flex items-center gap-1">
-                      <MapPin className="h-3 w-3" />
-                      {text.studentVisa}
-                    </span>
                   </div>
                 </Link>
               ))}

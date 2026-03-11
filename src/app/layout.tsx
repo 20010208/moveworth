@@ -120,8 +120,8 @@ export default async function RootLayout({
             {!isStudySite && <Header />}
             <main className="flex-1">{children}</main>
             {!isStudySite && <Footer />}
-            {!isStudySite && <RegisterModal />}
-            {!isStudySite && <LoginModal />}
+            <RegisterModal />
+            <LoginModal />
             <CookieBanner />
           </AuthProvider>
         </LanguageProvider>

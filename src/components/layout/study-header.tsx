@@ -2,33 +2,41 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Globe, GraduationCap, Menu, X, Languages } from "lucide-react";
+import { Globe, GraduationCap, Menu, X, Languages, User, LogOut } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
+import { useAuth } from "@/lib/auth";
 
 const navLabels = {
   ja: {
     countries: "留学先一覧",
-    howToUse: "使い方",
     simulator: "移住シミュレーター",
     toggleMenu: "メニュー",
+    login: "ログイン",
+    register: "無料登録",
+    logout: "ログアウト",
   },
   en: {
     countries: "Countries",
-    howToUse: "How to Use",
     simulator: "Migration Simulator",
     toggleMenu: "Toggle menu",
+    login: "Login",
+    register: "Sign Up",
+    logout: "Logout",
   },
   zh: {
     countries: "留学目的地",
-    howToUse: "使用方法",
     simulator: "移居模拟器",
     toggleMenu: "切换菜单",
+    login: "登录",
+    register: "免费注册",
+    logout: "退出",
   },
 };
 
 export function StudyHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { locale, setLocale } = useTranslation();
+  const { isAuthenticated, user, logout, setShowLoginModal, setShowRegisterModal } = useAuth();
   const lang = locale as "en" | "ja" | "zh";
   const labels = navLabels[lang];
 
@@ -69,12 +77,6 @@ export function StudyHeader() {
             >
               {labels.countries}
             </Link>
-            <a
-              href="/#how-to-use"
-              className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
-            >
-              {labels.howToUse}
-            </a>
 
             <div className="w-px h-5 bg-border mx-2" />
 
@@ -87,14 +89,39 @@ export function StudyHeader() {
               {currentLocaleLabel}
             </button>
 
-            <a
-              href="https://www.moveworthapp.com/simulate"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-primary text-white px-5 py-2 rounded-xl text-sm font-semibold hover:bg-primary/90 transition-all shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 ml-1"
-            >
-              {labels.simulator}
-            </a>
+            {isAuthenticated ? (
+              <div className="flex items-center gap-2 ml-1">
+                <Link
+                  href="https://www.moveworthapp.com/account"
+                  className="text-sm font-medium text-foreground flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
+                >
+                  <User className="h-4 w-4 text-primary" />
+                  {user?.firstName}
+                </Link>
+                <button
+                  onClick={logout}
+                  className="text-sm font-medium text-muted hover:text-foreground px-2 py-1.5 rounded-lg hover:bg-secondary/80 transition-all"
+                  title={labels.logout}
+                >
+                  <LogOut className="h-4 w-4" />
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 ml-1">
+                <button
+                  onClick={() => setShowLoginModal(true)}
+                  className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
+                >
+                  {labels.login}
+                </button>
+                <button
+                  onClick={() => setShowRegisterModal(true)}
+                  className="bg-primary text-white px-5 py-2 rounded-xl text-sm font-semibold hover:bg-primary/90 transition-all shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30"
+                >
+                  {labels.register}
+                </button>
+              </div>
+            )}
           </nav>
 
           {/* Mobile right */}
@@ -126,14 +153,7 @@ export function StudyHeader() {
             >
               {labels.countries}
             </Link>
-            <a
-              href="/#how-to-use"
-              className="block px-3 py-2.5 text-sm font-medium text-muted hover:text-foreground hover:bg-secondary/80 rounded-lg transition-all"
-              onClick={() => setMobileOpen(false)}
-            >
-              {labels.howToUse}
-            </a>
-            <div className="pt-2 mx-3">
+            <div className="pt-2 mx-3 space-y-2">
               <a
                 href="https://www.moveworthapp.com/simulate"
                 target="_blank"
@@ -143,6 +163,40 @@ export function StudyHeader() {
               >
                 {labels.simulator}
               </a>
+              {isAuthenticated ? (
+                <div className="flex items-center justify-between px-1 py-1">
+                  <Link
+                    href="https://www.moveworthapp.com/account"
+                    className="text-sm font-medium text-foreground flex items-center gap-1.5 hover:text-primary transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <User className="h-4 w-4 text-primary" />
+                    {user?.firstName}
+                  </Link>
+                  <button
+                    onClick={() => { logout(); setMobileOpen(false); }}
+                    className="text-sm font-medium text-muted hover:text-foreground flex items-center gap-1"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    {labels.logout}
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <button
+                    onClick={() => { setShowLoginModal(true); setMobileOpen(false); }}
+                    className="block w-full border border-primary text-primary px-4 py-2.5 rounded-xl text-sm font-semibold text-center"
+                  >
+                    {labels.login}
+                  </button>
+                  <button
+                    onClick={() => { setShowRegisterModal(true); setMobileOpen(false); }}
+                    className="block w-full bg-primary text-white px-4 py-2.5 rounded-xl text-sm font-semibold text-center shadow-md shadow-primary/20"
+                  >
+                    {labels.register}
+                  </button>
+                </>
+              )}
             </div>
           </nav>
         )}
