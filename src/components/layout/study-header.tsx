@@ -9,6 +9,7 @@ import { useAuth } from "@/lib/auth";
 const navLabels = {
   ja: {
     countries: "留学先一覧",
+    simulate: "費用シミュレーター",
     simulator: "移住シミュレーター",
     toggleMenu: "メニュー",
     login: "ログイン",
@@ -17,6 +18,7 @@ const navLabels = {
   },
   en: {
     countries: "Countries",
+    simulate: "Cost Simulator",
     simulator: "Migration Simulator",
     toggleMenu: "Toggle menu",
     login: "Login",
@@ -25,6 +27,7 @@ const navLabels = {
   },
   zh: {
     countries: "留学目的地",
+    simulate: "费用模拟器",
     simulator: "移居模拟器",
     toggleMenu: "切换菜单",
     login: "登录",
@@ -76,6 +79,12 @@ export function StudyHeader() {
               className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
             >
               {labels.countries}
+            </Link>
+            <Link
+              href="/simulate"
+              className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
+            >
+              {labels.simulate}
             </Link>
 
             <div className="w-px h-5 bg-border mx-2" />
@@ -152,6 +161,13 @@ export function StudyHeader() {
               onClick={() => setMobileOpen(false)}
             >
               {labels.countries}
+            </Link>
+            <Link
+              href="/simulate"
+              className="block px-3 py-2.5 text-sm font-medium text-muted hover:text-foreground hover:bg-secondary/80 rounded-lg transition-all"
+              onClick={() => setMobileOpen(false)}
+            >
+              {labels.simulate}
             </Link>
             <div className="pt-2 mx-3 space-y-2">
               <a
