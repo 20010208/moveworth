@@ -101,7 +101,7 @@ export function StudyHeader() {
             {isAuthenticated ? (
               <div className="flex items-center gap-2 ml-1">
                 <Link
-                  href="https://www.moveworthapp.com/account"
+                  href="/account"
                   className="text-sm font-medium text-foreground flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
                 >
                   <User className="h-4 w-4 text-primary" />
@@ -182,7 +182,7 @@ export function StudyHeader() {
               {isAuthenticated ? (
                 <div className="flex items-center justify-between px-1 py-1">
                   <Link
-                    href="https://www.moveworthapp.com/account"
+                    href="/account"
                     className="text-sm font-medium text-foreground flex items-center gap-1.5 hover:text-primary transition-colors"
                     onClick={() => setMobileOpen(false)}
                   >
