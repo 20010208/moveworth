@@ -207,7 +207,7 @@ export default function StudySitePage() {
               width: "100%",
               height: "100%",
               objectFit: "cover",
-              objectPosition: i === 3 ? "center bottom" : "center center",
+              objectPosition: i === 3 ? "center top" : "center center",
               opacity: i === heroIndex ? 1 : 0,
               transition: "opacity 1s ease-in-out",
             }}
