@@ -12,7 +12,8 @@ export interface StudyAbroadData {
   costs: {
     tuitionMin: number;    // 年間学費・最低（現地通貨）
     tuitionMax: number;    // 年間学費・最高（現地通貨）
-    livingMonthly: number; // 月額生活費（現地通貨）
+    livingMin: number;     // 月額生活費・最低（現地通貨）
+    livingMax: number;     // 月額生活費・最高（現地通貨）
     currency: string;
     currencySymbol: string;
   };
@@ -43,7 +44,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 15000,
       tuitionMax: 60000,
-      livingMonthly: 3000,
+      livingMin: 2000,
+      livingMax: 5000,
       currency: "MYR",
       currencySymbol: "RM",
     },
@@ -89,7 +91,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 20000,
       tuitionMax: 60000,
-      livingMonthly: 1500,
+      livingMin: 800,
+      livingMax: 2500,
       currency: "USD",
       currencySymbol: "$",
     },
@@ -135,7 +138,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 20000,
       tuitionMax: 45000,
-      livingMonthly: 1800,
+      livingMin: 1200,
+      livingMax: 2800,
       currency: "AUD",
       currencySymbol: "A$",
     },
@@ -181,7 +185,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 15000,
       tuitionMax: 38000,
-      livingMonthly: 1200,
+      livingMin: 800,
+      livingMax: 2000,
       currency: "GBP",
       currencySymbol: "£",
     },
@@ -227,7 +232,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 18000,
       tuitionMax: 40000,
-      livingMonthly: 1500,
+      livingMin: 1000,
+      livingMax: 2500,
       currency: "CAD",
       currencySymbol: "C$",
     },
@@ -273,7 +279,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 18000,
       tuitionMax: 35000,
-      livingMonthly: 1400,
+      livingMin: 1000,
+      livingMax: 2200,
       currency: "NZD",
       currencySymbol: "NZ$",
     },
@@ -319,7 +326,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 25000,
       tuitionMax: 55000,
-      livingMonthly: 2000,
+      livingMin: 1500,
+      livingMax: 3500,
       currency: "SGD",
       currencySymbol: "S$",
     },
@@ -365,7 +373,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 5000000,
       tuitionMax: 12000000,
-      livingMonthly: 800000,
+      livingMin: 600000,
+      livingMax: 1500000,
       currency: "KRW",
       currencySymbol: "₩",
     },
@@ -411,7 +420,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 10000,
       tuitionMax: 25000,
-      livingMonthly: 1500,
+      livingMin: 1200,
+      livingMax: 2500,
       currency: "EUR",
       currencySymbol: "€",
     },
@@ -457,7 +467,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 0,
       tuitionMax: 20000,
-      livingMonthly: 900,
+      livingMin: 700,
+      livingMax: 1600,
       currency: "EUR",
       currencySymbol: "€",
     },
@@ -503,7 +514,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 30000,
       tuitionMax: 200000,
-      livingMonthly: 40000,
+      livingMin: 25000,
+      livingMax: 60000,
       currency: "THB",
       currencySymbol: "฿",
     },
@@ -549,7 +561,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 170,
       tuitionMax: 15000,
-      livingMonthly: 900,
+      livingMin: 800,
+      livingMax: 1800,
       currency: "EUR",
       currencySymbol: "€",
     },
@@ -595,7 +608,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 50000,
       tuitionMax: 200000,
-      livingMonthly: 25000,
+      livingMin: 18000,
+      livingMax: 35000,
       currency: "TWD",
       currencySymbol: "NT$",
     },
@@ -641,7 +655,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 80000,
       tuitionMax: 300000,
-      livingMonthly: 40000,
+      livingMin: 25000,
+      livingMax: 60000,
       currency: "PHP",
       currencySymbol: "₱",
     },
@@ -687,7 +702,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 8000,
       tuitionMax: 20000,
-      livingMonthly: 1100,
+      livingMin: 900,
+      livingMax: 2000,
       currency: "EUR",
       currencySymbol: "€",
     },
@@ -733,7 +749,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 730,
       tuitionMax: 35000,
-      livingMonthly: 2000,
+      livingMin: 1500,
+      livingMax: 3500,
       currency: "CHF",
       currencySymbol: "CHF",
     },
@@ -779,7 +796,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 1000,
       tuitionMax: 20000,
-      livingMonthly: 900,
+      livingMin: 700,
+      livingMax: 1500,
       currency: "EUR",
       currencySymbol: "€",
     },
@@ -825,7 +843,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 1000,
       tuitionMax: 7000,
-      livingMonthly: 900,
+      livingMin: 600,
+      livingMax: 1400,
       currency: "EUR",
       currencySymbol: "€",
     },
@@ -871,7 +890,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 80000,
       tuitionMax: 200000,
-      livingMonthly: 10000,
+      livingMin: 8000,
+      livingMax: 18000,
       currency: "SEK",
       currencySymbol: "kr",
     },
@@ -917,7 +937,8 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     costs: {
       tuitionMin: 120000,
       tuitionMax: 200000,
-      livingMonthly: 12000,
+      livingMin: 8000,
+      livingMax: 20000,
       currency: "HKD",
       currencySymbol: "HK$",
     },
@@ -960,7 +981,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       duration: { ja: "就学期間（最長4年3ヶ月、更新可）", en: "Duration of study (up to 4 years 3 months, renewable)", zh: "学习期间（最长4年3个月，可续签）" },
       cost: { ja: "短期無料・長期約¥3,000", en: "Short-stay free; long-stay approx. ¥3,000", zh: "短期免费；长期约¥3,000" },
     },
-    costs: { tuitionMin: 500000, tuitionMax: 1500000, livingMonthly: 120000, currency: "JPY", currencySymbol: "¥" },
+    costs: { tuitionMin: 500000, tuitionMax: 1500000, livingMin: 80000, livingMax: 180000, currency: "JPY", currencySymbol: "¥" },
     popularCities: { ja: ["東京", "大阪", "京都", "福岡", "名古屋"], en: ["Tokyo", "Osaka", "Kyoto", "Fukuoka", "Nagoya"], zh: ["东京", "大阪", "京都", "福冈", "名古屋"] },
     popularUniversities: { ja: ["東京大学", "京都大学", "早稲田大学", "慶應義塾大学", "東京工業大学"], en: ["University of Tokyo", "Kyoto University", "Waseda University", "Keio University", "Tokyo Institute of Technology"], zh: ["东京大学", "京都大学", "早稻田大学", "庆应义塾大学", "东京工业大学"] },
     tips: { ja: ["文科省の国費奨学金など充実した奨学金あり", "アルバイトは週28時間まで許可", "JLPT N2以上取得で就職に有利", "東京・大阪は生活費が高め、地方は安い"], en: ["MEXT scholarships are generous for international students", "Part-time work up to 28 hours/week permitted", "JLPT N2+ improves job prospects significantly", "Tokyo/Osaka are expensive; regional cities are affordable"], zh: ["文部科学省国费奖学金资源丰富", "每周最多允许打工28小时", "JLPT N2以上有助于在日就业", "东京大阪生活成本高，地方城市相对便宜"] },
@@ -984,7 +1005,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
       cost: { ja: "申請料USD$50〜", en: "Application fee USD$50+", zh: "申请费USD$50以上" },
     },
-    costs: { tuitionMin: 10000000, tuitionMax: 50000000, livingMonthly: 5000000, currency: "IDR", currencySymbol: "Rp" },
+    costs: { tuitionMin: 10000000, tuitionMax: 50000000, livingMin: 3000000, livingMax: 10000000, currency: "IDR", currencySymbol: "Rp" },
     popularCities: { ja: ["バリ（ウブド・チャングー）", "ジャカルタ", "スラバヤ", "ジョグジャカルタ"], en: ["Bali (Ubud / Canggu)", "Jakarta", "Surabaya", "Yogyakarta"], zh: ["巴厘岛（乌布/水明漾）", "雅加达", "泗水", "日惹"] },
     popularUniversities: { ja: ["インドネシア大学（UI）", "バンドン工科大学（ITB）", "ガジャマダ大学", "バリ語学学校（多数）", "RMIT大学インドネシア校"], en: ["University of Indonesia (UI)", "Bandung Institute of Technology (ITB)", "Gadjah Mada University", "Bali language schools (many)", "RMIT University Indonesia"], zh: ["印度尼西亚大学（UI）", "万隆理工学院（ITB）", "加贾马达大学", "巴厘岛语言学校（众多）", "RMIT大学印尼校区"] },
     tips: { ja: ["バリ島は世界有数のデジタルノマドハブ", "生活費は東南アジアでも最安水準", "インドネシア語は文法が比較的シンプル", "熱帯性気候で年間温暖"], en: ["Bali is one of the world's top digital nomad hubs", "Cost of living is very low even by Southeast Asian standards", "Bahasa Indonesia has relatively simple grammar", "Tropical climate is warm year-round"], zh: ["巴厘岛是全球顶级数字游民中心之一", "即使在东南亚，生活成本也属极低水平", "印度尼西亚语语法相对简单", "热带气候全年温暖"] },
@@ -1008,7 +1029,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
       cost: { ja: "申請料USD$25〜", en: "Application fee USD$25+", zh: "申请费USD$25以上" },
     },
-    costs: { tuitionMin: 20000000, tuitionMax: 80000000, livingMonthly: 8000000, currency: "VND", currencySymbol: "₫" },
+    costs: { tuitionMin: 20000000, tuitionMax: 80000000, livingMin: 5000000, livingMax: 15000000, currency: "VND", currencySymbol: "₫" },
     popularCities: { ja: ["ホーチミン市", "ハノイ", "ダナン", "ホイアン"], en: ["Ho Chi Minh City", "Hanoi", "Da Nang", "Hoi An"], zh: ["胡志明市", "河内", "岘港", "会安"] },
     popularUniversities: { ja: ["ベトナム国家大学ハノイ", "ベトナム国家大学ホーチミン", "ハノイ外国語大学", "ベトナム語学校（多数）", "RMIT大学ベトナム校"], en: ["Vietnam National University Hanoi", "Vietnam National University HCMC", "Hanoi University", "Vietnamese language schools (many)", "RMIT University Vietnam"], zh: ["越南国家大学河内", "越南国家大学胡志明", "河内外国语大学", "越南语语言学校（众多）", "RMIT大学越南校区"] },
     tips: { ja: ["ベトナム語は声調言語で習得に時間がかかるが日系企業での需要が高い", "生活費は東南アジア最安水準", "グラブ（Grab）が交通手段として便利", "ホーチミンはビジネス、ハノイは文化・歴史が豊か"], en: ["Vietnamese is tonal but highly valued at Japanese companies", "Living costs are among the lowest in Southeast Asia", "Grab is the most convenient transport", "Ho Chi Minh City is a business hub; Hanoi is rich in culture"], zh: ["越南语是声调语言，但在日系企业中需求旺盛", "生活成本是东南亚最低水准之一", "Grab是最方便的出行方式", "胡志明市是商业中心，河内文化历史底蕴深厚"] },
@@ -1032,7 +1053,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
       cost: { ja: "約AED2,000〜3,000（大学経由）", en: "Approx. AED2,000–3,000 (via university)", zh: "约AED2,000至3,000（通过大学）" },
     },
-    costs: { tuitionMin: 40000, tuitionMax: 90000, livingMonthly: 6000, currency: "AED", currencySymbol: "AED" },
+    costs: { tuitionMin: 40000, tuitionMax: 90000, livingMin: 4000, livingMax: 10000, currency: "AED", currencySymbol: "AED" },
     popularCities: { ja: ["ドバイ", "アブダビ", "シャルジャ"], en: ["Dubai", "Abu Dhabi", "Sharjah"], zh: ["迪拜", "阿布扎比", "沙迦"] },
     popularUniversities: { ja: ["NYUアブダビ", "ソルボンヌ大学アブダビ校", "ヘリオット・ワット大学ドバイ校", "アメリカン大学ドバイ（AUD）", "ドバイ大学"], en: ["NYU Abu Dhabi", "Sorbonne University Abu Dhabi", "Heriot-Watt University Dubai", "American University in Dubai (AUD)", "University of Dubai"], zh: ["纽约大学阿布扎比分校", "索邦大学阿布扎比分校", "赫瑞瓦特大学迪拜分校", "迪拜美国大学（AUD）", "迪拜大学"] },
     tips: { ja: ["所得税ゼロで卒業後の手取りが非常に高い", "ドバイはビジネス・テクノロジーの国際的ハブ", "砂漠気候で夏（5〜9月）は40℃超えの高温", "多国籍社会で英語が通じやすい環境"], en: ["Zero income tax means high take-home pay after graduation", "Dubai is a global hub for business and technology", "Desert climate — summers (May–Sep) exceed 40°C", "Highly international society with English widely spoken"], zh: ["零所得税意味着毕业后到手收入极高", "迪拜是商业和科技的全球中心", "沙漠气候，夏季（5至9月）超过40°C", "国际化程度高，英语广泛通用"] },
@@ -1056,7 +1077,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       duration: { ja: "最大1年間（ビザなし）", en: "Up to 1 year (visa-free)", zh: "最长1年（免签）" },
       cost: { ja: "無料（ビザ不要）", en: "Free (no visa required)", zh: "免费（无需签证）" },
     },
-    costs: { tuitionMin: 3000, tuitionMax: 15000, livingMonthly: 600, currency: "GEL", currencySymbol: "₾" },
+    costs: { tuitionMin: 3000, tuitionMax: 15000, livingMin: 400, livingMax: 1000, currency: "GEL", currencySymbol: "₾" },
     popularCities: { ja: ["トビリシ", "バトゥミ", "クタイシ"], en: ["Tbilisi", "Batumi", "Kutaisi"], zh: ["第比利斯", "巴统", "库塔伊西"] },
     popularUniversities: { ja: ["トビリシ国立大学", "ジョージア工科大学", "コーカサス大学", "トビリシ語学学校（多数）"], en: ["Tbilisi State University", "Georgian Technical University", "Caucasus University", "Tbilisi language schools (many)"], zh: ["第比利斯国立大学", "格鲁吉亚理工大学", "高加索大学", "第比利斯语言学校（众多）"] },
     tips: { ja: ["日本人はビザなしで1年間滞在できる（世界的にも珍しい優遇）", "生活費はヨーロッパ最安水準（月6〜8万円程度）", "ワインの発祥地とも言われる食文化が豊か", "ジョージア語は独自の文字を持つ特殊な言語"], en: ["Japanese can stay visa-free for 1 year — a rare global privilege", "Living costs among Europe's lowest (~¥60–80k/month)", "Georgia is believed to be the birthplace of wine", "Georgian language uses a unique script"], zh: ["日本人免签居留1年——全球罕见的优惠待遇", "生活成本是欧洲最低水准之一（每月约6至8万日元）", "格鲁吉亚被认为是葡萄酒的发源地", "格鲁吉亚语使用独特文字"] },
@@ -1080,7 +1101,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
       cost: { ja: "申請料NOK5,900（約¥80,000）", en: "Application fee NOK5,900 (approx. ¥80,000)", zh: "申请费NOK5,900（约¥80,000）" },
     },
-    costs: { tuitionMin: 0, tuitionMax: 15000, livingMonthly: 15000, currency: "NOK", currencySymbol: "kr" },
+    costs: { tuitionMin: 0, tuitionMax: 15000, livingMin: 10000, livingMax: 22000, currency: "NOK", currencySymbol: "kr" },
     popularCities: { ja: ["オスロ", "ベルゲン", "トロンハイム", "トロムソ（オーロラ）"], en: ["Oslo", "Bergen", "Trondheim", "Tromsø (Northern Lights)"], zh: ["奥斯陆", "卑尔根", "特隆赫姆", "特罗姆瑟（极光）"] },
     popularUniversities: { ja: ["オスロ大学", "ノルウェー科学技術大学（NTNU）", "ベルゲン大学", "BIノルウェービジネススクール", "アークティック大学（UiT）"], en: ["University of Oslo", "Norwegian University of Science and Technology (NTNU)", "University of Bergen", "BI Norwegian Business School", "UiT The Arctic University"], zh: ["奥斯陆大学", "挪威科技大学（NTNU）", "卑尔根大学", "BI挪威商学院", "北极大学（UiT）"] },
     tips: { ja: ["公立大学は学費無料だが生活費は非常に高い", "英語が堪能なノルウェー人が多く英語だけで生活可能", "オーロラ・フィヨルドなど世界的な自然体験が可能", "卒業後1年間の求職ビザが取得可能"], en: ["Public university tuition is free but living costs are very high", "Most Norwegians speak excellent English", "Northern Lights and fjords offer world-class nature experiences", "1-year job seeker permit available after graduation"], zh: ["公立大学免学费，但生活成本极高", "大多数挪威人英语流利", "极光和峡湾提供世界级自然体验", "毕业后可获得1年求职许可"] },
@@ -1104,7 +1125,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
       cost: { ja: "申請料DKK3,980（約¥85,000）", en: "Application fee DKK3,980 (approx. ¥85,000)", zh: "申请费DKK3,980（约¥85,000）" },
     },
-    costs: { tuitionMin: 45000, tuitionMax: 160000, livingMonthly: 10000, currency: "DKK", currencySymbol: "kr" },
+    costs: { tuitionMin: 45000, tuitionMax: 160000, livingMin: 7000, livingMax: 15000, currency: "DKK", currencySymbol: "kr" },
     popularCities: { ja: ["コペンハーゲン", "オーフス", "オーデンセ", "アールボー"], en: ["Copenhagen", "Aarhus", "Odense", "Aalborg"], zh: ["哥本哈根", "奥胡斯", "欧登塞", "奥尔堡"] },
     popularUniversities: { ja: ["コペンハーゲン大学", "デンマーク工科大学（DTU）", "オーフス大学", "コペンハーゲンビジネススクール（CBS）", "デザインスクール・コペンハーゲン"], en: ["University of Copenhagen", "Technical University of Denmark (DTU)", "Aarhus University", "Copenhagen Business School (CBS)", "The Royal Danish Academy"], zh: ["哥本哈根大学", "丹麦技术大学（DTU）", "奥胡斯大学", "哥本哈根商学院（CBS）", "丹麦皇家美术学院"] },
     tips: { ja: ["デンマーク語は難しいがほぼ全員が英語を流暢に話す", "ワークライフバランス文化（Hygge）を体感できる", "デザイン・建築・フードテックで世界トップの教育", "コペンハーゲンは自転車都市で環境に優しい生活"], en: ["Danish is hard but almost everyone speaks fluent English", "Experience Danish work-life balance culture (Hygge) firsthand", "World-leading education in design, architecture, and food tech", "Copenhagen is a cycling city with a sustainable lifestyle"], zh: ["丹麦语较难，但几乎所有人都会说流利英语", "亲身体验丹麦工作与生活平衡文化（Hygge）", "设计、建筑和食品科技领域全球顶尖教育", "哥本哈根是自行车城市，生活方式环保健康"] },
@@ -1128,7 +1149,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
       cost: { ja: "申請料USD$20〜", en: "Application fee USD$20+", zh: "申请费USD$20以上" },
     },
-    costs: { tuitionMin: 15000, tuitionMax: 50000, livingMonthly: 3000, currency: "BRL", currencySymbol: "R$" },
+    costs: { tuitionMin: 15000, tuitionMax: 50000, livingMin: 2000, livingMax: 5000, currency: "BRL", currencySymbol: "R$" },
     popularCities: { ja: ["サンパウロ", "リオデジャネイロ", "ブラジリア", "フロリアノポリス"], en: ["São Paulo", "Rio de Janeiro", "Brasília", "Florianópolis"], zh: ["圣保罗", "里约热内卢", "巴西利亚", "弗洛里亚诺波利斯"] },
     popularUniversities: { ja: ["サンパウロ大学（USP）", "カンピーナス州立大学（UNICAMP）", "ブラジリア大学（UnB）", "リオ連邦大学（UFRJ）", "ポルトガル語語学学校（多数）"], en: ["University of São Paulo (USP)", "UNICAMP", "University of Brasília (UnB)", "Federal University of Rio de Janeiro (UFRJ)", "Portuguese language schools (many)"], zh: ["圣保罗大学（USP）", "坎皮纳斯州立大学（UNICAMP）", "巴西利亚大学（UnB）", "里约热内卢联邦大学（UFRJ）", "葡语语言学校（众多）"] },
     tips: { ja: ["ポルトガル語（ブラジル方言）は南米ビジネスで非常に有用", "公立大学は学費無料だが競争が激しい", "治安の差があるため住む地域の選択が重要", "音楽・ダンス（サンバ・ボサノバ）文化の体験も醍醐味"], en: ["Brazilian Portuguese is highly valuable for South American business", "Public university tuition is free but highly competitive", "Safety varies widely by area — neighborhood choice is crucial", "Music and dance culture (samba, bossa nova) is a unique experience"], zh: ["巴西葡语对南美商业职业极具价值", "公立大学免学费，但竞争激烈", "各地区治安差异较大，选择居住区域至关重要", "桑巴和波萨诺瓦等音乐舞蹈文化是独特体验"] },
@@ -1152,7 +1173,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
       cost: { ja: "申請料USD$52〜", en: "Application fee USD$52+", zh: "申请费USD$52以上" },
     },
-    costs: { tuitionMin: 3000000, tuitionMax: 20000000, livingMonthly: 1500000, currency: "COP", currencySymbol: "COL$" },
+    costs: { tuitionMin: 3000000, tuitionMax: 20000000, livingMin: 800000, livingMax: 2500000, currency: "COP", currencySymbol: "COL$" },
     popularCities: { ja: ["メデジン", "ボゴタ", "カルタヘナ", "カリ"], en: ["Medellín", "Bogotá", "Cartagena", "Cali"], zh: ["麦德林", "波哥大", "卡塔赫纳", "卡利"] },
     popularUniversities: { ja: ["ロス・アンデス大学", "コロンビア国立大学", "アンティオキア大学", "スペイン語語学学校（多数）", "Nueva Lengua語学学校"], en: ["Universidad de Los Andes", "National University of Colombia", "University of Antioquia", "Spanish language schools (throughout Colombia)", "Nueva Lengua Language School"], zh: ["安第斯大学", "哥伦比亚国立大学", "安蒂奥基亚大学", "西班牙语语言学校（遍布哥伦比亚）", "Nueva Lengua语言学校"] },
     tips: { ja: ["メデジンはかつて「最もイノベーティブな都市」に選ばれたこともある", "生活費は南米の中でも非常に安い", "コロンビアのスペイン語は発音がクリアで学びやすい", "コーヒー農園訪問などユニークな文化体験も可能"], en: ["Medellín was once named the World's Most Innovative City", "Living costs are very low even for South America", "Colombian Spanish has clear pronunciation — great for learners", "Unique cultural experiences include coffee farm visits"], zh: ["麦德林曾被评为全球最具创新力城市", "即使在南美，生活成本也属于极低水平", "哥伦比亚西班牙语发音清晰，非常适合学习", "可体验参观咖啡农场等独特文化活动"] },
@@ -1176,7 +1197,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
       cost: { ja: "ビザ申請料€116", en: "Visa fee €116", zh: "签证费€116" },
     },
-    costs: { tuitionMin: 1000, tuitionMax: 20000, livingMonthly: 900, currency: "EUR", currencySymbol: "€" },
+    costs: { tuitionMin: 1000, tuitionMax: 20000, livingMin: 700, livingMax: 1600, currency: "EUR", currencySymbol: "€" },
     popularCities: { ja: ["ローマ", "ミラノ", "フィレンツェ", "ボローニャ", "ベネチア"], en: ["Rome", "Milan", "Florence", "Bologna", "Venice"], zh: ["罗马", "米兰", "佛罗伦萨", "博洛尼亚", "威尼斯"] },
     popularUniversities: { ja: ["ボローニャ大学（欧州最古）", "ラ・サピエンツァ大学（ローマ）", "ポリテクニコ・ディ・ミラノ（工学・デザイン）", "ボッコーニ大学（ビジネス）", "美術アカデミー（美術）"], en: ["University of Bologna (oldest in Europe)", "Sapienza University of Rome", "Politecnico di Milano (Engineering & Design)", "Bocconi University (Business)", "Accademia di Belle Arti (Fine Arts)"], zh: ["博洛尼亚大学（欧洲最古老）", "罗马第一大学（萨皮恩扎）", "米兰理工大学（工程与设计）", "博科尼大学（商科）", "国立美术学院（美术）"] },
     tips: { ja: ["公立大学は学費が年€1,000〜と安く所得に応じた減額制度あり", "イタリア語は音楽・料理・ファッション・ビジネスで世界的需要がある", "食・ワイン・アートを日常的に楽しめる豊かな文化環境", "ヨーロッパ内の移動が便利（フライト・鉄道）"], en: ["Public university tuition starts at ~€1,000/year with income-based reductions", "Italian has global demand in music, cuisine, fashion, and business", "Rich daily culture: food, wine, and art as a way of life", "Easy travel across Europe by flight and train"], zh: ["公立大学学费每年约€1,000起，并有基于收入的减免制度", "意大利语在音乐、美食、时尚和商业领域有全球需求", "丰富的日常文化：美食、葡萄酒和艺术融入生活", "欧洲内部交通便利（航班和铁路）"] },
@@ -1200,7 +1221,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
       cost: { ja: "ビザ申請料€150", en: "Visa fee €150", zh: "签证费€150" },
     },
-    costs: { tuitionMin: 1500, tuitionMax: 12000, livingMonthly: 800, currency: "EUR", currencySymbol: "€" },
+    costs: { tuitionMin: 1500, tuitionMax: 12000, livingMin: 600, livingMax: 1400, currency: "EUR", currencySymbol: "€" },
     popularCities: { ja: ["アテネ", "テッサロニキ", "パトラ", "イラクリオン（クレタ島）"], en: ["Athens", "Thessaloniki", "Patras", "Heraklion (Crete)"], zh: ["雅典", "塞萨洛尼基", "帕特雷", "伊拉克利翁（克里特岛）"] },
     popularUniversities: { ja: ["アテネ大学（NKUA）", "アテネ工科大学（NTUA）", "テッサロニキ大学（AUTH）", "ギリシャ語語学学校（多数）", "アメリカンカレッジ・ギリシャ"], en: ["University of Athens (NKUA)", "National Technical University of Athens (NTUA)", "Aristotle University of Thessaloniki (AUTH)", "Greek language schools (many)", "American College of Greece"], zh: ["雅典大学（NKUA）", "雅典国立技术大学（NTUA）", "塞萨洛尼基亚里士多德大学（AUTH）", "希腊语语言学校（众多）", "希腊美国学院"] },
     tips: { ja: ["デジタルノマドビザで最大1年間就労しながら滞在可能", "生活費はヨーロッパ最安水準のひとつ（月8〜10万円程度）", "外国人転入者向けの所得税50%減税（最初の7年間）制度あり", "世界遺産・遺跡を日常的に楽しめる歴史的環境"], en: ["Digital Nomad Visa allows up to 1 year of stay while working remotely", "Living costs among Europe's lowest (~¥80–100k/month)", "50% income tax reduction for foreign residents for the first 7 years", "Daily access to UNESCO World Heritage Sites and ancient ruins"], zh: ["数字游民签证允许边远程工作边居留最长1年", "生活成本是欧洲最低水准之一（每月约8至10万日元）", "外国迁入者前7年可享受所得税减免50%的优惠", "日常可游览联合国教科文组织世界遗产和古代遗迹"] },

@@ -197,7 +197,7 @@ export default function StudyCountryPage() {
             <div className="bg-indigo-50 rounded-xl p-4">
               <span className="text-xs font-medium text-muted">{labels.living}</span>
               <p className="text-lg font-bold text-indigo-600 mt-1">
-                {formatCost(data.costs.livingMonthly)}<span className="text-sm font-normal text-muted">/月</span>
+                {formatCost(data.costs.livingMin)} {labels.to} {formatCost(data.costs.livingMax)}<span className="text-sm font-normal text-muted">/月</span>
               </p>
             </div>
           </div>

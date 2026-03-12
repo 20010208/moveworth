@@ -244,7 +244,7 @@ export default function StudySimulatePage() {
       const annualTuition =
         tuitionLevel === "min" ? data.costs.tuitionMin : data.costs.tuitionMax;
       const tuitionLocal = (annualTuition / 12) * duration;
-      const livingLocal = data.costs.livingMonthly * duration;
+      const livingLocal = ((data.costs.livingMin + data.costs.livingMax) / 2) * duration;
 
       const tuitionDisp = convertToDisplay(tuitionLocal, data.costs.currency, displayCurrency);
       const livingDisp = convertToDisplay(livingLocal, data.costs.currency, displayCurrency);

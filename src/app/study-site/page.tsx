@@ -290,7 +290,7 @@ export default function StudySitePage() {
                         {data ? (
                           <span className="inline-flex items-center gap-1 text-xs bg-secondary/60 text-muted px-2.5 py-1 rounded-lg">
                             <Wallet className="h-3 w-3" />
-                            {text.monthlyLiving}: {data.costs.currencySymbol}{data.costs.livingMonthly.toLocaleString()}
+                            {text.monthlyLiving}: {data.costs.currencySymbol}{data.costs.livingMin.toLocaleString()}〜{data.costs.livingMax.toLocaleString()}
                           </span>
                         ) : (
                           <span />
