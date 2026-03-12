@@ -111,7 +111,7 @@ const pageText = {
     title: "海外留学情報を比較しよう",
     description: "各国の学生ビザ・費用・大学・生活情報を詳しく解説。あなたにぴったりの留学先を見つけましょう。",
     stat1: "カ国対応", stat2: "完全無料", stat3: "言語対応",
-    availableCountries: "留学情報あり",
+    availableCountries: "留学情報",
     comingSoon: "近日公開",
     searchPlaceholder: "国名で検索...",
     noResults: "該当する国が見つかりません",
@@ -294,48 +294,69 @@ export default function StudySitePage() {
             <div className="text-center py-16 text-muted text-sm">
               {text.noResults}
             </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filtered.map((country) => {
-                const data = getStudyAbroadData(country.code);
-                const region = regionMap[country.code] ?? defaultRegion;
-                const countryName = country.name[lang as keyof typeof country.name] ?? country.name.en;
-                return (
-                  <Link
-                    key={country.code}
-                    href={`/${country.code.toLowerCase()}`}
-                    className="group block bg-white border border-border/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-200"
-                  >
-                    {/* Card header */}
-                    <div className={`bg-gradient-to-br ${region.cardBg} px-5 pt-5 pb-4 flex items-start justify-between`}>
-                      <span className="text-5xl leading-none">{getFlag(country.code)}</span>
-                      <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${region.badge}`}>
-                        {region[lang]}
-                      </span>
-                    </div>
-                    {/* Card body */}
-                    <div className="px-5 py-4">
-                      <h3 className="font-bold text-base text-foreground group-hover:text-primary transition-colors leading-tight mb-0.5">
-                        {countryName}
-                      </h3>
-                      <p className="text-xs text-muted mb-3">{country.name.en}</p>
-                      <div className="flex items-center justify-between">
-                        {data ? (
-                          <span className="inline-flex items-center gap-1 text-xs bg-secondary/60 text-muted px-2.5 py-1 rounded-lg">
-                            <Wallet className="h-3 w-3" />
-                            {text.monthlyLiving}: {data.costs.currencySymbol}{data.costs.livingMin.toLocaleString()}〜{data.costs.livingMax.toLocaleString()}
-                          </span>
-                        ) : (
-                          <span />
-                        )}
-                        <ArrowRight className="h-4 w-4 text-muted group-hover:text-primary group-hover:translate-x-1 transition-all" />
+          ) : (() => {
+            const regionOrder = ["Asia", "Oceania", "North America", "Europe", "Middle East", "Eurasia", "South America", "Other"];
+            const groups = regionOrder
+              .map((regionEn) => ({
+                regionEn,
+                countries: filtered.filter((c) => (regionMap[c.code] ?? defaultRegion).en === regionEn),
+              }))
+              .filter((g) => g.countries.length > 0);
+            return (
+              <div className="space-y-8">
+                {groups.map(({ regionEn, countries }) => {
+                  const regionInfo = regionMap[countries[0].code] ?? defaultRegion;
+                  return (
+                    <div key={regionEn}>
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${regionInfo.badge}`}>
+                          {regionInfo[lang]}
+                        </span>
+                        <span className="text-xs text-muted">{countries.length}</span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {countries.map((country) => {
+                          const data = getStudyAbroadData(country.code);
+                          const region = regionMap[country.code] ?? defaultRegion;
+                          const countryName = country.name[lang as keyof typeof country.name] ?? country.name.en;
+                          return (
+                            <Link
+                              key={country.code}
+                              href={`/${country.code.toLowerCase()}`}
+                              className="group block bg-white border border-border/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-200"
+                            >
+                              {/* Card header */}
+                              <div className={`bg-gradient-to-br ${region.cardBg} px-5 pt-5 pb-4 flex items-start justify-between`}>
+                                <span className="text-5xl leading-none">{getFlag(country.code)}</span>
+                              </div>
+                              {/* Card body */}
+                              <div className="px-5 py-4">
+                                <h3 className="font-bold text-base text-foreground group-hover:text-primary transition-colors leading-tight mb-0.5">
+                                  {countryName}
+                                </h3>
+                                <p className="text-xs text-muted mb-3">{country.name.en}</p>
+                                <div className="flex items-center justify-between">
+                                  {data ? (
+                                    <span className="inline-flex items-center gap-1 text-xs bg-secondary/60 text-muted px-2.5 py-1 rounded-lg">
+                                      <Wallet className="h-3 w-3" />
+                                      {text.monthlyLiving}: {data.costs.currencySymbol}{data.costs.livingMin.toLocaleString()}〜{data.costs.livingMax.toLocaleString()}
+                                    </span>
+                                  ) : (
+                                    <span />
+                                  )}
+                                  <ArrowRight className="h-4 w-4 text-muted group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                                </div>
+                              </div>
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
-                  </Link>
-                );
-              })}
-            </div>
-          )}
+                  );
+                })}
+              </div>
+            );
+          })()}
         </div>
 
         {/* Coming Soon */}
