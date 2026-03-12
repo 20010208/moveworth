@@ -193,7 +193,7 @@ export default function StudySitePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50/60 via-white to-slate-50">
       {/* Hero */}
-      <section className="relative overflow-hidden min-h-screen flex items-center text-white">
+      <section className="relative overflow-hidden py-20 sm:py-32 text-white">
         {/* Slideshow background */}
         {heroImages.map((src, i) => (
           // eslint-disable-next-line @next/next/no-img-element
@@ -206,7 +206,7 @@ export default function StudySitePage() {
         ))}
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-950/75 via-blue-950/70 to-violet-950/75" />
-        <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-medium mb-5">
             <GraduationCap className="h-4 w-4" />
             <span>{text.badge}</span>
