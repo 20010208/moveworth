@@ -193,7 +193,7 @@ export default function StudySitePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50/60 via-white to-slate-50">
       {/* Hero */}
-      <section className="relative overflow-hidden min-h-[75vh] flex items-center text-white">
+      <section className="relative overflow-hidden min-h-[80vh] flex items-center text-white">
         {/* Slideshow background */}
         {heroImages.map((src, i) => (
           // eslint-disable-next-line @next/next/no-img-element
