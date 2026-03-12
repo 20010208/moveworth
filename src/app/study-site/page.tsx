@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   GraduationCap, ArrowRight, BookOpen, Globe,
@@ -159,6 +160,18 @@ export default function StudySitePage() {
   const text = pageText[lang];
   const [query, setQuery] = useState("");
 
+  const heroImages = [
+    "/university/34035115_m.jpg",
+    "/university/entrepreneurs-meeting-office.jpg",
+    "/university/group-diverse-grads-throwing-caps-up-sky.jpg",
+    "/university/group-teenagers-posing-together-outdoors.jpg",
+  ];
+  const [heroIndex, setHeroIndex] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setHeroIndex((i) => (i + 1) % heroImages.length), 5000);
+    return () => clearInterval(id);
+  }, []);
+
   const availableCountries = countryPresets.filter((c) =>
     studyAbroadCountries.includes(c.code)
   );
@@ -181,8 +194,21 @@ export default function StudySitePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50/60 via-white to-slate-50">
       {/* Hero */}
-      <div className="bg-gradient-to-br from-indigo-600 via-primary to-violet-600 text-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+      <section className="relative overflow-hidden py-20 sm:py-32 text-white">
+        {/* Slideshow background */}
+        {heroImages.map((src, i) => (
+          <Image
+            key={src}
+            src={src}
+            alt=""
+            fill
+            className={`object-cover transition-opacity duration-1000 ${i === heroIndex ? "opacity-100" : "opacity-0"}`}
+            priority={i === 0}
+          />
+        ))}
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-950/75 via-blue-950/70 to-violet-950/75" />
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-medium mb-5">
             <GraduationCap className="h-4 w-4" />
             <span>{text.badge}</span>
@@ -228,7 +254,7 @@ export default function StudySitePage() {
             )}
           </div>
         </div>
-      </div>
+      </section>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Simulator banner */}
