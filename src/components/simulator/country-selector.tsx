@@ -35,20 +35,20 @@ function toHiragana(str: string): string {
 // 漢字表記の国のひらがなよみがな
 const jaYomi: Record<string, string> = {
   JP: "にほん にっぽん", KR: "かんこく みなみこりあ", TW: "たいわん", HK: "ほんこん",
-  IT: "いたりあ", MY: "まれーしあ", US: "あめりか がっしゅうこく べいこく",
-  AU: "おーすとらりあ ごうしゅう", GB: "いぎりす えいこく うぇーるず", CA: "かなだ",
-  NZ: "にゅーじーらんど しんせかい", SG: "しんがぽーる",
-  IE: "あいるらんど あいるらんどきょうわこく", DE: "どいつ どいつれんぽうきょうわこく",
-  TH: "たい たいらんど", FR: "ふらんす", PH: "ふぃりぴん ひりぴん",
-  NL: "おらんだ ねーでるらんど", CH: "すいす すいすれんぽう", ES: "すぺいん えすぱにゃ",
-  PT: "ぽるとがる", SE: "すうぇーでん すえーでん", ID: "いんどねしあ",
-  VN: "べとなむ べとなむしゃかいしゅぎきょうわこく", AE: "どばい あぶだび UAE うぇー",
+  IT: "いたりあ", MY: "まれーしあ", US: "あめりか べいこく",
+  AU: "おーすとらりあ", GB: "いぎりす えいこく", CA: "かなだ",
+  NZ: "にゅーじーらんど", SG: "しんがぽーる",
+  IE: "あいるらんど", DE: "どいつ",
+  TH: "たい", FR: "ふらんす", PH: "ふぃりぴん",
+  NL: "おらんだ", CH: "すいす", ES: "すぺいん",
+  PT: "ぽるとがる", SE: "すうぇーでん", ID: "いんどねしあ",
+  VN: "べとなむ", AE: "どばい あぶだび",
   GE: "じょーじあ ぐるじあ", NO: "のるうぇー", DK: "でんまーく",
-  BR: "ぶらじる", CO: "ころんびあ めでじん", GR: "ぎりしあ",
-  MT: "まるた まるたきょうわこく", ZA: "みなみあふりか なんあふりか",
-  FI: "ふぃんらんど すおみ", AT: "おーすとりあ おうしゅう",
-  CZ: "ちぇこ ちぇこきょうわこく", CN: "ちゅうごく しな",
-  IN: "いんど いんどきょうわこく", MX: "めきしこ", AR: "あるぜんちん",
+  BR: "ぶらじる", CO: "ころんびあ", GR: "ぎりしゃ",
+  MT: "まるた", ZA: "みなみあふりか なんあふりか",
+  FI: "ふぃんらんど", AT: "おーすとりあ",
+  CZ: "ちぇこ", CN: "ちゅうごく しな",
+  IN: "いんど", MX: "めきしこ", AR: "あるぜんちん",
 };
 
 export function CountrySelector({
@@ -78,12 +78,9 @@ export function CountrySelector({
       const qKana = toKatakana(q);
       const nameKana = toKatakana(name);
       const yomi = jaYomi[c.code] ?? "";
-      const yomiMatch = yomi !== "" && (
-        yomi.includes(q) ||
-        yomi.includes(toHiragana(q)) ||
-        toKatakana(yomi).includes(qKana)
-      );
-      return name.includes(q) || nameKana.includes(qKana) || yomiMatch || c.currency.toLowerCase().includes(q);
+      const qHira = toHiragana(q);
+      const yomiMatch = yomi.split(" ").some((w) => w.startsWith(qHira) || w.startsWith(q));
+      return name.includes(q) || nameKana.startsWith(qKana) || yomiMatch || c.currency.toLowerCase().includes(q);
     }
     return name.includes(q) || c.currency.toLowerCase().includes(q);
   });

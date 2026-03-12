@@ -36,9 +36,9 @@ const jaYomi: Record<string, string> = {
   TH: "たい たいらんど", FR: "ふらんす", PH: "ふぃりぴん ひりぴん",
   NL: "おらんだ ねーでるらんど", CH: "すいす すいすれんぽう", ES: "すぺいん えすぱにゃ",
   PT: "ぽるとがる", SE: "すうぇーでん すえーでん", ID: "いんどねしあ",
-  VN: "べとなむ べとなむしゃかいしゅぎきょうわこく", AE: "どばい あぶだび UAE うぇー",
+  VN: "べとなむ", AE: "どばい あぶだび",
   GE: "じょーじあ ぐるじあ", NO: "のるうぇー", DK: "でんまーく",
-  BR: "ぶらじる", CO: "ころんびあ めでじん", GR: "ぎりしあ",
+  BR: "ぶらじる", CO: "ころんびあ", GR: "ぎりしゃ",
   MT: "まるた まるたきょうわこく", ZA: "みなみあふりか なんあふりか",
   FI: "ふぃんらんど すおみ", AT: "おーすとりあ おうしゅう",
   CZ: "ちぇこ ちぇこきょうわこく", CN: "ちゅうごく しな",
@@ -49,13 +49,14 @@ const jaYomi: Record<string, string> = {
 function matchesQuery(code: string, name: string, query: string): boolean {
   const n = name.toLowerCase();
   const q = query.toLowerCase();
+  const qHira = toHiragana(q);
   const yomi = jaYomi[code] ?? "";
+  const yomiMatch = yomi.split(" ").some((w) => w.startsWith(qHira) || w.startsWith(q));
   return (
     n.includes(q) ||
-    toHiragana(n).includes(toHiragana(q)) ||
-    toKatakana(n).includes(toKatakana(q)) ||
-    yomi.includes(toHiragana(q)) ||
-    yomi.includes(q)
+    toHiragana(n).startsWith(qHira) ||
+    toKatakana(n).startsWith(toKatakana(q)) ||
+    yomiMatch
   );
 }
 
