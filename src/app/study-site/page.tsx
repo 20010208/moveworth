@@ -201,7 +201,15 @@ export default function StudySitePage() {
             key={src}
             src={src}
             alt=""
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === heroIndex ? "opacity-100" : "opacity-0"}`}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              opacity: i === heroIndex ? 1 : 0,
+              transition: "opacity 1s ease-in-out",
+            }}
           />
         ))}
         {/* Dark overlay */}
