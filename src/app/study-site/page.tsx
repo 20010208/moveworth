@@ -39,6 +39,11 @@ const jaYomi: Record<string, string> = {
   VN: "べとなむ べとなむしゃかいしゅぎきょうわこく", AE: "どばい あぶだび UAE うぇー",
   GE: "じょーじあ ぐるじあ", NO: "のるうぇー", DK: "でんまーく",
   BR: "ぶらじる", CO: "ころんびあ めでじん", GR: "ぎりしあ",
+  MT: "まるた まるたきょうわこく", ZA: "みなみあふりか なんあふりか",
+  FI: "ふぃんらんど すおみ", AT: "おーすとりあ おうしゅう",
+  CZ: "ちぇこ ちぇこきょうわこく", CN: "ちゅうごく しな",
+  IN: "いんど いんどきょうわこく", MX: "めきしこ",
+  AR: "あるぜんちん",
 };
 
 function matchesQuery(code: string, name: string, query: string): boolean {
@@ -93,11 +98,22 @@ const regionMap: Record<string, RegionInfo> = {
   DK: { ja: "ヨーロッパ", en: "Europe", zh: "欧洲", cardBg: "from-emerald-50 to-teal-50", badge: "bg-emerald-100 text-emerald-700" },
   GR: { ja: "ヨーロッパ", en: "Europe", zh: "欧洲", cardBg: "from-emerald-50 to-teal-50", badge: "bg-emerald-100 text-emerald-700" },
   IT: { ja: "ヨーロッパ", en: "Europe", zh: "欧洲", cardBg: "from-emerald-50 to-teal-50", badge: "bg-emerald-100 text-emerald-700" },
+  MT: { ja: "ヨーロッパ", en: "Europe", zh: "欧洲", cardBg: "from-emerald-50 to-teal-50", badge: "bg-emerald-100 text-emerald-700" },
+  FI: { ja: "ヨーロッパ", en: "Europe", zh: "欧洲", cardBg: "from-emerald-50 to-teal-50", badge: "bg-emerald-100 text-emerald-700" },
+  AT: { ja: "ヨーロッパ", en: "Europe", zh: "欧洲", cardBg: "from-emerald-50 to-teal-50", badge: "bg-emerald-100 text-emerald-700" },
+  CZ: { ja: "ヨーロッパ", en: "Europe", zh: "欧洲", cardBg: "from-emerald-50 to-teal-50", badge: "bg-emerald-100 text-emerald-700" },
+  // アジア（追加）
+  CN: { ja: "アジア", en: "Asia", zh: "亚洲", cardBg: "from-violet-50 to-indigo-50", badge: "bg-violet-100 text-violet-700" },
+  IN: { ja: "アジア", en: "Asia", zh: "亚洲", cardBg: "from-violet-50 to-indigo-50", badge: "bg-violet-100 text-violet-700" },
+  // アフリカ
+  ZA: { ja: "アフリカ", en: "Africa", zh: "非洲", cardBg: "from-orange-50 to-amber-50", badge: "bg-orange-100 text-orange-700" },
   // その他
   AE: { ja: "中東", en: "Middle East", zh: "中东", cardBg: "from-rose-50 to-pink-50", badge: "bg-rose-100 text-rose-700" },
   GE: { ja: "中東・欧州", en: "Eurasia", zh: "欧亚", cardBg: "from-rose-50 to-pink-50", badge: "bg-rose-100 text-rose-700" },
   BR: { ja: "南米", en: "South America", zh: "南美", cardBg: "from-lime-50 to-green-50", badge: "bg-lime-100 text-lime-700" },
   CO: { ja: "南米", en: "South America", zh: "南美", cardBg: "from-lime-50 to-green-50", badge: "bg-lime-100 text-lime-700" },
+  MX: { ja: "南米", en: "South America", zh: "南美", cardBg: "from-lime-50 to-green-50", badge: "bg-lime-100 text-lime-700" },
+  AR: { ja: "南米", en: "South America", zh: "南美", cardBg: "from-lime-50 to-green-50", badge: "bg-lime-100 text-lime-700" },
 };
 
 const defaultRegion: RegionInfo = {
@@ -295,7 +311,7 @@ export default function StudySitePage() {
               {text.noResults}
             </div>
           ) : (() => {
-            const regionOrder = ["Asia", "Oceania", "North America", "Europe", "Middle East", "Eurasia", "South America", "Other"];
+            const regionOrder = ["Asia", "Oceania", "North America", "Europe", "Africa", "Middle East", "Eurasia", "South America", "Other"];
             const groups = regionOrder
               .map((regionEn) => ({
                 regionEn,

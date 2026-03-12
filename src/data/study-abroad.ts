@@ -1227,6 +1227,366 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     tips: { ja: ["デジタルノマドビザで最大1年間就労しながら滞在可能", "生活費はヨーロッパ最安水準のひとつ（月8〜10万円程度）", "外国人転入者向けの所得税50%減税（最初の7年間）制度あり", "世界遺産・遺跡を日常的に楽しめる歴史的環境"], en: ["Digital Nomad Visa allows up to 1 year of stay while working remotely", "Living costs among Europe's lowest (~¥80–100k/month)", "50% income tax reduction for foreign residents for the first 7 years", "Daily access to UNESCO World Heritage Sites and ancient ruins"], zh: ["数字游民签证允许边远程工作边居留最长1年", "生活成本是欧洲最低水准之一（每月约8至10万日元）", "外国迁入者前7年可享受所得税减免50%的优惠", "日常可游览联合国教科文组织世界遗产和古代遗迹"] },
     japaneseInfo: { ja: "アテネには在ギリシャ日本大使館があり、日本人コミュニティも存在します。古代ギリシャ哲学・歴史を学ぶ場として独自の魅力があり、ギリシャ料理・文化に魅了された日本人留学生も多いです。", en: "Athens has a Japanese Embassy and a small but active Japanese community. Many Japanese students are drawn by Greek cuisine, culture, and the unique opportunity to study ancient philosophy and history firsthand.", zh: "雅典设有日本大使馆，拥有规模虽小但活跃的日本人社区。许多日本留学生被希腊美食、文化以及亲身研究古希腊哲学和历史的独特机会所吸引。" },
   },
+
+  MT: {
+    code: "MT",
+    overview: {
+      ja: "マルタはEU加盟の英語公用語国で、地中海性気候と温暖な気候が魅力です。語学留学先として人気が高く、短期コースから大学留学まで対応しています。物価は西欧より安く、EU内での就労・移動の自由も魅力です。",
+      en: "Malta is an English-speaking EU member state in the Mediterranean, popular for language courses and affordable degree programs. Its warm climate, low cost compared to Western Europe, and EU membership make it an attractive study destination.",
+      zh: "马耳他是以英语为官方语言的欧盟成员国，地中海气候温暖宜人，深受语言留学生欢迎。与西欧相比物价较低，欧盟成员资格也带来就业和出行便利。",
+    },
+    studentVisa: {
+      name: { ja: "長期滞在ビザ（National Visa）", en: "National Visa / Student Residence Permit", zh: "国家签证/学生居留许可" },
+      requirements: {
+        ja: ["入学許可書", "財政証明書（月€800以上）", "健康保険加入証明", "住宅確保証明", "ビザ申請料€80"],
+        en: ["Acceptance letter from institution", "Financial proof (€800+/month)", "Health insurance", "Proof of accommodation", "Visa fee €80"],
+        zh: ["院校录取通知书", "经济证明（每月€800以上）", "医疗保险证明", "住宿证明", "签证费€80"],
+      },
+      duration: { ja: "就学期間（最大1年、更新可能）", en: "Duration of study (up to 1 year, renewable)", zh: "学习期间（最长1年，可续签）" },
+      cost: { ja: "ビザ申請料€80〜", en: "Visa fee €80+", zh: "签证费€80起" },
+    },
+    costs: { tuitionMin: 5000, tuitionMax: 20000, livingMin: 800, livingMax: 1500, currency: "EUR", currencySymbol: "€" },
+    popularCities: {
+      ja: ["バレッタ", "セント・ジュリアンズ", "スリーマ", "ムシーダ"],
+      en: ["Valletta", "St. Julian's", "Sliema", "Msida"],
+      zh: ["瓦莱塔", "圣朱利安斯", "斯利马", "姆西达"],
+    },
+    popularUniversities: {
+      ja: ["マルタ大学（UoM）", "MCAST（マルタ芸術・科学・技術カレッジ）", "IH Malta（語学）", "EC Malta（語学）", "Inlingua Malta（語学）"],
+      en: ["University of Malta (UoM)", "MCAST", "IH Malta", "EC Malta", "Inlingua Malta"],
+      zh: ["马耳他大学（UoM）", "MCAST", "IH Malta（语言）", "EC Malta（语言）", "Inlingua Malta（语言）"],
+    },
+    tips: {
+      ja: ["短期語学コースは4〜12週間が一般的で費用も手頃", "EU加盟国のため欧州全域への移動が容易", "小さな島国なので交通は車・バスが中心", "夏は観光シーズンで物価が若干上昇する"],
+      en: ["Short language courses (4–12 weeks) are popular and affordable", "EU membership allows easy travel throughout Europe", "Small island — bus and car are the main transport", "Prices rise slightly in summer tourist season"],
+      zh: ["短期语言课程（4至12周）广受欢迎且价格实惠", "欧盟成员国，出行欧洲各地便捷", "小岛国家，主要交通方式为公共汽车和汽车", "夏季旅游旺季物价略有上涨"],
+    },
+    japaneseInfo: {
+      ja: "マルタへの日本人留学生は増加傾向にあります。在マルタ日本大使館はイタリア兼轄のため、緊急時はローマ大使館が対応します。語学留学の拠点として人気が高まっています。",
+      en: "The number of Japanese students in Malta is growing. The Japanese Embassy in Rome covers Malta. Malta is gaining popularity as an affordable English immersion destination for Japanese learners.",
+      zh: "前往马耳他的日本留学生数量呈增长趋势。马耳他由驻罗马日本大使馆管辖。马耳他作为实惠的英语沉浸式学习目的地，越来越受日本学生欢迎。",
+    },
+  },
+
+  ZA: {
+    code: "ZA",
+    overview: {
+      ja: "南アフリカは英語圏の国で、アフリカ大陸の中で最も高い教育水準を誇ります。ケープタウン大学（UCT）は世界ランキングにも入る名門大学で、留学費用は欧米の半分以下が目安です。雄大な自然と多文化社会が魅力的な留学環境を提供します。",
+      en: "South Africa is an English-speaking nation with Africa's highest standard of education. The University of Cape Town (UCT) is globally ranked, and study costs are roughly half those of Europe or North America. Stunning nature and multicultural society make it a unique study destination.",
+      zh: "南非是英语国家，拥有非洲最高的教育水平。开普敦大学（UCT）跻身全球大学排名，留学费用约为欧美的一半。壮阔的自然风光和多元文化社会提供了独特的留学环境。",
+    },
+    studentVisa: {
+      name: { ja: "学習ビザ（Study Visa）", en: "Study Visa", zh: "学习签证" },
+      requirements: {
+        ja: ["入学許可書", "財政証明書（年R15,000以上）", "無犯罪証明書", "健康保険加入証明", "黄熱病予防接種証明（一部地域）"],
+        en: ["Acceptance letter", "Financial proof (R15,000+/year)", "Police clearance", "Medical insurance", "Yellow fever vaccination (some regions)"],
+        zh: ["录取通知书", "经济证明（每年R15,000以上）", "无犯罪证明", "医疗保险证明", "黄热病疫苗接种证明（部分地区）"],
+      },
+      duration: { ja: "就学期間（最大5年）", en: "Duration of study (up to 5 years)", zh: "学习期间（最长5年）" },
+      cost: { ja: "ビザ申請料 約R1,520", en: "Visa fee approx. R1,520", zh: "签证费约R1,520" },
+    },
+    costs: { tuitionMin: 30000, tuitionMax: 120000, livingMin: 8000, livingMax: 20000, currency: "ZAR", currencySymbol: "R" },
+    popularCities: {
+      ja: ["ケープタウン", "ヨハネスブルグ", "プレトリア", "ダーバン", "ステレンボッシュ"],
+      en: ["Cape Town", "Johannesburg", "Pretoria", "Durban", "Stellenbosch"],
+      zh: ["开普敦", "约翰内斯堡", "比勒陀利亚", "德班", "斯泰伦博斯"],
+    },
+    popularUniversities: {
+      ja: ["ケープタウン大学（UCT）", "ウィットウォーターズランド大学", "ステレンボッシュ大学", "プレトリア大学", "ダーバン工科大学"],
+      en: ["University of Cape Town (UCT)", "University of the Witwatersrand", "Stellenbosch University", "University of Pretoria", "Durban University of Technology"],
+      zh: ["开普敦大学（UCT）", "金山大学", "斯泰伦博斯大学", "比勒陀利亚大学", "德班理工大学"],
+    },
+    tips: {
+      ja: ["ケープタウンは世界で最も美しい都市のひとつとして知られる", "治安には注意が必要（夜間の一人歩きは避けること）", "ランドの為替レートにより日本からの留学費用は変動する", "南半球のため学期は1月〜11月（日本と逆）"],
+      en: ["Cape Town is consistently ranked among the world's most beautiful cities", "Be aware of safety — avoid walking alone at night", "ZAR exchange rate means costs fluctuate for Japanese students", "Southern hemisphere: academic year runs January–November"],
+      zh: ["开普敦被公认为世界最美城市之一", "注意安全，避免夜间独自外出", "南非兰特汇率波动影响日本学生的留学费用", "南半球，学年为1月至11月"],
+    },
+    japaneseInfo: {
+      ja: "在南アフリカ日本大使館はプレトリアにあります。南アフリカへの日本人留学生はまだ少なく、英語圏で費用を抑えたい人には穴場の留学先です。UCTには少数ながら日本人留学生が在籍しています。",
+      en: "The Japanese Embassy in South Africa is in Pretoria. Japanese student numbers are still small, making South Africa a hidden gem for budget-conscious English-language learners. UCT has a small but established Japanese student community.",
+      zh: "日本驻南非大使馆位于比勒陀利亚。目前前往南非的日本留学生较少，对于希望以较低费用学习英语的学生来说是个隐藏的好去处。开普敦大学有少量日本留学生。",
+    },
+  },
+
+  FI: {
+    code: "FI",
+    overview: {
+      ja: "フィンランドは世界最高水準の教育で知られ、PISAランキングで常に上位を誇ります。英語で学べる学位プログラムが多数あり、テクノロジー・デザイン・環境分野で特に評価が高いです。非EU学生には学費がかかりますが、奨学金制度が充実しています。",
+      en: "Finland is world-renowned for its exceptional education system, consistently ranking at the top of PISA assessments. With many English-taught degree programs and a focus on technology, design, and sustainability, it's a compelling choice for international students.",
+      zh: "芬兰以世界顶尖的教育体系闻名，在PISA排名中始终名列前茅。拥有众多英语授课学位项目，在技术、设计和可持续发展领域尤为突出，是留学生的理想选择。",
+    },
+    studentVisa: {
+      name: { ja: "フィンランド在留許可（学習目的）", en: "Finnish Residence Permit for Studies", zh: "芬兰学习居留许可" },
+      requirements: {
+        ja: ["入学許可書", "財政証明書（月€560以上）", "健康保険加入証明", "住宅確保証明", "申請料€350"],
+        en: ["Acceptance letter", "Financial proof (€560+/month)", "Health insurance", "Proof of accommodation", "Application fee €350"],
+        zh: ["录取通知书", "经济证明（每月€560以上）", "医疗保险证明", "住宿证明", "申请费€350"],
+      },
+      duration: { ja: "就学期間（通常1〜2年ごとに更新）", en: "Duration of study (typically renewed every 1–2 years)", zh: "学习期间（通常每1至2年续签）" },
+      cost: { ja: "申請料€350", en: "Application fee €350", zh: "申请费€350" },
+    },
+    costs: { tuitionMin: 6000, tuitionMax: 18000, livingMin: 800, livingMax: 1600, currency: "EUR", currencySymbol: "€" },
+    popularCities: {
+      ja: ["ヘルシンキ", "タンペレ", "トゥルク", "オウル", "エスポー"],
+      en: ["Helsinki", "Tampere", "Turku", "Oulu", "Espoo"],
+      zh: ["赫尔辛基", "坦佩雷", "图尔库", "奥卢", "埃斯波"],
+    },
+    popularUniversities: {
+      ja: ["ヘルシンキ大学", "アアルト大学（デザイン・工学）", "タンペレ大学", "トゥルク大学", "オウル大学"],
+      en: ["University of Helsinki", "Aalto University (Design & Engineering)", "Tampere University", "University of Turku", "University of Oulu"],
+      zh: ["赫尔辛基大学", "阿尔托大学（设计与工程）", "坦佩雷大学", "图尔库大学", "奥卢大学"],
+    },
+    tips: {
+      ja: ["冬は非常に寒く（-20℃以下）、夏は白夜が続く極端な気候に慣れること", "フィンランド人は静かで内向的だが一度打ち解けると友好的", "サウナ文化は社交の場として重要", "EU/EEA圏外の学生は年間€6,000〜18,000の学費が必要"],
+      en: ["Winters are extreme (below -20°C) while summers bring the midnight sun", "Finns are reserved but friendly once familiar", "Sauna culture is an important social tradition", "Non-EU/EEA students pay tuition fees of €6,000–18,000/year"],
+      zh: ["冬季极寒（低于-20°C），夏季迎来极昼，需适应极端气候", "芬兰人内敛但熟悉后非常友好", "桑拿文化是重要的社交场合", "非欧盟/欧洲经济区学生需缴纳每年€6,000至18,000的学费"],
+    },
+    japaneseInfo: {
+      ja: "在フィンランド日本大使館はヘルシンキにあります。フィンランドはノキア・スーパーセル等テック企業の本拠地でIT留学にも人気。日本人コミュニティは小さいですが、日本語話者は各都市に存在します。",
+      en: "The Japanese Embassy is in Helsinki. Finland is home to Nokia, Supercell, and a thriving tech startup scene, making it popular for IT-focused study. The Japanese community is small but present in major cities.",
+      zh: "日本大使馆位于赫尔辛基。芬兰是诺基亚、Supercell等科技企业的发源地，深受IT方向留学生欢迎。日本人社区规模较小，但在主要城市均有分布。",
+    },
+  },
+
+  AT: {
+    code: "AT",
+    overview: {
+      ja: "オーストリアはヨーロッパの文化・芸術の中心地であり、首都ウィーンは「音楽の都」として世界的に知られています。公立大学の学費は少額で、音楽・美術・建築・人文科学分野を志す留学生に人気です。高い生活水準と充実した公共交通機関が魅力です。",
+      en: "Austria is the heart of European culture and arts, with Vienna known globally as the 'City of Music.' Public universities charge minimal fees, making it popular for students of music, fine arts, architecture, and humanities. High quality of life and excellent public transport.",
+      zh: "奥地利是欧洲文化与艺术的中心，首都维也纳以'音乐之都'享誉全球。公立大学学费极低，深受音乐、美术、建筑和人文学科留学生青睐。生活水平高，公共交通完善。",
+    },
+    studentVisa: {
+      name: { ja: "学生在留許可（Aufenthaltstitel Studierender）", en: "Residence Permit for Students", zh: "学生居留许可" },
+      requirements: {
+        ja: ["入学許可書", "財政証明書（月€1,000以上）", "健康保険加入証明", "住宅確保証明", "申請料€160"],
+        en: ["Acceptance letter", "Financial proof (€1,000+/month)", "Health insurance", "Proof of accommodation", "Application fee €160"],
+        zh: ["录取通知书", "经济证明（每月€1,000以上）", "医疗保险证明", "住宿证明", "申请费€160"],
+      },
+      duration: { ja: "1年間（更新可能）", en: "1 year (renewable)", zh: "1年（可续签）" },
+      cost: { ja: "申請料€160 + 学期手数料€363（公立大学）", en: "Application fee €160 + semester fee €363 (public unis)", zh: "申请费€160 + 公立大学学期费€363" },
+    },
+    costs: { tuitionMin: 1000, tuitionMax: 20000, livingMin: 900, livingMax: 1800, currency: "EUR", currencySymbol: "€" },
+    popularCities: {
+      ja: ["ウィーン", "グラーツ", "ザルツブルク", "インスブルック", "リンツ"],
+      en: ["Vienna", "Graz", "Salzburg", "Innsbruck", "Linz"],
+      zh: ["维也纳", "格拉茨", "萨尔茨堡", "因斯布鲁克", "林茨"],
+    },
+    popularUniversities: {
+      ja: ["ウィーン大学（欧州最大級）", "ウィーン工科大学（TU Wien）", "ウィーン音楽演劇大学（MDW）", "グラーツ大学", "ザルツブルク大学"],
+      en: ["University of Vienna (one of Europe's largest)", "TU Wien", "University of Music and Performing Arts Vienna (MDW)", "University of Graz", "University of Salzburg"],
+      zh: ["维也纳大学（欧洲最大之一）", "维也纳工业大学（TU Wien）", "维也纳音乐与表演艺术大学（MDW）", "格拉茨大学", "萨尔茨堡大学"],
+    },
+    tips: {
+      ja: ["ドイツ語能力が必要（英語プログラムも増加中）", "ウィーンフィル・オペラ等クラシック音楽の本場", "公立大学はEU圏外学生でも学期手数料のみで学べる", "ユーレイルパス等でヨーロッパ旅行も充実"],
+      en: ["German language skills are generally required (English programs growing)", "Home of the Vienna Philharmonic, State Opera, and world-class classical music", "Public universities accessible for non-EU students at just the semester fee", "Excellent base for European travel"],
+      zh: ["通常需要德语能力（英语项目日益增多）", "维也纳爱乐乐团、国家歌剧院等古典音乐圣地", "非欧盟学生也可以只缴纳学期费就读公立大学", "是游览欧洲各地的绝佳据点"],
+    },
+    japaneseInfo: {
+      ja: "在オーストリア日本大使館はウィーンにあります。音楽・美術を志す日本人留学生が多く、ウィーン音楽演劇大学には毎年数十名の日本人学生が在籍しています。ウィーンには日本食レストランも充実しています。",
+      en: "The Japanese Embassy is in Vienna. Austria attracts many Japanese students pursuing music and fine arts — dozens attend MDW annually. Vienna has a solid selection of Japanese restaurants and a small but active Japanese community.",
+      zh: "日本大使馆位于维也纳。奥地利吸引了众多追求音乐和美术的日本留学生，每年有数十名日本学生就读维也纳音乐与表演艺术大学。维也纳日本料理餐厅种类丰富，日本人社区活跃。",
+    },
+  },
+
+  CZ: {
+    code: "CZ",
+    overview: {
+      ja: "チェコはヨーロッパの中心に位置し、プラハはその美しさで世界有数の観光都市です。公立大学のチェコ語プログラムは無料で、英語プログラムも欧州平均より安価です。カレル大学（1348年設立）はヨーロッパ最古の大学のひとつとして知られています。",
+      en: "The Czech Republic sits at the heart of Europe, with Prague being one of the world's most beautiful cities. Czech-taught public university programs are free, and English-taught programs are more affordable than EU averages. Charles University (est. 1348) is one of Europe's oldest.",
+      zh: "捷克位于欧洲中心，布拉格是全球最美丽的城市之一。公立大学捷克语课程免费，英语授课项目费用也低于欧盟平均水平。查理大学（创建于1348年）是欧洲最古老的大学之一。",
+    },
+    studentVisa: {
+      name: { ja: "長期学習ビザ（Type D）", en: "Long-Stay Study Visa (Type D)", zh: "长期学习签证（D类）" },
+      requirements: {
+        ja: ["入学許可書", "財政証明書（月Kč15,000以上）", "健康保険加入証明", "住宅確保証明", "申請料Kč2,500"],
+        en: ["Acceptance letter", "Financial proof (Kč15,000+/month)", "Health insurance", "Proof of accommodation", "Application fee Kč2,500"],
+        zh: ["录取通知书", "经济证明（每月Kč15,000以上）", "医疗保险证明", "住宿证明", "申请费Kč2,500"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "申請料Kč2,500（約1.5万円）", en: "Application fee Kč2,500 (~€100)", zh: "申请费Kč2,500（约€100）" },
+    },
+    costs: { tuitionMin: 3000, tuitionMax: 20000, livingMin: 15000, livingMax: 35000, currency: "CZK", currencySymbol: "Kč" },
+    popularCities: {
+      ja: ["プラハ", "ブルノ", "オロモウツ", "オストラバ", "プルゼニ"],
+      en: ["Prague", "Brno", "Olomouc", "Ostrava", "Pilsen"],
+      zh: ["布拉格", "布尔诺", "奥洛穆茨", "俄斯特拉发", "比尔森"],
+    },
+    popularUniversities: {
+      ja: ["カレル大学（欧州最古の一つ）", "プラハ工科大学（CTU）", "マサリク大学（ブルノ）", "プラハ経済大学（VŠE）", "チェコ工科大学"],
+      en: ["Charles University (one of Europe's oldest)", "Czech Technical University in Prague (CTU)", "Masaryk University (Brno)", "Prague University of Economics (VŠE)", "Brno University of Technology"],
+      zh: ["查理大学（欧洲最古老之一）", "布拉格捷克技术大学（CTU）", "马萨里克大学（布尔诺）", "布拉格经济大学（VŠE）", "布尔诺理工大学"],
+    },
+    tips: {
+      ja: ["英語プログラムは年€3,000〜20,000が目安でコスパが高い", "プラハはヨーロッパの地理的中心で旅行に便利", "チェコビールは世界的に有名で物価も安い", "チェコ語を少し学ぶと地元の人に喜ばれる"],
+      en: ["English-taught programs cost €3,000–20,000/year — excellent value in Europe", "Prague is geographically central in Europe, ideal for travel", "Czech beer is world-famous and extremely affordable", "Learning some Czech impresses locals and enhances daily life"],
+      zh: ["英语授课项目每年€3,000至20,000，在欧洲性价比极高", "布拉格地处欧洲地理中心，出行便利", "捷克啤酒享誉世界且价格实惠", "学一些捷克语会给当地人留下好印象"],
+    },
+    japaneseInfo: {
+      ja: "在チェコ日本大使館はプラハにあります。チェコへの日本人留学生は増加傾向にあり、プラハの美しい街並みと欧州留学のコスパの良さが人気の理由です。日本人コミュニティはプラハを中心に形成されています。",
+      en: "The Japanese Embassy is in Prague. The number of Japanese students in the Czech Republic is growing, attracted by Prague's beauty and the exceptional value of European education. The Japanese community is centered in Prague.",
+      zh: "日本大使馆位于布拉格。赴捷克的日本留学生数量持续增加，布拉格的美丽风光和欧洲留学的高性价比是吸引因素。日本人社区以布拉格为中心形成。",
+    },
+  },
+
+  CN: {
+    code: "CN",
+    overview: {
+      ja: "中国は世界最多の人口と急成長する経済を背景に、留学先としての魅力を高めています。政府奨学金（CSC）が充実しており、無料または割引学費で学べる機会も多いです。中国語（普通話）を学ぶ目的の留学生のほか、ビジネス・IT・医学分野でも人気があります。",
+      en: "China has grown into a major study abroad destination, backed by its massive economy and government scholarship programs (CSC). Many international students come to study Mandarin, while business, technology, and medicine programs are also popular.",
+      zh: "中国凭借庞大的经济体量和完善的政府奖学金制度（CSC），已成为重要的留学目的地。许多留学生来此学习普通话，商科、技术和医学专业同样备受欢迎。",
+    },
+    studentVisa: {
+      name: { ja: "X1ビザ（6ヶ月超）/ X2ビザ（6ヶ月以内）", en: "X1 Visa (6+ months) / X2 Visa (under 6 months)", zh: "X1签证（6个月以上）/ X2签证（6个月以内）" },
+      requirements: {
+        ja: ["入学許可書（JW202フォーム）", "健康診断書（外国人体格検査記録）", "財政証明書", "パスポート（6ヶ月以上有効）", "ビザ申請料 約¥6,000"],
+        en: ["Acceptance letter (JW202 form)", "Medical examination record", "Financial proof", "Passport (valid 6+ months)", "Visa fee approx. ¥6,000"],
+        zh: ["录取通知书（JW202表格）", "外国人体格检查记录", "经济担保证明", "护照（有效期6个月以上）", "签证费约¥6,000"],
+      },
+      duration: { ja: "就学期間（通常1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（通常每年续签）" },
+      cost: { ja: "ビザ申請料 約¥6,000〜", en: "Visa fee approx. ¥6,000+", zh: "签证费约¥6,000起" },
+    },
+    costs: { tuitionMin: 15000, tuitionMax: 60000, livingMin: 3000, livingMax: 8000, currency: "CNY", currencySymbol: "¥" },
+    popularCities: {
+      ja: ["北京", "上海", "成都", "広州", "西安"],
+      en: ["Beijing", "Shanghai", "Chengdu", "Guangzhou", "Xi'an"],
+      zh: ["北京", "上海", "成都", "广州", "西安"],
+    },
+    popularUniversities: {
+      ja: ["北京大学（PKU）", "清華大学", "復旦大学（上海）", "浙江大学", "上海交通大学"],
+      en: ["Peking University (PKU)", "Tsinghua University", "Fudan University (Shanghai)", "Zhejiang University", "Shanghai Jiao Tong University"],
+      zh: ["北京大学（PKU）", "清华大学", "复旦大学（上海）", "浙江大学", "上海交通大学"],
+    },
+    tips: {
+      ja: ["CSC奨学金（中国政府奨学金）は学費・寮費・月額手当が支給される", "VPNなしではGoogle・YouTube・LINEが使用不可", "中国語の習得に最適な環境で、1年で大幅な上達が期待できる", "食文化が豊かで地域ごとに大きく異なる"],
+      en: ["CSC Scholarship covers tuition, dormitory, and monthly allowance", "Google, YouTube, and LINE are blocked — VPN required", "Ideal environment for learning Mandarin; rapid progress expected within a year", "Rich food culture varies dramatically by region"],
+      zh: ["中国政府奖学金（CSC）涵盖学费、宿舍费和月生活费", "谷歌、YouTube和LINE受限，需使用VPN", "是学习普通话的理想环境，一年内可取得显著进步", "饮食文化丰富，各地差异显著"],
+    },
+    japaneseInfo: {
+      ja: "在中国日本大使館は北京にあり、上海・広州・瀋陽・重慶に総領事館があります。中国には多くの日本人留学生が在籍しており、特に中国語習得・ビジネス・観光業を目指す学生が多いです。",
+      en: "The Japanese Embassy is in Beijing, with consulates in Shanghai, Guangzhou, Shenyang, and Chongqing. China hosts a large number of Japanese students, particularly those studying Mandarin, business, and tourism management.",
+      zh: "日本大使馆位于北京，在上海、广州、沈阳和重庆设有总领事馆。中国拥有大量日本留学生，尤其是学习普通话、商科和旅游管理的学生。",
+    },
+  },
+
+  IN: {
+    code: "IN",
+    overview: {
+      ja: "インドは世界最大の民主主義国家で、英語が公用語のひとつとして使われています。IIT（インド工科大学）はMIT・スタンフォードと並ぶ世界トップクラスの工学教育機関として知られています。留学費用は欧米の10分の1以下で、IT・工学・ビジネス分野に強みがあります。",
+      en: "India is the world's largest democracy with English as a co-official language. The Indian Institutes of Technology (IITs) are globally ranked alongside MIT and Stanford for engineering education. Study costs are a fraction of Western countries, with strengths in IT, engineering, and business.",
+      zh: "印度是世界最大的民主国家，英语为官方语言之一。印度理工学院（IIT）在工程教育领域与麻省理工学院、斯坦福大学齐名，享誉全球。留学费用不足欧美的十分之一，在IT、工程和商科领域实力突出。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（Student Visa / e-Student Visa）", en: "Student Visa (e-Student Visa available)", zh: "学生签证（可申请电子学生签证）" },
+      requirements: {
+        ja: ["入学許可書", "財政証明書", "パスポート写真", "ビザ申請フォーム記入", "申請料 約$80"],
+        en: ["Acceptance letter", "Financial proof", "Passport photos", "Visa application form", "Application fee approx. $80"],
+        zh: ["录取通知书", "经济担保证明", "护照照片", "填写签证申请表", "申请费约$80"],
+      },
+      duration: { ja: "就学期間（通常5年まで）", en: "Duration of study (up to 5 years typically)", zh: "学习期间（通常最长5年）" },
+      cost: { ja: "申請料 約$80（eビザは$25〜）", en: "Approx. $80 (e-Visa from $25)", zh: "约$80（电子签证$25起）" },
+    },
+    costs: { tuitionMin: 100000, tuitionMax: 800000, livingMin: 15000, livingMax: 40000, currency: "INR", currencySymbol: "₹" },
+    popularCities: {
+      ja: ["バンガロール", "デリー", "ムンバイ", "チェンナイ", "ハイデラバード", "プネ"],
+      en: ["Bangalore", "Delhi", "Mumbai", "Chennai", "Hyderabad", "Pune"],
+      zh: ["班加罗尔", "德里", "孟买", "金奈", "海得拉巴", "浦那"],
+    },
+    popularUniversities: {
+      ja: ["IIT（インド工科大学）全国23校", "IIM（インド経営大学院）", "デリー大学", "ムンバイ大学", "インド科学研究所（IISc）"],
+      en: ["IIT (Indian Institutes of Technology) — 23 campuses nationwide", "IIM (Indian Institutes of Management)", "University of Delhi", "University of Mumbai", "Indian Institute of Science (IISc)"],
+      zh: ["IIT（印度理工学院）全国23所", "IIM（印度管理学院）", "德里大学", "孟买大学", "印度科学研究所（IISc）"],
+    },
+    tips: {
+      ja: ["IITは世界最難関校のひとつ、入試は非常に競争が激しい", "バンガロールはインドのシリコンバレーでITキャリアに有利", "ベジタリアン食・スパイス料理が中心の食文化に慣れること", "衛生面・水事情に注意し、飲料水はボトルウォーターを使用"],
+      en: ["IIT entrance is among the most competitive in the world", "Bangalore is India's Silicon Valley — great for IT careers", "Vegetarian and spiced cuisine is dominant — be prepared to adapt", "Take care with sanitation and use bottled water"],
+      zh: ["IIT入学竞争极为激烈，是世界最难考的大学之一", "班加罗尔是印度的硅谷，对IT职业发展大有裨益", "素食和香料料理为主，需做好适应准备", "注意卫生和饮水安全，请使用瓶装水"],
+    },
+    japaneseInfo: {
+      ja: "在インド日本大使館はデリーにあり、ムンバイ・チェンナイ・コルカタ・バンガロールに総領事館があります。インドへの日本人留学生は増加傾向にあり、IT・ヨガ・アーユルヴェーダを目的とした留学も人気です。",
+      en: "The Japanese Embassy is in Delhi, with consulates in Mumbai, Chennai, Kolkata, and Bangalore. Japanese student numbers are growing, with IT, yoga, and Ayurveda attracting unique interest alongside academic study.",
+      zh: "日本大使馆位于德里，在孟买、金奈、加尔各答和班加罗尔设有总领事馆。赴印度的日本留学生数量持续增长，IT、瑜伽和阿育吠陀也吸引了独特的留学兴趣。",
+    },
+  },
+
+  MX: {
+    code: "MX",
+    overview: {
+      ja: "メキシコはスペイン語習得とラテンアメリカ文化を体験できる人気の留学先です。UNAM（メキシコ国立自治大学）は中南米最大規模の大学で、外国人留学生にも開かれています。物価が安く、遺跡・自然・食文化など体験できることが多い魅力的な国です。",
+      en: "Mexico is a top destination for Spanish language immersion and experiencing Latin American culture. UNAM is one of the largest universities in Latin America and is open to international students. Low cost of living, ancient ruins, and vibrant culture make it very appealing.",
+      zh: "墨西哥是学习西班牙语和体验拉丁美洲文化的热门目的地。墨西哥国立自治大学（UNAM）是拉丁美洲规模最大的大学之一，向国际学生开放。物价低廉，古代遗迹、自然风光和饮食文化丰富多彩。",
+    },
+    studentVisa: {
+      name: { ja: "一時居住ビザ（学生カテゴリー）", en: "Temporary Resident Visa (Student Category)", zh: "临时居民签证（学生类别）" },
+      requirements: {
+        ja: ["入学許可書", "財政証明書（月MX$17,000以上）", "パスポート写真", "ビザ申請フォーム記入", "申請料 約$36"],
+        en: ["Acceptance letter", "Financial proof (MX$17,000+/month)", "Passport photos", "Application form", "Application fee approx. $36"],
+        zh: ["录取通知书", "经济证明（每月MX$17,000以上）", "护照照片", "申请表格", "申请费约$36"],
+      },
+      duration: { ja: "就学期間（最大4年）", en: "Duration of study (up to 4 years)", zh: "学习期间（最长4年）" },
+      cost: { ja: "申請料 約$36", en: "Approx. $36", zh: "约$36" },
+    },
+    costs: { tuitionMin: 20000, tuitionMax: 150000, livingMin: 8000, livingMax: 20000, currency: "MXN", currencySymbol: "MX$" },
+    popularCities: {
+      ja: ["メキシコシティ", "グアダラハラ", "モンテレイ", "プエブラ", "オアハカ"],
+      en: ["Mexico City", "Guadalajara", "Monterrey", "Puebla", "Oaxaca"],
+      zh: ["墨西哥城", "瓜达拉哈拉", "蒙特雷", "普埃布拉", "瓦哈卡"],
+    },
+    popularUniversities: {
+      ja: ["UNAM（メキシコ国立自治大学）", "モンテレイ工科大学（Tec de Monterrey）", "グアダラハラ大学（UDG）", "IPN（国立工科大学）", "ITAM（メキシコ自治工科大学院）"],
+      en: ["UNAM (National Autonomous University of Mexico)", "Tecnológico de Monterrey (Tec)", "Universidad de Guadalajara (UDG)", "IPN (National Polytechnic Institute)", "ITAM"],
+      zh: ["UNAM（墨西哥国立自治大学）", "蒙特雷科技大学（Tec）", "瓜达拉哈拉大学（UDG）", "IPN（国立理工大学）", "ITAM（墨西哥自治技术学院）"],
+    },
+    tips: {
+      ja: ["スペイン語はメキシコ訛りがラテンアメリカで標準的とされる", "UNAMは外国人向けのスペイン語コースが充実", "治安は地域差が大きいため、渡航前に最新情報を確認すること", "メキシコ料理はユネスコ無形文化遺産に登録されている"],
+      en: ["Mexican Spanish is considered a standard Latin American accent", "UNAM offers excellent Spanish programs for foreigners", "Safety varies widely by region — check current advisories before traveling", "Mexican cuisine is a UNESCO Intangible Cultural Heritage"],
+      zh: ["墨西哥西班牙语被认为是拉丁美洲的标准口音", "UNAM为外国人提供完善的西班牙语课程", "各地区安全状况差异较大，出发前请查阅最新旅行建议", "墨西哥美食已被列入联合国教科文组织非物质文化遗产"],
+    },
+    japaneseInfo: {
+      ja: "在メキシコ日本大使館はメキシコシティにあります。メキシコには自動車・製造業の日系企業が多く、スペイン語留学後にビジネス就職を目指す日本人も増えています。日本人コミュニティはメキシコシティを中心に存在します。",
+      en: "The Japanese Embassy is in Mexico City. Many Japanese auto and manufacturing companies operate in Mexico, making it a strategic destination for those aiming to work in Spanish-speaking business environments after study.",
+      zh: "日本大使馆位于墨西哥城。许多日本汽车和制造业企业在墨西哥运营，使其成为留学后希望进入西班牙语商业环境工作的日本人的战略目的地。",
+    },
+  },
+
+  AR: {
+    code: "AR",
+    overview: {
+      ja: "アルゼンチンはブエノスアイレスを中心に、「南米のパリ」と呼ばれる洗練された都市文化を持ちます。UBA（ブエノスアイレス大学）は外国人留学生を含む全ての学生に無料で開放されており、世界でも珍しい留学スタイルです。タンゴ・グルメ・サッカーなど文化的体験も豊富です。ただし高インフレのため、費用は変動が大きい点に注意が必要です。",
+      en: "Argentina, centered on Buenos Aires — the 'Paris of South America' — offers a sophisticated urban culture. The University of Buenos Aires (UBA) is free for all students including foreigners, a rare opportunity worldwide. Tango, cuisine, and football add to a rich cultural experience. Note: high inflation causes cost fluctuations.",
+      zh: "阿根廷以布宜诺斯艾利斯为中心，拥有'南美巴黎'之称的精致都市文化。布宜诺斯艾利斯大学（UBA）对包括外国留学生在内的所有学生免费开放，这在全球属于罕见机会。探戈、美食和足球提供了丰富的文化体验。注意：高通胀导致费用波动较大。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（Visa de Estudiante）", en: "Student Visa (Visa de Estudiante)", zh: "学生签证（Visa de Estudiante）" },
+      requirements: {
+        ja: ["入学許可書", "財政証明書", "無犯罪証明書（公証済み）", "健康保険加入証明", "申請料 約$90"],
+        en: ["Acceptance letter", "Financial proof", "Police clearance (notarized)", "Health insurance", "Application fee approx. $90"],
+        zh: ["录取通知书", "经济担保证明", "无犯罪证明（公证）", "医疗保险证明", "申请费约$90"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "申請料 約$90", en: "Approx. $90", zh: "约$90" },
+    },
+    costs: { tuitionMin: 0, tuitionMax: 500000, livingMin: 200000, livingMax: 500000, currency: "ARS", currencySymbol: "AR$" },
+    popularCities: {
+      ja: ["ブエノスアイレス", "コルドバ", "ロサリオ", "メンドーサ", "ラプラタ"],
+      en: ["Buenos Aires", "Córdoba", "Rosario", "Mendoza", "La Plata"],
+      zh: ["布宜诺斯艾利斯", "科尔多瓦", "罗萨里奥", "门多萨", "拉普拉塔"],
+    },
+    popularUniversities: {
+      ja: ["UBA（ブエノスアイレス大学・無料）", "コルドバ国立大学（UNC）", "ロサリオ国立大学（UNR）", "トルクアート・ディ・テッラ大学（私立）", "アルゼンチン・カトリック大学（UCA）"],
+      en: ["UBA (University of Buenos Aires — free)", "National University of Córdoba (UNC)", "National University of Rosario (UNR)", "Torcuato Di Tella University (private)", "Catholic University of Argentina (UCA)"],
+      zh: ["UBA（布宜诺斯艾利斯大学·免费）", "科尔多瓦国立大学（UNC）", "罗萨里奥国立大学（UNR）", "托尔夸托·迪·泰拉大学（私立）", "阿根廷天主教大学（UCA）"],
+    },
+    tips: {
+      ja: ["UBAの学費は外国人留学生も完全無料（要スペイン語能力）", "高インフレのため現地の費用は急激に変動する（ドルで管理推奨）", "タンゴ・ワイン・ステーキ文化が日常的に楽しめる", "スペイン語の「リョ音（Rioplatense）」は独特のアクセント"],
+      en: ["UBA tuition is completely free including for foreign students (Spanish required)", "High inflation means costs change rapidly — manage finances in USD", "Tango, wine, and steak culture are part of everyday life", "Argentine Spanish (Rioplatense) has a unique accent"],
+      zh: ["UBA学费对外国留学生也完全免费（需具备西班牙语能力）", "高通胀导致当地费用急剧波动（建议以美元管理资金）", "探戈、葡萄酒和牛排文化融入日常生活", "阿根廷西班牙语（河床方言）有独特口音"],
+    },
+    japaneseInfo: {
+      ja: "在アルゼンチン日本大使館はブエノスアイレスにあります。南米の日系人コミュニティはブラジルに次いでアルゼンチンが多く、日系社会が根付いています。スペイン語習得と南米文化体験を目的とした日本人留学生が増えています。",
+      en: "The Japanese Embassy is in Buenos Aires. Argentina has one of Latin America's largest Japanese communities (second only to Brazil). The country is growing in popularity among Japanese students seeking Spanish skills and South American cultural immersion.",
+      zh: "日本大使馆位于布宜诺斯艾利斯。阿根廷拥有拉丁美洲规模第二大的日本人社区（仅次于巴西）。越来越多希望学习西班牙语并体验南美文化的日本留学生选择来此就读。",
+    },
+  },
 };
 
 export function getStudyAbroadData(code: string): StudyAbroadData | undefined {
