@@ -138,6 +138,8 @@ const pageText = {
     totalDisplay: "合計（換算）",
     note: "※為替レートは参考値です（2026年3月時点）。実際のレートや物価変動により差が生じます。",
     selectHint: "国を選択してください（最大4カ国）",
+    runSimulation: "シミュレーション開始",
+    startHint: "国・期間・学費を選んで「シミュレーション開始」を押してください",
   },
   en: {
     back: "Back to Countries",
@@ -161,6 +163,8 @@ const pageText = {
     totalDisplay: "Total (converted)",
     note: "* Exchange rates are approximate (as of March 2026). Actual costs may vary.",
     selectHint: "Please select at least one country (up to 4)",
+    runSimulation: "Run Simulation",
+    startHint: "Select countries, duration, and tuition level, then press Run Simulation.",
   },
   zh: {
     back: "返回国家列表",
@@ -184,6 +188,8 @@ const pageText = {
     totalDisplay: "合计（换算）",
     note: "※汇率为参考值（2026年3月时点），实际费用可能因汇率及物价变动而有所不同。",
     selectHint: "请选择国家（最多4个）",
+    runSimulation: "开始模拟",
+    startHint: "选择国家、期间和学费水平后，请点击「开始模拟」。",
   },
 };
 
@@ -202,17 +208,26 @@ export default function StudySimulatePage() {
   const [duration, setDuration] = useState<number>(12);
   const [tuitionLevel, setTuitionLevel] = useState<"min" | "max">("min");
   const [showAuthGate, setShowAuthGate] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+  const [simCount, setSimCount] = useState(0);
 
-  // 初回訪問済みフラグを localStorage で管理
+  // シミュレーション実行回数を localStorage で管理
   useEffect(() => {
     if (isAuthenticated) return;
-    const STORAGE_KEY = "studySimUsed";
-    if (localStorage.getItem(STORAGE_KEY)) {
-      setShowAuthGate(true);
-    } else {
-      localStorage.setItem(STORAGE_KEY, "1");
-    }
+    const count = parseInt(localStorage.getItem("studySimCount") ?? "0", 10);
+    setSimCount(count);
   }, [isAuthenticated]);
+
+  const handleSimulate = () => {
+    if (simCount >= 1 && !isAuthenticated) {
+      setShowAuthGate(true);
+      return;
+    }
+    setShowResults(true);
+    const newCount = simCount + 1;
+    setSimCount(newCount);
+    localStorage.setItem("studySimCount", String(newCount));
+  };
 
   // ユーザーの国籍から表示通貨を決定
   const displayCurrency = useMemo(
@@ -227,23 +242,12 @@ export default function StudySimulatePage() {
     []
   );
 
-  // 未ログイン時はゲートを表示してアクションをブロック
-  const requireAuth = (action: () => void) => {
-    if (!isAuthenticated) {
-      setShowAuthGate(true);
-      return;
-    }
-    action();
-  };
-
   const toggleCountry = (code: string) => {
-    requireAuth(() =>
-      setSelected((prev) => {
-        if (prev.includes(code)) return prev.filter((c) => c !== code);
-        if (prev.length >= MAX_SELECT) return prev;
-        return [...prev, code];
-      })
-    );
+    setSelected((prev) => {
+      if (prev.includes(code)) return prev.filter((c) => c !== code);
+      if (prev.length >= MAX_SELECT) return prev;
+      return [...prev, code];
+    });
   };
 
   interface ResultItem {
@@ -408,7 +412,7 @@ export default function StudySimulatePage() {
                 {DURATION_OPTIONS.map((m) => (
                   <button
                     key={m}
-                    onClick={() => requireAuth(() => setDuration(m))}
+                    onClick={() => setDuration(m)}
                     className={`py-2.5 rounded-xl text-sm font-semibold border transition-all ${
                       duration === m
                         ? "bg-primary text-white border-primary shadow-sm"
@@ -428,7 +432,7 @@ export default function StudySimulatePage() {
                 {(["min", "max"] as const).map((level) => (
                   <button
                     key={level}
-                    onClick={() => requireAuth(() => setTuitionLevel(level))}
+                    onClick={() => setTuitionLevel(level)}
                     className={`w-full text-left px-4 py-3 rounded-xl text-sm border transition-all ${
                       tuitionLevel === level
                         ? "bg-primary text-white border-primary shadow-sm"
@@ -440,11 +444,23 @@ export default function StudySimulatePage() {
                 ))}
               </div>
             </div>
+
+            {/* Simulate button */}
+            <button
+              onClick={handleSimulate}
+              className="w-full bg-primary text-white font-semibold py-3 rounded-xl hover:bg-primary/90 transition-colors shadow-sm"
+            >
+              {text.runSimulation}
+            </button>
           </div>
 
           {/* Results */}
           <div className="lg:col-span-2 space-y-5">
-            {results.length === 0 ? (
+            {!showResults ? (
+              <div className="bg-white border border-border/60 rounded-2xl p-10 shadow-sm text-center text-muted text-sm">
+                {text.startHint}
+              </div>
+            ) : results.length === 0 ? (
               <div className="bg-white border border-border/60 rounded-2xl p-10 shadow-sm text-center text-muted text-sm">
                 {text.selectHint}
               </div>
