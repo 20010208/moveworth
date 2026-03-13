@@ -238,8 +238,15 @@ export default function StudySimulatePage() {
   const unitLabel = dispConfig.unitSuffix[lang] ?? dispConfig.unitSuffix["en"];
 
   const availableCountries = useMemo(
-    () => countryPresets.filter((c) => studyAbroadCountries.includes(c.code)),
-    []
+    () =>
+      countryPresets
+        .filter((c) => studyAbroadCountries.includes(c.code))
+        .sort((a, b) => {
+          const nameA = a.name[lang] ?? a.name.en;
+          const nameB = b.name[lang] ?? b.name.en;
+          return nameA.localeCompare(nameB, lang === "ja" ? "ja" : lang === "zh" ? "zh" : "en");
+        }),
+    [lang]
   );
 
   const toggleCountry = (code: string) => {
