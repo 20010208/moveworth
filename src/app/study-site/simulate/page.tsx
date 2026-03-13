@@ -227,12 +227,23 @@ export default function StudySimulatePage() {
     []
   );
 
+  // 未ログイン時はゲートを表示してアクションをブロック
+  const requireAuth = (action: () => void) => {
+    if (!isAuthenticated) {
+      setShowAuthGate(true);
+      return;
+    }
+    action();
+  };
+
   const toggleCountry = (code: string) => {
-    setSelected((prev) => {
-      if (prev.includes(code)) return prev.filter((c) => c !== code);
-      if (prev.length >= MAX_SELECT) return prev;
-      return [...prev, code];
-    });
+    requireAuth(() =>
+      setSelected((prev) => {
+        if (prev.includes(code)) return prev.filter((c) => c !== code);
+        if (prev.length >= MAX_SELECT) return prev;
+        return [...prev, code];
+      })
+    );
   };
 
   interface ResultItem {
@@ -397,7 +408,7 @@ export default function StudySimulatePage() {
                 {DURATION_OPTIONS.map((m) => (
                   <button
                     key={m}
-                    onClick={() => setDuration(m)}
+                    onClick={() => requireAuth(() => setDuration(m))}
                     className={`py-2.5 rounded-xl text-sm font-semibold border transition-all ${
                       duration === m
                         ? "bg-primary text-white border-primary shadow-sm"
@@ -417,7 +428,7 @@ export default function StudySimulatePage() {
                 {(["min", "max"] as const).map((level) => (
                   <button
                     key={level}
-                    onClick={() => setTuitionLevel(level)}
+                    onClick={() => requireAuth(() => setTuitionLevel(level))}
                     className={`w-full text-left px-4 py-3 rounded-xl text-sm border transition-all ${
                       tuitionLevel === level
                         ? "bg-primary text-white border-primary shadow-sm"
