@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import {
   BarChart,
@@ -12,7 +12,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { ArrowLeft, Calculator, Info, User } from "lucide-react";
+import { ArrowLeft, Calculator, Info, User, Lock } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
 import { studyAbroadCountries, getStudyAbroadData } from "@/data/study-abroad";
@@ -194,13 +194,25 @@ const CHART_COLORS = {
 
 export default function StudySimulatePage() {
   const { locale } = useTranslation();
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, setShowRegisterModal } = useAuth();
   const lang = locale as "en" | "ja" | "zh";
   const text = pageText[lang];
 
   const [selected, setSelected] = useState<string[]>(DEFAULT_SELECTED);
   const [duration, setDuration] = useState<number>(12);
   const [tuitionLevel, setTuitionLevel] = useState<"min" | "max">("min");
+  const [showAuthGate, setShowAuthGate] = useState(false);
+
+  // 初回訪問済みフラグを localStorage で管理
+  useEffect(() => {
+    if (isAuthenticated) return;
+    const STORAGE_KEY = "studySimUsed";
+    if (localStorage.getItem(STORAGE_KEY)) {
+      setShowAuthGate(true);
+    } else {
+      localStorage.setItem(STORAGE_KEY, "1");
+    }
+  }, [isAuthenticated]);
 
   // ユーザーの国籍から表示通貨を決定
   const displayCurrency = useMemo(
@@ -268,6 +280,45 @@ export default function StudySimulatePage() {
     [text.tuition]: r.tuitionDisp,
     [text.living]: r.livingDisp,
   }));
+
+  if (showAuthGate && !isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-indigo-50/60 via-white to-slate-50 flex items-center justify-center px-4">
+        <div className="max-w-md w-full text-center">
+          <div className="bg-white border border-border/60 rounded-2xl p-10 shadow-sm">
+            <div className="flex justify-center mb-5">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                <Lock className="h-8 w-8 text-primary" />
+              </div>
+            </div>
+            <h2 className="text-xl font-extrabold text-foreground mb-2">
+              {lang === "ja" ? "会員登録が必要です" : lang === "zh" ? "需要注册会员" : "Sign up to continue"}
+            </h2>
+            <p className="text-sm text-muted mb-6">
+              {lang === "ja"
+                ? "留学費用シミュレーターは無料会員登録後にご利用いただけます。"
+                : lang === "zh"
+                ? "留学费用模拟器需要免费注册后使用。"
+                : "Create a free account to use the Study Cost Simulator."}
+            </p>
+            <button
+              onClick={() => setShowRegisterModal(true)}
+              className="w-full bg-primary text-white font-semibold py-3 rounded-xl hover:bg-primary/90 transition-colors mb-3"
+            >
+              {lang === "ja" ? "無料で会員登録する" : lang === "zh" ? "免费注册" : "Sign up for free"}
+            </button>
+            <Link
+              href="/"
+              className="inline-flex items-center justify-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              {text.back}
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50/60 via-white to-slate-50">
