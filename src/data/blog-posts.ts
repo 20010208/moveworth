@@ -6254,6 +6254,1368 @@ Italy offers a unique blend of culture, quality of life, and now competitive tax
 意大利融合了独特的文化魅力、优质的生活环境与如今极具竞争力的税收优惠。使用MoveWorth模拟您的税负和生活成本，规划您的意大利移居之旅。`,
     },
   },
+  {
+    slug: "visa-mt",
+    category: "visa",
+    date: "2026-03-16",
+    readingTime: 5,
+    title: {
+      ja: "マルタのビザ・就労許可完全ガイド2026年版",
+      en: "Malta Visa & Work Permit Complete Guide 2026",
+      zh: "马耳他签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "デジタルノマドビザ・非居住者優遇税制・MPRP投資プログラムまで、マルタ移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "Nomad Residence Permit, non-dom tax status, and Malta Permanent Residence Programme — a complete guide to living and working in Malta.",
+      zh: "游民居留许可、非居民优惠税制、MPRP投资项目——移居马耳他生活和工作的完整指南。",
+    },
+    content: {
+      ja: `マルタはEU加盟の地中海の島国で、英語が公用語、温暖な気候、外国人に有利な非居住者税制を持つことから、欧州移住先として注目を集めています。小さな国ながら、デジタルノマドや投資家向けの制度が充実しています。
+
+### 主なビザの種類
+
+**ノマド・レジデンス・パーミット（デジタルノマドビザ）**
+マルタ国外の企業・クライアントのためにリモートで働く外国人向け。
+- 最低月収：€2,700以上
+- 有効期間：1年間、更新可能
+- EU圏外の国籍者が対象
+
+**シングル・パーミット（就労ビザ）**
+マルタ企業からの雇用オファーを持つ非EU国籍者向けの就労・居住統合許可。
+- 雇用主がスポンサーとして申請
+- 有効期間：最長2年、更新可能
+
+**キー・エンプロイー・イニシアティブ（KEI）**
+マルタの主要産業（金融・ゲーミング・航空・医療等）における高度技能者向けの優遇ルート。
+- 最低年収：€30,000以上
+
+**マルタ永住権プログラム（MPRP）**
+投資による永住権取得プログラム。
+- 政府拠出金：€98,000以上（南部・ゴゾ島：€68,000以上）
+- 不動産購入：€300,000以上
+- 慈善寄付：€2,000以上
+
+### 非居住者優遇税制
+
+**ノン・ドム（Non-Domiciled）税制**
+- マルタに送金した外国所得にのみ課税
+- 未送金の外国所得・キャピタルゲインは非課税
+- 最低税額：年€5,000
+
+**グローバル・レジデンス・プログラム（GRP）**
+- 外国源泉所得に対して**15%の優遇税率**（最低税額€15,000/年）
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| ノマド・レジデンス・パーミット | €300 |
+| シングル・パーミット申請費 | €280 |
+| MPRP申請費 | €10,000 |
+
+### 移住前のチェックポイント
+
+1. **Identity Maltaへの登録**：eResidency登録と居住許可の取得が必要
+2. **銀行口座の開設**：BOV・HSBCマルタなどでアカウント開設
+3. **住宅事情**：バレッタ・スリーマは家賃が高め。ゴゾ島はコスパが良い
+4. **医療保険**：EU市民はEHIC利用可。非EU市民は民間保険の加入が必須
+
+MoveWorthでマルタの生活費・税負担をシミュレーションしてみましょう。`,
+      en: `Malta is a small EU island nation in the Mediterranean with English as an official language, a warm climate, and a tax-friendly non-dom system. Despite its size, Malta offers a well-developed set of schemes for digital nomads, skilled workers, and investors.
+
+### Main Visa Types
+
+**Nomad Residence Permit**
+For remote workers serving clients or employers outside Malta.
+- Minimum monthly income: €2,700+
+- Validity: 1 year, renewable
+
+**Single Permit**
+Combined work and residence permit for non-EU nationals with a Maltese job offer.
+- Validity: up to 2 years, renewable
+
+**Key Employee Initiative (KEI)**
+Fast-track for highly skilled professionals in key industries.
+- Minimum annual salary: €30,000+
+
+**Malta Permanent Residence Programme (MPRP)**
+- Government contribution: €98,000+
+- Property purchase: €300,000+
+- Philanthropic donation: €2,000+
+
+### Tax Incentives
+
+**Non-Dom Tax Status**
+- Only income remitted to Malta is taxable
+- Minimum annual tax: €5,000
+
+**Global Residence Programme (GRP)**
+- Flat **15% tax rate** on foreign-sourced income remitted to Malta
+- Minimum annual tax: €15,000
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Nomad Residence Permit | €300 |
+| Single Permit | €280 |
+| MPRP application fee | €10,000 |
+
+### Key Checklist Before You Move
+
+1. **Identity Malta Registration**: Register for eResidency and obtain your residence permit after arrival
+2. **Bank Account**: Open a Maltese bank account (BOV, HSBC Malta, etc.)
+3. **Housing**: Valletta and Sliema are expensive; Gozo offers better value
+4. **Health Insurance**: Non-EU nationals must have private coverage
+
+Use MoveWorth to simulate your tax burden and living costs in Malta.`,
+      zh: `马耳他是地中海上一个欧盟小岛国，英语为官方语言，气候温暖，且拥有对外国人友好的非居民税制，吸引了来自全球的外籍人士和远程工作者。
+
+### 主要签证类型
+
+**游民居留许可（数字游民签证）**
+- 最低月收入：€2,700以上；有效期：1年，可续签
+
+**单一许可（工作签证）**
+- 有效期：最长2年，可续签
+
+**关键员工计划（KEI）**
+- 最低年薪：€30,000以上
+
+**马耳他永久居留计划（MPRP）**
+- 政府贡献金：€98,000以上；购置房产：€300,000以上
+
+### 税收优惠
+
+**非居民（Non-Dom）税制**
+- 仅对汇入马耳他的境外收入征税；最低年税额：€5,000
+
+**全球居民计划（GRP）**
+- 汇入马耳他的境外收入适用**15%优惠税率**；最低年税额：€15,000
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 游民居留许可 | €300 |
+| 单一许可 | €280 |
+| MPRP申请费 | €10,000 |
+
+### 移居前注意事项
+
+1. **Identity Malta登记**：抵达后完成电子居民登记
+2. **开立银行账户**：在BOV、汇丰马耳他等银行开户
+3. **住房**：戈佐岛性价比更好
+4. **医疗保险**：非欧盟公民须购买私人保险
+
+使用MoveWorth模拟您在马耳他的税负和生活成本。`,
+    },
+  },
+  {
+    slug: "visa-za",
+    category: "visa",
+    date: "2026-03-16",
+    readingTime: 5,
+    title: {
+      ja: "南アフリカのビザ・就労許可完全ガイド2026年版",
+      en: "South Africa Visa & Work Permit Complete Guide 2026",
+      zh: "南非签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "クリティカルスキルビザ・一般就労ビザ・退職者ビザまで、南アフリカ移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "Critical Skills Visa, General Work Visa, Retired Persons Visa and more — a complete guide to living and working in South Africa.",
+      zh: "关键技能签证、一般工作签证、退休人员签证——移居南非生活和工作的完整指南。",
+    },
+    content: {
+      ja: `南アフリカはアフリカ大陸最大の経済圏のひとつであり、ケープタウン・ヨハネスブルクなどの世界都市を擁します。英語が広く通じ、物価が比較的安く、アフリカ移住を検討する人にとって有力な選択肢です。
+
+### 主なビザの種類
+
+**クリティカルスキルビザ（Critical Skills Work Visa）**
+政府が定める「クリティカルスキルリスト」（IT・エンジニアリング・医療・金融など）に該当する専門家向け。
+- 雇用オファーなしでも申請可能
+- 有効期間：3年、更新可能
+
+**一般就労ビザ（General Work Visa）**
+南アフリカ企業からの雇用オファーを持つ外国人向け。
+- 「南アフリカ市民で適切な人材がいない」ことの証明が必要
+- 有効期間：最長5年
+
+**企業内転勤許可（Intra-Company Transfer Permit）**
+多国籍企業の従業員を南アフリカ子会社に派遣する場合。
+- 有効期間：最長4年（延長不可）
+
+**退職者ビザ（Retired Persons Visa）**
+- 最低月収：ZAR 37,000相当の年金・投資収入
+- 就労は禁止
+
+### 税制の概要
+
+累進課税で最高税率45%（ZAR 1,817,000超）。
+海外所得免税：183日以上海外就労の居住者はZAR 1,250,000まで免税。
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| クリティカルスキルビザ | ZAR 1,520 |
+| 一般就労ビザ | ZAR 1,520 |
+| 退職者ビザ | ZAR 425 |
+
+### 移住前のチェックポイント
+
+1. **出身国の無犯罪証明書**：申請に必須。アポスティーユ認証が必要な場合あり
+2. **外国学歴評価（SAQA）**：南アフリカ資格局による学歴・資格認定が必要
+3. **医療・レントゲン報告書**：就労ビザ申請時に健康診断書が必要
+4. **住宅・治安**：ケープタウンのウォーターフロント周辺など、セキュリティが整ったエリアを選ぶことを推奨
+
+MoveWorthで南アフリカの生活費・税負担をシミュレーションしてみましょう。`,
+      en: `South Africa is one of Africa's largest economies, home to world-class cities like Cape Town and Johannesburg. With English widely spoken and a relatively low cost of living, it's a popular destination for international professionals.
+
+### Main Visa Types
+
+**Critical Skills Work Visa**
+For professionals on South Africa's Critical Skills List (IT, engineering, healthcare, finance, etc.).
+- Can be applied for without a job offer
+- Validity: 3 years, renewable
+
+**General Work Visa**
+For non-South African nationals with a confirmed job offer.
+- Employer must demonstrate no suitable South African citizen was available
+- Validity: up to 5 years
+
+**Intra-Company Transfer Permit**
+For multinational company employees relocating to a South African subsidiary.
+- Validity: up to 4 years (non-renewable)
+
+**Retired Persons Visa**
+- Minimum monthly income: ZAR 37,000 from pension or investments
+- No employment permitted
+
+### Tax Overview
+
+Progressive rates up to 45% (above ZAR 1,817,000).
+Foreign income exemption: up to ZAR 1,250,000 for residents working abroad 183+ days.
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Critical Skills Visa | ZAR 1,520 |
+| General Work Visa | ZAR 1,520 |
+| Retired Persons Visa | ZAR 425 |
+
+### Key Checklist Before You Move
+
+1. **Police Clearance Certificate**: Required — may need apostille
+2. **SAQA Evaluation**: Foreign qualifications must be evaluated by the South African Qualifications Authority
+3. **Medical & Radiology Reports**: Required for work visa applications
+4. **Housing & Safety**: Choose well-secured areas such as Cape Town's Waterfront
+
+Use MoveWorth to simulate your tax burden and living costs in South Africa.`,
+      zh: `南非是非洲最大的经济体之一，拥有开普敦、约翰内斯堡等世界级城市。英语广泛普及，生活成本相对较低。
+
+### 主要签证类型
+
+**关键技能工作签证**
+适用于南非"关键技能清单"所列职业的专业人士。
+- 无需工作邀约即可申请；有效期：3年，可续签
+
+**一般工作签证**
+- 雇主须证明无合适的南非公民可供录用；有效期：最长5年
+
+**公司内部调任许可**
+- 有效期：最长4年（不可续签）
+
+**退休人员签证**
+- 最低月收入：相当于ZAR 37,000的养老金或投资收入
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 关键技能签证 | ZAR 1,520 |
+| 一般工作签证 | ZAR 1,520 |
+| 退休人员签证 | ZAR 425 |
+
+### 移居前注意事项
+
+1. **无犯罪记录证明**：申请必需，部分情况需附加认证
+2. **SAQA学历评估**：需对外国学历进行认定
+3. **体检及胸透报告**：申请工作签证时须提供
+4. **住房与安全**：建议选择安保完善的区域
+
+使用MoveWorth模拟您在南非的税负和生活成本。`,
+    },
+  },
+  {
+    slug: "visa-fi",
+    category: "visa",
+    date: "2026-03-16",
+    readingTime: 5,
+    title: {
+      ja: "フィンランドのビザ・就労許可完全ガイド2026年版",
+      en: "Finland Visa & Work Permit Complete Guide 2026",
+      zh: "芬兰签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "就労居住許可・スタートアップビザ・EUブルーカードまで、フィンランド移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "Employed Person's Residence Permit, Startup Permit, EU Blue Card and more — a complete guide to living and working in Finland.",
+      zh: "就业居留许可、创业许可、欧盟蓝卡——移居芬兰生活和工作的完整指南。",
+    },
+    content: {
+      ja: `フィンランドは世界最高水準の教育・医療・社会福祉を誇る北欧の国です。近年は国際的なスタートアップ拠点としても成長しており、テクノロジー分野の移住者・起業家を積極的に受け入れています。
+
+### 主なビザの種類
+
+**就労者居住許可（Employed Person's Residence Permit）**
+フィンランド企業から雇用オファーを受けた非EU国籍者向け。
+- 雇用主がTE-toimisto（労働当局）に通知
+- 有効期間：最長2年、更新可能
+
+**スタートアップ許可（Startup-lupa）**
+Business Finlandが成長可能性を認めたスタートアップ創業者向け。
+- Business Finlandによる事業審査が必要
+- 有効期間：2年
+
+**EUブルーカード**
+- 最低給与：€4,195/月（2024年）
+- 有効期間：2年、更新可能
+
+**自営業者居住許可**
+フリーランサー・起業家向け。事業計画・財務計画の提出が必要。
+
+### 税制の概要
+
+- 地方税（自治体税）：約20〜21%
+- 国税（累進）：高所得者は最大約44%
+- 平均的な収入の実効税率：30〜35%程度
+
+充実した社会保障・医療・教育が税負担の対価として提供されます。
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| 就労居住許可 | €490 |
+| EUブルーカード | €490 |
+| スタートアップ許可 | €490 |
+
+### 移住前のチェックポイント
+
+1. **DVVへの登録（個人番号の取得）**：henkilötunnusはあらゆる行政・金融サービスに必須
+2. **フィンランド語・スウェーデン語**：英語も都市部では通じるが、長期定住にはフィンランド語学習を推奨
+3. **冬季の極夜（Kaamos）**：11〜2月は日照時間が極端に短くなる。精神的な準備が必要
+4. **住宅事情**：ヘルシンキ都市圏は家賃が高い。タンペレやトゥルクはやや安め
+
+MoveWorthでフィンランドの生活費・税負担をシミュレーションしてみましょう。`,
+      en: `Finland is a Nordic country known for world-class education, healthcare, and social welfare. In recent years, it has also emerged as a growing startup hub, actively attracting tech professionals and entrepreneurs.
+
+### Main Visa Types
+
+**Employed Person's Residence Permit**
+For non-EU nationals with a job offer from a Finnish employer.
+- Employer first notifies the Employment and Economic Development Office (TE-toimisto)
+- Validity: up to 2 years, renewable
+
+**Startup Permit**
+For startup founders assessed by Business Finland as having growth potential.
+- Validity: 2 years
+
+**EU Blue Card**
+- Minimum salary: €4,195/month (2024)
+- Validity: 2 years, renewable
+
+**Self-Employment Residence Permit**
+For freelancers and entrepreneurs — business and financial plan required.
+
+### Tax Overview
+
+- Municipal tax: approx. 20–21%
+- National tax (progressive): up to ~44% for high earners
+- Effective rate for average earners: ~30–35%
+
+High taxes fund extensive social security, healthcare, and education.
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Employed Person's Permit | €490 |
+| EU Blue Card | €490 |
+| Startup Permit | €490 |
+
+### Key Checklist Before You Move
+
+1. **DVV Registration**: Finland's henkilötunnus is essential for all public and financial services
+2. **Finnish / Swedish**: English works in cities but learning Finnish is recommended for long-term living
+3. **Polar Night (Kaamos)**: Nov–Feb brings extremely limited daylight — mental preparation recommended
+4. **Housing**: Helsinki is expensive; Tampere and Turku are more affordable
+
+Use MoveWorth to simulate your tax burden and living costs in Finland.`,
+      zh: `芬兰是一个以世界一流教育、医疗和社会福利著称的北欧国家，近年也发展成为重要的创业中心。
+
+### 主要签证类型
+
+**就业居留许可**
+- 雇主须先向TE-toimisto通报；有效期：最长2年，可续签
+
+**创业许可**
+- 需通过Business Finland评估；有效期：2年
+
+**欧盟蓝卡**
+- 最低月薪：€4,195（2024年）；有效期：2年，可续签
+
+**自雇居留许可**
+需提交商业计划和财务计划。
+
+### 税收概述
+
+- 地方税：约20〜21%；国税（累进）：最高约44%
+- 普通收入实际税率约30〜35%
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 就业居留许可 | €490 |
+| 欧盟蓝卡 | €490 |
+| 创业许可 | €490 |
+
+### 移居前注意事项
+
+1. **DVV登记**：个人号码（henkilötunnus）是所有行政和金融服务的必要条件
+2. **语言**：长期居住建议学习芬兰语
+3. **极夜**：11月至2月日照极短，需做好心理准备
+4. **住房**：赫尔辛基较贵；坦佩雷和图尔库更实惠
+
+使用MoveWorth模拟您在芬兰的税负和生活成本。`,
+    },
+  },
+  {
+    slug: "visa-at",
+    category: "visa",
+    date: "2026-03-16",
+    readingTime: 5,
+    title: {
+      ja: "オーストリアのビザ・就労許可完全ガイド2026年版",
+      en: "Austria Visa & Work Permit Complete Guide 2026",
+      zh: "奥地利签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "レッド・ホワイト・レッドカード・EUブルーカード・自営業ビザまで、オーストリア移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "Red-White-Red Card, EU Blue Card, Self-Employment Visa and more — a complete guide to living and working in Austria.",
+      zh: "红白红卡、欧盟蓝卡、自雇签证——移居奥地利生活和工作的完整指南。",
+    },
+    content: {
+      ja: `オーストリアはウィーンを首都とするEU加盟の中欧の国です。高い生活水準・充実した文化・中央ヨーロッパの地理的優位性を持ち、スキルを持つ外国人向けのポイント制就労ビザ「レッド・ホワイト・レッドカード」で知られています。
+
+### 主なビザの種類
+
+**レッド・ホワイト・レッドカード（RWR Card）**
+ポイント制で高度技能を評価する就労・居住許可。
+- **非常に高い資格を持つ労働者**：学歴・職歴・語学力等で70点以上
+- **不足職種労働者**：オーストリアの人手不足職種リストに該当する職種
+- **その他のキーパーソン**：最低月収 €2,685以上（2024年）
+- 有効期間：2年、更新可能
+
+**EUブルーカード**
+- 最低月収：約€4,500以上
+- 有効期間：2年、更新可能
+
+**自営業者ビザ（Selbständige）**
+フリーランサー・起業家向けの居住許可。
+
+**ロングステイ居住許可（Niederlassungsbewilligung）**
+就労を伴わない長期居住（投資家・パッシブインカム生活者向け）。
+
+### 税制の概要
+
+| 課税所得 | 税率 |
+|---------|------|
+| 〜€11,693 | 0% |
+| 〜€31,000 | 最高35% |
+| 〜€90,000 | 最高48% |
+| €1,000,000以上 | 55% |
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| RWRカード申請費 | €160 |
+| EUブルーカード申請費 | €160 |
+| 居住許可申請費 | €160 |
+
+### 移住前のチェックポイント
+
+1. **住所登録（Meldezettel）**：到着後3日以内に地区役所に登録する義務あり
+2. **税務番号（Steuernummer）**：就労・事業開始時にFinanzamtで取得
+3. **社会保険登録（ÖGK）**：オーストリア健康保険への加入が必要
+4. **ドイツ語**：B2以上が永住権取得要件のひとつ
+
+MoveWorthでオーストリアの生活費・税負担をシミュレーションしてみましょう。`,
+      en: `Austria is a Central European EU member state with Vienna as its capital. Known for its high standard of living, rich cultural heritage, and the points-based Red-White-Red Card for skilled workers.
+
+### Main Visa Types
+
+**Red-White-Red Card (RWR Card)**
+Points-based work and residence permit:
+- **Very Highly Qualified Workers**: 70+ points on education, work experience, language skills
+- **Shortage Occupation Workers**: For professions on Austria's shortage list
+- **Other Key Workers**: Minimum €2,685/month gross (2024)
+- Validity: 2 years, renewable
+
+**EU Blue Card**
+- Minimum salary: ~€4,500+/month
+- Validity: 2 years, renewable
+
+**Self-Employment Permit (Selbständige)**
+For freelancers and entrepreneurs.
+
+**Long-Stay Permit (Niederlassungsbewilligung)**
+For non-working residents (investors, passive income earners).
+
+### Tax Overview
+
+| Taxable Income | Rate |
+|----------------|------|
+| Up to €11,693 | 0% |
+| Up to €31,000 | up to 35% |
+| Up to €90,000 | up to 48% |
+| Above €1,000,000 | 55% |
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| RWR Card | €160 |
+| EU Blue Card | €160 |
+| Residence permit | €160 |
+
+### Key Checklist Before You Move
+
+1. **Address Registration (Meldezettel)**: Must register within 3 days of arrival
+2. **Tax Number (Steuernummer)**: Obtain from the Finanzamt before starting work
+3. **Social Insurance (ÖGK)**: Registration with Austria's health insurance is mandatory
+4. **German Language**: B2 level required for permanent residency
+
+Use MoveWorth to simulate your tax burden and living costs in Austria.`,
+      zh: `奥地利是一个以维也纳为首都的中欧欧盟成员国，以高生活水准和积分制"红白红卡"体系著称。
+
+### 主要签证类型
+
+**红白红卡（RWR Card）**
+基于积分制：
+- 高素质技术人才：需达70分以上
+- 紧缺职业工人：适用于紧缺职业清单所列职业
+- 其他关键人才：最低月薪€2,685以上（2024年）
+- 有效期：2年，可续签
+
+**欧盟蓝卡**
+- 最低月薪：约€4,500以上；有效期：2年，可续签
+
+**自雇居留许可（Selbständige）**
+适用于自由职业者和企业家。
+
+### 税收概述
+
+| 应税收入 | 税率 |
+|---------|------|
+| 不超过€11,693 | 0% |
+| 不超过€31,000 | 最高35% |
+| 不超过€90,000 | 最高48% |
+| €1,000,000以上 | 55% |
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 红白红卡 | €160 |
+| 欧盟蓝卡 | €160 |
+| 居留许可 | €160 |
+
+### 移居前注意事项
+
+1. **地址登记（Meldezettel）**：抵达后3天内须在区政府登记
+2. **税务号码（Steuernummer）**：开始工作前向Finanzamt申请
+3. **社会保险（ÖGK）**：须加入奥地利健康保险体系
+4. **德语**：获得永久居留权需要德语B2水平
+
+使用MoveWorth模拟您在奥地利的税负和生活成本。`,
+    },
+  },
+  {
+    slug: "visa-cz",
+    category: "visa",
+    date: "2026-03-16",
+    readingTime: 5,
+    title: {
+      ja: "チェコのビザ・就労許可完全ガイド2026年版",
+      en: "Czech Republic Visa & Work Permit Complete Guide 2026",
+      zh: "捷克签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "従業員カード・EUブルーカード・商業許可証（フリーランス）まで、チェコ移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "Employee Card, EU Blue Card, Trade License for freelancers and more — a complete guide to living and working in the Czech Republic.",
+      zh: "员工卡、欧盟蓝卡、营业执照（自由职业）——移居捷克生活和工作的完整指南。",
+    },
+    content: {
+      ja: `チェコはプラハを首都とするEU加盟の中欧の国です。西欧と比べて物価が安く、フラット税率の所得税制度、発展するIT産業など、移住先として注目が高まっています。
+
+### 主なビザの種類
+
+**従業員カード（Zaměstnanecká karta）**
+就労と居住を一体化した許可証。非EU国籍の外国人がチェコ企業で働く最も一般的なルート。
+- 雇用主のスポンサーが必要
+- 有効期間：最長2年、更新可能
+
+**EUブルーカード**
+- 最低月収：平均賃金の1.5倍（約CZK 57,000/月、2024年）
+- 有効期間：2年、更新可能
+
+**商業許可証（Živnostenský list）＋長期ビザ**
+フリーランサー・自営業者向け。
+- 商業局で商業許可証を取得
+- IT・クリエイティブ系の個人事業主に人気
+- 収入の最大60%を必要経費として計上できる特例あり
+
+**長期居住許可（Trvalý pobyt）**
+5年間の継続的な合法居住後に申請可能。
+
+### 税制の概要
+
+- 年収CZK 1,582,812以下：**15%のフラット税率**
+- 年収CZK 1,582,812超：**23%**
+- 被雇用者の社会・健康保険負担：11%
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| 従業員カード | CZK 5,000 |
+| EUブルーカード | CZK 5,000 |
+| 商業許可証 | CZK 1,000 |
+
+### 移住前のチェックポイント
+
+1. **在留外国人警察への登録**：入国後3日以内に登録義務あり
+2. **健康保険の加入**：チェコの公的健康保険（VZP等）への加入が必要
+3. **プラハ vs 地方都市**：ブルノ・オストラバは家賃・生活費が大幅に安い
+4. **チェコ語**：官庁手続きはチェコ語が中心
+
+MoveWorthでチェコの生活費・税負担をシミュレーションしてみましょう。`,
+      en: `The Czech Republic is a Central European EU member state with Prague as its capital. With lower living costs than Western Europe, a flat income tax rate, and a growing IT industry, it's gaining popularity among international professionals and freelancers.
+
+### Main Visa Types
+
+**Employee Card (Zaměstnanecká karta)**
+The most common route for non-EU nationals working for a Czech employer.
+- Employer sponsorship required
+- Validity: up to 2 years, renewable
+
+**EU Blue Card**
+- Minimum salary: ~CZK 57,000/month (2024)
+- Validity: 2 years, renewable
+
+**Trade License (Živnostenský list) + Long-Term Visa**
+Popular for IT and creative freelancers.
+- Flat-rate expense deduction: up to 60% of revenue for service businesses
+
+**Permanent Residency (Trvalý pobyt)**
+Available after 5 years of continuous legal residence.
+
+### Tax Overview
+
+- Up to CZK 1,582,812/year: **flat 15% rate**
+- Above: **23%**
+- Employee social & health insurance: 11%
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Employee Card | CZK 5,000 |
+| EU Blue Card | CZK 5,000 |
+| Trade License | CZK 1,000 |
+
+### Key Checklist Before You Move
+
+1. **Foreign Police Registration**: Must register within 3 days of arrival
+2. **Health Insurance**: Must enroll in Czech public health insurance
+3. **Prague vs. Regional Cities**: Brno and Ostrava offer significantly lower costs
+4. **Czech Language**: Government processes are primarily in Czech
+
+Use MoveWorth to simulate your tax burden and living costs in the Czech Republic.`,
+      zh: `捷克是一个以布拉格为首都的中欧欧盟成员国，生活成本低、税率单一、IT产业蓬勃发展。
+
+### 主要签证类型
+
+**员工卡（Zaměstnanecká karta）**
+适用于在捷克企业工作的非欧盟国籍人士。
+- 需要雇主担保；有效期：最长2年，可续签
+
+**欧盟蓝卡**
+- 最低月薪：约CZK 57,000（2024年）；有效期：2年，可续签
+
+**营业执照（Živnostenský list）+ 长期签证**
+适用于IT和创意领域自由职业者。
+- 服务类业务可享最高60%的收入定额扣除
+
+**永久居留（Trvalý pobyt）**
+连续合法居住5年后可申请。
+
+### 税收概述
+
+- 年收入不超过CZK 1,582,812：**15%单一税率**；超过：**23%**
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 员工卡 | CZK 5,000 |
+| 欧盟蓝卡 | CZK 5,000 |
+| 营业执照 | CZK 1,000 |
+
+### 移居前注意事项
+
+1. **外国人警察登记**：入境后3天内须登记
+2. **健康保险**：须加入捷克公共健康保险
+3. **城市选择**：布尔诺和俄斯特拉发生活成本明显低于布拉格
+4. **捷克语**：政府办事主要使用捷克语
+
+使用MoveWorth模拟您在捷克的税负和生活成本。`,
+    },
+  },
+  {
+    slug: "visa-cn",
+    category: "visa",
+    date: "2026-03-16",
+    readingTime: 5,
+    title: {
+      ja: "中国のビザ・就労許可完全ガイド2026年版",
+      en: "China Visa & Work Permit Complete Guide 2026",
+      zh: "中国签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "Zビザ・Rビザ（ハイレベル人材）・外国人就労許可証まで、中国就労に必要なビザの種類・要件・費用を徹底解説。",
+      en: "Z Visa, R Visa for high-level talent, Foreigner's Work Permit and more — a complete guide to living and working in China.",
+      zh: "Z签证、R签证（高端人才）、外国人工作许可证——在中国生活和工作的完整指南。",
+    },
+    content: {
+      ja: `中国は世界第2位の経済規模を持ち、上海・北京・深圳・広州などのビジネス都市は多くの外国人専門家・日系企業駐在員を受け入れています。
+
+### 主なビザの種類
+
+**Zビザ（就労ビザ）**
+中国企業または外資系企業で就労する外国人向けの最も一般的な就労ビザ。
+- 中国企業からの招聘状が必要
+- 入国後、就労居留許可に切り替え
+- 有効期間：通常1〜2年、更新可能
+
+**Rビザ（高レベル人材ビザ）**
+政府が認定する「外国ハイレベル人材」向けの優遇ビザ。
+- 有効期間：5年または10年のマルチエントリー
+- 対象：著名な研究者・科学者・経営者など
+
+**Mビザ（商用ビザ）**
+商業・貿易活動を目的とした短期ビザ。就労には使用不可。
+
+**外国人就労許可証（FWPRC）**
+ZビザやRビザに加えて取得が必要。
+- カテゴリA（外国ハイレベル人材）：優遇措置・簡易審査
+- カテゴリB（専門職）：通常の審査プロセス
+
+### 税制の概要
+
+居住者（183日以上）は全世界所得に対して3〜45%の累進課税。
+
+| 年課税所得 | 税率 |
+|----------|------|
+| 〜CNY 36,000 | 3% |
+| CNY 36,001〜144,000 | 10% |
+| CNY 300,001〜420,000 | 25% |
+| CNY 960,001以上 | 45% |
+
+「6年ルール」：6年未満の居住者は国外源泉所得に一定の免税が適用される場合あり。
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| Zビザ申請費 | 約CNY 800〜1,200 |
+| 居留許可証発行費 | 約CNY 400 |
+| 外国人就労許可証 | 約CNY 400〜800 |
+
+### 移住前のチェックポイント
+
+1. **健康診断**：居留許可申請時に指定医療機関での健康診断が必要
+2. **書類の公証・認証**：学歴証明等にアポスティーユまたは公証が必要
+3. **公安局への外国人登録**：入国後24時間以内（ホテル滞在はホテルが代行）
+4. **インターネット環境**：Google・YouTube等は国内からアクセス制限あり
+
+MoveWorthで中国の生活費・税負担をシミュレーションしてみましょう。`,
+      en: `China is the world's second-largest economy, with business cities like Shanghai, Beijing, Shenzhen, and Guangzhou hosting large numbers of foreign professionals and expatriates.
+
+### Main Visa Types
+
+**Z Visa (Work Visa)**
+The standard work visa for foreigners employed by Chinese or foreign-invested companies.
+- Requires an Invitation Letter from a Chinese employer
+- Must be converted to a Residence Permit for Work after arrival
+- Validity: typically 1–2 years, renewable
+
+**R Visa (High-Level Talent Visa)**
+For foreigners recognized as high-level talent by the Chinese government.
+- Validity: 5- or 10-year multi-entry
+- For prominent researchers, scientists, and executives
+
+**M Visa (Business Visa)**
+For short-term commercial activities. Cannot be used for employment.
+
+**Foreigner's Work Permit (FWPRC)**
+Required in addition to the Z or R Visa.
+- Category A (High-Level Talent): preferential treatment
+- Category B (Professional): standard process
+
+### Tax Overview
+
+Residents (183+ days/year) are taxed on worldwide income at 3–45%.
+
+| Annual Taxable Income (CNY) | Rate |
+|-----------------------------|------|
+| Up to 36,000 | 3% |
+| 36,001–144,000 | 10% |
+| 300,001–420,000 | 25% |
+| Above 960,000 | 45% |
+
+**6-Year Rule**: Residents with fewer than 6 consecutive years may have foreign income exempted under certain conditions.
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Z Visa fee | ~CNY 800–1,200 |
+| Residence Permit | ~CNY 400 |
+| Foreigner's Work Permit | ~CNY 400–800 |
+
+### Key Checklist Before You Move
+
+1. **Medical Examination**: Required at a designated institution for the residence permit
+2. **Document Authentication**: Degree certificates require apostille or notarization
+3. **PSB Registration**: Must register within 24 hours (hotels handle for guests)
+4. **Internet Access**: Google, YouTube, and major social platforms are blocked in mainland China
+
+Use MoveWorth to simulate your tax burden and living costs in China.`,
+      zh: `中国是全球第二大经济体，上海、北京、深圳、广州等商业城市吸引了大量外籍专业人士。
+
+### 主要签证类型
+
+**Z签证（工作签证）**
+- 需要中国雇主出具邀请函
+- 入境后须转换为工作类居留许可；有效期：1〜2年，可续签
+
+**R签证（高端人才签证）**
+- 有效期：5年或10年多次入境；面向知名研究人员、科学家、高管等
+
+**外国人工作许可证（FWPRC）**
+- A类（高端人才）：享受优惠待遇；B类（专业人员）：标准流程
+
+### 税收概述
+
+居民（183天以上）就全球收入按3〜45%累进征税。
+
+| 年应税收入（CNY） | 税率 |
+|----------------|------|
+| 不超过36,000 | 3% |
+| 36,001〜144,000 | 10% |
+| 300,001〜420,000 | 25% |
+| 960,000以上 | 45% |
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| Z签证费 | 约CNY 800〜1,200 |
+| 居留许可证 | 约CNY 400 |
+| 外国人工作许可证 | 约CNY 400〜800 |
+
+### 移居前注意事项
+
+1. **体格检查**：申请居留许可需在指定医疗机构进行体检
+2. **文件公证认证**：学历证明需经公证或认证
+3. **公安局登记**：入境后24小时内须登记
+4. **网络环境**：中国大陆屏蔽谷歌、YouTube及主要社交媒体
+
+使用MoveWorth模拟您在中国的税负和生活成本。`,
+    },
+  },
+  {
+    slug: "visa-in",
+    category: "visa",
+    date: "2026-03-16",
+    readingTime: 5,
+    title: {
+      ja: "インドのビザ・就労許可完全ガイド2026年版",
+      en: "India Visa & Work Permit Complete Guide 2026",
+      zh: "印度签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "就労ビザ・ビジネスビザ・OCIカードまで、インド就労・移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "Employment Visa, Business Visa, OCI Card and more — a complete guide to living and working in India.",
+      zh: "就业签证、商务签证、OCI卡——在印度生活和工作的完整指南。",
+    },
+    content: {
+      ja: `インドは世界最大の人口を持ち、急速な経済成長とIT産業の拡大により、ムンバイ・バンガロール・デリーなどの都市に多くの外国人専門家が集まっています。
+
+### 主なビザの種類
+
+**就労ビザ（Employment Visa）**
+インドの雇用主から雇用オファーを受けた外国人向け。
+- 最低年収：USD 25,000以上（一部職種は免除）
+- 有効期間：最初は1年間（最長5年まで更新可能）
+
+**ビジネスビザ（Business Visa）**
+商用目的のための短期ビザ。直接の就労・報酬受取は不可。
+- 有効期間：最長5年（マルチエントリー）
+
+**企業内転勤（Intra-Company Transfer）**
+多国籍企業の従業員をインド拠点に派遣する場合。
+
+**OCIカード（Overseas Citizen of India）**
+インド系外国人向けの準永住権的な制度。
+- 生涯有効なインドへの複数入国ビザ
+- 就労・就学・不動産取得がほぼインド市民と同様の条件で可能
+
+### 税制の概要
+
+**個人所得税（新税制・2024-25年度）**
+
+| 課税所得（INR） | 税率 |
+|--------------|------|
+| 〜300,000 | 0% |
+| 300,001〜600,000 | 5% |
+| 600,001〜900,000 | 10% |
+| 900,001〜1,200,000 | 15% |
+| 1,200,001〜1,500,000 | 20% |
+| 1,500,001以上 | 30% |
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| 就労ビザ | 約USD 80〜160 |
+| ビジネスビザ | 約USD 80〜160 |
+| OCIカード | 約USD 275 |
+
+### 移住前のチェックポイント
+
+1. **FRRO登録**：就労ビザ取得者はインド到着後14日以内に登録が義務付け
+2. **PANカード**：インドの税務識別番号。就労・銀行取引に必須
+3. **AADHARカード**：インドの国民識別番号（居住外国人も取得可能なケースあり）
+4. **医療保険**：インドの公的医療保険は外国人には適用されないため民間保険への加入を推奨
+
+MoveWorthでインドの生活費・税負担をシミュレーションしてみましょう。`,
+      en: `India is the world's most populous country, with a rapidly growing economy and expanding IT sector drawing international professionals to cities like Mumbai, Bangalore, and Delhi.
+
+### Main Visa Types
+
+**Employment Visa**
+For foreign nationals with a confirmed job offer from an Indian employer.
+- Minimum annual salary: USD 25,000+ (some sectors exempt)
+- Validity: 1 year initially, renewable up to 5 years
+
+**Business Visa**
+For short-term commercial activities — direct employment not permitted.
+- Validity: up to 5 years (multi-entry)
+
+**Intra-Company Transfer**
+For multinational company employees relocating to an Indian office.
+
+**OCI Card (Overseas Citizen of India)**
+For people of Indian origin.
+- Lifelong multiple-entry visa to India
+- Near-equal rights to Indian citizens for work, study, and property
+
+### Tax Overview
+
+| Taxable Income (INR) | Rate |
+|----------------------|------|
+| Up to 300,000 | 0% |
+| 300,001–600,000 | 5% |
+| 600,001–900,000 | 10% |
+| 900,001–1,200,000 | 15% |
+| 1,200,001–1,500,000 | 20% |
+| Above 1,500,000 | 30% |
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Employment Visa | ~USD 80–160 |
+| Business Visa | ~USD 80–160 |
+| OCI Card | ~USD 275 |
+
+### Key Checklist Before You Move
+
+1. **FRRO Registration**: Must register within 14 days of arrival
+2. **PAN Card**: India's tax ID — essential for employment and banking
+3. **AADHAAR Card**: India's national ID (available to resident foreigners in some cases)
+4. **Health Insurance**: Indian public healthcare is not available to foreign nationals
+
+Use MoveWorth to simulate your tax burden and living costs in India.`,
+      zh: `印度是世界人口最多的国家，经济快速增长，IT产业持续扩张，吸引了大量国际专业人士。
+
+### 主要签证类型
+
+**就业签证**
+- 最低年薪：USD 25,000以上（部分行业可豁免）
+- 有效期：最初1年，最长可续签至5年
+
+**商务签证**
+适用于短期商业活动，不允许直接就业。
+- 有效期：最长5年（多次入境）
+
+**公司内部调任**
+适用于跨国公司员工调往印度办事处。
+
+**OCI卡（印度海外公民卡）**
+- 终身有效的印度多次入境签证
+- 工作、学习、购置房产权利近乎与印度公民相同
+
+### 税收概述
+
+| 应税收入（卢比） | 税率 |
+|----------------|------|
+| 不超过300,000 | 0% |
+| 300,001〜600,000 | 5% |
+| 600,001〜900,000 | 10% |
+| 1,500,001以上 | 30% |
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 就业签证 | 约USD 80〜160 |
+| 商务签证 | 约USD 80〜160 |
+| OCI卡 | 约USD 275 |
+
+### 移居前注意事项
+
+1. **FRRO登记**：持就业签证者须在抵达后14天内登记
+2. **PAN卡**：就业、银行业务必需的税务识别号
+3. **AADHAAR卡**：部分情况下外籍居民也可申请
+4. **医疗保险**：印度公共医疗不对外籍人士开放，强烈建议购买私人保险
+
+使用MoveWorth模拟您在印度的税负和生活成本。`,
+    },
+  },
+  {
+    slug: "visa-mx",
+    category: "visa",
+    date: "2026-03-16",
+    readingTime: 5,
+    title: {
+      ja: "メキシコのビザ・就労許可完全ガイド2026年版",
+      en: "Mexico Visa & Work Permit Complete Guide 2026",
+      zh: "墨西哥签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "一時居住者ビザ・就労許可・レンティスタビザまで、メキシコ移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "Temporary Resident Visa, work authorization, Rentista Visa and more — a complete guide to living and working in Mexico.",
+      zh: "临时居民签证、工作授权、被动收入居民签证——移居墨西哥生活和工作的完整指南。",
+    },
+    content: {
+      ja: `メキシコは北米最大のスペイン語圏の国で、温暖な気候・豊かな文化・比較的安い物価から、デジタルノマドや海外移住者に人気が急上昇しています。
+
+### 主なビザの種類
+
+**一時居住者ビザ（Residente Temporal）**
+最も一般的な中・長期滞在のためのビザ。
+
+*経済的十分性ルート*
+- 銀行残高：過去12ヶ月平均で月MXN 43,000相当以上（約USD 2,500）
+- または月収：MXN 43,000相当以上
+- 有効期間：1〜4年、更新可能
+
+*就労ルート（雇用スポンサー付き）*
+- メキシコ企業からの雇用オファーが必要
+- 就労許可が自動的に付与される
+
+**永住者ビザ（Residente Permanente）**
+4年間の一時居住者ビザ後、またはメキシコ市民との婚姻・退職者要件で取得可能。
+
+**レンティスタビザ（Rentista）**
+年金・投資収入等のパッシブインカムを持つ人向け。月MXN 43,000相当以上の証明が必要。
+
+### 税制の概要
+
+**非居住者**：メキシコ源泉所得のみ課税（15〜30%）。リモートワーカーが外国源泉所得のみの場合、非居住者扱いのケースが多い。
+
+**居住者（183日以上）**：全世界所得に対して1.92〜35%の累進課税。
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| 一時居住者ビザ申請費 | 約MXN 5,000〜6,000 |
+| 居住者カード（CANJE）切替費 | 約MXN 3,500 |
+| 永住者ビザ申請費 | 約MXN 5,000 |
+
+### 移住前のチェックポイント
+
+1. **RFC（連邦納税者登録）**：就労・銀行取引・契約に必要なメキシコの税務番号
+2. **CURP（国民登録コード）**：メキシコの国民識別番号
+3. **CANJE（在留カード切替）**：入国後30日以内にINMで手続きを行う
+4. **人気都市**：メキシコシティ・グアダラハラ・オアハカ・プラヤデルカルメン
+
+MoveWorthでメキシコの生活費・税負担をシミュレーションしてみましょう。`,
+      en: `Mexico is the largest Spanish-speaking country in North America, and its warm climate, rich culture, and relatively affordable cost of living have made it a rapidly rising destination for digital nomads and expats.
+
+### Main Visa Types
+
+**Temporary Resident Visa (Residente Temporal)**
+The most common route for medium- to long-term stays.
+
+*Economic Solvency Route*
+- Bank balance: monthly average of MXN 43,000+ (~USD 2,500) over 12 months
+- Or monthly income: MXN 43,000+
+- Validity: 1–4 years, renewable
+
+*Employment Route*
+- Requires a job offer from a Mexican employer
+- Work authorization is automatically included
+
+**Permanent Resident Visa (Residente Permanente)**
+After 4 years as Temporary Resident, or via marriage to a Mexican national, or retirement.
+
+**Rentista Visa**
+For those with passive income (pensions, investments) of MXN 43,000+/month.
+
+### Tax Overview
+
+**Non-Residents**: Taxed only on Mexico-sourced income (15–30%). Many remote workers with foreign income are treated as non-residents.
+
+**Residents (183+ days)**: Worldwide income taxed at progressive rates of 1.92–35%.
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Temporary Resident Visa | ~MXN 5,000–6,000 |
+| Resident Card (CANJE) | ~MXN 3,500 |
+| Permanent Resident Visa | ~MXN 5,000 |
+
+### Key Checklist Before You Move
+
+1. **RFC**: Mexico's tax ID — required for employment and banking
+2. **CURP**: Mexico's national ID number for government services
+3. **CANJE**: Convert your visa to a resident card at INM within 30 days of arrival
+4. **Popular Cities**: Mexico City, Guadalajara, Oaxaca, Playa del Carmen
+
+Use MoveWorth to simulate your tax burden and living costs in Mexico.`,
+      zh: `墨西哥是北美最大的西班牙语国家，温暖的气候、丰富的文化和低廉的生活成本，使其迅速成为数字游民和外籍居民的热门目的地。
+
+### 主要签证类型
+
+**临时居民签证（Residente Temporal）**
+
+*经济偿付能力路径*
+- 银行存款月均余额：MXN 43,000以上（约USD 2,500）
+- 有效期：1〜4年，可续签
+
+*就业路径*
+- 需要墨西哥雇主工作邀约，自动获得工作授权
+
+**永久居民签证（Residente Permanente）**
+持临时居民签证满4年后，或通过结婚、退休条件获得。
+
+**被动收入居民签证（Rentista）**
+需证明每月被动收入不低于MXN 43,000。
+
+### 税收概述
+
+**非居民**：仅就墨西哥来源收入征税（15〜30%）。
+**居民（183天以上）**：全球收入按1.92〜35%累进征税。
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 临时居民签证 | 约MXN 5,000〜6,000 |
+| 居民卡转换（CANJE） | 约MXN 3,500 |
+| 永久居民签证 | 约MXN 5,000 |
+
+### 移居前注意事项
+
+1. **RFC**：就业、银行业务必需的税务号码
+2. **CURP**：墨西哥国民身份码
+3. **CANJE**：抵达后30天内须办理居民卡转换手续
+4. **热门城市**：墨西哥城、瓜达拉哈拉、瓦哈卡、普拉亚德尔卡门
+
+使用MoveWorth模拟您在墨西哥的税负和生活成本。`,
+    },
+  },
+  {
+    slug: "visa-ar",
+    category: "visa",
+    date: "2026-03-16",
+    readingTime: 5,
+    title: {
+      ja: "アルゼンチンのビザ・就労許可完全ガイド2026年版",
+      en: "Argentina Visa & Work Permit Complete Guide 2026",
+      zh: "阿根廷签证与就业许可完全指南2026年版",
+    },
+    description: {
+      ja: "一時居住者ビザ・レンティスタビザ・モノトリブート税制まで、アルゼンチン移住に必要なビザの種類・要件・費用を徹底解説。",
+      en: "Temporary Residency, Rentista Visa, Monotributo tax regime and more — a complete guide to living and working in Argentina.",
+      zh: "临时居留、被动收入居留签证、简易税制——移居阿根廷生活和工作的完整指南。",
+    },
+    content: {
+      ja: `アルゼンチンはラテンアメリカ最南端に位置する広大な国で、ブエノスアイレスをはじめとするヨーロッパ的な文化と景観を持つ都市、豊かな自然、比較的手頃な生活費が魅力です。デジタルノマドコミュニティも急成長しています。
+
+### 主なビザの種類
+
+**一時居住者（Residencia Temporaria）**
+
+*レンティスタ（Rentista）*
+- 年金・投資収入等のパッシブインカムが月USD 1,000以上
+- 有効期間：1〜2年、更新可能
+
+*就労（Trabajo）*
+- アルゼンチン企業からの雇用オファーが必要
+- 有効期間：1〜3年
+
+*退職者（Jubilado/Pensionado）*
+- 年金受給者向け。月額一定の年金収入の証明が必要
+
+**永住者（Residencia Permanente）**
+一時居住者ビザを2年間維持した後に申請可能。
+
+**MERCOSUR市民の優遇**
+ブラジル・チリ・コロンビア等の市民はMERCOSUR協定により2年間の一時居住者資格を自動取得可能。
+
+### 税制の概要
+
+**非居住者**：アルゼンチン国内源泉所得のみ課税（12.5〜35%）。
+
+**居住者**：全世界所得に対して5〜35%の累進課税。
+
+**モノトリブート（Monotributo）**：フリーランサー向けの簡易納税制度。月額の固定金額で所得税・社会保険・健康保険をまとめて納付できる。
+
+**注意**：アルゼンチンはインフレが激しく、金額・費用は変動します。常に最新情報を確認してください。
+
+### 費用の目安
+
+| 項目 | 費用 |
+|------|------|
+| 一時居住者申請費 | 約ARS 20,000（変動あり） |
+| DNI（国民識別番号）発行費 | 約ARS 2,000 |
+| 永住者申請費 | 約ARS 25,000 |
+
+### 移住前のチェックポイント
+
+1. **CUIL/CUIT（税務番号）**：就労・銀行口座開設・契約に必須
+2. **DNI（国民識別番号）**：居住者資格取得後に発行。生活のあらゆる場面で必要
+3. **インフレ・通貨事情**：慢性的な高インフレ。外貨（USD等）での資産管理を推奨
+4. **人気都市**：ブエノスアイレス（CABA）・メンドーサ・バリローチェ
+
+MoveWorthでアルゼンチンの生活費・税負担をシミュレーションしてみましょう。`,
+      en: `Argentina is a vast country at the southern tip of Latin America, known for its European-influenced cities like Buenos Aires, stunning natural landscapes, and an affordable cost of living. Its growing digital nomad community makes it one of South America's most appealing destinations.
+
+### Main Visa Types
+
+**Temporary Residency (Residencia Temporaria)**
+
+*Rentista*
+- Monthly passive income of USD 1,000+ from pensions, investments, or rental income
+- Validity: 1–2 years, renewable
+
+*Work (Trabajo)*
+- Requires a job offer from an Argentine employer
+- Validity: 1–3 years
+
+*Retired Person (Jubilado/Pensionado)*
+- For pension recipients — proof of minimum monthly pension required
+
+**Permanent Residency (Residencia Permanente)**
+After 2 years of maintained temporary residency.
+
+**MERCOSUR Citizens**
+Citizens of Brazil, Chile, Colombia, and other MERCOSUR countries can obtain 2-year temporary residency automatically.
+
+### Tax Overview
+
+**Non-Residents**: Taxed only on Argentina-sourced income (12.5–35%).
+
+**Residents**: Worldwide income subject to progressive rates of 5–35%.
+
+**Monotributo**: A flat monthly payment for freelancers covering income tax, social insurance, and health insurance.
+
+*Note: Argentina has high inflation — all figures are subject to change. Always verify current amounts.*
+
+### Cost Overview
+
+| Item | Cost |
+|------|------|
+| Temporary Residency | ~ARS 20,000 (subject to change) |
+| DNI issuance | ~ARS 2,000 |
+| Permanent Residency | ~ARS 25,000 |
+
+### Key Checklist Before You Move
+
+1. **CUIL/CUIT (Tax ID)**: Required for employment, banking, and contracts
+2. **DNI**: Issued after obtaining resident status — needed in almost all daily situations
+3. **Inflation & Currency**: Chronic high inflation — managing assets in USD is strongly recommended
+4. **Popular Cities**: Buenos Aires (CABA), Mendoza, and Bariloche
+
+Use MoveWorth to simulate your tax burden and living costs in Argentina.`,
+      zh: `阿根廷是拉丁美洲最南端的广阔国家，以布宜诺斯艾利斯等欧式城市、壮丽自然景观和低廉生活成本著称，数字游民社区快速成长。
+
+### 主要签证类型
+
+**临时居留（Residencia Temporaria）**
+
+*被动收入居留（Rentista）*
+- 月被动收入USD 1,000以上；有效期：1〜2年，可续签
+
+*就业居留（Trabajo）*
+- 需要阿根廷雇主工作邀约；有效期：1〜3年
+
+*退休人员（Jubilado/Pensionado）*
+- 需提供最低月养老金收入证明
+
+**永久居留（Residencia Permanente）**
+维持临时居留满2年后可申请。
+
+**MERCOSUR国家公民优惠**
+巴西、智利、哥伦比亚等成员国公民可自动获得2年临时居留资格。
+
+### 税收概述
+
+**非居民**：仅就阿根廷来源收入征税（12.5〜35%）。
+**居民**：全球收入按5〜35%累进征税。
+**Monotributo**：适用于自由职业者的月固定缴费制度，涵盖所得税、社保和医保。
+
+*注意：阿根廷通胀率高，所有金额均可能变动，申请时务必核实最新数据。*
+
+### 费用参考
+
+| 项目 | 费用 |
+|------|------|
+| 临时居留申请费 | 约ARS 20,000（可能变动） |
+| DNI发放费 | 约ARS 2,000 |
+| 永久居留申请费 | 约ARS 25,000 |
+
+### 移居前注意事项
+
+1. **CUIL/CUIT（税务号码）**：就业、银行业务和合同签署必需
+2. **DNI（国民身份证）**：取得居民身份后发放，日常生活必需
+3. **通胀与货币**：长期高通胀，强烈建议以美元管理资产
+4. **热门城市**：布宜诺斯艾利斯（CABA）、门多萨、巴里洛切
+
+使用MoveWorth模拟您在阿根廷的税负和生活成本。`,
+    },
+  },
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
