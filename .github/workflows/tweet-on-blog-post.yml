@@ -17,92 +17,57 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Detect new blog post
-        id: detect
-        run: |
-          # 変更されたファイルを確認
-          CHANGED=$(git diff HEAD~1 HEAD --name-only)
-          echo "Changed files: $CHANGED"
-
-          TWEET_TEXT=""
-          SITE_URL=""
-
-          if echo "$CHANGED" | grep -q "blog-posts.ts"; then
-            # 新しく追加されたslugを検出（+で始まる行からslugを抽出）
-            NEW_SLUG=$(git diff HEAD~1 HEAD -- src/data/blog-posts.ts \
-              | grep '^\+.*slug:' \
-              | grep -v '^\+\+\+' \
-              | head -1 \
-              | sed 's/.*slug: "\(.*\)".*/\1/')
-
-            NEW_TITLE=$(git diff HEAD~1 HEAD -- src/data/blog-posts.ts \
-              | grep '^\+.*ja:' \
-              | grep -v '^\+\+\+' \
-              | head -1 \
-              | sed 's/.*ja: "\(.*\)".*/\1/')
-
-            if [ -n "$NEW_SLUG" ] && [ -n "$NEW_TITLE" ]; then
-              TWEET_TEXT="新しい記事を公開しました📝
-
-${NEW_TITLE}
-
-https://www.moveworthapp.com/blog/${NEW_SLUG}
-
-#海外移住 #海外生活 #移住計画"
-            fi
-          fi
-
-          if echo "$CHANGED" | grep -q "study-blog-posts.ts"; then
-            NEW_SLUG=$(git diff HEAD~1 HEAD -- src/data/study-blog-posts.ts \
-              | grep '^\+.*slug:' \
-              | grep -v '^\+\+\+' \
-              | head -1 \
-              | sed 's/.*slug: "\(.*\)".*/\1/')
-
-            NEW_TITLE=$(git diff HEAD~1 HEAD -- src/data/study-blog-posts.ts \
-              | grep '^\+.*ja:' \
-              | grep -v '^\+\+\+' \
-              | head -1 \
-              | sed 's/.*ja: "\(.*\)".*/\1/')
-
-            if [ -n "$NEW_SLUG" ] && [ -n "$NEW_TITLE" ]; then
-              TWEET_TEXT="留学ブログに新記事を公開しました📝
-
-${NEW_TITLE}
-
-https://study.moveworthapp.com/blog/${NEW_SLUG}
-
-#海外留学 #ワーホリ #留学準備"
-            fi
-          fi
-
-          if [ -n "$TWEET_TEXT" ]; then
-            echo "should_tweet=true" >> $GITHUB_OUTPUT
-            # 改行をエスケープして保存
-            echo "tweet_text<<EOF" >> $GITHUB_OUTPUT
-            echo "$TWEET_TEXT" >> $GITHUB_OUTPUT
-            echo "EOF" >> $GITHUB_OUTPUT
-          else
-            echo "should_tweet=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Post to X
-        if: steps.detect.outputs.should_tweet == 'true'
         env:
           X_API_KEY: ${{ secrets.X_API_KEY }}
           X_API_SECRET: ${{ secrets.X_API_SECRET }}
           X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
-          TWEET_TEXT: ${{ steps.detect.outputs.tweet_text }}
         run: |
           pip install requests requests-oauthlib
 
           python3 << 'PYTHON'
           import os
+          import subprocess
+          import re
           from requests_oauthlib import OAuth1Session
 
-          tweet_text = os.environ["TWEET_TEXT"]
-          print(f"Tweeting: {tweet_text}")
+          changed = subprocess.check_output(
+              ["git", "diff", "HEAD~1", "HEAD", "--name-only"],
+              text=True
+          )
+
+          tweet_text = None
+
+          if "blog-posts.ts" in changed:
+              diff = subprocess.check_output(
+                  ["git", "diff", "HEAD~1", "HEAD", "--", "src/data/blog-posts.ts"],
+                  text=True
+              )
+              slugs = re.findall(r'^\+\s+slug:\s+"([^"]+)"', diff, re.MULTILINE)
+              titles = re.findall(r'^\+\s+ja:\s+"([^"]+)"', diff, re.MULTILINE)
+              if slugs and titles:
+                  slug = slugs[0]
+                  title = titles[0]
+                  tweet_text = f"{title}\n\nhttps://www.moveworthapp.com/blog/{slug}\n\n#\u6d77\u5916\u79fb\u4f4f #\u6d77\u5916\u751f\u6d3b #\u79fb\u4f4f\u8a08\u753b"
+
+          if "study-blog-posts.ts" in changed and tweet_text is None:
+              diff = subprocess.check_output(
+                  ["git", "diff", "HEAD~1", "HEAD", "--", "src/data/study-blog-posts.ts"],
+                  text=True
+              )
+              slugs = re.findall(r'^\+\s+slug:\s+"([^"]+)"', diff, re.MULTILINE)
+              titles = re.findall(r'^\+\s+ja:\s+"([^"]+)"', diff, re.MULTILINE)
+              if slugs and titles:
+                  slug = slugs[0]
+                  title = titles[0]
+                  tweet_text = f"{title}\n\nhttps://study.moveworthapp.com/blog/{slug}\n\n#\u6d77\u5916\u7559\u5b66 #\u30ef\u30fc\u30db\u30ea #\u7559\u5b66\u6e96\u5099"
+
+          if tweet_text is None:
+              print("No new blog post detected, skipping tweet.")
+              exit(0)
+
+          print(f"Tweeting:\n{tweet_text}")
 
           oauth = OAuth1Session(
               os.environ["X_API_KEY"],
