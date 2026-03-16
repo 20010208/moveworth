@@ -1,0 +1,317 @@
+"use client";
+
+import Link from "next/link";
+import { ArrowLeft, Clock, Tag, Share2 } from "lucide-react";
+import { getStudyBlogPost, studyBlogCategories } from "@/data/study-blog-posts";
+
+export function StudyBlogPostContent({ slug }: { slug: string }) {
+  const post = getStudyBlogPost(slug);
+
+  if (!post) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-indigo-50/60 via-white to-slate-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-foreground mb-4">
+            記事が見つかりませんでした
+          </h1>
+          <Link
+            href="/blog"
+            className="text-primary hover:underline flex items-center gap-1 justify-center"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            ブログ一覧に戻る
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    const title = post.title.ja;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title, url });
+      } catch {
+        // User cancelled
+      }
+    } else {
+      await navigator.clipboard.writeText(url);
+    }
+  };
+
+  const renderInline = (text: string): React.ReactNode => {
+    const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
+    if (parts.length === 1) return text;
+    return (
+      <>
+        {parts.map((part, i) => {
+          if (part.startsWith("**") && part.endsWith("**")) {
+            return (
+              <strong key={i} className="font-semibold text-foreground">
+                {part.slice(2, -2)}
+              </strong>
+            );
+          }
+          const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+          if (linkMatch) {
+            return (
+              <a
+                key={i}
+                href={linkMatch[2]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline hover:opacity-80"
+              >
+                {linkMatch[1]}
+              </a>
+            );
+          }
+          return part;
+        })}
+      </>
+    );
+  };
+
+  const renderContent = (text: string) => {
+    const lines = text.split("\n");
+    const elements: React.ReactNode[] = [];
+    let inTable = false;
+    let tableRows: string[][] = [];
+
+    type ListType = "ul" | "ol" | null;
+    let currentListType: ListType = null;
+    let listItems: React.ReactNode[] = [];
+
+    const flushList = () => {
+      if (listItems.length === 0) return;
+      if (currentListType === "ol") {
+        elements.push(
+          <ol
+            key={`ol-${elements.length}`}
+            className="list-decimal ml-5 space-y-1 my-2 text-sm text-muted"
+          >
+            {listItems}
+          </ol>
+        );
+      } else {
+        elements.push(
+          <ul
+            key={`ul-${elements.length}`}
+            className="list-disc ml-5 space-y-1 my-2 text-sm text-muted"
+          >
+            {listItems}
+          </ul>
+        );
+      }
+      listItems = [];
+      currentListType = null;
+    };
+
+    const flushTable = () => {
+      if (tableRows.length > 0) {
+        elements.push(
+          <div key={`table-${elements.length}`} className="overflow-x-auto my-4">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr>
+                  {tableRows[0].map((cell, j) => (
+                    <th
+                      key={j}
+                      className="border border-border/60 bg-surface px-3 py-2 text-left font-semibold text-foreground"
+                    >
+                      {cell}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {tableRows.slice(2).map((row, i) => (
+                  <tr key={i}>
+                    {row.map((cell, j) => (
+                      <td
+                        key={j}
+                        className="border border-border/60 px-3 py-2 text-muted"
+                      >
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+        tableRows = [];
+      }
+    };
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+
+      if (line.startsWith("|")) {
+        flushList();
+        inTable = true;
+        const cells = line
+          .split("|")
+          .slice(1, -1)
+          .map((c) => c.trim());
+        tableRows.push(cells);
+        continue;
+      } else if (inTable) {
+        inTable = false;
+        flushTable();
+      }
+
+      if (line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/)) {
+        flushList();
+        const imgMatch = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+        if (imgMatch) {
+          elements.push(
+            <img
+              key={i}
+              src={imgMatch[2]}
+              alt={imgMatch[1]}
+              className="w-full rounded-xl my-4 border border-border/40"
+            />
+          );
+        }
+      } else if (line.startsWith("### ")) {
+        flushList();
+        elements.push(
+          <h3 key={i} className="text-lg font-bold text-foreground mt-8 mb-3">
+            {line.slice(4)}
+          </h3>
+        );
+      } else if (line.startsWith("## ")) {
+        flushList();
+        elements.push(
+          <h2 key={i} className="text-xl font-bold text-foreground mt-10 mb-4">
+            {line.slice(3)}
+          </h2>
+        );
+      } else if (line.startsWith("**") && line.endsWith("**")) {
+        flushList();
+        elements.push(
+          <p key={i} className="font-semibold text-foreground mt-4 mb-1">
+            {line.slice(2, -2)}
+          </p>
+        );
+      } else if (line.match(/^  - /)) {
+        if (currentListType !== "ul") { flushList(); currentListType = "ul"; }
+        listItems.push(
+          <li key={listItems.length} className="ml-4 list-disc">
+            {renderInline(line.slice(4))}
+          </li>
+        );
+      } else if (line.startsWith("- ")) {
+        if (currentListType !== "ul") { flushList(); currentListType = "ul"; }
+        const match = line.match(/^- \*\*(.+?)\*\*:?\s*(.*)$/);
+        if (match) {
+          listItems.push(
+            <li key={listItems.length}>
+              <span className="font-semibold text-foreground">{match[1]}</span>
+              {match[2] ? `: ${renderInline(match[2])}` : ""}
+            </li>
+          );
+        } else {
+          listItems.push(
+            <li key={listItems.length}>{renderInline(line.slice(2))}</li>
+          );
+        }
+      } else if (line.match(/^\d+\. /)) {
+        if (currentListType !== "ol") { flushList(); currentListType = "ol"; }
+        listItems.push(
+          <li key={listItems.length}>
+            {renderInline(line.replace(/^\d+\. /, ""))}
+          </li>
+        );
+      } else if (line.trim() === "") {
+        flushList();
+        elements.push(<div key={i} className="h-2" />);
+      } else {
+        flushList();
+        elements.push(
+          <p key={i} className="text-sm text-muted leading-relaxed">
+            {renderInline(line)}
+          </p>
+        );
+      }
+    }
+
+    flushList();
+    if (tableRows.length > 0) {
+      flushTable();
+    }
+
+    return elements;
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-indigo-50/60 via-white to-slate-50">
+      <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <Link
+          href="/blog"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-foreground transition-colors mb-8"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          ブログ一覧に戻る
+        </Link>
+
+        <header className="mb-8">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary-light px-2.5 py-0.5 rounded-full">
+              <Tag className="h-3 w-3" />
+              {studyBlogCategories[post.category]?.ja ?? post.category}
+            </span>
+            <span className="text-xs text-muted flex items-center gap-1">
+              <Clock className="h-3 w-3" />
+              {post.readingTime} 分で読める
+            </span>
+            <span className="text-xs text-muted">{post.date}</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight mb-4">
+            {post.title.ja}
+          </h1>
+          <p className="text-muted text-sm">{post.description.ja}</p>
+        </header>
+
+        <div className="bg-white border border-border/60 rounded-2xl p-6 sm:p-8 shadow-sm">
+          {renderContent(post.content.ja)}
+        </div>
+
+        <footer className="mt-8 flex items-center justify-between">
+          <Link
+            href="/blog"
+            className="text-sm font-medium text-muted hover:text-foreground transition-colors flex items-center gap-1"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            ブログ一覧に戻る
+          </Link>
+          <button
+            onClick={handleShare}
+            className="text-sm font-medium text-muted hover:text-foreground transition-colors flex items-center gap-1.5"
+          >
+            <Share2 className="h-4 w-4" />
+            シェアする
+          </button>
+        </footer>
+
+        <div className="mt-10 bg-gradient-to-r from-primary/5 to-indigo-500/5 border border-primary/20 rounded-2xl p-6 text-center">
+          <h3 className="text-lg font-bold text-foreground mb-2">
+            MoveWorth.studyで留学費用をシミュレーション
+          </h3>
+          <p className="text-sm text-muted mb-4">
+            国・期間・学費を入力するだけで、留学にかかる総費用の目安を無料で計算できます。
+          </p>
+          <Link
+            href="/simulate"
+            className="inline-block bg-primary text-white px-6 py-2.5 rounded-xl font-semibold text-sm hover:bg-primary/90 transition-all shadow-md shadow-primary/20"
+          >
+            費用をシミュレーションする
+          </Link>
+        </div>
+      </article>
+    </div>
+  );
+}

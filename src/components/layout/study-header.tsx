@@ -11,6 +11,7 @@ const navLabels = {
     countries: "留学先一覧",
     simulate: "費用シミュレーター",
     simulator: "移住シミュレーター",
+    blog: "ブログ",
     toggleMenu: "メニュー",
     login: "ログイン",
     register: "無料登録",
@@ -20,6 +21,7 @@ const navLabels = {
     countries: "Countries",
     simulate: "Cost Simulator",
     simulator: "Migration Simulator",
+    blog: "Blog",
     toggleMenu: "Toggle menu",
     login: "Login",
     register: "Sign Up",
@@ -29,6 +31,7 @@ const navLabels = {
     countries: "留学目的地",
     simulate: "费用模拟器",
     simulator: "移居模拟器",
+    blog: "博客",
     toggleMenu: "切换菜单",
     login: "登录",
     register: "免费注册",
@@ -85,6 +88,12 @@ export function StudyHeader() {
               className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
             >
               {labels.simulate}
+            </Link>
+            <Link
+              href="/blog"
+              className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
+            >
+              {labels.blog}
             </Link>
 
             <div className="w-px h-5 bg-border mx-2" />
@@ -168,6 +177,13 @@ export function StudyHeader() {
               onClick={() => setMobileOpen(false)}
             >
               {labels.simulate}
+            </Link>
+            <Link
+              href="/blog"
+              className="block px-3 py-2.5 text-sm font-medium text-muted hover:text-foreground hover:bg-secondary/80 rounded-lg transition-all"
+              onClick={() => setMobileOpen(false)}
+            >
+              {labels.blog}
             </Link>
             <div className="pt-2 mx-3 space-y-2">
               <a
