@@ -55,12 +55,15 @@ export function StudyBlogPostContent({ slug }: { slug: string }) {
           }
           const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
           if (linkMatch) {
+            const href = linkMatch[2];
+            const isExternal = href.startsWith("http");
             return (
               <a
                 key={i}
-                href={linkMatch[2]}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={href}
+                {...(isExternal
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
                 className="text-primary underline hover:opacity-80"
               >
                 {linkMatch[1]}
@@ -120,7 +123,7 @@ export function StudyBlogPostContent({ slug }: { slug: string }) {
                       key={j}
                       className="border border-border/60 bg-surface px-3 py-2 text-left font-semibold text-foreground"
                     >
-                      {cell}
+                      {renderInline(cell)}
                     </th>
                   ))}
                 </tr>
@@ -133,7 +136,7 @@ export function StudyBlogPostContent({ slug }: { slug: string }) {
                         key={j}
                         className="border border-border/60 px-3 py-2 text-muted"
                       >
-                        {cell}
+                        {renderInline(cell)}
                       </td>
                     ))}
                   </tr>
