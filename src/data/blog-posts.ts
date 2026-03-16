@@ -7781,6 +7781,240 @@ Use MoveWorth to simulate your tax burden and living costs in Argentina.`,
 使用MoveWorth模拟您在阿根廷的税负和生活成本。`,
     },
   },
+  {
+    slug: "visa-tr",
+    category: "visa",
+    date: "2026-03-16",
+    readingTime: 5,
+    title: {
+      ja: "トルコのビザ・就労許可完全ガイド",
+      en: "Turkey Visa & Work Permit Complete Guide 2026",
+      zh: "土耳其签证与就业许可完全指南",
+    },
+    description: {
+      ja: "短期滞在ビザ・長期居住許可・就労許可まで、トルコ移住に必要なビザの種類・要件・費用を徹底解説。物価が安く注目の移住先。",
+      en: "Short-stay visa, long-term residence permit, work permit and more — a complete guide to living and working in Turkey.",
+      zh: "短期签证、长期居留许可、工作许可——移居土耳其生活和工作的完整指南。",
+    },
+    content: {
+      ja: `トルコはヨーロッパとアジアの交差点に位置する国で、イスタンブールをはじめとする歴史的な都市、豊かな文化、そして日本と比べて非常に安い物価が魅力です。近年デジタルノマドや海外移住者の間で人気が急上昇しています。
+
+### 主なビザの種類
+
+**短期滞在ビザ（e-Visa）**
+- 観光・短期ビジネス目的
+- 日本国籍：90日間のビザなし滞在が可能（180日以内）
+- e-Visaはオンラインで取得可能（USD 51）
+
+**短期居住許可（Kısa Dönem İkamet İzni）**
+- 不動産所有者、長期滞在希望者向け
+- 有効期間：1〜2年、更新可能
+- 申請費用：約TRY 1,500〜3,000
+
+**長期居住許可（Uzun Dönem İkamet İzni）**
+- 8年以上の合法居住後に申請可能
+- 更新不要の無期限ビザ
+
+**就労ビザ・就労許可（Çalışma İzni）**
+- トルコ企業からの雇用オファーが必要
+- 雇用主がトルコ労働省に申請
+- 有効期間：1年（更新可能）
+- 外国人雇用比率：従業員5人につき外国人1人まで
+
+**トルコ国籍取得（投資）**
+- USD 400,000以上の不動産購入でトルコ国籍取得可能
+
+### 税制の概要
+
+**個人所得税（累進課税）**
+
+| 所得（TRY） | 税率 |
+|---|---|
+| 〜110,000 | 15% |
+| 110,001〜230,000 | 20% |
+| 230,001〜870,000 | 27% |
+| 870,001〜3,000,000 | 35% |
+| 3,000,001〜 | 40% |
+
+**居住者の判定**：暦年内に183日以上トルコに滞在した場合、居住者として全世界所得に課税。
+
+**非居住者**：トルコ国内源泉所得のみ課税。
+
+### 費用の目安
+
+| 項目 | 費用 |
+|---|---|
+| e-Visa | USD 51 |
+| 短期居住許可申請費 | 約TRY 1,500〜3,000 |
+| 就労許可申請費 | 約TRY 5,000〜8,000 |
+| 長期居住許可申請費 | 約TRY 3,000〜5,000 |
+
+### 生活費の目安（イスタンブール）
+
+| 項目 | 月額目安 |
+|---|---|
+| 家賃（1LDK） | USD 300〜600 |
+| 食費 | USD 150〜250 |
+| 交通費 | USD 30〜50 |
+| 合計 | **USD 500〜900** |
+
+日本と比べて生活費が約3〜5割安く、特に食費・交通費の安さが際立ちます。
+
+### 移住前のチェックポイント
+
+1. **居住許可の更新期限管理**：期限切れは罰金・強制退去のリスク
+2. **為替リスク**：トルコリラは変動が大きいため、外貨（USD/EUR）での資産管理を推奨
+3. **健康保険**：居住許可申請時に民間医療保険の加入証明が必要
+4. **人気都市**：イスタンブール・アンタルヤ・イズミル・アンカラ
+5. **外国人向け不動産購入**：日本国籍者は制限なく購入可能
+
+MoveWorthでトルコの生活費・税負担をシミュレーションしてみましょう。`,
+      en: `Turkey sits at the crossroads of Europe and Asia, offering historic cities like Istanbul, a rich culture, and a cost of living significantly lower than Japan. It has become increasingly popular among digital nomads and international residents in recent years.
+
+### Main Visa Types
+
+**Short-Stay e-Visa**
+- For tourism and short business trips
+- Japanese passport holders: 90-day visa-free stay (within 180 days)
+- e-Visa available online (USD 51)
+
+**Short-Term Residence Permit (Kısa Dönem İkamet İzni)**
+- For property owners and long-term stay applicants
+- Validity: 1–2 years, renewable
+- Fee: approx. TRY 1,500–3,000
+
+**Long-Term Residence Permit (Uzun Dönem İkamet İzni)**
+- Available after 8 years of legal residence
+- Indefinite validity, no renewal required
+
+**Work Visa & Work Permit (Çalışma İzni)**
+- Requires a job offer from a Turkish employer
+- Employer applies to the Ministry of Labor
+- Validity: 1 year (renewable)
+- Quota: 1 foreign employee per 5 local staff
+
+**Turkish Citizenship by Investment**
+- Purchase real estate worth USD 400,000+ to obtain Turkish citizenship
+
+### Tax Overview
+
+**Personal Income Tax (Progressive)**
+
+| Income (TRY) | Rate |
+|---|---|
+| Up to 110,000 | 15% |
+| 110,001–230,000 | 20% |
+| 230,001–870,000 | 27% |
+| 870,001–3,000,000 | 35% |
+| Over 3,000,001 | 40% |
+
+**Tax Residency**: 183+ days in Turkey in a calendar year = worldwide income taxed.
+
+**Non-residents**: Taxed on Turkish-source income only.
+
+### Cost Overview
+
+| Item | Cost |
+|---|---|
+| e-Visa | USD 51 |
+| Short-term residence permit | TRY 1,500–3,000 |
+| Work permit | TRY 5,000–8,000 |
+| Long-term residence permit | TRY 3,000–5,000 |
+
+### Monthly Living Costs (Istanbul)
+
+| Item | Monthly Est. |
+|---|---|
+| Rent (1BR) | USD 300–600 |
+| Food | USD 150–250 |
+| Transport | USD 30–50 |
+| Total | **USD 500–900** |
+
+Turkey is 30–50% cheaper than Japan, with food and transport costs being particularly low.
+
+### Pre-Move Checklist
+
+1. **Track permit renewal deadlines**: Overstays risk fines and deportation
+2. **Currency risk**: The Turkish lira is volatile — hold savings in USD/EUR
+3. **Health insurance**: Private medical insurance required for residence permit applications
+4. **Popular cities**: Istanbul, Antalya, Izmir, Ankara
+5. **Foreign property purchase**: Japanese nationals can buy property without restrictions
+
+Simulate your cost of living and tax burden in Turkey with MoveWorth.`,
+      zh: `土耳其地处欧亚交界处，拥有伊斯坦布尔等历史名城、丰富的文化底蕴以及远低于日本的生活成本，近年来在数字游民和外籍移居者中人气急剧上升。
+
+### 主要签证类型
+
+**短期停留电子签证（e-Visa）**
+- 适用于旅游和短期商务出行
+- 日本护照持有人：180天内可免签停留90天
+- 可在线申请（51美元）
+
+**短期居留许可（Kısa Dönem İkamet İzni）**
+- 适用于房产持有者及长期居留申请者
+- 有效期：1〜2年，可续签
+- 申请费：约TRY 1,500〜3,000
+
+**长期居留许可（Uzun Dönem İkamet İzni）**
+- 合法居留满8年后可申请
+- 无限期有效，无需续签
+
+**工作签证及工作许可（Çalışma İzni）**
+- 需有土耳其雇主的录用证明
+- 由雇主向劳工部提交申请
+- 有效期：1年（可续签）
+- 配额：每5名本地员工可雇1名外籍员工
+
+**投资入籍**
+- 购买价值40万美元以上的房产可申请土耳其国籍
+
+### 税收概述
+
+**个人所得税（累进税率）**
+
+| 收入（TRY） | 税率 |
+|---|---|
+| 11万以下 | 15% |
+| 11万〜23万 | 20% |
+| 23万〜87万 | 27% |
+| 87万〜300万 | 35% |
+| 300万以上 | 40% |
+
+**税务居民认定**：一个日历年内在土耳其居住183天以上，则就全球收入征税。
+
+**非居民**：仅就土耳其来源收入征税。
+
+### 费用参考
+
+| 项目 | 费用 |
+|---|---|
+| 电子签证 | 51美元 |
+| 短期居留许可申请费 | TRY 1,500〜3,000 |
+| 工作许可申请费 | TRY 5,000〜8,000 |
+| 长期居留许可申请费 | TRY 3,000〜5,000 |
+
+### 月均生活费参考（伊斯坦布尔）
+
+| 项目 | 月均费用 |
+|---|---|
+| 房租（一室一厅） | 300〜600美元 |
+| 餐饮 | 150〜250美元 |
+| 交通 | 30〜50美元 |
+| 合计 | **500〜900美元** |
+
+土耳其生活成本比日本低约30〜50%，餐饮和交通费尤为低廉。
+
+### 移居前注意事项
+
+1. **居留许可续签管理**：逾期有被罚款及强制遣返风险
+2. **汇率风险**：土耳其里拉波动较大，建议以美元/欧元持有资产
+3. **健康保险**：申请居留许可时需提供私人医疗保险证明
+4. **热门城市**：伊斯坦布尔、安塔利亚、伊兹密尔、安卡拉
+5. **外国人购房**：日本国籍者可无限制购买土耳其房产
+
+使用MoveWorth模拟您在土耳其的税负和生活成本。`,
+    },
+  },
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
