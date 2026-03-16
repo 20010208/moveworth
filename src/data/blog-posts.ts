@@ -1276,6 +1276,168 @@ Try a free simulation today. Your overseas relocation possibilities will become 
     },
   },
   {
+    slug: "moveworth-update-march-16-2026",
+    category: "about",
+    date: "2026-03-16",
+    readingTime: 4,
+    title: {
+      ja: "【アップデート】39カ国対応・留学サポート機能を新規追加しました",
+      en: "【Update】39 Countries Supported & New Study Abroad Feature Added",
+      zh: "【更新】支持39个国家，全新留学支持功能上线",
+    },
+    description: {
+      ja: "2026年3月、MoveWorthに大型アップデートを実施。移住シミュレーター対応国を39カ国に拡大し、留学生向けのシミュレーター・国別情報ページを新規追加しました。",
+      en: "In March 2026, MoveWorth expanded to 39 countries and launched a brand-new study abroad feature including a simulator and country information pages.",
+      zh: "2026年3月，MoveWorth进行重大升级：移居模拟器支持国家扩展至39个，并全新推出留学模拟器与各国留学信息页面。",
+    },
+    content: {
+      ja: `2026年3月、MoveWorthにまた大きなアップデートをお届けします。今回は移住シミュレーターの対応国拡大と、まったく新しい「留学サポート」機能の追加という2つの大型アップデートをご紹介します。
+
+### 1. 対応国を39カ国に拡大
+
+前回のアップデート（30カ国）からさらに9カ国を追加し、**合計39カ国**に対応しました。
+
+今回追加された国：
+- 🇲🇹 マルタ
+- 🇿🇦 南アフリカ
+- 🇫🇮 フィンランド
+- 🇦🇹 オーストリア
+- 🇨🇿 チェコ
+- 🇨🇳 中国
+- 🇮🇳 インド
+- 🇲🇽 メキシコ
+- 🇦🇷 アルゼンチン
+
+欧州・アフリカ・アジア・中南米と、地域のカバレッジも大きく広がりました。各国の税制・住居費・業種別給与データも同時に追加しています。
+
+### 2. 留学サポート機能を新規追加
+
+MoveWorthにまったく新しい機能「**留学サポート**」が加わりました。これまで移住（長期滞在）に特化していたサービスに、**海外留学**という選択肢が加わります。
+
+**留学シミュレーター**
+
+留学先の国・留学期間・学費を入力するだけで、留学中の生活費・住居費・総費用を自動でシミュレーションできます。
+
+- 対象国：日本を含む主要留学先39カ国
+- 学費・住居費・生活費の目安を一覧表示
+- 初回は**会員登録不要**でシミュレーション可能
+- 2回目以降は無料会員登録でご利用いただけます
+
+**国別留学情報ページ**
+
+各国の留学に関する基本情報をまとめたページを追加しました。
+
+- 学生ビザの種類・要件・費用
+- 留学中の就労規定（週の就労上限時間など）
+- 留学後の就労ビザへの切り替え方法
+- 生活費・住居費の目安
+
+**検索機能の強化**
+
+留学先の国選択では、ひらがな・カタカナ・アルファベット・漢字すべてで検索できます。「にほん」「ニホン」「日本」「Japan」どの入力方法でも正しく絞り込まれます。
+
+---
+
+引き続きMoveWorthをご利用いただき、海外移住・留学の計画にお役立てください。ご意見・ご要望はお問い合わせページからお気軽にお寄せください。`,
+      en: `We're excited to share another major update to MoveWorth in March 2026. This update brings two big additions: expanded country support and a brand-new study abroad feature.
+
+### 1. Expanded to 39 Countries
+
+Following our previous update to 30 countries, we've added 9 more — bringing the total to **39 countries** supported.
+
+Newly added countries:
+- 🇲🇹 Malta
+- 🇿🇦 South Africa
+- 🇫🇮 Finland
+- 🇦🇹 Austria
+- 🇨🇿 Czech Republic
+- 🇨🇳 China
+- 🇮🇳 India
+- 🇲🇽 Mexico
+- 🇦🇷 Argentina
+
+Coverage now spans Europe, Africa, Asia, and Latin America. Tax data, housing costs, and industry salary benchmarks have been added for all new countries.
+
+### 2. New Study Abroad Feature
+
+MoveWorth has launched a brand-new **Study Abroad** section. Alongside our existing long-term relocation simulator, you can now explore **overseas study** as a path.
+
+**Study Abroad Simulator**
+
+Enter your destination country, duration of study, and tuition — and the simulator automatically calculates your estimated living costs, housing costs, and total study expenses.
+
+- Available for 39 major study destinations including Japan
+- Displays tuition, housing, and living cost estimates
+- **First simulation is free** — no registration required
+- 2nd simulation onwards requires a free account
+
+**Country Study Information Pages**
+
+We've added dedicated pages for each country covering:
+
+- Student visa types, requirements, and fees
+- Work regulations during study (weekly hour limits, etc.)
+- Pathways from student visa to work visa
+- Estimated living and housing costs
+
+**Improved Search**
+
+The country search in the study abroad section supports hiragana, katakana, romaji, and kanji — all input methods work correctly.
+
+---
+
+Thank you for using MoveWorth. We'll keep improving the platform to support your overseas plans. Reach out through our contact page with any feedback or suggestions.`,
+      zh: `2026年3月，MoveWorth迎来又一次重大更新。本次更新带来两大亮点：支持国家范围进一步扩大，以及全新留学支持功能正式上线。
+
+### 1. 支持国家扩展至39个
+
+在上次更新扩展至30个国家的基础上，我们再次新增9个国家，支持总数达到**39个国家**。
+
+本次新增国家：
+- 🇲🇹 马耳他
+- 🇿🇦 南非
+- 🇫🇮 芬兰
+- 🇦🇹 奥地利
+- 🇨🇿 捷克
+- 🇨🇳 中国
+- 🇮🇳 印度
+- 🇲🇽 墨西哥
+- 🇦🇷 阿根廷
+
+覆盖范围现已延伸至欧洲、非洲、亚洲和拉丁美洲。所有新增国家均已同步更新税制、住房费用及行业薪资数据。
+
+### 2. 全新留学支持功能上线
+
+MoveWorth全新推出**留学支持**版块。在原有长期移居模拟器的基础上，**海外留学**也成为了一个可探索的选项。
+
+**留学模拟器**
+
+输入目的地国家、留学时长和学费，模拟器即可自动计算留学期间的生活费、住房费及总费用估算。
+
+- 支持含日本在内的39个主要留学目的地
+- 展示学费、住房费及生活费参考值
+- **首次模拟无需注册**即可使用
+- 第二次起需免费注册账号
+
+**各国留学信息页面**
+
+我们为每个国家新增了专属留学信息页面，内容涵盖：
+
+- 学生签证类型、要求及费用
+- 留学期间的打工规定（每周工时上限等）
+- 学生签证转换为工作签证的途径
+- 生活费与住房费参考值
+
+**搜索功能强化**
+
+留学目的地的国家搜索支持平假名、片假名、罗马字及汉字等多种输入方式，无论哪种输入都能准确筛选。
+
+---
+
+感谢您使用MoveWorth。我们将持续改进平台，助力您的海外留学与移居计划。如有任何意见或建议，欢迎通过联系页面告知我们。`,
+    },
+  },
+  {
     slug: "moveworth-march-2026-update-en",
     category: "about",
     date: "2026-03-07",
