@@ -1,0 +1,124 @@
+name: Tweet on new blog post
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/data/blog-posts.ts'
+      - 'src/data/study-blog-posts.ts'
+
+jobs:
+  tweet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect new blog post
+        id: detect
+        run: |
+          # 変更されたファイルを確認
+          CHANGED=$(git diff HEAD~1 HEAD --name-only)
+          echo "Changed files: $CHANGED"
+
+          TWEET_TEXT=""
+          SITE_URL=""
+
+          if echo "$CHANGED" | grep -q "blog-posts.ts"; then
+            # 新しく追加されたslugを検出（+で始まる行からslugを抽出）
+            NEW_SLUG=$(git diff HEAD~1 HEAD -- src/data/blog-posts.ts \
+              | grep '^\+.*slug:' \
+              | grep -v '^\+\+\+' \
+              | head -1 \
+              | sed 's/.*slug: "\(.*\)".*/\1/')
+
+            NEW_TITLE=$(git diff HEAD~1 HEAD -- src/data/blog-posts.ts \
+              | grep '^\+.*ja:' \
+              | grep -v '^\+\+\+' \
+              | head -1 \
+              | sed 's/.*ja: "\(.*\)".*/\1/')
+
+            if [ -n "$NEW_SLUG" ] && [ -n "$NEW_TITLE" ]; then
+              TWEET_TEXT="新しい記事を公開しました📝
+
+${NEW_TITLE}
+
+👉 https://www.moveworthapp.com/blog/${NEW_SLUG}
+
+#海外移住 #移住 #MoveWorth"
+            fi
+          fi
+
+          if echo "$CHANGED" | grep -q "study-blog-posts.ts"; then
+            NEW_SLUG=$(git diff HEAD~1 HEAD -- src/data/study-blog-posts.ts \
+              | grep '^\+.*slug:' \
+              | grep -v '^\+\+\+' \
+              | head -1 \
+              | sed 's/.*slug: "\(.*\)".*/\1/')
+
+            NEW_TITLE=$(git diff HEAD~1 HEAD -- src/data/study-blog-posts.ts \
+              | grep '^\+.*ja:' \
+              | grep -v '^\+\+\+' \
+              | head -1 \
+              | sed 's/.*ja: "\(.*\)".*/\1/')
+
+            if [ -n "$NEW_SLUG" ] && [ -n "$NEW_TITLE" ]; then
+              TWEET_TEXT="留学ブログに新記事を公開しました📝
+
+${NEW_TITLE}
+
+👉 https://study.moveworthapp.com/blog/${NEW_SLUG}
+
+#海外留学 #留学 #MoveWorth"
+            fi
+          fi
+
+          if [ -n "$TWEET_TEXT" ]; then
+            echo "should_tweet=true" >> $GITHUB_OUTPUT
+            # 改行をエスケープして保存
+            echo "tweet_text<<EOF" >> $GITHUB_OUTPUT
+            echo "$TWEET_TEXT" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "should_tweet=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Post to X
+        if: steps.detect.outputs.should_tweet == 'true'
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+          TWEET_TEXT: ${{ steps.detect.outputs.tweet_text }}
+        run: |
+          pip install requests requests-oauthlib
+
+          python3 << 'PYTHON'
+          import os
+          from requests_oauthlib import OAuth1Session
+
+          tweet_text = os.environ["TWEET_TEXT"]
+          print(f"Tweeting: {tweet_text}")
+
+          oauth = OAuth1Session(
+              os.environ["X_API_KEY"],
+              client_secret=os.environ["X_API_SECRET"],
+              resource_owner_key=os.environ["X_ACCESS_TOKEN"],
+              resource_owner_secret=os.environ["X_ACCESS_TOKEN_SECRET"],
+          )
+
+          response = oauth.post(
+              "https://api.twitter.com/2/tweets",
+              json={"text": tweet_text},
+          )
+
+          if response.status_code == 201:
+              print("Tweet posted successfully!")
+          else:
+              print(f"Error: {response.status_code} - {response.text}")
+              exit(1)
+          PYTHON
