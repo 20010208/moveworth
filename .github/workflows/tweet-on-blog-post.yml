@@ -46,7 +46,7 @@ jobs:
 
 ${NEW_TITLE}
 
-👉 https://www.moveworthapp.com/blog/${NEW_SLUG}
+https://www.moveworthapp.com/blog/${NEW_SLUG}
 
 #海外移住 #移住 #MoveWorth"
             fi
@@ -70,7 +70,7 @@ ${NEW_TITLE}
 
 ${NEW_TITLE}
 
-👉 https://study.moveworthapp.com/blog/${NEW_SLUG}
+https://study.moveworthapp.com/blog/${NEW_SLUG}
 
 #海外留学 #留学 #MoveWorth"
             fi
