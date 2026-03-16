@@ -22,7 +22,7 @@ export const studyBlogPosts: StudyBlogPost[] = [
     date: "2026-03-16",
     readingTime: 8,
     title: {
-      ja: "英語力ゼロから始める海外留学完全準備ガイド2026年版",
+      ja: "英語力ゼロから始める海外留学完全準備ガイド",
       en: "Complete Study Abroad Preparation Guide 2026 — Starting from Zero English",
     },
     description: {
@@ -181,7 +181,7 @@ Study abroad can change your life. With the right preparation, it's achievable r
     date: "2026-03-16",
     readingTime: 10,
     title: {
-      ja: "【40カ国比較】留学中のアルバイト・就労ルール完全まとめ2026年版",
+      ja: "【40カ国比較】留学中のアルバイト・就労ルール完全まとめ",
       en: "【40 Countries】Complete Guide to Part-Time Work Rules While Studying Abroad 2026",
     },
     description: {
@@ -294,7 +294,7 @@ See the individual country articles for full details on each destination.`,
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【日本】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【日本】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Japan 2026 — Complete Guide",
     },
     description: {
@@ -362,7 +362,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in J
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【シンガポール】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【シンガポール】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Singapore 2026 — Complete Guide",
     },
     description: {
@@ -430,7 +430,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in S
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【マレーシア】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【マレーシア】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Malaysia 2026 — Complete Guide",
     },
     description: {
@@ -498,7 +498,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in M
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【タイ】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【タイ】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Thailand 2026 — Complete Guide",
     },
     description: {
@@ -566,7 +566,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in T
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【チェコ】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【チェコ】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Czech Republic 2026 — Complete Guide",
     },
     description: {
@@ -634,7 +634,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in t
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【中国】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【中国】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in China 2026 — Complete Guide",
     },
     description: {
@@ -702,7 +702,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in C
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【インド】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【インド】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in India 2026 — Complete Guide",
     },
     description: {
@@ -770,7 +770,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in I
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【メキシコ】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【メキシコ】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Mexico 2026 — Complete Guide",
     },
     description: {
@@ -838,7 +838,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in M
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【アルゼンチン】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【アルゼンチン】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Argentina 2026 — Complete Guide",
     },
     description: {
@@ -906,7 +906,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in A
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【ギリシャ】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【ギリシャ】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Greece 2026 — Complete Guide",
     },
     description: {
@@ -974,7 +974,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in G
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【マルタ】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【マルタ】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Malta 2026 — Complete Guide",
     },
     description: {
@@ -1042,7 +1042,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in M
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【南アフリカ】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【南アフリカ】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in South Africa 2026 — Complete Guide",
     },
     description: {
@@ -1110,7 +1110,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in S
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【フィンランド】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【フィンランド】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Finland 2026 — Complete Guide",
     },
     description: {
@@ -1178,7 +1178,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in F
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【オーストリア】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【オーストリア】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Austria 2026 — Complete Guide",
     },
     description: {
@@ -1246,7 +1246,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in A
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【ノルウェー】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【ノルウェー】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Norway 2026 — Complete Guide",
     },
     description: {
@@ -1314,7 +1314,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in N
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【デンマーク】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【デンマーク】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Denmark 2026 — Complete Guide",
     },
     description: {
@@ -1382,7 +1382,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in D
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【ブラジル】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【ブラジル】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Brazil 2026 — Complete Guide",
     },
     description: {
@@ -1450,7 +1450,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in B
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【コロンビア】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【コロンビア】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Colombia 2026 — Complete Guide",
     },
     description: {
@@ -1518,7 +1518,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in C
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【イタリア】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【イタリア】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Italy 2026 — Complete Guide",
     },
     description: {
@@ -1586,7 +1586,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in I
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【ポルトガル】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【ポルトガル】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Portugal 2026 — Complete Guide",
     },
     description: {
@@ -1654,7 +1654,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in P
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【スペイン】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【スペイン】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Spain 2026 — Complete Guide",
     },
     description: {
@@ -1722,7 +1722,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in S
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【ジョージア】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【ジョージア】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Georgia 2026 — Complete Guide",
     },
     description: {
@@ -1790,7 +1790,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in G
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【アイルランド】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【アイルランド】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Ireland 2026 — Complete Guide",
     },
     description: {
@@ -1858,7 +1858,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in I
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【スウェーデン】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【スウェーデン】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Sweden 2026 — Complete Guide",
     },
     description: {
@@ -1926,7 +1926,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in S
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【オランダ】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【オランダ】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in the Netherlands 2026 — Complete Guide",
     },
     description: {
@@ -1994,7 +1994,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in t
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【スイス】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【スイス】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Switzerland 2026 — Complete Guide",
     },
     description: {
@@ -2062,7 +2062,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in S
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【オーストラリア】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【オーストラリア】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Australia 2026 — Complete Guide",
     },
     description: {
@@ -2130,7 +2130,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in A
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【ニュージーランド】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【ニュージーランド】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in New Zealand 2026 — Complete Guide",
     },
     description: {
@@ -2198,7 +2198,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in N
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【UAE（ドバイ）】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【UAE（ドバイ）】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in the UAE (Dubai) 2026 — Complete Guide",
     },
     description: {
@@ -2266,7 +2266,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in t
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【アメリカ】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【アメリカ】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in the United States 2026 — Complete Guide",
     },
     description: {
@@ -2334,7 +2334,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in t
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【カナダ】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【カナダ】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Canada 2026 — Complete Guide",
     },
     description: {
@@ -2402,7 +2402,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in C
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【イギリス】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【イギリス】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in the United Kingdom 2026 — Complete Guide",
     },
     description: {
@@ -2470,7 +2470,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in t
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【ドイツ】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【ドイツ】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Germany 2026 — Complete Guide",
     },
     description: {
@@ -2538,7 +2538,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in G
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【フランス】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【フランス】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in France 2026 — Complete Guide",
     },
     description: {
@@ -2606,7 +2606,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in F
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【台湾】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【台湾】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Taiwan 2026 — Complete Guide",
     },
     description: {
@@ -2674,7 +2674,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in T
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【香港】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【香港】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Hong Kong 2026 — Complete Guide",
     },
     description: {
@@ -2742,7 +2742,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in H
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【インドネシア】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【インドネシア】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Indonesia 2026 — Complete Guide",
     },
     description: {
@@ -2810,7 +2810,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in I
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【フィリピン】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【フィリピン】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in the Philippines 2026 — Complete Guide",
     },
     description: {
@@ -2878,7 +2878,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in t
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【ベトナム】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【ベトナム】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in Vietnam 2026 — Complete Guide",
     },
     description: {
@@ -2946,7 +2946,7 @@ Use the MoveWorth.study simulator to estimate your total costs for studying in V
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "【韓国】留学中のアルバイト・就労ルール完全ガイド2026年版",
+      ja: "【韓国】留学中のアルバイト・就労ルール完全ガイド",
       en: "Study & Work Rules in South Korea 2026 — Complete Guide",
     },
     description: {

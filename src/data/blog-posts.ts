@@ -1921,9 +1921,9 @@ MoveWorth is a platform for everyone considering overseas relocation. Stay tuned
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "シンガポールのビザ・就労許可完全ガイド2026年版",
+      ja: "シンガポールのビザ・就労許可完全ガイド",
       en: "Singapore Visa & Work Permit Complete Guide 2026",
-      zh: "新加坡签证与就业准证完全指南2026年版",
+      zh: "新加坡签证与就业准证完全指南",
     },
     description: {
       ja: "就労パス（EP）からEntrePassまで、シンガポールの主要ビザの種類・要件・費用を徹底解説。",
@@ -2053,9 +2053,9 @@ Singapore offers a high standard of living but comes with high housing and educa
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "マレーシアのビザ・移住条件完全ガイド2026年版",
+      ja: "マレーシアのビザ・移住条件完全ガイド",
       en: "Malaysia Visa & Relocation Requirements Complete Guide 2026",
-      zh: "马来西亚签证与移居条件完全指南2026年版",
+      zh: "马来西亚签证与移居条件完全指南",
     },
     description: {
       ja: "MM2H、DE Rantau、就労ビザまで。マレーシアの主要ビザの種類・要件・費用を徹底解説。",
@@ -2193,9 +2193,9 @@ Malaysia offers relatively low living costs in Southeast Asia, often showing fav
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "タイのビザ・就労許可完全ガイド2026年版",
+      ja: "タイのビザ・就労許可完全ガイド",
       en: "Thailand Visa & Work Permit Complete Guide 2026",
-      zh: "泰国签证与工作许可完全指南2026年版",
+      zh: "泰国签证与工作许可完全指南",
     },
     description: {
       ja: "LTRビザ、タイエリートビザ、就労許可証まで。タイの主要ビザの種類・要件・費用を徹底解説。",
@@ -2331,9 +2331,9 @@ Thailand has one of the largest Japanese expatriate communities in Southeast Asi
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "韓国のビザ・就労許可完全ガイド2026年版",
+      ja: "韓国のビザ・就労許可完全ガイド",
       en: "South Korea Visa & Work Permit Complete Guide 2026",
-      zh: "韩国签证与工作许可完全指南2026年版",
+      zh: "韩国签证与工作许可完全指南",
     },
     description: {
       ja: "就労ビザ（E系統）からF-2-7ポイント制まで。韓国の主要ビザの種類・要件・費用を徹底解説。",
@@ -2463,9 +2463,9 @@ Korea's tech industry is booming, with growing opportunities at global companies
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "台湾のビザ・就労許可完全ガイド2026年版",
+      ja: "台湾のビザ・就労許可完全ガイド",
       en: "Taiwan Visa & Work Permit Complete Guide 2026",
-      zh: "台湾签证与工作许可完全指南2026年版",
+      zh: "台湾签证与工作许可完全指南",
     },
     description: {
       ja: "エンプロイメントゴールドカードから就労許可まで。台湾の主要ビザの種類・要件・費用を徹底解説。",
@@ -2590,9 +2590,9 @@ Taiwan's Gold Card tax incentives are particularly attractive for IT and semicon
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "香港のビザ・就労許可完全ガイド2026年版",
+      ja: "香港のビザ・就労許可完全ガイド",
       en: "Hong Kong Visa & Work Permit Complete Guide 2026",
-      zh: "香港签证与工作许可完全指南2026年版",
+      zh: "香港签证与工作许可完全指南",
     },
     description: {
       ja: "Quality Migrant Admission Schemeから就労ビザまで。香港の主要ビザの種類・要件・費用を徹底解説。",
@@ -2722,9 +2722,9 @@ Hong Kong's low tax rate and financial sector concentration are major attraction
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "インドネシアのビザ・就労許可完全ガイド2026年版",
+      ja: "インドネシアのビザ・就労許可完全ガイド",
       en: "Indonesia Visa & Work Permit Complete Guide 2026",
-      zh: "印度尼西亚签证与工作许可完全指南2026年版",
+      zh: "印度尼西亚签证与工作许可完全指南",
     },
     description: {
       ja: "就労ビザ（KITAS）からデジタルノマドビザまで。インドネシアの主要ビザの種類・要件・費用を徹底解説。",
@@ -2845,9 +2845,9 @@ Indonesia is popular for its Bali appeal, but obtaining a work visa can be compl
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "フィリピンのビザ・移住条件完全ガイド2026年版",
+      ja: "フィリピンのビザ・移住条件完全ガイド",
       en: "Philippines Visa & Relocation Complete Guide 2026",
-      zh: "菲律宾签证与移居条件完全指南2026年版",
+      zh: "菲律宾签证与移居条件完全指南",
     },
     description: {
       ja: "SRRV、就労ビザ（9G）から13aまで。フィリピンの主要ビザの種類・要件・費用を徹底解説。",
@@ -2974,9 +2974,9 @@ The Philippines' SRRV retirement visa is well-established, making it a popular d
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "ベトナムのビザ・就労許可完全ガイド2026年版",
+      ja: "ベトナムのビザ・就労許可完全ガイド",
       en: "Vietnam Visa & Work Permit Complete Guide 2026",
-      zh: "越南签证与工作许可完全指南2026年版",
+      zh: "越南签证与工作许可完全指南",
     },
     description: {
       ja: "就労許可証から一時居留証まで。ベトナムの主要ビザの種類・要件・費用を徹底解説。",
@@ -3108,9 +3108,9 @@ Vietnam's young population and economic growth create strong demand for IT profe
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "アメリカのビザ・就労許可完全ガイド2026年版",
+      ja: "アメリカのビザ・就労許可完全ガイド",
       en: "United States Visa & Work Authorization Complete Guide 2026",
-      zh: "美国签证与工作授权完全指南2026年版",
+      zh: "美国签证与工作授权完全指南",
     },
     description: {
       ja: "H-1Bから就労グリーンカードまで。アメリカの主要ビザの種類・要件・費用を徹底解説。",
@@ -3246,9 +3246,9 @@ The U.S. offers high income potential but also high taxes, healthcare costs, and
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "カナダのビザ・移住条件完全ガイド2026年版",
+      ja: "カナダのビザ・移住条件完全ガイド",
       en: "Canada Visa & Immigration Complete Guide 2026",
-      zh: "加拿大签证与移民条件完全指南2026年版",
+      zh: "加拿大签证与移民条件完全指南",
     },
     description: {
       ja: "エクスプレスエントリーからPNPまで。カナダの主要な移民ビザの種類・要件・費用を徹底解説。",
@@ -3380,9 +3380,9 @@ CRS分数越高，越早收到邀请函
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "イギリスのビザ・就労許可完全ガイド2026年版",
+      ja: "イギリスのビザ・就労許可完全ガイド",
       en: "United Kingdom Visa & Work Permit Complete Guide 2026",
-      zh: "英国签证与工作许可完全指南2026年版",
+      zh: "英国签证与工作许可完全指南",
     },
     description: {
       ja: "Skilled Worker Visaからグローバルタレントビザまで。イギリスの主要ビザの種類・要件・費用を徹底解説。",
@@ -3516,9 +3516,9 @@ The UK is an attractive European base, but housing costs, the cost of living, an
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "ドイツのビザ・就労許可完全ガイド2026年版",
+      ja: "ドイツのビザ・就労許可完全ガイド",
       en: "Germany Visa & Work Permit Complete Guide 2026",
-      zh: "德国签证与工作许可完全指南2026年版",
+      zh: "德国签证与工作许可完全指南",
     },
     description: {
       ja: "EUブルーカードから就労ビザまで。ドイツの主要ビザの種類・要件・費用を徹底解説。",
@@ -3642,9 +3642,9 @@ Germany's 2023 immigration reform has made it easier for non-EU nationals to rel
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "フランスのビザ・就労許可完全ガイド2026年版",
+      ja: "フランスのビザ・就労許可完全ガイド",
       en: "France Visa & Work Permit Complete Guide 2026",
-      zh: "法国签证与工作许可完全指南2026年版",
+      zh: "法国签证与工作许可完全指南",
     },
     description: {
       ja: "タレントパスポートから就労ビザまで。フランスの主要ビザの種類・要件・費用を徹底解説。",
@@ -3767,9 +3767,9 @@ France is well-suited for those pursuing careers in startups, arts, or research.
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "オランダのビザ・就労許可完全ガイド2026年版",
+      ja: "オランダのビザ・就労許可完全ガイド",
       en: "Netherlands Visa & Work Permit Complete Guide 2026",
-      zh: "荷兰签证与工作许可完全指南2026年版",
+      zh: "荷兰签证与工作许可完全指南",
     },
     description: {
       ja: "高度技能移住者ビザから30%ルーリングまで。オランダの主要ビザの種類・要件・費用を徹底解説。",
@@ -3917,9 +3917,9 @@ The Netherlands is one of the few European countries where you can work primaril
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "スイスのビザ・就労許可完全ガイド2026年版",
+      ja: "スイスのビザ・就労許可完全ガイド",
       en: "Switzerland Visa & Work Permit Complete Guide 2026",
-      zh: "瑞士签证与居留许可完全指南2026年版",
+      zh: "瑞士签证与居留许可完全指南",
     },
     description: {
       ja: "LビザからBビザまで。スイスの主要ビザ・就労許可の種類・要件・費用を徹底解説。",
@@ -4049,9 +4049,9 @@ Switzerland's high salaries are attractive, but its cost of living is also excep
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "オーストラリアのビザ・移住条件完全ガイド2026年版",
+      ja: "オーストラリアのビザ・移住条件完全ガイド",
       en: "Australia Visa & Immigration Complete Guide 2026",
-      zh: "澳大利亚签证与移民条件完全指南2026年版",
+      zh: "澳大利亚签证与移民条件完全指南",
     },
     description: {
       ja: "スキルドビザ（482・189・190）からワーキングホリデーまで。オーストラリアの主要ビザの種類・要件・費用を徹底解説。",
@@ -4199,9 +4199,9 @@ Australia's clear pathway to PR makes it popular with those seeking English-spea
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "ニュージーランドのビザ・移住条件完全ガイド2026年版",
+      ja: "ニュージーランドのビザ・移住条件完全ガイド",
       en: "New Zealand Visa & Immigration Complete Guide 2026",
-      zh: "新西兰签证与移民条件完全指南2026年版",
+      zh: "新西兰签证与移民条件完全指南",
     },
     description: {
       ja: "認定雇用主就労ビザから熟練移住者ビザまで。ニュージーランドの主要ビザの種類・要件・費用を徹底解説。",
@@ -4337,9 +4337,9 @@ New Zealand has a smaller immigrant population than Australia, and certain Green
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "UAE（ドバイ）のビザ・就労許可完全ガイド2026年版",
+      ja: "UAE（ドバイ）のビザ・就労許可完全ガイド",
       en: "UAE (Dubai) Visa & Work Permit Complete Guide 2026",
-      zh: "阿联酋（迪拜）签证与工作许可完全指南2026年版",
+      zh: "阿联酋（迪拜）签证与工作许可完全指南",
     },
     description: {
       ja: "ゴールデンビザから就労ビザまで。UAEの主要ビザの種類・要件・費用を徹底解説。",
@@ -4490,9 +4490,9 @@ The UAE offers a unique combination of zero income tax and high living standards
     date: "2026-02-22",
     readingTime: 6,
     title: {
-      ja: "日本のビザ・就労条件完全ガイド2026年版（外国人向け）",
+      ja: "日本のビザ・就労条件完全ガイド（外国人向け）",
       en: "Japan Visa & Work Authorization Complete Guide 2026 (For Foreign Nationals)",
-      zh: "日本签证与就业条件完全指南2026年版（面向外国人）",
+      zh: "日本签证与就业条件完全指南（面向外国人）",
     },
     description: {
       ja: "高度専門職ビザから技術・人文知識・国際業務ビザまで。日本の主要就労ビザの種類・要件・費用を徹底解説。",
@@ -4638,9 +4638,9 @@ Japan offers a high standard of living and safety in Asia, but tax burden, aging
     date: "2026-03-07",
     readingTime: 6,
     title: {
-      ja: "ポルトガルのビザ・就労許可完全ガイド2026年版",
+      ja: "ポルトガルのビザ・就労許可完全ガイド",
       en: "Portugal Visa & Residency Complete Guide 2026",
-      zh: "葡萄牙签证与居留许可完全指南2026年版",
+      zh: "葡萄牙签证与居留许可完全指南",
     },
     description: {
       ja: "D7ビザ・NHR税制からゴールデンビザまで、ポルトガル移住に必要なビザの種類・要件・費用を徹底解説。",
@@ -4789,9 +4789,9 @@ Portugal offers an accessible entry point to EU residency with relatively low bu
     date: "2026-03-07",
     readingTime: 6,
     title: {
-      ja: "スペインのビザ・就労許可完全ガイド2026年版",
+      ja: "スペインのビザ・就労許可完全ガイド",
       en: "Spain Visa & Work Permit Complete Guide 2026",
-      zh: "西班牙签证与就业许可完全指南2026年版",
+      zh: "西班牙签证与就业许可完全指南",
     },
     description: {
       ja: "デジタルノマドビザ・ベッカム法・非収益ビザまで、スペイン移住に必要なビザの種類・要件・費用を徹底解説。",
@@ -4946,9 +4946,9 @@ Spain offers an excellent quality of life at a reasonable cost. Use MoveWorth to
     date: "2026-03-07",
     readingTime: 5,
     title: {
-      ja: "ジョージアのビザ・就労許可完全ガイド2026年版",
+      ja: "ジョージアのビザ・就労許可完全ガイド",
       en: "Georgia Visa & Residency Complete Guide 2026",
-      zh: "格鲁吉亚签证与居留许可完全指南2026年版",
+      zh: "格鲁吉亚签证与居留许可完全指南",
     },
     description: {
       ja: "ノービザ長期滞在・バーチャルゾーン・小規模ビジネス制度まで、ジョージア移住に必要な情報を徹底解説。",
@@ -5102,9 +5102,9 @@ Georgia offers excellent internet connectivity, easy EU access, and a rich cultu
     date: "2026-03-07",
     readingTime: 6,
     title: {
-      ja: "アイルランドのビザ・就労許可完全ガイド2026年版",
+      ja: "アイルランドのビザ・就労許可完全ガイド",
       en: "Ireland Visa & Work Permit Complete Guide 2026",
-      zh: "爱尔兰签证与就业许可完全指南2026年版",
+      zh: "爱尔兰签证与就业许可完全指南",
     },
     description: {
       ja: "クリティカルスキル就労許可から一般就労許可まで、アイルランド移住に必要なビザの種類・要件・費用を徹底解説。",
@@ -5259,9 +5259,9 @@ Ireland is particularly compelling for IT and finance professionals. Use MoveWor
     date: "2026-03-07",
     readingTime: 5,
     title: {
-      ja: "スウェーデンのビザ・就労許可完全ガイド2026年版",
+      ja: "スウェーデンのビザ・就労許可完全ガイド",
       en: "Sweden Visa & Work Permit Complete Guide 2026",
-      zh: "瑞典签证与就业许可完全指南2026年版",
+      zh: "瑞典签证与就业许可完全指南",
     },
     description: {
       ja: "就労許可・自営業許可・高度技能者向けスキームまで、スウェーデン移住に必要な情報を徹底解説。",
@@ -5403,9 +5403,9 @@ Sweden's high taxes are offset by comprehensive social services. Use MoveWorth t
     date: "2026-03-07",
     readingTime: 5,
     title: {
-      ja: "ノルウェーのビザ・就労許可完全ガイド2026年版",
+      ja: "ノルウェーのビザ・就労許可完全ガイド",
       en: "Norway Visa & Work Permit Complete Guide 2026",
-      zh: "挪威签证与就业许可完全指南2026年版",
+      zh: "挪威签证与就业许可完全指南",
     },
     description: {
       ja: "熟練労働者許可・EU/EEA登録から永住権まで、ノルウェー移住に必要なビザの種類・要件・費用を徹底解説。",
@@ -5558,9 +5558,9 @@ Norway offers exceptional salaries, but the cost of living is equally high. Use 
     date: "2026-03-07",
     readingTime: 5,
     title: {
-      ja: "デンマークのビザ・就労許可完全ガイド2026年版",
+      ja: "デンマークのビザ・就労許可完全ガイド",
       en: "Denmark Visa & Work Permit Complete Guide 2026",
-      zh: "丹麦签证与就业许可完全指南2026年版",
+      zh: "丹麦签证与就业许可完全指南",
     },
     description: {
       ja: "ファストトラック制度・ポジティブリスト・給与上限制度まで、デンマーク移住に必要なビザの種類・要件を徹底解説。",
@@ -5712,9 +5712,9 @@ Denmark's high taxes come with world-class social services, work-life balance, a
     date: "2026-03-07",
     readingTime: 6,
     title: {
-      ja: "ブラジルのビザ・就労許可完全ガイド2026年版",
+      ja: "ブラジルのビザ・就労許可完全ガイド",
       en: "Brazil Visa & Work Permit Complete Guide 2026",
-      zh: "巴西签证与就业许可完全指南2026年版",
+      zh: "巴西签证与就业许可完全指南",
     },
     description: {
       ja: "就労ビザ・デジタルノマドビザ・永住権まで、ブラジル移住に必要なビザの種類・要件・費用を徹底解説。",
@@ -5889,9 +5889,9 @@ Brazil offers a relatively low cost of living and a vibrant culture. Use MoveWor
     date: "2026-03-07",
     readingTime: 5,
     title: {
-      ja: "コロンビアのビザ・就労許可完全ガイド2026年版",
+      ja: "コロンビアのビザ・就労許可完全ガイド",
       en: "Colombia Visa & Work Permit Complete Guide 2026",
-      zh: "哥伦比亚签证与就业许可完全指南2026年版",
+      zh: "哥伦比亚签证与就业许可完全指南",
     },
     description: {
       ja: "デジタルノマドビザ・M（移住者）ビザ・永住権まで、コロンビア移住に必要なビザの種類・要件・費用を徹底解説。",
@@ -6073,9 +6073,9 @@ M签证和R签证持有者的官方身份证明，大多数官方事务必备。
     date: "2026-03-07",
     readingTime: 5,
     title: {
-      ja: "ギリシャのビザ・就労許可完全ガイド2026年版",
+      ja: "ギリシャのビザ・就労許可完全ガイド",
       en: "Greece Visa & Work Permit Complete Guide 2026",
-      zh: "希腊签证与就业许可完全指南2026年版",
+      zh: "希腊签证与就业许可完全指南",
     },
     description: {
       ja: "デジタルノマドビザ・ゴールデンビザ・非居住者税制まで、ギリシャ移住に必要なビザの種類・要件・費用を徹底解説。",
@@ -6237,9 +6237,9 @@ Greece offers one of Europe's lowest costs of living with an exceptional quality
     date: "2026-03-09",
     readingTime: 5,
     title: {
-      ja: "イタリアのビザ・就労許可完全ガイド2026年版",
+      ja: "イタリアのビザ・就労許可完全ガイド",
       en: "Italy Visa & Work Permit Complete Guide 2026",
-      zh: "意大利签证与就业许可完全指南2026年版",
+      zh: "意大利签证与就业许可完全指南",
     },
     description: {
       ja: "デジタルノマドビザ・帰国者優遇税制・ゴールデンビザまで、イタリア移住に必要なビザの種類・要件・費用を徹底解説。",
@@ -6425,9 +6425,9 @@ Italy offers a unique blend of culture, quality of life, and now competitive tax
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "マルタのビザ・就労許可完全ガイド2026年版",
+      ja: "マルタのビザ・就労許可完全ガイド",
       en: "Malta Visa & Work Permit Complete Guide 2026",
-      zh: "马耳他签证与就业许可完全指南2026年版",
+      zh: "马耳他签证与就业许可完全指南",
     },
     description: {
       ja: "デジタルノマドビザ・非居住者優遇税制・MPRP投資プログラムまで、マルタ移住に必要なビザの種類・要件・費用を徹底解説。",
@@ -6582,9 +6582,9 @@ Use MoveWorth to simulate your tax burden and living costs in Malta.`,
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "南アフリカのビザ・就労許可完全ガイド2026年版",
+      ja: "南アフリカのビザ・就労許可完全ガイド",
       en: "South Africa Visa & Work Permit Complete Guide 2026",
-      zh: "南非签证与就业许可完全指南2026年版",
+      zh: "南非签证与就业许可完全指南",
     },
     description: {
       ja: "クリティカルスキルビザ・一般就労ビザ・退職者ビザまで、南アフリカ移住に必要なビザの種類・要件・費用を徹底解説。",
@@ -6719,9 +6719,9 @@ Use MoveWorth to simulate your tax burden and living costs in South Africa.`,
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "フィンランドのビザ・就労許可完全ガイド2026年版",
+      ja: "フィンランドのビザ・就労許可完全ガイド",
       en: "Finland Visa & Work Permit Complete Guide 2026",
-      zh: "芬兰签证与就业许可完全指南2026年版",
+      zh: "芬兰签证与就业许可完全指南",
     },
     description: {
       ja: "就労居住許可・スタートアップビザ・EUブルーカードまで、フィンランド移住に必要なビザの種類・要件・費用を徹底解説。",
@@ -6863,9 +6863,9 @@ Use MoveWorth to simulate your tax burden and living costs in Finland.`,
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "オーストリアのビザ・就労許可完全ガイド2026年版",
+      ja: "オーストリアのビザ・就労許可完全ガイド",
       en: "Austria Visa & Work Permit Complete Guide 2026",
-      zh: "奥地利签证与就业许可完全指南2026年版",
+      zh: "奥地利签证与就业许可完全指南",
     },
     description: {
       ja: "レッド・ホワイト・レッドカード・EUブルーカード・自営業ビザまで、オーストリア移住に必要なビザの種類・要件・費用を徹底解説。",
@@ -7015,9 +7015,9 @@ Use MoveWorth to simulate your tax burden and living costs in Austria.`,
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "チェコのビザ・就労許可完全ガイド2026年版",
+      ja: "チェコのビザ・就労許可完全ガイド",
       en: "Czech Republic Visa & Work Permit Complete Guide 2026",
-      zh: "捷克签证与就业许可完全指南2026年版",
+      zh: "捷克签证与就业许可完全指南",
     },
     description: {
       ja: "従業員カード・EUブルーカード・商業許可証（フリーランス）まで、チェコ移住に必要なビザの種類・要件・費用を徹底解説。",
@@ -7157,9 +7157,9 @@ Use MoveWorth to simulate your tax burden and living costs in the Czech Republic
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "中国のビザ・就労許可完全ガイド2026年版",
+      ja: "中国のビザ・就労許可完全ガイド",
       en: "China Visa & Work Permit Complete Guide 2026",
-      zh: "中国签证与就业许可完全指南2026年版",
+      zh: "中国签证与就业许可完全指南",
     },
     description: {
       ja: "Zビザ・Rビザ（ハイレベル人材）・外国人就労許可証まで、中国就労に必要なビザの種類・要件・費用を徹底解説。",
@@ -7320,9 +7320,9 @@ Use MoveWorth to simulate your tax burden and living costs in China.`,
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "インドのビザ・就労許可完全ガイド2026年版",
+      ja: "インドのビザ・就労許可完全ガイド",
       en: "India Visa & Work Permit Complete Guide 2026",
-      zh: "印度签证与就业许可完全指南2026年版",
+      zh: "印度签证与就业许可完全指南",
     },
     description: {
       ja: "就労ビザ・ビジネスビザ・OCIカードまで、インド就労・移住に必要なビザの種類・要件・費用を徹底解説。",
@@ -7480,9 +7480,9 @@ Use MoveWorth to simulate your tax burden and living costs in India.`,
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "メキシコのビザ・就労許可完全ガイド2026年版",
+      ja: "メキシコのビザ・就労許可完全ガイド",
       en: "Mexico Visa & Work Permit Complete Guide 2026",
-      zh: "墨西哥签证与就业许可完全指南2026年版",
+      zh: "墨西哥签证与就业许可完全指南",
     },
     description: {
       ja: "一時居住者ビザ・就労許可・レンティスタビザまで、メキシコ移住に必要なビザの種類・要件・費用を徹底解説。",
@@ -7626,9 +7626,9 @@ Use MoveWorth to simulate your tax burden and living costs in Mexico.`,
     date: "2026-03-16",
     readingTime: 5,
     title: {
-      ja: "アルゼンチンのビザ・就労許可完全ガイド2026年版",
+      ja: "アルゼンチンのビザ・就労許可完全ガイド",
       en: "Argentina Visa & Work Permit Complete Guide 2026",
-      zh: "阿根廷签证与就业许可完全指南2026年版",
+      zh: "阿根廷签证与就业许可完全指南",
     },
     description: {
       ja: "一時居住者ビザ・レンティスタビザ・モノトリブート税制まで、アルゼンチン移住に必要なビザの種類・要件・費用を徹底解説。",
