@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "MoveWorth - 海外移住 資産シミュレーター",
-    description: "海外移住したら資産はどうなる？30カ国以上を無料で比較シミュレーション。",
+    description: "海外移住したら資産はどうなる？40カ国以上を無料で比較シミュレーション。",
     images: ["/og-image.png"],
   },
   robots: {
