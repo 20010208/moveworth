@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     url: "https://www.moveworthapp.com",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "MoveWorth - 海外移住 資産シミュレーター",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MoveWorth - 海外移住 資産シミュレーター",
     description: "海外移住したら資産はどうなる？30カ国以上を無料で比較シミュレーション。",
-    images: ["/opengraph-image"],
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
