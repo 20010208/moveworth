@@ -7784,7 +7784,7 @@ Use MoveWorth to simulate your tax burden and living costs in Argentina.`,
   {
     slug: "visa-tr",
     category: "visa",
-    date: "2026-03-17",
+    date: "2026-03-16",
     readingTime: 5,
     title: {
       ja: "トルコのビザ・就労許可完全ガイド",
