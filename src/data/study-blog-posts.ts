@@ -86,7 +86,7 @@ export const studyBlogPosts: StudyBlogPost[] = [
 4. ビザ発給を待つ（国によって2週間〜3ヶ月）
 5. 渡航準備開始
 
-各国の学生ビザの詳細はMoveWorth.studyの[「国別就労ルール」記事](/blog/study-abroad-work-rules-all-countries)をご参照ください。
+各国の学生ビザの詳細はMoveWorth.studyの[「留学中のアルバイト・就労ルール完全まとめ」](/blog/study-abroad-work-rules-all-countries-2026)をご参照ください。
 
 ### Step 5：渡航前チェックリスト
 
@@ -181,7 +181,7 @@ Study abroad can change your life. With the right preparation, it's achievable r
     date: "2026-03-16",
     readingTime: 10,
     title: {
-      ja: "【40カ国比較】留学中のアルバイト・就労ルール完全まとめ",
+      ja: "留学中のアルバイト・就労ルール完全まとめ",
       en: "【40 Countries】Complete Guide to Part-Time Work Rules While Studying Abroad 2026",
     },
     description: {
@@ -257,7 +257,7 @@ Study abroad can change your life. With the right preparation, it's achievable r
 
 ### 各国の詳細情報
 
-各国の就労ルールの詳細（必要書類・申請方法・ペナルティ等）については、[各国別の記事](/blog/study-abroad-work-rules-all-countries)をご参照ください。
+各国の就労ルールの詳細（必要書類・申請方法・ペナルティ等）については、各国別の記事をご参照ください。
 
 ---
 
