@@ -283,7 +283,7 @@ export default function StudySitePage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Simulator banner */}
         <Link
-          href="/simulate"
+          href="/study-site/simulate"
           className="flex items-center justify-between bg-primary/8 border border-primary/20 rounded-2xl px-5 py-3.5 mb-8 hover:bg-primary/12 transition-colors group"
         >
           <div className="flex items-center gap-3">
@@ -405,7 +405,7 @@ export default function StudySitePage() {
           <h2 className="text-lg font-bold mb-2">{text.ctaTitle}</h2>
           <p className="text-sm text-white/80 mb-5">{text.ctaDesc}</p>
           <a
-            href="https://www.moveworthapp.com/simulate"
+            href="https://study.moveworthapp.com/simulate"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-white text-primary px-6 py-2.5 rounded-xl font-semibold text-sm hover:bg-indigo-50 transition-colors"
