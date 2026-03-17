@@ -135,3 +135,5 @@
 
 ## Claudeへの指示
 - コードの変更・修正が完了したら、毎回 `git commit` & `git push` を行うこと
+- `src/data/housing-costs.ts` に国を追加・修正するときは、その国の「外国人が多く住むエリア」の相場を使うこと（全国平均NG）
+  - 例: JP→東京（新宿/渋谷/港区）、MY→KL（Mont Kiara/Bangsar）、TH→バンコク（スクンビット）、US→NY/LA/SF など
