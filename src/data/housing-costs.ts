@@ -12,9 +12,9 @@ export type HouseholdType = typeof HOUSEHOLD_TYPES[number]["key"];
 // 月額・現地通貨（rent: 家賃, living: 生活費）
 export const HOUSING_COSTS: Record<string, Record<HouseholdType, { rent: number; living: number }>> = {
   JP: {
-    single: { rent:  70000, living:  80000 },
-    couple: { rent: 100000, living: 130000 },
-    family: { rent: 130000, living: 220000 },
+    single: { rent:  90000, living: 100000 },
+    couple: { rent: 130000, living: 170000 },
+    family: { rent: 180000, living: 280000 },
   },
   SG: {
     single: { rent:  1800, living:  1200 },
