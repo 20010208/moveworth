@@ -23,8 +23,8 @@ export const HOUSING_COSTS: Record<string, Record<HouseholdType, { rent: number;
   },
   MY: {
     single: { rent:  3000, living:  2650 },
-    couple: { rent:  4000, living:  4000 },
-    family: { rent:  5000, living:  6500 },
+    couple: { rent:  5000, living:  4500 },
+    family: { rent:  6500, living:  8000 },
   },
   TH: {
     single: { rent:   8000, living:  12000 },
