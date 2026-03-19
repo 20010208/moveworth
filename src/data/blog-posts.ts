@@ -2050,141 +2050,472 @@ Singapore offers a high standard of living but comes with high housing and educa
   {
     slug: "visa-my",
     category: "visa",
-    date: "2026-02-22",
-    readingTime: 6,
+    date: "2026-03-19",
+    readingTime: 12,
     title: {
-      ja: "マレーシアのビザ・移住条件完全ガイド",
+      ja: "マレーシアのビザ・移住条件完全ガイド【2026年最新版】",
       en: "Malaysia Visa & Relocation Requirements Complete Guide 2026",
-      zh: "马来西亚签证与移居条件完全指南",
+      zh: "马来西亚签证与移居条件完全指南【2026年最新版】",
     },
     description: {
-      ja: "MM2H、DE Rantau、就労ビザまで。マレーシアの主要ビザの種類・要件・費用を徹底解説。",
-      en: "From MM2H to DE Rantau and work visas — a complete guide to Malaysia's main visa types, requirements, and costs.",
-      zh: "从MM2H到DE Rantau及就业签证，全面解析马来西亚主要签证的种类、要求与费用。",
+      ja: "MM2H・DE Rantau・Employment Pass・PVIPまで。2024年改定・2026年EP新給与基準を反映したマレーシア全ビザの種類・要件・費用を徹底解説。",
+      en: "From MM2H to DE Rantau, Employment Pass, and PVIP — updated for 2024 MM2H reforms and the June 2026 EP salary threshold changes.",
+      zh: "涵盖MM2H、DE Rantau、就业准证及PVIP，全面反映2024年改版及2026年6月EP薪资新标准。",
     },
     content: {
-      ja: `マレーシアは、物価の安さ・英語の通じやすさ・豊かな文化などから、日本人に人気の移住先のひとつです。2022年にはMM2Hが大幅改定され、2023年には新しい就労ビザ「DE Rantau」も登場しました。
+      ja: `マレーシアは、物価の安さ・英語の通じやすさ・モダンなインフラから、日本人の移住先トップクラスに位置する国です。クアラルンプール（KL）は都市の利便性を持ちながら、生活費は東京の約半分以下という点が大きな魅力です。外国人向けの長期滞在ビザも複数整備されており、目的や収入水準に合わせて選択できます。
 
-### 主なビザの種類
+### マレーシアの主なビザ一覧
 
-**MM2H（Malaysia My Second Home）**
-長期滞在を目的とした多次元ビザです。2025年よりSilver・Gold・Platinumの3ティア制に改定されました。
-- **Silverティア（5年更新）**：定期預金USD 150,000 + RM 600,000以上の不動産購入
-- **Goldティア（15年更新）**：定期預金USD 500,000 + RM 1,000,000以上の不動産購入
-- **Platinumティア（20年更新）**：定期預金USD 1,000,000 + RM 2,000,000以上の不動産購入
-- 申請費用：RM 5,000
+| ビザ種類 | 対象者 | 有効期間 | 特徴 |
+|---|---|---|---|
+| MM2H | 高資産者・長期滞在希望者 | 5〜20年 | 不動産購入必須 |
+| DE Rantau | デジタルノマド・リモートワーカー | 最大24ヶ月 | 手軽・手頃 |
+| Employment Pass | 現地雇用の就労者 | 最大10年（新基準） | 雇用主が申請 |
+| PVIP | 超富裕層 | 20年 | 就労・事業可・滞在義務なし |
+| REP | 高度人材の長期就労者 | 10年 | EP保有後に申請可 |
 
-**DE Rantau パス**
-デジタルノマド・リモートワーカー向けの新しいビザ（2023年導入）。
-- 最低月収：USD 24,000/年（技術系）/ USD 60,000/年（非技術系）
-- 有効期間：12ヶ月（1回更新可）
-- 申請費用：RM 1,000（個人）
+---
 
-**就労ビザ（Employment Pass）**
-マレーシア企業に雇用される外国人向け。雇用主が申請を行い、月給RM 5,000以上が目安。
+### MM2H（Malaysia My Second Home）
 
-**REP（Residence Pass - Talent）**
-10年間の長期就労ビザ。熟練した外国人専門家向けで、高収入・長期就労実績が必要。
+2024年6月に大幅改定。従来の月収証明が**不要**になった一方、**全ティアで不動産購入が必須**となり、プログラム費も新設されました。
 
-### 永住権
+#### Silverティア（5年更新）
+- 固定預金：USD 150,000
+- 不動産購入：RM 600,000以上（承認後12ヶ月以内にSPA締結）
+- プログラム費：RM 40,000
+- 申請手数料：RM 5,000（本人）+ RM 2,500（同伴者1名につき）
 
-マレーシアの永住権（PR）は一般的に取得が難しく、長期就労・結婚・出生など特定の条件が必要です。
+#### Goldティア（15年更新）
+- 固定預金：USD 500,000
+- 不動産購入：RM 1,000,000以上
+- プログラム費：RM 55,000
+- 申請手数料：RM 5,000（本人）+ RM 2,500（同伴者1名につき）
 
-### 費用の目安
+#### Platinumティア（20年更新）
+- 固定預金：USD 1,000,000
+- 不動産購入：RM 2,000,000以上
+- プログラム費：RM 70,000
+- 申請手数料：RM 5,000（本人）+ RM 2,500（同伴者1名につき）
 
-| 項目 | 費用 |
-|------|------|
-| MM2H申請費 | RM 5,000 |
-| DE Rantauパス | RM 1,000 |
-| 就労ビザ申請（雇用主負担の場合も） | RM 500〜2,000 |
+**共通事項：**
+- 最低滞在義務：90日/年（25〜49歳）
+- 固定預金の最大50%は不動産・医療・教育目的で引き出し可能
+- 処理期間の目安：3〜5ヶ月（書類準備含む）
+
+---
+
+### DE Rantau パス
+
+デジタルノマド・リモートワーカー向けに2023年導入。2024年6月には対象職種が大幅に拡大されました。
+
+| 項目 | 内容 |
+|---|---|
+| 最低年収（IT・デジタル系） | USD 24,000（月約USD 2,000） |
+| 最低年収（非IT・管理職・専門職） | USD 60,000（月USD 5,000） |
+| 有効期間 | 12ヶ月（1回更新可、最大24ヶ月） |
+| 申請手数料 | RM 1,000（本人）/ RM 500（同伴者1名） |
+| 処理期間 | 6〜8週間 |
+
+**対象職種（2024年6月拡大後）**：エンジニア・デザイナー・マーケター・会計士・弁護士・ライター・起業家（CEO含む）など、海外クライアント・雇用主のためにリモートで働く専門職全般
+
+---
+
+### Employment Pass（雇用パス）
+
+マレーシア企業に雇用される外国人向けの就労ビザ。**2026年6月1日より給与基準が大幅に引き上げられます。**
+
+#### 現行基準（〜2026年5月31日）
+
+| カテゴリ | 月給 | 有効期間 |
+|---|---|---|
+| Category I | RM 10,000以上 | 最長5年 |
+| Category II | RM 5,000〜9,999 | 最長2年 |
+| Category III | RM 3,000〜4,999 | 最長12ヶ月 |
+
+#### ⚠️ 新基準（2026年6月1日〜）
+
+| カテゴリ | 月給 | 有効期間 |
+|---|---|---|
+| Category I | RM 20,000以上 | 最長10年 |
+| Category II | RM 10,000〜19,999 | 最長10年（後継者計画必須） |
+| Category III | RM 5,000〜9,999 | 最長5年（後継者計画必須） |
+
+給与基準が約2倍に引き上げられます。現地就職を検討している方は新基準を前提に収入計画を立てることが重要です。
+
+---
+
+### PVIP（Malaysia Premium Visa Programme）
+
+MM2Hとは別枠の超富裕層向け長期滞在ビザ。「マレーシア版ゴールデンビザ」とも呼ばれ、就労・事業・就学がすべて可能です。
+
+| 項目 | 内容 |
+|---|---|
+| 固定預金 | RM 1,000,000（マレーシア認定銀行） |
+| 最低月収証明 | RM 40,000/月以上の海外収入 |
+| プログラム費 | RM 200,000（本人）/ RM 100,000（同伴者1名につき） |
+| 有効期間 | 20年（更新可） |
+| 最低滞在義務 | **なし** |
+| 就労・事業・就学 | すべて可 |
+
+MM2Hとの最大の違いは、滞在義務がなく就労・事業が自由にできる点です。長期的にマレーシアを拠点にしながらビジネスを行いたい高資産者に向いています。
+
+---
+
+### REP（Residence Pass - Talent）
+
+マレーシアで一定期間就労した高度人材向けの10年間長期ビザです。
+
+**申請要件：**
+- EPホルダーとして**3年以上**連続勤務（申請時点）
+- 就労経験合計**5年以上**
+- 基本給（手当除く）**RM 15,000/月以上**
+- マレーシアでの納税実績（直近2年以上）
+- 認定大学の学位または専門資格
+
+取得後は雇用主変更が自由にできるため、キャリアの自由度が大幅に上がります。
+
+---
+
+### 永住権（PR）
+
+マレーシアのPR取得は全体的にハードルが高く、実際の処理期間は**2〜5年**が一般的です。
+
+**主な申請カテゴリ：**
+- **高資産家**：USD 2,000,000以上を5年間マレーシア国内に預託
+- **高度人材・専門職**：高度スキルの専門職として認定
+- **マレーシア市民の配偶者**：2025年1月より待機期間が**5年→3年**に短縮
+- **ポイント制**：就労年数・学歴・年齢等を総合評価
+
+バハサ・マレーシア語試験（筆記・口述）の合格が原則必要です。
+
+---
+
+### 費用まとめ
+
+| ビザ | 主な費用 |
+|---|---|
+| MM2H Silver | プログラム費RM 40,000 + 申請料RM 5,000 + 固定預金USD 150,000 + 不動産RM 600,000〜 |
+| MM2H Gold | プログラム費RM 55,000 + 申請料RM 5,000 + 固定預金USD 500,000 + 不動産RM 1,000,000〜 |
+| MM2H Platinum | プログラム費RM 70,000 + 申請料RM 5,000 + 固定預金USD 1,000,000 + 不動産RM 2,000,000〜 |
+| DE Rantau | RM 1,000（本人） |
+| Employment Pass | RM 500〜2,000（雇用主負担が多い） |
+| PVIP | プログラム費RM 200,000 + 固定預金RM 1,000,000 |
+
+---
 
 ### 移住前のチェックポイント
 
-1. **MM2Hの最新要件確認**：改定が多いため、最新情報を公式サイトで確認
-2. **住居費の試算**：クアラルンプール都心部の家賃はRM 3,000〜8,000程度
-3. **医療保険の加入**：外国人向け民間保険が必要なケースが多い
+1. **MM2Hの最新要件確認**：2024年以降も改定が続いているため、MOTAC公式サイトで最新情報を確認
+2. **EPの2026年6月改定に注意**：新基準（最低RM 5,000〜20,000）への対応を事前に確認
+3. **住居費の試算**：クアラルンプールの外国人エリア（モントキアラ・バンサー等）の家賃はRM 3,000〜6,500/月（単身〜家族）
+4. **医療保険の加入**：外国人向け民間保険が必要なケースが多い
+5. **MoveWorthでシミュレーション**：ビザ費用・生活費・税金を含めた資産推移を無料で確認できます
 
-マレーシアは東南アジアの中でも比較的生活コストが安く、MoveWorthのシミュレーションでも有利な結果が出やすい国です。ただし、MM2Hの要件は流動的なため、最新情報の確認が重要です。`,
-      en: `Malaysia is one of the most popular destinations for Japanese expatriates, offering affordable living, English-language accessibility, and rich culture. The MM2H program was significantly revised in 2022, and the new DE Rantau digital nomad visa launched in 2023.
+マレーシアは東南アジアの中でも長期滞在ビザの選択肢が豊富で、目的や資産水準に応じた最適なビザが見つかりやすい国です。制度変更が多いため、常に最新情報の確認が重要です。`,
+      en: `Malaysia consistently ranks among the top relocation destinations for Japanese expats, offering affordable living costs, good English proficiency, modern infrastructure, and multiple long-stay visa options. Kuala Lumpur (KL) combines urban convenience with living costs roughly half of Tokyo's.
 
-### Main Visa Types
+### Overview of Main Visa Types
 
-**MM2H (Malaysia My Second Home)**
-Long-stay visa now offered in three tiers as of 2025:
-- **Silver tier (5-year renewable)**: Fixed deposit USD 150,000 + property purchase RM 600,000+
-- **Gold tier (15-year renewable)**: Fixed deposit USD 500,000 + property purchase RM 1,000,000+
-- **Platinum tier (20-year renewable)**: Fixed deposit USD 1,000,000 + property purchase RM 2,000,000+
-- Application fee: RM 5,000
+| Visa | Target | Validity | Key Feature |
+|---|---|---|---|
+| MM2H | High-net-worth individuals | 5–20 years | Property purchase required |
+| DE Rantau | Digital nomads & remote workers | Up to 24 months | Accessible & affordable |
+| Employment Pass | Foreign employees of Malaysian companies | Up to 10 years (new rules) | Employer-sponsored |
+| PVIP | Ultra-high-net-worth individuals | 20 years | Work & business permitted, no minimum stay |
+| REP | Long-term skilled professionals | 10 years | Available after 3+ years on EP |
 
-**DE Rantau Pass**
-New visa for digital nomads and remote workers (launched 2023).
-- Minimum annual income: USD 24,000 (tech sector) / USD 60,000 (non-tech)
-- Validity: 12 months (renewable once)
-- Application fee: RM 1,000 (individual)
+---
 
-**Employment Pass**
-For foreigners employed by Malaysian companies. Employer submits the application; minimum salary is typically RM 5,000/month.
+### MM2H (Malaysia My Second Home)
 
-**REP (Residence Pass - Talent)**
-A 10-year long-term work permit for highly skilled foreign professionals with strong income and employment history.
+Significantly revised in June 2024. Monthly income proof has been removed, but **property purchase is now mandatory for all tiers**, and new program fees have been introduced.
 
-### Permanent Residency
+#### Silver (5-year renewable)
+- Fixed deposit: USD 150,000
+- Property purchase: RM 600,000+ (SPA must be signed within 12 months of approval)
+- Program fee: RM 40,000
+- Application fee: RM 5,000 (primary) + RM 2,500 per dependent
 
-Malaysian PR is generally difficult to obtain, requiring long-term employment, marriage to a citizen, or other specific conditions.
+#### Gold (15-year renewable)
+- Fixed deposit: USD 500,000
+- Property purchase: RM 1,000,000+
+- Program fee: RM 55,000
+- Application fee: RM 5,000 (primary) + RM 2,500 per dependent
+
+#### Platinum (20-year renewable)
+- Fixed deposit: USD 1,000,000
+- Property purchase: RM 2,000,000+
+- Program fee: RM 70,000
+- Application fee: RM 5,000 (primary) + RM 2,500 per dependent
+
+**Common terms:**
+- Minimum stay: 90 days/year (for applicants aged 25–49)
+- Up to 50% of the fixed deposit can be withdrawn for property, medical, or education purposes
+- Processing time: approximately 3–5 months
+
+---
+
+### DE Rantau Pass
+
+Launched in 2023 for digital nomads and remote workers. Eligibility was significantly expanded in June 2024.
+
+| Item | Details |
+|---|---|
+| Minimum annual income (tech/digital) | USD 24,000 (approx. USD 2,000/month) |
+| Minimum annual income (non-tech/professional) | USD 60,000 (USD 5,000/month) |
+| Validity | 12 months (renewable once, max 24 months) |
+| Application fee | RM 1,000 (primary applicant) / RM 500 (dependent) |
+| Processing time | 6–8 weeks |
+
+**Eligible professions (expanded June 2024):** Engineers, designers, marketers, accountants, lawyers, writers, entrepreneurs (including CEOs), and other professionals working remotely for overseas clients or employers.
+
+---
+
+### Employment Pass (EP)
+
+For foreigners employed by Malaysian companies. **Major salary threshold changes take effect June 1, 2026.**
+
+#### Current thresholds (until May 31, 2026)
+
+| Category | Monthly Salary | Max Validity |
+|---|---|---|
+| Category I | RM 10,000+ | 5 years |
+| Category II | RM 5,000–9,999 | 2 years |
+| Category III | RM 3,000–4,999 | 12 months |
+
+#### ⚠️ New thresholds (from June 1, 2026)
+
+| Category | Monthly Salary | Max Validity |
+|---|---|---|
+| Category I | RM 20,000+ | 10 years |
+| Category II | RM 10,000–19,999 | 10 years (succession plan required) |
+| Category III | RM 5,000–9,999 | 5 years (succession plan required) |
+
+Salary requirements roughly double under the new rules. Those planning to work in Malaysia should factor this into their income planning.
+
+---
+
+### PVIP (Malaysia Premium Visa Programme)
+
+A separate long-stay program for ultra-high-net-worth individuals, often called Malaysia's "Golden Visa." Work, business, and study are all permitted.
+
+| Item | Details |
+|---|---|
+| Fixed deposit | RM 1,000,000 (Malaysian licensed bank) |
+| Monthly income proof | RM 40,000/month from overseas sources |
+| Program fee | RM 200,000 (primary) / RM 100,000 per dependent |
+| Validity | 20 years (renewable) |
+| Minimum stay | None |
+| Work / business / study | All permitted |
+
+Unlike MM2H, PVIP has no minimum stay requirement and allows full work and business rights — ideal for high-net-worth individuals who want Malaysia as a base while running international businesses.
+
+---
+
+### REP (Residence Pass - Talent)
+
+A 10-year long-stay visa for highly skilled professionals with a track record in Malaysia.
+
+**Requirements:**
+- Continuous Employment Pass (EP) holder for **3+ years**
+- Total work experience of **5+ years**
+- Basic salary (excluding allowances): **RM 15,000/month+**
+- Malaysian tax filing record for the past **2+ years**
+- Recognized university degree or professional qualification
+
+After obtaining REP, you can change employers freely without reapplying for a new EP.
+
+---
+
+### Permanent Residency (PR)
+
+Malaysian PR is generally challenging, with real-world processing times of **2–5 years**.
+
+**Main application categories:**
+- **High-net-worth**: Deposit USD 2,000,000+ for 5 years in Malaysia
+- **Skilled professionals**: Recognition as a highly skilled professional
+- **Spouse of Malaysian citizen**: Waiting period reduced from **5 → 3 years** (January 2025)
+- **Points-based**: Evaluated on work history, education, age, etc.
+
+A Bahasa Malaysia language test is generally required.
+
+---
 
 ### Cost Summary
 
-| Item | Cost |
-|------|------|
-| MM2H application fee | RM 5,000 |
-| DE Rantau Pass | RM 1,000 |
-| Work visa application | RM 500–2,000 |
+| Visa | Main Costs |
+|---|---|
+| MM2H Silver | Program fee RM 40,000 + application fee RM 5,000 + fixed deposit USD 150,000 + property RM 600,000+ |
+| MM2H Gold | Program fee RM 55,000 + application fee RM 5,000 + fixed deposit USD 500,000 + property RM 1,000,000+ |
+| MM2H Platinum | Program fee RM 70,000 + application fee RM 5,000 + fixed deposit USD 1,000,000 + property RM 2,000,000+ |
+| DE Rantau | RM 1,000 (primary applicant) |
+| Employment Pass | RM 500–2,000 (often employer-sponsored) |
+| PVIP | Program fee RM 200,000 + fixed deposit RM 1,000,000 |
+
+---
 
 ### Pre-Move Checklist
 
-1. **Verify current MM2H requirements**: Requirements change frequently — check official sources
-2. **Estimate housing costs**: KL city center rents range RM 3,000–8,000/month
-3. **Arrange health insurance**: Private insurance is typically required for foreigners
+1. **Verify current MM2H requirements**: Requirements have continued to evolve since 2024 — check official MOTAC sources
+2. **Note the June 2026 EP salary changes**: New thresholds significantly raise the bar for local employment
+3. **Estimate housing costs**: KL expat areas (Mont Kiara, Bangsar) range from RM 3,000–6,500/month
+4. **Arrange health insurance**: Private insurance is typically required for foreigners
+5. **Run a MoveWorth simulation**: Check projected asset growth factoring in visa costs, living expenses, and taxes
 
-Malaysia offers relatively low living costs in Southeast Asia, often showing favorable simulation results in MoveWorth. However, since MM2H requirements are subject to change, always verify current information.`,
-      zh: `马来西亚因生活费低廉、英语普及、文化多元，是日本人移居的热门目的地之一。2022年MM2H大幅修订，2023年又新增了DE Rantau数字游民签证。
+Malaysia offers one of Southeast Asia's most diverse ranges of long-stay visa options. Frequent policy updates mean it's essential to verify current requirements before applying.`,
+      zh: `马来西亚以生活费低廉、英语普及、基础设施现代化等优势，一直是日本人移居首选目的地之一。吉隆坡（KL）城市配套完善，生活费用约为东京的一半。
 
-### 主要签证种类
+### 主要签证类型一览
 
-**MM2H（马来西亚第二家园计划）**
-以长期居留为目的的5年多次入境签证，2022年修订后门槛大幅提高。
-- 海外最低月收入：RM 40,000
-- 定期存款：RM 1,000,000
-- 流动资产：RM 1,500,000以上
-- 申请费用：RM 5,000
+| 签证 | 适用人群 | 有效期 | 特点 |
+|---|---|---|---|
+| MM2H | 高净值人士 | 5～20年 | 必须购置房产 |
+| DE Rantau | 数字游民・远程工作者 | 最长24个月 | 门槛相对较低 |
+| 就业准证（EP） | 受雇于本地企业的外籍人士 | 最长10年（新规） | 雇主申请 |
+| PVIP | 超高净值人士 | 20年 | 可就业・经营，无居住要求 |
+| REP | 高技能长期就业人才 | 10年 | EP持有3年后可申请 |
 
-**DE Rantau准证**
-面向数字游民和远程工作者的新签证（2023年推出）。
-- 最低年收入：USD 24,000（技术领域）/ USD 60,000（非技术领域）
-- 有效期：12个月（可续签一次）
-- 申请费用：RM 1,000（个人）
+---
 
-**就业准证（Employment Pass）**
-面向受雇于马来西亚企业的外国人，由雇主申请，月薪参考标准为RM 5,000以上。
+### MM2H（马来西亚第二家园计划）
 
-**REP（居留准证—人才）**
-10年长期就业签证，面向具有高收入和长期就业记录的熟练外国专业人士。
+2024年6月大幅改版。原月收入证明要求已取消，但**所有级别均须购置房产**，并新增项目费用。
 
-### 费用参考
+#### Silver（5年）
+- 定期存款：USD 150,000
+- 购置房产：RM 600,000以上（批准后12个月内须签买卖合同）
+- 项目费：RM 40,000
+- 申请手续费：RM 5,000（本人）+ RM 2,500（每位随行家属）
 
-| 项目 | 费用 |
-|------|------|
-| MM2H申请费 | RM 5,000 |
-| DE Rantau准证 | RM 1,000 |
-| 就业签证申请费 | RM 500～2,000 |
+#### Gold（15年）
+- 定期存款：USD 500,000
+- 购置房产：RM 1,000,000以上
+- 项目费：RM 55,000
+- 申请手续费：RM 5,000（本人）+ RM 2,500（每位随行家属）
 
-### 移居前注意事项
+#### Platinum（20年）
+- 定期存款：USD 1,000,000
+- 购置房产：RM 2,000,000以上
+- 项目费：RM 70,000
+- 申请手续费：RM 5,000（本人）+ RM 2,500（每位随行家属）
 
-1. **确认MM2H最新要求**：政策变动频繁，需查阅官方最新信息
-2. **估算住房成本**：吉隆坡市中心租金约RM 3,000～8,000/月
-3. **购买医疗保险**：外国人通常需要自费购买私人保险
+**通用条款：**
+- 最低居住要求：90天/年（25～49岁适用）
+- 定期存款最多可提取50%用于购房、医疗或教育
+- 预计处理时间：3～5个月
 
-马来西亚在东南亚中生活成本相对较低，在MoveWorth模拟中往往呈现有利结果。但由于MM2H要求随时可能变动，请务必核实最新信息。`,
+---
+
+### DE Rantau准证
+
+2023年推出，面向数字游民和远程工作者。2024年6月大幅扩大了适用职业范围。
+
+| 项目 | 内容 |
+|---|---|
+| 最低年收入（IT・数字类） | USD 24,000（约USD 2,000/月） |
+| 最低年收入（非IT・管理・专业职） | USD 60,000（USD 5,000/月） |
+| 有效期 | 12个月（可续签一次，最长24个月） |
+| 申请费 | RM 1,000（本人）/ RM 500（随行家属） |
+| 处理时间 | 6～8周 |
+
+**适用职业（2024年6月扩充后）：** 工程师、设计师、营销人员、会计师、律师、写作者、创业者（含CEO）等受境外雇主雇用的专业人士。
+
+---
+
+### 就业准证（EP）
+
+面向受雇于马来西亚企业的外籍人士。**2026年6月1日起，薪资门槛将大幅提高。**
+
+#### 现行标准（截至2026年5月31日）
+
+| 类别 | 月薪要求 | 最长有效期 |
+|---|---|---|
+| Category I | RM 10,000以上 | 5年 |
+| Category II | RM 5,000～9,999 | 2年 |
+| Category III | RM 3,000～4,999 | 12个月 |
+
+#### ⚠️ 新标准（2026年6月1日起）
+
+| 类别 | 月薪要求 | 最长有效期 |
+|---|---|---|
+| Category I | RM 20,000以上 | 10年 |
+| Category II | RM 10,000～19,999 | 10年（须提交接班人计划） |
+| Category III | RM 5,000～9,999 | 5年（须提交接班人计划） |
+
+薪资要求约提高一倍。有意在马来西亚就业者应尽早确认新标准的影响并提前规划。
+
+---
+
+### PVIP（马来西亚高端签证计划）
+
+面向超高净值人士的长期居留计划，又称马来西亚"黄金签证"。可自由就业、经营及就学。
+
+| 项目 | 内容 |
+|---|---|
+| 定期存款 | RM 1,000,000（马来西亚认可银行） |
+| 月收入证明 | 境外收入RM 40,000/月以上 |
+| 项目费 | RM 200,000（本人）/ RM 100,000（每位随行家属） |
+| 有效期 | 20年（可续签） |
+| 最低居住要求 | 无 |
+| 就业・经营・就学 | 均可 |
+
+与MM2H不同，PVIP无最低居住要求，且允许自由就业和经营，适合以马来西亚为据点开展国际业务的高净值人士。
+
+---
+
+### REP（居留准证—人才）
+
+针对在马来西亚长期就业的高技能专业人士的10年居留签证。
+
+**申请条件：**
+- 持有EP连续就业**3年以上**
+- 累计工作经验**5年以上**
+- 基本工资（不含津贴）**RM 15,000/月以上**
+- 马来西亚纳税记录（近2年以上）
+- 认可大学学位或专业资格
+
+取得后可自由更换雇主，无需重新申请EP。
+
+---
+
+### 永久居留权（PR）
+
+马来西亚PR申请门槛较高，实际处理时间通常为**2～5年**。
+
+**主要申请类别：**
+- **高净值人士**：在马来西亚存入USD 2,000,000以上并保持5年
+- **高技能专业人士**：获认定为高技能专业人士
+- **马来西亚公民配偶**：2025年1月起等待期由**5年缩短为3年**
+- **积分制**：综合评估就业年限、学历、年龄等
+
+原则上须通过马来西亚语（国语）考试。
+
+---
+
+### 费用汇总
+
+| 签证 | 主要费用 |
+|---|---|
+| MM2H Silver | 项目费RM 40,000 + 手续费RM 5,000 + 定存USD 150,000 + 房产RM 600,000以上 |
+| MM2H Gold | 项目费RM 55,000 + 手续费RM 5,000 + 定存USD 500,000 + 房产RM 1,000,000以上 |
+| MM2H Platinum | 项目费RM 70,000 + 手续费RM 5,000 + 定存USD 1,000,000 + 房产RM 2,000,000以上 |
+| DE Rantau | RM 1,000（本人） |
+| 就业准证 | RM 500～2,000（多由雇主负担） |
+| PVIP | 项目费RM 200,000 + 定存RM 1,000,000 |
+
+---
+
+### 移居前核查清单
+
+1. **确认MM2H最新要求**：2024年后政策持续调整，请核查MOTAC官方最新信息
+2. **注意EP 2026年6月新标准**：薪资门槛大幅提高，有意就业者须提前规划
+3. **估算住房成本**：吉隆坡外籍人士聚居区（蒙特基拉、孟沙等）租金约RM 3,000～6,500/月
+4. **购置医疗保险**：外籍人士通常须自行购买私人保险
+5. **使用MoveWorth进行模拟**：综合考量签证费、生活费和税务的资产变化趋势
+
+马来西亚是东南亚长居签证选项最为丰富的国家之一，但政策更新频繁，申请前务必核实最新规定。`,
     },
   },
   {
