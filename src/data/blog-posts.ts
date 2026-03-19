@@ -1918,133 +1918,343 @@ MoveWorth is a platform for everyone considering overseas relocation. Stay tuned
   {
     slug: "visa-sg",
     category: "visa",
-    date: "2026-02-22",
-    readingTime: 6,
+    date: "2026-03-19",
+    readingTime: 12,
     title: {
-      ja: "シンガポールのビザ・就労許可完全ガイド",
+      ja: "シンガポールのビザ・就労許可完全ガイド【2026年最新版】",
       en: "Singapore Visa & Work Permit Complete Guide 2026",
-      zh: "新加坡签证与就业准证完全指南",
+      zh: "新加坡签证与就业准证完全指南【2026年最新版】",
     },
     description: {
-      ja: "就労パス（EP）からEntrePassまで、シンガポールの主要ビザの種類・要件・費用を徹底解説。",
-      en: "From Employment Pass to EntrePass — a complete breakdown of Singapore's main visa types, requirements, and costs.",
-      zh: "从就业准证（EP）到EntrePass，全面解析新加坡主要签证的种类、要求与费用。",
+      ja: "EP・S Pass・ONE Pass・Tech.Pass・永住権まで。COMPASS義務化・2025年給与基準改定を反映したシンガポール全ビザの種類・要件・費用を徹底解説。",
+      en: "From EP to ONE Pass and Tech.Pass — updated for mandatory COMPASS scoring and 2025 salary threshold revisions.",
+      zh: "涵盖EP、S准证、ONE Pass及Tech.Pass，全面反映COMPASS强制评分及2025年薪资标准调整。",
     },
     content: {
-      ja: `シンガポールは、アジアのビジネスハブとして多くの外国人労働者や起業家を受け入れています。高い生活水準と低い税率が魅力のシンガポールへの移住を検討している方向けに、主要なビザ・就労許可証を解説します。
+      ja: `シンガポールはアジアのビジネスハブとして、低税率・優れたインフラ・英語環境から多くの外国人専門家を引き付けています。ただし物価・家賃は東京を上回ることも多く、収入水準に応じたビザ選択が重要です。
 
-### 主な就労ビザの種類
+### シンガポールの主なビザ一覧
 
-**Employment Pass（EP）**
-シンガポールで最も一般的な就労ビザです。専門職・管理職・幹部職向けで、2025年1月より最低月給はSGD 5,600（金融業はSGD 6,200）に引き上げられました。COMPASSによるポイントスコアも必須要件となっています。
-- 申請費用：SGD 105（新規）
-- 有効期間：最大2年（更新時は最大3年）
+| ビザ種類 | 対象者 | 有効期間 | 最低給与 |
+|---|---|---|---|
+| Employment Pass（EP） | 専門職・管理職 | 2〜3年 | SGD 5,000/月 |
+| S Pass | 中級技術職 | 2〜3年 | SGD 3,150/月 |
+| ONE Pass | 超高収入トップ人材 | 5年 | SGD 30,000/月 |
+| Tech.Pass | テック起業家・リーダー | 2年 | 条件制 |
+| EntrePass | 起業家 | 1年（更新可） | 条件制 |
 
-**S Pass**
-中級技術職向けパス。2025年9月より最低月給はSGD 3,300（年齢により最大SGD 4,800）。雇用主ごとに外国人雇用枠（クォータ）あり。
+---
 
-**EntrePass**
-革新的なビジネスを立ち上げる起業家向けパス。事業計画の審査が必要で、VC投資家・政府認定インキュベータからの推薦状があると審査に有利。
+### Employment Pass（EP）
 
-**One Pass（EPOL）**
-月給SGD 30,000以上のトップ人材向けの5年間有効な特別パス。家族の就労許可も取得しやすい。
+シンガポールで最も一般的な就労ビザです。**2023年9月よりCOMPASSスコアが全申請に義務化**されました。
 
-### 永住権・市民権
+**給与基準（2025年時点）：**
+- 一般職：**SGD 5,000/月**以上
+- 金融業：**SGD 5,500/月**以上
+- ベテラン（40代以上）：SGD 10,500/月以上が目安
 
-**永住権（PR）**
-EP/S Passで数年就労後に申請可能。承認率は非公開で、家族構成・年収・納税額・学歴などが審査される。待機期間は1〜6ヶ月程度。
-
-### 費用の目安
+**COMPASSスコア（40点以上が必要）：**
+- 給与水準（同職種の中央値との比較）
+- 学歴（名門大学ほど高得点）
+- 多様性（雇用主の外国人比率が低いほど高得点）
+- 地域人材支援（シンガポール人採用実績）
 
 | 項目 | 費用 |
-|------|------|
-| EP申請費 | SGD 105 |
-| S Pass申請費 | SGD 70 |
-| Personalised Employment Pass | SGD 200 |
+|---|---|
+| 申請手数料 | SGD 105 |
+| 発給手数料 | SGD 225 |
+| 有効期間 | 2年（初回）/ 3年（更新） |
+
+---
+
+### S Pass
+
+中級技術職向けパス。雇用主はS Pass保有者の比率（クォータ）が制限されます。
+
+- 最低月給：**SGD 3,150/月**（年齢により最大SGD 4,800）
+- 金融業：SGD 3,650/月
+- クォータ：全従業員の**15%**まで（製造業は20%）
+- 雇用主負担レビー：SGD 650〜900/月
+
+---
+
+### ONE Pass
+
+月給SGD 30,000以上のトップ人材向け特別パス。
+
+- 有効期間：**5年**（更新可）
+- **複数雇用主での同時就労が可能**
+- 配偶者も別途就労パス不要で就労可
+- 申請費：SGD 105 + 発給費 SGD 225
+
+---
+
+### Tech.Pass
+
+テック系起業家・エグゼクティブ向けの特別パス。以下の3条件のうち**2つ以上**を満たす必要があります。
+
+1. 直近の月給 **SGD 20,000以上**
+2. 企業価値 **USD 5億以上**のテック企業を5年以上リード
+3. **30人以上**のR&Dチームを5年以上リード
+
+- 有効期間：2年（更新時に再評価）
+- 起業・役員就任・投資家としての活動がすべて可
+
+---
+
+### EntrePass
+
+シンガポールで革新的なビジネスを立ち上げる起業家向けパス。
+
+- VCからの投資実績 or 政府認定インキュベータへの参加が審査で有利
+- 有効期間：1年（実績次第で更新可）
+- シンガポール国籍のローカル雇用実績が更新審査に影響
+
+---
+
+### 永住権（PR）
+
+EP/S Passで数年就労後に申請可能です。
+
+- 審査基準：年収・税支払い実績・学歴・家族構成・雇用期間
+- 承認率：非公開（推定30〜35%程度）
+- 処理期間：6ヶ月〜1年
+- 取得後は国民に準じた扱い（HDB住宅購入可など）
+
+---
+
+### 費用まとめ
+
+| ビザ | 申請費 | 発給費 |
+|---|---|---|
+| EP | SGD 105 | SGD 225 |
+| S Pass | SGD 70 | SGD 150 |
+| ONE Pass | SGD 105 | SGD 225 |
+| Tech.Pass | SGD 105 | SGD 225 |
+
+---
 
 ### 移住前のチェックポイント
 
-1. **給与基準の確認**：毎年改定される最低給与基準を事前に確認
-2. **COMPASSスコアの把握**：雇用主の外国人比率・学歴・給与等でポイントが変動
-3. **住居費の試算**：シンガポールの家賃は高額なため、MoveWorthでのシミュレーションが有効
+1. **給与基準の確認**：COMPASSスコア・最低給与は毎年改定されるため、MOMの公式サイトで最新情報を確認
+2. **住居費の試算**：シンガポールの外国人エリア（オーチャード・ホランドビレッジ等）の家賃は単身SGD 2,800〜/月と高額
+3. **依存パスの条件**：家族を帯同する場合、EP保有者はSGD 6,000/月以上が目安
+4. **医療保険**：雇用主が提供するケースが多いが、自己手配が必要な場合もある
+5. **MoveWorthでシミュレーション**：高い税率優遇と高い生活費のバランスを数字で確認
 
-シンガポールは移住後の生活水準が高い反面、住居費・教育費が高額です。事前に総合的な財務シミュレーションを行うことをお勧めします。`,
-      en: `Singapore is Asia's business hub, welcoming skilled foreign professionals and entrepreneurs. Here's a comprehensive breakdown of Singapore's main visa and work permit options.
+シンガポールは法人税・個人所得税ともに日本より低く、資産形成の観点からも注目される移住先です。ただし住居費・教育費が世界トップクラスのため、収入水準を慎重に確認することが重要です。`,
+      en: `Singapore is Asia's premier business hub, known for low taxes, world-class infrastructure, and an English-speaking environment. However, housing costs frequently exceed Tokyo's, making income planning critical.
 
-### Main Work Visa Types
+### Overview of Main Visa Types
 
-**Employment Pass (EP)**
-The most common work visa for professionals, managers, and executives. From January 2025, the minimum monthly salary is SGD 5,600 (SGD 6,200 for financial services). The COMPASS point-based system is also mandatory.
-- Application fee: SGD 105 (new application)
-- Validity: Up to 2 years (up to 3 years on renewal)
+| Visa | Target | Validity | Min. Salary |
+|---|---|---|---|
+| Employment Pass (EP) | Professionals & managers | 2–3 years | SGD 5,000/month |
+| S Pass | Mid-level skilled workers | 2–3 years | SGD 3,150/month |
+| ONE Pass | Top earners | 5 years | SGD 30,000/month |
+| Tech.Pass | Tech entrepreneurs & leaders | 2 years | Criteria-based |
+| EntrePass | Entrepreneurs | 1 year (renewable) | Criteria-based |
 
-**S Pass**
-For mid-level skilled workers. From September 2025, minimum monthly salary is SGD 3,300 (age-based, up to SGD 4,800). Subject to employer quota limits.
+---
 
-**EntrePass**
-For innovative entrepreneurs starting businesses in Singapore. Requires a business plan review; recommendations from VCs or government-recognized incubators strengthen applications.
+### Employment Pass (EP)
 
-**One Pass (EPOL)**
-A 5-year pass for top talent earning at least SGD 30,000/month. Easier to obtain work permits for family members.
+The most common work visa for professionals. **COMPASS scoring became mandatory for all EP applications in September 2023.**
 
-### Permanent Residency & Citizenship
+**Salary thresholds (2025):**
+- General: **SGD 5,000/month**
+- Financial services: **SGD 5,500/month**
+- Mid-40s and above: typically SGD 10,500/month+
 
-**Permanent Residency (PR)**
-Eligible after several years on EP/S Pass. Approval rates are undisclosed; income, taxes paid, education, and family ties are evaluated.
+**COMPASS scoring (40+ points required):**
+- Salary benchmark (vs. median for similar roles)
+- Qualifications (top-ranked universities score higher)
+- Diversity (lower foreign worker ratio at employer = higher score)
+- Support for local professionals
+
+| Item | Fee |
+|---|---|
+| Application fee | SGD 105 |
+| Issuance fee | SGD 225 |
+| Validity | 2 years (first issuance) / 3 years (renewal) |
+
+---
+
+### S Pass
+
+For mid-level skilled workers. Employers face quota limits on S Pass holders.
+
+- Minimum salary: **SGD 3,150/month** (age-adjusted, up to SGD 4,800)
+- Financial services: SGD 3,650/month
+- Quota: up to **15%** of workforce (20% for manufacturing)
+- Employer levy: SGD 650–900/month per S Pass holder
+
+---
+
+### ONE Pass
+
+For top talent earning SGD 30,000/month or more.
+
+- Validity: **5 years** (renewable)
+- **Can work for multiple employers simultaneously**
+- Spouse can work in Singapore without a separate work pass
+- Application fee: SGD 105 + issuance SGD 225
+
+---
+
+### Tech.Pass
+
+For established tech entrepreneurs and leaders. Must meet **at least 2 of 3** criteria:
+
+1. Last drawn salary **SGD 20,000/month+**
+2. Led tech product/service with valuation **USD 500M+** for 5+ years
+3. Led R&D team of **30+** in a tech company for 5+ years
+
+- Validity: 2 years (re-evaluated at renewal)
+- Can simultaneously run companies, serve as director, and invest
+
+---
+
+### EntrePass
+
+For entrepreneurs starting innovative businesses in Singapore.
+
+- VC investment or acceptance into a government-recognized incubator strengthens the application
+- Validity: 1 year (renewable based on business performance)
+- Local hiring track record affects renewal outcomes
+
+---
+
+### Permanent Residency (PR)
+
+Eligible after several years on EP/S Pass.
+
+- Assessment: income, taxes paid, education, family ties, employment duration
+- Approval rate: undisclosed (estimated ~30–35%)
+- Processing time: 6 months to 1 year
+
+---
 
 ### Cost Summary
 
-| Item | Cost |
-|------|------|
-| EP application fee | SGD 105 |
-| S Pass application fee | SGD 70 |
-| Personalised Employment Pass | SGD 200 |
+| Visa | Application Fee | Issuance Fee |
+|---|---|---|
+| EP | SGD 105 | SGD 225 |
+| S Pass | SGD 70 | SGD 150 |
+| ONE Pass | SGD 105 | SGD 225 |
+| Tech.Pass | SGD 105 | SGD 225 |
+
+---
 
 ### Pre-Move Checklist
 
-1. **Verify salary thresholds**: Minimum salary requirements are revised annually
-2. **Understand COMPASS scoring**: Points vary by employer's foreign workforce ratio, education, salary
-3. **Estimate housing costs**: Singapore rents are high — use MoveWorth simulation for accurate projections
+1. **Verify salary and COMPASS thresholds**: Updated regularly — check MOM's official portal
+2. **Estimate housing costs**: Expat areas (Orchard, Holland Village) range from SGD 2,800+/month for singles
+3. **Dependant's Pass conditions**: To bring family, EP holders typically need SGD 6,000+/month
+4. **Health insurance**: Often employer-provided, but verify coverage
+5. **Run a MoveWorth simulation**: Balance Singapore's tax advantages against high living costs
 
-Singapore offers a high standard of living but comes with high housing and education costs. We recommend running a comprehensive financial simulation before making your decision.`,
-      zh: `新加坡是亚洲商业中心，积极吸纳海外专业人才和创业者。以下是新加坡主要签证与就业准证的详细介绍。
+Singapore's low corporate and personal tax rates make it attractive for wealth building — but world-class housing and education costs mean careful income planning is essential.`,
+      zh: `新加坡是亚洲首屈一指的商业中心，以低税率、世界级基础设施和英语环境著称。但住房成本往往高于东京，收入规划至关重要。
 
-### 主要就业签证种类
+### 主要签证类型一览
 
-**就业准证（EP）**
-新加坡最常见的就业签证，面向专业人士、管理人员和高管。2025年1月起，最低月薪调整为SGD 5,600（金融行业为SGD 6,200）。COMPASS积分制度也是强制要求。
-- 申请费用：SGD 105（新申请）
-- 有效期：最长2年（续签最长3年）
+| 签证 | 适用人群 | 有效期 | 最低薪资 |
+|---|---|---|---|
+| 就业准证（EP） | 专业人士・管理人员 | 2～3年 | SGD 5,000/月 |
+| S准证 | 中级技术人员 | 2～3年 | SGD 3,150/月 |
+| ONE Pass | 顶尖高收入人才 | 5年 | SGD 30,000/月 |
+| Tech.Pass | 科技创业者・领袖 | 2年 | 条件制 |
+| EntrePass | 创业者 | 1年（可续签） | 条件制 |
 
-**S准证**
-面向中级技术人员。2025年9月起最低月薪调整为SGD 3,300（按年龄递增，最高SGD 4,800）。受雇主名额限制。
+---
 
-**EntrePass**
-面向在新加坡创办创新型企业的创业者。需提交商业计划书审查，获得风险投资机构或政府认可孵化器推荐有利于审批。
+### 就业准证（EP）
 
-**One Pass（EPOL）**
-月薪SGD 30,000以上顶尖人才的5年期特别准证。家属更易获得就业准证。
+新加坡最常见的就业签证。**2023年9月起，所有EP申请均须通过COMPASS积分评估。**
 
-### 永久居留权与公民身份
+**薪资标准（2025年）：**
+- 一般职位：**SGD 5,000/月**以上
+- 金融行业：**SGD 5,500/月**以上
+- 40岁以上资深人士：通常需SGD 10,500/月以上
 
-**永久居留权（PR）**
-在EP/S准证下工作数年后可申请。审批率不公开，收入、纳税额、教育背景和家庭状况均纳入评估。
-
-### 费用参考
+**COMPASS积分要求（需达40分）：**
+- 薪资水平（与同岗位中位数比较）
+- 学历（知名院校得分更高）
+- 多元化（雇主外籍员工比例越低得分越高）
+- 支持本地专业人才
 
 | 项目 | 费用 |
-|------|------|
-| EP申请费 | SGD 105 |
-| S准证申请费 | SGD 70 |
-| 个人化就业准证 | SGD 200 |
+|---|---|
+| 申请手续费 | SGD 105 |
+| 签发手续费 | SGD 225 |
+| 有效期 | 2年（首次）/ 3年（续签） |
 
-### 移居前注意事项
+---
 
-1. **确认薪资标准**：最低薪资要求每年修订，需提前确认
-2. **了解COMPASS积分**：积分因雇主外籍员工比例、学历、薪资而异
-3. **估算住房成本**：新加坡租金较高，建议使用MoveWorth进行精准模拟
+### S准证
 
-新加坡生活水平高，但住房和教育费用也相当昂贵。建议移居前进行全面的财务模拟。`,
+面向中级技术人员，雇主须遵守名额限制。
+
+- 最低月薪：**SGD 3,150**（按年龄递增，最高SGD 4,800）
+- 金融行业：SGD 3,650/月
+- 名额限制：员工总数的**15%**（制造业为20%）
+- 雇主须缴纳税收：SGD 650～900/月/人
+
+---
+
+### ONE Pass
+
+面向月薪SGD 30,000以上的顶尖人才。
+
+- 有效期：**5年**（可续签）
+- **可同时为多家雇主工作**
+- 配偶无需单独申请即可在新加坡工作
+- 申请费：SGD 105 + 签发费 SGD 225
+
+---
+
+### Tech.Pass
+
+面向科技创业者及高管，须满足以下**3项中的至少2项：**
+
+1. 近期月薪 **SGD 20,000**以上
+2. 主导估值**USD 5亿**以上科技企业达5年以上
+3. 领导**30人以上**研发团队达5年以上
+
+---
+
+### 永久居留权（PR）
+
+在EP/S准证下工作数年后可申请。
+
+- 评估标准：收入、纳税记录、学历、家庭关系、就业年限
+- 审批率：不公开（估计约30～35%）
+- 处理时间：6个月至1年
+
+---
+
+### 费用汇总
+
+| 签证 | 申请费 | 签发费 |
+|---|---|---|
+| EP | SGD 105 | SGD 225 |
+| S准证 | SGD 70 | SGD 150 |
+| ONE Pass | SGD 105 | SGD 225 |
+| Tech.Pass | SGD 105 | SGD 225 |
+
+---
+
+### 移居前核查清单
+
+1. **确认薪资及COMPASS标准**：定期更新，请查阅MOM官方网站
+2. **估算住房成本**：外籍人士聚居区（乌节路、荷兰村等）单身月租约SGD 2,800起
+3. **家属准证条件**：携家属同行通常需EP持有者月薪达SGD 6,000以上
+4. **医疗保险**：通常由雇主提供，但需提前确认覆盖范围
+5. **使用MoveWorth模拟**：综合评估新加坡税收优势与高生活成本的平衡
+
+新加坡的企业所得税和个人所得税均低于日本，是财富积累的理想目的地，但住房和教育费用位居全球前列，务必仔细规划收入。`,
     },
   },
   {
@@ -2521,310 +2731,479 @@ Malaysia offers one of Southeast Asia's most diverse ranges of long-stay visa op
   {
     slug: "visa-th",
     category: "visa",
-    date: "2026-02-22",
-    readingTime: 6,
+    date: "2026-03-19",
+    readingTime: 12,
     title: {
-      ja: "タイのビザ・就労許可完全ガイド",
-      en: "Thailand Visa & Work Permit Complete Guide 2026",
-      zh: "泰国签证与工作许可完全指南",
+      ja: "【2026年最新版】タイのビザ・就労許可完全ガイド｜LTR・Thailand Privilege・2024年税制改正",
+      en: "Thailand Visa & Work Permit Complete Guide 2026 | LTR, Thailand Privilege & 2024 Tax Reform",
+      zh: "【2026年最新版】泰国签证与工作许可完全指南｜LTR签证·Thailand Privilege·2024年税制改革",
     },
     description: {
-      ja: "LTRビザ、タイエリートビザ、就労許可証まで。タイの主要ビザの種類・要件・費用を徹底解説。",
-      en: "From LTR Visa to Thai Elite and work permits — a complete breakdown of Thailand's main visa types, requirements, and costs.",
-      zh: "从LTR签证到泰国精英签证及工作许可，全面解析泰国主要签证的种类、要求与费用。",
+      ja: "LTRビザ・Thailand Privilege Card（旧Thai Elite）・就労許可証・2024年税制改正まで。タイの主要ビザの種類・要件・費用を徹底解説。",
+      en: "LTR Visa, Thailand Privilege Card, work permits, and the critical 2024 tax reform — a complete breakdown of Thailand's main visa types, requirements, and costs.",
+      zh: "LTR签证、Thailand Privilege Card、工作许可证及2024年重要税制改革——全面解析泰国主要签证种类、要求与费用。",
     },
     content: {
-      ja: `タイは温暖な気候・豊かな食文化・比較的低い生活コストから、日本人の移住先として人気上位の国です。近年はデジタルノマド向けの新ビザ制度も整備されています。
+      ja: `タイは温暖な気候・豊かな食文化・比較的低い生活コストから、日本人の移住先として人気上位の国です。バンコク・チェンマイを拠点に多くの外国人が生活しており、近年はデジタルノマド向けの新ビザ制度も整備されています。
 
 ### 主なビザの種類
 
 **LTR（Long-Term Resident）ビザ**
 2022年に導入された富裕層・リタイア者・高度人材向けの10年間有効ビザ。4カテゴリがあります。
-- Wealthy Global Citizen：純資産USD 1,000,000以上 + タイ国内投資USD 500,000以上（2025年改定で所得要件廃止）
-- Wealthy Pensioner：年金等収入USD 80,000/年以上（50歳以上）、または USD 40,000/年以上 + タイ国内資産USD 250,000以上
-- Work-from-Thailand Professional：海外企業からの収入USD 80,000/年以上（2025年改定）
-- Highly-Skilled Professional：高収入・特定分野の専門家
+- **Wealthy Global Citizen**：純資産USD 1,000,000以上 + タイ国内投資USD 500,000以上（または年収USD 80,000以上 + 投資）
+- **Wealthy Pensioner**：年金等収入USD 80,000/年以上（50歳以上）、またはUSD 40,000/年以上 + タイ国内資産USD 250,000以上
+- **Work-from-Thailand Professional**：海外企業からの収入USD 80,000/年以上（2年以上の就労経験が必要）
+- **Highly-Skilled Professional**：タイ政府指定のターゲット産業（S-カーブ産業等）で就労する高スキル人材
 - 申請費用：THB 50,000（10年）
+- 全カテゴリで医療保険USD 40,000以上の加入が必須
 
-**Thai Elite ビザ（Thailand Privilege Card）**
-富裕層向けの優遇会員制ビザ。5〜20年の滞在権が得られ、空港送迎などの特典付き。
-- 5年プラン：THB 600,000〜
-- 20年プラン：THB 2,400,000〜
+**Thailand Privilege Card（旧Thai Elite）**
+富裕層向けの優遇会員制ビザ。2023年にリニューアルされ、現在の最新プランは以下のとおりです。
+- **Privilege Entry（5年）**：THB 900,000
+- **Privilege Superiority（10年）**：THB 1,500,000
+- **Privilege Excellence（15年）**：THB 2,500,000
+- **Elite Ultimate Privilege（20年）**：THB 5,000,000
+- 空港VIPレーン・専用車送迎・ゴルフ・スパ施設等の特典付き
 
 **ノンイミグラント（Non-B）ビザ + 就労許可証**
-タイで働く外国人が最も多く取得するビザ。雇用主のサポートが必要。
-- ビザ費用：THB 2,000（シングル）
-- 就労許可証費用：THB 3,000〜
+タイで働く外国人が最も多く取得するルート。雇用主のサポートが必要。
+- **4:1ルール**：外国人労働者1名につきタイ人従業員4名の雇用が義務
+- ビザ費用：THB 2,000（シングル）/ THB 5,000（マルチ）
+- 就労許可証費用：THB 3,000〜5,000（職種・期間による）
 
 **リタイアメントビザ（Non-OA）**
-50歳以上対象。年金または預金残高THB 800,000以上が必要。
+50歳以上対象。以下のいずれかが必要。
+- タイの銀行口座にTHB 800,000以上の預金残高
+- 月収入THB 65,000以上の証明（年金証明書等）
+- 医療保険加入義務：外来OPD THB 40,000以上 / 入院IPD THB 440,000以上
+
+### ⚠️ 2024年税制改正（重要）
+
+2024年1月1日より、タイの税制が大きく変わりました。
+
+**改正前**：前年以前に稼得した海外所得をタイ国内に送金する場合は非課税とする解釈が一般的だった
+**改正後**：**海外で稼いだ所得をタイ国内に送金した場合、その送金が同じ暦年内であれば課税対象**
+
+- タイ滞在が年間180日以上 → 税務上の居住者と認定
+- 居住者が海外所得をタイへ送金した場合、申告・納税義務が発生
+- 税率：5〜35%（累進課税）
+- LTRビザ保持者には一部例外措置あり（海外源泉所得への課税免除特典）
+- 日本-タイ間には租税条約あり（一部の二重課税を回避可能）
 
 ### 費用の目安
 
 | 項目 | 費用 |
 |------|------|
 | LTRビザ（10年） | THB 50,000 |
-| Thai Elite（5年） | THB 600,000〜 |
-| 就労許可証 | THB 3,000〜 |
+| Thailand Privilege Entry（5年） | THB 900,000 |
+| Thailand Privilege Superiority（10年） | THB 1,500,000 |
+| 就労許可証 | THB 3,000〜5,000 |
+| Non-OA ビザ（1年） | THB 2,000 |
 
 ### 移住前のチェックポイント
 
-1. **就労許可証の職種制限**：タイでは外国人が従事できない職種が法律で規定されている
-2. **年間90日報告**：一部のビザは四半期ごとに入国管理局への報告義務あり
-3. **医療保険**：LTRビザは最低USD 40,000の医療保険加入が必須
+1. **就労許可証の職種制限**：タイでは外国人が従事できない職種が法律で規定されている（タイ人優先職種39種類）
+2. **4:1ルール**：外国人1名の雇用にタイ人4名が必要。フリーランス・個人事業主としての就労は原則不可
+3. **90日報告義務**：Non-B・Non-OA等は四半期ごとに入国管理局への住所報告が義務
+4. **2024年税制変更**：タイに長期滞在しながら日本の口座から生活費を送金する場合、課税対象になる可能性があります。移住前に税理士への相談を強く推奨します
+5. **銀行口座開設**：就労許可証または長期ビザがないと口座開設が難しいケースがある
+6. **デジタルノマド**：専用ビザはなく、LTRのWork-from-Thailand Professionalが最も現実的な選択肢
 
-タイは東南アジアの中でも日本人コミュニティが充実しており、生活の利便性が高い移住先です。`,
-      en: `Thailand is consistently ranked among the top destinations for Japanese expatriates, offering a warm climate, vibrant food culture, and relatively low living costs. Recent years have seen new visa options for digital nomads and high-skilled workers.
+タイは東南アジアの中でも日本人コミュニティが充実しており、バンコクはもちろんチェンマイや離島など多様な生活スタイルが選べる移住先です。`,
+      en: `Thailand is consistently ranked among the top destinations for Japanese expatriates, offering a warm climate, vibrant food culture, and relatively low living costs. Bangkok and Chiang Mai host large expat communities, and new visa options for digital nomads and high-skilled workers have been introduced in recent years.
 
 ### Main Visa Types
 
 **LTR (Long-Term Resident) Visa**
 Launched in 2022, this 10-year visa targets wealthy individuals, retirees, and skilled professionals across 4 categories.
-- Wealthy Global Citizen: Net worth USD 1,000,000+ and investment in Thailand USD 500,000+ (2025 revision removed income requirement)
-- Wealthy Pensioner: Pension/passive income USD 80,000/year (50+), or USD 40,000/year + Thai assets USD 250,000+
-- Work-from-Thailand Professional: Overseas income USD 80,000/year (revised 2025)
-- Highly-Skilled Professional: High income in targeted industries
+- **Wealthy Global Citizen**: Net worth USD 1,000,000+ AND investment in Thailand USD 500,000+ (or annual income USD 80,000+ with investment)
+- **Wealthy Pensioner**: Pension/passive income USD 80,000/year (50+), or USD 40,000/year + Thai assets USD 250,000+
+- **Work-from-Thailand Professional**: Overseas income USD 80,000/year (minimum 2 years' work experience required)
+- **Highly-Skilled Professional**: Works in Thailand's targeted S-Curve industries
 - Application fee: THB 50,000 (10-year validity)
+- All categories require minimum USD 40,000 health insurance
 
-**Thai Elite Visa (Thailand Privilege Card)**
-Premium membership visa for affluent individuals. Offers 5–20 years of residency with airport concierge and other privileges.
-- 5-year plan: THB 600,000+
-- 20-year plan: THB 2,400,000+
+**Thailand Privilege Card (formerly Thai Elite)**
+Premium membership visa for affluent individuals. Revamped in 2023 with new tiers:
+- **Privilege Entry (5 years)**: THB 900,000
+- **Privilege Superiority (10 years)**: THB 1,500,000
+- **Privilege Excellence (15 years)**: THB 2,500,000
+- **Elite Ultimate Privilege (20 years)**: THB 5,000,000
+- Benefits include VIP airport lane, dedicated car service, golf, and spa privileges
 
 **Non-Immigrant B Visa + Work Permit**
 The most common route for working foreigners. Requires employer sponsorship.
-- Visa fee: THB 2,000 (single entry)
-- Work permit fee: THB 3,000+
+- **4:1 Rule**: Employers must hire 4 Thai nationals for every 1 foreign employee
+- Visa fee: THB 2,000 (single entry) / THB 5,000 (multiple entry)
+- Work permit fee: THB 3,000–5,000 (varies by occupation and duration)
 
 **Retirement Visa (Non-OA)**
-For those 50+ years old. Requires a pension or bank balance of THB 800,000+.
+For those 50+ years old. One of the following is required:
+- THB 800,000 bank deposit in Thailand
+- Monthly income proof of THB 65,000+
+- Mandatory health insurance: OPD THB 40,000+ / IPD THB 440,000+
+
+### ⚠️ 2024 Tax Reform — Critical for Long-Term Residents
+
+Effective January 1, 2024, Thailand changed how foreign-sourced income is taxed.
+
+**Before**: Remittances of income earned in prior years were generally not taxable in Thailand.
+**After**: **Foreign-sourced income remitted to Thailand in the same calendar year it was earned is now taxable**.
+
+Key points:
+- 180+ days in Thailand per year = tax resident
+- Tax residents must declare and pay Thai tax on foreign income remitted to Thailand
+- Tax rates: 5–35% (progressive)
+- LTR visa holders retain partial exemption on foreign-sourced income
+- Japan–Thailand tax treaty reduces some double taxation risk
 
 ### Cost Summary
 
 | Item | Cost |
 |------|------|
 | LTR Visa (10 years) | THB 50,000 |
-| Thai Elite (5 years) | THB 600,000+ |
-| Work permit | THB 3,000+ |
+| Thailand Privilege Entry (5 years) | THB 900,000 |
+| Thailand Privilege Superiority (10 years) | THB 1,500,000 |
+| Work permit | THB 3,000–5,000 |
+| Non-OA Retirement Visa (1 year) | THB 2,000 |
 
 ### Pre-Move Checklist
 
-1. **Job restrictions**: Thai law restricts certain occupations to Thai nationals
-2. **90-day reporting**: Some visas require quarterly reports to immigration
-3. **Health insurance**: LTR visa requires minimum USD 40,000 medical coverage
+1. **Job restrictions**: Thai law reserves 39 occupations exclusively for Thai nationals
+2. **4:1 rule**: Freelancing and self-employment are generally not permitted for foreigners
+3. **90-day reporting**: Non-B and Non-OA visa holders must report to immigration quarterly
+4. **2024 tax reform**: Sending living expenses from Japan to Thailand may now trigger Thai tax obligations — consult a tax professional before relocating
+5. **Bank account**: Opening a Thai bank account typically requires a work permit or long-term visa
+6. **Digital nomads**: No dedicated visa exists; LTR Work-from-Thailand Professional is the most viable option
 
-Thailand has one of the largest Japanese expatriate communities in Southeast Asia, making it a highly livable destination.`,
-      zh: `泰国气候温暖、美食丰富、生活成本相对较低，长期位居日本人移居目的地前列。近年来，针对数字游民和高技能人才的新签证制度也日趋完善。
+Thailand offers one of the most established Japanese expat communities in Southeast Asia, with options ranging from Bangkok city life to the lower-cost Chiang Mai lifestyle.`,
+      zh: `泰国气候温暖、美食丰富、生活成本相对较低，长期位居日本人移居目的地前列。曼谷和清迈都有庞大的外籍人士社区，近年来也推出了面向数字游民和高技能人才的新签证制度。
 
 ### 主要签证种类
 
 **LTR（长期居留）签证**
 2022年推出的10年期签证，面向富裕人士、退休人员及高技能专业人才，共有4类。
-- 富裕全球公民：海外年收入USD 80,000以上或资产USD 1,000,000以上
-- 富裕退休人员：年金收入USD 40,000以上（50岁以上）
-- 在泰远程工作专业人员：海外年收入USD 40,000以上
-- 高技能专业人员：高收入特定领域专家
+- **富裕全球公民**：净资产USD 1,000,000以上 + 在泰投资USD 500,000以上（或年收入USD 80,000以上 + 投资）
+- **富裕退休人员**：年金/被动收入USD 80,000/年以上（50岁以上），或USD 40,000/年以上 + 泰国资产USD 250,000以上
+- **在泰远程工作专业人员**：海外公司收入USD 80,000/年以上（需2年以上工作经验）
+- **高技能专业人员**：在泰国政府指定目标产业（S-Curve产业）就职的高技能人才
 - 申请费用：THB 50,000（10年有效）
+- 所有类别均须购买最低USD 40,000的医疗保险
 
-**泰国精英签证（Thailand Privilege Card）**
-面向富裕人士的会员制签证，享有5～20年居留权及机场礼宾等特权。
-- 5年方案：THB 600,000起
-- 20年方案：THB 2,400,000起
+**Thailand Privilege Card（原泰国精英签证）**
+面向富裕人士的会员制签证，2023年全面更新，最新方案如下：
+- **Privilege Entry（5年）**：THB 900,000
+- **Privilege Superiority（10年）**：THB 1,500,000
+- **Privilege Excellence（15年）**：THB 2,500,000
+- **Elite Ultimate Privilege（20年）**：THB 5,000,000
+- 享有机场VIP通道、专车接送、高尔夫及水疗设施等特权
 
 **非移民B类签证 + 工作许可证**
-外籍劳工最常申请的签证，需雇主支持。
-- 签证费用：THB 2,000（单次入境）
-- 工作许可证费用：THB 3,000起
+外籍劳工最常申请的路径，需雇主支持。
+- **4:1原则**：每雇用1名外籍员工，雇主须同时雇用4名泰国本地员工
+- 签证费用：THB 2,000（单次）/ THB 5,000（多次）
+- 工作许可证费用：THB 3,000〜5,000（因职种和期限而异）
 
 **退休签证（Non-OA）**
-50岁以上人群适用，需有养老金或银行存款THB 800,000以上。
+50岁以上人群适用，须满足以下条件之一：
+- 在泰国银行存款THB 800,000以上
+- 月收入证明THB 65,000以上（养老金证明等）
+- 须购买医疗保险：门诊THB 40,000以上 / 住院THB 440,000以上
+
+### ⚠️ 2024年税制改革（重要）
+
+2024年1月1日起，泰国税务规则发生重大变化。
+
+**改革前**：将前年及更早年份的境外所得汇入泰国，通常不需在泰纳税。
+**改革后**：**境外所得若在同一纳税年度内汇入泰国，则须申报并缴纳泰国所得税**。
+
+- 每年在泰居留180天以上 → 认定为税务居民
+- 税务居民将境外所得汇入泰国须依法申报纳税
+- 税率：5%〜35%（累进税率）
+- LTR签证持有者对部分境外来源所得享有豁免
+- 日本与泰国之间签有税务协定，可避免部分双重征税
 
 ### 费用参考
 
 | 项目 | 费用 |
 |------|------|
 | LTR签证（10年） | THB 50,000 |
-| 泰国精英签证（5年） | THB 600,000起 |
-| 工作许可证 | THB 3,000起 |
+| Thailand Privilege Entry（5年） | THB 900,000 |
+| Thailand Privilege Superiority（10年） | THB 1,500,000 |
+| 工作许可证 | THB 3,000〜5,000 |
+| Non-OA退休签证（1年） | THB 2,000 |
 
 ### 移居前注意事项
 
-1. **工作限制**：泰国法律规定外国人禁止从事某些职业
-2. **90天报到**：部分签证要求每季度向移民局报到
-3. **医疗保险**：LTR签证要求最低USD 40,000的医疗保险
+1. **职业限制**：泰国法律规定39类职业仅限泰国公民从事
+2. **4:1原则**：个人自由职业和个体经营通常不被允许
+3. **90天报到义务**：Non-B和Non-OA签证持有者须每季度向移民局报告住址
+4. **2024年税制变化**：在泰长期居留期间从日本账户汇款生活费，可能需缴纳泰国所得税，强烈建议移居前咨询税务专业人士
+5. **银行开户**：通常需要工作许可证或长期签证才能在泰国开设银行账户
+6. **数字游民**：目前无专属签证，LTR中的在泰远程工作专业人员类别是最现实的选择
 
-泰国是东南亚日本人社区最为活跃的国家之一，宜居性极高。`,
+泰国拥有东南亚最成熟的日本人社区之一，从曼谷的都市生活到清迈的低成本休闲生活，可供选择的生活方式多元丰富。`,
     },
   },
   {
     slug: "visa-kr",
     category: "visa",
-    date: "2026-02-22",
-    readingTime: 6,
+    date: "2026-03-19",
+    readingTime: 12,
     title: {
-      ja: "韓国のビザ・就労許可完全ガイド",
-      en: "South Korea Visa & Work Permit Complete Guide 2026",
-      zh: "韩国签证与工作许可完全指南",
+      ja: "【2026年最新版】韓国のビザ・就労許可完全ガイド｜E-7・F-2-7ポイント制・永住権",
+      en: "South Korea Visa & Work Permit Complete Guide 2026 | E-7, F-2-7 Points System & PR",
+      zh: "【2026年最新版】韩国签证与工作许可完全指南｜E-7·F-2-7积分制·永久居留",
     },
     description: {
-      ja: "就労ビザ（E系統）からF-2-7ポイント制まで。韓国の主要ビザの種類・要件・費用を徹底解説。",
-      en: "From E-series work visas to the F-2-7 points system — a complete guide to South Korea's main visa types, requirements, and costs.",
-      zh: "从E系列就业签证到F-2-7积分制度，全面解析韩国主要签证的种类、要求与费用。",
+      ja: "就労ビザ（E系統）・F-2-7ポイント制・D-10求職ビザ・永住権（F-5）まで。韓国の主要ビザの種類・要件・費用を徹底解説。",
+      en: "E-series work visas, F-2-7 points system, D-10 job seeker visa, and F-5 permanent residency — a complete guide to South Korea's main visa types.",
+      zh: "E系列就业签证、F-2-7积分制、D-10求职签证及F-5永久居留——全面解析韩国主要签证种类、要求与费用。",
     },
     content: {
-      ja: `韓国は日本から近く、文化的な親近感もあることから、アジア圏での移住先として注目されています。IT・エンタメ・製造業など多様な就労機会があります。
+      ja: `韓国は日本から近く、文化的な親近感もあることから、アジア圏での移住先として注目されています。IT・半導体・エンタメ・製造業など多様な就労機会があり、ソウル・釜山・済州島を拠点に外国人が増えています。
 
 ### 主なビザの種類
 
 **E-7（特定活動）ビザ**
-専門職・技術職向けの就労ビザ。韓国企業に雇用される場合が多く、雇用主のサポートが必要。学士以上の学位と関連経験が一般的な要件。
+専門職・技術職向けの最も一般的な就労ビザ。韓国企業に雇用される場合が多く、雇用主のサポートが必要。
+- 学士以上の学位と関連職種での1年以上の実務経験が一般的な要件
+- 職種ごとに年間割当（クォータ）があり、競争率が高い職種もある
+- 有効期間：1〜3年（更新可）
 
 **E-1〜E-6（専門技術職）ビザ**
 - E-1：大学教授・研究員
-- E-2：語学講師（英語・日本語など）
-- E-3：研究
+- E-2：語学講師（英語・日本語など）※英語ネイティブ以外は別途資格審査
+- E-3：研究（大学・研究機関所属）
 - E-4：技術指導
-- E-5：専門職（弁護士・会計士等）
-- E-6：芸術・興行
+- E-5：専門職（弁護士・会計士・建築士等）
+- E-6：芸術・興行（ダンサー・モデル・音楽家等）
 
 **F-2-7（居住ビザ・ポイント制）**
-高度人材向けの居住ビザ。年齢・学歴・韓国語能力・収入・資産などのポイントで審査（80点以上で申請可能）。
+高度人材向けの居住ビザ。年齢・学歴・韓国語能力（TOPIK）・収入・資産などの項目でポイント算出（80点以上で申請可能）。
+- 5年間有効（更新可）
+- 就労制限なし（一般就労・自営業・フリーランスが可能）
+- F-2-7取得後5年でF-5（永住権）申請が可能
 
 **D-10（求職ビザ）**
-就職活動中の外国人向けビザ。韓国の大学卒業者や特定の資格保持者が対象。
+就職活動中の外国人向けビザ。6ヶ月間有効（一定条件下で延長可能）。
+- 韓国の正規大学卒業者
+- 韓国語能力試験（TOPIK）一定レベル以上
+- 世界トップ500大学の学士以上
 
 **永住権（F-5）**
-5年以上の合法滞在・安定した収入・韓国語能力などが要件。F-2-7からF-5への移行が一般的なルート。
+韓国で長期的に生活するための永住ビザ。
+- 5年以上の合法滞在（継続）
+- 直近1年間の平均月収入が前年度GNI平均以上
+- TOPIK 3級以上
+- 重大犯罪なし
+- F-2-7からのルートが最も一般的
+
+**F-6（婚姻）ビザ**
+韓国国籍者と婚姻した外国人向けのビザ。安定した生活基盤が証明できれば永住権取得も可能。
 
 ### 費用の目安
 
 | 項目 | 費用 |
 |------|------|
 | ビザ申請（在日韓国領事館） | ¥6,000〜¥10,000程度 |
-| ビザ発給手数料 | KRW 60,000〜 |
+| ビザ発給手数料（単数） | KRW 60,000 |
+| ビザ発給手数料（複数） | KRW 90,000 |
+| 外国人登録証発行 | KRW 30,000 |
+
+### 生活・税金について
+
+**所得税**：韓国の所得税は累進課税（6〜45%）。日本との租税条約あり。
+**社会保険**：国民健康保険・国民年金・雇用保険・産業災害補償保険への加入が義務付けられる（雇用される場合）。
+**チョンセ（전세）制度**：保証金を一括で支払い、賃料なしで居住できる独特の制度。保証金はソウル中心部で数千万ウォン〜数億ウォン規模になる。制度リスクも理解が必要。
 
 ### 移住前のチェックポイント
 
-1. **韓国語能力**：F-2-7はTOPIK 3級以上が加点対象
-2. **社会保険**：韓国は国民健康保険・国民年金への加入が外国人にも義務付けられる場合がある
-3. **住居**：チョンセ（伝貰）制度など独特の賃貸慣行を理解しておく
+1. **韓国語能力**：F-2-7やD-10はTOPIKスコアが審査に直結。事前の語学準備が重要
+2. **E-7クォータ**：職種によっては枠が少なく、採用されても実際の就労開始まで時間がかかる場合がある
+3. **社会保険加入義務**：外国人労働者も原則として全加入が必要で、給与天引きが発生する
+4. **チョンセ詐欺リスク**：近年チョンセ保証金が戻らないトラブルが増加。契約前の登記確認が必須
+5. **済州島の外国人優遇**：済州島は別途投資移民制度があり、不動産投資での永住権取得も可能
 
-韓国はIT産業の発展が著しく、グローバル企業への就職機会も増えています。`,
-      en: `South Korea is growing in popularity as a relocation destination, particularly for those in IT, entertainment, and manufacturing. Its proximity to Japan and cultural familiarity make it an appealing option.
+韓国はK-POPや半導体産業を背景にグローバル化が進み、日本語を活かした就労機会も豊富です。IT・コンテンツ・製造分野での移住先として今後も注目が続くでしょう。`,
+      en: `South Korea is growing in popularity as a relocation destination, especially in IT, semiconductors, entertainment, and manufacturing. Its proximity to Japan and cultural familiarity make it appealing, and Seoul, Busan, and Jeju Island all have growing expat communities.
 
 ### Main Visa Types
 
 **E-7 (Specific Activities) Visa**
-Work visa for professionals and skilled workers employed by Korean companies. Generally requires a bachelor's degree and relevant experience.
+The most common work visa for professionals and skilled workers at Korean companies. Employer sponsorship required.
+- Generally requires a bachelor's degree and 1+ year of relevant experience
+- Annual quotas exist per occupation — some categories are competitive
+- Validity: 1–3 years (renewable)
 
 **E-1 to E-6 (Specialized Work) Visas**
 - E-1: University professors and researchers
 - E-2: Language instructors (English, Japanese, etc.)
-- E-3: Research
+- E-3: Research (at universities or research institutions)
 - E-4: Technology instruction
-- E-5: Professionals (lawyers, accountants, etc.)
-- E-6: Arts and entertainment
+- E-5: Licensed professionals (lawyers, CPAs, architects)
+- E-6: Arts and entertainment (dancers, models, musicians)
 
 **F-2-7 (Residency Visa – Points System)**
-Residency visa for highly skilled workers. Scored on age, education, Korean language ability, income, and assets (80+ points required to apply).
+Points-based residency for highly skilled workers. Applicants need 80+ points based on age, education, TOPIK Korean language score, income, and assets.
+- Valid for 5 years (renewable)
+- No work restrictions — allows employment, self-employment, and freelancing
+- After 5 years on F-2-7, eligible to apply for F-5 permanent residency
 
 **D-10 (Job Seeker Visa)**
-For foreigners seeking employment in Korea. Eligible for Korean university graduates or holders of specific qualifications.
+6-month visa for foreigners actively seeking employment in Korea (extendable under certain conditions). Eligibility:
+- Graduates of Korean universities
+- Holders of TOPIK at a qualifying level
+- Graduates of top 500 global universities (bachelor's degree or higher)
 
 **Permanent Residency (F-5)**
-Requires 5+ years of lawful residence, stable income, and Korean language proficiency. F-2-7 → F-5 is the most common path.
+- 5+ years of continuous lawful residence
+- Average monthly income ≥ prior year national GNI average
+- TOPIK Level 3 or higher
+- No serious criminal record
+- F-2-7 → F-5 is the most common pathway
+
+**F-6 (Marriage) Visa**
+For foreign spouses of Korean nationals. With a demonstrated stable livelihood, permanent residency is achievable.
 
 ### Cost Summary
 
 | Item | Cost |
 |------|------|
-| Visa application (Korean consulate in Japan) | ¥6,000–¥10,000 |
-| Visa issuance fee | KRW 60,000+ |
+| Visa application at Korean consulate in Japan | ¥6,000–¥10,000 |
+| Single-entry visa issuance fee | KRW 60,000 |
+| Multiple-entry visa issuance fee | KRW 90,000 |
+| Alien Registration Card | KRW 30,000 |
+
+### Tax & Living Notes
+
+**Income tax**: Progressive rates 6–45%. Japan-Korea tax treaty exists.
+**Social insurance**: Employees are required to enroll in National Health Insurance, National Pension, Employment Insurance, and Workers' Compensation.
+**Jeonse (전세)**: A uniquely Korean rental system where a lump-sum deposit (no monthly rent) is paid upfront. Deposits in central Seoul range from tens of millions to hundreds of millions of KRW. Understand the associated fraud risks before signing.
 
 ### Pre-Move Checklist
 
-1. **Korean language ability**: TOPIK Level 3+ earns points for F-2-7
-2. **Social insurance**: National Health Insurance and National Pension may be mandatory for foreigners
-3. **Housing system**: Understand Korea's unique jeonse (전세) long-term deposit rental system
+1. **Korean language**: TOPIK scores directly affect F-2-7 eligibility and points — start studying early
+2. **E-7 quotas**: Certain occupations have limited slots; even after hire, actual start may be delayed
+3. **Mandatory social insurance**: All employees — including foreigners — must enroll; costs are payroll-deducted
+4. **Jeonse fraud risk**: Incidents of deposit non-return have risen in recent years — always check the property registry before signing
+5. **Jeju Island incentives**: Jeju has a separate investment immigration scheme allowing permanent residency via real estate investment
 
-Korea's tech industry is booming, with growing opportunities at global companies based there.`,
-      zh: `韩国与日本距离近，文化亲近感强，IT、娱乐和制造业提供了多样的就业机会，作为亚洲移居目的地备受关注。
+South Korea's growing global presence in K-pop, semiconductors, and manufacturing creates strong demand for international talent. It remains an increasingly attractive destination for professionals in IT, content, and industrial sectors.`,
+      zh: `韩国与日本距离近、文化亲近，IT、半导体、娱乐和制造业提供了多样的就业机会，首尔、釜山、济州岛的外籍人士社区也在持续壮大。
 
 ### 主要签证种类
 
 **E-7（特定活动）签证**
-面向专业技术人员的就业签证，通常受雇于韩国企业。一般要求本科以上学历及相关工作经验。
+面向专业技术人员的最常见就业签证，通常受雇于韩国企业，需雇主支持。
+- 一般要求本科以上学历及相关职种1年以上工作经验
+- 部分职种设有年度配额，竞争较为激烈
+- 有效期：1〜3年（可续签）
 
 **E-1至E-6（专业技术）签证**
 - E-1：大学教授、研究员
 - E-2：语言讲师（英语、日语等）
-- E-3：研究
+- E-3：研究（大学或研究机构）
 - E-4：技术指导
-- E-5：专业人士（律师、会计师等）
-- E-6：艺术、演出
+- E-5：专业人士（律师、会计师、建筑师等）
+- E-6：艺术、演出（舞者、模特、音乐家等）
 
 **F-2-7（居住签证·积分制）**
-高技能人才居住签证，根据年龄、学历、韩语能力、收入、资产等评分（需80分以上方可申请）。
+面向高技能人才的居住签证，根据年龄、学历、韩语能力（TOPIK）、收入、资产等评分（需80分以上方可申请）。
+- 有效期5年（可续签）
+- 无工作限制，可受雇就业、自营业或自由职业
+- 持有F-2-7满5年后可申请F-5永久居留权
 
 **D-10（求职签证）**
-面向在韩求职的外国人，适用于韩国大学毕业生或特定资质持有者。
+面向在韩积极求职的外国人，有效期6个月（符合条件可延期）。适用对象：
+- 韩国正规大学毕业生
+- 具备一定TOPIK韩语能力等级者
+- 全球前500名大学本科及以上毕业生
 
 **永久居留权（F-5）**
-需合法居留5年以上、收入稳定、具备韩语能力等条件，通常经F-2-7过渡至F-5。
+- 连续合法居留5年以上
+- 近1年平均月收入不低于上一年度全国人均GNI
+- TOPIK 3级以上
+- 无重大犯罪记录
+- F-2-7 → F-5是最常见路径
+
+**F-6（婚姻）签证**
+韩国国籍者的外籍配偶专属签证，生活基础稳定可申请永久居留权。
 
 ### 费用参考
 
 | 项目 | 费用 |
 |------|------|
-| 签证申请费（驻日韩国领事馆） | 约¥6,000～¥10,000 |
-| 签证签发手续费 | KRW 60,000起 |
+| 签证申请费（驻日韩国领事馆） | 约¥6,000〜¥10,000 |
+| 单次入境签证签发费 | KRW 60,000 |
+| 多次入境签证签发费 | KRW 90,000 |
+| 外国人登录证签发费 | KRW 30,000 |
+
+### 税务与生活须知
+
+**所得税**：累进税率6%〜45%，日本与韩国之间签有税务协定。
+**社会保险**：受雇员工须强制参加国民健康保险、国民年金、就业保险和工伤保险。
+**全租房（전세）制度**：韩国特有的租赁制度，一次性缴纳高额保证金后可免月租居住，首尔市中心保证金规模从数千万到数亿韩元不等。需充分了解相关风险后再签约。
 
 ### 移居前注意事项
 
-1. **韩语能力**：TOPIK 3级以上可为F-2-7积分加分
-2. **社会保险**：外国人可能须强制参加国民健康保险和国民年金
-3. **住房制度**：了解韩国独特的全租房（전세）制度
+1. **韩语能力**：TOPIK成绩直接影响F-2-7资格与积分，建议提前备考
+2. **E-7配额限制**：部分职种名额有限，录用后实际入职可能需要等待
+3. **强制社会保险**：外籍员工同样须全额参保，费用从工资中代扣
+4. **全租房诈骗风险**：近年保证金无法返还的纠纷增多，签约前务必核查产权登记
+5. **济州岛优惠政策**：济州岛设有独立的投资移民制度，可通过房地产投资申请永久居留权
 
-韩国科技产业蓬勃发展，在全球化企业就职的机会也日益增多。`,
+韩国在K-Pop、半导体和制造业领域的全球影响力不断提升，对国际人才的需求持续增长，是IT、内容创作和工业领域从业者值得关注的移居目的地。`,
     },
   },
   {
     slug: "visa-tw",
     category: "visa",
-    date: "2026-02-22",
-    readingTime: 6,
+    date: "2026-03-19",
+    readingTime: 12,
     title: {
-      ja: "台湾のビザ・就労許可完全ガイド",
-      en: "Taiwan Visa & Work Permit Complete Guide 2026",
-      zh: "台湾签证与工作许可完全指南",
+      ja: "【2026年最新版】台湾のビザ・就労許可完全ガイド｜Gold Card・就労許可・永住権",
+      en: "Taiwan Visa & Work Permit Complete Guide 2026 | Gold Card, Work Permit & APRC",
+      zh: "【2026年最新版】台湾签证与工作许可完全指南｜就业金卡·工作许可·永久居留",
     },
     description: {
-      ja: "エンプロイメントゴールドカードから就労許可まで。台湾の主要ビザの種類・要件・費用を徹底解説。",
-      en: "From the Employment Gold Card to standard work permits — a complete guide to Taiwan's main visa types and requirements.",
-      zh: "从就业金卡到一般工作许可，全面解析台湾主要签证的种类、要求与费用。",
+      ja: "Employment Gold Card・就労許可証（ARC）・永住権（APRC）まで。台湾の主要ビザの種類・要件・費用・税制優遇を徹底解説。",
+      en: "Employment Gold Card, work permits (ARC), APRC permanent residency, and tax incentives — a complete guide to Taiwan's main visa types and requirements.",
+      zh: "就业金卡、工作许可（ARC）、永久居留证（APRC）及税收优惠——全面解析台湾主要签证种类、要求与费用。",
     },
     content: {
-      ja: `台湾は親日感情が強く、食文化・自然環境・生活コストのバランスが良いことから、日本人移住者に人気の国です。近年は半導体産業を中心に外国人労働者への需要も高まっています。
+      ja: `台湾は親日感情が強く、食文化・自然環境・生活コストのバランスが良いことから、日本人移住者に人気の国です。近年はTSMC（台積電）を中心とした半導体産業の拡大により、外国人エンジニア・専門職への需要も急増しています。
 
 ### 主なビザの種類
 
 **Employment Gold Card（エンプロイメントゴールドカード）**
-高度人材向けの3年間有効ビザ。就労・居住・再入国が1枚のカードで可能。以下のいずれかに該当する必要があります。
-- 月収NTD 160,000以上
-- 技術・科学・経済・教育・文化・芸術・スポーツ分野の優秀人材
+高度人材向けの3年間有効ビザ。就労許可・居留許可・再入国許可が1枚のカードで全て完結する優れた制度です。
+申請資格（いずれかを満たすこと）：
+- 月収NTD 160,000以上の就労経験
+- 技術・科学・経済・教育・文化・芸術・スポーツ分野の卓越した人材（受賞歴・著名プロジェクト等で証明）
 - 申請費用：NTD 5,380
+- 処理期間：30〜60営業日程度
+
+Gold Cardの大きな魅力は**税制優遇**です。
+- 初年度より3年間、給与所得のうちNTD 3,000,000を超える部分の**50%が所得税免除**
+- 台湾に居留しながら海外からの収入を継続している高収入者に特に有利
 
 **就労許可証（Work Permit）+ 居留証（ARC）**
-一般的な就労ルート。台湾企業に雇用され、労働部に就労許可申請を行う。
-- 対象職種：専門職・技術職・企業内転勤等
-- 月給基準：NTD 47,971以上（一般専門職）
+一般的な就労ルート。台湾の雇用主が労働部（Ministry of Labor）に申請。
+- 対象：専門職・技術職・企業内転勤・英語教師等
+- 月給最低基準：NTD 47,971以上（一般専門職、2023年改定）
 - 申請費用：NTD 500〜1,000
+- ARC（外僑居留証）は毎年更新。就労許可と連動
 
-**ゴールドカードなしのデジタルノマドビザ**
-台湾には現時点で専用のデジタルノマドビザはないが、ビジター（観光）ビザ＋延長で最大6ヶ月滞在可能。
+**観光・短期商用での滞在**
+日本人はビザなしで台湾に90日滞在可能。ただし就労は一切不可。就職活動目的の滞在は可能。
 
-**永住権（Permanent Resident Certificate）**
-5年以上の継続居留後に申請可能。台湾語・英語の生活能力証明や税務申告が審査対象。
+**APRC（外僑永久居留証）**
+台湾での永住権に相当。申請条件：
+- 継続5年以上の居留（年183日以上）
+- 毎年の収入がミニマム生活基準額以上
+- 犯罪記録なし
+- 中国語または英語での基本コミュニケーション能力
 
 ### 費用の目安
 
@@ -2832,37 +3211,55 @@ Korea's tech industry is booming, with growing opportunities at global companies
 |------|------|
 | Gold Card申請費 | NTD 5,380 |
 | 就労許可申請費 | NTD 500〜1,000 |
-| 居留証（ARC）発行費 | NTD 1,000 |
+| ARC発行費（初回） | NTD 1,000 |
+| ARC更新費 | NTD 1,000 |
+| APRC申請費 | NTD 10,000 |
+
+### 生活・税金について
+
+**所得税**：居住者は課税所得に対し5〜40%の累進課税。台湾居住者認定は年183日以上の滞在。
+**国民健康保険（NHI）**：居留許可取得から原則2ヶ月後に加入可能。月額保険料はNTD 800程度から（収入比例）。世界最高水準の医療が低コストで受けられる点が大きな魅力。
+**住居費**：台北の大安区・信義区等の中心部は月NTD 20,000〜50,000。新北市（板橋等）に移ると割安。
 
 ### 移住前のチェックポイント
 
-1. **Gold Cardの優遇**：所得税の30%控除が最初の3年間適用される優遇税制あり
-2. **国民健康保険**：6ヶ月以上居留すれば加入可能（保険料は負担額が少ない）
-3. **住居**：台北市中心部の家賃はNTD 20,000〜50,000程度
+1. **Gold Cardの税制優遇**：高収入の専門職には3年間の税控除が非常に有利。ただし申請時に収入証明が必要
+2. **就労許可の更新サイクル**：ARCは毎年更新が基本。雇用終了後60日以内に転職または帰国が必要
+3. **半導体産業の求人**：TSMCや関連企業での採用は技術職中心。英語・日本語が使える環境も多い
+4. **デジタルノマドビザなし**：台湾には現時点で専用のデジタルノマドビザはない。Gold Cardがその代替として機能
+5. **地震・台風**：台湾は自然災害が多い。住居の耐震性や保険の確認を推奨
 
-台湾はGold Cardによる優遇税制が魅力で、IT・半導体分野の人材には特に有利な移住先です。`,
-      en: `Taiwan is popular among Japanese expatriates for its pro-Japan sentiment, food culture, natural scenery, and balanced cost of living. Demand for foreign talent is rising, especially in the semiconductor industry.
+台湾はGold Cardによる優遇税制・充実した医療保険・日本から近い立地が揃っており、IT・半導体・クリエイティブ分野の人材には非常に魅力的な移住先です。`,
+      en: `Taiwan is popular among Japanese expatriates for its pro-Japan culture, excellent food, natural scenery, and balanced cost of living. With TSMC and the broader semiconductor ecosystem expanding rapidly, demand for foreign engineers and professionals is surging.
 
 ### Main Visa Types
 
 **Employment Gold Card**
-A 3-year combined work/residency visa for high-skilled professionals. Combines work permit, residence permit, and re-entry permit in one card.
-Requirements (any of the following):
-- Monthly salary of NTD 160,000+
-- Outstanding talent in technology, science, economics, education, culture, arts, or sports
+A 3-year combined work/residency visa for high-skilled professionals — one card covers work permit, residence permit, and re-entry permit.
+Eligibility (any of the following):
+- Monthly salary of NTD 160,000+ from a relevant position
+- Outstanding talent in technology, science, economics, education, culture, arts, or sports (demonstrated via awards, projects, etc.)
 - Application fee: NTD 5,380
+- Processing time: approximately 30–60 business days
+
+**Gold Card Tax Incentive**: For 3 years from the start of residence, **50% of salary income exceeding NTD 3,000,000 per year is exempt from income tax** — highly favorable for high earners.
 
 **Work Permit + ARC (Alien Resident Certificate)**
-The standard work route. The employer applies to the Ministry of Labor.
-- Target roles: Professionals, skilled workers, intra-company transfers
-- Minimum monthly salary: NTD 47,971+ (general professional)
+Standard employment route. The Taiwanese employer applies to the Ministry of Labor.
+- Target roles: Professionals, skilled workers, intra-company transfers, English teachers
+- Minimum monthly salary: NTD 47,971+ (general professional category, revised 2023)
 - Application fee: NTD 500–1,000
+- ARC renewed annually, linked to work permit
 
-**No Dedicated Digital Nomad Visa**
-Taiwan currently has no specific digital nomad visa, but visitor visas can be extended for stays up to approximately 6 months.
+**Visa-Free Short Stay**
+Japanese nationals can stay visa-free in Taiwan for up to 90 days. Work is strictly prohibited. Job hunting during a visit is permitted.
 
-**Permanent Residency**
-Available after 5+ years of continuous residence. Requires proof of Chinese/English proficiency and tax compliance.
+**APRC (Alien Permanent Resident Certificate)**
+Taiwan's permanent residency equivalent. Requirements:
+- 5+ years of continuous residence (183+ days/year)
+- Minimum annual income above livelihood threshold
+- No criminal record
+- Basic communication ability in Chinese or English
 
 ### Cost Summary
 
@@ -2870,68 +3267,100 @@ Available after 5+ years of continuous residence. Requires proof of Chinese/Engl
 |------|------|
 | Gold Card application fee | NTD 5,380 |
 | Work permit application | NTD 500–1,000 |
-| ARC issuance fee | NTD 1,000 |
+| ARC issuance (initial) | NTD 1,000 |
+| ARC renewal | NTD 1,000 |
+| APRC application | NTD 10,000 |
+
+### Tax & Living Notes
+
+**Income tax**: 5–40% progressive rates for residents (183+ days/year). Gold Card holders benefit from a 50% exemption on salary above NTD 3M for the first 3 years.
+**National Health Insurance (NHI)**: Available 2 months after receiving a residence permit. Monthly premiums start around NTD 800 (income-based). Taiwan's NHI is widely regarded as one of the world's best healthcare systems at very low cost.
+**Housing**: Central Taipei (Da'an, Xinyi districts) runs NTD 20,000–50,000/month. New Taipei City (Banqiao, etc.) is considerably more affordable.
 
 ### Pre-Move Checklist
 
-1. **Gold Card tax benefit**: 30% income tax deduction for the first 3 years
-2. **National Health Insurance**: Eligible to join after 6 months of residency (low premium contributions)
-3. **Housing**: Taipei city center rents range NTD 20,000–50,000/month
+1. **Gold Card tax benefit**: Significant 3-year income tax exemption for high earners — income documentation required at application
+2. **ARC renewal cycle**: Annual renewal is standard; you have 60 days to change employers or depart after job termination
+3. **Semiconductor job market**: TSMC and related firms hire primarily technical roles; many positions are English or Japanese-friendly
+4. **No digital nomad visa**: Taiwan has no dedicated digital nomad visa — the Gold Card serves as the closest equivalent
+5. **Natural disasters**: Taiwan has frequent earthquakes and typhoons — check building earthquake ratings and insurance before signing a lease
 
-Taiwan's Gold Card tax incentives are particularly attractive for IT and semiconductor professionals.`,
-      zh: `台湾亲日情感浓厚，饮食文化、自然风光与生活成本的平衡备受日本移居者青睐。随着半导体产业蓬勃发展，对外籍人才的需求也持续攀升。
+Taiwan's combination of Gold Card tax incentives, excellent affordable healthcare, and proximity to Japan makes it an exceptionally attractive destination for IT, semiconductor, and creative professionals.`,
+      zh: `台湾亲日情感浓厚，饮食文化、自然风光与生活成本的平衡备受日本移居者青睐。随着台积电（TSMC）为核心的半导体产业迅速扩张，对外籍工程师和专业人才的需求急剧增加。
 
 ### 主要签证种类
 
 **就业金卡（Employment Gold Card）**
-高技能专业人士的3年期综合签证，集工作许可、居留许可和重入境许可于一卡。符合以下任一条件即可申请：
-- 月薪NTD 160,000以上
-- 在科技、科学、经济、教育、文化、艺术或体育领域的优秀人才
+面向高技能专业人士的3年期综合签证，集工作许可、居留许可和重入境许可于一卡。
+申请资格（满足其中之一）：
+- 具备月薪NTD 160,000以上的相关工作经历
+- 在科技、科学、经济、教育、文化、艺术或体育领域拥有卓越成就（获奖记录、重大项目等证明）
 - 申请费用：NTD 5,380
+- 办理周期：约30〜60个工作日
 
-**工作许可 + 居留证（ARC）**
-标准就业途径，由雇主向劳动部申请。
-- 目标岗位：专业技术人员、企业内部调任等
-- 最低月薪：NTD 47,971以上（一般专业人员）
-- 申请费用：NTD 500～1,000
+**就业金卡税收优惠**：居留起始后3年内，**年薪超过NTD 3,000,000的部分可享受50%所得税豁免**，对高收入人士尤为有利。
 
-**永久居留证**
-连续居留5年以上后可申请，需具备中文或英文生活能力证明及纳税记录。
+**工作许可证 + 居留证（ARC）**
+标准就业途径，由台湾雇主向劳动部申请。
+- 适用岗位：专业技术人员、技能工人、企业内部调任、英语教师等
+- 最低月薪基准：NTD 47,971以上（一般专业人员，2023年修订）
+- 申请费用：NTD 500〜1,000
+- ARC每年续签，与工作许可证挂钩
+
+**免签短期停留**
+日本人可无需签证在台湾停留最长90天，但严禁从事任何工作；在台求职洽谈不受限制。
+
+**外侨永久居留证（APRC）**
+台湾的永久居留制度。申请条件：
+- 连续居留5年以上（每年183天以上）
+- 年收入达到最低生活标准以上
+- 无犯罪记录
+- 具备中文或英文基本沟通能力
 
 ### 费用参考
 
 | 项目 | 费用 |
 |------|------|
 | 就业金卡申请费 | NTD 5,380 |
-| 工作许可申请费 | NTD 500～1,000 |
-| 居留证（ARC）签发费 | NTD 1,000 |
+| 工作许可申请费 | NTD 500〜1,000 |
+| ARC签发费（首次） | NTD 1,000 |
+| ARC续签费 | NTD 1,000 |
+| APRC申请费 | NTD 10,000 |
+
+### 税务与生活须知
+
+**所得税**：居民（每年在台183天以上）适用5%〜40%累进税率。就业金卡持有者前3年可享受年薪NTD 300万以上部分的50%所得税豁免。
+**全民健保（NHI）**：取得居留许可约2个月后可参加，月保费从约NTD 800起（按收入计算）。台湾全民健保被誉为全球最佳医疗保障体系之一，费用低廉。
+**住房**：台北市中心（大安区、信义区等）月租约NTD 20,000〜50,000，新北市（板桥等）则相对经济实惠。
 
 ### 移居前注意事项
 
-1. **金卡税收优惠**：前3年享有所得税30%扣除优惠
-2. **全民健保**：居留满6个月后可加入（保费负担较低）
-3. **住房成本**：台北市中心租金约NTD 20,000～50,000/月
+1. **就业金卡税收优惠**：高收入专业人士可享受显著的3年所得税优惠，申请时需提供收入证明
+2. **ARC年度续签**：ARC须每年续签，离职后须在60天内完成转职或离境
+3. **半导体产业招聘**：台积电及相关企业以技术岗位为主，许多职位支持英语或日语工作环境
+4. **无数字游民签证**：台湾目前无专属数字游民签证，就业金卡是最接近的替代方案
+5. **自然灾害**：台湾地震和台风频发，签约前建议确认建筑抗震等级并购买保险
 
-台湾的就业金卡税收优惠对IT和半导体领域的专业人士尤为吸引。`,
+台湾凭借就业金卡税收优惠、优质低价的医疗保障以及与日本的近距离优势，对IT、半导体和创意产业的专业人士极具吸引力。`,
     },
   },
   {
     slug: "visa-hk",
     category: "visa",
-    date: "2026-02-22",
-    readingTime: 6,
+    date: "2026-03-19",
+    readingTime: 12,
     title: {
-      ja: "香港のビザ・就労許可完全ガイド",
-      en: "Hong Kong Visa & Work Permit Complete Guide 2026",
-      zh: "香港签证与工作许可完全指南",
+      ja: "【2026年最新版】香港のビザ・就労許可完全ガイド｜TTPS・QMAS・就労ビザ・投資ビザ",
+      en: "Hong Kong Visa & Work Permit Complete Guide 2026 | TTPS, QMAS, Employment & Investment Visas",
+      zh: "【2026年最新版】香港签证与工作许可完全指南｜TTPS·QMAS·就业签证·资本投资计划",
     },
     description: {
-      ja: "Quality Migrant Admission Schemeから就労ビザまで。香港の主要ビザの種類・要件・費用を徹底解説。",
-      en: "From Quality Migrant Admission Scheme to employment visas — a complete guide to Hong Kong's main visa types and requirements.",
-      zh: "从优秀人才入境计划到就业签证，全面解析香港主要签证的种类、要求与费用。",
+      ja: "Top Talent Pass Scheme（TTPS）・QMAS・就労ビザ・Capital Investment Entrant Schemeまで。香港の主要ビザの種類・要件・費用を徹底解説。",
+      en: "Top Talent Pass Scheme (TTPS), QMAS, employment visas, and Capital Investment Entrant Scheme — a complete guide to Hong Kong's main visa types, requirements, and costs.",
+      zh: "高端人才通行证计划（TTPS）、QMAS、就业签证及资本投资者入境计划——全面解析香港主要签证种类、要求与费用。",
     },
     content: {
-      ja: `香港はアジアの国際金融センターとして、金融・法律・IT分野の高度人材を積極的に受け入れています。一律15%の低税率が魅力です。
+      ja: `香港はアジアの国際金融センターとして、金融・法律・IT・テクノロジー分野の高度人材を積極的に受け入れています。給与所得に対して最大15%という低い税率と、近年導入された優秀人材向け制度が大きな魅力です。
 
 ### 主なビザの種類
 
@@ -2939,22 +3368,43 @@ Taiwan's Gold Card tax incentives are particularly attractive for IT and semicon
 香港企業に雇用される外国人向けの最も一般的なビザ。雇用主が入境事務所に申請。
 - 申請費用：HKD 230
 - 有効期間：最大2年（更新可）
-- 要件：香港で代替が難しいスキル・知識・経験を持つこと
+- 要件：「香港で代替が難しいスキル・知識・経験を持つこと」が基準
+- 審査期間：通常4〜6週間
 
-**Quality Migrant Admission Scheme（QMAS）**
-雇用なしで香港への移住を希望する高度人材向けのポイントベースの制度。2種類の採点方式。
-- General Points Test（年齢・学歴・職歴・語学力などで採点）
-- Achievement-Based Points Test（国際的に認められた業績を持つ人材向け）
-- クォータ制（年間数千名程度）
+**Top Talent Pass Scheme（TTPS）/ 優秀人才通行証**
+2022年10月に導入されたファストトラック制度。雇用なしでも申請可能（ただし2年以内に就労要件を満たす必要）。
+- **カテゴリーA**：過去1年間の年収HKD 2,500,000以上
+- **カテゴリーB**：世界ランキング100位以内の大学卒業者（3年以上の就労経験あり）
+- **カテゴリーC**：カテゴリーBと同じ大学の卒業から5年以内かつ年収HKD 1,500,000以上
+- 有効期間：2年間（就労後は通常の就労ビザに切り替え）
+- 2023年末時点で累計約6万件超が申請
 
-**Top Talent Pass Scheme（TTPS）**
-2022年に導入された優秀人才通行証計画。以下のいずれかで申請可能。
-- 過去1年間の年収HKD 2,500,000以上
-- 世界ランキング100位以内の大学の卒業生
-- 同大学の卒業から5年以内かつHKD 1,500,000以上の年収
+**Quality Migrant Admission Scheme（QMAS）/ 優秀人才入境計画**
+雇用なしで香港への移住を希望する高度人材向けのポイントベース制度。
+- **General Points Test**：年齢・学歴・職歴・語学力・家族構成などで採点
+- **Achievement-Based Points Test**：国際的に認められた業績（受賞・スポーツ実績等）を持つ人材向け
+- 年間クォータあり（過去は年間1,000名前後だったが近年は数千名規模に拡大）
+- 申請費用：HKD 460
 
-**Investment Visa（Capital Investment Entrant Scheme）**
-2023年に再開。HKD 30,000,000以上の資産を香港に投資することで申請可能。
+**Capital Investment Entrant Scheme（CIES）/ 資本投資者入境制度**
+2023年3月に再開された投資移民制度。
+- HKD 30,000,000以上を香港の特定資産（株式・債券・預金等）に投資
+- 不動産投資は対象外（旧制度との大きな違い）
+- 申請費用：HKD 10,000（一次審査）
+
+### 税金と生活費
+
+**給与所得税（Salaries Tax）**
+- 累進課税：2% / 6% / 10% / 14%（4段階）
+- ただし全収入に対して上限15%を適用（いずれか低い方）
+- 各種手当・控除を差し引いた「実効税率」は10〜12%程度になることも多い
+- 法人税（Profits Tax）：16.5%
+
+**MPF（Mandatory Provident Fund / 強制積立年金）**
+- 雇用主と従業員それぞれが給与の5%を拠出（月額上限それぞれHKD 1,500）
+- 65歳以降に受取可能
+
+**住居費**：香港の家賃は世界最高水準。中環・上環周辺の1LDKはHKD 20,000〜35,000、九龍（佐敦・旺角）でもHKD 12,000〜20,000。
 
 ### 費用の目安
 
@@ -2962,15 +3412,19 @@ Taiwan's Gold Card tax incentives are particularly attractive for IT and semicon
 |------|------|
 | 就労ビザ申請費 | HKD 230 |
 | QMAS申請費 | HKD 460 |
+| TTPS申請費（カテゴリーA） | HKD 3,630 |
+| CIES申請費（一次審査） | HKD 10,000 |
 
 ### 移住前のチェックポイント
 
-1. **政治情勢の変化**：近年の制度変更により、情報は常に最新のものを確認
-2. **高額な住居費**：香港の家賃は世界最高水準。MoveWorthでの慎重なシミュレーションを推奨
-3. **MPF（強制積立年金）**：就労者は給与の5%を強制拠出
+1. **政治情勢の変化**：2020年以降、社会状況・法制度が大きく変化。常に最新の政府情報を確認
+2. **住居費の高さ**：日本の主要都市の2〜3倍になることも。MoveWorthでのシミュレーションを強く推奨
+3. **MPFのロックアップ**：65歳まで引き出せないため、流動性の観点から注意
+4. **TTPSの就労要件**：TTPSは入国後2年以内に就労しなければならない。観光・滞在目的のみでは更新不可
+5. **永住権（香港居民）**：7年以上の通常居住で申請可能
 
-香港は低税率と金融業の集積が魅力ですが、住居費の高さが最大の課題です。`,
-      en: `Hong Kong is Asia's international financial hub, actively attracting top talent in finance, law, and technology. The flat 15% tax rate is a key drawcard.
+香港は低税率・アジアのビジネスハブとしての地位・英語の通用性が揃った国際都市ですが、住居費の高さと近年の社会環境の変化を十分考慮した上で移住を検討することをお勧めします。`,
+      en: `Hong Kong is Asia's international financial hub, actively attracting top-tier talent in finance, law, IT, and technology. Its low 15% salary tax cap and newly introduced talent schemes are major drawcards.
 
 ### Main Visa Types
 
@@ -2978,22 +3432,43 @@ Taiwan's Gold Card tax incentives are particularly attractive for IT and semicon
 The most common visa for foreigners employed by Hong Kong companies. Employers apply to the Immigration Department.
 - Application fee: HKD 230
 - Validity: Up to 2 years (renewable)
-- Requirements: Skills, knowledge, or experience not readily available in Hong Kong
-
-**Quality Migrant Admission Scheme (QMAS)**
-Points-based scheme for high-skilled individuals wishing to relocate without a job offer. Two scoring tests available.
-- General Points Test (age, education, work experience, language ability)
-- Achievement-Based Points Test (for internationally recognized achievers)
-- Subject to annual quota
+- Requirements: Skills, knowledge, or experience "not readily available in Hong Kong"
+- Processing time: typically 4–6 weeks
 
 **Top Talent Pass Scheme (TTPS)**
-Introduced in 2022 to attract top global talent:
-- Annual income of HKD 2,500,000+ in the past year, OR
-- Graduate of a top-100 world university, OR
-- Same, graduated within 5 years with HKD 1,500,000+ annual income
+A fast-track scheme introduced in October 2022. Can be obtained without a job offer (but employment must be secured within 2 years).
+- **Category A**: Annual income of HKD 2,500,000+ in the past year
+- **Category B**: Graduate of a top-100 world university with 3+ years' work experience
+- **Category C**: Graduate of same category university within the past 5 years with annual income HKD 1,500,000+
+- Validity: 2 years (converts to standard employment visa after hiring)
+- Over 60,000 applications received by end of 2023
 
-**Capital Investment Entrant Scheme**
-Reopened in 2023. Requires HKD 30,000,000+ invested in Hong Kong assets.
+**Quality Migrant Admission Scheme (QMAS)**
+Points-based scheme for high-skilled individuals without a job offer.
+- **General Points Test**: Scored on age, education, work experience, language ability, family background
+- **Achievement-Based Points Test**: For internationally recognized achievers (awards, elite sports, etc.)
+- Annual quota (expanded in recent years to several thousand)
+- Application fee: HKD 460
+
+**Capital Investment Entrant Scheme (CIES)**
+Revived investment immigration scheme reopened in March 2023.
+- HKD 30,000,000+ invested in eligible Hong Kong assets (stocks, bonds, deposits, etc.)
+- Real estate is explicitly excluded (key difference from the old scheme)
+- Application fee: HKD 10,000 (initial stage)
+
+### Tax & Living Notes
+
+**Salaries Tax**
+- Progressive: 2% / 6% / 10% / 14%
+- Standard rate cap: 15% of total income (whichever is lower)
+- Effective rate often comes out to 10–12% after allowances and deductions
+- Profits Tax (corporate): 16.5%
+
+**MPF (Mandatory Provident Fund)**
+- Both employer and employee each contribute 5% of salary (capped at HKD 1,500/month each)
+- Withdrawable from age 65
+
+**Housing**: Hong Kong rent is among the world's highest. A 1-bedroom in Central/Sheung Wan runs HKD 20,000–35,000. Even in Kowloon (Jordan, Mong Kok), expect HKD 12,000–20,000+.
 
 ### Cost Summary
 
@@ -3001,15 +3476,19 @@ Reopened in 2023. Requires HKD 30,000,000+ invested in Hong Kong assets.
 |------|------|
 | Employment visa application | HKD 230 |
 | QMAS application fee | HKD 460 |
+| TTPS application (Category A) | HKD 3,630 |
+| CIES application (initial stage) | HKD 10,000 |
 
 ### Pre-Move Checklist
 
-1. **Changing political landscape**: Always verify the latest regulations
-2. **High housing costs**: Hong Kong rents are among the world's highest — careful MoveWorth simulation is essential
-3. **MPF (Mandatory Provident Fund)**: Employees must contribute 5% of salary
+1. **Political and social changes**: Significant shifts since 2020 — always verify current regulations from official sources
+2. **High housing costs**: Often 2–3x higher than major Japanese cities — thorough MoveWorth simulation is strongly recommended
+3. **MPF lock-up**: Contributions are inaccessible until age 65 — consider liquidity implications
+4. **TTPS employment requirement**: Must secure employment within 2 years of entry; extension is not granted for purely residential stays
+5. **Permanent residency**: Achievable after 7 years of ordinary residence in Hong Kong
 
-Hong Kong's low tax rate and financial sector concentration are major attractions, but the extremely high cost of housing is the biggest challenge.`,
-      zh: `香港是亚洲国际金融中心，积极吸引金融、法律和科技领域的顶尖人才。15%的统一税率是主要吸引力之一。
+Hong Kong combines a low tax rate, world-class financial infrastructure, and strong English proficiency — but the extremely high housing costs and evolving social environment require careful consideration before committing to a move.`,
+      zh: `香港是亚洲国际金融中心，积极吸引金融、法律、IT和科技领域的顶尖人才。最高15%的薪俸税上限以及近年推出的多项人才引进计划是主要吸引力。
 
 ### 主要签证种类
 
@@ -3017,19 +3496,43 @@ Hong Kong's low tax rate and financial sector concentration are major attraction
 外籍人士在港就业最常见的签证，由雇主向入境事务处申请。
 - 申请费用：HKD 230
 - 有效期：最长2年（可续签）
-- 要求：持有香港难以寻觅的技能、知识或经验
-
-**优秀人才入境计划（QMAS）**
-面向无需雇主担保即希望移居香港的高技能人士，设两种积分测试：通用积分测试（年龄、学历、工作经验、语言能力等）和成就积分测试（具有国际公认成就者）。设年度配额。
+- 要求：持有"香港难以寻觅"的技能、知识或经验
+- 审批周期：通常4〜6周
 
 **高端人才通行证计划（TTPS）**
-2022年推出，符合以下任一条件可申请：
-- 过去一年年收入达HKD 2,500,000以上
-- 全球百强大学毕业生
-- 同校毕业且5年内年收入达HKD 1,500,000以上
+2022年10月推出的快速通道计划，无需事先获聘即可申请（但须在入境后2年内受雇）。
+- **A类**：过去一年年收入达HKD 2,500,000以上
+- **B类**：全球百强大学毕业生且拥有3年以上工作经验
+- **C类**：同类百强大学毕业且毕业不超过5年，年收入HKD 1,500,000以上
+- 有效期：2年（受雇后转为标准就业签证）
+- 截至2023年底累计申请超过6万件
 
-**资本投资者入境计划**
-2023年重启，需在香港资产投资HKD 30,000,000以上。
+**优秀人才入境计划（QMAS）**
+面向无需雇主担保即希望移居香港的高技能人士。
+- **通用积分测试**：根据年龄、学历、工作经验、语言能力和家庭背景等评分
+- **成就积分测试**：面向拥有国际公认成就的人士（获奖经历、精英体育成绩等）
+- 设年度配额（近年已扩大至数千人规模）
+- 申请费用：HKD 460
+
+**资本投资者入境计划（CIES）**
+2023年3月重启的投资移民计划。
+- 在香港特定资产（股票、债券、存款等）投资HKD 30,000,000以上
+- 房地产明确排除在外（与旧制度的重要区别）
+- 申请费用：HKD 10,000（初步审核阶段）
+
+### 税务与生活须知
+
+**薪俸税**
+- 累进税率：2% / 6% / 10% / 14%（四档）
+- 标准税率上限：总收入的15%（取两者中较低者）
+- 扣除各项免税额后，实际税率通常约为10%〜12%
+- 利得税（企业所得税）：16.5%
+
+**强积金（MPF）**
+- 雇主和雇员各自缴纳薪酬的5%（每月上限各为HKD 1,500）
+- 65岁起可提取
+
+**住房成本**：香港租金位居全球最高之列。中环、上环一带的一居室月租HKD 20,000〜35,000，九龙（佐敦、旺角）也需HKD 12,000〜20,000。
 
 ### 费用参考
 
@@ -3037,309 +3540,493 @@ Hong Kong's low tax rate and financial sector concentration are major attraction
 |------|------|
 | 就业签证申请费 | HKD 230 |
 | QMAS申请费 | HKD 460 |
+| TTPS申请费（A类） | HKD 3,630 |
+| CIES申请费（初步审核） | HKD 10,000 |
 
 ### 移居前注意事项
 
-1. **政治形势变化**：制度近年持续变动，需随时确认最新规定
-2. **高昂住房成本**：香港租金位居全球最高之列，务必使用MoveWorth仔细模拟
-3. **强积金（MPF）**：受雇人员须强制缴纳薪酬的5%
+1. **政治社会变化**：2020年以来社会环境和法律制度发生重大变化，请务必参阅最新官方资讯
+2. **高昂住房成本**：常为日本主要城市的2〜3倍，强烈建议使用MoveWorth进行充分模拟
+3. **强积金锁定期**：缴款须至65岁方可提取，需从流动性角度充分考量
+4. **TTPS就业要求**：入境后须在2年内受雇，纯居住目的无法续签
+5. **永久居住权**：在港连续通常居住满7年后可申请
 
-香港的低税率和金融业集聚是其最大优势，但极高的住房成本是最大挑战。`,
+香港集低税率、世界级金融基础设施和广泛的英语使用环境于一体，但极高的住房成本和近年不断变化的社会环境，要求移居者在做出决定前进行充分的调研与规划。`,
     },
   },
   {
     slug: "visa-id",
     category: "visa",
-    date: "2026-02-22",
-    readingTime: 6,
+    date: "2026-03-19",
+    readingTime: 12,
     title: {
-      ja: "インドネシアのビザ・就労許可完全ガイド",
-      en: "Indonesia Visa & Work Permit Complete Guide 2026",
-      zh: "印度尼西亚签证与工作许可完全指南",
+      ja: "【2026年最新版】インドネシアのビザ・就労許可完全ガイド｜KITAS・Second Home Visa・バリ島",
+      en: "Indonesia Visa & Work Permit Complete Guide 2026 | KITAS, Second Home Visa & Bali",
+      zh: "【2026年最新版】印度尼西亚签证与工作许可完全指南｜KITAS·第二家园签证·巴厘岛",
     },
     description: {
-      ja: "就労ビザ（KITAS）からデジタルノマドビザまで。インドネシアの主要ビザの種類・要件・費用を徹底解説。",
-      en: "From KITAS work visas to digital nomad visas — a complete guide to Indonesia's main visa types, requirements, and costs.",
-      zh: "从KITAS工作签证到数字游民签证，全面解析印度尼西亚主要签证的种类、要求与费用。",
+      ja: "KITAS（就労・居住許可）・Second Home Visa・B211Aビザ・バリ島での生活まで。インドネシアの主要ビザの種類・要件・費用を徹底解説。",
+      en: "KITAS, Second Home Visa, B211A business visa, Bali lifestyle — a complete guide to Indonesia's main visa types, requirements, and costs.",
+      zh: "KITAS、第二家园签证、B211A商务签证及巴厘岛生活——全面解析印度尼西亚主要签证种类、要求与费用。",
     },
     content: {
-      ja: `インドネシアはASEANの中で最大の経済規模を持つ国で、バリ島を中心にデジタルノマドや移住者に人気が高まっています。
+      ja: `インドネシアはASEANの中で最大の経済規模を持つ国で、バリ島を中心にデジタルノマドや移住者に人気が高まっています。ジャカルタは東南アジア有数のビジネスハブであり、製造業・IT・資源産業などで多くの日系企業が進出しています。
 
 ### 主なビザの種類
 
 **KITAS（Limited Stay Permit / Izin Tinggal Terbatas）**
 外国人がインドネシアで就労・居住するための主要な許可証。
-- 就労KITASはImta（外国人就労許可）とセットで申請
-- スポンサー（雇用主またはインドネシア人配偶者など）が必要
+- 就労KITASはRPTKA（外国人就労計画）+ Imta（外国人就労許可証）とセットで申請
+- スポンサー（雇用主またはインドネシア人配偶者等）が必要
 - 有効期間：1〜2年（更新可）
+- 政府手数料（2024年12月改定）：
+  - 短期（1年以下）：IDR 5,250,000 + USD 150
+  - 長期（2年）：IDR 7,000,000 + USD 150
+- 代理店手数料等を含めると合計USD 500〜1,500程度になることが多い
 
 **外国人就労許可（RPTKA + Imta）**
-外国人を雇用したいインドネシア企業が申請。外国人1名あたりの補償費用（USD 1,200/年）の支払いが必要。
+インドネシア企業が外国人を雇用するために申請。
+- 外国人1名あたり補償費用USD 1,200/年（Danajaminカテゴリー）の支払いが必要
+- 職種別の就労制限リスト（Daftar Jabatan Terlarang）の確認が必須
 
 **B211A ビザ（投資・ビジネスビザ）**
-60日間のビジネス活動向けビザ。就労不可。
+60日間のビジネス活動向けビザ（会議・視察等）。就労は一切不可。
+- 到着時のVOA（Visa on Arrival）でも代替可能（USD 35、最大延長90日）
 
-**デジタルノマドビザ（Second Home Visa / Visitor Visa）**
-バリ島の人気を受け、インドネシアは2023年頃よりデジタルノマド向けの滞在許可整備を進めています。最新情報は移民局を確認してください。
+**Second Home Visa（第二の家ビザ）**
+2022年に導入された長期滞在ビザ。
+- 要件：インドネシアの銀行にIDR 2,000,000,000以上（約2,000万円相当）の定期預金または資産証明
+- 有効期間：5年または10年（更新可）
+- 就労は不可（ただしリモートワークについては現時点では黙認されるケースあり）
+- 申請費用：USD 200〜300程度
 
-**Second Home Visa**
-資産または定期預金IDR 2,000,000,000以上（約2,000万円）を条件とする5〜10年の長期ビザ。
+**配偶者KITASとKITAP（永住許可）**
+- インドネシア人配偶者がいる場合はスポンサードKITASが取得しやすい
+- KITAS継続5年でKITAP（Izin Tinggal Tetap＝永住許可）の申請が可能
+
+### バリ島でのデジタルノマド事情
+
+インドネシアには現時点で公式のデジタルノマドビザは存在しません。以下の2つが事実上のノマド向け滞在手段です：
+
+1. **ビジターVisa（観光ビザ）の延長**：観光ビザは60日＋最大延長60日で最長120日滞在可能
+2. **Second Home Visa**：長期在留には資産要件が高いが、就労なしで最大10年滞在が可能
+
+注意：観光ビザでリモートワークを行うことは法律上グレーゾーンで、正式には認められていません。
 
 ### 費用の目安
 
 | 項目 | 費用 |
 |------|------|
-| KITAS申請費（政府手数料） | 短期：IDR 5,250,000 + USD 150 / 長期：IDR 7,000,000 + USD 150（2024年12月改定） |
+| KITAS申請費（政府手数料） | 短期：IDR 5,250,000 + USD 150 / 長期：IDR 7,000,000 + USD 150 |
 | Imta補償費 | USD 1,200/年（外国人1名あたり） |
-| Second Home Visa | 要確認（数百USD程度） |
+| Second Home Visa申請費 | USD 200〜300程度 |
+| VOA（観光・ビジネス） | USD 35（60日） |
 
 ### 移住前のチェックポイント
 
-1. **職種制限**：インドネシアは多くの職種で外国人就労が制限されている
-2. **税務**：インドネシア国内源泉所得は原則として課税対象
-3. **バリ島の生活費**：観光地のため、ローカル相場と外国人向け相場に大きな差がある
+1. **職種制限**：インドネシアには外国人が就労できない職種が多数（通訳・翻訳・人事・採用業務等も制限対象）
+2. **税務**：183日以上の滞在でインドネシアの税務居住者とみなされ、国内源泉所得に対して5〜35%の課税
+3. **バリ島の物価**：クタ・エチェ周辺の外国人向け物件は月USD 1,000〜3,000以上になることも。レートと実態を必ず確認
+4. **エージェント利用推奨**：KITASの申請は書類が複雑なため、専門エージェントの利用が一般的（費用USD 200〜500程度）
+5. **外国人の土地所有不可**：インドネシアでは外国人は土地・建物の所有権を持てない（借地権Hakpakaiは一部可）
 
-インドネシアはバリ島の魅力から移住先として人気ですが、就労ビザの取得は複雑です。事前に専門のエージェントへの相談を検討してください。`,
-      en: `Indonesia has the largest economy in ASEAN and is growing in popularity as a destination for digital nomads and expatriates, especially in Bali.
+インドネシアはバリ島の魅力から移住先として世界的に人気ですが、就労ビザの取得は複雑です。事前の情報収集と専門エージェントへの相談を強くお勧めします。`,
+      en: `Indonesia is ASEAN's largest economy and is growing rapidly as a destination for digital nomads and expatriates, especially in Bali. Jakarta is a major Southeast Asian business hub with a large Japanese corporate presence in manufacturing, IT, and natural resources.
 
 ### Main Visa Types
 
 **KITAS (Limited Stay Permit)**
 The primary permit for foreigners living and working in Indonesia.
-- Work KITAS is applied together with Imta (Foreign Worker Employment Permit)
+- Work KITAS is applied together with RPTKA (Foreign Worker Utilization Plan) + Imta (Foreign Worker Employment Permit)
 - Requires a sponsor (employer or Indonesian spouse)
 - Validity: 1–2 years (renewable)
+- Government fees (revised December 2024):
+  - Short-term (≤1 year): IDR 5,250,000 + USD 150
+  - Long-term (2 years): IDR 7,000,000 + USD 150
+- Total cost including agent fees typically USD 500–1,500
 
 **Foreign Work Permit (RPTKA + Imta)**
-Applied by Indonesian companies wishing to employ foreigners. Companies must pay a compensation fee of USD 1,200/year per foreign worker.
+Applied by Indonesian companies wishing to hire foreigners.
+- USD 1,200/year compensation fee (Danajamin category) per foreign employee
+- Employers must verify that the target role is not on the restricted occupations list
 
-**B211A Visa (Investment/Business Visa)**
-60-day visa for business activities; does not permit employment.
-
-**Digital Nomad / Visitor Visa**
-In response to Bali's popularity, Indonesia has been developing longer-stay options for digital nomads since around 2023. Check with the immigration office for current options.
+**B211A Visa (Business/Investment Visa)**
+60-day visa for business activities (meetings, inspections). Employment strictly prohibited.
+- Can also use Visa on Arrival (VOA): USD 35, extendable up to 90 days
 
 **Second Home Visa**
-Long-term visa (5–10 years) requiring assets or fixed deposits of IDR 2,000,000,000+ (approx. USD 130,000+).
+Long-term stay visa introduced in 2022.
+- Requirement: IDR 2,000,000,000+ (approx. USD 130,000) in an Indonesian bank or equivalent asset proof
+- Validity: 5 or 10 years (renewable)
+- Employment not permitted (remote work for overseas clients is a grey area in practice)
+- Application fee: approx. USD 200–300
+
+**Spousal KITAS & KITAP (Permanent Stay Permit)**
+- Easier path for those married to Indonesian citizens
+- After 5 continuous years of KITAS, KITAP (permanent residency equivalent) may be applied for
+
+### Digital Nomad Scene in Bali
+
+Indonesia currently has no official digital nomad visa. The two practical options are:
+1. **Tourist visa extension**: Up to 60 + 60 = 120 days
+2. **Second Home Visa**: High asset requirements but up to 10-year stay
+
+Note: Working remotely on a tourist visa is technically illegal under Indonesian law — it exists in a grey zone.
 
 ### Cost Summary
 
 | Item | Cost |
 |------|------|
-| KITAS application (government fee) | Short-term: IDR 5,250,000 + USD 150 / Long-term: IDR 7,000,000 + USD 150 (revised Dec 2024) |
+| KITAS gov. fee | Short: IDR 5,250,000 + USD 150 / Long: IDR 7,000,000 + USD 150 |
 | Imta compensation fee | USD 1,200/year per person |
-| Second Home Visa | Check current rates (approx. several hundred USD) |
+| Second Home Visa | Approx. USD 200–300 |
+| VOA (tourism/business) | USD 35 (60 days) |
 
 ### Pre-Move Checklist
 
-1. **Job restrictions**: Many occupations are restricted to Indonesian nationals
-2. **Taxation**: Indonesian-source income is generally subject to local tax
-3. **Bali cost of living**: Significant gap between local and expat pricing
+1. **Occupation restrictions**: Many roles (including HR, recruitment, translation, and interpretation) are restricted to Indonesian nationals
+2. **Tax residency**: 183+ days in Indonesia triggers tax residency; Indonesian-source income taxed at 5–35%
+3. **Bali rental market**: Expat-oriented properties in Canggu/Seminyak can cost USD 1,000–3,000+/month — always verify current rates
+4. **Use an agent**: KITAS applications involve complex paperwork; specialized agents (typically USD 200–500) are standard practice
+5. **No foreign land ownership**: Foreigners cannot own land or buildings; limited right-of-use (Hak Pakai) arrangements exist in some cases
 
-Indonesia is popular for its Bali appeal, but obtaining a work visa can be complex. Consider consulting a specialized agent beforehand.`,
-      zh: `印度尼西亚是东盟最大经济体，以巴厘岛为中心，在数字游民和移居者中越来越受欢迎。
+Indonesia's Bali lifestyle draws global interest, but work visa processes are complex. Thorough pre-arrival research and consulting a local immigration agent is strongly recommended.`,
+      zh: `印度尼西亚是东盟最大经济体，以巴厘岛为核心在数字游民和移居者中持续升温。雅加达是东南亚重要商业中心，制造业、IT和资源产业中有大量日资企业进驻。
 
 ### 主要签证种类
 
 **KITAS（有限居留许可）**
-外国人在印尼生活和工作的主要许可证，就业KITAS需与Imta（外籍劳工就业许可）一同申请，需要担保人（雇主或印尼籍配偶等）。有效期1～2年（可续签）。
+外国人在印尼生活和工作的主要许可证。
+- 就业KITAS须与RPTKA（外籍劳工使用计划）+ Imta（外籍劳工就业许可）一同申请
+- 需要担保人（雇主或印尼籍配偶等）
+- 有效期1〜2年（可续签）
+- 政府手续费（2024年12月修订）：
+  - 短期（1年及以下）：IDR 5,250,000 + USD 150
+  - 长期（2年）：IDR 7,000,000 + USD 150
+- 含代理费用，总计通常约USD 500〜1,500
 
 **外籍劳工就业许可（RPTKA + Imta）**
-希望雇用外国人的印尼企业需申请，每位外籍员工须支付补偿金USD 1,200/年。
+希望雇用外国人的印尼企业申请。
+- 每位外籍员工须缴纳USD 1,200/年的补偿金（Danajamin类别）
+- 须确认所申请职位是否属于限制外国人就职的职种名单
 
 **B211A签证（投资/商务签证）**
-60天商务活动签证，不允许就业。
+60天商务活动签证（会议、考察等），严禁从事任何工作。
+- 也可使用落地签（VOA）代替：USD 35，可延期至最长90天
 
 **第二家园签证**
-资产或定期存款IDR 2,000,000,000以上（约合人民币90万元）可申请的5～10年长期签证。
+2022年推出的长期居留签证。
+- 要求：在印尼银行存款IDR 2,000,000,000以上（约合人民币约90万元）或同等资产证明
+- 有效期：5年或10年（可续签）
+- 不允许就业（远程为境外公司工作目前处于灰色地带）
+- 申请费用：约USD 200〜300
+
+**配偶KITAS及KITAP（永久居留许可）**
+- 与印尼公民结婚者可通过担保KITAS便捷入境
+- 持续持有KITAS满5年后可申请KITAP（永久居留许可）
+
+### 巴厘岛数字游民现状
+
+目前印尼尚无官方数字游民签证，实际上可用的长期居留方式有两种：
+1. **旅游签证延期**：最长60+60=120天
+2. **第二家园签证**：资产门槛较高，但最长可居留10年
+
+注意：持旅游签证进行远程办公在法律上属违规，目前处于灰色地带。
 
 ### 费用参考
 
 | 项目 | 费用 |
 |------|------|
-| KITAS申请费（政府手续费） | 短期：IDR 5,250,000 + USD 150 / 长期：IDR 7,000,000 + USD 150（2024年12月修订） |
+| KITAS政府手续费 | 短期：IDR 5,250,000 + USD 150 / 长期：IDR 7,000,000 + USD 150 |
 | Imta补偿金 | USD 1,200/年（每位外籍员工） |
-| 第二家园签证 | 需确认（约数百美元） |
+| 第二家园签证申请费 | 约USD 200〜300 |
+| 落地签（旅游/商务） | USD 35（60天） |
 
 ### 移居前注意事项
 
-1. **职业限制**：印尼许多职业禁止外国人从事
-2. **税务**：印尼境内来源收入原则上须纳税
-3. **巴厘岛生活成本**：本地居民与外籍人士定价差距较大
+1. **职业限制**：印尼限制外国人从事的职种众多（含人力资源、招聘、翻译、口译等），务必事先核查
+2. **税务居民认定**：在印尼居留183天以上即被认定为税务居民，国内来源收入须按5%〜35%缴纳所得税
+3. **巴厘岛租金**：坎古/水明漾地区面向外籍人士的房源月租可达USD 1,000〜3,000以上，务必确认最新行情
+4. **建议使用中介**：KITAS申请材料繁琐，通常委托专业中介办理（费用约USD 200〜500）
+5. **外国人不得拥有土地**：外国人不得持有土地或建筑物产权，部分情况下可通过使用权（Hak Pakai）安排
 
-印度尼西亚因巴厘岛的魅力而备受移居者青睐，但工作签证的申请流程较为复杂，建议事先咨询专业中介。`,
+印度尼西亚因巴厘岛的魅力而在全球移居者中备受追捧，但就业签证流程较为复杂，强烈建议提前做好充分调查并咨询当地移民中介。`,
     },
   },
   {
     slug: "visa-ph",
     category: "visa",
-    date: "2026-02-22",
-    readingTime: 6,
+    date: "2026-03-19",
+    readingTime: 12,
     title: {
-      ja: "フィリピンのビザ・移住条件完全ガイド",
-      en: "Philippines Visa & Relocation Complete Guide 2026",
-      zh: "菲律宾签证与移居条件完全指南",
+      ja: "【2026年最新版】フィリピンのビザ・移住条件完全ガイド｜SRRV・9Gビザ・13a・観光延長",
+      en: "Philippines Visa & Relocation Complete Guide 2026 | SRRV, 9G Work Visa, 13a & Tourist Extensions",
+      zh: "【2026年最新版】菲律宾签证与移居条件完全指南｜SRRV·9G就业签证·13a·旅游签证延期",
     },
     description: {
-      ja: "SRRV、就労ビザ（9G）から13aまで。フィリピンの主要ビザの種類・要件・費用を徹底解説。",
-      en: "From SRRV and 9G work visas to 13a resident visas — a complete guide to the Philippines' main visa types and requirements.",
-      zh: "从SRRV、9G就业签证到13a居民签证，全面解析菲律宾主要签证的种类、要求与费用。",
+      ja: "SRRV退職者ビザ・9G就労ビザ・13aビザ・観光ビザ延長（最大36ヶ月）まで。フィリピンの主要ビザの種類・要件・費用を徹底解説。",
+      en: "SRRV retirement visa, 9G work visa, 13a spouse visa, and tourist visa extensions (up to 36 months) — a complete guide to the Philippines' main visa options.",
+      zh: "SRRV退休签证、9G就业签证、13a配偶签证及旅游签证延期（最长36个月）——全面解析菲律宾主要签证种类、要求与费用。",
     },
     content: {
-      ja: `フィリピンは英語が公用語で、温暖な気候と安い生活コストが魅力です。セブ島や首都マニラを拠点に多くの外国人が生活しています。
+      ja: `フィリピンは英語が公用語で、温暖な気候・安い生活コスト・日本人コミュニティの充実から、退職者・ファミリー・デジタルノマドを問わず幅広い移住者に人気の国です。マニラ・セブ島・ダバオが主な居住地となっています。
 
 ### 主なビザの種類
 
-**SRRV（Special Resident Retiree's Visa）**
-退職者向けの特別居住ビザ。フィリピン退職庁（PRA）が管轄。
-- 50歳以上（年金受給者）：USD 10,000の定期預金
-- 50歳未満：USD 20,000の定期預金
-- 年金なし・年金有の条件で異なる
-- 申請費用：USD 1,400（本人）
+**SRRV（Special Resident Retiree's Visa）/ 退職者向け特別居住ビザ**
+フィリピン退職庁（PRA）が管轄する、退職者に人気のビザです。
+- **50歳以上（社会保険年金受給者）**：USD 10,000の定期預金
+- **50歳以上（年金なし）**：USD 20,000の定期預金
+- **50歳未満**：USD 20,000の定期預金
+- 申請費用：USD 1,400（本人）+ 同伴家族1名あたりUSD 300
+- 年会費：USD 360
+- メリット：就労禁止（就労許可取得なし）・複数回出入国自由・税関免除特典あり
+- ※2024年以降、PRAが審査体制を強化。以前より時間がかかるケースが増加
 
 **9G ビザ（就労ビザ）**
-フィリピン企業に雇用される外国人向けビザ。雇用主がAlien Employment Permitを取得し、移民局に申請。
+フィリピン企業に雇用される外国人向けビザ。
+- 雇用主がDOLE（労働雇用省）でAlien Employment Permit（AEP）を取得後、BI（移民局）に申請
+- 有効期間：1年（更新可）
+- 申請費用：PHP 8,620〜（政府手数料）+ 代理店費用
+- AEP取得要件：フィリピン人で代替できない専門職または管理職であること
 
-**13a ビザ（フィリピン人配偶者向け）**
-フィリピン国籍者と婚姻した外国人向けの移民ビザ。最初の1年は条件付きPR、その後本PR。
+**13a ビザ（フィリピン市民の外国人配偶者）**
+フィリピン国籍者と正式婚姻した外国人向けの移民ビザ。
+- 最初の1年は条件付き永住権（ACR I-Card取得）
+- 1年後に条件なし永住権へ変更申請
+- 申請費用：PHP 8,620〜
 
-**特別就労居住ビザ（SVEP）**
-経済特区内の企業に雇用される場合に取得可能。
+**観光ビザ（9a）の延長制度**
+フィリピンは世界でも珍しく、観光ビザを最大36ヶ月まで延長できます。
+- 初回入国：最大30日（日本人は無料でVOA）
+- 移民局での延長：1回あたり1〜2ヶ月ずつ延長可能、最大36ヶ月
+- 費用：延長1回あたりPHP 3,000〜4,000程度
+- ただし長期の観光ビザ滞在中は就労不可
 
-**デジタルノマドビザ**
-2023年時点でフィリピンはデジタルノマド専用ビザは導入していないが、観光ビザを延長しながら滞在する外国人が多い（最大36ヶ月まで延長可能）。
+**SVEP（Special Visa for Employment Generation）**
+経済特区（PEZA・BOI認定企業）内で就労する外国人向けの特別ビザ。
+
+### 生活・税金について
+
+**所得税**：フィリピンで就労すると0〜35%の累進課税。ただしPHREX（海外からの送金収入）の一部は非課税扱いが可能なケースあり。
+**Alien Certificate of Registration（ACR I-Card）**：59日以上滞在する外国人全員が取得義務あり（費用PHP 2,000〜）。
+**フィリピンの医療**：マニラ・セブの私立病院（Makati Medical Center・St. Luke's Medical Center等）は日本人にも対応しており、比較的高水準。地方に行くほど要注意。
+**生活費**：マカティ・BGC（ボニファシオ・グローバル・シティ）周辺の外国人向けコンドミニアムは月PHP 30,000〜80,000程度。
 
 ### 費用の目安
 
 | 項目 | 費用 |
 |------|------|
-| SRRV申請費 | USD 1,400 |
+| SRRV申請費（本人） | USD 1,400 |
+| SRRV年会費 | USD 360/年 |
 | 9Gビザ申請費 | PHP 8,620〜 |
 | 13aビザ申請費 | PHP 8,620〜 |
+| 観光ビザ延長（1回） | PHP 3,000〜4,000 |
+| ACR I-Card | PHP 2,000〜 |
 
 ### 移住前のチェックポイント
 
-1. **外国人の土地所有制限**：フィリピンでは外国人は土地を所有できないが、コンドミニアムは購入可能（外国人枠40%）
-2. **二重課税協定**：日本とフィリピンの間には租税条約があり、二重課税の一部が回避できる
-3. **医療水準**：都市部の私立病院は高水準だが、地方は要注意
+1. **外国人の土地所有制限**：外国人は土地を所有できない。コンドミニアムは外国人枠40%まで購入可能
+2. **SRRV預金の引き出し**：定期預金として維持が必要。不動産購入に充当することも一定条件下で可能
+3. **二重課税協定**：日本・フィリピン間に租税条約あり（一部の二重課税を回避可能）
+4. **治安と地域差**：マカティ・BGC・セブITパーク周辺は安全性が高いが、地方ではセキュリティに注意
+5. **デジタルノマド向け**：公式ビザなし。観光ビザ延長が事実上のノマド滞在手段だが就労は不可
 
-フィリピンはリタイアメントビザ（SRRV）が整備されており、退職後の移住先として日本人にも人気です。`,
-      en: `The Philippines is an English-speaking country with a warm climate and affordable cost of living. Many expatriates base themselves in Cebu or Manila.
+フィリピンはSRRVリタイアメントビザが整備されており、退職後の移住先として日本人に特に人気です。英語での生活もしやすく、日本人学校がある都市も複数あります。`,
+      en: `The Philippines is an English-speaking country with a warm climate, affordable cost of living, and well-established Japanese expat communities. Manila, Cebu, and Davao are the most popular bases for foreigners.
 
 ### Main Visa Types
 
 **SRRV (Special Resident Retiree's Visa)**
-Retirement visa managed by the Philippine Retirement Authority (PRA).
-- 50+ years (pension recipient): USD 10,000 fixed deposit
-- Under 50: USD 20,000 fixed deposit
-- Conditions vary based on pension status
-- Application fee: USD 1,400 (primary applicant)
+Managed by the Philippine Retirement Authority (PRA). One of the most accessible retirement visas in Asia.
+- **50+ with pension**: USD 10,000 fixed deposit
+- **50+ without pension**: USD 20,000 fixed deposit
+- **Under 50**: USD 20,000 fixed deposit
+- Application fee: USD 1,400 (primary applicant) + USD 300 per accompanying dependent
+- Annual fee: USD 360
+- Benefits: Multiple-entry privileges, customs duty exemptions, no employment authorization needed
+- Note: PRA processing has been slower since tightened 2024 reviews
 
 **9G Visa (Work Visa)**
-For foreigners employed by Philippine companies. Employers obtain an Alien Employment Permit, then apply to immigration.
+For foreigners employed by Philippine companies.
+- Employer must first obtain an Alien Employment Permit (AEP) from DOLE, then apply to the Bureau of Immigration (BI)
+- Validity: 1 year (renewable)
+- Application fee: PHP 8,620+ (government fees) + agent fees
+- AEP requirement: Position must not be fillable by a qualified Filipino national
 
-**13a Visa (Spouse of Philippine Citizen)**
-Immigrant visa for foreign spouses of Philippine nationals. Conditional PR for the first year, then full PR.
+**13a Visa (Foreign Spouse of a Philippine Citizen)**
+Immigrant visa for foreign nationals married to Philippine citizens.
+- First year: Conditional permanent resident status (with ACR I-Card)
+- After 1 year: Apply for conversion to unconditional permanent residency
+- Application fee: PHP 8,620+
+
+**Tourist Visa (9a) Extension System**
+The Philippines offers one of the world's most flexible tourist visa extension systems — up to 36 months total.
+- Initial visa-free stay: Up to 30 days (Japanese nationals free on arrival)
+- Extensions: 1–2 months at a time at the Bureau of Immigration; max 36 months total
+- Cost per extension: approx. PHP 3,000–4,000
+- Important: No work permitted on tourist/tourist-extension status
 
 **SVEP (Special Visa for Employment Generation)**
-Available for foreigners employed within special economic zones.
+For foreigners working within PEZA or BOI-registered economic zone enterprises.
 
-**Digital Nomad Visa**
-As of 2023, the Philippines has no dedicated digital nomad visa. Many foreigners extend tourist visas instead (extendable up to 36 months).
+### Tax & Living Notes
+
+**Income tax**: 0–35% progressive for Philippine-source income. Some foreign-earned income remitted via PHREX may qualify for partial exemption.
+**ACR I-Card (Alien Certificate of Registration)**: Mandatory for all foreigners staying 59+ days (fee PHP 2,000+).
+**Healthcare**: Private hospitals in Manila (Makati Medical Center, St. Luke's) and Cebu are Japan-friendly and relatively high standard. Quality declines in rural areas.
+**Living costs**: Expat condominiums in Makati/BGC run PHP 30,000–80,000/month.
 
 ### Cost Summary
 
 | Item | Cost |
 |------|------|
-| SRRV application fee | USD 1,400 |
+| SRRV application (principal) | USD 1,400 |
+| SRRV annual fee | USD 360/year |
 | 9G visa application | PHP 8,620+ |
 | 13a visa application | PHP 8,620+ |
+| Tourist visa extension (per extension) | PHP 3,000–4,000 |
+| ACR I-Card | PHP 2,000+ |
 
 ### Pre-Move Checklist
 
-1. **Land ownership restrictions**: Foreigners cannot own land in the Philippines, but can own condominium units (within the 40% foreign ownership limit)
-2. **Tax treaty**: Japan and Philippines have a tax treaty to avoid some double taxation
-3. **Healthcare quality**: High-standard private hospitals in cities; quality drops in rural areas
+1. **Land ownership restriction**: Foreigners cannot own land; condominium units can be purchased within 40% foreign ownership cap
+2. **SRRV deposit requirement**: Funds must remain in a fixed deposit account; can be used toward real estate under certain conditions
+3. **Tax treaty**: Japan–Philippines tax treaty reduces some double taxation
+4. **Safety and neighborhood choice**: Makati, BGC, and Cebu IT Park are generally safe; exercise caution outside major urban areas
+5. **Digital nomads**: No official visa — tourist visa extensions are the de facto option, but work remains prohibited
 
-The Philippines' SRRV retirement visa is well-established, making it a popular destination for Japanese retirees.`,
-      zh: `菲律宾以英语为官方语言，气候温暖，生活费低廉，许多外籍人士以宿务或马尼拉为据点定居生活。
+The Philippines is especially popular among Japanese retirees thanks to the well-structured SRRV program, English as an official language, and the presence of Japanese schools in multiple cities.`,
+      zh: `菲律宾以英语为官方语言，气候温暖，生活费低廉，日本人社区完善，对退休人员、家庭和数字游民均极具吸引力。马尼拉、宿务和达沃是外籍人士最常选择的居住地。
 
 ### 主要签证种类
 
 **SRRV（特别居民退休人员签证）**
-退休人员专属居留签证，由菲律宾退休局（PRA）管理。
-- 50岁以上（领取养老金者）：USD 10,000定期存款
-- 50岁以下：USD 20,000定期存款
-- 条件因是否领取养老金而有所不同
-- 申请费用：USD 1,400（本人）
+由菲律宾退休局（PRA）管辖，是亚洲最易获批的退休签证之一。
+- **50岁以上（领取养老金者）**：USD 10,000定期存款
+- **50岁以上（无养老金）**：USD 20,000定期存款
+- **50岁以下**：USD 20,000定期存款
+- 申请费用：USD 1,400（本人）+ 同行家属每人USD 300
+- 年费：USD 360
+- 特权：多次出入境、海关税收优惠，无需就业许可
+- 注意：2024年起PRA审查趋严，办理周期较以往有所延长
 
 **9G签证（就业签证）**
-面向受雇于菲律宾企业的外国人，雇主需取得外籍就业许可后向移民局申请。
+面向受雇于菲律宾企业的外国人。
+- 雇主须先向劳动就业部（DOLE）取得外籍就业许可（AEP），再向移民局（BI）申请
+- 有效期：1年（可续签）
+- 申请费用：PHP 8,620起（政府费用）+ 代理费用
+- AEP要求：所申请职位须是菲律宾本地人才无法胜任的专业或管理岗位
 
-**13a签证（菲律宾公民配偶）**
-外籍配偶专属移民签证，首年为附条件永久居留，之后转为正式永久居留。
+**13a签证（菲律宾公民的外籍配偶）**
+外籍人士与菲律宾公民正式结婚后可申请的移民签证。
+- 首年：附条件永久居留（需持有ACR I-Card）
+- 1年后：可申请转为无条件永久居留
+- 申请费用：PHP 8,620起
 
-**数字游民签证**
-截至2023年，菲律宾尚无专门的数字游民签证，许多外籍人士选择延期旅游签证（最长可延至36个月）。
+**旅游签证（9a）延期制度**
+菲律宾旅游签证延期制度全球少见——最长可延至36个月。
+- 初次免签入境：最长30天（日本人免签落地）
+- 移民局延期：每次延1〜2个月，总计最长36个月
+- 每次延期费用：约PHP 3,000〜4,000
+- 重要提示：旅游签证及延期期间严禁从事任何工作
+
+**SVEP（就业促进特别签证）**
+在PEZA或BOI认定的经济特区企业就职的外国人可申请。
+
+### 税务与生活须知
+
+**所得税**：菲律宾来源收入适用0%〜35%累进税率，部分通过PHREX渠道汇入的境外所得可享受一定豁免。
+**外国人登记证（ACR I-Card）**：在菲停留超过59天的外国人均须办理（费用PHP 2,000起）。
+**医疗水平**：马尼拉（Makati Medical Center、St. Luke's等）和宿务的私立医院水准较高，部分可提供日语服务；农村地区医疗条件较差。
+**生活费**：马卡提/BGC（博尼法西奥环球城）一带的外籍公寓月租约PHP 30,000〜80,000。
 
 ### 费用参考
 
 | 项目 | 费用 |
 |------|------|
-| SRRV申请费 | USD 1,400 |
+| SRRV申请费（本人） | USD 1,400 |
+| SRRV年费 | USD 360/年 |
 | 9G签证申请费 | PHP 8,620起 |
 | 13a签证申请费 | PHP 8,620起 |
+| 旅游签证延期（每次） | PHP 3,000〜4,000 |
+| 外国人登记证（ACR I-Card） | PHP 2,000起 |
 
 ### 移居前注意事项
 
-1. **外国人土地所有限制**：外国人不得拥有土地，但可购买公寓（外籍持有比例上限40%）
-2. **避免双重征税**：日本与菲律宾之间存在租税协定，部分双重征税可规避
-3. **医疗水平**：城市私立医院水准较高，农村地区需注意
+1. **外国人土地所有限制**：外国人不得拥有土地，可购买公寓（外籍持有比例上限40%）
+2. **SRRV存款要求**：资金须保留在定期存款账户内，满足条件后可用于购买房产
+3. **避免双重征税**：日本与菲律宾之间签有租税协定，可规避部分双重征税
+4. **治安与选址**：马卡提、BGC、宿务IT园区附近安全性较高，远郊地区需注意安全
+5. **数字游民**：无官方专属签证，旅游签证延期是实际可用的长期居留方式，但严禁从事工作
 
-菲律宾的SRRV退休签证制度完善，是日本退休人员移居的热门目的地。`,
+菲律宾凭借完善的SRRV退休签证制度、官方英语环境以及多个城市设有日本人学校等优势，是日本退休人员移居的热门之选。`,
     },
   },
   {
     slug: "visa-vn",
     category: "visa",
-    date: "2026-02-22",
-    readingTime: 6,
+    date: "2026-03-19",
+    readingTime: 12,
     title: {
-      ja: "ベトナムのビザ・就労許可完全ガイド",
-      en: "Vietnam Visa & Work Permit Complete Guide 2026",
-      zh: "越南签证与工作许可完全指南",
+      ja: "【2026年最新版】ベトナムのビザ・就労許可完全ガイド｜就労許可証・E-Visa・一時居留証",
+      en: "Vietnam Visa & Work Permit Complete Guide 2026 | Work Permit, E-Visa & TRC",
+      zh: "【2026年最新版】越南签证与工作许可完全指南｜工作许可证·电子签证·临时居留证",
     },
     description: {
-      ja: "就労許可証から一時居留証まで。ベトナムの主要ビザの種類・要件・費用を徹底解説。",
-      en: "From work permits to temporary residence cards — a complete guide to Vietnam's main visa types, requirements, and costs.",
-      zh: "从工作许可证到临时居留证，全面解析越南主要签证的种类、要求与费用。",
+      ja: "就労許可証（2025年Decree改定）・E-Visa（90日）・一時居留証（TRC）・税務居住者認定まで。ベトナムの主要ビザの種類・要件・費用を徹底解説。",
+      en: "Work permits (2025 Decree update), E-Visa (90 days), Temporary Residence Card (TRC), and tax residency — a complete guide to Vietnam's main visa types.",
+      zh: "工作许可证（2025年法令更新）、电子签证（90天）、临时居留证（TRC）及税务居民认定——全面解析越南主要签证种类、要求与费用。",
     },
     content: {
-      ja: `ベトナムはホーチミン市・ハノイを中心に急速な経済成長を続けており、製造業・IT・サービス業など多様な就労機会があります。日系企業の進出も多く、日本人移住者が増加しています。
+      ja: `ベトナムはホーチミン市・ハノイを中心に急速な経済成長を続けており、製造業・IT・サービス業など多様な就労機会があります。日系企業の進出が多く、日本人移住者が増加。また2023年からの観光ビザ緩和でデジタルノマドにも人気の国になっています。
 
 ### 主なビザの種類
 
-**就労許可証（Work Permit）**
+**就労許可証（Work Permit / Giấy phép lao động）**
 ベトナムで働くほぼすべての外国人に必要な許可証。雇用主が労働傷病兵社会省（MOLISA）に申請。
 - 有効期間：最大2年（更新可）
 - 申請費用：VND 600,000〜
+- 取得に必要な書類（Expertカテゴリーの場合）：
+  - 学位証明書（認証・翻訳済み）
+  - 犯罪経歴証明書（発行から6ヶ月以内）
+  - 健康診断書
+  - 2年以上の職歴証明 ※2025年8月施行のDecree 219/2025/ND-CPにより3年から2年に短縮
+  - 雇用契約書または内定通知書
 
-就労許可証の取得には以下の書類が一般的に必要：
-- 学位証明書（認証・翻訳済み）
-- 犯罪経歴証明書
-- 健康診断書
-- 2年以上の職歴証明（Expertカテゴリー。2025年8月のDecree 219/2025で3年から2年に短縮）
+**就労許可証の免除対象**
+以下に該当する場合は就労許可証が不要：
+- 外資企業の法定代表者（Directors）
+- 90日以内の短期業務（会議・研修等）
+- 特定の外交・政府関係者
 
-**一時居留証（TRC：Temporary Residence Card）**
-就労許可証取得後に申請する居住許可証。毎回の入国ビザが不要になる。
-- 有効期間：1〜2年（就労許可証と連動）
+**一時居留証（TRC：Temporary Residence Card / Thẻ tạm trú）**
+就労許可証取得後に申請する居住許可証。取得すると毎回の入国ビザが不要になります。
+- 有効期間：1〜2年（就労許可証の有効期間に連動）
 - 申請費用：USD 20〜
+- TRCがあれば銀行口座開設・不動産賃貸などがスムーズに進む
 
-**電子ビザ（E-Visa）**
-90日間（2023年8月から延長）の観光・短期商用向けビザ。就労には使用不可。
+**電子ビザ（E-Visa / eVisa）**
+2023年8月から90日間・シングル入国の電子ビザ（旧60日から延長）。
+- 観光・短期商用向け。就労は一切不可
+- 費用：USD 25（政府サイトで申請）
+- 日本人は45日間のビザ免除も利用可能（2023年8月より延長）
 
-**投資家ビザ**
-ベトナムに一定額以上の投資を行う外国人向けの長期ビザ。
+**投資家向けビザ**
+ベトナムに一定額以上の投資を行う外国人向けの長期ビザ（詳細は投資登録後に当局へ確認）。
+
+### 生活・税金について
+
+**所得税（PIT）**
+ベトナムに年183日以上滞在すると税務上の居住者となり、ベトナム国内外の所得が課税対象。
+- 税率：5〜35%（累進課税）
+- 日本とベトナムの間には租税条約あり（二重課税の一部を回避可能）
+- 非居住者の場合：ベトナム国内源泉所得に対して20%の一律課税
+
+**社会保険**
+外国人労働者は原則として社会保険・医療保険・失業保険への加入が義務（雇用主と折半）。保険料率：従業員負担約10.5%、雇用主負担約21.5%（月額上限あり）。
+
+**住居費**：ホーチミン市の外国人向けコンドミニアム（District 2/Thu Duc・District 7）は月USD 800〜2,000程度。ハノイは同等かやや低め。
 
 ### 費用の目安
 
@@ -3348,73 +4035,132 @@ The Philippines' SRRV retirement visa is well-established, making it a popular d
 | 就労許可証申請費 | VND 600,000〜 |
 | 一時居留証発行費 | USD 20〜 |
 | E-Visa費用 | USD 25 |
+| ビザ免除（日本人） | 無料（45日） |
 
 ### 移住前のチェックポイント
 
-1. **就労許可証の免除対象**：外資企業の役員や高度人材など一部は就労許可証が不要
-2. **確定申告**：年183日以上の滞在で税務上の居住者とされ、ベトナム内外の所得が課税対象
-3. **銀行口座開設**：一時居留証がないと銀行口座の開設が困難な場合がある
+1. **Decree 219/2025の改定**：Expert カテゴリーの就労経験要件が3年から2年に短縮（2025年8月施行）。より申請しやすくなった
+2. **書類の認証**：学位証明・犯罪経歴証明は日本の外務省による公証＋ベトナム大使館での認証が必要
+3. **銀行口座の開設**：TRCがあると大幅に手続きがスムーズ。ない場合はパスポートとビザのみで対応してくれる銀行を選ぶ
+4. **税務居住者の範囲**：183日以上滞在で国内外所得が課税対象になる点に注意
+5. **日本語人材の需要**：日系企業が多いため、日本語能力があれば就職のハードルが大幅に下がる
 
-ベトナムは若い人口と旺盛な経済成長が魅力で、IT・日本語人材の需要が特に高い国です。`,
-      en: `Vietnam is experiencing rapid economic growth centered on Ho Chi Minh City and Hanoi, with diverse job opportunities in manufacturing, IT, and services. Growing Japanese corporate presence has led to increasing numbers of Japanese expatriates.
+ベトナムは若い人口・旺盛な経済成長・日系企業の多さが魅力で、IT・製造業・日本語教師などでの就労機会が特に豊富な移住先です。`,
+      en: `Vietnam is experiencing rapid economic growth centered on Ho Chi Minh City (HCMC) and Hanoi, with diverse opportunities in manufacturing, IT, and services. A large Japanese corporate presence and a relaxed 2023 visa policy have made it increasingly popular with both working professionals and digital nomads.
 
 ### Main Visa Types
 
-**Work Permit**
+**Work Permit (Giấy phép lao động)**
 Required for almost all foreigners working in Vietnam. Employers apply to the Ministry of Labour, Invalids and Social Affairs (MOLISA).
 - Validity: Up to 2 years (renewable)
 - Application fee: VND 600,000+
+- Required documents (Expert category):
+  - Authenticated and translated degree certificate
+  - Criminal record certificate (issued within 6 months)
+  - Medical certificate
+  - Proof of 2+ years' work experience *(reduced from 3 years under Decree 219/2025/ND-CP, effective August 2025)*
+  - Employment contract or offer letter
 
-Common documents required:
-- Authenticated and translated degree certificate
-- Criminal record certificate
-- Medical certificate
-- Proof of 2+ years' work experience (for "Expert" category — reduced from 3 years under Decree 219/2025, effective August 2025)
+**Work Permit Exemptions**
+The following are exempt from work permit requirements:
+- Legal representatives of foreign-invested enterprises
+- Short-term assignments under 90 days (meetings, training, etc.)
+- Certain diplomatic/government personnel
 
-**TRC (Temporary Residence Card)**
-Applied after obtaining a work permit. Eliminates the need for a visa on each entry.
+**TRC (Temporary Residence Card / Thẻ tạm trú)**
+Applied after obtaining a work permit. Eliminates the need for a visa on every entry.
 - Validity: 1–2 years (linked to work permit)
 - Application fee: USD 20+
+- A TRC greatly simplifies bank account opening, lease agreements, and other admin tasks
 
-**E-Visa**
-90-day electronic visa (extended since August 2023) for tourism and short business trips. Cannot be used for employment.
+**E-Visa (eVisa)**
+Since August 2023, single-entry E-Visas allow 90-day stays (extended from 60 days).
+- Tourism and short-term business use only — no employment
+- Fee: USD 25 (via official government portal)
+- Japanese nationals also qualify for a 45-day visa-free stay (extended since August 2023)
 
 **Investor Visa**
-Long-term visa for foreigners investing a certain amount in Vietnam.
+Long-term visa available for foreigners making qualifying investments in Vietnam (confirm requirements with the Investment Registration Certificate process).
+
+### Tax & Living Notes
+
+**Personal Income Tax (PIT)**
+183+ days in Vietnam per year = tax resident, subject to tax on worldwide income.
+- Progressive rates: 5–35%
+- Japan–Vietnam tax treaty available to reduce some double taxation
+- Non-residents: Flat 20% on Vietnamese-source income
+
+**Social Insurance**
+Foreign workers are generally required to contribute to social insurance, health insurance, and unemployment insurance. Employee contribution: ~10.5% of salary; employer: ~21.5% (subject to monthly caps).
+
+**Housing**: Expat condominiums in HCMC (District 2/Thu Duc, District 7) run USD 800–2,000/month. Hanoi is similar or slightly lower.
 
 ### Cost Summary
 
 | Item | Cost |
 |------|------|
-| Work permit application fee | VND 600,000+ |
+| Work permit application | VND 600,000+ |
 | TRC issuance fee | USD 20+ |
 | E-Visa fee | USD 25 |
+| Visa-free stay (Japanese nationals) | Free (45 days) |
 
 ### Pre-Move Checklist
 
-1. **Work permit exemptions**: Some foreign corporate executives and highly skilled workers are exempt
-2. **Tax residency**: 183+ days in Vietnam makes you a tax resident, subject to tax on worldwide income
-3. **Bank account**: Opening a bank account without a TRC can be difficult
+1. **Decree 219/2025 update**: Expert category work experience requirement reduced from 3 to 2 years (effective August 2025) — applications now more accessible
+2. **Document authentication**: Degree certificates and criminal records require Japanese MOFA apostille + authentication at the Vietnamese embassy
+3. **Bank account setup**: A TRC makes opening a bank account much smoother; without one, choose banks that accept passport + visa only
+4. **Tax residency**: 183+ days triggers worldwide income taxation — plan your stay timing accordingly
+5. **Japanese language demand**: Large Japanese corporate presence means Japanese speakers have significantly better employment prospects
 
-Vietnam's young population and economic growth create strong demand for IT professionals and Japanese-language speakers.`,
-      zh: `越南以胡志明市和河内为中心持续快速发展，制造业、IT和服务业提供了多样的就业机会。日资企业众多，日本移居者数量也在不断增加。
+Vietnam's young population, rapid growth, and high demand for Japanese-language professionals in IT, manufacturing, and education make it one of the most practical relocation destinations in Southeast Asia.`,
+      zh: `越南以胡志明市和河内为中心持续快速发展，制造业、IT和服务业提供了多样的就业机会。大量日资企业进驻以及2023年签证政策放宽，使其对职场人士和数字游民的吸引力不断提升。
 
 ### 主要签证种类
 
-**工作许可证（Work Permit）**
-几乎所有在越工作的外国人都需要此许可证，由雇主向劳动荣军社会部（MOLISA）申请。有效期最长2年（可续签）。申请费用：VND 600,000起。
+**工作许可证（Giấy phép lao động）**
+几乎所有在越工作的外国人均须持有此许可证，由雇主向劳动荣军社会部（MOLISA）申请。
+- 有效期：最长2年（可续签）
+- 申请费用：VND 600,000起
+- 所需文件（专家类别）：
+  - 经认证翻译的学历证明
+  - 无犯罪记录证明（6个月内出具）
+  - 健康证明
+  - 2年以上工作经历证明 ※依据2025年8月施行的Decree 219/2025/ND-CP，由3年缩短至2年
+  - 劳动合同或录用通知书
 
-常见所需文件：
-- 经认证翻译的学历证明
-- 无犯罪记录证明
-- 健康证明
-- 2年以上工作经历证明（专家类别；根据2025年8月施行的第219/2025/ND-CP号法令，由3年缩短至2年）
+**工作许可证豁免情况**
+以下情况无需申请工作许可证：
+- 外资企业的法定代表人
+- 90天以内的短期业务（会议、培训等）
+- 特定外交及政府人员
 
-**临时居留证（TRC）**
-取得工作许可证后申请的居留许可，持有后无需每次入境申请签证。有效期1～2年（与工作许可证挂钩），申请费用：USD 20起。
+**临时居留证（TRC / Thẻ tạm trú）**
+取得工作许可证后申请的居留许可，持有后每次入境无需再申请签证。
+- 有效期：1〜2年（与工作许可证有效期挂钩）
+- 申请费用：USD 20起
+- 持有TRC可大幅简化银行开户、租房等手续
 
-**电子签证（E-Visa）**
-90天（2023年8月起延长）的旅游及短期商务签证，不可用于就业。费用：USD 25。
+**电子签证（eVisa）**
+2023年8月起，电子签证有效期延长至90天（原为60天），单次入境。
+- 仅限旅游及短期商务，严禁从事任何工作
+- 费用：USD 25（通过官方政府网站申请）
+- 日本人还可享受45天免签待遇（2023年8月起延长）
+
+**投资者签证**
+面向在越南进行符合条件投资的外国人的长期签证（具体要求请在完成投资登记证书流程后向有关部门确认）。
+
+### 税务与生活须知
+
+**个人所得税（PIT）**
+在越居留183天以上即被认定为税务居民，需就全球所得缴纳越南个人所得税。
+- 累进税率：5%〜35%
+- 日本与越南签有税务协定，可避免部分双重征税
+- 非税务居民：越南境内来源所得按20%统一征税
+
+**社会保险**
+外籍劳工通常须参加社会保险、医疗保险和失业保险。员工缴纳比例约10.5%，雇主约21.5%（月缴上限以实际规定为准）。
+
+**住房成本**：胡志明市面向外籍人士的公寓（第2区/守德区、第7区等）月租约USD 800〜2,000；河内略低或相当。
 
 ### 费用参考
 
@@ -3423,30 +4169,33 @@ Vietnam's young population and economic growth create strong demand for IT profe
 | 工作许可证申请费 | VND 600,000起 |
 | 临时居留证签发费 | USD 20起 |
 | 电子签证费 | USD 25 |
+| 免签入境（日本人） | 免费（45天） |
 
 ### 移居前注意事项
 
-1. **工作许可证豁免**：外资企业高管等部分人员可免申请工作许可证
-2. **税务居民认定**：在越居留183天以上将被认定为税务居民，境内外所得均须纳税
-3. **银行开户**：无临时居留证可能难以开设银行账户
+1. **Decree 219/2025更新**：专家类别工作经历要求由3年缩短至2年（2025年8月起生效），申请门槛降低
+2. **文件认证**：学历证明和无犯罪记录证明须经日本外务省认证，并在越南大使馆办理确认手续
+3. **银行开户**：持有TRC可大幅简化开户流程；无TRC时需选择仅凭护照和签证即可开户的银行
+4. **税务居民判断**：在越居留超过183天将触发全球收入纳税义务，需合理规划停留时间
+5. **日语人才需求旺盛**：日资企业众多，具备日语能力者就业门槛显著降低
 
-越南年轻的人口结构和旺盛的经济增长，使IT专业人才和日语人才的需求尤为突出。`,
+越南年轻的人口结构、旺盛的经济活力以及对IT、制造业和日语人才的高度需求，使其成为东南亚最具吸引力的移居目的地之一。`,
     },
   },
   {
     slug: "visa-us",
     category: "visa",
-    date: "2026-02-22",
-    readingTime: 6,
+    date: "2026-03-19",
+    readingTime: 12,
     title: {
-      ja: "アメリカのビザ・就労許可完全ガイド",
-      en: "United States Visa & Work Authorization Complete Guide 2026",
-      zh: "美国签证与工作授权完全指南",
+      ja: "【2026年最新版】アメリカのビザ・就労許可完全ガイド｜H-1B・L-1・O-1・グリーンカード",
+      en: "United States Visa & Work Authorization Complete Guide 2026 | H-1B, L-1, O-1 & Green Card",
+      zh: "【2026年最新版】美国签证与工作授权完全指南｜H-1B·L-1·O-1·绿卡",
     },
     description: {
-      ja: "H-1Bから就労グリーンカードまで。アメリカの主要ビザの種類・要件・費用を徹底解説。",
-      en: "From H-1B to employment-based green cards — a complete guide to U.S. visa types, requirements, and costs.",
-      zh: "从H-1B到就业类绿卡，全面解析美国主要签证的种类、要求与费用。",
+      ja: "H-1B（抽選・費用）・L-1・O-1・EB-5投資家ビザ・就労グリーンカードまで。アメリカの主要ビザの種類・要件・費用を徹底解説。",
+      en: "H-1B lottery and fees, L-1, O-1, EB-5 investor visa, and employment-based green cards — a complete guide to U.S. visa types, requirements, and costs.",
+      zh: "H-1B（抽签与费用）、L-1、O-1、EB-5投资者签证及就业类绿卡——全面解析美国主要签证种类、要求与费用。",
     },
     content: {
       ja: `アメリカは世界最大の経済大国であり、IT・金融・医療・アカデミアなど多くの分野でトップクラスのキャリア機会があります。ただし、就労ビザの取得競争は激しく、移民プロセスも複雑です。
@@ -3455,254 +4204,427 @@ Vietnam's young population and economic growth create strong demand for IT profe
 
 **H-1B（専門職ビザ）**
 最も一般的なアメリカの就労ビザ。学士以上の学位を必要とする専門職向け。
-- 毎年4月に抽選（65,000件＋修士号保持者向け20,000件）
-- 有効期間：3年（最大6年、EB取得まで延長可能）
-- 申請費（雇用主負担）：I-129基本料USD 780＋詐欺防止料USD 500＋ACWIA訓練費USD 1,500（大企業）/ USD 750（中小企業）＋登録料USD 215。合計目安：USD 1,700〜5,800（プレミアム処理USD 2,965は任意）※2024年4月改定後
+- 毎年3月に登録受付（抽選）→ 4月以降申請（65,000件 + 修士号保持者向け20,000件）
+- 有効期間：3年（最大6年、EB取得を待つ場合は無期限延長可能）
+- 申請費（雇用主負担、2024年4月改定後）：
+  - I-129基本料：USD 780
+  - 詐欺防止料：USD 500
+  - ACWIA訓練費：USD 1,500（大企業）/ USD 750（中小企業）
+  - 登録料：USD 215
+  - プレミアム処理（任意）：USD 2,965（15営業日以内に処理）
+  - 合計目安：USD 1,700〜5,800（プレミアム処理含まず）
 
 **L-1（企業内転勤ビザ）**
-アメリカ企業の海外関連会社から転勤する管理職・専門職向け。
-- L-1A（管理職・幹部）：最大7年
-- L-1B（専門職）：最大5年
+日本など海外の関連会社からアメリカへ転勤する管理職・専門職向け。抽選なし。
+- L-1A（管理職・幹部）：最大7年（継続して管理職の場合、グリーンカード（EB-1C）へのルートあり）
+- L-1B（専門的知識を持つ社員）：最大5年
 
 **O-1（卓越した能力を持つ外国人）**
-科学・芸術・教育・ビジネス・スポーツの分野で卓越した業績を持つ人向け。抽選なし。
+科学・芸術・教育・ビジネス・スポーツの分野で国際的に認められた実績を持つ人向け。抽選なし。
+- O-1A：科学・教育・ビジネス・スポーツ
+- O-1B：芸術・映画・テレビ
 
-**TN（北米自由貿易協定ビザ）**
-カナダ・メキシコ市民向け（日本人は対象外）。
+**E-2（条約投資家ビザ）**
+日本とアメリカ間の投資条約に基づくビザ。アメリカのビジネスに相当額を投資する起業家・経営者向け。永住権ではないが更新可能。
+
+**EB-5（投資家グリーンカード）**
+アメリカへの投資により永住権を取得するプログラム。
+- TEA（農村地域・高失業率地域）：USD 800,000以上の投資 + 10名以上の雇用創出
+- 一般地域：USD 1,050,000以上の投資 + 10名以上の雇用創出
 
 **EB-1/EB-2/EB-3（就労グリーンカード）**
-永住権（グリーンカード）の就労カテゴリ。EB-1は優先労働者・多国籍企業管理職、EB-2はNIW（国益免除）が人気。取得まで数年〜十数年かかる場合もある。
+永住権（グリーンカード）の就労カテゴリ。
+- **EB-1**：卓越した人材（EB-1A）・優秀な研究者（EB-1B）・多国籍企業管理職（EB-1C）
+- **EB-2 NIW（国益免除）**：EB-2のうち、アメリカの国益になる分野の研究者・専門家。雇用主なしで申請可能
+- **EB-3**：専門職・熟練労働者・非熟練労働者
+- 処理期間は出身国・カテゴリーによって大きく異なる（日本人は比較的早い）
 
 **グリーンカード抽選（DV Lottery）**
-毎年約5万名に永住権を抽選付与。日本は抽選対象国に含まれていないため、日本国籍者は参加不可。
+毎年約5万名に永住権を抽選付与。日本は抽選対象国に含まれていないため、**日本国籍者は参加不可**。
+
+### 生活・税金について
+
+**所得税**：連邦税（10〜37%）+ 州税（0〜13.3%）+ 地方税の多層構造。
+- テキサス・フロリダ・ネバダ等は州所得税なし
+- カリフォルニア・ニューヨーク等は合計税率40%以上になることも
+
+**医療保険**：雇用主が提供する場合が多いが、保険料の自己負担分も大きい（月USD 200〜500程度）。失業時は COBRA延長（高額）またはACA市場プランへの切り替えが必要。
+
+**住居費**：サンフランシスコ・ニューヨークは世界最高水準。1LDKで月USD 2,500〜5,000以上も珍しくない。
 
 ### 費用の目安
 
 | 項目 | 費用 |
 |------|------|
-| H-1B申請費（雇用主） | 約USD 1,700〜5,800（2024年4月改定後） |
-| グリーンカード申請費 | USD 1,225〜 |
+| H-1B申請費（雇用主） | USD 1,700〜5,800（2024年4月改定後） |
+| H-1Bプレミアム処理 | USD 2,965（任意） |
+| L-1申請費 | USD 1,385〜（政府手数料） |
 | O-1申請費 | USD 460〜 |
+| グリーンカード申請費 | USD 1,225〜 |
+| EB-5投資額（TEA） | USD 800,000以上 |
 
 ### 移住前のチェックポイント
 
-1. **H-1Bの抽選リスク**：毎年倍率3〜5倍以上の競争率。複数年の挑戦が必要なケースも
-2. **税金の複雑さ**：連邦税＋州税＋地方税の多層構造。州によって税率が大きく異なる
-3. **医療保険**：雇用主提供の保険が一般的だが、失業時は高額な個人保険が必要
+1. **H-1Bの抽選リスク**：直近の倍率は2〜3倍程度（近年の登録数減少により）。それでも落選リスクは高い
+2. **L-1の有力活用**：日系企業からの転勤であればL-1が現実的な選択肢。H-1Bの抽選リスクを回避できる
+3. **EB-2 NIWの人気**：研究者・エンジニア・医師等は雇用主不要のNIW申請が増加中
+4. **州選びの重要性**：テキサスやフロリダは州所得税なしで、同じ年収でも手取りが大幅に増える
+5. **医療費の高さ**：保険なしの場合、救急外来1回で数十万円になることも。保険の確認は必須
 
-アメリカは収入ポテンシャルが高い反面、税負担・医療費・住居費も高く、MoveWorthで慎重なシミュレーションを行うことをお勧めします。`,
+アメリカは収入ポテンシャルが極めて高い反面、税負担・医療費・住居費も世界有数の高さです。MoveWorthで収入・税金・生活費を総合的にシミュレーションしてから検討することを強くお勧めします。`,
       en: `The United States is the world's largest economy, offering top-tier career opportunities in tech, finance, healthcare, and academia. However, work visa competition is fierce and the immigration process is complex.
 
 ### Main Work Visa Types
 
 **H-1B (Specialty Occupation Visa)**
 The most common U.S. work visa for specialty occupations requiring a bachelor's degree or higher.
-- Annual lottery in April (65,000 cap + 20,000 for U.S. master's holders)
-- Validity: 3 years (up to 6 years, extendable while pursuing employment-based green card)
-- Application fees (paid by employer): I-129 base $780 + fraud prevention $500 + ACWIA training $1,500 (large employer) or $750 (small employer) + registration $215. Estimated total: USD 1,700–5,800 (optional premium processing +$2,965). Fees updated April 2024.
+- Annual registration opens in March (lottery draw); filing from April (65,000 cap + 20,000 for U.S. master's holders)
+- Validity: 3 years (up to 6 years; unlimited extensions while pursuing green card)
+- Application fees (paid by employer, revised April 2024):
+  - I-129 base fee: USD 780
+  - Fraud prevention fee: USD 500
+  - ACWIA training fee: USD 1,500 (large employers) / USD 750 (small employers)
+  - Registration fee: USD 215
+  - Premium processing (optional): USD 2,965 (15 business days)
+  - Estimated total: USD 1,700–5,800 (excluding premium processing)
 
 **L-1 (Intracompany Transferee)**
-For managers, executives, and specialized knowledge workers transferring from a foreign affiliate.
-- L-1A (managers/executives): Up to 7 years
+For managers, executives, and specialized knowledge workers transferring from a foreign affiliate (e.g., Japan). No lottery.
+- L-1A (managers/executives): Up to 7 years; direct path to EB-1C green card available
 - L-1B (specialized knowledge): Up to 5 years
 
 **O-1 (Extraordinary Ability)**
-For individuals with extraordinary achievement in science, arts, education, business, or athletics. No lottery.
+For individuals with internationally recognized achievements in science, arts, education, business, or athletics. No lottery.
+- O-1A: Science, education, business, athletics
+- O-1B: Arts, film, television
 
-**TN Visa (USMCA)**
-For Canadian and Mexican citizens only (not applicable to Japanese nationals).
+**E-2 (Treaty Investor Visa)**
+Based on the U.S.–Japan investment treaty. For entrepreneurs and business owners investing substantially in a U.S. business. Not a green card, but renewable indefinitely.
 
-**EB-1/EB-2/EB-3 (Employment-Based Green Card)**
-Permanent residency through employment. EB-2 NIW (National Interest Waiver) is popular with researchers and professionals. Process can take several years to over a decade.
+**EB-5 (Investor Green Card)**
+Permanent residency via investment.
+- TEA (rural/high-unemployment areas): USD 800,000+ investment + 10 jobs created
+- General areas: USD 1,050,000+ investment + 10 jobs created
+
+**EB-1/EB-2/EB-3 (Employment-Based Green Cards)**
+- **EB-1**: Extraordinary ability (EB-1A), outstanding researchers (EB-1B), multinational executives (EB-1C)
+- **EB-2 NIW (National Interest Waiver)**: No employer sponsor needed; popular with researchers, engineers, and doctors
+- **EB-3**: Professionals, skilled workers, unskilled workers
+- Processing times vary widely by country and category (Japanese nationals are typically in a favorable position)
 
 **DV Lottery (Diversity Visa)**
-Grants ~50,000 green cards annually by lottery. Japan is not an eligible country, so Japanese nationals cannot apply.
+~50,000 green cards via annual lottery. **Japan is not an eligible country — Japanese nationals cannot apply.**
+
+### Tax & Living Notes
+
+**Income tax**: Federal (10–37%) + state (0–13.3%) + local taxes.
+- No state income tax: Texas, Florida, Nevada, and a few others
+- California and New York: combined effective rates can exceed 40% for high earners
+
+**Health insurance**: Usually employer-provided, but employee premiums run USD 200–500+/month. Unemployment means COBRA (expensive) or ACA marketplace plan.
+
+**Housing**: San Francisco and New York are among the world's most expensive. A 1-bedroom in major tech hubs can run USD 2,500–5,000+/month.
 
 ### Cost Summary
 
 | Item | Cost |
 |------|------|
-| H-1B filing fees (employer) | Approx. USD 1,700–5,800 (post-April 2024 fee schedule) |
-| Green card application fees | USD 1,225+ |
+| H-1B filing fees (employer) | USD 1,700–5,800 (April 2024 schedule) |
+| H-1B premium processing | USD 2,965 (optional) |
+| L-1 filing fee | USD 1,385+ |
 | O-1 filing fee | USD 460+ |
+| Green card application fees | USD 1,225+ |
+| EB-5 minimum investment (TEA) | USD 800,000+ |
 
 ### Pre-Move Checklist
 
-1. **H-1B lottery risk**: Competition ratio is 3–5x+ annually; multiple attempts may be needed
-2. **Tax complexity**: Federal + state + local tax structure varies significantly by state
-3. **Health insurance**: Employer-provided insurance is standard; individual coverage is expensive if unemployed
+1. **H-1B lottery odds**: Recent registration counts suggest roughly 2–3x oversubscription; still a meaningful risk each year
+2. **L-1 as a strategic alternative**: If transferring from a Japanese company, L-1 avoids the H-1B lottery entirely — a major advantage
+3. **EB-2 NIW growing popularity**: Researchers, engineers, and physicians increasingly use the NIW route (no employer required)
+4. **State selection matters**: Texas and Florida have no state income tax — the same salary yields significantly higher take-home pay
+5. **Healthcare costs**: Without insurance, a single ER visit can cost tens of thousands of dollars — confirm coverage before relocating
 
-The U.S. offers high income potential but also high taxes, healthcare costs, and housing expenses. We recommend thorough simulation in MoveWorth before committing.`,
-      zh: `美国是全球最大的经济体，在科技、金融、医疗和学术等众多领域提供顶尖职业发展机会。然而，就业签证竞争激烈，移民流程也较为复杂。
+The U.S. offers extraordinary income potential, but taxes, healthcare costs, and housing are also among the world's highest. Use MoveWorth to simulate the full financial picture before committing.`,
+      zh: `美国是全球最大的经济体，在科技、金融、医疗和学术等领域提供顶尖职业机会。然而，就业签证竞争激烈，移民流程复杂。
 
 ### 主要就业签证种类
 
 **H-1B（专业工作签证）**
 美国最常见的就业签证，适用于需要本科以上学历的专业岗位。
-- 每年4月抽签（65,000个名额 + 美国硕士持有者20,000个名额）
-- 有效期：3年（最长6年，等待就业类绿卡期间可延期）
-- 申请费用（雇主承担）：I-129基本费USD 780 + 反欺诈费USD 500 + ACWIA培训费USD 1,500（大企业）/USD 750（中小企业）+ 注册费USD 215，合计约USD 1,700～5,800（快速处理费USD 2,965为可选）※2024年4月起新费率
+- 每年3月开放注册（抽签），4月起提交申请（65,000个名额 + 美国硕士持有者20,000个名额）
+- 有效期：3年（最长6年；等待绿卡期间可无限期延期）
+- 申请费用（雇主承担，2024年4月修订后）：
+  - I-129基本费：USD 780
+  - 反欺诈费：USD 500
+  - ACWIA培训费：USD 1,500（大企业）/ USD 750（中小企业）
+  - 注册费：USD 215
+  - 快速处理（可选）：USD 2,965（15个工作日内处理）
+  - 合计约USD 1,700〜5,800（不含快速处理费）
 
 **L-1（跨国公司内部调任签证）**
-面向从美国企业的海外关联公司调任的管理人员和专业技术人员。
-- L-1A（管理人员/高管）：最长7年
+面向从海外（如日本）关联公司调任至美国的管理人员和专业技术人员，无需抽签。
+- L-1A（管理人员/高管）：最长7年；可直接申请EB-1C绿卡
 - L-1B（专业知识人员）：最长5年
 
 **O-1（杰出能力签证）**
-面向在科学、艺术、教育、商业或体育领域拥有卓越成就的人士，无需抽签。
+面向在科学、艺术、教育、商业或体育领域拥有国际公认成就的人士，无需抽签。
+- O-1A：科学、教育、商业、体育
+- O-1B：艺术、电影、电视
+
+**E-2（条约投资者签证）**
+基于美日投资条约，面向在美投资创业的企业主和经营者。非绿卡，但可无限续签。
+
+**EB-5（投资者绿卡）**
+通过投资获得永久居留权。
+- TEA（农村/高失业率地区）：投资USD 800,000以上 + 创造10个就业岗位
+- 一般地区：投资USD 1,050,000以上 + 创造10个就业岗位
 
 **EB-1/EB-2/EB-3（就业类绿卡）**
-永久居留权的就业类别。EB-2 NIW（国家利益豁免）在研究人员和专业人士中颇受欢迎，整体流程可能历时数年乃至十余年。
+- **EB-1**：杰出人才（EB-1A）、优秀研究人员（EB-1B）、跨国企业高管（EB-1C）
+- **EB-2 NIW（国家利益豁免）**：无需雇主担保，在研究人员、工程师和医生中广受欢迎
+- **EB-3**：专业人员、熟练工人、非熟练工人
+- 处理时间因出生国和类别差异显著（日本人通常处于相对有利的位置）
+
+**DV抽签（多样性签证）**
+每年通过抽签发放约50,000张绿卡。**日本不属于合格国家，日本国籍人士无法参与。**
+
+### 税务与生活须知
+
+**所得税**：联邦税（10%〜37%）+ 州税（0%〜13.3%）+ 地方税多层结构。
+- 德克萨斯、佛罗里达、内华达等州无州所得税
+- 加利福尼亚和纽约高收入者综合税率可超40%
+
+**医疗保险**：通常由雇主提供，但员工自付保费约USD 200〜500+/月。失业时须转为COBRA（费用高昂）或ACA市场计划。
+
+**住房成本**：旧金山和纽约位居全球最贵之列，主要科技中心城市一居室月租可达USD 2,500〜5,000+。
 
 ### 费用参考
 
 | 项目 | 费用 |
 |------|------|
-| H-1B申请费（雇主） | 约USD 1,700～5,800（2024年4月起新费率） |
-| 绿卡申请费 | USD 1,225起 |
+| H-1B申请费（雇主） | USD 1,700〜5,800（2024年4月费率） |
+| H-1B快速处理费 | USD 2,965（可选） |
+| L-1申请费 | USD 1,385起 |
 | O-1申请费 | USD 460起 |
+| 绿卡申请费 | USD 1,225起 |
+| EB-5最低投资额（TEA地区） | USD 800,000以上 |
 
 ### 移居前注意事项
 
-1. **H-1B抽签风险**：每年竞争比例高达3～5倍以上，可能需要多次尝试
-2. **税务复杂性**：联邦税+州税+地方税多层结构，各州税率差异显著
-3. **医疗保险**：通常由雇主提供，失业时个人保险费用高昂
+1. **H-1B抽签风险**：近年注册数量减少，竞争倍率约2〜3倍，但落选风险依然不可忽视
+2. **L-1是战略性替代方案**：从日本公司调任可完全绕开H-1B抽签，是极大的优势
+3. **EB-2 NIW日益普及**：研究人员、工程师、医生越来越多地通过NIW途径申请（无需雇主担保）
+4. **州份选择至关重要**：德克萨斯和佛罗里达无州所得税，相同薪资下实际到手收入差异显著
+5. **医疗费用高昂**：无保险情况下，一次急诊费用可达数万美元，移居前务必确认医保安排
 
-美国收入潜力高，但税负、医疗费和住房成本同样不低，建议在MoveWorth中进行充分模拟后再做决定。`,
+美国收入潜力极高，但税负、医疗费和住房成本同样位居全球前列，强烈建议使用MoveWorth对收入、税金和生活费进行综合模拟后再做决定。`,
     },
   },
   {
     slug: "visa-ca",
     category: "visa",
-    date: "2026-02-22",
-    readingTime: 6,
+    date: "2026-03-19",
+    readingTime: 12,
     title: {
-      ja: "カナダのビザ・移住条件完全ガイド",
-      en: "Canada Visa & Immigration Complete Guide 2026",
-      zh: "加拿大签证与移民条件完全指南",
+      ja: "【2026年最新版】カナダのビザ・移住条件完全ガイド｜Express Entry・PNP・ワーキングホリデー",
+      en: "Canada Visa & Immigration Complete Guide 2026 | Express Entry, PNP & Working Holiday",
+      zh: "【2026年最新版】加拿大签证与移民条件完全指南｜快速通道·省提名计划·打工度假",
     },
     description: {
-      ja: "エクスプレスエントリーからPNPまで。カナダの主要な移民ビザの種類・要件・費用を徹底解説。",
-      en: "From Express Entry to PNP — a complete guide to Canada's main immigration visa types, requirements, and costs.",
-      zh: "从快速通道到省提名计划，全面解析加拿大主要移民签证的种类、要求与费用。",
+      ja: "Express Entry（CRSスコア）・PNP・スタートアップビザ・ワーキングホリデー（IEC）・就労許可まで。カナダの主要な移民ビザの種類・要件・費用を徹底解説。",
+      en: "Express Entry (CRS score), PNP, Start-Up Visa, Working Holiday (IEC), and work permits — a complete guide to Canada's main immigration pathways.",
+      zh: "快速通道（CRS分数）、省提名计划、创业签证、打工度假（IEC）及工作许可——全面解析加拿大主要移民途径、要求与费用。",
     },
     content: {
-      ja: `カナダは積極的な移民受け入れ政策を持つ国で、永住権（PR）取得のしやすさと高い生活水準から世界中からの移民が集まります。
+      ja: `カナダは積極的な移民受け入れ政策を持つ国で、永住権（PR）取得のしやすさと高い生活水準から世界中から移民が集まっています。ただし2024〜2025年にかけて移民受け入れ数削減方針が打ち出されており、CRSスコアの動向を常にチェックすることが重要です。
 
 ### 主な移住ルート
 
 **エクスプレスエントリー（Express Entry）**
 熟練外国人労働者向けの連邦管轄の移民プログラム。3つのプログラムが対象。
-- Federal Skilled Worker（FSW）：学歴・就労経験・語学力などでCRS（総合ランキングシステム）スコア算出
-- Canadian Experience Class（CEC）：カナダ国内での就労経験が条件
-- Federal Skilled Trades：特定の技能職対象
-- CRSスコアが高いほど早くPR申請が可能
+- **Federal Skilled Worker（FSW）**：学歴・就労経験・語学力などでCRS（総合ランキングシステム）スコア算出。カナダでの就労経験不要。
+- **Canadian Experience Class（CEC）**：カナダ国内での1年以上の就労経験が条件。
+- **Federal Skilled Trades**：特定の技能職（電気工事士・溶接工等）対象。
+- CRSスコアが高い順にITA（招待状）が発行される。最低スコアは変動する（近年は400〜500点台が目安）。
+
+2023年以降、特定の職業・学歴・出身校に基づく「カテゴリーベースの選考」も導入。STEM系・ヘルスケア系・フランス語能力者が優遇される傾向あり。
 
 **州推薦プログラム（PNP：Provincial Nominee Program）**
-各州・準州が独自の基準で移民を推薦する制度。エクスプレスエントリーと組み合わせることでCRSスコアに600点追加。
+各州・準州が独自の基準で移民を推薦する制度。
+- エクスプレスエントリーと組み合わせることでCRSスコアに600点追加（事実上のPR確定）
+- 各州が独自の優先職種・要件を持つ（例：オンタリオはITと医療系、BC州はテック系が人気）
 
-**スタートアップビザ**
+**スタートアップビザ（Start-Up Visa）**
 カナダの認定インキュベーター・VC・エンジェル投資家の支援を受けた起業家向けの永住権ルート。
+- 条件：認定支援者から推薦を受け、ビジネスを一定規模以上で運営すること
+- 処理期間：申請積み残しにより2〜4年程度かかるケースも
 
-**ワーキングホリデー（IEC）**
-18〜35歳の日本人向け。年間最大6,500名（2024年度）。1年間就労・滞在可能。
-- 申請費用：CAD 272（2025年12月改定）
+**ワーキングホリデー（IEC / International Experience Canada）**
+日本人向けのカナダ滞在・就労制度。
+- 対象：18〜35歳の日本人
+- 年間最大6,500名（2024年度）
+- 有効期間：1年間
+- 申請費用：CAD 272（2025年12月改定後の最新料金）
+- 抽選制（毎年2〜3月頃に募集開始）
 
 **就労許可（Work Permit）**
-カナダの企業に雇用される場合に取得。LMIAが必要なケースと不要のケース（会社内転勤等）あり。
+カナダ企業に雇用される場合に取得。
+- **LMIA（労働市場影響評価）が必要なケース**：雇用主がカナダ人を採用できなかったことを証明する必要あり
+- **LMIA不要のケース**：日本・カナダFTA（CUSMA）に基づく企業内転勤（ICT）・LMIA免除職種等
+
+### 生活・税金について
+
+**所得税**：連邦税（15〜33%）+ 州税（約5〜17%）の二層構造。
+- ケベック州は独自の州税申告が必要（他州より手続きが複雑）
+- 主な都市の実効税率目安：トロント（オンタリオ州）約40〜48%（高収入帯）、バンクーバー（BC州）も同水準
+
+**社会保険（CPP + EI）**：従業員はカナダ年金（CPP）および雇用保険（EI）に加入義務。
+**医療**：州政府の公的医療保険（OHIP等）が充実。ただし待ち時間の長さが課題。
+**住居費**：バンクーバーとトロントは世界有数の高水準（1LDKで月CAD 2,000〜3,500程度）。カルガリーやエドモントン等の内陸都市は比較的安い。
 
 ### 費用の目安
 
 | 項目 | 費用 |
 |------|------|
-| エクスプレスエントリー（PR）申請費 | CAD 1,525（本人）|
+| Express Entry（PR）申請費 | CAD 1,525（本人）+ CAD 1,525（配偶者）+ CAD 270（子） |
+| 右永住権カード（PR Card） | CAD 50 |
 | ワーキングホリデー（IEC）申請費 | CAD 272 |
 | 就労許可申請費 | CAD 185 |
 
 ### 移住前のチェックポイント
 
-1. **CRSスコアの把握**：英語（IELTS）スコアがCRSに大きく影響
-2. **州の選択**：各州によって生活コスト・就職市場が大きく異なる（バンクーバーとプレーリー州等）
-3. **税金**：連邦税＋州税の二層構造。ケベック州は独自の税制を持つ
+1. **CRSスコアの把握と対策**：英語（IELTS）スコアがCRSに大きく影響。CLB 9以上（IELTS 7.5相当）を目指すと有利
+2. **2025年の移民削減方針**：カナダ政府は2025〜2026年の移民受け入れ数を削減する方針を発表。永住権取得の難易度が上がる可能性あり
+3. **州選びの重要性**：バンクーバーとトロントは住居費が高い。アルバータ州は州所得税なし（2025年現在）でコストパフォーマンスが高い
+4. **フランス語の優遇**：カテゴリーベース選考でフランス語能力者が優先されている。ケベック州への移住を視野に入れる場合は特に有利
+5. **ワーキングホリデーからのPRルート**：WHVでカナダ就労経験を積みCECに切り替えるルートが最も現実的な永住権取得パスの一つ
 
-カナダは永住権取得の透明性が高く、定住を前提とした移住を考える方に向いています。`,
-      en: `Canada's active immigration policy and high standard of living attract immigrants from around the world. It is known for its relatively accessible permanent residency pathway.
+カナダは移民制度の透明性が高く、英語力と就労経験があれば永住権取得が比較的現実的な国です。MoveWorthで生活費・税金を詳しくシミュレーションしながら最適な移住タイミングを検討してください。`,
+      en: `Canada's active immigration policy and high standard of living attract immigrants from around the world. However, the government announced reductions in immigration targets for 2025–2026, so monitoring CRS cutoff scores is more important than ever.
 
 ### Main Immigration Routes
 
 **Express Entry**
-Federal immigration management system for skilled foreign workers across 3 programs:
-- Federal Skilled Worker (FSW): CRS (Comprehensive Ranking System) score based on education, work experience, language ability
-- Canadian Experience Class (CEC): Requires Canadian work experience
-- Federal Skilled Trades: For specific trades
-- Higher CRS scores lead to earlier PR invitations
+Federal immigration management system for skilled foreign workers, covering 3 programs:
+- **Federal Skilled Worker (FSW)**: CRS score based on education, work experience, language ability. Canadian experience not required.
+- **Canadian Experience Class (CEC)**: Requires 1+ year of Canadian work experience.
+- **Federal Skilled Trades**: For specific trades (electricians, welders, etc.).
+- Invitations are issued by CRS score (higher = faster). Recent cutoffs have ranged 400–500+.
+
+Since 2023, **category-based selections** have been introduced — STEM, healthcare, and French-speaking candidates receive priority draws outside the general pool.
 
 **Provincial Nominee Program (PNP)**
-Each province/territory nominates immigrants based on its own criteria. A provincial nomination adds 600 CRS points in Express Entry.
+Each province/territory nominates immigrants based on its own criteria.
+- Combined with Express Entry: Nomination adds 600 CRS points (effectively guarantees an ITA)
+- Each province prioritizes different occupations (e.g., Ontario: IT and healthcare; BC: tech sector)
 
 **Start-Up Visa**
-Permanent residency pathway for entrepreneurs supported by Canadian designated incubators, VCs, or angel investors.
+Permanent residency route for entrepreneurs supported by designated Canadian incubators, VCs, or angel investors.
+- Requires a letter of support from a designated organization
+- Processing times: 2–4 years due to application backlog
 
 **Working Holiday (IEC)**
-For Japanese citizens aged 18–35. Up to 6,500 spots (2024). Allows 1 year of work and stay.
+Japanese citizens aged 18–35 can live and work in Canada for 1 year.
+- Annual cap: up to 6,500 spots (2024)
 - Application fee: CAD 272 (revised December 2025)
+- Applications open via draw (typically February–March each year)
 
 **Work Permit**
-Required for those employed by Canadian companies. LMIA may or may not be required depending on the situation.
+Required for those employed by Canadian companies.
+- **LMIA required**: Employer must prove no qualified Canadian was available
+- **LMIA-exempt**: Intracompany transfers under CUSMA (former NAFTA), certain LMIA-exempt categories
+
+### Tax & Living Notes
+
+**Income tax**: Federal (15–33%) + provincial (approx. 5–17%) two-tier structure.
+- Quebec has its own provincial tax return — more complex than other provinces
+- Effective rate in major cities (Toronto/Vancouver): typically 40–48% for high earners
+
+**Social insurance (CPP + EI)**: Employees contribute to Canada Pension Plan (CPP) and Employment Insurance (EI).
+**Healthcare**: Provincial public health insurance (e.g., OHIP in Ontario) provides broad coverage; long wait times are a noted challenge.
+**Housing**: Vancouver and Toronto are among the world's most expensive (1-bedroom approx. CAD 2,000–3,500/month). Calgary and Edmonton are significantly more affordable.
 
 ### Cost Summary
 
 | Item | Cost |
 |------|------|
-| Express Entry (PR) application fee | CAD 1,525 (principal applicant) |
+| Express Entry (PR) application | CAD 1,525 (principal) + CAD 1,525 (spouse) + CAD 270 (child) |
+| PR Card | CAD 50 |
 | Working Holiday (IEC) fee | CAD 272 |
-| Work permit application fee | CAD 185 |
+| Work permit application | CAD 185 |
 
 ### Pre-Move Checklist
 
-1. **CRS score**: IELTS English scores heavily impact CRS
-2. **Province selection**: Cost of living and job markets differ significantly (Vancouver vs. Prairie provinces)
-3. **Taxes**: Federal + provincial two-tier tax system; Quebec has its own tax structure
+1. **CRS score strategy**: IELTS CLB 9+ (equivalent to IELTS 7.5) significantly boosts CRS — English preparation is crucial
+2. **2025 immigration reduction policy**: Canada has announced lower targets for 2025–2026; getting PR may become more competitive
+3. **Province selection**: Vancouver and Toronto are expensive; Alberta has no provincial income tax (as of 2025), making it cost-effective
+4. **French language advantage**: Category-based draws increasingly favor French speakers — worth considering for Quebec-bound applicants
+5. **Working Holiday → PR pathway**: Gaining Canadian experience via WHV then switching to CEC is one of the most practical paths to permanent residency
 
-Canada is known for its transparent immigration system and suits those planning long-term settlement.`,
-      zh: `加拿大移民政策积极开放，以相对便捷的永久居留路径和高水平的生活质量吸引全球移民。
+Canada's transparent immigration system rewards English proficiency and work experience. Use MoveWorth to simulate living costs and taxes as you plan your ideal timing.`,
+      zh: `加拿大移民政策积极开放，以相对便捷的永久居留路径和高水准的生活质量吸引全球移民。但政府已宣布将在2025〜2026年削减移民接收目标，密切关注CRS分数线的动态尤为重要。
 
 ### 主要移民途径
 
 **快速通道（Express Entry）**
 面向技术型外籍劳工的联邦移民管理系统，涵盖3个项目：
-- 联邦技术工人计划（FSW）：根据学历、工作经验、语言能力等计算CRS综合排名分数
-- 加拿大经验类（CEC）：须具备加拿大境内工作经验
-- 联邦技工类（Federal Skilled Trades）：面向特定技能职业
-CRS分数越高，越早收到邀请函
+- **联邦技术工人计划（FSW）**：根据学历、工作经验、语言能力等计算CRS综合排名分数，无需具备加拿大工作经验。
+- **加拿大经验类（CEC）**：须具备加拿大境内1年以上工作经验。
+- **联邦技工类（Federal Skilled Trades）**：面向特定技能职业（电工、焊工等）。
+- 按CRS分数由高到低发放邀请函（ITA）；近年最低分数线约在400〜500分以上。
+
+2023年起引入**类别专项抽签**，STEM、医疗保健及法语能力持有者可享受优先选拔。
 
 **省提名计划（PNP）**
-各省及领地依据自身标准提名移民，与快速通道结合可为CRS额外加600分。
+各省及领地依据自身标准提名移民。
+- 与快速通道结合：省提名为CRS额外加600分（基本等同于确保获得邀请函）
+- 各省优先职种不同（例：安大略省：IT和医疗；不列颠哥伦比亚省：科技行业）
 
 **创业签证（Start-Up Visa）**
-面向获得加拿大认可孵化器、风险投资机构或天使投资人支持的创业者，直接获得永久居留权。
+面向获得加拿大认可孵化器、风险投资机构或天使投资人支持的创业者，可直接获得永久居留权。
+- 要求：获得认可支持机构的推荐信
+- 办理周期：因积压申请较多，通常需2〜4年
 
-**打工度假（IEC）**
-面向18～35岁的日本人，年度名额最多6,500人（2024年度），可在加拿大工作并居留1年。申请费用：CAD 161。
+**打工度假（IEC / 国际经历加拿大）**
+面向18〜35岁日本人的加拿大工作居留项目。
+- 年度名额：最多6,500人（2024年度）
+- 有效期：1年
+- 申请费用：CAD 272（2025年12月修订后最新费率）
+- 抽签制（通常每年2〜3月开放申请）
 
-**工作许可证**
-受雇于加拿大企业时需要，部分情况需LMIA（劳动力市场影响评估），部分情况可豁免。
+**工作许可证（Work Permit）**
+受雇于加拿大企业时须持有。
+- **需要LMIA（劳动力市场影响评估）**：雇主须证明无合格加拿大人可胜任该职位
+- **无需LMIA**：依据CUSMA（原NAFTA）的公司内部调任、特定豁免类别等
+
+### 税务与生活须知
+
+**所得税**：联邦税（15%〜33%）+ 省税（约5%〜17%）两级结构。
+- 魁北克省须单独申报省税，手续比其他省复杂
+- 主要城市（多伦多/温哥华）高收入者实际税率通常约40%〜48%
+
+**社会保险（CPP + EI）**：受雇员工须缴纳加拿大养老金（CPP）和就业保险（EI）。
+**医疗**：各省公共医疗保险（如安大略省的OHIP）保障范围广，但等待时间较长是普遍问题。
+**住房成本**：温哥华和多伦多位居全球最贵之列（一居室月租约CAD 2,000〜3,500）；卡尔加里和埃德蒙顿等内陆城市则相对经济实惠。
 
 ### 费用参考
 
 | 项目 | 费用 |
 |------|------|
-| 快速通道（PR）申请费 | CAD 1,365（本人） |
-| 打工度假（IEC）申请费 | CAD 161 |
-| 工作许可证申请费 | CAD 155 |
+| 快速通道（PR）申请费 | CAD 1,525（本人）+ CAD 1,525（配偶）+ CAD 270（子女） |
+| 永久居留卡（PR Card） | CAD 50 |
+| 打工度假（IEC）申请费 | CAD 272 |
+| 工作许可证申请费 | CAD 185 |
 
 ### 移居前注意事项
 
-1. **CRS分数**：英语（IELTS）成绩对CRS分数影响重大
-2. **省份选择**：各省生活成本和就业市场差异显著（温哥华与草原省份等）
-3. **税务**：联邦税+省税两级制度，魁北克省有独立税制
+1. **提升CRS分数**：英语（IELTS）CLB 9分以上（相当于雅思7.5分）可显著提高CRS——英语备考至关重要
+2. **2025年移民削减政策**：加拿大政府已宣布降低2025〜2026年移民接收目标，获得永久居留权的竞争可能加剧
+3. **省份选择的重要性**：温哥华和多伦多生活成本高；阿尔伯塔省无省级所得税（截至2025年），性价比较高
+4. **法语优势**：类别专项抽签越来越倾向于法语使用者，计划移居魁北克的申请人尤为有利
+5. **打工度假→永久居留路径**：通过打工度假积累加拿大工作经验再转CEC，是最可行的永久居留途径之一
 
-加拿大移民制度透明度高，适合以定居为目标进行长期规划的人士。`,
+加拿大移民制度透明度高，具备英语能力和工作经验者获得永久居留权的可能性相对较大。请使用MoveWorth详细模拟生活费和税金，规划最佳的移居时机。`,
     },
   },
   {
