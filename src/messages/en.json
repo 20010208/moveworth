@@ -21,6 +21,7 @@
   },
   "footer": {
     "rights": "All rights reserved.",
+    "about": "About",
     "terms": "Terms",
     "privacy": "Privacy",
     "contact": "Contact",
@@ -420,5 +421,20 @@
     "section10Content": "As this is a digital content and online service, returns and exchanges are not available by nature. We generally do not offer refunds after payment has been processed.\n\nYou may cancel your subscription at any time. After cancellation, you will continue to have access until the end of the current billing period.\n\nIf you cancel during the free trial period, you will not be charged.\n\nTo cancel, please visit your Account page or contact us at moveworth.app@gmail.com.",
     "section11Title": "System Requirements",
     "section11Content": "This service can be accessed via a web browser (latest versions of Chrome / Firefox / Safari / Edge recommended). An internet connection is required."
+  },
+  "about": {
+    "backHome": "Back to Home",
+    "title": "About MoveWorth",
+    "subtitle": "Think about relocation and study abroad with data, not guesswork.",
+    "missionTitle": "Our Mission",
+    "missionContent": "\"What happens to my finances if I move abroad?\" We built MoveWorth to answer this question with data, not intuition. MoveWorth is a free web app that simulates how your assets evolve after relocating, based on real cost-of-living data, tax rates, and exchange rates for 40+ countries. Our goal is to help anyone considering international relocation or study abroad make informed, data-driven decisions.",
+    "serviceTitle": "What We Offer",
+    "serviceContent": "MoveWorth provides local currency and JPY dual-display, household-type cost calculations (single, couple, family of four), long-term asset projection simulations, and AI-powered custom report generation (paid plans). Supporting 40+ countries, all core features are free to use. Our sister service, MoveWorth Study, provides cost and procedure information for those considering university or language school programs abroad.",
+    "studyLink": "Visit Study Site",
+    "developerTitle": "About the Developer",
+    "developerContent": "MoveWorth is built and operated by an independent developer with a strong personal interest in international relocation. The goal is to help others who share the same questions make better decisions using real data. Feedback and suggestions are always welcome via our contact page.",
+    "contactTitle": "Contact",
+    "contactContent": "For questions, feedback, or bug reports, please reach out via our contact page. We aim to respond promptly.",
+    "contactLink": "Go to Contact Page"
   }
 }

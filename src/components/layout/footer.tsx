@@ -21,6 +21,9 @@ export function Footer() {
             &copy; {new Date().getFullYear()} MoveWorth. {t("footer.rights")}
           </p>
           <div className="flex gap-8 text-sm text-muted">
+            <Link href="/about" className="hover:text-foreground transition-colors">
+              {t("footer.about")}
+            </Link>
             <Link href="/terms" className="hover:text-foreground transition-colors">
               {t("footer.terms")}
             </Link>

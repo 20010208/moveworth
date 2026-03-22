@@ -21,6 +21,7 @@
   },
   "footer": {
     "rights": "All rights reserved.",
+    "about": "关于我们",
     "terms": "服务条款",
     "privacy": "隐私政策",
     "contact": "联系我们",
@@ -420,5 +421,20 @@
     "section10Content": "由于本服务为数字内容及在线服务，根据其性质，不接受退货和换货。原则上付款后不予退款。\n\n您可以随时取消订阅。取消后，您可以继续使用服务直至当前计费周期结束。\n\n在免费试用期间取消，不会产生任何费用。\n\n如需取消，请访问账户页面，或通过 moveworth.app@gmail.com 联系我们。",
     "section11Title": "运行环境",
     "section11Content": "本服务可通过网络浏览器（推荐使用 Chrome / Firefox / Safari / Edge 最新版）访问。需要互联网连接。"
+  },
+  "about": {
+    "backHome": "返回首页",
+    "title": "关于MoveWorth",
+    "subtitle": "用数据思考海外移居与留学，而非凭感觉。",
+    "missionTitle": "我们的使命",
+    "missionContent": "「移居海外后，我的财务状况会怎样？」我们希望用数据而非直觉来回答这个问题。MoveWorth是一款免费的Web应用，基于40多个国家的生活成本、税率和汇率数据，模拟移居后的资产变化轨迹。我们的目标是帮助每一位考虑海外移居或留学的人做出有据可依的决策。",
+    "serviceTitle": "服务内容",
+    "serviceContent": "MoveWorth提供本地货币与日元双显示、按家庭类型（单身、夫妻、四口之家）计算费用、长期资产推移模拟，以及AI定制报告生成（付费方案）等功能。支持40多个国家，核心功能完全免费。姐妹服务「MoveWorth Study」为有意赴海外大学或语言学校留学的用户提供费用及手续信息。",
+    "studyLink": "访问留学网站",
+    "developerTitle": "关于开发者",
+    "developerContent": "MoveWorth由一位对海外移居有浓厚兴趣的独立开发者运营。希望通过真实数据，帮助有同样困惑的人做出更好的决策。欢迎通过联系页面提供反馈和建议。",
+    "contactTitle": "联系我们",
+    "contactContent": "如有疑问、意见或错误报告，请通过联系页面与我们联系。我们将尽快回复。",
+    "contactLink": "前往联系页面"
   }
 }
