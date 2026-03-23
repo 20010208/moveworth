@@ -211,7 +211,9 @@
     "passwordUpdatedTitle": "密码已更新",
     "passwordUpdatedDesc": "密码已成功更新，正在跳转到首页...",
     "updating": "更新中...",
-    "updatePasswordButton": "更新密码"
+    "updatePasswordButton": "更新密码",
+    "continueWithGoogle": "使用Google继续",
+    "orDivider": "或"
   },
   "subscribe": {
     "title": "选择方案",

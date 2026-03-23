@@ -211,7 +211,9 @@
     "passwordUpdatedTitle": "パスワードを更新しました",
     "passwordUpdatedDesc": "パスワードが正常に更新されました。ホームへリダイレクトします...",
     "updating": "更新中...",
-    "updatePasswordButton": "パスワードを更新"
+    "updatePasswordButton": "パスワードを更新",
+    "continueWithGoogle": "Googleで続ける",
+    "orDivider": "または"
   },
   "subscribe": {
     "title": "プランを選択",

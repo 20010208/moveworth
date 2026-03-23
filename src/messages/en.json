@@ -211,7 +211,9 @@
     "passwordUpdatedTitle": "Password Updated",
     "passwordUpdatedDesc": "Your password has been updated successfully. Redirecting to home...",
     "updating": "Updating...",
-    "updatePasswordButton": "Update Password"
+    "updatePasswordButton": "Update Password",
+    "continueWithGoogle": "Continue with Google",
+    "orDivider": "or"
   },
   "subscribe": {
     "title": "Choose Your Plan",
