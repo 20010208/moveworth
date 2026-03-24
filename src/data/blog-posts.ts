@@ -2733,6 +2733,7 @@ Malaysia offers one of Southeast Asia's most diverse ranges of long-stay visa op
   },
   {
     slug: "visa-th",
+    thumbnail: "/images/blog/visa-th.png",
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
@@ -2950,6 +2951,7 @@ Thailand offers one of the most established Japanese expat communities in Southe
   },
   {
     slug: "visa-kr",
+    thumbnail: "/images/blog/visa-kr.png",
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
@@ -3161,6 +3163,7 @@ South Korea's growing global presence in K-pop, semiconductors, and manufacturin
   },
   {
     slug: "visa-tw",
+    thumbnail: "/images/blog/visa-tw.png",
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
@@ -3349,6 +3352,7 @@ Taiwan's combination of Gold Card tax incentives, excellent affordable healthcar
   },
   {
     slug: "visa-hk",
+    thumbnail: "/images/blog/visa-hk.png",
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
@@ -3559,6 +3563,7 @@ Hong Kong combines a low tax rate, world-class financial infrastructure, and str
   },
   {
     slug: "visa-id",
+    thumbnail: "/images/blog/visa-id.png",
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,

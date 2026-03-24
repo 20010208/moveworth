@@ -9,12 +9,17 @@ import { useTranslation } from "@/lib/i18n";
 export default function AuthConfirmPage() {
   const { t } = useTranslation();
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
+  const [simulatePath, setSimulatePath] = useState("/simulate");
 
   useEffect(() => {
     const handleConfirmation = async () => {
       const params = new URLSearchParams(window.location.search);
       const tokenHash = params.get("token_hash");
       const type = params.get("type");
+      const next = params.get("next");
+      if (next === "/study-site/simulate" || next === "/simulate") {
+        setSimulatePath(next);
+      }
 
       if (tokenHash && type) {
         const { error } = await supabase.auth.verifyOtp({
@@ -76,7 +81,7 @@ export default function AuthConfirmPage() {
             </p>
             <div className="space-y-3">
               <Link
-                href="/simulate"
+                href={simulatePath}
                 className="block w-full bg-primary text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-primary-dark transition-all shadow-md shadow-primary/20"
               >
                 {t("authConfirm.startSimulation")}
