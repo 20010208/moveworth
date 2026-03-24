@@ -69,37 +69,39 @@ export default function BlogPage() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="block bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden"
+              className="flex bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden"
             >
               {post.thumbnail && (
-                <div className="relative w-full h-48">
+                <div className="relative flex-shrink-0 w-40 sm:w-52">
                   <Image
                     src={post.thumbnail}
                     alt={getLabel(post.title)}
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 896px"
+                    sizes="208px"
                   />
                 </div>
               )}
-              <div className="p-6">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary-light px-2.5 py-0.5 rounded-full">
-                    <Tag className="h-3 w-3" />
-                    {getLabel(blogCategories[post.category])}
-                  </span>
-                  <span className="text-xs text-muted flex items-center gap-1">
-                    <Clock className="h-3 w-3" />
-                    {post.readingTime} {t("blog.minRead")}
-                  </span>
-                  <span className="text-xs text-muted">{post.date}</span>
+              <div className="p-6 flex flex-col justify-between min-w-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary-light px-2.5 py-0.5 rounded-full">
+                      <Tag className="h-3 w-3" />
+                      {getLabel(blogCategories[post.category])}
+                    </span>
+                    <span className="text-xs text-muted flex items-center gap-1">
+                      <Clock className="h-3 w-3" />
+                      {post.readingTime} {t("blog.minRead")}
+                    </span>
+                    <span className="text-xs text-muted">{post.date}</span>
+                  </div>
+                  <h2 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors mb-2">
+                    {getLabel(post.title)}
+                  </h2>
+                  <p className="text-sm text-muted line-clamp-2 mb-3">
+                    {getLabel(post.description)}
+                  </p>
                 </div>
-                <h2 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors mb-2">
-                  {getLabel(post.title)}
-                </h2>
-                <p className="text-sm text-muted line-clamp-2 mb-3">
-                  {getLabel(post.description)}
-                </p>
                 <span className="text-sm font-medium text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
                   {t("blog.readMore")}
                   <ArrowRight className="h-4 w-4" />
