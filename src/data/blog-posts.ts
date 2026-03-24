@@ -3763,6 +3763,7 @@ Indonesia's Bali lifestyle draws global interest, but work visa processes are co
   },
   {
     slug: "visa-ph",
+    thumbnail: "/images/blog/visa-ph.png",
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
@@ -3973,6 +3974,7 @@ The Philippines is especially popular among Japanese retirees thanks to the well
   },
   {
     slug: "visa-vn",
+    thumbnail: "/images/blog/visa-vn.png",
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
