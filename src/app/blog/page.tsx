@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Clock, Tag } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { blogPosts, blogCategories } from "@/data/blog-posts";
@@ -71,12 +72,13 @@ export default function BlogPage() {
               className="flex bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden"
             >
               {post.thumbnail && (
-                <div className="flex-shrink-0 self-stretch overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                <div className="relative flex-shrink-0 w-44 sm:w-56 self-stretch bg-white">
+                  <Image
                     src={post.thumbnail}
                     alt={getLabel(post.title)}
-                    className="h-full w-auto block"
+                    fill
+                    className="object-contain"
+                    sizes="224px"
                   />
                 </div>
               )}
