@@ -22,6 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = post.title.ja;
   const description = post.description.ja;
   const url = `${BASE_URL}/blog/${slug}`;
+  const ogImage = post.thumbnail ? `${BASE_URL}${post.thumbnail}` : `${BASE_URL}/og-image.png`;
 
   return {
     title,
@@ -39,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: "ja_JP",
       images: [
         {
-          url: `${BASE_URL}/og-image.png`,
+          url: ogImage,
           width: 1200,
           height: 630,
           alt: title,
@@ -50,7 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title,
       description,
-      images: [`${BASE_URL}/og-image.png`],
+      images: [ogImage],
     },
   };
 }

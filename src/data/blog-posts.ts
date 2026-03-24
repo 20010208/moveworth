@@ -4,6 +4,7 @@ export interface BlogPost {
   date: string;
   readingTime: number;
   locales?: string[]; // 未指定の場合は全言語に表示
+  thumbnail?: string;
   title: { ja: string; en: string; zh?: string };
   description: { ja: string; en: string; zh?: string };
   content: { ja: string; en: string; zh?: string };
@@ -1920,6 +1921,7 @@ MoveWorth is a platform for everyone considering overseas relocation. Stay tuned
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-sg.png",
     title: {
       ja: "シンガポールのビザ・就労許可完全ガイド【2026年最新版】",
       en: "Singapore Visa & Work Permit Complete Guide 2026",
@@ -2262,6 +2264,7 @@ Singapore's low corporate and personal tax rates make it attractive for wealth b
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-my.png",
     title: {
       ja: "マレーシアのビザ・移住条件完全ガイド【2026年最新版】",
       en: "Malaysia Visa & Relocation Requirements Complete Guide 2026",
