@@ -1919,7 +1919,7 @@ MoveWorth is a platform for everyone considering overseas relocation. Stay tuned
   {
     slug: "visa-sg",
     category: "visa",
-    date: "2026-03-19",
+    date: "2026-03-25",
     readingTime: 12,
     thumbnail: "/images/blog/visa-sg.png",
     title: {
@@ -1939,8 +1939,8 @@ MoveWorth is a platform for everyone considering overseas relocation. Stay tuned
 
 | ビザ種類 | 対象者 | 有効期間 | 最低給与 |
 |---|---|---|---|
-| Employment Pass（EP） | 専門職・管理職 | 2〜3年 | SGD 5,000/月 |
-| S Pass | 中級技術職 | 2〜3年 | SGD 3,150/月 |
+| Employment Pass（EP） | 専門職・管理職 | 2〜3年 | SGD 5,600/月 |
+| S Pass | 中級技術職 | 2〜3年 | SGD 3,300/月 |
 | ONE Pass | 超高収入トップ人材 | 5年 | SGD 30,000/月 |
 | Tech.Pass | テック起業家・リーダー | 2年 | 条件制 |
 | EntrePass | 起業家 | 1年（更新可） | 条件制 |
@@ -1951,10 +1951,10 @@ MoveWorth is a platform for everyone considering overseas relocation. Stay tuned
 
 シンガポールで最も一般的な就労ビザです。**2023年9月よりCOMPASSスコアが全申請に義務化**されました。
 
-**給与基準（2025年時点）：**
-- 一般職：**SGD 5,000/月**以上
-- 金融業：**SGD 5,500/月**以上
-- ベテラン（40代以上）：SGD 10,500/月以上が目安
+**給与基準（2025年1月改定）：**
+- 一般職：**SGD 5,600/月**以上（2027年1月よりSGD 6,000予定）
+- 金融業：**SGD 6,200/月**以上（2027年1月よりSGD 6,600予定）
+- 45歳以上：SGD 10,700/月以上が目安
 
 **COMPASSスコア（40点以上が必要）：**
 - 給与水準（同職種の中央値との比較）
@@ -1974,7 +1974,7 @@ MoveWorth is a platform for everyone considering overseas relocation. Stay tuned
 
 中級技術職向けパス。雇用主はS Pass保有者の比率（クォータ）が制限されます。
 
-- 最低月給：**SGD 3,150/月**（年齢により最大SGD 4,800）
+- 最低月給：**SGD 3,300/月**（年齢により異なる、2025年9月改定）
 - 金融業：SGD 3,650/月
 - クォータ：全従業員の**15%**まで（製造業は20%）
 - 雇用主負担レビー：SGD 650〜900/月
@@ -2031,7 +2031,7 @@ EP/S Passで数年就労後に申請可能です。
 | ビザ | 申請費 | 発給費 |
 |---|---|---|
 | EP | SGD 105 | SGD 225 |
-| S Pass | SGD 70 | SGD 150 |
+| S Pass | SGD 105 | SGD 100 |
 | ONE Pass | SGD 105 | SGD 225 |
 | Tech.Pass | SGD 105 | SGD 225 |
 
@@ -2052,8 +2052,8 @@ EP/S Passで数年就労後に申請可能です。
 
 | Visa | Target | Validity | Min. Salary |
 |---|---|---|---|
-| Employment Pass (EP) | Professionals & managers | 2–3 years | SGD 5,000/month |
-| S Pass | Mid-level skilled workers | 2–3 years | SGD 3,150/month |
+| Employment Pass (EP) | Professionals & managers | 2–3 years | SGD 5,600/month |
+| S Pass | Mid-level skilled workers | 2–3 years | SGD 3,300/month |
 | ONE Pass | Top earners | 5 years | SGD 30,000/month |
 | Tech.Pass | Tech entrepreneurs & leaders | 2 years | Criteria-based |
 | EntrePass | Entrepreneurs | 1 year (renewable) | Criteria-based |
@@ -2064,10 +2064,10 @@ EP/S Passで数年就労後に申請可能です。
 
 The most common work visa for professionals. **COMPASS scoring became mandatory for all EP applications in September 2023.**
 
-**Salary thresholds (2025):**
-- General: **SGD 5,000/month**
-- Financial services: **SGD 5,500/month**
-- Mid-40s and above: typically SGD 10,500/month+
+**Salary thresholds (revised January 2025):**
+- General: **SGD 5,600/month** (rising to SGD 6,000 from January 2027)
+- Financial services: **SGD 6,200/month** (rising to SGD 6,600 from January 2027)
+- Age 45 and above: typically SGD 10,700/month+
 
 **COMPASS scoring (40+ points required):**
 - Salary benchmark (vs. median for similar roles)
@@ -2087,7 +2087,7 @@ The most common work visa for professionals. **COMPASS scoring became mandatory 
 
 For mid-level skilled workers. Employers face quota limits on S Pass holders.
 
-- Minimum salary: **SGD 3,150/month** (age-adjusted, up to SGD 4,800)
+- Minimum salary: **SGD 3,300/month** (age-adjusted; revised September 2025)
 - Financial services: SGD 3,650/month
 - Quota: up to **15%** of workforce (20% for manufacturing)
 - Employer levy: SGD 650–900/month per S Pass holder
@@ -2143,7 +2143,7 @@ Eligible after several years on EP/S Pass.
 | Visa | Application Fee | Issuance Fee |
 |---|---|---|
 | EP | SGD 105 | SGD 225 |
-| S Pass | SGD 70 | SGD 150 |
+| S Pass | SGD 105 | SGD 100 |
 | ONE Pass | SGD 105 | SGD 225 |
 | Tech.Pass | SGD 105 | SGD 225 |
 
@@ -2164,8 +2164,8 @@ Singapore's low corporate and personal tax rates make it attractive for wealth b
 
 | 签证 | 适用人群 | 有效期 | 最低薪资 |
 |---|---|---|---|
-| 就业准证（EP） | 专业人士・管理人员 | 2～3年 | SGD 5,000/月 |
-| S准证 | 中级技术人员 | 2～3年 | SGD 3,150/月 |
+| 就业准证（EP） | 专业人士・管理人员 | 2～3年 | SGD 5,600/月 |
+| S准证 | 中级技术人员 | 2～3年 | SGD 3,300/月 |
 | ONE Pass | 顶尖高收入人才 | 5年 | SGD 30,000/月 |
 | Tech.Pass | 科技创业者・领袖 | 2年 | 条件制 |
 | EntrePass | 创业者 | 1年（可续签） | 条件制 |
@@ -2176,10 +2176,10 @@ Singapore's low corporate and personal tax rates make it attractive for wealth b
 
 新加坡最常见的就业签证。**2023年9月起，所有EP申请均须通过COMPASS积分评估。**
 
-**薪资标准（2025年）：**
-- 一般职位：**SGD 5,000/月**以上
-- 金融行业：**SGD 5,500/月**以上
-- 40岁以上资深人士：通常需SGD 10,500/月以上
+**薪资标准（2025年1月修订）：**
+- 一般职位：**SGD 5,600/月**以上（2027年1月起升至SGD 6,000）
+- 金融行业：**SGD 6,200/月**以上（2027年1月起升至SGD 6,600）
+- 45岁以上资深人士：通常需SGD 10,700/月以上
 
 **COMPASS积分要求（需达40分）：**
 - 薪资水平（与同岗位中位数比较）
@@ -2199,7 +2199,7 @@ Singapore's low corporate and personal tax rates make it attractive for wealth b
 
 面向中级技术人员，雇主须遵守名额限制。
 
-- 最低月薪：**SGD 3,150**（按年龄递增，最高SGD 4,800）
+- 最低月薪：**SGD 3,300**（按年龄递增；2025年9月起修订）
 - 金融行业：SGD 3,650/月
 - 名额限制：员工总数的**15%**（制造业为20%）
 - 雇主须缴纳税收：SGD 650～900/月/人
@@ -2242,7 +2242,7 @@ Singapore's low corporate and personal tax rates make it attractive for wealth b
 | 签证 | 申请费 | 签发费 |
 |---|---|---|
 | EP | SGD 105 | SGD 225 |
-| S准证 | SGD 70 | SGD 150 |
+| S准证 | SGD 105 | SGD 100 |
 | ONE Pass | SGD 105 | SGD 225 |
 | Tech.Pass | SGD 105 | SGD 225 |
 
@@ -2262,7 +2262,7 @@ Singapore's low corporate and personal tax rates make it attractive for wealth b
   {
     slug: "visa-my",
     category: "visa",
-    date: "2026-03-19",
+    date: "2026-03-25",
     readingTime: 12,
     thumbnail: "/images/blog/visa-my.png",
     title: {
@@ -3165,7 +3165,7 @@ South Korea's growing global presence in K-pop, semiconductors, and manufacturin
     slug: "visa-tw",
     thumbnail: "/images/blog/visa-tw.png",
     category: "visa",
-    date: "2026-03-19",
+    date: "2026-03-25",
     readingTime: 12,
     title: {
       ja: "【2026年最新版】台湾のビザ・就労許可完全ガイド｜Gold Card・就労許可・永住権",
@@ -3191,7 +3191,7 @@ South Korea's growing global presence in K-pop, semiconductors, and manufacturin
 - 処理期間：30〜60営業日程度
 
 Gold Cardの大きな魅力は**税制優遇**です。
-- 初年度より3年間、給与所得のうちNTD 3,000,000を超える部分の**50%が所得税免除**
+- 初年度より**5年間**、給与所得のうちNTD 3,000,000を超える部分の**50%が所得税免除**
 - 台湾に居留しながら海外からの収入を継続している高収入者に特に有利
 
 **就労許可証（Work Permit）+ 居留証（ARC）**
@@ -3229,7 +3229,7 @@ Gold Cardの大きな魅力は**税制優遇**です。
 
 ### 移住前のチェックポイント
 
-1. **Gold Cardの税制優遇**：高収入の専門職には3年間の税控除が非常に有利。ただし申請時に収入証明が必要
+1. **Gold Cardの税制優遇**：高収入の専門職には**5年間**の税控除が非常に有利。ただし申請時に収入証明が必要
 2. **就労許可の更新サイクル**：ARCは毎年更新が基本。雇用終了後60日以内に転職または帰国が必要
 3. **半導体産業の求人**：TSMCや関連企業での採用は技術職中心。英語・日本語が使える環境も多い
 4. **デジタルノマドビザなし**：台湾には現時点で専用のデジタルノマドビザはない。Gold Cardがその代替として機能
@@ -3248,7 +3248,7 @@ Eligibility (any of the following):
 - Application fee: NTD 5,380
 - Processing time: approximately 30–60 business days
 
-**Gold Card Tax Incentive**: For 3 years from the start of residence, **50% of salary income exceeding NTD 3,000,000 per year is exempt from income tax** — highly favorable for high earners.
+**Gold Card Tax Incentive**: For **5 years** from the start of residence, **50% of salary income exceeding NTD 3,000,000 per year is exempt from income tax** — highly favorable for high earners.
 
 **Work Permit + ARC (Alien Resident Certificate)**
 Standard employment route. The Taiwanese employer applies to the Ministry of Labor.
@@ -3279,7 +3279,7 @@ Taiwan's permanent residency equivalent. Requirements:
 
 ### Tax & Living Notes
 
-**Income tax**: 5–40% progressive rates for residents (183+ days/year). Gold Card holders benefit from a 50% exemption on salary above NTD 3M for the first 3 years.
+**Income tax**: 5–40% progressive rates for residents (183+ days/year). Gold Card holders benefit from a 50% exemption on salary above NTD 3M for the first **5 years**.
 **National Health Insurance (NHI)**: Available 2 months after receiving a residence permit. Monthly premiums start around NTD 800 (income-based). Taiwan's NHI is widely regarded as one of the world's best healthcare systems at very low cost.
 **Housing**: Central Taipei (Da'an, Xinyi districts) runs NTD 20,000–50,000/month. New Taipei City (Banqiao, etc.) is considerably more affordable.
 
@@ -3304,7 +3304,7 @@ Taiwan's combination of Gold Card tax incentives, excellent affordable healthcar
 - 申请费用：NTD 5,380
 - 办理周期：约30〜60个工作日
 
-**就业金卡税收优惠**：居留起始后3年内，**年薪超过NTD 3,000,000的部分可享受50%所得税豁免**，对高收入人士尤为有利。
+**就业金卡税收优惠**：居留起始后**5年内**，**年薪超过NTD 3,000,000的部分可享受50%所得税豁免**，对高收入人士尤为有利。
 
 **工作许可证 + 居留证（ARC）**
 标准就业途径，由台湾雇主向劳动部申请。
@@ -3335,7 +3335,7 @@ Taiwan's combination of Gold Card tax incentives, excellent affordable healthcar
 
 ### 税务与生活须知
 
-**所得税**：居民（每年在台183天以上）适用5%〜40%累进税率。就业金卡持有者前3年可享受年薪NTD 300万以上部分的50%所得税豁免。
+**所得税**：居民（每年在台183天以上）适用5%〜40%累进税率。就业金卡持有者前**5年**可享受年薪NTD 300万以上部分的50%所得税豁免。
 **全民健保（NHI）**：取得居留许可约2个月后可参加，月保费从约NTD 800起（按收入计算）。台湾全民健保被誉为全球最佳医疗保障体系之一，费用低廉。
 **住房**：台北市中心（大安区、信义区等）月租约NTD 20,000〜50,000，新北市（板桥等）则相对经济实惠。
 
@@ -3354,7 +3354,7 @@ Taiwan's combination of Gold Card tax incentives, excellent affordable healthcar
     slug: "visa-hk",
     thumbnail: "/images/blog/visa-hk.png",
     category: "visa",
-    date: "2026-03-19",
+    date: "2026-03-25",
     readingTime: 12,
     title: {
       ja: "【2026年最新版】香港のビザ・就労許可完全ガイド｜TTPS・QMAS・就労ビザ・投資ビザ",
@@ -3391,7 +3391,7 @@ Taiwan's combination of Gold Card tax incentives, excellent affordable healthcar
 - **General Points Test**：年齢・学歴・職歴・語学力・家族構成などで採点
 - **Achievement-Based Points Test**：国際的に認められた業績（受賞・スポーツ実績等）を持つ人材向け
 - 年間クォータあり（過去は年間1,000名前後だったが近年は数千名規模に拡大）
-- 申請費用：HKD 460
+- 申請費用：HKD 600（2025年2月改定）
 
 **Capital Investment Entrant Scheme（CIES）/ 資本投資者入境制度**
 2023年3月に再開された投資移民制度。
@@ -3418,8 +3418,8 @@ Taiwan's combination of Gold Card tax incentives, excellent affordable healthcar
 | 項目 | 費用 |
 |------|------|
 | 就労ビザ申請費 | HKD 230 |
-| QMAS申請費 | HKD 460 |
-| TTPS申請費（カテゴリーA） | HKD 3,630 |
+| QMAS申請費 | HKD 600（2025年2月改定） |
+| TTPS申請費 | HKD 600（2025年2月改定） |
 | CIES申請費（一次審査） | HKD 10,000 |
 
 ### 移住前のチェックポイント
@@ -3455,7 +3455,7 @@ Points-based scheme for high-skilled individuals without a job offer.
 - **General Points Test**: Scored on age, education, work experience, language ability, family background
 - **Achievement-Based Points Test**: For internationally recognized achievers (awards, elite sports, etc.)
 - Annual quota (expanded in recent years to several thousand)
-- Application fee: HKD 460
+- Application fee: HKD 600 (revised February 2025)
 
 **Capital Investment Entrant Scheme (CIES)**
 Revived investment immigration scheme reopened in March 2023.
@@ -3482,8 +3482,8 @@ Revived investment immigration scheme reopened in March 2023.
 | Item | Cost |
 |------|------|
 | Employment visa application | HKD 230 |
-| QMAS application fee | HKD 460 |
-| TTPS application (Category A) | HKD 3,630 |
+| QMAS application fee | HKD 600 (revised Feb 2025) |
+| TTPS application fee | HKD 600 (revised Feb 2025) |
 | CIES application (initial stage) | HKD 10,000 |
 
 ### Pre-Move Checklist
@@ -3519,7 +3519,7 @@ Hong Kong combines a low tax rate, world-class financial infrastructure, and str
 - **通用积分测试**：根据年龄、学历、工作经验、语言能力和家庭背景等评分
 - **成就积分测试**：面向拥有国际公认成就的人士（获奖经历、精英体育成绩等）
 - 设年度配额（近年已扩大至数千人规模）
-- 申请费用：HKD 460
+- 申请费用：HKD 600（2025年2月修订）
 
 **资本投资者入境计划（CIES）**
 2023年3月重启的投资移民计划。
@@ -3546,8 +3546,8 @@ Hong Kong combines a low tax rate, world-class financial infrastructure, and str
 | 项目 | 费用 |
 |------|------|
 | 就业签证申请费 | HKD 230 |
-| QMAS申请费 | HKD 460 |
-| TTPS申请费（A类） | HKD 3,630 |
+| QMAS申请费 | HKD 600（2025年2月修订） |
+| TTPS申请费 | HKD 600（2025年2月修订） |
 | CIES申请费（初步审核） | HKD 10,000 |
 
 ### 移居前注意事项
@@ -4433,7 +4433,7 @@ The U.S. offers extraordinary income potential, but taxes, healthcare costs, and
   {
     slug: "visa-ca",
     category: "visa",
-    date: "2026-03-19",
+    date: "2026-03-25",
     readingTime: 12,
     title: {
       ja: "【2026年最新版】カナダのビザ・移住条件完全ガイド｜Express Entry・PNP・ワーキングホリデー",
@@ -4474,7 +4474,7 @@ The U.S. offers extraordinary income potential, but taxes, healthcare costs, and
 - 対象：18〜35歳の日本人
 - 年間最大6,500名（2024年度）
 - 有効期間：1年間
-- 申請費用：CAD 272（2025年12月改定後の最新料金）
+- 申請費用：CAD 272（要最新確認）
 - 抽選制（毎年2〜3月頃に募集開始）
 
 **就労許可（Work Permit）**
@@ -4498,8 +4498,8 @@ The U.S. offers extraordinary income potential, but taxes, healthcare costs, and
 |------|------|
 | Express Entry（PR）申請費 | CAD 1,525（本人）+ CAD 1,525（配偶者）+ CAD 270（子） |
 | 右永住権カード（PR Card） | CAD 50 |
-| ワーキングホリデー（IEC）申請費 | CAD 272 |
-| 就労許可申請費 | CAD 185 |
+| ワーキングホリデー（IEC）申請費 | CAD 272（要最新確認） |
+| 就労許可申請費 | CAD 155 |
 
 ### 移住前のチェックポイント
 
@@ -4536,7 +4536,7 @@ Permanent residency route for entrepreneurs supported by designated Canadian inc
 **Working Holiday (IEC)**
 Japanese citizens aged 18–35 can live and work in Canada for 1 year.
 - Annual cap: up to 6,500 spots (2024)
-- Application fee: CAD 272 (revised December 2025)
+- Application fee: CAD 272 (verify latest on IRCC website)
 - Applications open via draw (typically February–March each year)
 
 **Work Permit**
@@ -4560,8 +4560,8 @@ Required for those employed by Canadian companies.
 |------|------|
 | Express Entry (PR) application | CAD 1,525 (principal) + CAD 1,525 (spouse) + CAD 270 (child) |
 | PR Card | CAD 50 |
-| Working Holiday (IEC) fee | CAD 272 |
-| Work permit application | CAD 185 |
+| Working Holiday (IEC) fee | CAD 272 (verify on IRCC) |
+| Work permit application | CAD 155 |
 
 ### Pre-Move Checklist
 
@@ -4599,7 +4599,7 @@ Canada's transparent immigration system rewards English proficiency and work exp
 面向18〜35岁日本人的加拿大工作居留项目。
 - 年度名额：最多6,500人（2024年度）
 - 有效期：1年
-- 申请费用：CAD 272（2025年12月修订后最新费率）
+- 申请费用：CAD 272（请在IRCC官网确认最新费率）
 - 抽签制（通常每年2〜3月开放申请）
 
 **工作许可证（Work Permit）**
@@ -4623,8 +4623,8 @@ Canada's transparent immigration system rewards English proficiency and work exp
 |------|------|
 | 快速通道（PR）申请费 | CAD 1,525（本人）+ CAD 1,525（配偶）+ CAD 270（子女） |
 | 永久居留卡（PR Card） | CAD 50 |
-| 打工度假（IEC）申请费 | CAD 272 |
-| 工作许可证申请费 | CAD 185 |
+| 打工度假（IEC）申请费 | CAD 272（请在IRCC官网确认） |
+| 工作许可证申请费 | CAD 155 |
 
 ### 移居前注意事项
 
@@ -4640,7 +4640,7 @@ Canada's transparent immigration system rewards English proficiency and work exp
   {
     slug: "visa-gb",
     category: "visa",
-    date: "2026-03-19",
+    date: "2026-03-25",
     readingTime: 12,
     title: {
       ja: "【2026年最新版】イギリスのビザ・就労許可完全ガイド｜Skilled Worker・Global Talent・Youth Mobility",
@@ -4724,8 +4724,8 @@ Canada's transparent immigration system rewards English proficiency and work exp
 | Youth Mobility Scheme | GBP 259 |
 | HPI ビザ | GBP 822 |
 | IHS（医療負担金）/年 | GBP 1,035 |
-| ILR申請費 | GBP 2,885 |
-| 英国籍申請費 | GBP 1,500 |
+| ILR申請費 | GBP 3,226（2026年4月〜） |
+| 英国籍申請費 | GBP 1,709（2026年4月〜） |
 
 ### 移住前のチェックポイント
 
@@ -4806,8 +4806,8 @@ Permanent residency available after 5+ years of lawful residence.
 | Youth Mobility Scheme | GBP 259 |
 | HPI Visa | GBP 822 |
 | IHS (health surcharge)/year | GBP 1,035 |
-| ILR application fee | GBP 2,885 |
-| British citizenship fee | GBP 1,500 |
+| ILR application fee | GBP 3,226 (from April 2026) |
+| British citizenship fee | GBP 1,709 (from April 2026) |
 
 ### Pre-Move Checklist
 
@@ -4888,8 +4888,8 @@ The UK offers rich career opportunities, especially in London's finance and tech
 | 青年交流计划 | GBP 259 |
 | 高潜力人才签证（HPI） | GBP 822 |
 | 移民医疗附加费（IHS）/年 | GBP 1,035 |
-| ILR申请费 | GBP 2,885 |
-| 英国国籍申请费 | GBP 1,500 |
+| ILR申请费 | GBP 3,226（2026年4月起） |
+| 英国国籍申请费 | GBP 1,709（2026年4月起） |
 
 ### 移居前注意事项
 
