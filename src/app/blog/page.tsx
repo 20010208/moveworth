@@ -72,7 +72,7 @@ export default function BlogPage() {
               className="flex bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden"
             >
               {post.thumbnail && (
-                <div className="relative flex-shrink-0 w-[272px] self-stretch">
+                <div className="relative flex-shrink-0 w-[272px] h-[190px]">
                   <Image
                     src={post.thumbnail}
                     alt={getLabel(post.title)}
