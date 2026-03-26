@@ -4195,6 +4195,7 @@ Vietnam's young population, rapid growth, and high demand for Japanese-language 
   {
     slug: "visa-us",
     category: "visa",
+    thumbnail: "/images/blog/visa-us.png",
     date: "2026-03-19",
     readingTime: 12,
     title: {
@@ -4433,6 +4434,7 @@ The U.S. offers extraordinary income potential, but taxes, healthcare costs, and
   {
     slug: "visa-ca",
     category: "visa",
+    thumbnail: "/images/blog/visa-ca.png",
     date: "2026-03-25",
     readingTime: 12,
     title: {
@@ -4640,6 +4642,7 @@ Canada's transparent immigration system rewards English proficiency and work exp
   {
     slug: "visa-gb",
     category: "visa",
+    thumbnail: "/images/blog/visa-gb.png",
     date: "2026-03-25",
     readingTime: 12,
     title: {
@@ -4905,6 +4908,7 @@ The UK offers rich career opportunities, especially in London's finance and tech
   {
     slug: "visa-de",
     category: "visa",
+    thumbnail: "/images/blog/visa-de.png",
     date: "2026-03-19",
     readingTime: 12,
     title: {
@@ -5184,6 +5188,7 @@ Germany's 2023 immigration reform has made the country significantly more access
   {
     slug: "visa-fr",
     category: "visa",
+    thumbnail: "/images/blog/visa-fr.png",
     date: "2026-03-19",
     readingTime: 12,
     title: {
@@ -11145,6 +11150,7 @@ Use MoveWorth to simulate your tax burden and living costs in South Africa.`,
   {
     slug: "visa-fi",
     category: "visa",
+    thumbnail: "/images/blog/visa-fi.png",
     date: "2026-03-25",
     readingTime: 15,
     title: {
