@@ -77,7 +77,7 @@ export default function BlogPage() {
                     src={post.thumbnail}
                     alt={getLabel(post.title)}
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                     sizes="272px"
                   />
                 </div>
