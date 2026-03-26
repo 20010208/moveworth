@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Clock, Tag } from "lucide-react";
+import { ArrowRight, Clock, Tag, Search } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { blogPosts, blogCategories } from "@/data/blog-posts";
 import { useState } from "react";
@@ -11,15 +11,21 @@ export default function BlogPage() {
   const { t, locale } = useTranslation();
   const lang = locale as "en" | "ja" | "zh";
   const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const sortedPosts = [...blogPosts]
     .filter((p) => !p.locales || p.locales.includes(lang))
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  const filteredPosts =
-    activeCategory === "all"
-      ? sortedPosts
-      : sortedPosts.filter((p) => p.category === activeCategory);
+  const filteredPosts = sortedPosts.filter((p) => {
+    const matchesCategory = activeCategory === "all" || p.category === activeCategory;
+    const q = searchQuery.toLowerCase();
+    const matchesSearch =
+      !q ||
+      (p.title[lang] ?? p.title.en).toLowerCase().includes(q) ||
+      (p.description[lang] ?? p.description.en).toLowerCase().includes(q);
+    return matchesCategory && matchesSearch;
+  });
 
   const getLabel = (obj: { ja: string; en: string; zh?: string }) =>
     (obj[lang as keyof typeof obj] as string | undefined) ?? obj.en;
@@ -34,6 +40,18 @@ export default function BlogPage() {
           <p className="text-muted text-sm max-w-2xl mx-auto">
             {t("blog.description")}
           </p>
+        </div>
+
+        {/* Search Bar */}
+        <div className="relative max-w-xl mx-auto mb-6">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted pointer-events-none" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={t("blog.searchPlaceholder")}
+            className="w-full pl-10 pr-4 py-2.5 text-sm border border-border/60 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+          />
         </div>
 
         {/* Category Filter */}
@@ -65,6 +83,9 @@ export default function BlogPage() {
 
         {/* Blog Post List */}
         <div className="space-y-5">
+          {filteredPosts.length === 0 && (
+            <p className="text-center text-muted py-12">{t("blog.noResults")}</p>
+          )}
           {filteredPosts.map((post) => (
             <Link
               key={post.slug}

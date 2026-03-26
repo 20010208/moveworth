@@ -389,6 +389,8 @@
     "minRead": "分钟阅读",
     "readMore": "阅读更多",
     "backToList": "返回文章列表",
+    "searchPlaceholder": "搜索文章...",
+    "noResults": "未找到相关文章",
     "notFound": "未找到文章",
     "share": "分享",
     "ctaTitle": "准备好模拟您的移居计划了吗？",

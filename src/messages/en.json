@@ -389,6 +389,8 @@
     "minRead": "min read",
     "readMore": "Read more",
     "backToList": "Back to all articles",
+    "searchPlaceholder": "Search articles...",
+    "noResults": "No articles found",
     "notFound": "Article not found",
     "share": "Share",
     "ctaTitle": "Ready to simulate your relocation plan?",

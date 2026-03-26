@@ -389,6 +389,8 @@
     "minRead": "分で読める",
     "readMore": "続きを読む",
     "backToList": "記事一覧に戻る",
+    "searchPlaceholder": "記事を検索...",
+    "noResults": "該当する記事が見つかりませんでした",
     "notFound": "記事が見つかりません",
     "share": "シェア",
     "ctaTitle": "あなたの移住プランをシミュレーションしてみませんか？",
