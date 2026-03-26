@@ -76,7 +76,16 @@ export default function PrivacyPage() {
               {t("privacy.contactTitle")}
             </h2>
             <p className="text-sm text-muted leading-relaxed">
-              {t("privacy.contactContent")}
+              {t("privacy.contactContent").split(t("privacy.contactLinkText")).map((part, i, arr) =>
+                i < arr.length - 1 ? (
+                  <span key={i}>
+                    {part}
+                    <Link href="/contact" className="text-primary underline hover:opacity-80">
+                      {t("privacy.contactLinkText")}
+                    </Link>
+                  </span>
+                ) : part
+              )}
             </p>
           </div>
         </div>

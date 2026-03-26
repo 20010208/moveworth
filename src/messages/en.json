@@ -316,7 +316,8 @@
     "section9Title": "Affiliate Disclosure",
     "section9Content": "This site participates in affiliate programs including A8.net. If you purchase a product or service through a link on this site, we may receive a commission at no extra cost to you. The selection of recommended products and services is based solely on their usefulness to our users, and is not influenced by any commission. Content containing affiliate links will be marked with \"AD\" or \"PR\".",
     "contactTitle": "Contact Us",
-    "contactContent": "For questions or requests regarding privacy, please contact us through the Contact page."
+    "contactContent": "For questions or requests regarding privacy, please contact us through the Contact page.",
+    "contactLinkText": "Contact page"
   },
   "terms": {
     "title": "Terms of Service",
