@@ -93,7 +93,7 @@ export default function BlogPage() {
               className="flex bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden"
             >
               {post.thumbnail && (
-                <div className="relative flex-shrink-0 w-[272px] min-h-[190px] self-stretch">
+                <div className="relative flex-shrink-0 w-[272px] h-[190px]">
                   <Image
                     src={post.thumbnail}
                     alt={getLabel(post.title)}
@@ -116,7 +116,7 @@ export default function BlogPage() {
                     </span>
                     <span className="text-xs text-muted">{post.date}</span>
                   </div>
-                  <h2 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors mb-2">
+                  <h2 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors mb-2 line-clamp-2">
                     {getLabel(post.title)}
                   </h2>
                   <p className="text-sm text-muted line-clamp-2 mb-3">
