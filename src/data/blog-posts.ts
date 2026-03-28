@@ -5447,6 +5447,7 @@ France's bureaucracy is real — OFII processes, prefecture appointments, and ta
   {
     slug: "visa-nl",
     category: "visa",
+    thumbnail: "/images/blog/visa-nl.png",
     date: "2026-03-19",
     readingTime: 12,
     title: {
@@ -5718,6 +5719,7 @@ HSM的替代方案，最低年薪 **EUR 71,304**（2026年），具有欧盟内�
   {
     slug: "visa-ch",
     category: "visa",
+    thumbnail: "/images/blog/visa-ch.png",
     date: "2026-03-19",
     readingTime: 12,
     title: {
@@ -6037,6 +6039,7 @@ Switzerland offers world-class salaries in finance, pharma, and tech, but costs 
   {
     slug: "visa-au",
     category: "visa",
+    thumbnail: "/images/blog/visa-au.png",
     date: "2026-03-19",
     readingTime: 12,
     title: {
@@ -6354,6 +6357,7 @@ Australia offers one of the most transparent PR pathways among major immigration
   {
     slug: "visa-nz",
     category: "visa",
+    thumbnail: "/images/blog/visa-nz.png",
     date: "2026-03-19",
     readingTime: 12,
     title: {
@@ -6615,6 +6619,7 @@ New Zealand's smaller scale means less competition for skilled migrants compared
   {
     slug: "visa-ae",
     category: "visa",
+    thumbnail: "/images/blog/visa-ae.png",
     date: "2026-03-19",
     readingTime: 12,
     title: {
@@ -6884,6 +6889,7 @@ The UAE offers a compelling combination of zero income tax, world-class infrastr
   {
     slug: "visa-jp",
     category: "visa",
+    thumbnail: "/images/blog/visa-jp.png",
     date: "2026-03-19",
     readingTime: 12,
     title: {
@@ -7186,6 +7192,7 @@ Japan combines Asia's highest safety standards with world-class healthcare, educ
   {
     slug: "visa-pt",
     category: "visa",
+    thumbnail: "/images/blog/visa-pt.png",
     date: "2026-03-19",
     readingTime: 12,
     title: {
@@ -7506,6 +7513,7 @@ Portugal's combination of IFICI tax incentives, EU residence rights, low living 
   {
     slug: "visa-es",
     category: "visa",
+    thumbnail: "/images/blog/visa-es.png",
     date: "2026-03-19",
     readingTime: 12,
     title: {
@@ -7819,6 +7827,7 @@ Spain offers an excellent quality of life at a reasonable cost. Use MoveWorth to
   {
     slug: "visa-ge",
     category: "visa",
+    thumbnail: "/images/blog/visa-ge.png",
     date: "2026-03-19",
     readingTime: 12,
     title: {
