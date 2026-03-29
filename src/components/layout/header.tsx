@@ -2,14 +2,16 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Globe, Menu, X, Languages, User, LogOut, Crown } from "lucide-react";
+import { Globe, Menu, X, Languages, User, LogOut, Crown, Sun, Moon } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
+import { useTheme } from "@/lib/theme";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { locale, setLocale, t } = useTranslation();
   const { isAuthenticated, user, logout, setShowRegisterModal, setShowLoginModal } = useAuth();
+  const { theme, toggle: toggleTheme } = useTheme();
 
   const cycleLocale = () => {
     if (locale === "en") setLocale("ja");
@@ -83,6 +85,13 @@ export function Header() {
               <Languages className="h-4 w-4" />
               {currentLocaleLabel}
             </button>
+            <button
+              onClick={toggleTheme}
+              className="p-2 text-muted hover:text-foreground rounded-lg hover:bg-secondary/80 transition-all"
+              aria-label="Toggle dark mode"
+            >
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
             {isAuthenticated ? (
               <div className="flex items-center gap-2 ml-1">
                 <Link
@@ -130,6 +139,13 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2 md:hidden">
+            <button
+              onClick={toggleTheme}
+              className="p-2 text-muted hover:text-foreground"
+              aria-label="Toggle dark mode"
+            >
+              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </button>
             <button
               onClick={cycleLocale}
               className="p-2 text-muted hover:text-foreground"

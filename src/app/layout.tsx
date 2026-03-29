@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { LanguageProvider } from "@/lib/i18n";
 import { AuthProvider } from "@/lib/auth";
+import { ThemeProvider } from "@/lib/theme";
 import { RegisterModal } from "@/components/auth/register-modal";
 import { LoginModal } from "@/components/auth/login-modal";
 import { CookieBanner } from "@/components/ui/cookie-banner";
@@ -76,6 +77,12 @@ export default async function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <head>
+        {/* FOUC防止: ハイドレーション前にダーククラスを適用 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}})();`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -115,6 +122,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${inter.variable} antialiased min-h-screen flex flex-col font-sans`}>
+        <ThemeProvider>
         <LanguageProvider>
           <AuthProvider>
             {!isStudySite && <Header />}
@@ -125,6 +133,7 @@ export default async function RootLayout({
             <CookieBanner />
           </AuthProvider>
         </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
