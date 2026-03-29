@@ -227,6 +227,7 @@ export default function StudySimulatePage() {
     const newCount = simCount + 1;
     setSimCount(newCount);
     localStorage.setItem("studySimCount", String(newCount));
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // ユーザーの国籍から表示通貨を決定
