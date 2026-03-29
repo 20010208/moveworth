@@ -343,18 +343,23 @@ export default function StudySitePage() {
                               className="group block bg-white border border-border/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-200"
                             >
                               {/* Card header */}
-                              <div className={`relative bg-gradient-to-br ${region.cardBg} px-5 pt-5 pb-4 overflow-hidden min-h-[80px]`}>
-                                <span className="text-5xl leading-none relative z-10">{getFlag(country.code)}</span>
-                                <div className="absolute right-0 top-0 h-full w-1/2 overflow-hidden pointer-events-none">
-                                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                                  <img
-                                    src={`/images/blog/visa-${country.code.toLowerCase()}.png`}
-                                    alt=""
-                                    className="w-full h-full object-cover object-center"
-                                    onError={(e) => { (e.currentTarget.parentElement as HTMLElement).style.opacity = "0"; }}
-                                  />
-                                  <div className="absolute inset-0 bg-gradient-to-r from-white/70 to-transparent" />
-                                </div>
+                              <div className="relative h-28 overflow-hidden">
+                                {/* Fallback gradient */}
+                                <div className={`absolute inset-0 bg-gradient-to-br ${region.cardBg}`} />
+                                {/* Landscape image — object-left to crop out passport on the right */}
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={`/images/blog/visa-${country.code.toLowerCase()}.png`}
+                                  alt=""
+                                  className="absolute inset-0 w-full h-full object-cover object-left"
+                                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                                />
+                                {/* Overlay for text readability */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/10 to-transparent" />
+                                {/* Country flag / code */}
+                                <span className="absolute left-5 top-5 text-5xl leading-none text-white drop-shadow-md z-10">
+                                  {getFlag(country.code)}
+                                </span>
                               </div>
                               {/* Card body */}
                               <div className="px-5 py-4">
