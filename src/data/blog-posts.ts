@@ -8137,6 +8137,7 @@ Georgia offers fast internet, a low cost of living, and easy EU connections — 
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-ie.png",
     title: {
       ja: "【2026年最新版】アイルランドのビザ・就労許可完全ガイド",
       en: "Ireland Visa & Work Permit Complete Guide 2026",
@@ -8488,6 +8489,7 @@ Ireland is particularly compelling for IT, pharma, and finance professionals. Us
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-se.png",
     title: {
       ja: "【2026年最新版】スウェーデンのビザ・就労許可完全ガイド",
       en: "Sweden Visa & Work Permit Complete Guide 2026",
@@ -8772,6 +8774,7 @@ Sweden's high taxes are offset by outstanding social services. Use MoveWorth to 
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-no.png",
     title: {
       ja: "【2026年最新版】ノルウェーのビザ・就労許可完全ガイド",
       en: "Norway Visa & Work Permit Complete Guide 2026",
@@ -9079,6 +9082,7 @@ Norway offers exceptional salaries, but the cost of living is equally high. Use 
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-dk.png",
     title: {
       ja: "【2026年最新版】デンマークのビザ・就労許可完全ガイド",
       en: "Denmark Visa & Work Permit Complete Guide 2026",
