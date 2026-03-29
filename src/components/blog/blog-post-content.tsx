@@ -180,7 +180,7 @@ export function BlogPostContent({ slug }: { slug: string }) {
               key={i}
               src={imgMatch[2]}
               alt={imgMatch[1]}
-              className="w-full rounded-xl my-4 border border-border/40"
+              className="w-full rounded-xl my-4 border-2 border-gray-300 shadow-sm"
             />
           );
         }

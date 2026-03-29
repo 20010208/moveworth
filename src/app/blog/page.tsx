@@ -15,7 +15,11 @@ export default function BlogPage() {
 
   const sortedPosts = [...blogPosts]
     .filter((p) => !p.locales || p.locales.includes(lang))
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    .sort((a, b) => {
+      if (a.pinned && !b.pinned) return -1;
+      if (!a.pinned && b.pinned) return 1;
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
 
   const filteredPosts = sortedPosts.filter((p) => {
     const matchesCategory = activeCategory === "all" || p.category === activeCategory;

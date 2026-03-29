@@ -4,6 +4,7 @@
   date: string;
   readingTime: number;
   locales?: string[]; // 未指定の場合は全言語に表示
+  pinned?: boolean;
   thumbnail?: string;
   title: { ja: string; en: string; zh?: string };
   description: { ja: string; en: string; zh?: string };
@@ -13566,6 +13567,7 @@ Simulate your cost of living and tax burden in Turkey with MoveWorth.`,
     slug: "moveworth-how-to-use",
     category: "about",
     date: "2026-03-29",
+    pinned: true,
     readingTime: 10,
     locales: ["ja"],
     thumbnail: "/images/blog/how-to-use-moveworth.png",
