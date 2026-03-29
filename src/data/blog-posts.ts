@@ -13564,7 +13564,7 @@ Simulate your cost of living and tax burden in Turkey with MoveWorth.`,
     date: "2026-03-29",
     readingTime: 10,
     locales: ["ja"],
-    thumbnail: "/images/blog/moveworth-how-to-use/step5-result-graph.png",
+    thumbnail: "/images/blog/how-to-use-moveworth.png",
     title: {
       ja: "MoveWorthの使い方【完全ガイド】5分で海外移住後の資産がわかるシミュレーター",
       en: "How to Use MoveWorth: Complete Guide to the Relocation Financial Simulator",
