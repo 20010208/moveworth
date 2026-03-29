@@ -11,6 +11,7 @@ const navLabels = {
     countries: "留学先一覧",
     simulate: "費用シミュレーター",
     simulator: "移住シミュレーター",
+    moveworth: "海外移住サイトへ",
     blog: "ブログ",
     toggleMenu: "メニュー",
     login: "ログイン",
@@ -21,6 +22,7 @@ const navLabels = {
     countries: "Countries",
     simulate: "Cost Simulator",
     simulator: "Migration Simulator",
+    moveworth: "Relocation Site",
     blog: "Blog",
     toggleMenu: "Toggle menu",
     login: "Login",
@@ -31,6 +33,7 @@ const navLabels = {
     countries: "留学目的地",
     simulate: "费用模拟器",
     simulator: "移居模拟器",
+    moveworth: "移居网站",
     blog: "博客",
     toggleMenu: "切换菜单",
     login: "登录",
@@ -95,6 +98,14 @@ export function StudyHeader() {
             >
               {labels.blog}
             </Link>
+            <a
+              href="https://www.moveworthapp.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-muted hover:text-foreground px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all"
+            >
+              {labels.moveworth}
+            </a>
 
             <div className="w-px h-5 bg-border mx-2" />
 
@@ -185,6 +196,15 @@ export function StudyHeader() {
             >
               {labels.blog}
             </Link>
+            <a
+              href="https://www.moveworthapp.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block px-3 py-2.5 text-sm font-medium text-muted hover:text-foreground hover:bg-secondary/80 rounded-lg transition-all"
+              onClick={() => setMobileOpen(false)}
+            >
+              {labels.moveworth}
+            </a>
             <div className="pt-2 mx-3 space-y-2">
               <a
                 href="https://www.moveworthapp.com/simulate"
