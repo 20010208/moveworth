@@ -1,4 +1,4 @@
-export interface BlogPost {
+﻿export interface BlogPost {
   slug: string;
   category: "money" | "lifeplan" | "casestudy" | "about" | "visa";
   date: string;
@@ -13564,7 +13564,7 @@ Simulate your cost of living and tax burden in Turkey with MoveWorth.`,
     date: "2026-03-29",
     readingTime: 10,
     locales: ["ja"],
-    thumbnail: "/images/blog/MoveWorthの使い方/結果を読む１.png",
+    thumbnail: "/images/blog/moveworth-how-to-use/step5-result-graph.png",
     title: {
       ja: "MoveWorthの使い方【完全ガイド】5分で海外移住後の資産がわかるシミュレーター",
       en: "How to Use MoveWorth: Complete Guide to the Relocation Financial Simulator",
@@ -13592,11 +13592,11 @@ Simulate your cost of living and tax burden in Turkey with MoveWorth.`,
 
 まずトップページにアクセスし、「現在の国」と「移住先」を選びます。
 
-![国選択の完了画面](/images/blog/MoveWorthの使い方/国選択ドロップダウン１.png)
+![国選択の完了画面](/images/blog/moveworth-how-to-use/step1-country-select.png)
 
 ▼をクリックするとドロップダウンが開き、**国名・通貨で検索**できます。40カ国以上から選択可能です。
 
-![国選択ドロップダウン](/images/blog/MoveWorthの使い方/国選択ドロップダウン２.png)
+![国選択ドロップダウン](/images/blog/moveworth-how-to-use/step1-country-dropdown.png)
 
 ---
 
@@ -13604,15 +13604,15 @@ Simulate your cost of living and tax burden in Turkey with MoveWorth.`,
 
 現在の年収（税引前）を日本円で入力します。
 
-![年収入力画面](/images/blog/MoveWorthの使い方/年収・業種入力１.png)
+![年収入力画面](/images/blog/moveworth-how-to-use/step2-income-empty.png)
 
 「業種別平均年収を参照して入力...」をクリックすると、移住先での業種別平均年収が表示され、そのまま入力できます。
 
-![業種選択画面](/images/blog/MoveWorthの使い方/年収・業種入力３.png)
+![業種選択画面](/images/blog/moveworth-how-to-use/step2-income-industry.png)
 
 > **Tips：** 通貨ボタン（例：RM）を押すと、現在の年収を現地通貨に為替換算した金額がそのまま入力されます。移住先での年収水準を参考にしたいときに便利です。
 
-![RMボタンで為替換算](/images/blog/MoveWorthの使い方/年収・業種入力２.png)
+![RMボタンで為替換算](/images/blog/moveworth-how-to-use/step2-income-rm-button.png)
 
 ---
 
@@ -13622,7 +13622,7 @@ Simulate your cost of living and tax burden in Turkey with MoveWorth.`,
 
 「世帯タイプ別の平均家賃・生活費を参照...」から世帯タイプを選ぶと、移住先の外国人居住エリアの**平均家賃・生活費が自動入力**されます。手動で変更することも可能です。
 
-![家族構成選択と詳細条件入力](/images/blog/MoveWorthの使い方/家族構成選択と詳細条件入力.png)
+![家族構成選択と詳細条件入力](/images/blog/moveworth-how-to-use/step3-family-type.png)
 
 ---
 
@@ -13630,7 +13630,7 @@ Simulate your cost of living and tax burden in Turkey with MoveWorth.`,
 
 国を選択すると、税率・為替レート・インフレ率などが**自動で入力**されます。基本的にそのままでOKですが、自分の状況に合わせて変更することも可能です。
 
-![税金・経済パラメータ](/images/blog/MoveWorthの使い方/税金・経済パラメータ.png)
+![税金・経済パラメータ](/images/blog/moveworth-how-to-use/step4-tax-params.png)
 
 | 項目 | 内容 |
 |------|------|
@@ -13649,19 +13649,19 @@ Simulate your cost of living and tax burden in Turkey with MoveWorth.`,
 
 ### 資産推移グラフ
 
-![資産推移予測グラフ](/images/blog/MoveWorthの使い方/結果を読む１.png)
+![資産推移予測グラフ](/images/blog/moveworth-how-to-use/step5-result-graph.png)
 
 緑のライン（移住先）と青のライン（現在の国）を比較して、移住による資産の変化を確認できます。グラフの開きが大きいほど、移住による経済的メリットが大きいことを示しています。
 
 ### 月次内訳
 
-![月次内訳](/images/blog/MoveWorthの使い方/結果を読む２.png)
+![月次内訳](/images/blog/moveworth-how-to-use/step5-monthly-breakdown.png)
 
 収入・家賃・生活費・税金・貯蓄をすべてJPY換算で比較できます。「どの項目で差が出ているか」が一目でわかります。
 
 ### 年間貯蓄額・資産差額
 
-![資産差額サマリー](/images/blog/MoveWorthの使い方/結果を読む３.png)
+![資産差額サマリー](/images/blog/moveworth-how-to-use/step5-asset-summary.png)
 
 シミュレーション期間中の**合計資産差額**が表示されます。「海外移住は経済的に有利です」などの総合判定も確認できます。
 
@@ -13675,19 +13675,19 @@ Proプランでは、さらに詳しい分析が可能です。
 
 各パラメータ（年収・家賃・生活費など）が最終資産にどの程度影響するかを視覚化します。「何を改善すれば資産が増えるか」がひと目でわかります。
 
-![感度分析](/images/blog/MoveWorthの使い方/応用：高度分析機能１.png)
+![感度分析](/images/blog/moveworth-how-to-use/advanced-sensitivity.png)
 
 ### FIRE計算
 
 4%ルール（年間支出の25倍）に基づき、各国でのFIRE（経済的自立）達成までの年数を比較します。
 
-![FIRE計算](/images/blog/MoveWorthの使い方/応用：高度分析機能２.png)
+![FIRE計算](/images/blog/moveworth-how-to-use/advanced-fire.png)
 
 ### モンテカルロシミュレーション
 
 収入・投資リターン・インフレ率にランダム変動を加えた**1,000回のシミュレーション**を実行し、資産推移の確率分布を表示します。最悪ケース・最良ケース・元本割れ確率まで確認できます。
 
-![モンテカルロシミュレーション](/images/blog/MoveWorthの使い方/応用：高度分析機能３.png)
+![モンテカルロシミュレーション](/images/blog/moveworth-how-to-use/advanced-montecarlo.png)
 
 ---
 
@@ -13697,19 +13697,19 @@ Premiumプランでは、**最大4カ国を同時比較**できます。
 
 ### 4カ国の資産推移グラフ
 
-![複数国比較グラフ](/images/blog/MoveWorthの使い方/複数国比較セクション１.png)
+![複数国比較グラフ](/images/blog/moveworth-how-to-use/premium-4country-graph.png)
 
 マレーシア・シンガポール・ベトナム・中国など複数国を1つのグラフで比較できます。移住先の候補が複数ある場合に特に有効です。
 
 ### 多国間比較テーブル
 
-![多国間比較テーブル](/images/blog/MoveWorthの使い方/複数国比較セクション２.png)
+![多国間比較テーブル](/images/blog/moveworth-how-to-use/premium-comparison-table.png)
 
 年間貯蓄額・5年後の資産・現在地との資産差額・税率を国別に一覧で確認できます。
 
 ### 国別の高度分析
 
-![複数国の感度分析](/images/blog/MoveWorthの使い方/複数国比較セクション３.png)
+![複数国の感度分析](/images/blog/moveworth-how-to-use/premium-sensitivity.png)
 
 比較した国ごとに感度分析・FIRE計算・モンテカルロを切り替えて確認できます。
 
@@ -13717,7 +13717,7 @@ Premiumプランでは、**最大4カ国を同時比較**できます。
 
 ## プランの選び方
 
-![プラン一覧](/images/blog/MoveWorthの使い方/プラン紹介セクション.png)
+![プラン一覧](/images/blog/moveworth-how-to-use/plan-pricing.png)
 
 | プラン | 料金 | おすすめの人 |
 |--------|------|-------------|
