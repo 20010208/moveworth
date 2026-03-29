@@ -36,6 +36,34 @@
   background: rgba(15, 23, 42, 0.88);
 }
 
+/* bg-white はTailwindのハードコード値なのでCSS変数が効かない → 上書き */
+.dark .bg-white {
+  background-color: var(--card);
+}
+
+/* ページレベルのライトグラデーション背景を無効化 */
+.dark .min-h-screen.bg-gradient-to-b {
+  background-image: none;
+  background-color: var(--background);
+}
+
+/* インプット・テキストエリアの白背景 */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: var(--secondary);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+
+/* スクロールバー */
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
