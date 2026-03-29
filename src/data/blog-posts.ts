@@ -13558,6 +13558,225 @@ Simulate your cost of living and tax burden in Turkey with MoveWorth.`,
 使用MoveWorth模拟您在土耳其的税负和生活成本。`,
     },
   },
+  {
+    slug: "moveworth-how-to-use",
+    category: "about",
+    date: "2026-03-29",
+    readingTime: 10,
+    locales: ["ja"],
+    thumbnail: "/images/blog/MoveWorthの使い方/結果を読む１.png",
+    title: {
+      ja: "MoveWorthの使い方【完全ガイド】5分で海外移住後の資産がわかるシミュレーター",
+      en: "How to Use MoveWorth: Complete Guide to the Relocation Financial Simulator",
+    },
+    description: {
+      ja: "国選択から結果グラフの読み方まで、MoveWorthシミュレーターの使い方を画像付きでステップごとに解説します。",
+      en: "A step-by-step guide with screenshots on how to use MoveWorth's relocation financial simulator.",
+    },
+    content: {
+      ja: `海外移住を検討しているけれど、「移住後の生活費や資産がどうなるか不安」「複数の国を比べてみたいけど計算が大変」という方に向けて、MoveWorthシミュレーターの使い方を画像付きで解説します。
+
+慣れれば**5分以内**で移住後の資産推移が確認できます。
+
+## MoveWorthでできること
+
+- 現在の国と移住先の**資産推移を最大30年間比較**
+- **40カ国以上**に対応
+- 単身・2人暮らし・4人家族の**世帯タイプ別**シミュレーション
+- 税率・インフレ率・為替レートを反映した精度の高いシミュレーション
+- **無料**で使える（一部高度機能はProプラン以上）
+
+---
+
+## Step 1｜現在地と移住先を選ぶ
+
+まずトップページにアクセスし、「現在の国」と「移住先」を選びます。
+
+![国選択の完了画面](/images/blog/MoveWorthの使い方/国選択ドロップダウン１.png)
+
+▼をクリックするとドロップダウンが開き、**国名・通貨で検索**できます。40カ国以上から選択可能です。
+
+![国選択ドロップダウン](/images/blog/MoveWorthの使い方/国選択ドロップダウン２.png)
+
+---
+
+## Step 2｜年収・業種を入力する
+
+現在の年収（税引前）を日本円で入力します。
+
+![年収入力画面](/images/blog/MoveWorthの使い方/年収・業種入力１.png)
+
+「業種別平均年収を参照して入力...」をクリックすると、移住先での業種別平均年収が表示され、そのまま入力できます。
+
+![業種選択画面](/images/blog/MoveWorthの使い方/年収・業種入力３.png)
+
+> **Tips：** 通貨ボタン（例：RM）を押すと、現在の年収を現地通貨に為替換算した金額がそのまま入力されます。移住先での年収水準を参考にしたいときに便利です。
+
+![RMボタンで為替換算](/images/blog/MoveWorthの使い方/年収・業種入力２.png)
+
+---
+
+## Step 3｜貯蓄・家族構成・家賃を設定する
+
+現在の貯蓄額と家族構成を入力します。
+
+「世帯タイプ別の平均家賃・生活費を参照...」から世帯タイプを選ぶと、移住先の外国人居住エリアの**平均家賃・生活費が自動入力**されます。手動で変更することも可能です。
+
+![家族構成選択と詳細条件入力](/images/blog/MoveWorthの使い方/家族構成選択と詳細条件入力.png)
+
+---
+
+## Step 4｜税金・経済パラメータを確認する
+
+国を選択すると、税率・為替レート・インフレ率などが**自動で入力**されます。基本的にそのままでOKですが、自分の状況に合わせて変更することも可能です。
+
+![税金・経済パラメータ](/images/blog/MoveWorthの使い方/税金・経済パラメータ.png)
+
+| 項目 | 内容 |
+|------|------|
+| 税率（現在・移住先） | 所得税の目安 |
+| 為替レート | リアルタイムに近い値が自動入力 |
+| 昇給率 | 毎年の給与上昇率の想定 |
+| インフレ率（現在・移住先） | 物価上昇率の想定 |
+| 投資リターン | 資産運用をしている場合に入力 |
+| シミュレーション年数 | 1〜30年で設定可能 |
+
+---
+
+## Step 5｜結果グラフを読む
+
+入力が完了すると結果が自動で表示されます。
+
+### 資産推移グラフ
+
+![資産推移予測グラフ](/images/blog/MoveWorthの使い方/結果を読む１.png)
+
+緑のライン（移住先）と青のライン（現在の国）を比較して、移住による資産の変化を確認できます。グラフの開きが大きいほど、移住による経済的メリットが大きいことを示しています。
+
+### 月次内訳
+
+![月次内訳](/images/blog/MoveWorthの使い方/結果を読む２.png)
+
+収入・家賃・生活費・税金・貯蓄をすべてJPY換算で比較できます。「どの項目で差が出ているか」が一目でわかります。
+
+### 年間貯蓄額・資産差額
+
+![資産差額サマリー](/images/blog/MoveWorthの使い方/結果を読む３.png)
+
+シミュレーション期間中の**合計資産差額**が表示されます。「海外移住は経済的に有利です」などの総合判定も確認できます。
+
+---
+
+## 応用｜高度分析機能を使う（Proプラン・$8/月）
+
+Proプランでは、さらに詳しい分析が可能です。
+
+### 感度分析
+
+各パラメータ（年収・家賃・生活費など）が最終資産にどの程度影響するかを視覚化します。「何を改善すれば資産が増えるか」がひと目でわかります。
+
+![感度分析](/images/blog/MoveWorthの使い方/応用：高度分析機能１.png)
+
+### FIRE計算
+
+4%ルール（年間支出の25倍）に基づき、各国でのFIRE（経済的自立）達成までの年数を比較します。
+
+![FIRE計算](/images/blog/MoveWorthの使い方/応用：高度分析機能２.png)
+
+### モンテカルロシミュレーション
+
+収入・投資リターン・インフレ率にランダム変動を加えた**1,000回のシミュレーション**を実行し、資産推移の確率分布を表示します。最悪ケース・最良ケース・元本割れ確率まで確認できます。
+
+![モンテカルロシミュレーション](/images/blog/MoveWorthの使い方/応用：高度分析機能３.png)
+
+---
+
+## 応用｜複数国を同時比較する（Premiumプラン・$15/月）
+
+Premiumプランでは、**最大4カ国を同時比較**できます。
+
+### 4カ国の資産推移グラフ
+
+![複数国比較グラフ](/images/blog/MoveWorthの使い方/複数国比較セクション１.png)
+
+マレーシア・シンガポール・ベトナム・中国など複数国を1つのグラフで比較できます。移住先の候補が複数ある場合に特に有効です。
+
+### 多国間比較テーブル
+
+![多国間比較テーブル](/images/blog/MoveWorthの使い方/複数国比較セクション２.png)
+
+年間貯蓄額・5年後の資産・現在地との資産差額・税率を国別に一覧で確認できます。
+
+### 国別の高度分析
+
+![複数国の感度分析](/images/blog/MoveWorthの使い方/複数国比較セクション３.png)
+
+比較した国ごとに感度分析・FIRE計算・モンテカルロを切り替えて確認できます。
+
+---
+
+## プランの選び方
+
+![プラン一覧](/images/blog/MoveWorthの使い方/プラン紹介セクション.png)
+
+| プラン | 料金 | おすすめの人 |
+|--------|------|-------------|
+| **Free** | $0 | まず試してみたい人・1〜2カ国を比較したい人 |
+| **Pro** | $8/月 | FIRE・感度分析など詳しく分析したい人 |
+| **Premium** | $15/月 | 複数国を徹底比較したい人 |
+
+ProはFreeの全機能に加えて、モンテカルロシミュレーション・FIRE達成年齢計算・感度分析・最大30件の保存・AIレポート月5回が使えます。**3日間無料体験**があるので、まずFreeで試してから検討するのがおすすめです。
+
+---
+
+## まとめ
+
+MoveWorthのシミュレーターは、**5つのステップ**で移住後の資産推移を確認できます。
+
+1. 現在地と移住先を選ぶ
+2. 年収・業種を入力する
+3. 貯蓄・家族構成・家賃を設定する
+4. 税金・経済パラメータを確認する
+5. 結果グラフを読む
+
+「移住したら本当に資産が増えるのか？」という疑問を、データで確認してから判断しましょう。まずは無料で試してみてください。`,
+      en: `MoveWorth is a free financial simulator that helps you compare your asset trajectory between your current country and potential relocation destinations. This guide walks you through how to use it step by step.
+
+## Step 1 | Select Countries
+
+Choose your current country and destination from the dropdown. Search by country name or currency across 40+ countries.
+
+## Step 2 | Enter Income
+
+Enter your annual pre-tax income. Use the industry dropdown to auto-fill average salaries for your field in the destination country.
+
+## Step 3 | Set Savings & Household Type
+
+Enter your current savings and select your household type (single, couple, or family of 4). Rent and living costs are auto-filled based on expat area averages.
+
+## Step 4 | Review Economic Parameters
+
+Tax rates, exchange rates, and inflation are auto-filled when you select a country. Adjust if needed.
+
+## Step 5 | Read the Results
+
+- **Asset projection graph**: Compare asset growth over time between countries
+- **Monthly breakdown**: Compare income, rent, living costs, tax, and savings in JPY
+- **Summary**: See total asset difference over the simulation period
+
+## Advanced Features (Pro Plan – $8/month)
+
+- **Sensitivity analysis**: See which factors impact your final assets most
+- **FIRE calculation**: Calculate years to financial independence by country
+- **Monte Carlo simulation**: Run 1,000 scenarios to assess risk
+
+## Multi-Country Comparison (Premium Plan – $15/month)
+
+Compare up to 4 countries simultaneously with a combined graph, comparison table, and per-country advanced analysis.
+
+Start with the free plan at moveworthapp.com.`,
+    },
+  },
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
