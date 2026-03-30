@@ -2267,13 +2267,13 @@ Singapore's low corporate and personal tax rates make it attractive for wealth b
     readingTime: 12,
     thumbnail: "/images/blog/visa-my.png",
     title: {
-      ja: "マレーシアのビザ・移住条件完全ガイド【2026年最新版】",
-      en: "Malaysia Visa & Relocation Requirements Complete Guide 2026",
+      ja: "マレーシア ビザ・移住条件完全ガイド【2026年最新版】｜MM2H・DE Rantau・就労ビザ",
+      en: "Malaysia Long-Term Visa Options for Foreigners 2026 | MM2H, DE Rantau, Employment Pass Complete Guide",
       zh: "马来西亚签证与移居条件完全指南【2026年最新版】",
     },
     description: {
-      ja: "MM2H・DE Rantau・Employment Pass・PVIPまで。2024年改定・2026年EP新給与基準を反映したマレーシア全ビザの種類・要件・費用を徹底解説。",
-      en: "From MM2H to DE Rantau, Employment Pass, and PVIP — updated for 2024 MM2H reforms and the June 2026 EP salary threshold changes.",
+      ja: "MM2H・DE Rantau・Employment Pass・PVIPまで。外国人向け長期滞在ビザの種類・要件・費用を2026年最新データで徹底解説。",
+      en: "Malaysia long term visa options for foreigners — MM2H, DE Rantau Nomad Pass, Employment Pass, PVIP. Updated for 2026 EP salary thresholds and MM2H reforms.",
       zh: "涵盖MM2H、DE Rantau、就业准证及PVIP，全面反映2024年改版及2026年6月EP薪资新标准。",
     },
     content: {
@@ -11174,8 +11174,8 @@ Use MoveWorth to simulate your tax burden and living costs in South Africa.`,
     date: "2026-03-25",
     readingTime: 15,
     title: {
-      ja: "【2026年最新版】フィンランドのビザ・就労許可完全ガイド｜スタートアップ・EUブルーカード・税制",
-      en: "Finland Visa & Work Permit Complete Guide 2026 | Startup Permit, EU Blue Card, Tax",
+      ja: "フィンランド ビザ・就労許可完全ガイド【2026年最新版】｜スタートアップ許可・EUブルーカード・税制",
+      en: "Finland Visa & Work Permit Guide 2026 | Startup Permit, EU Blue Card, Employed Residence Permit",
       zh: "【2026年最新】芬兰签证与就业许可完全指南｜创业许可、欧盟蓝卡、税制",
     },
     description: {
@@ -11839,8 +11839,8 @@ Use MoveWorth to simulate your tax burden and living costs in Austria.`,
     readingTime: 12,
     thumbnail: "/images/blog/visa-cz.png",
     title: {
-      ja: "【2026年最新版】チェコのビザ・就労許可完全ガイド｜従業員カード・フリーランス・フラット税率",
-      en: "Czech Republic Visa & Work Permit Complete Guide 2026 | Employee Card, Freelance, Flat Tax",
+      ja: "チェコ ビザ・就労許可完全ガイド【2026年最新版】｜従業員カード・フリーランス・フラット税率",
+      en: "Czech Republic Work Permit & Visa Guide 2026 | Employee Card, EU Blue Card, Freelance Trade License",
       zh: "【2026年最新】捷克签证与就业许可完全指南｜员工卡、自由职业、单一税率",
     },
     description: {
@@ -12649,8 +12649,8 @@ Use MoveWorth to simulate your tax burden and living costs in India.`,
     date: "2026-03-19",
     readingTime: 12,
     title: {
-      ja: "【2026年最新版】メキシコのビザ・就労許可完全ガイド｜一時居住者・デジタルノマド・税制",
-      en: "Mexico Visa & Work Permit Complete Guide 2026 | Temporary Resident, Digital Nomad, Tax",
+      ja: "メキシコ ビザ・就労許可完全ガイド【2026年最新版】｜一時居住者・デジタルノマド・税制",
+      en: "Mexico Visa & Work Permit Guide 2026 | Temporary Resident Visa, Digital Nomad, Rentista",
       zh: "【2026年最新】墨西哥签证与就业许可完全指南｜临时居民、数字游民、税制",
     },
     description: {
