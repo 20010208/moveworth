@@ -9389,6 +9389,7 @@ Denmark's high taxes come with world-class social services, exceptional work-lif
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-br.png",
     title: {
       ja: "【2026年最新版】ブラジルのビザ・就労許可完全ガイド",
       en: "Brazil Visa & Work Permit Complete Guide 2026",
@@ -9677,6 +9678,7 @@ Brazil offers a relatively low cost of living and a vibrant culture. Use MoveWor
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-co.png",
     title: {
       ja: "【2026年最新版】コロンビアのビザ・就労許可完全ガイド",
       en: "Colombia Visa & Work Permit Complete Guide 2026",
@@ -9991,6 +9993,7 @@ Colombia's low cost of living, warm climate, and nomad-friendly infrastructure m
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-gr.png",
     title: {
       ja: "【2026年最新版】ギリシャのビザ・就労許可完全ガイド",
       en: "Greece Visa & Work Permit Complete Guide 2026",
@@ -10310,6 +10313,7 @@ Greece offers one of Europe's lowest costs of living combined with an exceptiona
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-it.png",
     title: {
       ja: "【2026年最新版】イタリアのビザ・就労許可完全ガイド",
       en: "Italy Visa & Work Permit Complete Guide 2026",
@@ -10633,6 +10637,7 @@ Italy offers a unique blend of culture, quality of life, and competitive tax inc
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-mt.png",
     title: {
       ja: "【2026年最新版】マルタのビザ・就労許可完全ガイド｜ノマドビザ・MPRP・非居住者税制",
       en: "Malta Visa & Work Permit Complete Guide 2026 | Nomad Permit, MPRP, Non-Dom Tax",
@@ -10917,6 +10922,7 @@ Use MoveWorth to simulate your tax burden and living costs in Malta.`,
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-za.png",
     title: {
       ja: "【2026年最新版】南アフリカのビザ・就労許可完全ガイド｜クリティカルスキル・退職者・税金",
       en: "South Africa Visa & Work Permit Complete Guide 2026 | Critical Skills, Retired Persons, Tax",
@@ -11539,6 +11545,7 @@ Use MoveWorth to simulate your tax burden and living costs in Finland.`,
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-at.png",
     title: {
       ja: "【2026年最新版】オーストリアのビザ・就労許可完全ガイド｜RWRカード・EUブルーカード・税制",
       en: "Austria Visa & Work Permit Complete Guide 2026 | RWR Card, EU Blue Card, Tax",
@@ -11830,6 +11837,7 @@ Use MoveWorth to simulate your tax burden and living costs in Austria.`,
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-cz.png",
     title: {
       ja: "【2026年最新版】チェコのビザ・就労許可完全ガイド｜従業員カード・フリーランス・フラット税率",
       en: "Czech Republic Visa & Work Permit Complete Guide 2026 | Employee Card, Freelance, Flat Tax",
@@ -12094,6 +12102,7 @@ Vinohrady、Žižkov和Letná是外籍人士最集中的区域，英语咖啡馆
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-cn.png",
     title: {
       ja: "【2026年最新版】中国のビザ・就労許可完全ガイド｜Zビザ・外国人就労許可・6年ルール",
       en: "China Visa & Work Permit Complete Guide 2026 | Z Visa, FWPRC, 6-Year Tax Rule",
@@ -12376,6 +12385,7 @@ Use MoveWorth to simulate your tax burden and living costs in China.`,
     category: "visa",
     date: "2026-03-19",
     readingTime: 12,
+    thumbnail: "/images/blog/visa-in.png",
     title: {
       ja: "【2026年最新版】インドのビザ・就労許可完全ガイド｜就労ビザ・OCIカード・新税制",
       en: "India Visa & Work Permit Complete Guide 2026 | Employment Visa, OCI Card, New Tax Regime",
