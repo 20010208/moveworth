@@ -25,6 +25,7 @@ export const blogPosts: BlogPost[] = [
     category: "money",
     date: "2026-02-27",
     readingTime: 8,
+    thumbnail: "/images/blog/NordVPN-pic.png",
     title: {
       ja: "【PR】海外在住者にNordVPNが必須な理由｜移住者が解説する5つのメリット",
       en: "【PR】Why Expats Need NordVPN | 5 Key Benefits for Overseas Japanese",
