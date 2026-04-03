@@ -11181,7 +11181,7 @@ Use MoveWorth to simulate your tax burden and living costs in South Africa.`,
     },
     description: {
       ja: "就労者居住許可・スタートアップ許可（Business Finland審査）・EUブルーカード（€3,937/月）まで、2026年最新データでフィンランド移住を完全解説。ヘルシンキ外国人エリアの家賃相場・社会保険・費用一覧付き。",
-      en: "Employed Person's Residence Permit, Startup Permit (Business Finland assessed), EU Blue Card (€3,937/mo) — Finland 2026 complete guide with Helsinki expat-area rents, social insurance, and full fee tables.",
+      en: "Finland visa and work permit options 2026: Employed Person's Residence Permit, Startup Permit (Business Finland assessed), EU Blue Card (€3,937/mo) — complete guide with Helsinki expat-area rents, social insurance, and full fee tables.",
       zh: "就业居留许可、创业许可（Business Finland评估）、欧盟蓝卡（€3,937/月）——2026年最新芬兰移居完全指南，含赫尔辛基外籍人士聚居区租金、社保及费用一览。",
     },
     content: {
@@ -12389,12 +12389,12 @@ Use MoveWorth to simulate your tax burden and living costs in China.`,
     thumbnail: "/images/blog/visa-in.png",
     title: {
       ja: "【2026年最新版】インドのビザ・就労許可完全ガイド｜就労ビザ・OCIカード・新税制",
-      en: "India Visa & Work Permit Complete Guide 2026 | Employment Visa, OCI Card, New Tax Regime",
+      en: "India Work Permit & Employment Visa Guide 2026 | Employment Visa, OCI Card, New Tax Regime",
       zh: "【2026年最新】印度签证与就业许可完全指南｜就业签证、OCI卡、新税制",
     },
     description: {
       ja: "就労ビザ（USD 25,000/年以上）・ビジネスビザ（5年マルチ）・OCIカード・新税制（0〜30%）まで、2026年最新データでインド就労・移住を完全解説。ムンバイ・バンガロール外国人エリアの家賃相場・EPF・費用一覧付き。",
-      en: "Employment Visa (USD 25,000/yr min), Business Visa (5yr multi), OCI Card, New Tax Regime (0–30%) — India 2026 complete guide with Mumbai/Bangalore expat-area rents, EPF contributions, and full fee tables.",
+      en: "India work permit and employment visa requirements 2026 — Employment Visa (USD 25,000/yr min), Business Visa (5yr multi), OCI Card, New Tax Regime (0–30%) — complete guide with Mumbai/Bangalore expat-area rents, EPF contributions, and full fee tables.",
       zh: "就业签证（年薪USD 25,000以上）、商务签证（5年多次）、OCI卡、新税制（0〜30%）——2026年最新印度工作移居完全指南，含孟买/班加罗尔外籍人士聚居区租金、EPF及费用一览。",
     },
     content: {
