@@ -47,6 +47,23 @@
   background-color: var(--background);
 }
 
+/* セクション背景色（Features・Pricingなど） */
+.dark .bg-indigo-50,
+.dark .bg-slate-50,
+.dark .bg-gray-50 {
+  background-color: var(--secondary);
+}
+
+/* Proカード・機能カードのgradient背景 */
+.dark .bg-gradient-to-b.from-primary-light {
+  background-image: none;
+  background-color: var(--card);
+}
+.dark section.bg-indigo-50,
+.dark section.bg-slate-50 {
+  background-color: var(--secondary);
+}
+
 /* インプット・テキストエリアの白背景 */
 .dark input,
 .dark textarea,
