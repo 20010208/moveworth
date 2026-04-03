@@ -9393,12 +9393,12 @@ Denmark's high taxes come with world-class social services, exceptional work-lif
     thumbnail: "/images/blog/visa-br.png",
     title: {
       ja: "【2026年最新版】ブラジルのビザ・就労許可完全ガイド",
-      en: "Brazil Visa & Work Permit Complete Guide 2026",
+      en: "Brazil Permanent Residency & Work Visa Guide 2026 | Temporary Resident, Digital Nomad, Work Permit",
       zh: "【2026年最新版】巴西签证与就业许可完全指南",
     },
     description: {
       ja: "デジタルノマドビザ・就労ビザ・所得税・サンパウロ家賃まで、ブラジル移住に必要な情報を2026年最新データで徹底解説。",
-      en: "Digital nomad visa, work visa, income tax, and São Paulo rent — a complete 2026 guide to living and working in Brazil.",
+      en: "Brazil permanent residency requirements, work visa (CTPS), digital nomad visa, and income tax (7.5–27.5%) — complete 2026 guide with São Paulo expat-area rents and full fee tables.",
       zh: "数字游民签证、工作签证、所得税、圣保罗租金——2026年最新移居巴西完全指南。",
     },
     content: {
