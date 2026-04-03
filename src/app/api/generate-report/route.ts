@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { result, locale }: { result: SimulationResult; locale: string } = await req.json();
+    const { result, extraResults, locale }: { result: SimulationResult; extraResults?: SimulationResult[]; locale: string } = await req.json();
 
     if (!result) {
       return NextResponse.json({ error: "Missing result" }, { status: 400 });
@@ -68,6 +68,23 @@ export async function POST(req: NextRequest) {
     const isJa = locale === "ja";
     const input = result.input;
     const lastYear = result.yearlyResults[result.yearlyResults.length - 1];
+    const allResults = [result, ...(extraResults ?? [])];
+    const isMulti = allResults.length > 1;
+
+    const extraSection = isMulti
+      ? (isJa
+        ? "\n\n## 比較対象国のシミュレーション結果\n" +
+          allResults.map((r) => {
+            const ly = r.yearlyResults[r.yearlyResults.length - 1];
+            return `### ${r.input.countryTo}\n- 年間貯蓄: ${r.annualSavingsTarget.toLocaleString()} ${r.input.currencyTarget}\n- ${r.input.simulationYears}年後の資産: ${ly.assetTarget.toLocaleString()} ${r.input.currencyTarget}\n- 資産差額（${r.baseCurrency}換算）: ${r.assetDifference.toLocaleString()} ${r.baseCurrency}`;
+          }).join("\n")
+        : "\n\n## Comparison Results by Country\n" +
+          allResults.map((r) => {
+            const ly = r.yearlyResults[r.yearlyResults.length - 1];
+            return `### ${r.input.countryTo}\n- Annual Savings: ${r.annualSavingsTarget.toLocaleString()} ${r.input.currencyTarget}\n- ${r.input.simulationYears}-Year Asset: ${ly.assetTarget.toLocaleString()} ${r.input.currencyTarget}\n- Asset Difference (${r.baseCurrency}): ${r.assetDifference.toLocaleString()} ${r.baseCurrency}`;
+          }).join("\n")
+      )
+      : "";
 
     const prompt = isJa
       ? `あなたは移住・財務アドバイザーです。以下のシミュレーションデータをもとに、日本語で詳細な移住財務分析レポートを作成してください。
@@ -92,15 +109,12 @@ export async function POST(req: NextRequest) {
 - 年間貯蓄（移住先）: ${result.annualSavingsTarget.toLocaleString()} ${input.currencyTarget}
 - ${input.simulationYears}年後の資産（現在）: ${lastYear.assetCurrent.toLocaleString()} ${input.currencyCurrent}
 - ${input.simulationYears}年後の資産（移住先）: ${lastYear.assetTarget.toLocaleString()} ${input.currencyTarget}
-- 資産差額（${input.currencyCurrent}換算）: ${result.assetDifference.toLocaleString()} ${input.currencyCurrent}
+- 資産差額（${input.currencyCurrent}換算）: ${result.assetDifference.toLocaleString()} ${input.currencyCurrent}${extraSection}
 
 以下のセクションを含む詳細レポートを作成してください：
 1. エグゼクティブサマリー（移住の財務的メリット・デメリットの概要）
-2. 収支分析（現在の国 vs 移住先の比較）
-3. 資産形成予測（${input.simulationYears}年後の見通し）
-4. 税金・コスト面の考察
-5. リスクと注意点
-6. 結論と推奨事項
+2. 収支分析（現在の国 vs ${isMulti ? "各移住先" : "移住先"}の比較）
+3. 資産形成予測（${input.simulationYears}年後の見通し）${isMulti ? "\n4. 国別比較（どの国が最も財務的に有利か）\n5. 税金・コスト面の考察\n6. リスクと注意点\n7. 結論と推奨事項" : "\n4. 税金・コスト面の考察\n5. リスクと注意点\n6. 結論と推奨事項"}
 
 各セクションは具体的な数字を含め、実用的なアドバイスを提供してください。`
       : `You are a relocation and financial advisor. Based on the simulation data below, create a detailed financial relocation analysis report in English.
@@ -125,15 +139,12 @@ export async function POST(req: NextRequest) {
 - Annual Savings (Target): ${result.annualSavingsTarget.toLocaleString()} ${input.currencyTarget}
 - ${input.simulationYears}-Year Asset (Current): ${lastYear.assetCurrent.toLocaleString()} ${input.currencyCurrent}
 - ${input.simulationYears}-Year Asset (Target): ${lastYear.assetTarget.toLocaleString()} ${input.currencyTarget}
-- Asset Difference (in ${input.currencyCurrent}): ${result.assetDifference.toLocaleString()} ${input.currencyCurrent}
+- Asset Difference (in ${input.currencyCurrent}): ${result.assetDifference.toLocaleString()} ${input.currencyCurrent}${extraSection}
 
 Please create a detailed report with these sections:
 1. Executive Summary (overview of financial pros and cons)
-2. Income & Expense Analysis (current vs target country comparison)
-3. Asset Growth Projection (${input.simulationYears}-year outlook)
-4. Tax & Cost Considerations
-5. Risks and Caveats
-6. Conclusion and Recommendations
+2. Income & Expense Analysis (current vs ${isMulti ? "each destination" : "target"} country comparison)
+3. Asset Growth Projection (${input.simulationYears}-year outlook)${isMulti ? "\n4. Country-by-Country Comparison (which country is most financially advantageous)\n5. Tax & Cost Considerations\n6. Risks and Caveats\n7. Conclusion and Recommendations" : "\n4. Tax & Cost Considerations\n5. Risks and Caveats\n6. Conclusion and Recommendations"}
 
 Include specific numbers in each section and provide practical advice.`;
 

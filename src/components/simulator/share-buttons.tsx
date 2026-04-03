@@ -9,9 +9,10 @@ import { formatCurrency } from "@/lib/utils";
 
 interface ShareButtonsProps {
   result: SimulationResult;
+  extraResults?: SimulationResult[];
 }
 
-export function ShareButtons({ result }: ShareButtonsProps) {
+export function ShareButtons({ result, extraResults = [] }: ShareButtonsProps) {
   const { locale, t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
@@ -28,12 +29,26 @@ export function ShareButtons({ result }: ShareButtonsProps) {
   const years = String(result.input.simulationYears);
   const sign = result.assetDifference >= 0 ? "+" : "-";
 
-  const shareText = t("share.shareText", {
-    from: fromName,
-    to: toName,
-    years,
-    difference: `${sign}${diff}`,
-  });
+  const allResults = [result, ...extraResults];
+  const shareText = allResults.length > 1
+    ? (locale === "ja"
+      ? `【MoveWorth】${fromName}から${years}年間の移住シミュレーション結果\n` +
+        allResults.map((r) => {
+          const s = r.assetDifference >= 0 ? "+" : "-";
+          return `🌏 ${getCountryName(r.input.countryTo)}: ${s}${formatCurrency(Math.abs(r.assetDifference), r.baseCurrency)}`;
+        }).join("\n")
+      : `[MoveWorth] ${years}-year relocation simulation from ${fromName}\n` +
+        allResults.map((r) => {
+          const s = r.assetDifference >= 0 ? "+" : "-";
+          return `🌏 ${getCountryName(r.input.countryTo)}: ${s}${formatCurrency(Math.abs(r.assetDifference), r.baseCurrency)}`;
+        }).join("\n")
+    )
+    : t("share.shareText", {
+        from: fromName,
+        to: toName,
+        years,
+        difference: `${sign}${diff}`,
+      });
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(`${shareText}\n${siteUrl}`);
@@ -66,7 +81,7 @@ export function ShareButtons({ result }: ShareButtonsProps) {
   };
 
   return (
-    <div className="bg-white border border-border/60 rounded-2xl p-4">
+    <div className="bg-white dark:bg-card border border-border/60 rounded-2xl p-4">
       <h3 className="text-xs font-semibold text-muted flex items-center gap-1.5 mb-3">
         <Share2 className="h-3.5 w-3.5" />
         {t("share.title")}

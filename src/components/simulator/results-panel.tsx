@@ -40,7 +40,7 @@ export function ResultsPanel({ result, plan, extraResults = [] }: ResultsPanelPr
           "Content-Type": "application/json",
           ...(token && { "Authorization": `Bearer ${token}` }),
         },
-        body: JSON.stringify({ result, locale }),
+        body: JSON.stringify({ result, extraResults, locale }),
       });
 
       if (res.status === 429) {
@@ -158,7 +158,7 @@ export function ResultsPanel({ result, plan, extraResults = [] }: ResultsPanelPr
   return (
     <div className="space-y-4">
       <SummaryCards result={result} />
-      <ShareButtons result={result} />
+      <ShareButtons result={result} extraResults={extraResults} />
       <AssetChart result={result} extraResults={isPremium ? extraResults : []} />
       <BreakdownChart result={result} extraResults={isPremium ? extraResults : []} />
 
@@ -215,7 +215,7 @@ export function ResultsPanel({ result, plan, extraResults = [] }: ResultsPanelPr
         </>
       ) : (
         /* Free: Locked UI */
-        <div className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-emerald-50 border border-primary/10 rounded-2xl p-6">
+        <div className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-emerald-50 dark:from-slate-800 dark:via-slate-800 dark:to-slate-800 border border-primary/10 rounded-2xl p-6">
           <div className="absolute top-3 right-3">
             <Sparkles className="h-5 w-5 text-primary/20" />
           </div>
