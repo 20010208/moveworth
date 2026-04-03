@@ -11180,7 +11180,7 @@ Use MoveWorth to simulate your tax burden and living costs in South Africa.`,
       zh: "【2026年最新】芬兰签证与就业许可完全指南｜创业许可、欧盟蓝卡、税制",
     },
     description: {
-      ja: "就労者居住許可・スタートアップ許可（Business Finland審査）・EUブルーカード（€3,937/月）まで、2026年最新データでフィンランド移住を完全解説。ヘルシンキ外国人エリアの家賃相場・社会保険・費用一覧付き。",
+      ja: "フィンランド ビザ・就労許可の取得方法【2026年最新】：就労者居住許可・スタートアップ許可（Business Finland審査）・EUブルーカード（€3,937/月）まで完全解説。ヘルシンキ外国人エリアの家賃相場・社会保険・費用一覧付き。",
       en: "Finland visa and work permit options 2026: Employed Person's Residence Permit, Startup Permit (Business Finland assessed), EU Blue Card (€3,937/mo) — complete guide with Helsinki expat-area rents, social insurance, and full fee tables.",
       zh: "就业居留许可、创业许可（Business Finland评估）、欧盟蓝卡（€3,937/月）——2026年最新芬兰移居完全指南，含赫尔辛基外籍人士聚居区租金、社保及费用一览。",
     },
