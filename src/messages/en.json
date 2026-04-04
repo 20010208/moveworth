@@ -31,7 +31,7 @@
   "hero": {
     "title1": "What happens to your wealth",
     "title2": "if you move abroad?",
-    "description": "Simulate your financial future across 30+ countries. Compare assets, project savings, and make data-driven relocation decisions.",
+    "description": "Simulate your financial future across 40+ countries. Compare assets, project savings, and make data-driven relocation decisions.",
     "cta": "Try Free Simulation",
     "ctaPaid": "Start Simulation",
     "learnMore": "Learn how it works"
@@ -47,7 +47,7 @@
   },
   "features": {
     "title": "Powerful Features",
-    "countries": "30+ Countries",
+    "countries": "40+ Countries",
     "countriesDesc": "Pre-loaded data for major destinations including tax rates, inflation, and cost of living.",
     "assetProjection": "Asset Projection",
     "assetProjectionDesc": "Multi-year asset growth comparison with salary growth and investment returns.",

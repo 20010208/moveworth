@@ -135,7 +135,7 @@ const pageText = {
     monthlyLiving: "月額（家賃込）",
     simulatorBanner: "費用シミュレーターで複数の国を比較する",
     ctaTitle: "移住・留学後の資産もシミュレーション",
-    ctaDesc: "MoveWorthなら30カ国以上の移住後の資産推移を無料でシミュレーションできます。",
+    ctaDesc: "MoveWorthなら40カ国以上の移住後の資産推移を無料でシミュレーションできます。",
     ctaBtn: "MoveWorthを使う（無料）",
   },
   en: {
@@ -150,7 +150,7 @@ const pageText = {
     monthlyLiving: "Monthly (incl. rent)",
     simulatorBanner: "Compare costs across countries with the simulator →",
     ctaTitle: "Simulate Your Finances Abroad",
-    ctaDesc: "MoveWorth lets you project your assets and living costs in 30+ countries for free.",
+    ctaDesc: "MoveWorth lets you project your assets and living costs in 40+ countries for free.",
     ctaBtn: "Try MoveWorth (Free)",
   },
   zh: {
@@ -165,7 +165,7 @@ const pageText = {
     monthlyLiving: "月均（含租金）",
     simulatorBanner: "使用费用模拟器比较多个国家 →",
     ctaTitle: "模拟海外财务状况",
-    ctaDesc: "MoveWorth可免费模拟30多个国家的资产变化和生活成本。",
+    ctaDesc: "MoveWorth可免费模拟40多个国家的资产变化和生活成本。",
     ctaBtn: "使用MoveWorth（免费）",
   },
 };

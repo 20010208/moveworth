@@ -91,7 +91,7 @@ export default async function RootLayout({
               "@type": "WebApplication",
               name: "MoveWorth",
               url: "https://www.moveworthapp.com",
-              description: "海外移住したら資産はどうなる？30カ国以上の移住先の資産推移を無料シミュレーション。",
+              description: "海外移住したら資産はどうなる？40カ国以上の移住先の資産推移を無料シミュレーション。",
               applicationCategory: "FinanceApplication",
               operatingSystem: "Web",
               offers: {
