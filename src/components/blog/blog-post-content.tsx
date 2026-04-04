@@ -219,7 +219,7 @@ export function BlogPostContent({ slug }: { slug: string }) {
           listItems.push(
             <li key={listItems.length}>
               <span className="font-semibold text-foreground">{match[1]}</span>
-              {match[2] ? `: ${renderInline(match[2])}` : ""}
+              {match[2] ? <>{": "}{renderInline(match[2])}</> : ""}
             </li>
           );
         } else {
