@@ -349,7 +349,7 @@ export default function StudySitePage() {
                                 {/* Landscape image — object-left to crop out passport on the right */}
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
-                                  src={`/images/blog/visa-${country.code.toLowerCase()}.png`}
+                                  src={`/images/blog/visa-${country.code.toLowerCase()}.webp`}
                                   alt=""
                                   className="absolute inset-0 w-full h-full object-cover object-left"
                                   onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
