@@ -5396,7 +5396,7 @@ This article is based on the following official sources.
 
 ### 主なビザの種類
 
-**EUブルーカード（EU Blue Card）**
+**EUブルーカード（EU Blue Card）** ｜ [Make it in Germany 公式ページ](https://www.make-it-in-germany.com/en/visa-residence/types/eu-blue-card)
 高度人材向けのEU共通就労・居住許可証で、ドイツが最も多くの発行件数を誇ります。
 - 要件：大学学位（4年制以上）+ 雇用契約 + 最低年収 **EUR 50,700**（2026年・一般職）
 - IT・医師・エンジニア等の不足職種は **EUR 45,934**（約10%低い基準が適用）
@@ -5404,24 +5404,24 @@ This article is based on the following official sources.
 - 定住許可（Niederlassungserlaubnis）への移行：就労2年後（ドイツ語B1があれば21ヶ月）
 - EU内の他国への移動・就労にも一定の優遇あり（Blue Card相互認証）
 
-**専門労働者ビザ（Fachkräftevisum）**
+**専門労働者ビザ（Fachkräftevisum）** ｜ [Make it in Germany 公式ページ](https://www.make-it-in-germany.com/en/visa-residence/types/work-visa-skilled-workers)
 2023年改正で対象が大幅拡大。職業訓練資格（Berufsausbildung）保有者だけでなく、**5年以上の実務経験**を持つ非学位者にも適用可能に。雇用契約と資格認定（または経験証明）が必要。
 
-**求職者ビザ（Job-Seeker Visa）**
+**求職者ビザ（Job-Seeker Visa）** ｜ [Make it in Germany 公式ページ](https://www.make-it-in-germany.com/en/visa-residence/types/job-seekers-visa)
 ドイツ国内での就職活動専用の6ヶ月ビザ。
 - 要件：大学学位または職業資格 + 月EUR 1,027以上の生計費証明（2026年目安）
 - 滞在中に内定を取得すれば就労ビザへ切り替え可能
 
-**フリーランスビザ（Freiberufler Visa）**
+**フリーランスビザ（Freiberufler Visa）** ｜ [Make it in Germany 公式ページ](https://www.make-it-in-germany.com/en/visa-residence/types/freelance-visa)
 芸術・言語・科学・技術・医療・コンサルタント等の自由業（Freiberuf）向け。雇用契約は不要だが、ドイツ国内のクライアントとの契約実績・事業計画書の提出が一般的に求められます。
 
-**機会カード（Chancenkarte）**
+**機会カード（Chancenkarte）** ｜ [Make it in Germany 公式ページ](https://www.make-it-in-germany.com/en/visa-residence/types/opportunity-card)
 2024年6月導入の新制度。ポイント制で就職活動目的の1年滞在許可を取得可能。
 - 最低取得条件：**6ポイント以上**（または大学学位等の資格+1ポイント）
 - 主なポイント項目：大学学位（3pt）/ 職業訓練資格（2pt）/ ドイツ語B2（3pt） / A2（1pt）/ 職歴5年以上（3pt）/ 30〜35歁（1pt）/ ドイツへの過去の滞在歴（1pt）など
 - 機会カード滞在中は週20時間以内の試行就労も可能
 
-**定住許可（Niederlassungserlaubnis）**
+**定住許可（Niederlassungserlaubnis）** ｜ [BAMF 公式ページ](https://www.bamf.de/EN/Themen/MigrationAufenthalt/ZuwandererDrittstaaten/Migrathek/Niederlassungserlaubnis/niederlassungserlaubnis-node.html)
 ドイツの永住権に相当。一般的には5年の合法的在留後に取得可能。EUブルーカードは2年（B1あり21ヶ月）に短縮。配偶者・家族の帯同は原則申請時から可能。
 
 ### 税制・社会保険
