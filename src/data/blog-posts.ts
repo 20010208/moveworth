@@ -7722,9 +7722,9 @@ This article is based on the following official sources.
 
 本記事の情報は以下の公式資料をもとに作成しています。
 
-- **在留資格・ビザ全般**: [出入国在留管理庁（入管庁）公式サイト](https://www.moj.go.jp/isa/)
-- **高度専門職ポイント制**: [入管庁 – 高度人材ポイント制](https://www.isa.go.jp/publications/materials/newimmiact_3_point_index.html)
-- **外国人生活支援ポータル**: [外国人在留支援センター（FRESC）](https://www.isa.go.jp/fresc/)`,
+- **在留資格・ビザ全般**: [出入国在留管理庁（入管庁）公式サイト](https://www.isa.go.jp/)
+- **高度専門職ポイント制**: [入管庁 – 高度人材ポイント制](https://www.isa.go.jp/publications/materials/newimmiact_3_evaluate_index.html)
+- **外国人生活支援ポータル**: [外国人在留支援センター（FRESC）](https://www.isa.go.jp/support/fresc/)`,
       en: `Japan is actively recruiting highly skilled foreign talent to address its severe labor shortage driven by an aging population. 2023 saw the introduction of J-Skip and J-Find — making Japan's immigration system more accessible than ever for top international professionals.
 
 ### Main Work Visa Types
@@ -7826,9 +7826,9 @@ Japan combines Asia's highest safety standards with world-class healthcare, educ
 
 This article is based on the following official sources.
 
-- **Residence Status & Visa General**: [Immigration Services Agency of Japan (ISA)](https://www.moj.go.jp/isa/)
-- **Highly Skilled Professional Points System**: [ISA – Highly Skilled Foreign Professional Points-Based System](https://www.isa.go.jp/publications/materials/newimmiact_3_point_index.html)
-- **Foreign Resident Support Portal**: [Foreign Residents Support Center (FRESC)](https://www.isa.go.jp/fresc/)`,
+- **Residence Status & Visa General**: [Immigration Services Agency of Japan (ISA)](https://www.isa.go.jp/en/)
+- **Highly Skilled Professional Points System**: [ISA – Highly Skilled Foreign Professional Points-Based System](https://www.isa.go.jp/en/publications/materials/newimmiact_3_evaluate_index.html)
+- **Foreign Resident Support Portal**: [Foreign Residents Support Center (FRESC)](https://www.isa.go.jp/en/support/fresc/)`,
       zh: `日本因少子老龄化引发的严峻人才短缺，正积极吸引外籍高技能人才。2023年推出的J-Skip和J-Find制度使日本移居对顶尖国际专业人才而言比以往任何时候都更为便捷。
 
 ### 主要就业签证种类
@@ -8272,9 +8272,9 @@ This article is based on the following official sources.
 
 本文信息基于以下官方资料整理。
 
-- **在留资格及签证总览**: [出入境在留管理厅（入管厅）官方网站](https://www.moj.go.jp/isa/)
-- **高度专业人才积分制**: [入管厅 – 高度人才积分制](https://www.isa.go.jp/publications/materials/newimmiact_3_point_index.html)
-- **外籍居民生活支援门户**: [外国人在留支援中心（FRESC）](https://www.isa.go.jp/fresc/)
+- **在留资格及签证总览**: [出入境在留管理厅（入管厅）官方网站](https://www.isa.go.jp/en/)
+- **高度专业人才积分制**: [入管厅 – 高度人才积分制](https://www.isa.go.jp/en/publications/materials/newimmiact_3_evaluate_index.html)
+- **外籍居民生活支援门户**: [外国人在留支援中心（FRESC）](https://www.isa.go.jp/en/support/fresc/)
 
 ---
 
