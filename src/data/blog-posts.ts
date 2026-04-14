@@ -8411,8 +8411,8 @@ This article is based on the following official sources.
 本記事の情報は以下の公式資料をもとに作成しています。
 
 - **ビザ申請全般**: [スペイン外務省 – コンスラ・ビザ情報](https://www.exteriores.gob.es/en/ServiciosAlCiudadano/Paginas/Visados.aspx)
-- **デジタルノマドビザ（起業家法）**: [スペイン政府 – スタートアップ法・デジタルノマドビザ](https://www.startups.gob.es/en/)
-- **非営利居住ビザ（Non-Lucrative）**: [スペイン外務省 – 非営利居住ビザ](https://www.exteriores.gob.es/Consulados/en/Paginas/ConsularServices.aspx)`,
+- **デジタルノマドビザ（起業家法）**: [スペイン政府 – スタートアップ法・デジタルノマドビザ](https://one.gob.es/en/procedures/application-digital-nomad-visa)
+- **非営利居住ビザ（Non-Lucrative）**: [スペイン外務省 – 非営利居住ビザ](https://www.exteriores.gob.es/Consulados/london/en/ServiciosConsulares/Paginas/Consular/Visado-de-residencia-no-lucrativa.aspx)`,
       en: `Spain's combination of warm weather, rich culture, and relatively affordable living has made it an increasingly popular destination for expats. The 2023 Startups Law (Ley de Startups) made it even more attractive for digital nomads and remote workers.
 
 ### Main Visa Types
@@ -8519,8 +8519,8 @@ Spain offers an excellent quality of life at a reasonable cost. Use MoveWorth to
 This article is based on the following official sources.
 
 - **Visa Applications General**: [Spanish Ministry of Foreign Affairs – Consular Visa Info](https://www.exteriores.gob.es/en/ServiciosAlCiudadano/Paginas/Visados.aspx)
-- **Digital Nomad Visa (Startup Law)**: [Spanish Government – Startup Act & Digital Nomad Visa](https://www.startups.gob.es/en/)
-- **Non-Lucrative Residence Visa**: [Spanish MFA – Non-Lucrative Visa](https://www.exteriores.gob.es/Consulados/en/Paginas/ConsularServices.aspx)`,
+- **Digital Nomad Visa (Startup Law)**: [Spanish Government – Startup Act & Digital Nomad Visa](https://one.gob.es/en/procedures/application-digital-nomad-visa)
+- **Non-Lucrative Residence Visa**: [Spanish MFA – Non-Lucrative Visa](https://www.exteriores.gob.es/Consulados/london/en/ServiciosConsulares/Paginas/Consular/Visado-de-residencia-no-lucrativa.aspx)`,
       zh: `西班牙以温暖的气候、丰富的文化和相对实惠的生活成本，成为越来越多外籍人士的移居首选。2023年《创业法》（Ley de Startups）的实施，使其对数字游民更具吸引力。
 
 ### 主要签证类型
@@ -8627,8 +8627,8 @@ This article is based on the following official sources.
 本文信息基于以下官方资料整理。
 
 - **签证申请总览**: [西班牙外交部 – 领事签证信息](https://www.exteriores.gob.es/en/ServiciosAlCiudadano/Paginas/Visados.aspx)
-- **数字游民签证（创业法）**: [西班牙政府 – 创业法与数字游民签证](https://www.startups.gob.es/en/)
-- **非营利居留签证**: [西班牙外交部 – 非营利居留签证](https://www.exteriores.gob.es/Consulados/en/Paginas/ConsularServices.aspx)`,
+- **数字游民签证（创业法）**: [西班牙政府 – 创业法与数字游民签证](https://one.gob.es/en/procedures/application-digital-nomad-visa)
+- **非营利居留签证**: [西班牙外交部 – 非营利居留签证](https://www.exteriores.gob.es/Consulados/london/en/ServiciosConsulares/Paginas/Consular/Visado-de-residencia-no-lucrativa.aspx)`,
     },
   },
   {
