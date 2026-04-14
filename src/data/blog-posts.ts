@@ -8054,7 +8054,7 @@ This article is based on the following official sources.
 
 - **ビザ・在留許可全般（AIMA）**: [AIMA – ポルトガル移民・亡命局](https://aima.gov.pt/)
 - **デジタルノマドビザ（D8）**: [ポルトガル外務省 – D8 デジタルノマドビザ](https://vistos.mne.gov.pt/en/national-visas/required-documentation/remote-working-or-digital-nomad)
-- **NHR 税制（IFICI）**: [ポルトガル税務関税局（AT）– IFICI](https://info.portaldasfinancas.gov.pt/en/Pages/IFICI.aspx)`,
+- **NHR 税制（IFICI）**: [ポルトガル税務関税局（AT）– IFICI](https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-01018.aspx)`,
       en: `Portugal combines a warm Mediterranean climate, affordable living costs, EU freedom of movement, and one of Europe's most generous tax regimes for foreign residents. 2024 saw the transition from the old NHR to the IFICI regime, and 2023 brought Golden Visa reforms — staying current on these changes is essential for planning.
 
 ### Main Visa Types
@@ -8164,7 +8164,7 @@ This article is based on the following official sources.
 
 - **Visas & Residence Permits (AIMA)**: [AIMA – Agency for Integration, Migration and Asylum](https://aima.gov.pt/)
 - **Digital Nomad Visa (D8)**: [MNE – D8 Remote Working / Digital Nomad Visa](https://vistos.mne.gov.pt/en/national-visas/required-documentation/remote-working-or-digital-nomad)
-- **NHR Tax Regime (IFICI)**: [AT – Portuguese Tax and Customs Authority – IFICI](https://info.portaldasfinancas.gov.pt/en/Pages/IFICI.aspx)`,
+- **NHR Tax Regime (IFICI)**: [AT – Portuguese Tax and Customs Authority – IFICI](https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-01018.aspx)`,
       zh: `葡萄牙集温暖的地中海气候、低廉的生活成本、欧盟居留权及欧洲最优厚的外籍居民税收优惠制度于一体，是欧洲最受欢迎的移居目的地之一。2024年旧NHR制度过渡为IFICI，2023年黄金签证改革相继落地——移居前务必确认最新规定。
 
 ### 主要签证种类
@@ -8284,7 +8284,7 @@ This article is based on the following official sources.
 
 - **签证及居留许可总览（AIMA）**: [AIMA – 葡萄牙移民与庇护局](https://aima.gov.pt/)
 - **数字游民签证（D8）**: [葡萄牙外交部 – D8 远程工作/数字游民签证](https://vistos.mne.gov.pt/en/national-visas/required-documentation/remote-working-or-digital-nomad)
-- **NHR税制（IFICI）**: [葡萄牙税务海关局（AT）– IFICI](https://info.portaldasfinancas.gov.pt/en/Pages/IFICI.aspx)`,
+- **NHR税制（IFICI）**: [葡萄牙税务海关局（AT）– IFICI](https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-01018.aspx)`,
     },
   },
   {
