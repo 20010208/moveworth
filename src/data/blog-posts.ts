@@ -8753,8 +8753,8 @@ This article is based on the following official sources.
 本記事の情報は以下の公式資料をもとに作成しています。
 
 - **ジョージア電子ビザ**: [ジョージア外務省 – 電子ビザポータル](https://www.evisa.gov.ge/)
-- **税務・起業情報**: [ジョージア国税局（Revenue Service）](https://rs.ge/en)
-- **在留・移民情報**: [ジョージア法務省 – 市民サービス庁](https://sda.gov.ge/)`,
+- **税務・起業情報**: [ジョージア国税局（Revenue Service）](https://www.rs.ge/Home-en)
+- **在留・移民情報**: [ジョージア法務省 – 市民サービス庁](https://sda.gov.ge/en/products/migration-residence-permits/)`,
       en: `Georgia (the Caucasus country, not the US state) has become one of the world's most popular destinations for digital nomads and entrepreneurs — thanks to a visa-free 1-year stay, low flat-rate taxes, and an impressively affordable cost of living in Tbilisi.
 
 ### Entry & Stay Options
@@ -8859,8 +8859,8 @@ Georgia offers fast internet, a low cost of living, and easy EU connections — 
 This article is based on the following official sources.
 
 - **Georgia e-Visa**: [Georgian Ministry of Foreign Affairs – e-Visa Portal](https://www.evisa.gov.ge/)
-- **Tax & Business Registration**: [Georgia Revenue Service](https://rs.ge/en)
-- **Residence & Migration**: [Georgian Ministry of Justice – Public Service Hall](https://sda.gov.ge/)`,
+- **Tax & Business Registration**: [Georgia Revenue Service](https://www.rs.ge/Home-en)
+- **Residence & Migration**: [Georgian Ministry of Justice – Public Service Hall](https://sda.gov.ge/en/products/migration-residence-permits/)`,
       zh: `格鲁吉亚（高加索国家，非美国乔治亚州）以免签1年居留、低税率和低廉的第比利斯生活成本，迅速成为全球数字游民和创业者最热门的移居目的地之一。
 
 ### 入境与居留制度
@@ -8965,8 +8965,8 @@ This article is based on the following official sources.
 本文信息基于以下官方资料整理。
 
 - **格鲁吉亚电子签证**: [格鲁吉亚外交部 – 电子签证门户](https://www.evisa.gov.ge/)
-- **税务及企业注册**: [格鲁吉亚税务总局（Revenue Service）](https://rs.ge/en)
-- **居留及移民信息**: [格鲁吉亚司法部 – 公共服务大厅](https://sda.gov.ge/)`,
+- **税务及企业注册**: [格鲁吉亚税务总局（Revenue Service）](https://www.rs.ge/Home-en)
+- **居留及移民信息**: [格鲁吉亚司法部 – 公共服务大厅](https://sda.gov.ge/en/products/migration-residence-permits/)`,
     },
   },
   {
