@@ -10891,7 +10891,7 @@ This article is based on the following official sources.
 
 本記事の情報は以下の公式資料をもとに作成しています。
 
-- **ビザ申請全般**: [コロンビア外務省 – ビザポータル（Cancillería）](https://www.cancilleria.gov.co/tramites_servicios/visas)
+- **ビザ申請全般**: [コロンビア外務省 – ビザポータル（Cancillería）](https://www.cancilleria.gov.co/tramites_servicios/visa)
 - **在留外国人管理**: [コロンビア移民局（Migración Colombia）](https://www.migracioncolombia.gov.co/)`,
       en: `Colombia has rapidly emerged as one of the top destinations for digital nomads and expats. Medellín is globally recognized for its spring-like climate ("the City of Eternal Spring"), excellent infrastructure, and vibrant nomad community — with some of the most affordable living costs among major cities.
 
@@ -10998,7 +10998,7 @@ Colombia's low cost of living, warm climate, and nomad-friendly infrastructure m
 
 This article is based on the following official sources.
 
-- **Visa Applications General**: [Colombian Ministry of Foreign Affairs – Visa Portal](https://www.cancilleria.gov.co/tramites_servicios/visas)
+- **Visa Applications General**: [Colombian Ministry of Foreign Affairs – Visa Portal](https://www.cancilleria.gov.co/tramites_servicios/visa)
 - **Foreign Resident Management**: [Migración Colombia](https://www.migracioncolombia.gov.co/)`,
       zh: `哥伦比亚近年来迅速崛起为数字游民和外籍人士的热门目的地。麦德林以"永恒春天之城"著称，气候宜人、基础设施完善、游民社区活跃，跻身全球最佳数字游民城市之列，生活成本也极具竞争力。
 
@@ -11105,7 +11105,7 @@ This article is based on the following official sources.
 
 本文信息基于以下官方资料整理。
 
-- **签证申请总览**: [哥伦比亚外交部 – 签证门户（Cancillería）](https://www.cancilleria.gov.co/tramites_servicios/visas)
+- **签证申请总览**: [哥伦比亚外交部 – 签证门户（Cancillería）](https://www.cancilleria.gov.co/tramites_servicios/visa)
 - **外籍居民管理**: [哥伦比亚移民局（Migración Colombia）](https://www.migracioncolombia.gov.co/)`,
     },
   },
