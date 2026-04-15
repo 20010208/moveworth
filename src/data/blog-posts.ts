@@ -10457,24 +10457,27 @@ This article is based on the following official sources.
 
 ### 主なビザの種類
 
-**就労ビザ（VITEM V）**
+**デジタルノマドビザ（VITEM XIV）** ｜ [ブラジル外務省 公式ページ](https://www.gov.br/mre/pt-br/consulado-londres/visa-section/types-of-visa/temporary-visa-vitem/digital-nomads-vitem-xiv-2013-rn-45-2021)
+ブラジルの主力ビザ。ブラジル国外の企業・クライアントのためにリモートで働く外国人向け。2022年導入。
+- 最低月収：**USD 1,500以上**（または銀行残高USD 18,000以上）
+- 有効期間：初回1年間（さらに1年更新可能）
+- ブラジル源泉の収入が全体の**30%を超えないこと**
+- 申請先：在外ブラジル領事館
+
+**就労ビザ（VITEM V）** ｜ [ブラジル外務省 公式ページ](https://www.gov.br/mre/pt-br/embaixada-helsinque/consular-services/temporary-work-visa-vitem-v)
 ブラジルの企業から雇用オファーを受けた外国人向けの就労ビザ。
 - 雇用主がCNIg（国家移民評議会）を通じて申請を主導
 - 有効期間：最大**2年間**、更新可能
 - 一時的就労許可（CTPS：Carteira de Trabalho）の取得が雇用開始前に必要
 
-**デジタルノマドビザ（VITEM XIII）**
-2022年導入。ブラジル国外の企業・クライアントのためにリモートで働く外国人向け。
-- 最低月収：**R$14,000以上**（約USD 2,800 / 2026年為替レート目安）または預金残高証明（過去12ヶ月平均残高R$168,000以上）
-- 有効期間：初回1年間（さらに1年更新可能）
-- ブラジル源泉の収入が全体の**30%を超えないこと**
-- 申請先：在外ブラジル領事館
-
 **退職者ビザ（VITEM XI / Aposentadoria）**
 月額**USD 2,000以上**（または相当額）の年金・退職所得を証明できる方向けのビザ。
 
-**投資家ビザ（VITEM X）**
-ブラジルに**R$500,000以上**（新興・開発地域は**R$150,000以上**）の投資を行う外国人向け。
+**投資家ビザ（Investor Visa）** ｜ [ブラジル外務省 公式ページ](https://www.gov.br/mre/pt-br/consulado-amsterda/vistos/visa-investor-vitem)
+ブラジルに投資を行う外国人向けの永住権ルート。
+- 投資額：**R$500,000以上**（新興・開発地域は**R$150,000以上**）
+- 雇用創出の証明が求められる場合あり
+- 投資維持中は永住権を維持可能
 
 **配偶者・家族ビザ（VITEM IX）**
 ブラジル市民または永住者との婚姻・親族関係による移住ビザ。
@@ -10550,30 +10553,35 @@ This article is based on the following official sources.
 
 本記事の情報は以下の公式資料をもとに作成しています。
 
-- **ビザ申請全般**: [ブラジル連邦警察（Polícia Federal）– ビザ・在留情報](https://www.gov.br/pf/pt-br/assuntos/imigracao/inicio)
-- **ビザ種類・申請**: [ブラジル外務省 – ビザ種類一覧](https://www.gov.br/mre/pt-br/consulado-los-angeles/english/visas/types-of-visa)`,
+- **デジタルノマドビザ（VITEM XIV）**: [ブラジル外務省 – デジタルノマドビザ](https://www.gov.br/mre/pt-br/consulado-londres/visa-section/types-of-visa/temporary-visa-vitem/digital-nomads-vitem-xiv-2013-rn-45-2021)
+- **就労ビザ（VITEM V）**: [ブラジル外務省 – 就労ビザ](https://www.gov.br/mre/pt-br/embaixada-helsinque/consular-services/temporary-work-visa-vitem-v)
+- **投資家ビザ**: [ブラジル外務省 – 投資家ビザ](https://www.gov.br/mre/pt-br/consulado-amsterda/vistos/visa-investor-vitem)
+- **在留登録・移民手続き**: [ブラジル連邦警察（Polícia Federal）](https://www.gov.br/pf/pt-br/assuntos/imigracao/inicio)`,
       en: `Brazil is South America's largest economy, combining world-class cities like São Paulo with extraordinary natural diversity. The 2022 digital nomad visa (VITEM XIII) has made it significantly more accessible for remote workers worldwide.
 
 ### Main Visa Types
 
-**Work Visa (VITEM V)**
+**Digital Nomad Visa (VITEM XIV)** ｜ [MRE Official Page](https://www.gov.br/mre/pt-br/consulado-londres/visa-section/types-of-visa/temporary-visa-vitem/digital-nomads-vitem-xiv-2013-rn-45-2021)
+Brazil's most popular visa for remote workers — introduced in 2022 for those working for clients or employers outside Brazil.
+- Minimum monthly income: **USD 1,500+** (or USD 18,000+ in bank savings)
+- Validity: 1 year, renewable for another year
+- Brazilian-sourced income must not exceed **30% of total income**
+- Apply at a Brazilian consulate abroad
+
+**Work Visa (VITEM V)** ｜ [MRE Official Page](https://www.gov.br/mre/pt-br/embaixada-helsinque/consular-services/temporary-work-visa-vitem-v)
 For foreign nationals with a job offer from a Brazilian employer.
 - Employer applies through CNIg (National Immigration Council)
 - Validity: up to **2 years**, renewable
 - A work permit card (CTPS: Carteira de Trabalho) must be issued before employment begins
 
-**Digital Nomad Visa (VITEM XIII)**
-Introduced in 2022 for remote workers serving clients or employers outside Brazil.
-- Minimum monthly income: **R$14,000+** (~USD 2,800 at 2026 rates) or proof of savings (average balance of R$168,000 over 12 months)
-- Validity: 1 year, renewable for another year
-- Brazilian-sourced income must not exceed **30% of total income**
-- Apply at a Brazilian consulate abroad
-
-**Retirement Visa (VITEM XI / Aposentadoria)**
+**Retirement Visa (VITEM XIV / Aposentadoria)**
 For those with proven monthly retirement or pension income of **USD 2,000+**.
 
-**Investor Visa (VITEM X)**
-For those investing **R$500,000+** in Brazil (R$150,000+ in emerging or development regions).
+**Investor Visa** ｜ [MRE Official Page](https://www.gov.br/mre/pt-br/consulado-amsterda/vistos/visa-investor-vitem)
+A permanent residency route for those making qualifying investments in Brazil.
+- Minimum investment: **R$500,000+** (R$150,000+ in emerging or development regions)
+- May require proof of job creation
+- Permanent residency maintained as long as investment continues
 
 **Spouse / Family Visa (VITEM IX)**
 For spouses and close family members of Brazilian citizens or permanent residents.
@@ -10649,30 +10657,35 @@ Brazil offers a relatively low cost of living and a vibrant culture. Use MoveWor
 
 This article is based on the following official sources.
 
-- **Visa Applications General**: [Brazil Federal Police (Polícia Federal) – Foreigners](https://www.gov.br/pf/pt-br/assuntos/imigracao/inicio)
-- **Visa Types & Applications**: [Brazilian Ministry of Foreign Affairs – Types of Visa](https://www.gov.br/mre/pt-br/consulado-los-angeles/english/visas/types-of-visa)`,
+- **Digital Nomad Visa (VITEM XIV)**: [MRE – Digital Nomad Visa](https://www.gov.br/mre/pt-br/consulado-londres/visa-section/types-of-visa/temporary-visa-vitem/digital-nomads-vitem-xiv-2013-rn-45-2021)
+- **Work Visa (VITEM V)**: [MRE – Temporary Work Visa](https://www.gov.br/mre/pt-br/embaixada-helsinque/consular-services/temporary-work-visa-vitem-v)
+- **Investor Visa**: [MRE – Investor Visa](https://www.gov.br/mre/pt-br/consulado-amsterda/vistos/visa-investor-vitem)
+- **Immigration Registration**: [Brazil Federal Police (Polícia Federal)](https://www.gov.br/pf/pt-br/assuntos/imigracao/inicio)`,
       zh: `巴西是南美洲最大的经济体，拥有圣保罗等国际化大都市和丰富的自然资源。2022年推出的数字游民签证（VITEM XIII），使远程工作者移居巴西更加便利。
 
 ### 主要签证类型
 
-**工作签证（VITEM V）**
+**数字游民签证（VITEM XIV）** ｜ [巴西外交部 官方页面](https://www.gov.br/mre/pt-br/consulado-londres/visa-section/types-of-visa/temporary-visa-vitem/digital-nomads-vitem-xiv-2013-rn-45-2021)
+巴西最受欢迎的签证——适用于为巴西境外企业或客户远程工作的外籍人士，2022年推出。
+- 最低月收入：**USD 1,500以上**（或银行存款USD 18,000以上）
+- 有效期：1年，可续签1年
+- 巴西境内收入不超过总收入的**30%**
+- 申请地点：驻外巴西领事馆
+
+**工作签证（VITEM V）** ｜ [巴西外交部 官方页面](https://www.gov.br/mre/pt-br/embaixada-helsinque/consular-services/temporary-work-visa-vitem-v)
 适用于持有巴西企业工作邀约的外籍人士。
 - 由雇主通过CNIg（国家移民委员会）主导申请
 - 有效期：最长**2年**，可续签
 - 就业前须领取劳动手册（CTPS）
 
-**数字游民签证（VITEM XIII）**
-2022年推出，适用于为巴西境外企业或客户远程工作的外籍人士。
-- 最低月收入：**R$14,000以上**（约USD 2,800，2026年汇率参考）或存款证明（过去12个月平均余额R$168,000以上）
-- 有效期：1年，可续签1年
-- 巴西境内收入不超过总收入的**30%**
-- 申请地点：驻外巴西领事馆
-
-**退休人员签证（VITEM XI / Aposentadoria）**
+**退休人员签证（VITEM XIV / Aposentadoria）**
 适用于月养老金或退休收入不低于**USD 2,000**的申请者。
 
-**投资者签证（VITEM X）**
-在巴西投资**R$500,000以上**（新兴/开发地区**R$150,000以上**）的外籍人士。
+**投资者签证** ｜ [巴西外交部 官方页面](https://www.gov.br/mre/pt-br/consulado-amsterda/vistos/visa-investor-vitem)
+适用于在巴西进行合格投资的外籍人士，可获得永久居留权。
+- 最低投资额：**R$500,000以上**（新兴/开发地区**R$150,000以上**）
+- 可能须证明创造就业岗位
+- 投资持续期间可维持永久居留权
 
 **配偶/家庭签证（VITEM IX）**
 适用于巴西公民或永久居民的配偶及近亲。
@@ -10748,8 +10761,10 @@ This article is based on the following official sources.
 
 本文信息基于以下官方资料整理。
 
-- **签证申请总览**: [巴西联邦警察（Polícia Federal）– 外籍人士信息](https://www.gov.br/pf/pt-br/assuntos/imigracao/inicio)
-- **签证类型及申请**: [巴西外交部 – 签证类型一览](https://www.gov.br/mre/pt-br/consulado-los-angeles/english/visas/types-of-visa)`,
+- **数字游民签证（VITEM XIV）**: [巴西外交部 – 数字游民签证](https://www.gov.br/mre/pt-br/consulado-londres/visa-section/types-of-visa/temporary-visa-vitem/digital-nomads-vitem-xiv-2013-rn-45-2021)
+- **工作签证（VITEM V）**: [巴西外交部 – 临时工作签证](https://www.gov.br/mre/pt-br/embaixada-helsinque/consular-services/temporary-work-visa-vitem-v)
+- **投资者签证**: [巴西外交部 – 投资者签证](https://www.gov.br/mre/pt-br/consulado-amsterda/vistos/visa-investor-vitem)
+- **移民登记手续**: [巴西联邦警察（Polícia Federal）](https://www.gov.br/pf/pt-br/assuntos/imigracao/inicio)`,
     },
   },
   {
