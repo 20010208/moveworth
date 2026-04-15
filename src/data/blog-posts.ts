@@ -9838,8 +9838,7 @@ EU/EEA圏外の方がノルウェーで就労するための主要な許可。
 
 本記事の情報は以下の公式資料をもとに作成しています。
 
-- **熟練労働者許可**: [UDI – 熟練労働者許可申請](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
-- **自営業許可 / フリーランス**: [UDI – 就労移民（自営業含む）](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
+- **熟練労働者許可・自営業許可**: [UDI – 熟練労働者許可申請（自営業含む）](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
 - **就職活動許可（Job Seeker）**: [UDI – 求職者向け在留許可](https://www.udi.no/en/want-to-apply/work-immigration/job-seekers/)
 - **税務登録・番号取得**: [Altinn – ノルウェー電子行政サービス（税務含む）](https://www.altinn.no/en/)`,
       en: `Norway offers one of the world's highest standards of living, excellent wages, and a comprehensive social security system. Backed by the world's largest sovereign wealth fund (the Government Pension Fund Global / Oljefondet), Norway has a very strong economy — though the cost of living matches its high salaries.
@@ -9949,8 +9948,7 @@ Norway offers exceptional salaries, but the cost of living is equally high. Use 
 
 This article is based on the following official sources.
 
-- **Skilled Worker Permit**: [UDI – Apply as a Skilled Worker](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
-- **Self-Employment / Freelance**: [UDI – Skilled Worker with Own Business](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
+- **Skilled Worker & Self-Employment Permit**: [UDI – Apply as a Skilled Worker (incl. own business)](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
 - **Job Seeker Permit**: [UDI – Residence Permit for Job Seekers](https://www.udi.no/en/want-to-apply/work-immigration/job-seekers/)
 - **Tax Registration**: [Altinn – Norwegian Digital Government Services (including tax)](https://www.altinn.no/en/)`,
       zh: `挪威以世界顶级的生活水准、高薪资和完善的社会保障体系著称，凭借全球最大主权财富基金（政府养老基金全球/Oljefondet）的支撑，经济实力雄厚。生活成本虽高，但薪资水平同样非常高。
@@ -10060,8 +10058,7 @@ This article is based on the following official sources.
 
 本文信息基于以下官方资料整理。
 
-- **技能工人许可**: [UDI – 申请技能工人许可](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
-- **自雇许可 / 自由职业**: [UDI – 拥有自营业务的技能工人](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
+- **技能工人许可・自雇许可**: [UDI – 申请技能工人许可（含自营业务）](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
 - **求职许可（Job Seeker）**: [UDI – 求职居留许可](https://www.udi.no/en/want-to-apply/work-immigration/job-seekers/)
 - **税务注册**: [Altinn – 挪威电子政务服务（含税务）](https://www.altinn.no/en/)`,
     },
