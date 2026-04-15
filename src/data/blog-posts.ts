@@ -10550,8 +10550,8 @@ This article is based on the following official sources.
 
 本記事の情報は以下の公式資料をもとに作成しています。
 
-- **ビザ申請全般**: [ブラジル連邦警察（Polícia Federal）– ビザ・在留情報](https://www.gov.br/pf/en/subjects/foreigners)
-- **電子ビザ（e-Visto）**: [ブラジル外務省 – 電子ビザポータル](https://evisa.itamaraty.gov.br/)`,
+- **ビザ申請全般**: [ブラジル連邦警察（Polícia Federal）– ビザ・在留情報](https://www.gov.br/pf/pt-br/assuntos/imigracao/inicio)
+- **電子ビザ（e-Visto）**: [ブラジル外務省 – 電子ビザポータル](https://visto-eletronico.itamaraty.gov.br/)`,
       en: `Brazil is South America's largest economy, combining world-class cities like São Paulo with extraordinary natural diversity. The 2022 digital nomad visa (VITEM XIII) has made it significantly more accessible for remote workers worldwide.
 
 ### Main Visa Types
@@ -10649,8 +10649,8 @@ Brazil offers a relatively low cost of living and a vibrant culture. Use MoveWor
 
 This article is based on the following official sources.
 
-- **Visa Applications General**: [Brazil Federal Police (Polícia Federal) – Foreigners](https://www.gov.br/pf/en/subjects/foreigners)
-- **e-Visa**: [Brazilian Ministry of Foreign Affairs – e-Visa Portal](https://evisa.itamaraty.gov.br/)`,
+- **Visa Applications General**: [Brazil Federal Police (Polícia Federal) – Foreigners](https://www.gov.br/pf/pt-br/assuntos/imigracao/inicio)
+- **e-Visa**: [Brazilian Ministry of Foreign Affairs – e-Visa Portal](https://visto-eletronico.itamaraty.gov.br/)`,
       zh: `巴西是南美洲最大的经济体，拥有圣保罗等国际化大都市和丰富的自然资源。2022年推出的数字游民签证（VITEM XIII），使远程工作者移居巴西更加便利。
 
 ### 主要签证类型
@@ -10748,8 +10748,8 @@ This article is based on the following official sources.
 
 本文信息基于以下官方资料整理。
 
-- **签证申请总览**: [巴西联邦警察（Polícia Federal）– 外籍人士信息](https://www.gov.br/pf/en/subjects/foreigners)
-- **电子签证（e-Visto）**: [巴西外交部 – 电子签证门户](https://evisa.itamaraty.gov.br/)`,
+- **签证申请总览**: [巴西联邦警察（Polícia Federal）– 外籍人士信息](https://www.gov.br/pf/pt-br/assuntos/imigracao/inicio)
+- **电子签证（e-Visto）**: [巴西外交部 – 电子签证门户](https://visto-eletronico.itamaraty.gov.br/)`,
     },
   },
   {
