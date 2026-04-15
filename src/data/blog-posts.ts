@@ -11262,8 +11262,8 @@ This article is based on the following official sources.
 本記事の情報は以下の公式資料をもとに作成しています。
 
 - **ビザ・在留許可全般**: [ギリシャ移民・庇護省 公式サイト](https://migration.gov.gr/en/)
-- **デジタルノマドビザ**: [ギリシャ政府 – デジタルノマドビザ情報](https://migration.gov.gr/digital-nomads-en/)
-- **ゴールデンビザ（不動産投資）**: [Enterprise Greece – ゴールデンビザプログラム](https://www.enterprisegreece.gov.gr/en/invest-in-greece/golden-visa-programme)`,
+- **デジタルノマドビザ**: [ギリシャ移民・庇護省 公式サイト（英語）](https://migration.gov.gr/en/)
+- **ゴールデンビザ（不動産投資）**: [ギリシャ移民・庇護省 – ゴールデンビザ](https://migration.gov.gr/en/golden-visa/)`,
       en: `Greece has rapidly become one of Europe's most attractive destinations for expats, digital nomads, and retirees — offering a warm Mediterranean climate, low cost of living, and some of the most generous tax incentives in the EU.
 
 ### Main Visa Types
@@ -11372,8 +11372,8 @@ Greece offers one of Europe's lowest costs of living combined with an exceptiona
 This article is based on the following official sources.
 
 - **Visas & Residence Permits General**: [Greek Ministry of Migration and Asylum](https://migration.gov.gr/en/)
-- **Digital Nomad Visa**: [Greek Government – Digital Nomad Visa](https://migration.gov.gr/digital-nomads-en/)
-- **Golden Visa (Real Estate Investment)**: [Enterprise Greece – Golden Visa Programme](https://www.enterprisegreece.gov.gr/en/invest-in-greece/golden-visa-programme)`,
+- **Digital Nomad Visa**: [Greek Ministry of Migration and Asylum (EN)](https://migration.gov.gr/en/)
+- **Golden Visa (Real Estate Investment)**: [Greek Ministry of Migration – Golden Visa](https://migration.gov.gr/en/golden-visa/)`,
       zh: `希腊以地中海温暖的气候、低廉的生活成本和日益完善的外籍人士优惠税制，迅速成为欧洲最受欢迎的移居目的地之一，尤其受到数字游民、退休人士和高净值人士青睐。
 
 ### 主要签证类型
@@ -11482,8 +11482,8 @@ This article is based on the following official sources.
 本文信息基于以下官方资料整理。
 
 - **签证及居留许可总览**: [希腊移民与庇护部官方网站](https://migration.gov.gr/en/)
-- **数字游民签证**: [希腊政府 – 数字游民签证信息](https://migration.gov.gr/digital-nomads-en/)
-- **黄金签证（房地产投资）**: [Enterprise Greece – 黄金签证项目](https://www.enterprisegreece.gov.gr/en/invest-in-greece/golden-visa-programme)`,
+- **数字游民签证**: [希腊移民与庇护部官方网站（英文）](https://migration.gov.gr/en/)
+- **黄金签证（房地产投资）**: [希腊移民与庇护部 – 黄金签证](https://migration.gov.gr/en/golden-visa/)`,
     },
   },
   {
