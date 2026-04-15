@@ -9740,7 +9740,7 @@ This article is based on the following official sources.
 - 3ヶ月以内：登録不要
 - 3ヶ月超：UDI（移民局）への登録が必要（登録費：無料）
 
-**熟練労働者許可（Skilled Worker Permit / dyktig arbeidstaker）**
+**熟練労働者許可（Skilled Worker Permit / dyktig arbeidstaker）** ｜ [UDI 公式ページ](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
 EU/EEA圏外の方がノルウェーで就労するための主要な許可。
 - 要件：当該職種における専門的な技能・資格の証明（学歴または3年以上の職業訓練）
 - 雇用オファーが必要（申請前に雇用契約が確定していること）
@@ -9748,17 +9748,20 @@ EU/EEA圏外の方がノルウェーで就労するための主要な許可。
   ※目安：ITエンジニア NOK 550,000〜700,000/年（約€48,000〜61,000）
 - 有効期間：最大**3年**（雇用期間に連動）、更新可能
 - **3年の合法滞在後**に永住権申請が可能（就労許可での滞在年数が算入）
+- 申請費：NOK 6,300（約€550）
 
-**スペシャリスト許可（Specialist Permit）**
-熟練労働者許可の高度技能者向け区分。要件は熟練労働者許可と同様だが職種が高度技能職。
+**自営業許可（Selvstendig næringsdrivende）** ｜ [UDI 公式ページ](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
+ノルウェーで独立した事業活動を行う方向けの許可。フリーランス・ノマド層も対象。
+- 熟練労働者許可の枠組み内で申請（「自分でビジネスを持つ熟練労働者」として扱われる）
+- 事業計画書・財政的自立性の証明が必要
+- ノルウェー国内での事業立ち上げ・運営が条件
+- 初年度の審査は特に厳格。収入源・クライアント契約の証明が求められる
 
-**自営業許可（Selvstendig næringsdrivende）**
-ノルウェーで独立した事業活動を行う方向けの許可。
-- 事業計画の提出・財政的自立性の証明が必要
-- 初年度は特に審査が厳しい
-
-**就職活動ビザ（Job Seeker Permit）**
-専門職での就職活動を目的として最長6ヶ月滞在可能。EEA在住のEU市民等が対象。
+**就職活動許可（Job Seeker Permit）** ｜ [UDI 公式ページ](https://www.udi.no/en/want-to-apply/work-immigration/job-seekers/)
+高度技能職の就職活動を目的として最長**6ヶ月**滞在できる許可。
+- 対象：大学学位または職業訓練資格を持つ専門職（EU/EEA外も対象）
+- 滞在中は就職活動のみ可能（就労不可）
+- 就職が決まった場合、国内から熟練労働者許可への切り替えが可能
 
 ### 永住権・市民権
 
@@ -9835,7 +9838,9 @@ EU/EEA圏外の方がノルウェーで就労するための主要な許可。
 
 本記事の情報は以下の公式資料をもとに作成しています。
 
-- **ビザ・在留許可全般**: [ノルウェー出入国管理局（UDI）](https://www.udi.no/en/)
+- **熟練労働者許可**: [UDI – 熟練労働者許可申請](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
+- **自営業許可 / フリーランス**: [UDI – 就労移民（自営業含む）](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
+- **就職活動許可（Job Seeker）**: [UDI – 求職者向け在留許可](https://www.udi.no/en/want-to-apply/work-immigration/job-seekers/)
 - **税務登録・番号取得**: [Altinn – ノルウェー電子行政サービス（税務含む）](https://www.altinn.no/en/)`,
       en: `Norway offers one of the world's highest standards of living, excellent wages, and a comprehensive social security system. Backed by the world's largest sovereign wealth fund (the Government Pension Fund Global / Oljefondet), Norway has a very strong economy — though the cost of living matches its high salaries.
 
@@ -9846,7 +9851,7 @@ Can work in Norway without a visa or work permit.
 - Stays under 3 months: no registration required
 - Stays over 3 months: must register with UDI (Norwegian Immigration Directorate) — free of charge
 
-**Skilled Worker Permit (Dyktig arbeidstaker)**
+**Skilled Worker Permit (Dyktig arbeidstaker)** ｜ [UDI Official Page](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
 The primary route for non-EU/EEA nationals to work in Norway.
 - Requirements: qualifications or trade certificate for the relevant role (degree or 3+ years of vocational training)
 - A job offer (signed contract) is required before applying
@@ -9854,17 +9859,20 @@ The primary route for non-EU/EEA nationals to work in Norway.
   — IT engineers typically earn NOK 550,000–700,000/year (€48,000–61,000)
 - Validity: up to **3 years** (tied to employment contract), renewable
 - After **3 years of lawful residence**, permanent residency can be applied for
+- Application fee: NOK 6,300 (~€550)
 
-**Specialist Permit**
-A sub-category of the Skilled Worker Permit for highly specialized occupations.
-
-**Self-Employment Permit (Selvstendig næringsdrivende)**
-For those running an independent business in Norway.
+**Self-Employment Permit (Selvstendig næringsdrivende)** ｜ [UDI Official Page](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
+For freelancers, consultants, and location-independent workers running their own business in Norway.
+- Processed under the Skilled Worker Permit framework ("skilled worker with own business")
 - Must submit a business plan and demonstrate financial self-sufficiency
-- First year assessment is particularly strict
+- Business must be established and operated within Norway
+- First-year assessment is particularly strict — proof of income sources and client contracts is essential
 
-**Job Seeker Permit**
-Allows eligible professionals to stay up to 6 months to seek employment in Norway.
+**Job Seeker Permit** ｜ [UDI Official Page](https://www.udi.no/en/want-to-apply/work-immigration/job-seekers/)
+Allows qualified professionals to stay up to **6 months** in Norway specifically to look for work.
+- Eligible: degree holders or those with vocational training (including non-EU/EEA nationals)
+- No working permitted during the stay — job searching only
+- If a job is found, you can switch to a Skilled Worker Permit from within Norway
 
 ### Permanent Residency & Citizenship
 
@@ -9941,7 +9949,9 @@ Norway offers exceptional salaries, but the cost of living is equally high. Use 
 
 This article is based on the following official sources.
 
-- **Visas & Residence Permits General**: [Norwegian Directorate of Immigration (UDI)](https://www.udi.no/en/)
+- **Skilled Worker Permit**: [UDI – Apply as a Skilled Worker](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
+- **Self-Employment / Freelance**: [UDI – Skilled Worker with Own Business](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
+- **Job Seeker Permit**: [UDI – Residence Permit for Job Seekers](https://www.udi.no/en/want-to-apply/work-immigration/job-seekers/)
 - **Tax Registration**: [Altinn – Norwegian Digital Government Services (including tax)](https://www.altinn.no/en/)`,
       zh: `挪威以世界顶级的生活水准、高薪资和完善的社会保障体系著称，凭借全球最大主权财富基金（政府养老基金全球/Oljefondet）的支撑，经济实力雄厚。生活成本虽高，但薪资水平同样非常高。
 
@@ -9952,7 +9962,7 @@ This article is based on the following official sources.
 - 3个月以内：无需登记
 - 3个月以上：须向移民局（UDI）登记（免费）
 
-**技能工人许可（Dyktig arbeidstaker）**
+**技能工人许可（Dyktig arbeidstaker）** ｜ [UDI 官方页面](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
 非欧盟/欧洲经济区公民在挪威工作的主要途径。
 - 要求：具备相关领域的专业资质（学历或3年以上职业培训证书）
 - 申请前须持有工作邀约（已签劳动合同）
@@ -9960,15 +9970,20 @@ This article is based on the following official sources.
   ※参考：IT工程师年薪NOK 550,000〜700,000（约€48,000〜61,000）
 - 有效期：最长**3年**（与雇佣合同挂钩），可续签
 - 合法居留满**3年**后可申请永久居留权
+- 申请费：NOK 6,300（约€550）
 
-**专业人员许可**
-技能工人许可的高级别分类，适用于高度专业化职位。
+**自雇许可（Selvstendig næringsdrivende）** ｜ [UDI 官方页面](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
+适用于在挪威独立经营业务的人士，包括自由职业者和数字游民。
+- 在技能工人许可框架内申请（视为"拥有自营业务的技能工人"）
+- 须提交商业计划书并证明财务可持续性
+- 须在挪威境内创立并经营业务
+- 首年审查尤为严格，需提供收入来源及客户合同证明
 
-**自雇许可（Selvstendig næringsdrivende）**
-适用于在挪威独立经营业务的申请者，需提交商业计划并证明财务可行性。
-
-**求职许可（Job Seeker Permit）**
-允许符合条件的专业人士在挪威停留最长6个月以寻找工作机会。
+**求职许可（Job Seeker Permit）** ｜ [UDI 官方页面](https://www.udi.no/en/want-to-apply/work-immigration/job-seekers/)
+允许符合条件的专业人士在挪威停留最长**6个月**以寻找工作机会。
+- 适用对象：持有学位或职业资质证书的专业人士（含非欧盟/欧洲经济区公民）
+- 居留期间仅限求职，不可从事工作
+- 获得工作邀约后，可在挪威境内转换为技能工人许可
 
 ### 永久居留权与入籍
 
@@ -10045,7 +10060,9 @@ This article is based on the following official sources.
 
 本文信息基于以下官方资料整理。
 
-- **签证及居留许可总览**: [挪威移民局（UDI）](https://www.udi.no/en/)
+- **技能工人许可**: [UDI – 申请技能工人许可](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
+- **自雇许可 / 自由职业**: [UDI – 拥有自营业务的技能工人](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/)
+- **求职许可（Job Seeker）**: [UDI – 求职居留许可](https://www.udi.no/en/want-to-apply/work-immigration/job-seekers/)
 - **税务注册**: [Altinn – 挪威电子政务服务（含税务）](https://www.altinn.no/en/)`,
     },
   },
