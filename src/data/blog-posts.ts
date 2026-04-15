@@ -10185,7 +10185,7 @@ EU域内高度技能者向け就労許可。年収DKK 528,000以上が目安（2
 本記事の情報は以下の公式資料をもとに作成しています。
 
 - **ビザ・在留許可全般**: [SIRI – デンマーク国際採用・統合局](https://www.nyidanmark.dk/en-GB)
-- **税務登録・番号取得**: [SKAT – デンマーク税務庁（個人税務情報）](https://www.skat.dk/en/individuals)`,
+- **税務登録・番号取得**: [SKAT – デンマーク税務庁（個人税務情報）](https://skat.dk/en-us/individuals)`,
       en: `Denmark is consistently ranked among the world's happiest countries, offering a high quality of life, excellent welfare, and an innovative business environment. While taxes are among the world's highest, the social services — free healthcare, education, and generous parental leave — are equally outstanding.
 
 ### Main Work Visa / Permit Types
@@ -10289,7 +10289,7 @@ Denmark's high taxes come with world-class social services, exceptional work-lif
 This article is based on the following official sources.
 
 - **Visas & Residence Permits General**: [SIRI – Danish Agency for International Recruitment and Integration](https://www.nyidanmark.dk/en-GB)
-- **Tax Registration**: [SKAT – Danish Tax Agency (Individual Tax Information)](https://www.skat.dk/en/individuals)`,
+- **Tax Registration**: [SKAT – Danish Tax Agency (Individual Tax Information)](https://skat.dk/en-us/individuals)`,
       zh: `丹麦长期被评为全球最幸福的国家之一，提供高质量的生活水准、优秀的福利制度和先进的商业环境。尽管税率是全球最高之一，但免费医疗、教育和慷慨的育儿假等社会保障同样出色。
 
 ### 主要就业许可类型
@@ -10393,7 +10393,7 @@ This article is based on the following official sources.
 本文信息基于以下官方资料整理。
 
 - **签证及居留许可总览**: [SIRI – 丹麦国际招聘与融合局](https://www.nyidanmark.dk/en-GB)
-- **税务注册**: [SKAT – 丹麦税务局（个人税务信息）](https://www.skat.dk/en/individuals)`,
+- **税务注册**: [SKAT – 丹麦税务局（个人税务信息）](https://skat.dk/en-us/individuals)`,
     },
   },
   {
