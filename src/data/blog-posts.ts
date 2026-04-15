@@ -11262,7 +11262,7 @@ This article is based on the following official sources.
 本記事の情報は以下の公式資料をもとに作成しています。
 
 - **ビザ・在留許可全般**: [ギリシャ移民・庇護省 公式サイト](https://migration.gov.gr/en/)
-- **デジタルノマドビザ**: [ギリシャ移民・庇護省 公式サイト（英語）](https://migration.gov.gr/en/)
+- **ビザ・在留許可申請ポータル**: [ギリシャ移民省 – オンライン申請ポータル](https://applications.migration.gov.gr/en/)
 - **ゴールデンビザ（不動産投資）**: [ギリシャ移民・庇護省 – ゴールデンビザ](https://migration.gov.gr/en/golden-visa/)`,
       en: `Greece has rapidly become one of Europe's most attractive destinations for expats, digital nomads, and retirees — offering a warm Mediterranean climate, low cost of living, and some of the most generous tax incentives in the EU.
 
@@ -11372,7 +11372,7 @@ Greece offers one of Europe's lowest costs of living combined with an exceptiona
 This article is based on the following official sources.
 
 - **Visas & Residence Permits General**: [Greek Ministry of Migration and Asylum](https://migration.gov.gr/en/)
-- **Digital Nomad Visa**: [Greek Ministry of Migration and Asylum (EN)](https://migration.gov.gr/en/)
+- **Visa & Residence Permit Applications**: [Greek Ministry of Migration – Online Application Portal](https://applications.migration.gov.gr/en/)
 - **Golden Visa (Real Estate Investment)**: [Greek Ministry of Migration – Golden Visa](https://migration.gov.gr/en/golden-visa/)`,
       zh: `希腊以地中海温暖的气候、低廉的生活成本和日益完善的外籍人士优惠税制，迅速成为欧洲最受欢迎的移居目的地之一，尤其受到数字游民、退休人士和高净值人士青睐。
 
@@ -11482,7 +11482,7 @@ This article is based on the following official sources.
 本文信息基于以下官方资料整理。
 
 - **签证及居留许可总览**: [希腊移民与庇护部官方网站](https://migration.gov.gr/en/)
-- **数字游民签证**: [希腊移民与庇护部官方网站（英文）](https://migration.gov.gr/en/)
+- **签证及居留许可在线申请**: [希腊移民部 – 在线申请门户](https://applications.migration.gov.gr/en/)
 - **黄金签证（房地产投资）**: [希腊移民与庇护部 – 黄金签证](https://migration.gov.gr/en/golden-visa/)`,
     },
   },
