@@ -10798,17 +10798,23 @@ This article is based on the following official sources.
 
 ### 主なビザの種類
 
-**デジタルノマドビザ（V-TP-7）**
-2022年に整備。海外の企業・クライアントのためにリモートで働く外国人向け。
+**デジタルノマドビザ（V - Nómada Digital）** ｜ [Cancillería 公式ページ](https://www.cancilleria.gov.co/v/nomadadigital)
+コロンビアの主力ビザ。海外の企業・クライアントのためにリモートで働く外国人向け。2022年整備。
 - 最低月収：**約USD 1,000以上**（所得証明または雇用契約・フリーランス契約）
 - 有効期間：最大**2年間**
-- コロンビア国内の収入源が全体の一定割合を超えないこと
 - 家族の同行可能
+- 申請はオンライン（Cancillería ポータル経由）
 
-**就労ビザ（M-3）**
+**就労ビザ（M - Trabajador）** ｜ [Cancillería 公式ページ](https://www.cancilleria.gov.co/v/trabajador)
 コロンビアの企業から雇用オファーを受けた外国人向け。
 - 雇用契約書・雇用主の法人登記書類の提出が必要
 - 有効期間：最大**3年**
+- 5年間の保有後、永住ビザ（R）の申請資格を得る
+
+**移民ビザ（M - Migrante）** ｜ [Cancillería 公式ページ](https://www.cancilleria.gov.co/node/26933)
+就労・事業・家族等の中長期滞在向けビザカテゴリ全般。Mビザには複数のサブカテゴリがある。
+- 退職者（M-11）・投資家（M-1）・家族（M-6）・起業家等を包括
+- 有効期間：最大**3年**（サブカテゴリにより異なる）
 
 **退職者ビザ（M-11）**
 月額**COP 3,000,000以上**（約USD 700、2026年レート目安）の年金・退職収入を証明できる方向け。
@@ -10892,6 +10898,9 @@ This article is based on the following official sources.
 本記事の情報は以下の公式資料をもとに作成しています。
 
 - **ビザ申請全般**: [コロンビア外務省 – ビザポータル（Cancillería）](https://www.cancilleria.gov.co/tramites_servicios/visa)
+- **デジタルノマドビザ（V - Nómada Digital）**: [Cancillería 公式ページ](https://www.cancilleria.gov.co/v/nomadadigital)
+- **就労ビザ（M - Trabajador）**: [Cancillería 公式ページ](https://www.cancilleria.gov.co/v/trabajador)
+- **移民ビザ（M - Migrante）**: [Cancillería 公式ページ](https://www.cancilleria.gov.co/node/26933)
 - **在留外国人管理**: [コロンビア移民局（Migración Colombia）](https://www.migracioncolombia.gov.co/)`,
       en: `Colombia has rapidly emerged as one of the top destinations for digital nomads and expats. Medellín is globally recognized for its spring-like climate ("the City of Eternal Spring"), excellent infrastructure, and vibrant nomad community — with some of the most affordable living costs among major cities.
 
@@ -10905,17 +10914,23 @@ This article is based on the following official sources.
 
 ### Main Visa Types
 
-**Digital Nomad Visa (V-TP-7)**
-Formalized in 2022 for remote workers serving foreign companies or clients.
+**Digital Nomad Visa (V – Nómada Digital)** ｜ [Cancillería Official Page](https://www.cancilleria.gov.co/v/nomadadigital)
+Colombia's primary visa for remote workers — formalized in 2022 for those working for foreign companies or clients.
 - Minimum monthly income: **~USD 1,000+** (proof of employment contract or freelance income)
 - Validity: up to **2 years**
-- Colombian-sourced income must remain below a certain threshold
 - Family members can be included
+- Apply online via the Cancillería portal
 
-**Work Visa (M-3)**
+**Work Visa (M – Trabajador)** ｜ [Cancillería Official Page](https://www.cancilleria.gov.co/v/trabajador)
 For foreign nationals with a job offer from a Colombian employer.
 - Requires employment contract and employer's registration documents
 - Validity: up to **3 years**
+- After 5 years, qualifies for Resident Visa (R)
+
+**Migrant Visa (M – Migrante)** ｜ [Cancillería Official Page](https://www.cancilleria.gov.co/node/26933)
+The broader M-visa category covering medium to long-term stays — includes multiple subcategories.
+- Subcategories: Retirement (M-11), Investor (M-1), Family (M-6), Entrepreneur, and more
+- Validity: up to **3 years** (varies by subcategory)
 
 **Retirement Visa (M-11)**
 For those with proven monthly pension or retirement income of **COP 3,000,000+** (~USD 700 at 2026 rates).
@@ -10999,6 +11014,9 @@ Colombia's low cost of living, warm climate, and nomad-friendly infrastructure m
 This article is based on the following official sources.
 
 - **Visa Applications General**: [Colombian Ministry of Foreign Affairs – Visa Portal](https://www.cancilleria.gov.co/tramites_servicios/visa)
+- **Digital Nomad Visa (V – Nómada Digital)**: [Cancillería Official Page](https://www.cancilleria.gov.co/v/nomadadigital)
+- **Work Visa (M – Trabajador)**: [Cancillería Official Page](https://www.cancilleria.gov.co/v/trabajador)
+- **Migrant Visa (M – Migrante)**: [Cancillería Official Page](https://www.cancilleria.gov.co/node/26933)
 - **Foreign Resident Management**: [Migración Colombia](https://www.migracioncolombia.gov.co/)`,
       zh: `哥伦比亚近年来迅速崛起为数字游民和外籍人士的热门目的地。麦德林以"永恒春天之城"著称，气候宜人、基础设施完善、游民社区活跃，跻身全球最佳数字游民城市之列，生活成本也极具竞争力。
 
@@ -11012,17 +11030,23 @@ This article is based on the following official sources.
 
 ### 主要签证类型
 
-**数字游民签证（V-TP-7）**
-2022年正式完善，适用于为境外企业或客户远程工作的外籍人士。
+**数字游民签证（V – Nómada Digital）** ｜ [Cancillería 官方页面](https://www.cancilleria.gov.co/v/nomadadigital)
+哥伦比亚最主要的签证——适用于为境外企业或客户远程工作的外籍人士，2022年正式完善。
 - 最低月收入：约**USD 1,000以上**（需提供雇佣合同或自由职业收入证明）
 - 有效期：最长**2年**
-- 哥伦比亚境内收入须低于一定比例
 - 可携带家庭成员同行
+- 通过Cancillería门户在线申请
 
-**工作签证（M-3）**
+**工作签证（M – Trabajador）** ｜ [Cancillería 官方页面](https://www.cancilleria.gov.co/v/trabajador)
 适用于持有哥伦比亚企业工作邀约的外籍人士。
 - 需提交劳动合同及雇主营业执照
 - 有效期：最长**3年**
+- 持有满5年后可申请居民签证（R）
+
+**移民签证（M – Migrante）** ｜ [Cancillería 官方页面](https://www.cancilleria.gov.co/node/26933)
+涵盖中长期居留的M签证类别总览，含多个子类别。
+- 子类别：退休人员（M-11）、投资者（M-1）、家庭（M-6）、创业者等
+- 有效期：最长**3年**（因子类别而异）
 
 **退休人员签证（M-11）**
 适用于月养老金或退休收入不低于**COP 3,000,000**（约USD 700，2026年汇率参考）的申请者。
@@ -11106,6 +11130,9 @@ This article is based on the following official sources.
 本文信息基于以下官方资料整理。
 
 - **签证申请总览**: [哥伦比亚外交部 – 签证门户（Cancillería）](https://www.cancilleria.gov.co/tramites_servicios/visa)
+- **数字游民签证（V – Nómada Digital）**: [Cancillería 官方页面](https://www.cancilleria.gov.co/v/nomadadigital)
+- **工作签证（M – Trabajador）**: [Cancillería 官方页面](https://www.cancilleria.gov.co/v/trabajador)
+- **移民签证（M – Migrante）**: [Cancillería 官方页面](https://www.cancilleria.gov.co/node/26933)
 - **外籍居民管理**: [哥伦比亚移民局（Migración Colombia）](https://www.migracioncolombia.gov.co/)`,
     },
   },
