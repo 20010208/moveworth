@@ -11614,9 +11614,9 @@ This article is based on the following official sources.
 
 本記事の情報は以下の公式資料をもとに作成しています。
 
-- **ビザ申請全般**: [イタリア外務省 – ビザ申請ポータル](https://vistoperitalia.esteri.it/home/en)
-- **デジタルノマドビザ**: [イタリア外務省 – 自律的・自営業者ビザ（リモートワーク）](https://vistoperitalia.esteri.it/home/en#BMresidenzaElettronica)
-- **フラットタックス制度（新規居住者向け）**: [イタリア歳入庁（Agenzia delle Entrate）– フラットタックス](https://www.agenziaentrate.gov.it/portale/web/english/nse/individuals/flat-tax-for-new-residents)`,
+- **ビザ申請全般**: [イタリア外務省 – ビザ申請ポータル](https://vistoperitalia.esteri.it/)
+- **デジタルノマドビザ**: [イタリア外務省 – 自律的・自営業者ビザ（リモートワーク）](https://www.esteri.it/en/sportello_info/domandefrequenti/sezione_visti_entrare_in_italia/)
+- **フラットタックス制度（新規居住者向け）**: [イタリア歳入庁（Agenzia delle Entrate）– フラットタックス](https://www.agenziaentrate.gov.it/portale/web/english/nse/invest-in-italy/tax-regime-for-new-residents)`,
       en: `Italy is world-famous for its cuisine, art, and historic landscapes — but in recent years, it has also built a competitive set of visa options and tax incentives, making it one of Europe's most attractive destinations for expats and remote workers.
 
 ### Main Visa Types
@@ -11725,9 +11725,9 @@ Italy offers a unique blend of culture, quality of life, and competitive tax inc
 
 This article is based on the following official sources.
 
-- **Visa Applications General**: [Italian Ministry of Foreign Affairs – Visa Application Portal](https://vistoperitalia.esteri.it/home/en)
-- **Digital Nomad / Remote Work Visa**: [MFA Italy – Self-Employment / Autonomous Worker Visa](https://vistoperitalia.esteri.it/home/en#BMresidenzaElettronica)
-- **Flat Tax Regime (New Residents)**: [Agenzia delle Entrate – Flat Tax for New Residents](https://www.agenziaentrate.gov.it/portale/web/english/nse/individuals/flat-tax-for-new-residents)`,
+- **Visa Applications General**: [Italian Ministry of Foreign Affairs – Visa Application Portal](https://vistoperitalia.esteri.it/)
+- **Digital Nomad / Remote Work Visa**: [MFA Italy – Self-Employment / Autonomous Worker Visa](https://www.esteri.it/en/sportello_info/domandefrequenti/sezione_visti_entrare_in_italia/)
+- **Flat Tax Regime (New Residents)**: [Agenzia delle Entrate – Flat Tax for New Residents](https://www.agenziaentrate.gov.it/portale/web/english/nse/invest-in-italy/tax-regime-for-new-residents)`,
       zh: `意大利以美食、艺术和历史景观闻名于世，近年来还为外籍人士建立了一套颇具竞争力的签证体系和税收优惠制度，成为欧洲最受欢迎的移居目的地之一。
 
 ### 主要签证类型
@@ -11835,9 +11835,9 @@ This article is based on the following official sources.
 
 本文信息基于以下官方资料整理。
 
-- **签证申请总览**: [意大利外交部 – 签证申请门户](https://vistoperitalia.esteri.it/home/en)
-- **数字游民/远程工作签证**: [意大利外交部 – 自雇/自主工作签证](https://vistoperitalia.esteri.it/home/en#BMresidenzaElettronica)
-- **统一税制（新居民）**: [意大利税务局（Agenzia delle Entrate）– 新居民统一税](https://www.agenziaentrate.gov.it/portale/web/english/nse/individuals/flat-tax-for-new-residents)`,
+- **签证申请总览**: [意大利外交部 – 签证申请门户](https://vistoperitalia.esteri.it/)
+- **数字游民/远程工作签证**: [意大利外交部 – 自雇/自主工作签证](https://www.esteri.it/en/sportello_info/domandefrequenti/sezione_visti_entrare_in_italia/)
+- **统一税制（新居民）**: [意大利税务局（Agenzia delle Entrate）– 新居民统一税](https://www.agenziaentrate.gov.it/portale/web/english/nse/invest-in-italy/tax-regime-for-new-residents)`,
     },
   },
   {
