@@ -2308,12 +2308,12 @@ This article is based on the following official sources.
     thumbnail: "/images/blog/visa-my.webp",
     title: {
       ja: "マレーシア ビザ・移住条件完全ガイド【2026年最新版】｜MM2H・DE Rantau・就労ビザ",
-      en: "Malaysia Residency Options for Foreigners 2026 | Long-Term Visa, MM2H & Employment Pass Guide",
+      en: "Malaysia Permanent Residency Requirements for Foreigners 2026 | Long-Term Visa Options & MM2H Guide",
       zh: "马来西亚签证与移居条件完全指南【2026年最新版】",
     },
     description: {
       ja: "MM2H・DE Rantau・Employment Pass・PVIPまで。外国人向け長期滞在ビザの種類・要件・費用を2026年最新データで徹底解説。",
-      en: "Malaysia residency options and long term visa options for foreigners 2026. MM2H, DE Rantau, Employment Pass, PVIP — requirements, costs, and permanent residency pathways.",
+      en: "Malaysia permanent residency (PR) requirements for foreigners 2026 — categories, processing time 2–5 years, eligibility. Long term visa options: MM2H, DE Rantau, Employment Pass, PVIP.",
       zh: "涵盖MM2H、DE Rantau、就业准证及PVIP，全面反映2024年改版及2026年6月EP薪资新标准。",
     },
     content: {
@@ -10444,12 +10444,12 @@ This article is based on the following official sources.
     thumbnail: "/images/blog/visa-br.webp",
     title: {
       ja: "【2026年最新版】ブラジルのビザ・就労許可完全ガイド",
-      en: "Brazil Permanent Residency & Work Visa Guide 2026 | Temporary Resident, Digital Nomad, Work Permit",
+      en: "Brazil Work Visa Requirements & Permanent Residency Guide 2026 | Digital Nomad, Temporary Resident",
       zh: "【2026年最新版】巴西签证与就业许可完全指南",
     },
     description: {
       ja: "デジタルノマドビザ・就労ビザ・所得税・サンパウロ家賃まで、ブラジル移住に必要な情報を2026年最新データで徹底解説。",
-      en: "Brazil permanent residency requirements, work visa (CTPS), digital nomad visa, and income tax (7.5–27.5%) — complete 2026 guide with São Paulo expat-area rents and full fee tables.",
+      en: "Brazil work visa requirements 2026 — CTPS, digital nomad visa (VITEM XIII), and permanent residency for foreigners. Income tax 7.5–27.5%, São Paulo expat rents, full fee tables.",
       zh: "数字游民签证、工作签证、所得税、圣保罗租金——2026年最新移居巴西完全指南。",
     },
     content: {
