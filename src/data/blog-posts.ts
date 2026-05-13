@@ -2308,12 +2308,12 @@ This article is based on the following official sources.
     thumbnail: "/images/blog/visa-my.webp",
     title: {
       ja: "マレーシア ビザ・移住条件完全ガイド【2026年最新版】｜MM2H・DE Rantau・就労ビザ",
-      en: "Malaysia Long-Term Visa Options for Foreigners 2026 | MM2H, DE Rantau, Employment Pass Complete Guide",
+      en: "Malaysia Residency Options for Foreigners 2026 | Long-Term Visa, MM2H & Employment Pass Guide",
       zh: "马来西亚签证与移居条件完全指南【2026年最新版】",
     },
     description: {
       ja: "MM2H・DE Rantau・Employment Pass・PVIPまで。外国人向け長期滞在ビザの種類・要件・費用を2026年最新データで徹底解説。",
-      en: "Malaysia long term visa options for foreigners — MM2H, DE Rantau Nomad Pass, Employment Pass, PVIP. Updated for 2026 EP salary thresholds and MM2H reforms.",
+      en: "Malaysia residency options and long term visa options for foreigners 2026. MM2H, DE Rantau, Employment Pass, PVIP — requirements, costs, and permanent residency pathways.",
       zh: "涵盖MM2H、DE Rantau、就业准证及PVIP，全面反映2024年改版及2026年6月EP薪资新标准。",
     },
     content: {
@@ -9359,12 +9359,12 @@ This article is based on the following official sources.
     thumbnail: "/images/blog/visa-se.webp",
     title: {
       ja: "【2026年最新版】スウェーデンのビザ・就労許可完全ガイド",
-      en: "Sweden Visa & Work Permit Complete Guide 2026",
+      en: "Sweden Work Permit Requirements 2026 | Visa, Expertskatt & Immigration Guide",
       zh: "【2026年最新版】瑞典签证与就业许可完全指南",
     },
     description: {
       ja: "就労許可・専門家税制・所得税・ストックホルム家賃まで、スウェーデン移住に必要な情報を2026年最新データで徹底解説。",
-      en: "Work permits, Expertskatt tax break, income tax, and Stockholm rent — a complete 2026 guide to moving to Sweden.",
+      en: "Sweden work permit requirements 2026 — eligibility, salary rules, and application steps. Plus Expertskatt tax break, income tax rates, and Stockholm rent guide.",
       zh: "工作许可、专家税收优惠、所得税、斯德哥尔摩租金——2026年最新移居瑞典完全指南。",
     },
     content: {
