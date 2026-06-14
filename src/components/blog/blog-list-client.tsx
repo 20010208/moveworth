@@ -107,7 +107,7 @@ export function BlogListClient({ posts }: { posts: BlogPost[] }) {
                   <div className="flex items-center gap-2 mb-2">
                     <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary-light px-2.5 py-0.5 rounded-full">
                       <Tag className="h-3 w-3" />
-                      {getLabel(blogCategories[post.category])}
+                      {getLabel(blogCategories[post.category as keyof typeof blogCategories])}
                     </span>
                     <span className="text-xs text-muted flex items-center gap-1">
                       <Clock className="h-3 w-3" />
