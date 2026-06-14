@@ -1,5 +1,6 @@
 import { createServerClient } from "@/lib/supabase-server";
 import { BlogListClient } from "@/components/blog/blog-list-client";
+import type { BlogPost } from "@/types/blog";
 
 export const revalidate = 3600;
 
@@ -12,5 +13,5 @@ export default async function BlogPage() {
     .order("pinned", { ascending: false })
     .order("published_at", { ascending: false });
 
-  return <BlogListClient posts={posts ?? []} />;
+  return <BlogListClient posts={(posts ?? []) as BlogPost[]} />;
 }
