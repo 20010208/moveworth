@@ -4,35 +4,17 @@ import Link from "next/link";
 import { ArrowLeft, Clock, Tag, Share2 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
-import { getBlogPost, blogCategories } from "@/data/blog-posts";
+import { blogCategories } from "@/data/blog-posts";
+import type { BlogPost, MultiLang } from "@/types/blog";
 
-export function BlogPostContent({ slug }: { slug: string }) {
+export function BlogPostContent({ post }: { post: BlogPost }) {
   const { t, locale } = useTranslation();
   const { user } = useAuth();
   const isPaid = user?.plan === "pro" || user?.plan === "premium";
   const lang = locale as "en" | "ja" | "zh";
-  const post = getBlogPost(slug);
-  const getLabel = (obj: { ja: string; en: string; zh?: string }) =>
-    (obj[lang as keyof typeof obj] as string | undefined) ?? obj.en;
 
-  if (!post) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-indigo-50/60 via-white to-slate-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-4">
-            {t("blog.notFound")}
-          </h1>
-          <Link
-            href="/blog"
-            className="text-primary hover:underline flex items-center gap-1 justify-center"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            {t("blog.backToList")}
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  const getLabel = (obj: MultiLang) =>
+    (obj[lang as keyof typeof obj] as string | undefined) ?? obj.en;
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -274,9 +256,9 @@ export function BlogPostContent({ slug }: { slug: string }) {
             </span>
             <span className="text-xs text-muted flex items-center gap-1">
               <Clock className="h-3 w-3" />
-              {post.readingTime} {t("blog.minRead")}
+              {post.reading_minutes} {t("blog.minRead")}
             </span>
-            <span className="text-xs text-muted">{post.date}</span>
+            <span className="text-xs text-muted">{post.published_at}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight mb-4">
             {getLabel(post.title)}

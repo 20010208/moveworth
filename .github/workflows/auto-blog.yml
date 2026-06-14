@@ -1,0 +1,31 @@
+name: Auto Blog Post
+
+on:
+  schedule:
+    # 月・火・木・土 の 09:00 JST (00:00 UTC) に実行
+    - cron: "0 0 * * 1,2,4,6"
+  workflow_dispatch: # 手動実行も可能
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate blog post
+        run: npx tsx scripts/generate-blog-post.ts
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      - name: Trigger Vercel redeploy
+        run: curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"
