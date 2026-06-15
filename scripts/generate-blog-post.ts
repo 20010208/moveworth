@@ -104,10 +104,17 @@ ${langInstructions[lang]}
   };
 }
 
-function generateSlug(keyword: string): string {
-  const date = new Date().toISOString().split("T")[0].replace(/-/g, "");
-  const random = Math.random().toString(36).slice(2, 6);
-  return `blog-${date}-${random}`;
+function generateSlug(enTitle: string): string {
+  const year = new Date().getFullYear();
+  const base = enTitle
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/-{2,}/g, "-")
+    .slice(0, 55)
+    .replace(/-+$/, "");
+  return `${base}-${year}`;
 }
 
 async function run() {
@@ -123,7 +130,7 @@ async function run() {
     generateContent(topic.keyword, topic.category, "zh"),
   ]);
 
-  const slug = generateSlug(topic.keyword);
+  const slug = generateSlug(en.title);
   const today = new Date().toISOString().split("T")[0];
 
   const { error } = await supabase.from("blog_posts").insert({
