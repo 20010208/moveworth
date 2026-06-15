@@ -56,7 +56,16 @@ const COUNTRY_QUEUE = [
 
 type Lang = "ja" | "en" | "zh";
 
+// --country be で強制指定可能
+const forceCountryCode = process.argv[2] ?? null;
+
 async function getNextCountry(): Promise<{ code: string; name: { ja: string; en: string } }> {
+  if (forceCountryCode) {
+    const found = COUNTRY_QUEUE.find((c) => c.code === forceCountryCode);
+    if (!found) throw new Error(`Country code "${forceCountryCode}" not found in queue.`);
+    return found;
+  }
+
   const { data: visaPosts } = await supabase
     .from("blog_posts")
     .select("slug")
@@ -76,35 +85,154 @@ async function generateVisaContent(
   countryName: { ja: string; en: string },
   lang: Lang
 ): Promise<{ title: string; description: string; content: string }> {
-  const langInst = {
-    ja: "日本語で書いてください。",
-    en: "Write in English.",
-    zh: "请用中文写。",
-  };
+  const prompts: Record<Lang, string> = {
+    ja: `あなたはMoveWorthというサービスのビザ情報ライターです。MoveWorthは、海外移住を考えている人向けに、税金・生活費・ビザを一括シミュレーションできるサービスです。
 
-  const prompt = `あなたはMoveWorthというサービスのビザ情報ライターです。MoveWorthは、海外移住を考えている人向けに、税金・生活費・ビザを一括シミュレーションできるサービスです。
+${countryName.ja}のビザ・移住条件に関する記事を日本語で書いてください。
 
-${countryName.en}（${countryName.ja}）のビザ・移住条件について、事実に基づいた詳細な記事を書いてください。
+## タイトル形式（必ず守ること）
+【2026年最新版】${countryName.ja}のビザ・就労許可完全ガイド｜{主要ビザ名1}・{主要ビザ名2}・{主要ビザ名3}
 
-${langInst[lang]}
+## 本文の構成（見出しは必ず ### を使うこと、## は使わないこと）
 
-## 必須セクション構成
-- ## Main Visa Types（主要ビザの種類） — 各ビザごとに以下を記載：ビザ名、対象者、必要書類、費用（数字）、有効期間、申請先URL
-- ## Tax & Living Notes（税金・生活費）— 所得税率、VAT率、主要都市の家賃目安（表形式）
-- ## Cost Summary（費用サマリー）— Markdownテーブル（ビザ種別・申請費・処理期間の比較）
-- ## Pre-Move Checklist（渡航前チェックリスト）— 番号付きリスト
-- ## References（公式参考リンク）— 政府・大使館の公式URLを必ず含める
+[導入段落] ※見出しなし。${countryName.ja}の移住先としての特徴・魅力を2〜3文で書く。
 
-以下のJSON形式で回答してください（JSONのみ、コードブロック不要）：
+### 主なビザの種類
+各ビザを以下の形式で記載：
+**{ビザ名}**
+説明文（1〜2文）
+- 要件：...
+- **最低条件や重要数値**
+- 有効期間：...
+- 申請費用：...
+
+### 生活・税金について
+**所得税**：税率を箇条書きで
+**{その他の税・保険}**：説明
+**住居費**：主要都市の家賃目安
+
+### 費用の目安
+| 項目 | 費用 |
+|------|------|
+（ビザ申請費・各種手数料を表で記載）
+
+### 移住前のチェックポイント
+1. **{重要事項}**：説明
+（5点程度の番号付きリスト）
+
+締め括りの文（1〜2文）
+
+---
+
+### 参考資料
+本記事の情報は以下の公式資料をもとに作成しています。
+- **{ビザ名}**: [{機関名} – {ページ名}]({公式URL})
+
+## JSON形式で返答（JSONのみ、コードブロック不要）
 {
-  "title": "SEOタイトル（70文字以内）",
-  "description": "メタディスクリプション（120〜160文字）",
-  "content": "記事本文（マークダウン形式、2500〜4000文字）"
-}`;
+  "title": "【2026年最新版】${countryName.ja}のビザ・就労許可完全ガイド｜主要ビザ名を含める",
+  "description": "主要ビザと最低条件・費用を含むメタディスクリプション（120〜160文字）",
+  "content": "上記構成の記事本文（マークダウン、2500〜4000文字）"
+}`,
+
+    en: `You are a visa information writer for MoveWorth, a service that helps people considering international relocation simulate taxes, living costs, and visa requirements.
+
+Write a detailed, factual article about ${countryName.en} visa and immigration requirements in English.
+
+## Title format (strictly follow):
+${countryName.en} Visa & Work Permit Complete Guide 2026 | {Visa1}, {Visa2} & {Visa3}
+
+## Article structure (use ### for all headings, never ##):
+
+[Intro paragraph] — no heading. 2–3 sentences on ${countryName.en} as a relocation destination.
+
+### Main Visa Types
+For each visa type:
+**{Visa Name}**
+Brief description (1–2 sentences)
+- Requirements: ...
+- **Key threshold or figure**
+- Validity: ...
+- Application fee: ...
+
+### Tax & Living Notes
+**Income tax**: rates in bullet form
+**{Other tax/insurance}**: description
+**Housing**: rental price estimate for main city
+
+### Cost Summary
+| Item | Cost |
+|------|------|
+(table of visa fees and key costs)
+
+### Pre-Move Checklist
+1. **{Key point}**: explanation
+(5 numbered items)
+
+Closing sentence.
+
+---
+
+### References
+Data sourced from:
+- **{Visa name}**: [{Agency} – {Page}]({official URL})
+
+## Return as JSON only (no code block):
+{
+  "title": "${countryName.en} Visa & Work Permit Complete Guide 2026 | include main visa names",
+  "description": "Include key visa types and minimum requirements (120–160 chars)",
+  "content": "Full article in the structure above (markdown, 2500–4000 chars)"
+}`,
+
+    zh: `您是MoveWorth服务的签证信息撰稿人。MoveWorth帮助考虑海外移居的人模拟税务、生活成本和签证要求。
+
+请用中文撰写一篇关于${countryName.en}（${countryName.ja}）签证与移居条件的详细文章。
+
+## 标题格式（必须遵守）：
+【2026年最新版】{国名中文}签证与工作许可完全指南｜{签证1}·{签证2}·{签证3}
+
+## 文章结构（所有标题必须使用 ###，不使用 ##）：
+
+[导言段落] ※无标题。2～3句介绍${countryName.en}作为移居目的地的特点。
+
+### 主要签证类型
+每种签证格式：
+**{签证名称}**
+简要说明（1～2句）
+- 要求：...
+- **关键条件或数字**
+- 有效期：...
+- 申请费用：...
+
+### 税务与生活概况
+**所得税**：以列表形式列出税率
+**住房费用**：主要城市租金参考
+
+### 费用汇总
+| 项目 | 费用 |
+|------|------|
+（签证申请费及主要费用表格）
+
+### 移居前注意事项
+1. **{重要事项}**：说明
+（5条编号列表）
+
+---
+
+### 参考资料
+- **{签证名称}**: [{机构} – {页面}]({官方URL})
+
+## 仅返回JSON（无代码块）：
+{
+  "title": "【2026年最新版】${countryName.en}签证与工作许可完全指南｜含主要签证名称",
+  "description": "包含主要签证类型和最低要求（120～160字）",
+  "content": "按上述结构的完整文章（Markdown格式，2500～4000字）"
+}`,
+  };
 
   const res = await openai.chat.completions.create({
     model: "gpt-4o",
-    messages: [{ role: "user", content: prompt }],
+    messages: [{ role: "user", content: prompts[lang] }],
     response_format: { type: "json_object" },
     temperature: 0.2,
   });
@@ -133,34 +261,101 @@ async function generateStudyContent(
   countryName: { ja: string; en: string },
   lang: "ja" | "en"
 ): Promise<{ title: string; description: string; content: string }> {
-  const langInst = {
-    ja: "日本語で書いてください。",
-    en: "Write in English.",
-  };
+  const prompts: Record<"ja" | "en", string> = {
+    ja: `あなたはMoveWorth.studyというサービスのライターです。海外留学生向けの情報サービスです。
 
-  const prompt = `あなたはMoveWorth.studyというサービスのライターです。海外留学生向けの情報サービスです。
+${countryName.ja}への留学に関する記事を日本語で書いてください。
 
-${countryName.en}（${countryName.ja}）への留学について、事実に基づいた詳細な記事を書いてください。
+## タイトル形式（必ず守ること）
+【${countryName.ja}】留学中のアルバイト・就労ルール完全ガイド
 
-${langInst[lang]}
+## 本文の構成（見出しは必ず ### を使うこと）
 
-## 必須セクション構成
-- ## 学生ビザの概要 — ビザ種別・申請費用・処理期間・主な必要書類
-- ## アルバイト・就労ルール — 学期中・休暇中の週労働時間上限
-- ## 費用の目安 — Markdownテーブル（語学学校・生活費・住居費・その他の月額目安）
-- ## 注意事項 — 重要な注意点を3〜5点
-- ## 参考リンク — 公式ビザ申請サイト・教育機関URLを含める
+[導入段落] ※見出しなし。${countryName.ja}への留学の概要を1〜2文で書く。
 
-以下のJSON形式で回答してください（JSONのみ）：
+### 学生ビザの概要
+**ビザ種別：** （ビザ名）
+**申請費用：** （費用）
+**処理期間：** （期間）
+**主な要件：**
+- （箇条書きで3〜4点）
+
+### アルバイト・就労ルール
+**学期中：** 週○時間まで
+**休暇中：** 週○時間まで（または無制限など）
+**条件：** （許可取得の必要性など）
+
+### 注意事項
+1. （重要な注意点）
+2. （重要な注意点）
+3. （重要な注意点）
+
+### 費用の目安
+| 項目 | 費用 |
+|------|------|
+| 語学学校（月額） | 約○〜○万円 |
+| 生活費（月額） | 約○〜○万円 |
+| 住居費（月額） | 約○〜○万円 |
+| 学生ビザ申請費 | 約○円 |
+
+MoveWorth.studyのシミュレーターで${countryName.ja}留学の総費用を計算してみましょう。
+
+## JSON形式で返答（JSONのみ、コードブロック不要）
 {
-  "title": "SEOタイトル（60文字以内）",
-  "description": "メタディスクリプション（120〜150文字）",
-  "content": "記事本文（マークダウン形式、1500〜2500文字）"
-}`;
+  "title": "【${countryName.ja}】留学中のアルバイト・就労ルール完全ガイド",
+  "description": "週の就労時間上限・ビザ費用・生活費を含むメタディスクリプション（120〜150文字）",
+  "content": "上記構成の記事本文（マークダウン、1500〜2500文字）"
+}`,
+
+    en: `You are a writer for MoveWorth.study, a service providing study abroad information.
+
+Write a detailed article about studying in ${countryName.en} in English.
+
+## Title format (strictly follow):
+Study & Work Rules in ${countryName.en} 2026 — Complete Guide
+
+## Article structure (use ### for all headings):
+
+[Intro paragraph] — no heading. 1–2 sentences on studying in ${countryName.en}.
+
+### Student Visa
+**Type:** (visa name)
+**Fee:** (amount)
+**Processing:** (timeframe)
+**Main requirements:**
+- (3–4 bullet points)
+
+### Work Rules
+**During term:** Up to X hrs/week
+**During holidays:** Up to X hrs/week (or unrestricted)
+**Conditions:** (permit requirements)
+
+### Key Notes
+1. (Important note)
+2. (Important note)
+3. (Important note)
+
+### Cost Estimate
+| Item | Cost |
+|------|------|
+| Language school (monthly) | approx. X–X USD |
+| Living expenses (monthly) | approx. X–X USD |
+| Accommodation (monthly) | approx. X–X USD |
+| Student visa fee | approx. X USD |
+
+Use the MoveWorth.study simulator to calculate total costs for studying in ${countryName.en}.
+
+## Return as JSON only (no code block):
+{
+  "title": "Study & Work Rules in ${countryName.en} 2026 — Complete Guide",
+  "description": "Include weekly work hour limits, visa fees and living costs (120–150 chars)",
+  "content": "Full article in the structure above (markdown, 1500–2500 chars)"
+}`,
+  };
 
   const res = await openai.chat.completions.create({
     model: "gpt-4o",
-    messages: [{ role: "user", content: prompt }],
+    messages: [{ role: "user", content: prompts[lang] }],
     response_format: { type: "json_object" },
     temperature: 0.2,
   });
@@ -276,7 +471,7 @@ async function run() {
     locales: null,
     pinned: false,
     is_published: true,
-  });
+  }, { onConflict: "slug" });
 
   if (visaError) {
     console.error("Visa article insert failed:", visaError.message);
@@ -315,7 +510,7 @@ async function run() {
     description: { ja: studyJa.description, en: studyEn.description },
     content: { ja: studyFinalJa, en: studyFinalEn },
     is_published: true,
-  });
+  }, { onConflict: "slug" });
 
   if (studyError) {
     console.error("Study article insert failed:", studyError.message);
