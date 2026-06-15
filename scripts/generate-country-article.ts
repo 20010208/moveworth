@@ -455,12 +455,18 @@ async function run() {
   const visaSlug = `visa-${country.code}`;
   const today = new Date().toISOString().split("T")[0];
 
+  // public/images/blog/ に同名画像があれば自動設定
+  const thumbExts = [".webp", ".png", ".jpg"];
+  const thumbnail = thumbExts
+    .map((ext) => `/images/blog/${visaSlug}${ext}`)
+    .find((p) => existsSync(`public${p}`)) ?? null;
+
   const { error: visaError } = await supabase.from("blog_posts").upsert({
     slug: visaSlug,
     category: "visa",
     published_at: today,
     reading_minutes: 12,
-    thumbnail: null,
+    thumbnail,
     title: { ja: visaJa.title, en: visaEn.title, zh: visaZh.title },
     description: {
       ja: visaJa.description,
