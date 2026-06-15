@@ -29,6 +29,11 @@ const nextConfig: NextConfig = {
         destination: "https://www.moveworthapp.com/:path*",
         permanent: true,
       },
+      {
+        source: "/blog/blog-20260615-n9wn",
+        destination: "/blog/overseas-relocation-tax-savings-tips",
+        permanent: true,
+      },
     ];
   },
   async headers() {
