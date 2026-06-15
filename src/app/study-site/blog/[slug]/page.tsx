@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getStudyBlogPost, studyBlogPosts } from "@/data/study-blog-posts";
+import { createServerClient } from "@/lib/supabase-server";
 import { StudyBlogPostContent } from "@/components/study-blog/study-blog-post-content";
+import type { StudyBlogPost } from "@/types/study-blog";
 
 const BASE_URL = "https://study.moveworthapp.com";
 
@@ -9,14 +10,27 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
-  return studyBlogPosts.map((post) => ({ slug: post.slug }));
+  const supabase = createServerClient();
+  const { data } = await supabase
+    .from("study_blog_posts")
+    .select("slug")
+    .eq("is_published", true);
+  return (data ?? []).map((p: { slug: string }) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getStudyBlogPost(slug);
-  if (!post) return {};
+  const supabase = createServerClient();
+  const { data } = await supabase
+    .from("study_blog_posts")
+    .select("slug, title, description, date")
+    .eq("slug", slug)
+    .single();
+  if (!data) return {};
+  const post = data as StudyBlogPost;
   return {
     title: post.title.ja,
     description: post.description.ja,
@@ -34,8 +48,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function StudyBlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = getStudyBlogPost(slug);
-  if (!post) notFound();
+  const supabase = createServerClient();
+  const { data } = await supabase
+    .from("study_blog_posts")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+
+  if (!data) notFound();
+
+  const post = data as StudyBlogPost;
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -54,7 +76,7 @@ export default async function StudyBlogPostPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <StudyBlogPostContent slug={slug} />
+      <StudyBlogPostContent post={post} />
     </>
   );
 }

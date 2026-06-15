@@ -2,30 +2,10 @@
 
 import Link from "next/link";
 import { ArrowLeft, Clock, Tag, Share2 } from "lucide-react";
-import { getStudyBlogPost, studyBlogCategories } from "@/data/study-blog-posts";
+import { studyBlogCategories } from "@/data/study-blog-posts";
+import type { StudyBlogPost } from "@/types/study-blog";
 
-export function StudyBlogPostContent({ slug }: { slug: string }) {
-  const post = getStudyBlogPost(slug);
-
-  if (!post) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-indigo-50/60 via-white to-slate-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-4">
-            記事が見つかりませんでした
-          </h1>
-          <Link
-            href="/blog"
-            className="text-primary hover:underline flex items-center gap-1 justify-center"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            ブログ一覧に戻る
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
+export function StudyBlogPostContent({ post }: { post: StudyBlogPost }) {
   const handleShare = async () => {
     const url = window.location.href;
     const title = post.title.ja;
@@ -269,7 +249,7 @@ export function StudyBlogPostContent({ slug }: { slug: string }) {
             </span>
             <span className="text-xs text-muted flex items-center gap-1">
               <Clock className="h-3 w-3" />
-              {post.readingTime} 分で読める
+              {post.reading_time} 分で読める
             </span>
             <span className="text-xs text-muted">{post.date}</span>
           </div>
