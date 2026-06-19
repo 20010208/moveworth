@@ -90,7 +90,7 @@ async function generateVisaContent(
 
 ${countryName.ja}のビザ・移住条件に関する記事を日本語で書いてください。
 
-## タイトル形式（必ず守ること）
+## タイトル形式（必ず守ること。絵文字・記号は一切使わないこと）
 【2026年最新版】${countryName.ja}のビザ・就労許可完全ガイド｜{主要ビザ名1}・{主要ビザ名2}・{主要ビザ名3}
 
 ## 本文の構成（見出しは必ず ### を使うこと、## は使わないこと）
@@ -139,7 +139,7 @@ ${countryName.ja}のビザ・移住条件に関する記事を日本語で書い
 
 Write a detailed, factual article about ${countryName.en} visa and immigration requirements in English.
 
-## Title format (strictly follow):
+## Title format (strictly follow. No emojis or special symbols):
 ${countryName.en} Visa & Work Permit Complete Guide 2026 | {Visa1}, {Visa2} & {Visa3}
 
 ## Article structure (use ### for all headings, never ##):
@@ -188,7 +188,7 @@ Data sourced from:
 
 请用中文撰写一篇关于${countryName.en}（${countryName.ja}）签证与移居条件的详细文章。
 
-## 标题格式（必须遵守）：
+## 标题格式（必须遵守。不使用任何表情符号或特殊符号）：
 【2026年最新版】{国名中文}签证与工作许可完全指南｜{签证1}·{签证2}·{签证3}
 
 ## 文章结构（所有标题必须使用 ###，不使用 ##）：
@@ -244,7 +244,13 @@ async function factCheckContent(
   countryName: string,
   lang: string
 ): Promise<string> {
-  const prompt = `以下は${countryName}のビザ・移住情報記事です。費用・期間・必要書類などの数字・事実を検証し、不正確な箇所を修正してください。正確な記事のみを返してください（説明不要）。言語: ${lang}
+  const prompt = `あなたは${countryName}の移住・ビザ情報に詳しい専門家です。以下の記事を、あなたの知識で精査してください。
+
+ルール：
+- あなたの学習データに基づいて、費用・期間・必要書類などの数字や事実を確認し、明らかに誤っている箇所のみ修正してください
+- 「確認できない」「インターネットにアクセスできない」などのメタコメントは絶対に書かないでください
+- 修正した記事本文のみを返してください。説明・コメント・注記は一切不要です
+- 言語: ${lang}
 
 ${content}`;
 
@@ -254,7 +260,22 @@ ${content}`;
     temperature: 0.1,
     max_tokens: 4000,
   });
-  return res.choices[0].message.content ?? content;
+
+  const result = res.choices[0].message.content ?? content;
+  // フォールバック：メタコメントが混入した場合は元のコンテンツを使用
+  const metaCommentPatterns = [
+    "インターネットへのアクセス",
+    "外部データベース",
+    "確認することはできません",
+    "I cannot verify",
+    "I don't have access",
+    "cannot access the internet",
+  ];
+  if (metaCommentPatterns.some((p) => result.includes(p))) {
+    console.warn(`⚠️  Fact-check returned meta-comment for ${countryName} (${lang}), using original`);
+    return content;
+  }
+  return result;
 }
 
 async function generateStudyContent(
