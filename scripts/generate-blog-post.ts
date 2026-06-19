@@ -29,7 +29,7 @@ const CATEGORIES: Record<string, { ja: string; en: string; zh: string }> = {
     en: "Moving and Money",
     zh: "移居与金钱",
   },
-  lifestyle: {
+  lifeplan: {
     ja: "ライフプラン",
     en: "Life Plan",
     zh: "生活规划",
@@ -41,20 +41,37 @@ const CATEGORIES: Record<string, { ja: string; en: string; zh: string }> = {
   },
 };
 
-const TOPICS = [
-  { category: "money", keyword: "海外移住後の日本の確定申告と住民票抜きのポイント" },
-  { category: "money", keyword: "海外移住で節税できる仕組みと注意点" },
-  { category: "money", keyword: "海外在住者の日本の銀行口座・証券口座の維持方法" },
-  { category: "money", keyword: "海外移住の初期費用を徹底計算" },
-  { category: "lifestyle", keyword: "30代で海外移住を決断した理由と準備ステップ" },
-  { category: "lifestyle", keyword: "海外移住後の子育て・教育環境の選び方" },
-  { category: "lifestyle", keyword: "フリーランスが海外移住する際の注意点" },
-  { category: "lifestyle", keyword: "海外移住と日本の年金・社会保険の関係" },
-  { category: "casestudy", keyword: "タイ・バンコクに移住した日本人エンジニアの実体験" },
-  { category: "casestudy", keyword: "ポルトガル・リスボンに移住した40代夫婦のケーススタディ" },
-  { category: "casestudy", keyword: "ドバイに移住した起業家の節税と生活コストの実態" },
-  { category: "casestudy", keyword: "カナダ・バンクーバーに移住したITエンジニアの体験談" },
-];
+// 投稿順序：money → lifeplan → casestudy → casestudy → くり返し
+const ROTATION: string[] = ["money", "lifeplan", "casestudy", "casestudy"];
+
+const TOPIC_POOL: Record<string, string[]> = {
+  money: [
+    "海外移住後の日本の確定申告と住民票抜きのポイント",
+    "海外移住で節税できる仕組みと注意点",
+    "海外在住者の日本の銀行口座・証券口座の維持方法",
+    "海外移住の初期費用を徹底計算",
+    "海外移住後の資産運用：NISAや投資信託はどうなる？",
+    "海外移住者の日本円・外貨の両替と送金コスト比較",
+  ],
+  lifeplan: [
+    "30代で海外移住を決断した理由と準備ステップ",
+    "海外移住後の子育て・教育環境の選び方",
+    "フリーランスが海外移住する際の注意点",
+    "海外移住と日本の年金・社会保険の関係",
+    "定年後に海外移住するメリット・デメリット完全ガイド",
+    "海外移住前に必ず確認すべき保険の見直しポイント",
+  ],
+  casestudy: [
+    "タイ・バンコクに移住した日本人エンジニアの実体験",
+    "ポルトガル・リスボンに移住した40代夫婦のケーススタディ",
+    "ドバイに移住した起業家の節税と生活コストの実態",
+    "カナダ・バンクーバーに移住したITエンジニアの体験談",
+    "マレーシア・クアラルンプールに移住した家族の生活費レポート",
+    "ドイツ・ベルリンに移住したデザイナーのビザ取得体験談",
+    "シンガポールに移住した30代共働き夫婦の資産形成事例",
+    "スペイン・バルセロナに移住したフリーランサーの1年間",
+  ],
+};
 
 async function generateContent(keyword: string, category: string, lang: Lang): Promise<{
   title: string;
@@ -117,17 +134,28 @@ function generateSlug(enTitle: string): string {
   return `${base}-${year}`;
 }
 
-async function run() {
-  // Pick a topic: rotate based on day of week, or pick randomly
-  const dayIndex = new Date().getDay();
-  const topic = TOPICS[dayIndex % TOPICS.length];
+async function getNextCategory(): Promise<string> {
+  // 既存の非visaブログ記事数から次のカテゴリを決定
+  const { count } = await supabase
+    .from("blog_posts")
+    .select("*", { count: "exact", head: true })
+    .not("category", "in", '("visa")');
 
-  console.log(`Generating: [${topic.category}] ${topic.keyword}`);
+  const index = ((count ?? 0) % ROTATION.length);
+  return ROTATION[index];
+}
+
+async function run() {
+  const category = await getNextCategory();
+  const pool = TOPIC_POOL[category];
+  const keyword = pool[Math.floor(Math.random() * pool.length)];
+
+  console.log(`Generating: [${category}] ${keyword}`);
 
   const [ja, en, zh] = await Promise.all([
-    generateContent(topic.keyword, topic.category, "ja"),
-    generateContent(topic.keyword, topic.category, "en"),
-    generateContent(topic.keyword, topic.category, "zh"),
+    generateContent(keyword, category, "ja"),
+    generateContent(keyword, category, "en"),
+    generateContent(keyword, category, "zh"),
   ]);
 
   const slug = generateSlug(en.title);
@@ -135,7 +163,7 @@ async function run() {
 
   const { error } = await supabase.from("blog_posts").insert({
     slug,
-    category: topic.category,
+    category,
     published_at: today,
     reading_minutes: 8,
     thumbnail: null,
