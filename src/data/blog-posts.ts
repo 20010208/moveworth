@@ -1,6 +1,6 @@
 ﻿export interface BlogPost {
   slug: string;
-  category: "money" | "lifeplan" | "casestudy" | "about" | "visa";
+  category: "money" | "lifeplan" | "casestudy" | "about" | "visa" | "visa-guide";
   date: string;
   readingTime: number;
   locales?: string[]; // 未指定の場合は全言語に表示
@@ -17,6 +17,7 @@ export const blogCategories = {
   casestudy: { ja: "国別ケーススタディ", en: "Country Case Studies", zh: "各国案例研究" },
   about: { ja: "MoveWorthについて", en: "About MoveWorth", zh: "关于MoveWorth" },
   visa: { ja: "ビザ・移住条件", en: "Visa & Requirements", zh: "签证与移居条件" },
+  "visa-guide": { ja: "ビザ詳細ガイド", en: "Detailed Visa Guide", zh: "签证详细指南" },
 } as const;
 
 export const blogPosts: BlogPost[] = [
