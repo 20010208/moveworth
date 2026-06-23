@@ -39,13 +39,22 @@ export function BlogPostContent({ post }: { post: BlogPost }) {
           if (part.startsWith("**") && part.endsWith("**")) {
             return (
               <strong key={i} className="font-semibold text-foreground">
-                {part.slice(2, -2)}
+                {renderInline(part.slice(2, -2))}
               </strong>
             );
           }
           const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
           if (linkMatch) {
-            return (
+            const isInternal = linkMatch[2].startsWith("/");
+            return isInternal ? (
+              <Link
+                key={i}
+                href={linkMatch[2]}
+                className="text-primary underline hover:opacity-80"
+              >
+                {linkMatch[1]}
+              </Link>
+            ) : (
               <a
                 key={i}
                 href={linkMatch[2]}
@@ -110,7 +119,7 @@ export function BlogPostContent({ post }: { post: BlogPost }) {
                       key={j}
                       className="border border-border/60 bg-surface px-3 py-2 text-left font-semibold text-foreground"
                     >
-                      {cell}
+                      {renderInline(cell)}
                     </th>
                   ))}
                 </tr>
@@ -123,7 +132,7 @@ export function BlogPostContent({ post }: { post: BlogPost }) {
                         key={j}
                         className="border border-border/60 px-3 py-2 text-muted"
                       >
-                        {cell}
+                        {renderInline(cell)}
                       </td>
                     ))}
                   </tr>
@@ -166,6 +175,16 @@ export function BlogPostContent({ post }: { post: BlogPost }) {
             />
           );
         }
+      } else if (line.startsWith("> ")) {
+        flushList();
+        elements.push(
+          <blockquote
+            key={i}
+            className="border-l-4 border-primary/40 pl-4 py-2 my-3 bg-primary/5 rounded-r-lg text-sm text-muted"
+          >
+            {renderInline(line.slice(2))}
+          </blockquote>
+        );
       } else if (line.startsWith("### ")) {
         flushList();
         elements.push(
