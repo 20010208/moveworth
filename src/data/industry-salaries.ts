@@ -479,4 +479,52 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     media:          7000000,
     infrastructure: 7500000,
   },
+  BE: {
+    // ブリュッセル在住外国人プロフェッショナルの平均年収（EUR）2026年3月
+    manufacturing:  40000,
+    it:             60000,
+    finance:        70000,
+    service:        35000,
+    retail:         30000,
+    construction:   38000,
+    logistics:      35000,
+    media:          45000,
+    infrastructure: 50000,
+  },
+  PL: {
+    // ワルシャワ在住外国人プロフェッショナルの平均年収（PLN）2026年3月
+    manufacturing:   60000,
+    it:             120000,
+    finance:        110000,
+    service:         70000,
+    retail:          50000,
+    construction:    65000,
+    logistics:       55000,
+    media:           80000,
+    infrastructure:  75000,
+  },
+  TN: {
+    // チュニス在住外国人プロフェッショナルの平均年収（TND）2026年3月
+    manufacturing:  25000,
+    it:             35000,
+    finance:        40000,
+    service:        22000,
+    retail:         18000,
+    construction:   23000,
+    logistics:      24000,
+    media:          27000,
+    infrastructure: 30000,
+  },
+  TR: {
+    // イスタンブール在住外国人プロフェッショナルの平均年収（TRY）2026年3月
+    manufacturing:  180000,
+    it:             240000,
+    finance:        300000,
+    service:        200000,
+    retail:         150000,
+    construction:   170000,
+    logistics:      160000,
+    media:          220000,
+    infrastructure: 190000,
+  },
 };

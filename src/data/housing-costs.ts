@@ -213,4 +213,24 @@ export const HOUSING_COSTS: Record<string, Record<HouseholdType, { rent: number;
     couple: { rent: 650000, living: 550000 },
     family: { rent: 950000, living: 950000 },
   },
+  BE: { // ブリュッセル（Ixelles・Saint-Gilles）
+    single: { rent:   1000, living:    800 },
+    couple: { rent:   1200, living:   1500 },
+    family: { rent:   1500, living:   2500 },
+  },
+  PL: { // ワルシャワ（Śródmieście・Mokotów）
+    single: { rent:   2500, living:   2500 },
+    couple: { rent:   3500, living:   4000 },
+    family: { rent:   4500, living:   6000 },
+  },
+  TN: { // チュニス（Les Berges du Lac・La Marsa）
+    single: { rent:    800, living:   1500 },
+    couple: { rent:   1000, living:   2500 },
+    family: { rent:   1500, living:   3500 },
+  },
+  TR: { // イスタンブール（Beşiktaş・Nişantaşı）
+    single: { rent:  12000, living:  25000 },
+    couple: { rent:  15000, living:  35000 },
+    family: { rent:  18000, living:  45000 },
+  },
 };
