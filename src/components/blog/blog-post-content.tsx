@@ -203,7 +203,7 @@ export function BlogPostContent({ post }: { post: BlogPost }) {
         flushList();
         elements.push(
           <p key={i} className="font-semibold text-foreground mt-4 mb-1">
-            {line.slice(2, -2)}
+            {renderInline(line.slice(2, -2))}
           </p>
         );
       } else if (line.match(/^  - /)) {
