@@ -10,6 +10,14 @@ import { useTranslation } from "@/lib/i18n";
 import { studyAbroadCountries, getStudyAbroadData } from "@/data/study-abroad";
 import { countryPresets } from "@/data/country-presets";
 
+const SUPABASE_IMG = "https://gzpiunqlcgskrmukfoke.supabase.co/storage/v1/object/public/blog-images";
+const VISA_PNG = new Set(["be", "ee", "pl", "tn"]);
+function visaImageUrl(code: string): string {
+  const c = code.toLowerCase();
+  const ext = VISA_PNG.has(c) ? "png" : "webp";
+  return `${SUPABASE_IMG}/visa-${c}.${ext}`;
+}
+
 function getFlag(code: string): string {
   return code.toUpperCase().replace(/./g, (c) =>
     String.fromCodePoint(127397 + c.charCodeAt(0))
@@ -349,7 +357,7 @@ export default function StudySitePage() {
                                 {/* Landscape image — object-left to crop out passport on the right */}
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
-                                  src={`/images/blog/visa-${country.code.toLowerCase()}.webp`}
+                                  src={visaImageUrl(country.code)}
                                   alt=""
                                   className="absolute inset-0 w-full h-full object-cover object-left"
                                   onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
