@@ -57,29 +57,38 @@ export function StudyBlogListClient({ posts }: { posts: StudyBlogPost[] }) {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="block bg-white border border-border/60 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-primary/20 transition-all group"
+              className="block bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden"
             >
-              <div className="flex items-center gap-2 mb-2">
-                <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary-light px-2.5 py-0.5 rounded-full">
-                  <Tag className="h-3 w-3" />
-                  {studyBlogCategories[post.category]?.ja ?? post.category}
+              {post.thumbnail && (
+                <img
+                  src={post.thumbnail}
+                  alt={post.title.ja}
+                  className="w-full h-48 object-cover"
+                />
+              )}
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary-light px-2.5 py-0.5 rounded-full">
+                    <Tag className="h-3 w-3" />
+                    {studyBlogCategories[post.category]?.ja ?? post.category}
+                  </span>
+                  <span className="text-xs text-muted flex items-center gap-1">
+                    <Clock className="h-3 w-3" />
+                    {post.reading_time} 分で読める
+                  </span>
+                  <span className="text-xs text-muted">{post.date}</span>
+                </div>
+                <h2 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors mb-2">
+                  {post.title.ja}
+                </h2>
+                <p className="text-sm text-muted line-clamp-2 mb-3">
+                  {post.description.ja}
+                </p>
+                <span className="text-sm font-medium text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
+                  続きを読む
+                  <ArrowRight className="h-4 w-4" />
                 </span>
-                <span className="text-xs text-muted flex items-center gap-1">
-                  <Clock className="h-3 w-3" />
-                  {post.reading_time} 分で読める
-                </span>
-                <span className="text-xs text-muted">{post.date}</span>
               </div>
-              <h2 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors mb-2">
-                {post.title.ja}
-              </h2>
-              <p className="text-sm text-muted line-clamp-2 mb-3">
-                {post.description.ja}
-              </p>
-              <span className="text-sm font-medium text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
-                続きを読む
-                <ArrowRight className="h-4 w-4" />
-              </span>
             </Link>
           ))}
         </div>

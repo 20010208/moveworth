@@ -259,6 +259,14 @@ export function StudyBlogPostContent({ post }: { post: StudyBlogPost }) {
           <p className="text-muted text-sm">{post.description.ja}</p>
         </header>
 
+        {post.thumbnail && (
+          <img
+            src={post.thumbnail}
+            alt={post.title.ja}
+            className="w-full rounded-2xl mb-6 border border-border/40 shadow-sm"
+          />
+        )}
+
         <div className="bg-white border border-border/60 rounded-2xl p-6 sm:p-8 shadow-sm">
           {renderContent(post.content.ja)}
         </div>

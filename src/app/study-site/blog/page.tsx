@@ -8,7 +8,7 @@ export default async function StudyBlogPage() {
   const supabase = createServerClient();
   const { data: posts } = await supabase
     .from("study_blog_posts")
-    .select("slug, category, date, reading_time, title, description")
+    .select("slug, category, date, reading_time, title, description, thumbnail")
     .eq("is_published", true)
     .order("date", { ascending: false });
 
