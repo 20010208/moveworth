@@ -52,6 +52,10 @@ const jaYomi: Record<string, string> = {
   CZ: "ちぇこ ちぇこきょうわこく", CN: "ちゅうごく しな",
   IN: "いんど いんどきょうわこく", MX: "めきしこ",
   AR: "あるぜんちん",
+  BE: "べるぎー べるぎーおうこく",
+  PL: "ぽーらんど ぽーらんどきょうわこく",
+  TN: "ちゅにじあ",
+  TR: "とるこ とるこきょうわこく",
 };
 
 function matchesQuery(code: string, name: string, query: string): boolean {
@@ -111,14 +115,18 @@ const regionMap: Record<string, RegionInfo> = {
   FI: { ja: "ヨーロッパ", en: "Europe", zh: "欧洲", cardBg: "from-emerald-50 to-teal-50", badge: "bg-emerald-100 text-emerald-700" },
   AT: { ja: "ヨーロッパ", en: "Europe", zh: "欧洲", cardBg: "from-emerald-50 to-teal-50", badge: "bg-emerald-100 text-emerald-700" },
   CZ: { ja: "ヨーロッパ", en: "Europe", zh: "欧洲", cardBg: "from-emerald-50 to-teal-50", badge: "bg-emerald-100 text-emerald-700" },
+  BE: { ja: "ヨーロッパ", en: "Europe", zh: "欧洲", cardBg: "from-emerald-50 to-teal-50", badge: "bg-emerald-100 text-emerald-700" },
+  PL: { ja: "ヨーロッパ", en: "Europe", zh: "欧洲", cardBg: "from-emerald-50 to-teal-50", badge: "bg-emerald-100 text-emerald-700" },
   // アジア（追加）
   CN: { ja: "アジア", en: "Asia", zh: "亚洲", cardBg: "from-violet-50 to-indigo-50", badge: "bg-violet-100 text-violet-700" },
   IN: { ja: "アジア", en: "Asia", zh: "亚洲", cardBg: "from-violet-50 to-indigo-50", badge: "bg-violet-100 text-violet-700" },
   // アフリカ
   ZA: { ja: "アフリカ", en: "Africa", zh: "非洲", cardBg: "from-orange-50 to-amber-50", badge: "bg-orange-100 text-orange-700" },
+  TN: { ja: "アフリカ", en: "Africa", zh: "非洲", cardBg: "from-orange-50 to-amber-50", badge: "bg-orange-100 text-orange-700" },
   // その他
   AE: { ja: "中東", en: "Middle East", zh: "中东", cardBg: "from-rose-50 to-pink-50", badge: "bg-rose-100 text-rose-700" },
   GE: { ja: "中東・欧州", en: "Eurasia", zh: "欧亚", cardBg: "from-rose-50 to-pink-50", badge: "bg-rose-100 text-rose-700" },
+  TR: { ja: "中東・欧州", en: "Eurasia", zh: "欧亚", cardBg: "from-rose-50 to-pink-50", badge: "bg-rose-100 text-rose-700" },
   BR: { ja: "南米", en: "South America", zh: "南美", cardBg: "from-lime-50 to-green-50", badge: "bg-lime-100 text-lime-700" },
   CO: { ja: "南米", en: "South America", zh: "南美", cardBg: "from-lime-50 to-green-50", badge: "bg-lime-100 text-lime-700" },
   MX: { ja: "南米", en: "South America", zh: "南美", cardBg: "from-lime-50 to-green-50", badge: "bg-lime-100 text-lime-700" },

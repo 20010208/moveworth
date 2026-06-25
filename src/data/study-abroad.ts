@@ -1548,6 +1548,194 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
     },
   },
 
+  BE: {
+    code: "BE",
+    overview: {
+      ja: "ベルギーはEUの首都とも呼ばれるブリュッセルを擁し、国際機関・外交機関が集中する多文化国家です。フランス語・オランダ語（フラマン語）・ドイツ語の3公用語を持ち、多言語環境で学べる珍しい国です。KUルーヴェン・ゲント大学など世界ランキング上位の大学が揃い、EU圏でのキャリアを目指す留学生に人気があります。",
+      en: "Belgium is home to Brussels, the de facto capital of the EU, and hosts a wealth of international organizations and diplomatic missions. With three official languages — French, Dutch (Flemish), and German — it offers a rare multilingual learning environment. World-ranked institutions like KU Leuven and Ghent University attract students seeking careers across Europe.",
+      zh: "比利时拥有被誉为欧盟首都的布鲁塞尔，国际机构和外交机构云集。荷兰语（佛拉芒语）、法语和德语三种官方语言并行，提供了罕见的多语言学习环境。KU鲁汶、根特大学等世界顶尖院校，吸引了有志于欧洲职业发展的留学生。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（タイプD長期ビザ）", en: "Type D Long-Stay Student Visa", zh: "D类长期学生签证" },
+      requirements: {
+        ja: ["入学許可書（学校の正式書類）", "財政証明書（月額€620以上）", "健康保険加入証明", "無犯罪証明書（公証済み）", "パスポート（有効期限13ヶ月以上）", "ビザ申請料 約€60〜180"],
+        en: ["Official enrollment letter", "Financial proof (€620+/month)", "Health insurance certificate", "Police clearance (certified)", "Passport valid 13+ months", "Visa fee approx. €60–180"],
+        zh: ["正式入学通知书", "经济证明（每月€620以上）", "医疗保险证明", "无犯罪证明（认证）", "护照（有效期13个月以上）", "签证费约€60至180"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "申請料 約€60〜180", en: "Approx. €60–180", zh: "约€60至180" },
+    },
+    costs: {
+      tuitionMin: 900,
+      tuitionMax: 8000,
+      livingMin: 900,
+      livingMax: 1800,
+      currency: "EUR",
+      currencySymbol: "€",
+    },
+    popularCities: {
+      ja: ["ブリュッセル", "ゲント", "アントワープ", "ルーヴェン", "リエージュ"],
+      en: ["Brussels", "Ghent", "Antwerp", "Leuven", "Liège"],
+      zh: ["布鲁塞尔", "根特", "安特卫普", "鲁汶", "列日"],
+    },
+    popularUniversities: {
+      ja: ["KUルーヴェン（カトリック・ルーヴェン大学）", "ゲント大学", "ブリュッセル自由大学（ULB）", "リエージュ大学", "ブリュッセル自由大学（VUB・オランダ語系）"],
+      en: ["KU Leuven", "Ghent University", "Université Libre de Bruxelles (ULB)", "University of Liège", "Vrije Universiteit Brussel (VUB)"],
+      zh: ["鲁汶大学（KU Leuven）", "根特大学", "布鲁塞尔自由大学（ULB）", "列日大学", "布鲁塞尔自由大学（VUB）"],
+    },
+    tips: {
+      ja: ["公立大学の学費はEU域外学生でも年間€1,000〜8,000程度と比較的安い", "3言語環境のため、フランス語またはオランダ語の基礎があると有利", "EU本部・NATO本部があるため、国際機関インターンのチャンスが豊富", "チョコレート・ビール・ワッフルなどグルメ文化も楽しめる"],
+      en: ["Tuition for non-EU students is relatively affordable at €1,000–8,000/year", "Knowledge of French or Dutch is advantageous given the tri-lingual environment", "Proximity to EU HQ and NATO HQ offers exceptional internship opportunities", "World-famous chocolate, beer, and waffle culture to enjoy"],
+      zh: ["非欧盟学生学费相对实惠，每年约€1,000至8,000", "具备法语或荷兰语基础更有优势，因为是三语环境", "毗邻欧盟总部和北约总部，国际机构实习机会丰富", "享誉全球的巧克力、啤酒和华夫饼文化"],
+    },
+    japaneseInfo: {
+      ja: "ブリュッセルには在ベルギー日本大使館があり、日系企業も多数進出しています。EU関連機関でのインターンを目指す日本人学生も増えており、日本人コミュニティも形成されています。英語・フランス語・オランダ語を組み合わせたキャリア形成が可能です。",
+      en: "The Japanese Embassy in Belgium is in Brussels, where many Japanese companies are also present. A growing number of Japanese students aim for EU institution internships, and a Japanese community has formed in the city.",
+      zh: "日本驻比利时大使馆位于布鲁塞尔，众多日系企业也在此落户。越来越多的日本学生以欧盟机构实习为目标，当地日本人社区也在逐渐形成。",
+    },
+  },
+
+  PL: {
+    code: "PL",
+    overview: {
+      ja: "ポーランドはヨーロッパで最も急成長している経済国のひとつで、ワルシャワ・クラクフなど歴史ある都市が留学先として注目されています。生活費が西欧に比べてはるかに安く、英語対応の大学コースも増加中です。ITやビジネス分野でのキャリアを目指す留学生に人気が高まっています。",
+      en: "Poland is one of Europe's fastest-growing economies, with historic cities like Warsaw and Kraków drawing increasing attention as study destinations. Living costs are far lower than Western Europe, and English-taught university programs are rapidly expanding — making it a rising choice for students targeting IT and business careers.",
+      zh: "波兰是欧洲经济增长最快的国家之一，华沙、克拉科夫等历史名城作为留学目的地备受关注。生活费远低于西欧，英语授课大学课程也在持续增加，对于有志于IT和商业职业发展的留学生吸引力日益增强。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（タイプDビザ → 学生居留許可）", en: "Type D Visa → Student Residence Permit", zh: "D类签证→学生居留许可" },
+      requirements: {
+        ja: ["大学入学許可書", "財政証明書（月額PLN 776以上）", "健康保険加入証明", "パスポート（有効期限3ヶ月以上）", "居留許可申請料（約PLN 440）"],
+        en: ["University admission letter", "Financial proof (PLN 776+/month)", "Health insurance", "Passport (valid 3+ months)", "Residence permit fee (approx. PLN 440)"],
+        zh: ["大学录取通知书", "经济证明（每月PLN 776以上）", "医疗保险证明", "护照（有效期3个月以上）", "居留许可申请费（约PLN 440）"],
+      },
+      duration: { ja: "1年（居留許可として更新可）", en: "1 year (residence permit, renewable)", zh: "1年（居留许可，可续签）" },
+      cost: { ja: "居留許可申請料 約PLN 440", en: "Approx. PLN 440 (residence permit)", zh: "约PLN 440（居留许可）" },
+    },
+    costs: {
+      tuitionMin: 0,
+      tuitionMax: 20000,
+      livingMin: 2500,
+      livingMax: 5000,
+      currency: "PLN",
+      currencySymbol: "zł",
+    },
+    popularCities: {
+      ja: ["ワルシャワ", "クラクフ", "ウッジ", "ヴロツワフ", "ポズナン"],
+      en: ["Warsaw", "Kraków", "Łódź", "Wrocław", "Poznań"],
+      zh: ["华沙", "克拉科夫", "罗兹", "弗罗茨瓦夫", "波兹南"],
+    },
+    popularUniversities: {
+      ja: ["ワルシャワ大学", "ヤギェウォ大学（クラクフ）", "ワルシャワ工科大学", "ポズナン・アダム・ミツキェヴィチ大学", "コペルニクス大学（トルン）"],
+      en: ["University of Warsaw", "Jagiellonian University (Kraków)", "Warsaw University of Technology", "Adam Mickiewicz University (Poznań)", "Nicolaus Copernicus University (Toruń)"],
+      zh: ["华沙大学", "克拉科夫雅盖隆大学", "华沙理工大学", "波兹南亚当·密茨凯维奇大学", "托伦哥白尼大学"],
+    },
+    tips: {
+      ja: ["生活費は西欧の半分以下で、留学コストが非常に安い", "英語対応コースが急増中（特にIT・医学・ビジネス）", "EU加盟国のため卒業後のヨーロッパ就職ルートが開ける", "歴史ある旧市街・自然景観が豊富でQOLが高い"],
+      en: ["Cost of living is less than half of Western Europe — very affordable study destination", "English-taught programs are rapidly expanding (especially IT, medicine, business)", "EU membership opens post-graduation European career pathways", "Rich history, old town districts, and natural scenery ensure high quality of life"],
+      zh: ["生活费不到西欧的一半，留学成本极低", "英语授课课程快速增加（尤其是IT、医学、商业）", "欧盟成员国身份为毕业后的欧洲就业提供了途径", "历史悠久的老城区和自然风光保证了高生活质量"],
+    },
+    japaneseInfo: {
+      ja: "在ポーランド日本大使館はワルシャワにあります。日系自動車・製造業企業の進出が増加しており、日本語を活かした就職機会もあります。スラブ語圏への留学は珍しいため、希少性のある経験となります。",
+      en: "The Japanese Embassy in Poland is in Warsaw. Japanese automotive and manufacturing companies are increasingly investing in Poland, creating career opportunities for Japanese speakers. Studying in a Slavic country is a rare and distinctive experience.",
+      zh: "日本驻波兰大使馆位于华沙。日本汽车和制造业企业在波兰的投资日益增多，为日语使用者提供了就业机会。在斯拉夫语系国家留学是一种罕见而独特的经历。",
+    },
+  },
+
+  TN: {
+    code: "TN",
+    overview: {
+      ja: "チュニジアはアフリカと地中海をつなぐ文化の交差点で、フランス語・アラビア語・英語が広く使われています。北アフリカで最も教育水準が高い国のひとつとされ、カルタゴをはじめとする世界遺産や地中海の美しい海岸も魅力です。留学費用は非常に安く、アラビア語・フランス語の習得に最適な環境です。",
+      en: "Tunisia sits at the crossroads of Africa and the Mediterranean, where French, Arabic, and English are widely spoken. Recognized as one of North Africa's leading nations in education, it offers UNESCO World Heritage sites like Carthage alongside stunning Mediterranean coastline. Study costs are extremely low, making it ideal for students pursuing Arabic or French.",
+      zh: "突尼斯位于非洲与地中海的交汇处，法语、阿拉伯语和英语广泛使用。作为北非教育水平最高的国家之一，这里拥有迦太基等世界遗产和美丽的地中海海岸。留学费用极低，是学习阿拉伯语或法语的理想环境。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ（留学目的長期ビザ）", en: "Student Long-Stay Visa", zh: "学生长期签证" },
+      requirements: {
+        ja: ["入学許可書（チュニジア高等教育機関発行）", "財政証明書", "パスポート（有効期限6ヶ月以上）", "証明写真", "健康保険加入証明", "申請料 約TND 30〜50"],
+        en: ["Enrollment letter from Tunisian institution", "Financial proof", "Passport valid 6+ months", "Passport photos", "Health insurance", "Fee approx. TND 30–50"],
+        zh: ["突尼斯高等院校录取通知书", "经济证明", "护照（有效期6个月以上）", "证件照", "医疗保险证明", "申请费约TND 30至50"],
+      },
+      duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
+      cost: { ja: "申請料 約TND 30〜50（約1,500〜2,500円）", en: "Approx. TND 30–50", zh: "约TND 30至50" },
+    },
+    costs: {
+      tuitionMin: 300,
+      tuitionMax: 3000,
+      livingMin: 800,
+      livingMax: 1500,
+      currency: "TND",
+      currencySymbol: "DT",
+    },
+    popularCities: {
+      ja: ["チュニス", "スファックス", "スース", "モナスティール", "ガベス"],
+      en: ["Tunis", "Sfax", "Sousse", "Monastir", "Gabès"],
+      zh: ["突尼斯市", "斯法克斯", "苏塞", "莫纳斯提尔", "加贝斯"],
+    },
+    popularUniversities: {
+      ja: ["チュニス大学", "カルタゴ大学", "スファックス大学", "モナスティール大学", "スース大学"],
+      en: ["University of Tunis", "University of Carthage", "University of Sfax", "University of Monastir", "University of Sousse"],
+      zh: ["突尼斯大学", "迦太基大学", "斯法克斯大学", "莫纳斯提尔大学", "苏塞大学"],
+    },
+    tips: {
+      ja: ["チュニジアの公立大学の学費は年間TND 300〜1,000程度と非常に安い", "フランス語が高等教育の主要言語であり、フランス語力が必要", "地中海性気候で年間を通じて温暖・晴天が多い", "アラビア語（チュニジア方言）も習得できる珍しい機会"],
+      en: ["Public university tuition is very low at TND 300–1,000/year", "French is the primary language of higher education — French skills are essential", "Mediterranean climate with warm, sunny weather year-round", "A rare opportunity to learn Tunisian Arabic dialect alongside Modern Standard Arabic"],
+      zh: ["公立大学学费极低，每年约TND 300至1,000", "法语是高等教育的主要语言，需具备法语能力", "地中海气候，全年温暖晴朗", "难得的机会同时学习突尼斯方言阿拉伯语和现代标准阿拉伯语"],
+    },
+    japaneseInfo: {
+      ja: "チュニジアへの日本人留学生はまだ少なく、希少な経験となります。在チュニジア日本大使館はチュニスにあります。フランス語圏アフリカへの足掛かりとして、またアラビア語習得を目的とした語学留学先として検討する日本人が増えています。",
+      en: "Very few Japanese students currently study in Tunisia, making it a distinctive experience. The Japanese Embassy is in Tunis. Tunisia is increasingly considered as a gateway to Francophone Africa and an Arabic language study destination.",
+      zh: "目前赴突尼斯留学的日本学生极少，这将是一段独特的经历。日本大使馆位于突尼斯市。越来越多的日本人将其作为进入法语非洲的跳板或阿拉伯语学习目的地。",
+    },
+  },
+
+  TR: {
+    code: "TR",
+    overview: {
+      ja: "トルコはヨーロッパとアジアをつなぐ地政学的要衝に位置し、イスタンブール・アンカラ・イズミルなど大都市に世界水準の大学が揃っています。学費・生活費はリラ安の影響で非常に安く、英語・トルコ語で学べる環境も整備されています。イスラム文化・歴史遺産・食文化が融合したユニークな留学体験ができます。",
+      en: "Turkey bridges Europe and Asia, with world-class universities in major cities like Istanbul, Ankara, and İzmir. The Turkish lira's depreciation has made tuition and living costs exceptionally low, and English-medium programs are widely available. Students enjoy a unique blend of Islamic culture, historical heritage, and vibrant cuisine.",
+      zh: "土耳其地处欧亚交汇处，伊斯坦布尔、安卡拉、伊兹密尔等大城市拥有世界一流大学。受里拉贬值影响，学费和生活费极为低廉，英语和土耳其语授课环境也日趋完善。学生可享受伊斯兰文化、历史遗迹与美食文化交融的独特留学体验。",
+    },
+    studentVisa: {
+      name: { ja: "学生ビザ → 学生居留許可（İkamet İzni）", en: "Student Visa → Student Residence Permit (İkamet İzni)", zh: "学生签证→学生居留许可（İkamet İzni）" },
+      requirements: {
+        ja: ["大学入学許可書", "財政証明書（月額$500相当以上）", "健康保険加入証明", "パスポート（有効期限6ヶ月以上）", "証明写真4枚", "申請料 約$50〜100"],
+        en: ["University admission letter", "Financial proof (equiv. $500+/month)", "Health insurance", "Passport valid 6+ months", "4 passport photos", "Fee approx. $50–100"],
+        zh: ["大学录取通知书", "经济证明（相当于每月$500以上）", "医疗保险证明", "护照（有效期6个月以上）", "4张证件照", "申请费约$50至100"],
+      },
+      duration: { ja: "1年（居留許可として更新可）", en: "1 year (renewable residence permit)", zh: "1年（居留许可，可续签）" },
+      cost: { ja: "申請料 約$50〜100", en: "Approx. $50–100", zh: "约$50至100" },
+    },
+    costs: {
+      tuitionMin: 10000,
+      tuitionMax: 80000,
+      livingMin: 10000,
+      livingMax: 25000,
+      currency: "TRY",
+      currencySymbol: "₺",
+    },
+    popularCities: {
+      ja: ["イスタンブール", "アンカラ", "イズミル", "ブルサ", "アンタルヤ"],
+      en: ["Istanbul", "Ankara", "İzmir", "Bursa", "Antalya"],
+      zh: ["伊斯坦布尔", "安卡拉", "伊兹密尔", "布尔萨", "安塔利亚"],
+    },
+    popularUniversities: {
+      ja: ["ボアジチ大学（イスタンブール）", "中東工科大学（METU・アンカラ）", "ビルケント大学", "イスタンブール工科大学（ITU）", "ハジェッテペ大学"],
+      en: ["Boğaziçi University (Istanbul)", "Middle East Technical University (METU, Ankara)", "Bilkent University", "Istanbul Technical University (ITU)", "Hacettepe University"],
+      zh: ["博阿齐奇大学（伊斯坦布尔）", "中东科技大学（METU，安卡拉）", "比尔肯特大学", "伊斯坦布尔理工大学（ITU）", "哈斯特佩大学"],
+    },
+    tips: {
+      ja: ["リラ安のため、ドル・円換算での学費・生活費は非常に安い（変動に注意）", "英語で学べるトップ大学（ボアジチ・METU・ビルケント）がある", "イスタンブールは歴史・文化・グルメ・観光の宝庫", "トルコ語を習得するとアゼルバイジャン語・中央アジア諸語とも通じやすい"],
+      en: ["Lira depreciation makes costs very low in USD/JPY terms (monitor exchange rates)", "Top English-medium universities include Boğaziçi, METU, and Bilkent", "Istanbul is world-class for history, culture, food, and tourism", "Turkish proficiency also helps with Azerbaijani and Central Asian Turkic languages"],
+      zh: ["里拉贬值使得以美元/日元折算的学费和生活费极为低廉（需关注汇率变化）", "博阿齐奇、METU、比尔肯特等顶尖大学提供英语授课", "伊斯坦布尔的历史、文化、美食和旅游资源举世无双", "掌握土耳其语有助于理解阿塞拜疆语和中亚突厥语系语言"],
+    },
+    japaneseInfo: {
+      ja: "在トルコ日本大使館はアンカラにあり、総領事館がイスタンブールにあります。トヨタ・本田などの日系企業もトルコに進出しており、製造業でのキャリアチャンスがあります。日本人留学生はまだ少ないため、希少な経験となるでしょう。",
+      en: "The Japanese Embassy is in Ankara, with a Consulate General in Istanbul. Japanese companies like Toyota and Honda have a presence in Turkey, offering manufacturing industry career opportunities. Japanese students are still few — making it a distinctive experience.",
+      zh: "日本大使馆位于安卡拉，总领事馆设在伊斯坦布尔。丰田、本田等日系企业在土耳其也有布局，提供了制造业的职业机会。赴土耳其的日本留学生目前仍较少，将是一段独特的经历。",
+    },
+  },
+
   AR: {
     code: "AR",
     overview: {
