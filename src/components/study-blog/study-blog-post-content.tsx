@@ -263,7 +263,7 @@ export function StudyBlogPostContent({ post }: { post: StudyBlogPost }) {
           <img
             src={post.thumbnail}
             alt={post.title.ja}
-            className="w-full rounded-2xl mb-6 border border-border/40 shadow-sm"
+            className="w-full rounded-2xl mb-6 border border-border/40 shadow-sm h-52 object-cover md:h-auto"
           />
         )}
 

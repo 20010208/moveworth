@@ -63,7 +63,7 @@ export function StudyBlogListClient({ posts }: { posts: StudyBlogPost[] }) {
                 <img
                   src={post.thumbnail}
                   alt={post.title.ja}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-44 object-cover md:h-auto"
                 />
               )}
               <div className="p-6">
