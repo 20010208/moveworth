@@ -559,7 +559,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       cost: { ja: "ビザ申請料€99", en: "Visa fee €99", zh: "签证费€99" },
     },
     costs: {
-      tuitionMin: 170,
+      tuitionMin: 2902,
       tuitionMax: 15000,
       livingMin: 800,
       livingMax: 1800,
@@ -1101,7 +1101,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
       cost: { ja: "申請料NOK5,900（約¥80,000）", en: "Application fee NOK5,900 (approx. ¥80,000)", zh: "申请费NOK5,900（约¥80,000）" },
     },
-    costs: { tuitionMin: 0, tuitionMax: 15000, livingMin: 10000, livingMax: 22000, currency: "NOK", currencySymbol: "kr" },
+    costs: { tuitionMin: 30000, tuitionMax: 120000, livingMin: 10000, livingMax: 22000, currency: "NOK", currencySymbol: "kr" },
     popularCities: { ja: ["オスロ", "ベルゲン", "トロンハイム", "トロムソ（オーロラ）"], en: ["Oslo", "Bergen", "Trondheim", "Tromsø (Northern Lights)"], zh: ["奥斯陆", "卑尔根", "特隆赫姆", "特罗姆瑟（极光）"] },
     popularUniversities: { ja: ["オスロ大学", "ノルウェー科学技術大学（NTNU）", "ベルゲン大学", "BIノルウェービジネススクール", "アークティック大学（UiT）"], en: ["University of Oslo", "Norwegian University of Science and Technology (NTNU)", "University of Bergen", "BI Norwegian Business School", "UiT The Arctic University"], zh: ["奥斯陆大学", "挪威科技大学（NTNU）", "卑尔根大学", "BI挪威商学院", "北极大学（UiT）"] },
     tips: { ja: ["公立大学は学費無料だが生活費は非常に高い", "英語が堪能なノルウェー人が多く英語だけで生活可能", "オーロラ・フィヨルドなど世界的な自然体験が可能", "卒業後1年間の求職ビザが取得可能"], en: ["Public university tuition is free but living costs are very high", "Most Norwegians speak excellent English", "Northern Lights and fjords offer world-class nature experiences", "1-year job seeker permit available after graduation"], zh: ["公立大学免学费，但生活成本极高", "大多数挪威人英语流利", "极光和峡湾提供世界级自然体验", "毕业后可获得1年求职许可"] },
@@ -1753,7 +1753,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
       cost: { ja: "申請料 約$90", en: "Approx. $90", zh: "约$90" },
     },
-    costs: { tuitionMin: 0, tuitionMax: 500000, livingMin: 200000, livingMax: 500000, currency: "ARS", currencySymbol: "AR$" },
+    costs: { tuitionMin: 0, tuitionMax: 4000000, livingMin: 1500000, livingMax: 4000000, currency: "ARS", currencySymbol: "AR$" },
     popularCities: {
       ja: ["ブエノスアイレス", "コルドバ", "ロサリオ", "メンドーサ", "ラプラタ"],
       en: ["Buenos Aires", "Córdoba", "Rosario", "Mendoza", "La Plata"],

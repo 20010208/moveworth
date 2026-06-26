@@ -18,33 +18,42 @@ import { useAuth } from "@/lib/auth";
 import { studyAbroadCountries, getStudyAbroadData } from "@/data/study-abroad";
 import { countryPresets } from "@/data/country-presets";
 
-// 参考為替レート（対円、2026年3月時点の目安）
+// 参考為替レート（対円、2026年6月時点の目安）
 const toJPY: Record<string, number> = {
   JPY: 1,
-  USD: 150,
-  GBP: 190,
-  AUD: 95,
-  CAD: 110,
-  NZD: 88,
-  SGD: 112,
-  MYR: 34,
+  USD: 145,
+  GBP: 184,
+  EUR: 157,
+  AUD: 94,
+  CAD: 107,
+  NZD: 86,
+  SGD: 109,
+  MYR: 33,
   KRW: 0.11,
-  EUR: 162,
-  THB: 4.2,
-  TWD: 4.7,
-  PHP: 2.6,
-  CHF: 170,
+  THB: 4.1,
+  TWD: 4.5,
+  PHP: 2.5,
+  HKD: 18.6,
+  IDR: 0.0089,
+  VND: 0.0057,
+  CNY: 20,
+  CHF: 166,
   SEK: 14,
-  HKD: 19,
-  IDR: 0.0094,
-  VND: 0.006,
-  AED: 41,
-  GEL: 55,
   NOK: 14,
-  DKK: 22,
-  BRL: 29,
-  COP: 0.037,
-  CNY: 21,
+  DKK: 21,
+  AED: 39,
+  GEL: 53,
+  BRL: 26,
+  COP: 0.035,
+  // 新興国・インフレ国（2026年6月時点）
+  ARS: 0.11,   // アルゼンチン・ペソ（高インフレ）
+  TRY: 3.5,    // トルコ・リラ
+  CZK: 6.8,    // チェコ・コルナ
+  PLN: 37,     // ポーランド・ズウォティ
+  INR: 1.73,   // インド・ルピー
+  MXN: 7.3,    // メキシコ・ペソ
+  ZAR: 8.0,    // 南アフリカ・ランド
+  TND: 47,     // チュニジア・ディナール
 };
 
 // 通貨ごとの表示設定（divisor: 表示単位の分母、unitSuffix: 単位ラベル）
@@ -80,6 +89,14 @@ const currencyConfig: Record<string, CurrencyConfig> = {
   GEL: { symbol: "₾",    divisor: 1,       unitSuffix: { ja: "GEL",       en: "GEL",      zh: "GEL" } },
   BRL: { symbol: "R$",   divisor: 1,       unitSuffix: { ja: "BRL",       en: "BRL",      zh: "BRL" } },
   CNY: { symbol: "¥",    divisor: 1,       unitSuffix: { ja: "元",        en: "CNY",      zh: "元" } },
+  ARS: { symbol: "AR$",  divisor: 1000,    unitSuffix: { ja: "千ARS",     en: "ARS 1k",  zh: "千阿根廷比索" } },
+  TRY: { symbol: "₺",    divisor: 1,       unitSuffix: { ja: "TRY",       en: "TRY",      zh: "TRY" } },
+  CZK: { symbol: "Kč",   divisor: 1,       unitSuffix: { ja: "CZK",       en: "CZK",      zh: "CZK" } },
+  PLN: { symbol: "zł",   divisor: 1,       unitSuffix: { ja: "PLN",       en: "PLN",      zh: "PLN" } },
+  INR: { symbol: "₹",    divisor: 1,       unitSuffix: { ja: "INR",       en: "INR",      zh: "INR" } },
+  MXN: { symbol: "MX$",  divisor: 1,       unitSuffix: { ja: "MXN",       en: "MXN",      zh: "MXN" } },
+  ZAR: { symbol: "R",    divisor: 1,       unitSuffix: { ja: "ZAR",       en: "ZAR",      zh: "ZAR" } },
+  TND: { symbol: "DT",   divisor: 1,       unitSuffix: { ja: "TND",       en: "TND",      zh: "TND" } },
 };
 
 // 国籍コード → 通貨コード（countryPresetsにない国の補完）
