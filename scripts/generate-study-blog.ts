@@ -403,21 +403,27 @@ async function run() {
   const existing = await getExistingSlugs();
   console.log(`  既存記事数: ${existing.size}`);
 
-  // 優先1: 国別ガイド（study-country-{code}）未生成の国
+  // 曜日判定: 月(1)・木(4) → 国別ガイド優先、火(2)・金(5) → 留学ガイド優先
+  // 国別ガイドが尽きた場合はどの曜日も留学ガイドにフォールバック
+  const dow = new Date().getDay(); // 0=Sun 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat
+  const isCountryDay = dow === 1 || dow === 4;
+
   const country = await getNextCountryGuide(existing);
-  if (country) {
-    await generateCountryGuideArticle(country);
-    return;
-  }
-
-  // 優先2: 留学ガイド記事
   const guide = await getNextGuideTopic(existing);
-  if (guide) {
-    await generateGuideArticle(guide);
-    return;
-  }
 
-  console.log("✅ すべてのトピックが生成済みです");
+  if (isCountryDay && country) {
+    await generateCountryGuideArticle(country);
+  } else if (!isCountryDay && guide) {
+    await generateGuideArticle(guide);
+  } else if (country) {
+    // 留学ガイドが尽きた場合は国別ガイドで埋める
+    await generateCountryGuideArticle(country);
+  } else if (guide) {
+    // 国別ガイドが尽きた場合は留学ガイドで埋める
+    await generateGuideArticle(guide);
+  } else {
+    console.log("✅ すべてのトピックが生成済みです");
+  }
 }
 
 run().catch((e) => {
