@@ -383,6 +383,109 @@ Use the MoveWorth.study simulator to calculate total costs for studying in ${cou
   return JSON.parse(res.choices[0].message.content!);
 }
 
+async function generateCountryGuideContent(
+  countryName: { ja: string; en: string },
+  lang: "ja" | "en"
+): Promise<{ title: string; description: string; content: string }> {
+  const prompts: Record<"ja" | "en", string> = {
+    ja: `あなたはMoveWorth.studyのSEOライターです。「${countryName.ja}留学」を検索する日本人に向けた、検索上位を狙える記事を書いてください。
+
+## タイトル形式（必ず守ること）
+【${countryName.ja}留学】費用・語学学校・ビザ・生活を徹底解説【2026年最新版】
+
+## 本文構成（見出しは ### を使うこと）
+
+[導入] ※見出しなし。${countryName.ja}留学の魅力を2〜3文で。
+
+### ${countryName.ja}留学のメリット
+（箇条書き4〜5点。具体的な数字・事例を含める）
+
+### 費用の目安【2026年版】
+（月額費用の表：語学学校・生活費・住居費）
+
+### おすすめ留学都市
+（3〜4都市の特徴・生活費感）
+
+### 語学学校・大学の種類
+（選択肢と特徴の概要）
+
+### 学生ビザの基本情報
+（申請要件・費用・期間の概要のみ）
+
+### ${countryName.ja}の生活・文化・治安
+（日本人コミュニティ・治安・食事・気候）
+
+### よくある質問（FAQ）
+Q1: ${countryName.ja}留学の費用はいくらかかりますか？
+A: （具体的な数字を含む回答）
+Q2: ${countryName.ja}留学に向いているのはどんな人ですか？
+A: （特徴・向き不向き）
+Q3: ${countryName.ja}留学の準備はいつから始めれば良いですか？
+A: （目安期間）
+
+MoveWorth.studyのシミュレーターで${countryName.ja}留学の総費用を計算できます。
+
+## JSON形式で返答（JSONのみ、コードブロック不要）
+{
+  "title": "【${countryName.ja}留学】費用・語学学校・ビザ・生活を徹底解説【2026年最新版】",
+  "description": "キーワード「${countryName.ja}留学 費用」を含む130〜155文字のメタディスクリプション",
+  "content": "上記構成の記事本文（マークダウン、1500〜2500文字）"
+}`,
+
+    en: `You are an SEO writer for MoveWorth.study. Write a comprehensive, search-optimized article for Japanese students searching to study in ${countryName.en}.
+
+## Title format (strictly follow):
+Study in ${countryName.en} 2026 — Complete Guide to Costs, Schools, Visa & Life
+
+## Article structure (use ### for headings):
+
+[Intro] — no heading. 2-3 sentences on why ${countryName.en} is popular for study abroad.
+
+### Why Study in ${countryName.en}?
+(4-5 bullet points with specific facts/figures)
+
+### Estimated Costs in 2026
+(Monthly cost table: language school tuition, living expenses, housing)
+
+### Top Cities to Study In
+(3-4 cities with brief description)
+
+### Types of Schools & Programs
+(Language schools, universities, vocational schools)
+
+### Student Visa Basics
+(Key requirements, cost, processing time — brief overview)
+
+### Life, Culture & Safety
+(Japanese community, safety level, food, climate)
+
+### FAQ
+Q1: How much does it cost to study in ${countryName.en}?
+A: (specific figures)
+Q2: Who is ${countryName.en} best suited for?
+A: (profile of ideal student)
+Q3: How far in advance should I start preparing?
+A: (timeline)
+
+Include mention of MoveWorth.study simulator.
+
+## Return as JSON only (no code block):
+{
+  "title": "Study in ${countryName.en} 2026 — Complete Guide to Costs, Schools, Visa & Life",
+  "description": "SEO meta description 130-155 chars including keyword '${countryName.en} study abroad cost'",
+  "content": "Full article (markdown, 1200-2000 chars)"
+}`,
+  };
+
+  const res = await openai.chat.completions.create({
+    model: "gpt-4o",
+    messages: [{ role: "user", content: prompts[lang] }],
+    response_format: { type: "json_object" },
+    temperature: 0.3,
+  });
+  return JSON.parse(res.choices[0].message.content!);
+}
+
 async function updateCountryCountText() {
   const { count } = await supabase
     .from("blog_posts")
@@ -530,7 +633,7 @@ async function run() {
 
   const { error: studyError } = await supabase.from("study_blog_posts").upsert({
     slug: studySlug,
-    category: "country",
+    category: "work",
     date: today,
     reading_time: 8,
     title: { ja: studyJa.title, en: studyEn.title },
@@ -540,9 +643,35 @@ async function run() {
   }, { onConflict: "slug" });
 
   if (studyError) {
-    console.error("Study article insert failed:", studyError.message);
+    console.error("Study work article insert failed:", studyError.message);
   } else {
-    console.log(`✅ Study article published: ${studySlug}`);
+    console.log(`✅ Study work article published: ${studySlug}`);
+  }
+
+  // --- Country guide article (study-country-{code}) ---
+  console.log("Generating country guide article...");
+  const [guideJa, guideEn] = await Promise.all([
+    generateCountryGuideContent(country.name, "ja"),
+    generateCountryGuideContent(country.name, "en"),
+  ]);
+
+  const countryGuideSlug = `study-country-${country.code}`;
+
+  const { error: guideError } = await supabase.from("study_blog_posts").upsert({
+    slug: countryGuideSlug,
+    category: "country",
+    date: today,
+    reading_time: 7,
+    title: { ja: guideJa.title, en: guideEn.title },
+    description: { ja: guideJa.description, en: guideEn.description },
+    content: { ja: guideJa.content, en: guideEn.content },
+    is_published: true,
+  }, { onConflict: "slug" });
+
+  if (guideError) {
+    console.error("Country guide article insert failed:", guideError.message);
+  } else {
+    console.log(`✅ Country guide article published: ${countryGuideSlug}`);
   }
 
   // --- Update country count text ---

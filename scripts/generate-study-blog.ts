@@ -1,7 +1,8 @@
 /**
  * MoveWorth.study ブログ自動生成スクリプト
- * - work カテゴリ：未作成の国のアルバイト・就労ルール記事を優先
- * - guide カテゴリ：留学ガイド系トピックを生成
+ * 優先順位:
+ *   1. country カテゴリ：既存work記事がある国の留学先ガイド記事（study-country-{code}）
+ *   2. guide カテゴリ：留学ガイド系トピック
  * 実行: npx tsx scripts/generate-study-blog.ts
  */
 import { existsSync, readFileSync } from "fs";
@@ -26,35 +27,116 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-// work カテゴリ対象国（優先順）
-const WORK_COUNTRY_QUEUE = [
+// 国別ガイドの優先リスト（人気順）
+const COUNTRY_GUIDE_QUEUE = [
+  { code: "au", name: { ja: "オーストラリア", en: "Australia" } },
+  { code: "ca", name: { ja: "カナダ", en: "Canada" } },
+  { code: "us", name: { ja: "アメリカ", en: "the United States" } },
+  { code: "gb", name: { ja: "イギリス", en: "the United Kingdom" } },
+  { code: "nz", name: { ja: "ニュージーランド", en: "New Zealand" } },
+  { code: "ie", name: { ja: "アイルランド", en: "Ireland" } },
+  { code: "sg", name: { ja: "シンガポール", en: "Singapore" } },
+  { code: "my", name: { ja: "マレーシア", en: "Malaysia" } },
+  { code: "ph", name: { ja: "フィリピン", en: "the Philippines" } },
+  { code: "de", name: { ja: "ドイツ", en: "Germany" } },
+  { code: "fr", name: { ja: "フランス", en: "France" } },
+  { code: "es", name: { ja: "スペイン", en: "Spain" } },
+  { code: "it", name: { ja: "イタリア", en: "Italy" } },
+  { code: "pt", name: { ja: "ポルトガル", en: "Portugal" } },
+  { code: "nl", name: { ja: "オランダ", en: "the Netherlands" } },
+  { code: "se", name: { ja: "スウェーデン", en: "Sweden" } },
+  { code: "no", name: { ja: "ノルウェー", en: "Norway" } },
+  { code: "dk", name: { ja: "デンマーク", en: "Denmark" } },
+  { code: "fi", name: { ja: "フィンランド", en: "Finland" } },
+  { code: "ch", name: { ja: "スイス", en: "Switzerland" } },
+  { code: "at", name: { ja: "オーストリア", en: "Austria" } },
+  { code: "gr", name: { ja: "ギリシャ", en: "Greece" } },
+  { code: "mt", name: { ja: "マルタ", en: "Malta" } },
+  { code: "kr", name: { ja: "韓国", en: "South Korea" } },
+  { code: "tw", name: { ja: "台湾", en: "Taiwan" } },
+  { code: "hk", name: { ja: "香港", en: "Hong Kong" } },
+  { code: "th", name: { ja: "タイ", en: "Thailand" } },
+  { code: "id", name: { ja: "インドネシア", en: "Indonesia" } },
+  { code: "vn", name: { ja: "ベトナム", en: "Vietnam" } },
+  { code: "in", name: { ja: "インド", en: "India" } },
+  { code: "cn", name: { ja: "中国", en: "China" } },
+  { code: "ae", name: { ja: "アラブ首長国連邦", en: "the UAE" } },
+  { code: "ge", name: { ja: "ジョージア", en: "Georgia" } },
+  { code: "za", name: { ja: "南アフリカ", en: "South Africa" } },
+  { code: "br", name: { ja: "ブラジル", en: "Brazil" } },
+  { code: "ar", name: { ja: "アルゼンチン", en: "Argentina" } },
+  { code: "mx", name: { ja: "メキシコ", en: "Mexico" } },
+  { code: "co", name: { ja: "コロンビア", en: "Colombia" } },
+  { code: "cz", name: { ja: "チェコ", en: "the Czech Republic" } },
+  { code: "jp", name: { ja: "日本", en: "Japan" } },
   { code: "be", name: { ja: "ベルギー", en: "Belgium" } },
   { code: "pl", name: { ja: "ポーランド", en: "Poland" } },
+  { code: "ee", name: { ja: "エストニア", en: "Estonia" } },
   { code: "tn", name: { ja: "チュニジア", en: "Tunisia" } },
-  { code: "tr", name: { ja: "トルコ", en: "Turkey" } },
-  { code: "za", name: { ja: "南アフリカ", en: "South Africa" } },
-  { code: "ke", name: { ja: "ケニア", en: "Kenya" } },
-  { code: "ma", name: { ja: "モロッコ", en: "Morocco" } },
-  { code: "np", name: { ja: "ネパール", en: "Nepal" } },
-  { code: "kh", name: { ja: "カンボジア", en: "Cambodia" } },
-  { code: "cl", name: { ja: "チリ", en: "Chile" } },
-  { code: "pe", name: { ja: "ペルー", en: "Peru" } },
 ];
 
-// guide カテゴリのトピックリスト
+// guide カテゴリのトピックリスト（SEO重視）
 const GUIDE_TOPICS = [
-  { slug: "study-abroad-scholarship-guide-2026", title: { ja: "海外留学の奨学金完全ガイド【2026年版】給付型・貸与型・民間まとめ", en: "Complete Guide to Study Abroad Scholarships 2026 — Grants, Loans & Private Funds" }, theme: "scholarship" },
-  { slug: "study-abroad-insurance-guide-2026", title: { ja: "留学中の保険完全ガイド【2026年】海外旅行保険・学生保険の選び方", en: "Study Abroad Insurance Guide 2026 — How to Choose Travel & Student Health Insurance" }, theme: "insurance" },
-  { slug: "study-abroad-phone-sim-guide-2026", title: { ja: "留学中のスマホ・SIM完全ガイド【2026年】海外SIM・eSIM・ポケットWi-Fi比較", en: "Study Abroad Phone & SIM Guide 2026 — Overseas SIM, eSIM & Pocket Wi-Fi Comparison" }, theme: "sim" },
-  { slug: "study-abroad-remittance-guide-2026", title: { ja: "留学中の海外送金完全ガイド【2026年】Wise・クレカ・銀行振込を徹底比較", en: "Overseas Remittance Guide for Students 2026 — Wise, Credit Cards & Bank Transfers Compared" }, theme: "remittance" },
-  { slug: "study-abroad-housing-guide-2026", title: { ja: "留学中の住居選び完全ガイド【2026年】ホームステイ・学生寮・シェアハウス比較", en: "Study Abroad Housing Guide 2026 — Homestay vs. Dorm vs. Share House Compared" }, theme: "housing" },
-  { slug: "study-abroad-language-school-guide-2026", title: { ja: "語学学校の選び方完全ガイド【2026年】直接申込 vs エージェント・失敗しない学校選び", en: "How to Choose a Language School 2026 — Direct vs. Agent, Tips to Avoid Common Mistakes" }, theme: "language-school" },
-  { slug: "study-abroad-ielts-toefl-guide-2026", title: { ja: "留学に必要な英語力と試験対策【2026年】TOEFL・IELTS・必要スコア目安", en: "English Requirements for Study Abroad 2026 — TOEFL & IELTS Score Guide by Country" }, theme: "english-test" },
-  { slug: "study-abroad-budget-saving-guide-2026", title: { ja: "留学費用を節約する10の方法【2026年】奨学金・アルバイト・格安都市活用術", en: "10 Ways to Cut Study Abroad Costs 2026 — Scholarships, Part-time Work & Budget Cities" }, theme: "budget" },
-  { slug: "study-abroad-job-hunting-guide-2026", title: { ja: "留学経験を就活でアピールする方法【2026年】外資・日系企業への伝え方", en: "How to Leverage Study Abroad in Job Hunting 2026 — Tips for Foreign & Japanese Companies" }, theme: "career" },
-  { slug: "study-abroad-japanese-services-guide-2026", title: { ja: "留学前に解約・停止すべき日本のサービス一覧【2026年】携帯・年金・住民票", en: "Japanese Services to Cancel Before Studying Abroad 2026 — Phone, Pension & Residence Registration" }, theme: "japan-services" },
-  { slug: "study-abroad-culture-shock-guide-2026", title: { ja: "留学中のカルチャーショック対処法【2026年】ホームシック・現地適応のコツ", en: "How to Handle Culture Shock While Studying Abroad 2026 — Homesickness & Adapting to Local Life" }, theme: "culture-shock" },
-  { slug: "study-abroad-online-university-guide-2026", title: { ja: "海外オンライン大学留学ガイド【2026年】費用・メリット・デメリットを徹底解説", en: "Online University Study Abroad Guide 2026 — Costs, Pros & Cons Explained" }, theme: "online-university" },
+  {
+    slug: "study-abroad-scholarship-guide-2026",
+    title: { ja: "海外留学の奨学金完全ガイド【2026年版】給付型・貸与型・民間奨学金まとめ", en: "Complete Guide to Study Abroad Scholarships 2026 — Grants, Loans & Private Funds" },
+    keywords: "海外留学 奨学金 給付型 JASSO 民間",
+  },
+  {
+    slug: "study-abroad-insurance-guide-2026",
+    title: { ja: "留学中の海外保険完全ガイド【2026年】海外旅行保険・学生保険の選び方と費用", en: "Study Abroad Insurance Guide 2026 — How to Choose Travel & Student Health Insurance" },
+    keywords: "留学 保険 海外旅行保険 学生保険 費用",
+  },
+  {
+    slug: "study-abroad-phone-sim-guide-2026",
+    title: { ja: "留学中のスマホ・SIM完全ガイド【2026年】海外SIM・eSIM・ポケットWi-Fi徹底比較", en: "Study Abroad Phone & SIM Guide 2026 — Overseas SIM, eSIM & Pocket Wi-Fi Compared" },
+    keywords: "留学 SIM eSIM ポケットWiFi 海外スマホ",
+  },
+  {
+    slug: "study-abroad-remittance-guide-2026",
+    title: { ja: "留学中の海外送金完全ガイド【2026年】Wise・クレカ・銀行を徹底比較", en: "Overseas Remittance Guide for Students 2026 — Wise, Credit Cards & Bank Transfers Compared" },
+    keywords: "留学 海外送金 Wise トランスファーワイズ 手数料",
+  },
+  {
+    slug: "study-abroad-housing-guide-2026",
+    title: { ja: "留学中の住居選び完全ガイド【2026年】ホームステイ・学生寮・シェアハウス比較", en: "Study Abroad Housing Guide 2026 — Homestay vs. Dorm vs. Share House" },
+    keywords: "留学 住居 ホームステイ 学生寮 シェアハウス",
+  },
+  {
+    slug: "study-abroad-language-school-guide-2026",
+    title: { ja: "語学学校の選び方完全ガイド【2026年】失敗しない学校選び・直申 vs エージェント", en: "How to Choose a Language School 2026 — Direct vs. Agent & Avoiding Common Mistakes" },
+    keywords: "語学学校 選び方 留学エージェント おすすめ",
+  },
+  {
+    slug: "study-abroad-ielts-toefl-guide-2026",
+    title: { ja: "留学に必要な英語スコアと対策【2026年】TOEFL・IELTS目安スコア国別まとめ", en: "English Score Requirements for Study Abroad 2026 — TOEFL & IELTS by Country" },
+    keywords: "留学 英語 TOEFL IELTS スコア 目安",
+  },
+  {
+    slug: "study-abroad-budget-saving-guide-2026",
+    title: { ja: "留学費用を安くする10の方法【2026年】奨学金・格安都市・節約術まとめ", en: "10 Ways to Cut Study Abroad Costs 2026 — Scholarships, Budget Cities & Saving Tips" },
+    keywords: "留学 費用 安い 節約 格安",
+  },
+  {
+    slug: "study-abroad-job-hunting-guide-2026",
+    title: { ja: "留学経験を就活でアピールする方法【2026年】外資・日系企業への伝え方", en: "How to Use Study Abroad in Job Hunting 2026 — Tips for Japanese & Foreign Companies" },
+    keywords: "留学 就活 アピール 外資 転職",
+  },
+  {
+    slug: "study-abroad-japanese-services-guide-2026",
+    title: { ja: "留学前に解約・停止すべき日本サービス一覧【2026年】携帯・年金・住民票", en: "Japanese Services to Pause Before Studying Abroad 2026 — Phone, Pension & Residency" },
+    keywords: "留学前 準備 解約 住民票 年金",
+  },
+  {
+    slug: "study-abroad-culture-shock-guide-2026",
+    title: { ja: "留学中のカルチャーショック対処法【2026年】ホームシックを乗り越えるコツ", en: "Dealing with Culture Shock While Studying Abroad 2026 — Overcoming Homesickness" },
+    keywords: "留学 カルチャーショック ホームシック 対処",
+  },
+  {
+    slug: "study-abroad-online-degree-guide-2026",
+    title: { ja: "海外オンライン大学留学完全ガイド【2026年】費用・メリット・デメリット徹底解説", en: "Online University Study Abroad Guide 2026 — Costs, Benefits & Drawbacks Explained" },
+    keywords: "海外大学 オンライン 留学 費用 学位",
+  },
 ];
 
 async function getExistingSlugs(): Promise<Set<string>> {
@@ -62,9 +144,9 @@ async function getExistingSlugs(): Promise<Set<string>> {
   return new Set((data ?? []).map((p: { slug: string }) => p.slug));
 }
 
-async function getNextWorkCountry(existing: Set<string>) {
-  for (const c of WORK_COUNTRY_QUEUE) {
-    if (!existing.has(`study-work-${c.code}`)) return c;
+async function getNextCountryGuide(existing: Set<string>) {
+  for (const c of COUNTRY_GUIDE_QUEUE) {
+    if (!existing.has(`study-country-${c.code}`)) return c;
   }
   return null;
 }
@@ -76,179 +158,241 @@ async function getNextGuideTopic(existing: Set<string>) {
   return null;
 }
 
-async function generateContent(prompt: string): Promise<string> {
+async function callGPT(prompt: string, maxTokens = 3500): Promise<string> {
   const res = await openai.chat.completions.create({
     model: "gpt-4o",
     messages: [{ role: "user", content: prompt }],
     temperature: 0.7,
-    max_tokens: 3000,
+    max_tokens: maxTokens,
   });
   return res.choices[0].message.content ?? "";
 }
 
 async function factCheck(content: string, topic: string, lang: "ja" | "en"): Promise<string> {
-  const prompt = lang === "ja"
-    ? `以下の「${topic}」に関する留学ブログ記事を事実確認し、不正確な情報があれば修正してください。修正後の記事本文のみを返してください。\n\n${content}`
-    : `Fact-check the following study abroad article about "${topic}". Correct any inaccurate information and return only the corrected article body.\n\n${content}`;
-  return generateContent(prompt);
+  const prompt =
+    lang === "ja"
+      ? `以下の「${topic}」に関する留学ブログ記事を事実確認し、不正確・古い情報があれば修正してください。修正後の記事本文のみを返してください（説明不要）。\n\n${content}`
+      : `Fact-check the following study abroad article about "${topic}". Correct any inaccurate or outdated information. Return only the corrected article body.\n\n${content}`;
+  return callGPT(prompt, 3500);
 }
 
-async function generateWorkArticle(country: { code: string; name: { ja: string; en: string } }) {
-  const slug = `study-work-${country.code}`;
-  console.log(`\n📝 Generating work article: ${slug}`);
+async function generateCountryGuideArticle(country: { code: string; name: { ja: string; en: string } }) {
+  const slug = `study-country-${country.code}`;
+  console.log(`\n📝 Generating country guide: ${slug}`);
 
-  const jaPrompt = `あなたはMoveWorth.studyのライターです。${country.name.ja}での留学中のアルバイト・就労ルールについての詳細記事を日本語で書いてください。
+  // SEO最適化：FAQ付き、検索意図を満たす構成
+  const jaPrompt = `あなたはMoveWorth.studyのSEOライターです。「${country.name.ja}留学」を検索する日本人向けに、網羅的で検索上位を狙える記事を書いてください。
 
-記事フォーマット（Markdownで記述）:
-- 見出しなしの導入文（2〜3文）
-- ## 学生ビザの就労許可
-- ## 就労時間の制限（学期中・休暇中）
-- ## 必要な手続き・申請
-- ## 注意事項・違反した場合のリスク
-- ## まとめ
+## タイトル
+【${country.name.ja}留学】費用・語学学校・ビザ・生活を徹底解説【2026年最新版】
 
-条件:
+## 本文構成（Markdownで記述。### を見出しに使うこと）
+
+[導入] ※見出しなし。${country.name.ja}留学の魅力を2〜3文で書く。留学先として人気の理由・特徴を含める。
+
+### ${country.name.ja}留学のメリット
+（箇条書き4〜5点。具体的な数字や事例を含める）
+
+### 費用の目安【2026年版】
+（語学学校・大学・生活費の月額目安を表形式で記載。為替レート目安も含める）
+
+### おすすめ留学都市
+（3〜4都市を紹介。それぞれ特徴・学校の多さ・生活費感を1〜2文で）
+
+### 語学学校・大学の種類
+（選択肢の種類と特徴。短期語学留学・大学・ワーホリとの違いなど）
+
+### 学生ビザの基本情報
+（申請に必要なもの・費用・期間の概要。詳細はアルバイト記事へ誘導）
+
+### ${country.name.ja}の生活・文化・治安
+（日本人コミュニティの有無・治安・食事・気候・文化的注意点）
+
+### よくある質問（FAQ）
+Q1: ${country.name.ja}留学の費用はいくらかかりますか？
+A: （具体的な数字を含む回答）
+Q2: ${country.name.ja}は英語（または現地語）でのコミュニケーションが必要ですか？
+A: （現地語・英語環境について）
+Q3: ${country.name.ja}留学に向いているのはどんな人ですか？
+A: （特徴・向き不向き）
+Q4: ${country.name.ja}留学の準備はいつから始めれば良いですか？
+A: （目安期間）
+
+MoveWorth.studyのシミュレーターで${country.name.ja}留学の総費用を計算できます。
+
+## 条件
+- 文字数: 1500〜2500文字
 - 事実に基づく正確な情報（2026年時点）
-- 日本人留学生向け
-- 文字数: 800〜1200文字
-- MoveWorth.studyのシミュレーターへの言及を最後に含める
+- SEOキーワード「${country.name.ja}留学 費用」「${country.name.ja}語学学校」を自然に含める
 - 記事本文のみ返すこと（タイトル・説明文は不要）`;
 
-  const enPrompt = `You are a writer for MoveWorth.study. Write a detailed article in English about part-time work and employment rules for international students in ${country.name.en}.
+  const enPrompt = `You are an SEO writer for MoveWorth.study targeting Japanese students searching for study abroad in ${country.name.en}.
 
-Format (Markdown):
-- Intro paragraph (no heading, 2-3 sentences)
-- ## Work Permission on Student Visa
-- ## Working Hour Limits (During Term / During Holidays)
-- ## Required Procedures & Applications
-- ## Risks & Penalties for Violations
-- ## Summary
+Write a comprehensive, SEO-optimized article that covers everything Japanese students need to know about studying in ${country.name.en}.
 
-Requirements:
-- Accurate, fact-based information (as of 2026)
-- Targeted at Japanese students studying abroad
-- Length: 600-900 words
-- Include a mention of MoveWorth.study simulator at the end
-- Return article body only (no title or description)`;
+## Article structure (use ### for headings):
 
-  const [jaRaw, enRaw] = await Promise.all([
-    generateContent(jaPrompt),
-    generateContent(enPrompt),
-  ]);
+[Intro] — no heading. 2-3 sentences on why ${country.name.en} is a popular study destination.
 
-  console.log("  Fact-checking (pass 1)...");
-  const [jaCheck1, enCheck1] = await Promise.all([
-    factCheck(jaRaw, `${country.name.ja}のアルバイト・就労ルール`, "ja"),
-    factCheck(enRaw, `Part-time work rules in ${country.name.en}`, "en"),
-  ]);
+### Why Study in ${country.name.en}?
+(4-5 bullet points with specific facts/figures)
 
-  console.log("  Fact-checking (pass 2)...");
+### Estimated Costs in 2026
+(Monthly cost table: language school tuition, living expenses, housing — with approximate figures)
+
+### Top Cities to Study In
+(3-4 cities with brief description of study environment and cost level)
+
+### Types of Schools & Programs
+(Language schools, universities, vocational schools — brief comparison)
+
+### Student Visa Basics
+(Key requirements, cost, processing time — brief overview, link to work rules article for details)
+
+### Life, Culture & Safety
+(Japanese community, safety level, food, climate, cultural notes)
+
+### FAQ
+Q1: How much does it cost to study in ${country.name.en}?
+A: (specific figures)
+Q2: Do I need to speak the local language to study in ${country.name.en}?
+A: (language environment)
+Q3: Who is ${country.name.en} best suited for?
+A: (profile of ideal student)
+Q4: How far in advance should I start preparing?
+A: (timeline)
+
+Include mention of MoveWorth.study cost simulator.
+
+## Requirements
+- Length: 1200-2000 words
+- Accurate, fact-based (2026)
+- Naturally include keywords: "${country.name.en} study abroad cost", "${country.name.en} language school"
+- Return article body only`;
+
+  const [jaRaw, enRaw] = await Promise.all([callGPT(jaPrompt), callGPT(enPrompt)]);
+
+  console.log("  Fact-checking...");
   const [jaFinal, enFinal] = await Promise.all([
-    factCheck(jaCheck1, `${country.name.ja}のアルバイト・就労ルール`, "ja"),
-    factCheck(enCheck1, `Part-time work rules in ${country.name.en}`, "en"),
+    factCheck(jaRaw, `${country.name.ja}留学ガイド`, "ja"),
+    factCheck(enRaw, `Studying in ${country.name.en}`, "en"),
   ]);
 
   const today = new Date().toISOString().slice(0, 10);
-  const wordCount = jaFinal.split(/[\s\n]/).length;
-  const readingTime = Math.max(3, Math.ceil(wordCount / 400));
+  const wordCount = jaFinal.split(/\s+/).length;
+  const readingTime = Math.max(5, Math.ceil(wordCount / 350));
 
-  const { error } = await supabase.from("study_blog_posts").upsert({
-    slug,
-    category: "work",
-    date: today,
-    reading_time: readingTime,
-    title: {
-      ja: `【${country.name.ja}】留学中のアルバイト・就労ルール完全ガイド【2026年】`,
-      en: `[${country.name.en}] Complete Guide to Part-time Work & Employment Rules While Studying Abroad 2026`,
+  const descJa = await callGPT(
+    `次の留学ガイド記事のSEO向けメタディスクリプションを130〜155文字の日本語で書いてください。キーワード「${country.name.ja}留学 費用」を含めること。記事タイトル：「【${country.name.ja}留学】費用・語学学校・ビザ・生活を徹底解説【2026年最新版】」\n説明文のみ返すこと。`,
+    200
+  );
+  const descEn = await callGPT(
+    `Write an SEO meta description (130-155 chars) for this study abroad guide: "Study in ${country.name.en} 2026 — Complete Guide". Include keyword "${country.name.en} study abroad cost". Return only the description.`,
+    200
+  );
+
+  const { error } = await supabase.from("study_blog_posts").upsert(
+    {
+      slug,
+      category: "country",
+      date: today,
+      reading_time: readingTime,
+      title: {
+        ja: `【${country.name.ja}留学】費用・語学学校・ビザ・生活を徹底解説【2026年最新版】`,
+        en: `Study in ${country.name.en} 2026 — Complete Guide to Costs, Schools, Visa & Life`,
+      },
+      description: { ja: descJa.trim(), en: descEn.trim() },
+      content: { ja: jaFinal, en: enFinal },
+      is_published: true,
     },
-    description: {
-      ja: `${country.name.ja}での留学中アルバイト・就労ルールを徹底解説。学生ビザの就労許可・就労時間の制限・必要手続き・注意事項まで留学前に確認すべき情報をまとめました。`,
-      en: `A complete guide to part-time work and employment rules for international students in ${country.name.en}. Covers visa work permissions, hour limits, required procedures, and risks.`,
-    },
-    content: { ja: jaFinal, en: enFinal },
-    is_published: true,
-  }, { onConflict: "slug" });
+    { onConflict: "slug" }
+  );
 
   if (error) throw new Error(`Upsert failed: ${error.message}`);
   console.log(`✅ ${slug} published`);
 }
 
-async function generateGuideArticle(topic: { slug: string; title: { ja: string; en: string }; theme: string }) {
+async function generateGuideArticle(topic: { slug: string; title: { ja: string; en: string }; keywords: string }) {
   console.log(`\n📝 Generating guide article: ${topic.slug}`);
 
-  const jaPrompt = `あなたはMoveWorth.studyのライターです。「${topic.title.ja}」というタイトルの留学ガイド記事を日本語で書いてください。
+  const jaPrompt = `あなたはMoveWorth.studyのSEOライターです。「${topic.title.ja}」について検索上位を狙える網羅的な記事を書いてください。
 
-記事フォーマット（Markdownで記述）:
-- 見出しなしの導入文（2〜3文）
-- ## セクション1
-- ## セクション2
-- ## セクション3
-- ## セクション4（必要に応じて）
-- ## まとめ
+## 本文構成（Markdownで記述。### を見出しに使うこと）
 
-条件:
+[導入] ※見出しなし。記事の結論・要点を先に書く（SEOの逆三角形構成）
+
+### （セクション1）
+### （セクション2）
+### （セクション3）
+### （セクション4）
+### よくある質問（FAQ）
+（3〜4問：留学生がよく検索する疑問に回答）
+### まとめ
+
+## 条件
+- 文字数: 1200〜2000文字
 - 事実に基づく正確な情報（2026年時点）
-- 日本人留学生向け
-- 文字数: 1000〜1500文字
-- MoveWorth.studyへの言及を最後に含める
-- 記事本文のみ返すこと（タイトル・説明文は不要）`;
+- キーワード「${topic.keywords}」を自然に含める
+- FAQ を含めることでスニペット獲得を狙う
+- MoveWorth.studyへの言及を含める
+- 記事本文のみ返すこと`;
 
-  const enPrompt = `You are a writer for MoveWorth.study. Write a study abroad guide article in English titled: "${topic.title.en}".
+  const enPrompt = `You are an SEO writer for MoveWorth.study. Write a comprehensive, search-ranking article about "${topic.title.en}".
 
-Format (Markdown):
-- Intro paragraph (no heading, 2-3 sentences)
-- ## Section 1
-- ## Section 2
-- ## Section 3
-- ## Section 4 (if needed)
-- ## Summary
+## Article structure (use ### for headings):
 
-Requirements:
-- Accurate, fact-based information (as of 2026)
-- Targeted at Japanese students studying abroad
-- Length: 800-1200 words
-- Include a mention of MoveWorth.study at the end
-- Return article body only (no title or description)`;
+[Intro] — no heading. Lead with the conclusion/key takeaway (inverted pyramid for SEO).
 
-  const [jaRaw, enRaw] = await Promise.all([
-    generateContent(jaPrompt),
-    generateContent(enPrompt),
-  ]);
+### (Section 1)
+### (Section 2)
+### (Section 3)
+### (Section 4)
+### FAQ
+(3-4 questions Japanese students commonly search)
+### Summary
 
-  console.log("  Fact-checking (pass 1)...");
-  const [jaCheck1, enCheck1] = await Promise.all([
+## Requirements
+- Length: 1000-1800 words
+- Accurate, fact-based (2026)
+- Naturally include target keywords
+- FAQ section to target featured snippets
+- Include MoveWorth.study mention
+- Return article body only`;
+
+  const [jaRaw, enRaw] = await Promise.all([callGPT(jaPrompt), callGPT(enPrompt)]);
+
+  console.log("  Fact-checking...");
+  const [jaFinal, enFinal] = await Promise.all([
     factCheck(jaRaw, topic.title.ja, "ja"),
     factCheck(enRaw, topic.title.en, "en"),
   ]);
 
-  console.log("  Fact-checking (pass 2)...");
-  const [jaFinal, enFinal] = await Promise.all([
-    factCheck(jaCheck1, topic.title.ja, "ja"),
-    factCheck(enCheck1, topic.title.en, "en"),
-  ]);
-
   const today = new Date().toISOString().slice(0, 10);
-  const wordCount = jaFinal.split(/[\s\n]/).length;
-  const readingTime = Math.max(4, Math.ceil(wordCount / 400));
+  const wordCount = jaFinal.split(/\s+/).length;
+  const readingTime = Math.max(4, Math.ceil(wordCount / 350));
 
-  // GPTで説明文を生成
-  const descJa = await generateContent(
-    `次の留学ガイド記事の内容を要約した説明文を80文字以内の日本語で書いてください。記事タイトル：「${topic.title.ja}」\n説明文のみ返すこと。`
+  const descJa = await callGPT(
+    `次の留学ガイド記事のSEO向けメタディスクリプションを130〜155文字の日本語で書いてください。キーワード「${topic.keywords}」を含めること。タイトル：「${topic.title.ja}」\n説明文のみ返すこと。`,
+    200
   );
-  const descEn = await generateContent(
-    `Write a 1-sentence description (under 120 chars) for this study abroad guide article: "${topic.title.en}". Return only the description.`
+  const descEn = await callGPT(
+    `Write an SEO meta description (130-155 chars) for: "${topic.title.en}". Return only the description.`,
+    200
   );
 
-  const { error } = await supabase.from("study_blog_posts").upsert({
-    slug: topic.slug,
-    category: "guide",
-    date: new Date().toISOString().slice(0, 10),
-    reading_time: readingTime,
-    title: topic.title,
-    description: { ja: descJa.trim(), en: descEn.trim() },
-    content: { ja: jaFinal, en: enFinal },
-    is_published: true,
-  }, { onConflict: "slug" });
+  const { error } = await supabase.from("study_blog_posts").upsert(
+    {
+      slug: topic.slug,
+      category: "guide",
+      date: today,
+      reading_time: readingTime,
+      title: topic.title,
+      description: { ja: descJa.trim(), en: descEn.trim() },
+      content: { ja: jaFinal, en: enFinal },
+      is_published: true,
+    },
+    { onConflict: "slug" }
+  );
 
   if (error) throw new Error(`Upsert failed: ${error.message}`);
   console.log(`✅ ${topic.slug} published`);
@@ -259,17 +403,17 @@ async function run() {
   const existing = await getExistingSlugs();
   console.log(`  既存記事数: ${existing.size}`);
 
-  // work カテゴリを優先
-  const workCountry = await getNextWorkCountry(existing);
-  if (workCountry) {
-    await generateWorkArticle(workCountry);
+  // 優先1: 国別ガイド（study-country-{code}）未生成の国
+  const country = await getNextCountryGuide(existing);
+  if (country) {
+    await generateCountryGuideArticle(country);
     return;
   }
 
-  // work が尽きたら guide
-  const guideTopic = await getNextGuideTopic(existing);
-  if (guideTopic) {
-    await generateGuideArticle(guideTopic);
+  // 優先2: 留学ガイド記事
+  const guide = await getNextGuideTopic(existing);
+  if (guide) {
+    await generateGuideArticle(guide);
     return;
   }
 
