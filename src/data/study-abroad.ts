@@ -1405,7 +1405,7 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       duration: { ja: "就学期間（1年ごとに更新）", en: "Duration of study (renewed annually)", zh: "学习期间（每年续签）" },
       cost: { ja: "申請料Kč2,500（約1.5万円）", en: "Application fee Kč2,500 (~€100)", zh: "申请费Kč2,500（约€100）" },
     },
-    costs: { tuitionMin: 3000, tuitionMax: 20000, livingMin: 15000, livingMax: 35000, currency: "CZK", currencySymbol: "Kč" },
+    costs: { tuitionMin: 50000, tuitionMax: 350000, livingMin: 15000, livingMax: 35000, currency: "CZK", currencySymbol: "Kč" },
     popularCities: {
       ja: ["プラハ", "ブルノ", "オロモウツ", "オストラバ", "プルゼニ"],
       en: ["Prague", "Brno", "Olomouc", "Ostrava", "Pilsen"],
@@ -1707,10 +1707,10 @@ export const studyAbroadData: Record<string, StudyAbroadData> = {
       cost: { ja: "申請料 約$50〜100", en: "Approx. $50–100", zh: "约$50至100" },
     },
     costs: {
-      tuitionMin: 10000,
-      tuitionMax: 80000,
-      livingMin: 10000,
-      livingMax: 25000,
+      tuitionMin: 30000,
+      tuitionMax: 500000,
+      livingMin: 20000,
+      livingMax: 55000,
       currency: "TRY",
       currencySymbol: "₺",
     },
