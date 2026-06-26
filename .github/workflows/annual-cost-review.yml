@@ -1,0 +1,72 @@
+name: Annual Cost Data Review Reminder
+
+on:
+  schedule:
+    # 毎年1月1日 09:00 JST (00:00 UTC)
+    - cron: "0 0 1 1 *"
+  workflow_dispatch: # 手動実行も可能
+
+jobs:
+  create-review-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate cost review issue body
+        id: generate
+        run: |
+          node -e "
+          const fs = require('fs');
+          const src = fs.readFileSync('src/data/study-abroad.ts', 'utf-8');
+
+          const matches = [...src.matchAll(/(\w{2}):\s*\{[\s\S]*?code:\s*\"(\w+)\"[\s\S]*?costs:\s*\{[\s\S]*?tuitionMin:\s*(\d+),[\s\S]*?tuitionMax:\s*(\d+),[\s\S]*?livingMin:\s*(\d+),[\s\S]*?livingMax:\s*(\d+),[\s\S]*?currency:\s*\"(\w+)\"/g)];
+
+          const year = new Date().getFullYear();
+          const lines = matches.map(m =>
+            '| ' + m[2] + ' | ' + m[7] + ' | ' + m[3] + '~' + m[4] + ' | ' + m[5] + '~' + m[6] + ' |'
+          );
+
+          const body = [
+            '## 📋 年次コストデータ確認リマインダー',
+            '',
+            '**対象ファイル:** \`src/data/study-abroad.ts\`',
+            '**確認事項:** 以下の国の学費・生活費が現在の実勢値と大きくズレていないか確認してください。',
+            '',
+            '特に為替変動が大きい国（アルゼンチン・トルコ・インドネシア・ベトナムなど）を優先的に確認してください。',
+            '',
+            '| 国コード | 通貨 | 学費/年（min~max） | 生活費/月（min~max） |',
+            '|---|---|---|---|',
+            ...lines,
+            '',
+            '### 確認完了後',
+            '- [ ] 数値を修正してPRを作成',
+            '- [ ] \`src/app/study-site/simulate/page.tsx\` の \`toJPY\` も必要に応じて更新',
+            '- [ ] ページ内の「時点」テキストを更新（例: 2026年6月 → 2027年1月）',
+            '',
+            '---',
+            '_このIssueは GitHub Actions によって自動作成されました（毎年1月1日）_',
+          ].join('\n');
+
+          fs.writeFileSync('/tmp/issue-body.md', body);
+          console.log('Issue body generated.');
+          "
+
+      - name: Create GitHub Issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          YEAR=$(date +%Y)
+          gh issue create \
+            --title "[$YEAR] 年次コストデータ確認: study-abroad.ts の学費・生活費レビュー" \
+            --body-file /tmp/issue-body.md \
+            --label "maintenance"

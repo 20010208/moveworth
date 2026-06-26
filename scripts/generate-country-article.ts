@@ -548,6 +548,60 @@ async function updateCountryCountText() {
   }
 }
 
+async function fetchJpyRate(currency: string): Promise<number | null> {
+  try {
+    const res = await fetch(`https://open.er-api.com/v6/latest/JPY`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    const ratePerJpy = data.rates?.[currency];
+    if (!ratePerJpy) return null;
+    return Math.round((1 / ratePerJpy) * 10000) / 10000;
+  } catch {
+    return null;
+  }
+}
+
+async function updateExchangeRate(currency: string, code: string): Promise<void> {
+  const SIMULATE_PAGE = "src/app/study-site/simulate/page.tsx";
+  if (!existsSync(SIMULATE_PAGE)) return;
+
+  const src = readFileSync(SIMULATE_PAGE, "utf-8");
+
+  // すでに登録済みならスキップ
+  if (new RegExp(`\\b${currency}:\\s*[\\d.]+`).test(src)) {
+    console.log(`Exchange rate for ${currency} already exists — skipping.`);
+    return;
+  }
+
+  const rate = await fetchJpyRate(currency);
+  if (!rate) {
+    console.warn(`⚠️  Could not fetch rate for ${currency}`);
+    return;
+  }
+
+  // toJPY の最後の行の前に挿入
+  const updated = src.replace(
+    /(\/\/ 新興国・インフレ国[^\n]*\n)([\s\S]*?)(^};)/m,
+    (_, comment, existing, closing) => {
+      const newLine = `  ${currency}: ${rate},    // ${code.toUpperCase()} (auto-fetched)\n`;
+      return `${comment}${existing}${newLine}${closing}`;
+    }
+  );
+
+  if (updated === src) {
+    // フォールバック：toJPY ブロックの末尾に追記
+    const fallback = src.replace(
+      /(\bconst toJPY[^{]*\{[\s\S]*?)(^};)/m,
+      (_, block, closing) => `${block}  ${currency}: ${rate},\n${closing}`
+    );
+    writeFileSync(SIMULATE_PAGE, fallback, "utf-8");
+  } else {
+    writeFileSync(SIMULATE_PAGE, updated, "utf-8");
+  }
+
+  console.log(`✅ Added exchange rate: ${currency} = ${rate} JPY`);
+}
+
 async function run() {
   const country = await getNextCountry();
   console.log(`Generating articles for: ${country.name.en} (${country.code})`);
@@ -676,6 +730,16 @@ async function run() {
 
   // --- Update country count text ---
   await updateCountryCountText();
+
+  // --- Add exchange rate for new country's currency if not in toJPY ---
+  const { countryPresets } = await import("../src/data/country-presets.js").catch(
+    () => import("../src/data/country-presets")
+  );
+  const preset = (countryPresets as Array<{ code: string; currency: string }>)
+    .find((p) => p.code.toLowerCase() === country.code.toLowerCase());
+  if (preset?.currency) {
+    await updateExchangeRate(preset.currency, country.code);
+  }
 }
 
 run();
