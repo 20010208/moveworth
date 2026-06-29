@@ -323,6 +323,11 @@ ${countryName.ja}への留学に関する記事を日本語で書いてくださ
 
 MoveWorth.studyのシミュレーターで${countryName.ja}留学の総費用を計算してみましょう。リンクは必ず https://study.moveworthapp.com/simulate を使用してください。
 
+### 参考資料
+本記事の情報は以下の公式資料をもとに作成しています。
+（${countryName.ja}の入国管理局・労働省・政府公式サイトなど公式機関を3〜5件。実在する正確なURLのみ。捏造不可）
+- [機関名](https://official-url.example.com)
+
 ## JSON形式で返答（JSONのみ、コードブロック不要）
 {
   "title": "【${countryName.ja}】留学中のアルバイト・就労ルール完全ガイド",
@@ -367,6 +372,10 @@ Study & Work Rules in ${countryName.en} 2026 — Complete Guide
 | Student visa fee | approx. X USD |
 
 Use the MoveWorth.study simulator to calculate total costs for studying in ${countryName.en}. Always use exact URL: https://study.moveworthapp.com/simulate
+
+### References
+List 3-5 official sources (immigration authority, labor ministry, government site of ${countryName.en}). Real URLs only — never fabricate.
+- [Organization name](https://official-url.example.com)
 
 ## Return as JSON only (no code block):
 {
@@ -429,6 +438,11 @@ A: （目安期間）
 
 MoveWorth.studyのシミュレーターで${countryName.ja}留学の総費用を計算できます。リンクは必ず https://study.moveworthapp.com/simulate を使用してください。
 
+### 参考資料
+本記事の情報は以下の公式資料をもとに作成しています。
+（${countryName.ja}の入国管理局・大使館・観光局・教育省など公式機関を3〜5件。実在する正確なURLのみ。捏造不可）
+- [機関名](https://official-url.example.com)
+
 ## JSON形式で返答（JSONのみ、コードブロック不要）
 {
   "title": "【${countryName.ja}留学】費用・語学学校・ビザ・生活を徹底解説【2026年最新版】",
@@ -472,6 +486,10 @@ Q3: How far in advance should I start preparing?
 A: (timeline)
 
 Include mention of MoveWorth.study simulator. Always use exact URL: https://study.moveworthapp.com/simulate
+
+### References
+List 3-5 official sources (immigration authority, embassy, tourism board, education ministry of ${countryName.en}). Real URLs only — never fabricate.
+- [Organization name](https://official-url.example.com)
 
 ## Return as JSON only (no code block):
 {

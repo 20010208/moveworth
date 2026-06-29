@@ -221,8 +221,13 @@ A: （目安期間）
 
 MoveWorth.studyのシミュレーターで${country.name.ja}留学の総費用を計算できます。リンクは必ず https://study.moveworthapp.com/simulate を使用してください。
 
+### 参考資料
+本記事の情報は以下の公式資料をもとに作成しています。
+（${country.name.ja}の入国管理局・大使館・観光局・教育省など公式機関のサイトを3〜5件。実在する正確なURLのみ記載。ルートドメインまたは安定したセクションURLを優先。捏造URLは絶対不可）
+- [機関名](https://official-url.example.com)
+
 ## 条件
-- 文字数: 1500〜2500文字
+- 文字数: 1500〜2500文字（参考資料セクション含む）
 - 事実に基づく正確な情報（2026年時点）
 - SEOキーワード「${country.name.ja}留学 費用」「${country.name.ja}語学学校」を自然に含める
 - 記事本文のみ返すこと（タイトル・説明文は不要）`;
@@ -265,8 +270,12 @@ A: (timeline)
 
 Include mention of MoveWorth.study cost simulator. Always use the exact URL: https://study.moveworthapp.com/simulate
 
+### References
+List 3-5 official sources (immigration authority, embassy, tourism board, education ministry of ${country.name.en}). Use only real, verifiable URLs. Prefer root or stable section URLs. Never fabricate URLs.
+- [Organization name](https://official-url.example.com)
+
 ## Requirements
-- Length: 1200-2000 words
+- Length: 1200-2000 words (including references)
 - Accurate, fact-based (2026)
 - Naturally include keywords: "${country.name.en} study abroad cost", "${country.name.en} language school"
 - Return article body only`;
@@ -336,6 +345,7 @@ async function generateGuideArticle(topic: { slug: string; title: { ja: string; 
 - キーワード「${topic.keywords}」を自然に含める
 - FAQ を含めることでスニペット獲得を狙う
 - MoveWorth.studyへの言及を含める（リンクは必ず https://study.moveworthapp.com/simulate を使用すること）
+- 記事末尾に「### 参考資料」セクションを追加し、テーマに関連する公式機関・政府・国際機関のURLを3〜5件リスト（実在する正確なURLのみ。捏造不可）
 - 記事本文のみ返すこと`;
 
   const enPrompt = `You are an SEO writer for MoveWorth.study. Write a comprehensive, search-ranking article about "${topic.title.en}".
@@ -358,6 +368,7 @@ async function generateGuideArticle(topic: { slug: string; title: { ja: string; 
 - Naturally include target keywords
 - FAQ section to target featured snippets
 - Include MoveWorth.study mention. Always use exact URL: https://study.moveworthapp.com/simulate
+- Add a "### References" section at the end with 3-5 official/government/international organization URLs relevant to the topic. Use only real, verifiable URLs. Never fabricate.
 - Return article body only`;
 
   const [jaRaw, enRaw] = await Promise.all([callGPT(jaPrompt), callGPT(enPrompt)]);

@@ -105,6 +105,7 @@ ${langInstructions[lang]}
 - 具体的な数字・データを含める
 - 読者が次のアクションを取れるよう実践的な内容
 - 最後にMoveWorthのシミュレーション機能への誘導を含める（リンクは必ず https://moveworthapp.com/simulate を使用すること）
+- 記事末尾に「### 参考資料」セクションを追加し、トピックに関連する政府・公式機関・国際機関のURLを3〜5件リスト（実在する正確なURLのみ使用。ルートドメインまたは安定したURLを優先。URLの捏造は絶対不可）
 - JSONのみを返してください（コードブロック不要）`;
 
   const response = await openai.chat.completions.create({
