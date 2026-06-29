@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import OpenAI from "openai";
 import { createClient } from "@supabase/supabase-js";
+import { sanitizeMoveWorthLinks } from "./utils/sanitize-links";
 
 if (existsSync(".env.local")) {
   for (const line of readFileSync(".env.local", "utf-8").split("\n")) {
@@ -232,11 +233,12 @@ Data sourced from:
 
   const res = await openai.chat.completions.create({
     model: "gpt-4o",
-    messages: [{ role: "user", content: prompts[lang] }],
-    response_format: { type: "json_object" },
+    messages: [{ role: "user", content: prompts[lang] }],  response_format: { type: "json_object" },
     temperature: 0.2,
   });
-  return JSON.parse(res.choices[0].message.content!);
+  const parsed1 = JSON.parse(res.choices[0].message.content!);
+  parsed1.content = sanitizeMoveWorthLinks(parsed1.content);
+  return parsed1;
 }
 
 async function factCheckContent(
@@ -319,7 +321,7 @@ ${countryName.ja}への留学に関する記事を日本語で書いてくださ
 | 住居費（月額） | 約○〜○万円 |
 | 学生ビザ申請費 | 約○円 |
 
-MoveWorth.studyのシミュレーターで${countryName.ja}留学の総費用を計算してみましょう。
+MoveWorth.studyのシミュレーターで${countryName.ja}留学の総費用を計算してみましょう。リンクは必ず https://study.moveworthapp.com/simulate を使用してください。
 
 ## JSON形式で返答（JSONのみ、コードブロック不要）
 {
@@ -364,7 +366,7 @@ Study & Work Rules in ${countryName.en} 2026 — Complete Guide
 | Accommodation (monthly) | approx. X–X USD |
 | Student visa fee | approx. X USD |
 
-Use the MoveWorth.study simulator to calculate total costs for studying in ${countryName.en}.
+Use the MoveWorth.study simulator to calculate total costs for studying in ${countryName.en}. Always use exact URL: https://study.moveworthapp.com/simulate
 
 ## Return as JSON only (no code block):
 {
@@ -380,7 +382,9 @@ Use the MoveWorth.study simulator to calculate total costs for studying in ${cou
     response_format: { type: "json_object" },
     temperature: 0.2,
   });
-  return JSON.parse(res.choices[0].message.content!);
+  const parsed2 = JSON.parse(res.choices[0].message.content!);
+  parsed2.content = sanitizeMoveWorthLinks(parsed2.content);
+  return parsed2;
 }
 
 async function generateCountryGuideContent(
@@ -423,7 +427,7 @@ A: （特徴・向き不向き）
 Q3: ${countryName.ja}留学の準備はいつから始めれば良いですか？
 A: （目安期間）
 
-MoveWorth.studyのシミュレーターで${countryName.ja}留学の総費用を計算できます。
+MoveWorth.studyのシミュレーターで${countryName.ja}留学の総費用を計算できます。リンクは必ず https://study.moveworthapp.com/simulate を使用してください。
 
 ## JSON形式で返答（JSONのみ、コードブロック不要）
 {
@@ -467,7 +471,7 @@ A: (profile of ideal student)
 Q3: How far in advance should I start preparing?
 A: (timeline)
 
-Include mention of MoveWorth.study simulator.
+Include mention of MoveWorth.study simulator. Always use exact URL: https://study.moveworthapp.com/simulate
 
 ## Return as JSON only (no code block):
 {
@@ -483,7 +487,9 @@ Include mention of MoveWorth.study simulator.
     response_format: { type: "json_object" },
     temperature: 0.3,
   });
-  return JSON.parse(res.choices[0].message.content!);
+  const parsed3 = JSON.parse(res.choices[0].message.content!);
+  parsed3.content = sanitizeMoveWorthLinks(parsed3.content, true);
+  return parsed3;
 }
 
 async function updateCountryCountText() {

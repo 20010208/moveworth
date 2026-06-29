@@ -8,6 +8,7 @@
 import { existsSync, readFileSync } from "fs";
 import OpenAI from "openai";
 import { createClient } from "@supabase/supabase-js";
+import { sanitizeMoveWorthLinks } from "./utils/sanitize-links";
 
 if (existsSync(".env.local")) {
   for (const line of readFileSync(".env.local", "utf-8").split("\n")) {
@@ -165,7 +166,7 @@ async function callGPT(prompt: string, maxTokens = 3500): Promise<string> {
     temperature: 0.7,
     max_tokens: maxTokens,
   });
-  return res.choices[0].message.content ?? "";
+  return sanitizeMoveWorthLinks(res.choices[0].message.content ?? "", true);
 }
 
 async function factCheck(content: string, topic: string, lang: "ja" | "en"): Promise<string> {
@@ -218,7 +219,7 @@ A: （特徴・向き不向き）
 Q4: ${country.name.ja}留学の準備はいつから始めれば良いですか？
 A: （目安期間）
 
-MoveWorth.studyのシミュレーターで${country.name.ja}留学の総費用を計算できます。
+MoveWorth.studyのシミュレーターで${country.name.ja}留学の総費用を計算できます。リンクは必ず https://study.moveworthapp.com/simulate を使用してください。
 
 ## 条件
 - 文字数: 1500〜2500文字
@@ -262,7 +263,7 @@ A: (profile of ideal student)
 Q4: How far in advance should I start preparing?
 A: (timeline)
 
-Include mention of MoveWorth.study cost simulator.
+Include mention of MoveWorth.study cost simulator. Always use the exact URL: https://study.moveworthapp.com/simulate
 
 ## Requirements
 - Length: 1200-2000 words
@@ -334,7 +335,7 @@ async function generateGuideArticle(topic: { slug: string; title: { ja: string; 
 - 事実に基づく正確な情報（2026年時点）
 - キーワード「${topic.keywords}」を自然に含める
 - FAQ を含めることでスニペット獲得を狙う
-- MoveWorth.studyへの言及を含める
+- MoveWorth.studyへの言及を含める（リンクは必ず https://study.moveworthapp.com/simulate を使用すること）
 - 記事本文のみ返すこと`;
 
   const enPrompt = `You are an SEO writer for MoveWorth.study. Write a comprehensive, search-ranking article about "${topic.title.en}".
@@ -356,7 +357,7 @@ async function generateGuideArticle(topic: { slug: string; title: { ja: string; 
 - Accurate, fact-based (2026)
 - Naturally include target keywords
 - FAQ section to target featured snippets
-- Include MoveWorth.study mention
+- Include MoveWorth.study mention. Always use exact URL: https://study.moveworthapp.com/simulate
 - Return article body only`;
 
   const [jaRaw, enRaw] = await Promise.all([callGPT(jaPrompt), callGPT(enPrompt)]);

@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from "fs";
 import OpenAI from "openai";
 import { createClient } from "@supabase/supabase-js";
+import { sanitizeMoveWorthLinks } from "./utils/sanitize-links";
 
 // Load .env.local for local execution
 if (existsSync(".env.local")) {
@@ -103,7 +104,7 @@ ${langInstructions[lang]}
 - ## や ### でセクション分け
 - 具体的な数字・データを含める
 - 読者が次のアクションを取れるよう実践的な内容
-- 最後にMoveWorthのシミュレーション機能への誘導を含める
+- 最後にMoveWorthのシミュレーション機能への誘導を含める（リンクは必ず https://moveworthapp.com/simulate を使用すること）
 - JSONのみを返してください（コードブロック不要）`;
 
   const response = await openai.chat.completions.create({
@@ -117,7 +118,7 @@ ${langInstructions[lang]}
   return {
     title: result.title,
     description: result.description,
-    content: result.content,
+    content: sanitizeMoveWorthLinks(result.content),
   };
 }
 

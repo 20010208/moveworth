@@ -5,6 +5,7 @@
 import { existsSync, readFileSync } from "fs";
 import OpenAI from "openai";
 import { createClient } from "@supabase/supabase-js";
+import { sanitizeMoveWorthLinks } from "./utils/sanitize-links";
 
 if (existsSync(".env.local")) {
   for (const line of readFileSync(".env.local", "utf-8").split("\n")) {
@@ -102,7 +103,7 @@ const ARTICLES: ArticleSpec[] = [
 3. **税務上の注意**：マレーシアの税制
 4. **更新忘れ防止**：更新申請タイミング
 
-締め括りの文。MoveWorthシミュレーターへの誘導を含める。
+締め括りの文。MoveWorthシミュレーターへの誘導を含める（リンクは必ず https://moveworthapp.com/simulate を使用すること）。
 
 ---
 
@@ -178,7 +179,7 @@ Overview of the program, history, and why it's popular. ~150 words.
 3. **Tax considerations**: Malaysian tax rules for MM2H holders
 4. **Renewal timing**: when to start renewal process
 
-Closing sentence with link to MoveWorth simulator.
+Closing sentence with link to MoveWorth simulator. Always use exact URL: https://moveworthapp.com/simulate
 
 ---
 
@@ -423,7 +424,7 @@ Greece Residency Visa Cost 2026 | Golden Visa, Digital Nomad & Long-Stay Visa Co
 2. **Regional differences**: islands vs. mainland minimums
 3. **Ongoing costs**: ENFIA (property tax) calculation
 
-Closing sentence with MoveWorth simulator link.
+Closing sentence with MoveWorth simulator link. Always use exact URL: https://moveworthapp.com/simulate
 
 ---
 
@@ -532,7 +533,9 @@ async function generateContent(
     response_format: { type: "json_object" },
     temperature: 0.2,
   });
-  return JSON.parse(res.choices[0].message.content!);
+  const parsed = JSON.parse(res.choices[0].message.content!);
+  parsed.content = sanitizeMoveWorthLinks(parsed.content);
+  return parsed;
 }
 
 async function factCheck(content: string, topic: string, lang: string): Promise<string> {
