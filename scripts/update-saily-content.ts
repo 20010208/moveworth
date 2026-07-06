@@ -30,11 +30,11 @@ const affiliateTextLink = `<!-- html -->
 </div>
 <!-- /html -->`;
 
-const jaContent = `海外旅行や留学、海外移住を考えているなら、現地でのスマートフォン通信をどうするか、早めに考えておくのがおすすめです。高額なローミング料金を払い続けるより、**eSIM**を活用すれば、現地到着前にデータプランを購入・設定でき、コストを大幅に節約できます。
+const jaContent = `![海外旅行・留学・移住に最適なeSIM Saily](${IMG_BASE}saily-esim-review-overseas-travel-guide-2026.png)
+
+海外旅行や留学、海外移住を考えているなら、現地でのスマートフォン通信をどうするか、早めに考えておくのがおすすめです。高額なローミング料金を払い続けるより、**eSIM**を活用すれば、現地到着前にデータプランを購入・設定でき、コストを大幅に節約できます。
 
 200以上の国と地域で最適なデータプランを見つけて、どこへ行っても簡単かつ安全にインターネットにアクセスできるeSIMサービスが**Saily（セイリー）**です。
-
-![海外旅行・留学・移住に最適なeSIM Saily](${IMG_BASE}saily-esim-review-overseas-travel-guide-2026.png)
 
 ${affiliateBanner}
 
