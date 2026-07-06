@@ -148,6 +148,25 @@ export function BlogPostContent({ post }: { post: BlogPost }) {
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
 
+      // Raw HTML block: <!-- html --> ... <!-- /html -->
+      if (line.trim() === "<!-- html -->") {
+        flushList();
+        const htmlLines: string[] = [];
+        i++;
+        while (i < lines.length && lines[i].trim() !== "<!-- /html -->") {
+          htmlLines.push(lines[i]);
+          i++;
+        }
+        elements.push(
+          <div
+            key={`html-${elements.length}`}
+            className="my-4 flex justify-center"
+            dangerouslySetInnerHTML={{ __html: htmlLines.join("\n") }}
+          />
+        );
+        continue;
+      }
+
       if (line.startsWith("|")) {
         flushList();
         inTable = true;
