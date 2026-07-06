@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, Clock, Tag, Share2 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
@@ -303,6 +304,19 @@ export function BlogPostContent({ post }: { post: BlogPost }) {
           </h1>
           <p className="text-muted text-sm">{getLabel(post.description)}</p>
         </header>
+
+        {post.thumbnail && (
+          <div className="relative w-full aspect-video rounded-2xl overflow-hidden">
+            <Image
+              src={post.thumbnail}
+              alt={getLabel(post.title)}
+              fill
+              className="object-contain"
+              sizes="100vw"
+              priority
+            />
+          </div>
+        )}
 
         <div className="bg-white border border-border/60 rounded-2xl p-6 sm:p-8 shadow-sm">
           {renderContent(getLabel(post.content))}
