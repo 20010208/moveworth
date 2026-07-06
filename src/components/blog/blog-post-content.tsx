@@ -287,7 +287,7 @@ export function BlogPostContent({ post }: { post: BlogPost }) {
           {t("blog.backToList")}
         </Link>
 
-        <header className="mb-8">
+        <header className={post.thumbnail && getLabel(post.title).includes("【PR】") ? "mb-3" : "mb-8"}>
           <div className="flex items-center gap-3 mb-4">
             <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary-light px-2.5 py-0.5 rounded-full">
               <Tag className="h-3 w-3" />
@@ -305,8 +305,8 @@ export function BlogPostContent({ post }: { post: BlogPost }) {
           <p className="text-muted text-sm">{getLabel(post.description)}</p>
         </header>
 
-        {post.thumbnail && (
-          <div className="relative w-full aspect-video rounded-2xl overflow-hidden">
+        {post.thumbnail && getLabel(post.title).includes("【PR】") && (
+          <div className="relative w-full aspect-video rounded-2xl overflow-hidden mb-8">
             <Image
               src={post.thumbnail}
               alt={getLabel(post.title)}
