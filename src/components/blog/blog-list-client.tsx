@@ -92,12 +92,12 @@ export function BlogListClient({ posts }: { posts: BlogPost[] }) {
               className={`${post.thumbnail ? "flex flex-col sm:grid sm:grid-cols-[320px_1fr]" : "flex"} bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden`}
             >
               {post.thumbnail && (
-                <div className="relative w-full h-48 sm:h-auto">
+                <div className="relative w-full h-48 sm:h-full sm:min-h-[160px]">
                   <Image
                     src={post.thumbnail}
                     alt={getLabel(post.title)}
                     fill
-                    className="object-cover object-top"
+                    className="object-cover object-center"
                     sizes="(max-width: 640px) 100vw, 320px"
                   />
                 </div>
