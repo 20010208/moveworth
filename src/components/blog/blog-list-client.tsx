@@ -97,7 +97,7 @@ export function BlogListClient({ posts }: { posts: BlogPost[] }) {
                     src={post.thumbnail}
                     alt={getLabel(post.title)}
                     fill
-                    className="object-cover object-top"
+                    className={post.slug === "saily-esim-review-overseas-travel-guide-2026" ? "object-contain" : "object-cover object-top"}
                     sizes="(max-width: 640px) 100vw, 320px"
                   />
                 </div>
