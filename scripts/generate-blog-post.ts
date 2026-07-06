@@ -150,7 +150,35 @@ async function getNextCategory(): Promise<string> {
 async function run() {
   const category = await getNextCategory();
   const pool = TOPIC_POOL[category];
-  const keyword = pool[Math.floor(Math.random() * pool.length)];
+
+  // 既存記事のタイトル（ja）とスラグを取得し、使用済みトピックを除外
+  const { data: existing } = await supabase
+    .from("blog_posts")
+    .select("slug, title")
+    .eq("category", category);
+  const existingJaTitles = (existing ?? []).map((p) => (p.title?.ja ?? "") as string);
+  const existingSlugs = (existing ?? []).map((p) => (p.slug ?? "") as string).join(" ");
+
+  // キーワードから固有名詞（地名・職種など）を抽出して重複判定
+  function extractCoreWords(kw: string): string[] {
+    // 日本語キーワードから意味のある部分を抽出（3文字以上の固有名詞候補）
+    const segments = kw.split(/[・\s、。「」（）]/).filter((s) => s.length >= 3);
+    return segments;
+  }
+
+  const unused = pool.filter((kw) => {
+    const cores = extractCoreWords(kw);
+    const matchesTitle = existingJaTitles.some((t) =>
+      cores.some((c) => t.includes(c))
+    );
+    const matchesSlug = cores.some((c) => {
+      // 日本語の固有名詞をローマ字に変換せず、スラグに英単語が含まれるか別途チェック
+      return existingSlugs.includes(c.toLowerCase());
+    });
+    return !matchesTitle && !matchesSlug;
+  });
+  const candidates = unused.length > 0 ? unused : pool;
+  const keyword = candidates[Math.floor(Math.random() * candidates.length)];
 
   console.log(`Generating: [${category}] ${keyword}`);
 
