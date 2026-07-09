@@ -89,16 +89,16 @@ export function BlogListClient({ posts }: { posts: BlogPost[] }) {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className={`${post.thumbnail ? "flex flex-col sm:grid sm:grid-cols-[320px_1fr]" : "flex"} bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden`}
+              className="flex bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden"
             >
               {post.thumbnail && (
-                <div className="relative w-full h-48 sm:h-auto">
+                <div className="relative w-[140px] h-[90px] sm:w-[374px] sm:h-auto sm:aspect-video flex-shrink-0">
                   <Image
                     src={post.thumbnail}
                     alt={getLabel(post.title)}
                     fill
-                    className={post.slug === "saily-esim-review-overseas-travel-guide-2026" ? "object-contain" : "object-cover object-top"}
-                    sizes="(max-width: 640px) 100vw, 320px"
+                    className={post.slug === "saily-esim-review-overseas-travel-guide-2026" ? "object-contain" : "object-cover object-center"}
+                    sizes="(max-width: 640px) 140px, 374px"
                   />
                 </div>
               )}
