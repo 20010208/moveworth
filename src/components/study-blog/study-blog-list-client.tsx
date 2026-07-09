@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Clock, Tag } from "lucide-react";
 import { studyBlogCategories } from "@/data/study-blog-posts";
 import { useState } from "react";
@@ -16,7 +17,7 @@ export function StudyBlogListClient({ posts }: { posts: StudyBlogPost[] }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50/60 via-white to-slate-50">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-10">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight mb-3">
             留学ブログ
@@ -57,17 +58,33 @@ export function StudyBlogListClient({ posts }: { posts: StudyBlogPost[] }) {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="block bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden"
+              className="flex bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden"
             >
-              <div className="flex flex-col md:flex-row">
                 {post.thumbnail && (
-                  <div className="w-full md:w-64 md:shrink-0 overflow-hidden">
-                    <img
-                      src={post.thumbnail}
-                      alt={post.title.ja}
-                      className="w-full h-44 md:h-full object-cover"
-                    />
-                  </div>
+                  <>
+                    {/* モバイル: 固定140×90、object-cover */}
+                    <div className="relative w-[140px] h-[90px] flex-shrink-0 sm:hidden">
+                      <Image
+                        fill
+                        src={post.thumbnail}
+                        alt={post.title.ja}
+                        className="object-cover object-center"
+                        sizes="140px"
+                      />
+                    </div>
+                    {/* PC: 374px幅固定、高さは画像の縦横比に自動追従 */}
+                    <div className="hidden sm:block sm:w-[374px] flex-shrink-0 overflow-hidden">
+                      <Image
+                        src={post.thumbnail}
+                        alt={post.title.ja}
+                        width={374}
+                        height={280}
+                        style={{ width: "100%", height: "auto" }}
+                        className="block"
+                        sizes="374px"
+                      />
+                    </div>
+                  </>
                 )}
                 <div className="p-5 flex-1 flex flex-col justify-between">
                   <div>
@@ -94,7 +111,6 @@ export function StudyBlogListClient({ posts }: { posts: StudyBlogPost[] }) {
                     <ArrowRight className="h-4 w-4" />
                   </span>
                 </div>
-              </div>
             </Link>
           ))}
         </div>
