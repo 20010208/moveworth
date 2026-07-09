@@ -92,15 +92,30 @@ export function BlogListClient({ posts }: { posts: BlogPost[] }) {
               className="flex bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden"
             >
               {post.thumbnail && (
-                <div className="relative w-[140px] h-[90px] sm:w-[498px] sm:h-auto sm:aspect-video flex-shrink-0">
-                  <Image
-                    src={post.thumbnail}
-                    alt={getLabel(post.title)}
-                    fill
-                    className={post.slug === "saily-esim-review-overseas-travel-guide-2026" ? "object-contain" : "object-cover object-center"}
-                    sizes="(max-width: 640px) 140px, 374px"
-                  />
-                </div>
+                <>
+                  {/* モバイル: 固定140×90、object-cover */}
+                  <div className="relative w-[140px] h-[90px] flex-shrink-0 sm:hidden">
+                    <Image
+                      fill
+                      src={post.thumbnail}
+                      alt={getLabel(post.title)}
+                      className="object-cover object-center"
+                      sizes="140px"
+                    />
+                  </div>
+                  {/* PC: 374px幅固定、高さは画像の縦横比に自動追従 */}
+                  <div className="hidden sm:block sm:w-[374px] flex-shrink-0 overflow-hidden">
+                    <Image
+                      src={post.thumbnail}
+                      alt={getLabel(post.title)}
+                      width={374}
+                      height={280}
+                      style={{ width: "100%", height: "auto" }}
+                      className="block"
+                      sizes="374px"
+                    />
+                  </div>
+                </>
               )}
               <div className="p-6 flex flex-col justify-between min-w-0">
                 <div>
