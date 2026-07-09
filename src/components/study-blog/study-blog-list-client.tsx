@@ -60,11 +60,11 @@ export function StudyBlogListClient({ posts }: { posts: StudyBlogPost[] }) {
               className={`${post.thumbnail ? "flex flex-col sm:flex-row" : "flex"} bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden`}
             >
               {post.thumbnail && (
-                <div className="w-full h-44 overflow-hidden flex-shrink-0 sm:w-[374px] sm:h-auto">
+                <div className="w-full overflow-hidden flex-shrink-0 sm:w-[374px]">
                   <img
                     src={post.thumbnail}
                     alt={post.title.ja}
-                    className="w-full h-full object-cover object-center sm:h-auto"
+                    className="w-full h-auto object-cover object-center"
                   />
                 </div>
               )}
