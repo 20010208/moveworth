@@ -92,7 +92,7 @@ export function BlogListClient({ posts }: { posts: BlogPost[] }) {
               className="flex bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden"
             >
               {post.thumbnail && (
-                <div className="relative w-[140px] h-[90px] sm:w-[374px] sm:h-auto sm:aspect-video flex-shrink-0">
+                <div className="relative w-[140px] h-[90px] sm:w-[374px] sm:h-auto sm:aspect-[4/3] flex-shrink-0">
                   <Image
                     src={post.thumbnail}
                     alt={getLabel(post.title)}
