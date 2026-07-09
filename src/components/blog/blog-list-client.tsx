@@ -92,13 +92,13 @@ export function BlogListClient({ posts }: { posts: BlogPost[] }) {
               className="flex bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden"
             >
               {post.thumbnail && (
-                <div className="relative w-[186px] h-[120px] sm:w-[498px] sm:h-auto sm:aspect-video flex-shrink-0">
+                <div className="relative w-[140px] h-[90px] sm:w-[374px] sm:h-auto sm:aspect-video flex-shrink-0">
                   <Image
                     src={post.thumbnail}
                     alt={getLabel(post.title)}
                     fill
                     className={post.slug === "saily-esim-review-overseas-travel-guide-2026" ? "object-contain" : "object-cover object-center"}
-                    sizes="(max-width: 640px) 186px, 498px"
+                    sizes="(max-width: 640px) 140px, 374px"
                   />
                 </div>
               )}
