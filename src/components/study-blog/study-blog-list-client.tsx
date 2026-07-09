@@ -61,30 +61,16 @@ export function StudyBlogListClient({ posts }: { posts: StudyBlogPost[] }) {
               className="flex bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden"
             >
                 {post.thumbnail && (
-                  <>
-                    {/* モバイル: 固定140×90、object-cover */}
-                    <div className="relative w-[140px] h-[90px] flex-shrink-0 sm:hidden">
-                      <Image
-                        fill
-                        src={post.thumbnail}
-                        alt={post.title.ja}
-                        className="object-cover object-center"
-                        sizes="140px"
-                      />
-                    </div>
-                    {/* PC: 374px幅固定、高さは画像の縦横比に自動追従 */}
-                    <div className="hidden sm:block sm:w-[374px] flex-shrink-0 overflow-hidden">
-                      <Image
-                        src={post.thumbnail}
-                        alt={post.title.ja}
-                        width={374}
-                        height={280}
-                        style={{ width: "100%", height: "auto" }}
-                        className="block"
-                        sizes="374px"
-                      />
-                    </div>
-                  </>
+                  <div className="w-[140px] h-[90px] sm:w-[374px] sm:h-auto flex-shrink-0 overflow-hidden">
+                    <Image
+                      src={post.thumbnail}
+                      alt={post.title.ja}
+                      width={374}
+                      height={280}
+                      className="w-full h-full object-cover object-center sm:h-auto"
+                      sizes="(max-width: 640px) 140px, 374px"
+                    />
+                  </div>
                 )}
                 <div className="p-5 flex-1 flex flex-col justify-between">
                   <div>
