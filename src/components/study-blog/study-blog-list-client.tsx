@@ -57,7 +57,7 @@ export function StudyBlogListClient({ posts }: { posts: StudyBlogPost[] }) {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className={`${post.thumbnail ? "flex flex-col sm:flex" : "flex"} bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden`}
+              className={`${post.thumbnail ? "flex flex-col sm:flex-row" : "flex"} bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden`}
             >
               {post.thumbnail && (
                 <div className="w-full h-44 overflow-hidden flex-shrink-0 sm:w-[374px] sm:h-auto">
