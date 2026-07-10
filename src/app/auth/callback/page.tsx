@@ -10,12 +10,34 @@ export default function AuthCallbackPage() {
 
   useEffect(() => {
     const handleCallback = async () => {
-      const code = new URLSearchParams(window.location.search).get("code");
-
-      if (code) {
-        await supabase.auth.exchangeCodeForSession(code);
+      // implicit flow: access_token comes in URL hash
+      const hash = window.location.hash;
+      if (hash && hash.includes("access_token")) {
+        // Supabase client auto-detects the hash and sets the session
+        // Wait for onAuthStateChange to fire
+        await new Promise<void>((resolve) => {
+          const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+            if (event === "SIGNED_IN") {
+              subscription.unsubscribe();
+              resolve();
+            }
+          });
+          // Fallback timeout
+          setTimeout(() => { subscription.unsubscribe(); resolve(); }, 3000);
+        });
+        router.replace("/");
+        return;
       }
 
+      // PKCE flow fallback: code comes in query param
+      const code = new URLSearchParams(window.location.search).get("code");
+      if (code) {
+        await supabase.auth.exchangeCodeForSession(code);
+        router.replace("/");
+        return;
+      }
+
+      // No token found - go home
       router.replace("/");
     };
 

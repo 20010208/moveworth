@@ -31,5 +31,6 @@ const cookieStorage = {
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     storage: cookieStorage,
+    flowType: "implicit",
   },
 });
