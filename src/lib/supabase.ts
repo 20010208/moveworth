@@ -4,6 +4,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder";
 
 // Cookie-based storage for cross-subdomain session sharing (.moveworthapp.com)
+// Values are base64-encoded to avoid the 4KB limit caused by URI-encoding
 const cookieStorage = {
   getItem: (key: string): string | null => {
     if (typeof document === "undefined") return null;
@@ -11,14 +12,20 @@ const cookieStorage = {
     const match = document.cookie.match(
       new RegExp(`(?:^|; )${encodedKey.replace(/[.*+?^=!:${}()|[\]/\\]/g, "\\$&")}=([^;]*)`)
     );
-    return match ? decodeURIComponent(match[1]) : null;
+    if (!match) return null;
+    try {
+      return atob(match[1]);
+    } catch {
+      // fallback for any old URI-encoded values
+      try { return decodeURIComponent(match[1]); } catch { return match[1]; }
+    }
   },
   setItem: (key: string, value: string): void => {
     if (typeof document === "undefined") return;
     const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
     const isLocal = window.location.hostname === "localhost";
     const domain = isLocal ? "" : "; domain=.moveworthapp.com";
-    document.cookie = `${encodeURIComponent(key)}=${encodeURIComponent(value)}${domain}; path=/; expires=${expires}; SameSite=Lax`;
+    document.cookie = `${encodeURIComponent(key)}=${btoa(value)}${domain}; path=/; expires=${expires}; SameSite=Lax`;
   },
   removeItem: (key: string): void => {
     if (typeof document === "undefined") return;
