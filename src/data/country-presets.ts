@@ -485,4 +485,15 @@ export const countryPresets: CountryPreset[] = [
     referenceLivingCost: 30000,
     notes: { en: "Progressive tax", ja: "累進課税制", zh: "累进税制" },
   },
+  {
+    code: "RO",
+    name: { en: "Romania", ja: "ルーマニア", zh: "罗马尼亚" },
+    currency: "RON",
+    currencySymbol: "lei",
+    defaultTaxRate: 0.35,
+    defaultInflation: 0.05,
+    referenceRent: 2500,
+    referenceLivingCost: 2000,
+    notes: { en: "Flat 10% income tax + social contributions (health 10%, pension 25%). EU member, low cost of living", ja: "所得税一律10%＋社会保険料（健康10%・年金25%）。EU加盟国、生活費が安い", zh: "所得税统一10%+社会保险费（医疗10%、养老25%）。欧盟成员国，生活成本低" },
+  },
 ];
