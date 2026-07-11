@@ -34,6 +34,22 @@ const nextConfig: NextConfig = {
         destination: "/blog/overseas-relocation-tax-savings-tips",
         permanent: true,
       },
+      // casestudy → simulator 301リダイレクト（2026-07-12）
+      {
+        source: "/blog/building-wealth-a-case-study-of-a-30s-couple-moving-to-2026",
+        destination: "/blog/simulator-sg-couple-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/building-wealth-a-case-study-of-a-dual-income-couple-in-2026",
+        destination: "/blog/simulator-sg-couple-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/entrepreneurs-moving-to-dubai-tax-savings-living-costs-2026",
+        destination: "/blog/simulator-ae-eng-single-2026",
+        permanent: true,
+      },
     ];
   },
   async headers() {
