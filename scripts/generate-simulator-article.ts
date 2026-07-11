@@ -297,11 +297,11 @@ async function translateArticle(
         role: "user",
         content: `Translate the following JSON from Japanese to ${target}.
 Rules:
-- Keep ALL numbers, digits, percentages, currency values exactly as-is (do not change 132,319,772 or any other number)
-- Keep ALL URLs exactly as-is
+- Translate ALL Japanese text, including headings and the disclaimer heading on the first line
+- The first heading (disclaimer) MUST be translated; it must NOT remain in Japanese
+- Keep ALL numbers, digits, percentages, currency values exactly as-is
+- Keep ALL URLs exactly as-is (do not translate or modify https://moveworthapp.com/simulate)
 - Keep ALL markdown formatting (##, **, etc.) exactly as-is
-- Keep the disclaimer text accurate: "This article is a fictional model case simulation result from MoveWorth. It does not represent actual people or events."
-- Only translate Japanese text — do not alter non-Japanese content
 - Return the same JSON structure with exactly these keys: title, description, content
 
 ${JSON.stringify({ title: ja.title, description: ja.description, content: ja.content }, null, 2)}
@@ -318,6 +318,33 @@ Return JSON only (no code blocks).`,
     description: result.description ?? ja.description,
     content: result.content ?? ja.content,
   };
+}
+
+function validateTranslation(
+  content: string,
+  lang: "en" | "zh",
+): { valid: boolean; violations: string[] } {
+  const violations: string[] = [];
+
+  // 免責文言チェック
+  const hasDisclaimer =
+    lang === "en"
+      ? content.includes("fictional model case")
+      : content.includes("虚构");
+  if (!hasDisclaimer) {
+    violations.push(
+      lang === "en"
+        ? 'EN: 免責文言 "fictional model case" が見つかりません'
+        : 'ZH: 免責文言 "虚构" が見つかりません',
+    );
+  }
+
+  // CTAリンクチェック
+  if (!content.includes("https://moveworthapp.com/simulate")) {
+    violations.push(`${lang.toUpperCase()}: CTAリンク https://moveworthapp.com/simulate が見つかりません`);
+  }
+
+  return { valid: violations.length === 0, violations };
 }
 
 function generateSlug(countryCode: string, attribute: string): string {
@@ -407,6 +434,17 @@ async function run() {
   const contentEn = sanitizeMoveWorthLinks(enArticle.content);
   const contentZh = sanitizeMoveWorthLinks(zhArticle.content);
   console.log("✅ 翻訳完了 (EN / ZH)");
+
+  // 翻訳版の軽量バリデーション（免責文言・CTAリンク）
+  const enCheck = validateTranslation(contentEn, "en");
+  const zhCheck = validateTranslation(contentZh, "zh");
+  const translationViolations = [...enCheck.violations, ...zhCheck.violations];
+  if (translationViolations.length > 0) {
+    console.error("❌ 翻訳バリデーション失敗 — insertをスキップします");
+    for (const v of translationViolations) console.error(`  • ${v}`);
+    process.exit(1);
+  }
+  console.log("✅ 翻訳バリデーションOK (EN / ZH)");
 
   // Supabase insert
   const slug = generateSlug(persona.country_code, persona.attribute);
