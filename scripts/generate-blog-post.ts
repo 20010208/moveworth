@@ -42,8 +42,11 @@ const CATEGORIES: Record<string, { ja: string; en: string; zh: string }> = {
   },
 };
 
-// 投稿順序：money → lifeplan → casestudy → casestudy → くり返し
-const ROTATION: string[] = ["money", "lifeplan", "casestudy", "casestudy"];
+// 投稿順序：DISABLE_CASESTUDY=true のとき週2本（money/lifeplan）に絞る
+const DISABLE_CASESTUDY = process.env.DISABLE_CASESTUDY === "true";
+const ROTATION: string[] = DISABLE_CASESTUDY
+  ? ["money", "lifeplan"]
+  : ["money", "lifeplan", "casestudy", "casestudy"];
 
 const TOPIC_POOL: Record<string, string[]> = {
   money: [

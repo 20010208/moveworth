@@ -1,0 +1,40 @@
+name: Auto Simulator Article
+
+on:
+  schedule:
+    # 土曜 09:00 JST (00:00 UTC) に実行
+    # auto-blog（月・木）・auto-country（水・日）と重複なし
+    - cron: "0 0 * * 6"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "dry_run=false で実際に公開"
+        required: false
+        default: "true"
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate simulator article
+        run: npx tsx scripts/generate-simulator-article.ts
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          # 明示的に false を渡すまで常に draft 保存
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'true' }}
+
+      - name: Trigger Vercel redeploy
+        # draft でも slug だけは発番されるので rebuild する
+        run: curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"
