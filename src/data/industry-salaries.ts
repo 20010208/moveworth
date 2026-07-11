@@ -527,4 +527,16 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     media:          220000,
     infrastructure: 190000,
   },
+  RO: {
+    // ブカレスト在住外国人プロフェッショナルの平均年収（RON）2026年3月
+    manufacturing:   70000,
+    it:             120000,
+    finance:        130000,
+    service:         65000,
+    retail:          55000,
+    construction:    75000,
+    logistics:       62000,
+    media:           90000,
+    infrastructure:  85000,
+  },
 };

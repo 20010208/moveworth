@@ -709,6 +709,94 @@ async function fetchJpyRate(currency: string): Promise<number | null> {
   }
 }
 
+// --- Task 2: persona auto-seed ---
+
+async function seedPersonasForCountry(
+  countryCode: string,
+  preset: { referenceRent: number; referenceLivingCost: number; defaultTaxRate: number; defaultInflation: number; currency: string },
+  jpPreset: { referenceRent: number; referenceLivingCost: number; defaultTaxRate: number; defaultInflation: number },
+  salaries: Record<string, number>,
+  jpSalaries: Record<string, number>,
+): Promise<void> {
+  const rate = await fetchJpyRate(preset.currency);
+  if (!rate) {
+    console.warn(`⚠️  [persona-seed] 為替レート取得失敗 (${preset.currency}) — スキップ`);
+    return;
+  }
+
+  const jpItIncome    = jpSalaries["it"]      ?? 9_500_000;
+  const jpFinIncome   = jpSalaries["finance"]  ?? 11_000_000;
+  const jpEngIncome   = jpItIncome;
+  const jpCoupleIncome = Math.round(jpItIncome * 1.5);
+  const jpMgrIncome    = Math.round(jpFinIncome * 1.5);
+
+  const engIncome    = salaries["it"]!;
+  const coupleIncome = Math.round(salaries["it"]! * 1.5);
+  const mgrIncome    = Math.round(salaries["finance"]! * 1.5);
+
+  function makeInput(jpIncome: number, targetIncome: number, jpSavings: number, rentMult = 1, livingMult = 1) {
+    return {
+      countryFrom: "JP",
+      countryTo: countryCode.toUpperCase(),
+      incomeCurrent: jpIncome,
+      incomeTarget: targetIncome,
+      currencyCurrent: "JPY",
+      currencyTarget: preset.currency,
+      salaryGrowthRate: 0.02,
+      currentSavings: jpSavings,
+      savingsCurrency: "JPY",
+      rentCurrent: jpPreset.referenceRent,
+      livingCostCurrent: jpPreset.referenceLivingCost,
+      rentTarget: Math.round(preset.referenceRent * rentMult),
+      livingCostTarget: Math.round(preset.referenceLivingCost * livingMult),
+      taxRateCurrent: jpPreset.defaultTaxRate,
+      taxRateTarget: preset.defaultTaxRate,
+      exchangeRate: rate,
+      inflationCurrent: jpPreset.defaultInflation,
+      inflationTarget: preset.defaultInflation,
+      investmentReturn: 0.05,
+      simulationYears: 10,
+    };
+  }
+
+  const personas = [
+    {
+      country_code: countryCode.toUpperCase(),
+      attribute: "30代エンジニア・単身",
+      annual_income_jpy: jpEngIncome,
+      family_type: "単身",
+      goal: "資産形成",
+      simulation_input: makeInput(jpEngIncome, engIncome, 3_000_000),
+    },
+    {
+      country_code: countryCode.toUpperCase(),
+      attribute: "30代夫婦・共働き",
+      annual_income_jpy: jpCoupleIncome,
+      family_type: "夫婦",
+      goal: "資産形成",
+      simulation_input: makeInput(jpCoupleIncome, coupleIncome, 5_000_000, 1.2),
+    },
+    {
+      country_code: countryCode.toUpperCase(),
+      attribute: "40代管理職・夫婦",
+      annual_income_jpy: jpMgrIncome,
+      family_type: "夫婦",
+      goal: "FIRE",
+      simulation_input: makeInput(jpMgrIncome, mgrIncome, 10_000_000, 1.2, 1.3),
+    },
+  ];
+
+  const { error } = await supabase
+    .from("simulator_personas")
+    .insert(personas);
+
+  if (error) {
+    console.warn(`⚠️  [persona-seed] insert 失敗: ${error.message}`);
+  } else {
+    console.log(`✅ [persona-seed] ${countryCode.toUpperCase()} — 3件 insert 完了`);
+  }
+}
+
 async function updateExchangeRate(currency: string, code: string): Promise<void> {
   const SIMULATE_PAGE = "src/app/study-site/simulate/page.tsx";
   if (!existsSync(SIMULATE_PAGE)) return;
@@ -899,10 +987,38 @@ async function run() {
   const { countryPresets } = await import("../src/data/country-presets.js").catch(
     () => import("../src/data/country-presets")
   );
-  const preset = (countryPresets as Array<{ code: string; currency: string }>)
-    .find((p) => p.code.toLowerCase() === country.code.toLowerCase());
+  const countryPresetsArr = countryPresets as Array<{
+    code: string; currency: string;
+    referenceRent: number; referenceLivingCost: number;
+    defaultTaxRate: number; defaultInflation: number;
+  }>;
+  const preset = countryPresetsArr.find((p) => p.code.toLowerCase() === country.code.toLowerCase());
   if (preset?.currency) {
     await updateExchangeRate(preset.currency, country.code);
+  }
+
+  // --- Task 2: persona auto-seed ---
+  const { INDUSTRY_SALARIES } = await import("../src/data/industry-salaries.js").catch(
+    () => import("../src/data/industry-salaries")
+  );
+  const salariesTyped = INDUSTRY_SALARIES as Record<string, Record<string, number>>;
+  const countrySalaries = salariesTyped[country.code.toUpperCase()];
+  const jpPresetData = countryPresetsArr.find((p) => p.code === "JP");
+
+  if (!countrySalaries) {
+    console.warn(`⚠️  [persona-seed] ${country.code.toUpperCase()} が industry-salaries.ts に未登録 — ペルソナ seed をスキップ`);
+  } else if (!preset) {
+    console.warn(`⚠️  [persona-seed] ${country.code.toUpperCase()} が country-presets.ts に未登録 — ペルソナ seed をスキップ`);
+  } else if (!jpPresetData) {
+    console.warn(`⚠️  [persona-seed] JP preset が見つからない — ペルソナ seed をスキップ`);
+  } else {
+    await seedPersonasForCountry(
+      country.code,
+      preset,
+      jpPresetData,
+      countrySalaries,
+      salariesTyped["JP"] ?? {},
+    );
   }
 }
 
