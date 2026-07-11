@@ -259,7 +259,7 @@ ${summaryJson}
 【記事の絶対条件】
 ①記事の冒頭（タイトル直下・本文最初の段落）に必ず以下の文言を含めること：
   「この記事は架空のモデルケースに対するMoveWorthシミュレーション結果です。実在の人物・事例ではありません。」
-②記事に登場するすべての数値はJSONにある値のみを使用すること。自分では一切計算しないこと（通貨換算・月割り・年割り・差し引き計算もすべて禁止）。万円表示は「JSONの値 ÷ 10000 万円」の形でのみ許容。
+②記事に登場するすべての数値はJSONの値のみを使用すること。月収・税額・生活費・貯蓄は「月間内訳_日本」「月間内訳_移住後」の各フィールドをそのまま引用し、独自の月割り・年割り・換算・差し引き計算は一切行わないこと。万円表示は「JSONの値 ÷ 10000 万円」の形でのみ許容。
 ③「〇〇さん」「〇〇さんの場合」など実在人物を匂わせる表現を使わないこと。「このモデルケースでは」「シミュレーション上では」など客観的表現で統一すること。
 ④記事末尾に「あなたの条件で試す」CTAを設け、リンクを https://moveworthapp.com/simulate にすること。
 ⑤ペルソナ設定セクションに「現地年収は本シミュレーターの業種別参考値（外国人プロフェッショナル基準）、家賃・生活費・税率は本シミュレーターの国別プリセット値を使用」と一文明記すること（読者が自分の条件との差分を把握できるようにするため）。
@@ -271,7 +271,8 @@ ${summaryJson}
 
 【記事構成の目安（1500〜2500文字）】
 以下の内容を含む6セクションで構成すること。
-見出し（##）は読者向けの自然な文言で書くこと（以下のトピックラベルをそのままセクション名に使用してはいけない）：
+見出しはすべて ##（h2）で統一すること（# や ### は使用禁止）。
+見出しの文言は読者向けの自然な文で書くこと（以下のトピックラベルをそのままセクション名に使用してはいけない）：
 1. 免責・架空モデルケースの明示を含む冒頭（読者が状況をイメージできる書き出し）
 2. ペルソナ設定（収入・家族構成・目標・前提条件）
 3. 日本 vs ${persona.country_code}の月間キャッシュフロー比較
@@ -387,40 +388,56 @@ async function run() {
   // summaryObj を一度だけ構築 → プロンプトと allowedSet の両方で共有
   const summaryObj = buildSummaryObj(persona, result);
 
-  // GPT-4o で記事生成
+  // ────────────────────────────────────────────────────
+  // GPT-4o 記事生成 + 数値突合バリデーション（最大3試行）
+  // ────────────────────────────────────────────────────
+  const MAX_ATTEMPTS = 3;
   const prompt = buildPrompt(persona, summaryObj);
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o",
-    messages: [{ role: "user", content: prompt }],
-    response_format: { type: "json_object" },
-    temperature: 0.5,  // 創作抑制のため低め
-  });
+  let titleJa = "";
+  let descJa = "";
+  let contentJa = "";
+  let lastViolations: string[] = [];
 
-  const generated = JSON.parse(response.choices[0].message.content!);
-  const { title: titleJa, description: descJa } = generated;
-  const contentJa = sanitizeMoveWorthLinks(generated.content as string);
+  let passed = false;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    console.log(`GPT generation attempt ${attempt}/${MAX_ATTEMPTS}...`);
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: [{ role: "user", content: prompt }],
+      response_format: { type: "json_object" },
+      temperature: 0.5,
+    });
 
-  // ────────────────────────────────────────────────────
-  // 数値突合バリデーション（日本語版のみ、必須）
-  // ────────────────────────────────────────────────────
-  console.log("Validating numbers (JA)...");
-  const { valid, violations } = validateNumbers(contentJa, result, summaryObj);
+    const generated = JSON.parse(response.choices[0].message.content!);
+    titleJa = generated.title ?? "";
+    descJa = generated.description ?? "";
+    contentJa = sanitizeMoveWorthLinks(generated.content as string);
 
-  if (!valid) {
-    console.error("❌ 数値突合失敗 — insertをスキップします");
-    console.error(`  違反件数: ${violations.length}`);
-    for (const v of violations) {
-      console.error(`  • ${v}`);
+    // 免責文言チェック
+    if (!contentJa.includes("架空のモデルケース")) {
+      console.error(`  attempt ${attempt}: 免責文言なし — 再生成`);
+      lastViolations = ["免責文言「架空のモデルケース」が見つかりません"];
+      continue;
     }
-    console.error("\n生成記事に含まれていたシミュレーション外の数値を修正または再生成してください。");
-    process.exit(1);
+
+    // 数値突合バリデーション
+    const { valid, violations } = validateNumbers(contentJa, result, summaryObj);
+    lastViolations = violations;
+
+    if (valid) {
+      console.log(`✅ 数値突合OK (attempt ${attempt})`);
+      passed = true;
+      break;
+    }
+
+    console.error(`  attempt ${attempt}: 数値突合失敗 (${violations.length}件)`);
+    for (const v of violations) console.error(`    • ${v}`);
+    if (attempt < MAX_ATTEMPTS) console.log("  → 再生成します");
   }
 
-  console.log("✅ 数値突合OK");
-
-  // 冒頭の免責文言チェック
-  if (!contentJa.includes("架空のモデルケース")) {
-    console.error("❌ 冒頭に「架空のモデルケース」の文言がありません。insertをスキップします。");
+  if (!passed) {
+    console.error(`❌ 全${MAX_ATTEMPTS}試行失敗 — insertをスキップします`);
+    for (const v of lastViolations) console.error(`  • ${v}`);
     process.exit(1);
   }
 

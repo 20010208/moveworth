@@ -32,8 +32,9 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          # 明示的に false を渡すまで常に draft 保存
-          DRY_RUN: ${{ github.event.inputs.dry_run || 'true' }}
+          # workflow_dispatch で dry_run=true を渡した場合のみ draft、
+          # スケジュール実行（自動）は常に公開
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
 
       - name: Trigger Vercel redeploy
         # draft でも slug だけは発番されるので rebuild する
