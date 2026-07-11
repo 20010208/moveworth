@@ -260,7 +260,7 @@ ${summaryJson}
 ②記事に登場するすべての数値はJSONにある値のみを使用すること。自分では一切計算しないこと（通貨換算・月割り・年割り・差し引き計算もすべて禁止）。万円表示は「JSONの値 ÷ 10000 万円」の形でのみ許容。
 ③「〇〇さん」「〇〇さんの場合」など実在人物を匂わせる表現を使わないこと。「このモデルケースでは」「シミュレーション上では」など客観的表現で統一すること。
 ④記事末尾に「あなたの条件で試す」CTAを設け、リンクを https://moveworthapp.com/simulate にすること。
-⑤ペルソナ設定セクションに「現地年収はJSONの「データソース」に記載の業種参考値、家賃・生活費・税率は本シミュレーターの国別プリセット値を使用」と一文明記すること（読者が自分の条件との差分を把握できるようにするため）。
+⑤ペルソナ設定セクションに「現地年収は本シミュレーターの業種別参考値（外国人プロフェッショナル基準）、家賃・生活費・税率は本シミュレーターの国別プリセット値を使用」と一文明記すること（読者が自分の条件との差分を把握できるようにするため）。
 ⑥このシミュレーションに含まれない費用として「海外医療保険・民間医療保険料、私的年金・確定拠出年金の掛金、一時帰国費用、子女教育費（インターナショナルスクール等）、ビザ取得・更新費用」がある旨を記事中に1箇所明記すること。これらを考慮すると実際の手取り資産はシミュレーション値より少なくなる可能性がある旨も添えること。
 ⑦月間内訳の数値は「月収・税額 = 入力年収の単純月割り値、月間貯蓄 = シミュレーション1年目時点（昇給率2%・インフレ率を反映）の値」であることを記事内で一言明記すること。
 
@@ -268,12 +268,14 @@ ${summaryJson}
 「シミュレーション：${persona.attribute}が${persona.country_code}に移住したら10年で資産はどうなるか」型を参考に、SEOを意識したタイトルにすること。「事例」「成功例」「体験談」「実体験」はタイトルから除外。
 
 【記事構成の目安（1500〜2500文字）】
-- ## 冒頭：免責・架空モデルケース明記
-- ## ペルソナ設定（収入・家族構成・目標）
-- ## 日本 vs ${persona.country_code}：月間キャッシュフロー比較
-- ## 5年後・10年後の資産推移
-- ## この結果から読み取れること（税・生活費・為替の影響）
-- ## まとめ＋CTA
+以下の内容を含む6セクションで構成すること。
+見出し（##）は読者向けの自然な文言で書くこと（以下のトピックラベルをそのままセクション名に使用してはいけない）：
+1. 免責・架空モデルケースの明示を含む冒頭（読者が状況をイメージできる書き出し）
+2. ペルソナ設定（収入・家族構成・目標・前提条件）
+3. 日本 vs ${persona.country_code}の月間キャッシュフロー比較
+4. 5年後・10年後の資産推移
+5. 税・生活費・為替がもたらす影響の分析
+6. 締め括りと「あなたの条件で試す」CTAへの誘導
 
 JSONのみ返してください（コードブロック不要）:
 {
@@ -281,6 +283,41 @@ JSONのみ返してください（コードブロック不要）:
   "description": "メタディスクリプション（120〜160文字）",
   "content": "記事本文（マークダウン形式）"
 }`;
+}
+
+async function translateArticle(
+  ja: { title: string; description: string; content: string },
+  lang: "en" | "zh",
+): Promise<{ title: string; description: string; content: string }> {
+  const target = lang === "en" ? "English" : "Chinese (Simplified)";
+  const response = await openai.chat.completions.create({
+    model: "gpt-4o",
+    messages: [
+      {
+        role: "user",
+        content: `Translate the following JSON from Japanese to ${target}.
+Rules:
+- Keep ALL numbers, digits, percentages, currency values exactly as-is (do not change 132,319,772 or any other number)
+- Keep ALL URLs exactly as-is
+- Keep ALL markdown formatting (##, **, etc.) exactly as-is
+- Keep the disclaimer text accurate: "This article is a fictional model case simulation result from MoveWorth. It does not represent actual people or events."
+- Only translate Japanese text — do not alter non-Japanese content
+- Return the same JSON structure with exactly these keys: title, description, content
+
+${JSON.stringify({ title: ja.title, description: ja.description, content: ja.content }, null, 2)}
+
+Return JSON only (no code blocks).`,
+      },
+    ],
+    response_format: { type: "json_object" },
+    temperature: 0.2,
+  });
+  const result = JSON.parse(response.choices[0].message.content!);
+  return {
+    title: result.title ?? ja.title,
+    description: result.description ?? ja.description,
+    content: result.content ?? ja.content,
+  };
 }
 
 function generateSlug(countryCode: string, attribute: string): string {
@@ -331,14 +368,14 @@ async function run() {
   });
 
   const generated = JSON.parse(response.choices[0].message.content!);
-  const { title, description } = generated;
-  const content = sanitizeMoveWorthLinks(generated.content as string);
+  const { title: titleJa, description: descJa } = generated;
+  const contentJa = sanitizeMoveWorthLinks(generated.content as string);
 
   // ────────────────────────────────────────────────────
-  // 数値突合バリデーション（必須）
+  // 数値突合バリデーション（日本語版のみ、必須）
   // ────────────────────────────────────────────────────
-  console.log("Validating numbers...");
-  const { valid, violations } = validateNumbers(content, result, summaryObj);
+  console.log("Validating numbers (JA)...");
+  const { valid, violations } = validateNumbers(contentJa, result, summaryObj);
 
   if (!valid) {
     console.error("❌ 数値突合失敗 — insertをスキップします");
@@ -353,10 +390,23 @@ async function run() {
   console.log("✅ 数値突合OK");
 
   // 冒頭の免責文言チェック
-  if (!content.includes("架空のモデルケース")) {
+  if (!contentJa.includes("架空のモデルケース")) {
     console.error("❌ 冒頭に「架空のモデルケース」の文言がありません。insertをスキップします。");
     process.exit(1);
   }
+
+  // ────────────────────────────────────────────────────
+  // EN / ZH 翻訳（JA検証通過後に並列実行）
+  // ────────────────────────────────────────────────────
+  console.log("Translating to EN and ZH...");
+  const jaArticle = { title: titleJa, description: descJa, content: contentJa };
+  const [enArticle, zhArticle] = await Promise.all([
+    translateArticle(jaArticle, "en"),
+    translateArticle(jaArticle, "zh"),
+  ]);
+  const contentEn = sanitizeMoveWorthLinks(enArticle.content);
+  const contentZh = sanitizeMoveWorthLinks(zhArticle.content);
+  console.log("✅ 翻訳完了 (EN / ZH)");
 
   // Supabase insert
   const slug = generateSlug(persona.country_code, persona.attribute);
@@ -368,12 +418,12 @@ async function run() {
     published_at: today,
     reading_minutes: 8,
     thumbnail: null,
-    title: { ja: title, en: title, zh: title },
-    description: { ja: description, en: description, zh: description },
-    content: { ja: content, en: content, zh: content },
-    locales: ["ja"],
+    title: { ja: titleJa, en: enArticle.title, zh: zhArticle.title },
+    description: { ja: descJa, en: enArticle.description, zh: zhArticle.description },
+    content: { ja: contentJa, en: contentEn, zh: contentZh },
+    locales: ["ja", "en", "zh"],
     pinned: false,
-    is_published: !DRY_RUN,  // DRY_RUN=falseのときだけ公開
+    is_published: !DRY_RUN,
   });
 
   if (insertErr) {
