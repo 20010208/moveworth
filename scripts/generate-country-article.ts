@@ -21,6 +21,91 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+// --- Task 4: source-grounded generation ---
+
+const SOURCE_FETCH_TIMEOUT = 8_000;
+const MAX_CHARS_PER_SOURCE = 3_000;
+const MAX_SOURCES = 5;
+
+function stripHtml(html: string): string {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+async function fetchPageText(url: string): Promise<string | null> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), SOURCE_FETCH_TIMEOUT);
+  try {
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; MoveWorthBot/1.0)" },
+    });
+    clearTimeout(timer);
+    if (!res.ok) return null;
+    const ct = res.headers.get("content-type") ?? "";
+    if (!ct.includes("html") && !ct.includes("text")) return null;
+    const html = await res.text();
+    const text = stripHtml(html);
+    return text.slice(0, MAX_CHARS_PER_SOURCE);
+  } catch {
+    clearTimeout(timer);
+    return null;
+  }
+}
+
+type SourceRow = { url: string; purpose: string };
+
+async function getCountrySources(
+  countryCode: string,
+  purpose: "visa" | "study"
+): Promise<SourceRow[]> {
+  try {
+    const { data, error } = await supabase
+      .from("country_sources")
+      .select("url, purpose")
+      .eq("country_code", countryCode)
+      .eq("purpose", purpose)
+      .eq("status", "alive")
+      .limit(MAX_SOURCES);
+    if (error) return [];
+    return data ?? [];
+  } catch {
+    return [];
+  }
+}
+
+async function buildSourceContext(
+  sources: SourceRow[]
+): Promise<{ text: string; refs: string }> {
+  const fetched: { url: string; text: string }[] = [];
+  await Promise.all(
+    sources.map(async (s) => {
+      const text = await fetchPageText(s.url);
+      if (text && text.length > 100) fetched.push({ url: s.url, text });
+    })
+  );
+
+  if (fetched.length === 0) return { text: "", refs: "" };
+
+  const text = fetched
+    .map((f, i) => `--- 参考資料 ${i + 1}: ${f.url} ---\n${f.text}`)
+    .join("\n\n");
+
+  const refs = sources
+    .map((s) => `- ${s.url}`)
+    .join("\n");
+
+  return { text, refs };
+}
+
 // Countries in priority order: fixed first 2, then popular destinations
 const COUNTRY_QUEUE = [
   { code: "be", name: { ja: "ベルギー", en: "Belgium" } },
@@ -84,12 +169,23 @@ async function getNextCountry(): Promise<{ code: string; name: { ja: string; en:
 
 async function generateVisaContent(
   countryName: { ja: string; en: string },
-  lang: Lang
+  lang: Lang,
+  sourceCtx?: { text: string; refs: string }
 ): Promise<{ title: string; description: string; content: string }> {
+  const hasSource = !!sourceCtx?.text;
+  const sourceBlock = hasSource
+    ? `\n\n=== 参考資料原文（以下の内容のみを根拠にすること。原文にない数字・手続き・URLは書かないこと）===\n${sourceCtx!.text}\n=== 参考資料原文ここまで ===\n`
+    : "";
+  // 参考資料セクションはソース有りの場合は自動生成するため GPT には不要
+  const refSectionInstruction = hasSource
+    ? "参考資料セクション（### 参考資料 / ### References / ### 参考资料）は書かないこと。自動追加される。"
+    : "";
+  const prebuiltRefs = sourceCtx?.refs ?? "";
+
   const prompts: Record<Lang, string> = {
     ja: `あなたはMoveWorthというサービスのビザ情報ライターです。MoveWorthは、海外移住を考えている人向けに、税金・生活費・ビザを一括シミュレーションできるサービスです。
-
-${countryName.ja}のビザ・移住条件に関する記事を日本語で書いてください。
+${sourceBlock}
+${countryName.ja}のビザ・移住条件に関する記事を日本語で書いてください。${hasSource ? "必ず上記参考資料原文に記載されている情報のみを使用すること。" : ""}
 
 ## タイトル形式（必ず守ること。絵文字・記号は一切使わないこと）
 【2026年最新版】${countryName.ja}のビザ・就労許可完全ガイド｜{主要ビザ名1}・{主要ビザ名2}・{主要ビザ名3}
@@ -122,12 +218,12 @@ ${countryName.ja}のビザ・移住条件に関する記事を日本語で書い
 （5点程度の番号付きリスト）
 
 締め括りの文（1〜2文）
-
+${refSectionInstruction ? `\n${refSectionInstruction}` : `
 ---
 
 ### 参考資料
 本記事の情報は以下の公式資料をもとに作成しています。
-- **{ビザ名}**: [{機関名} – {ページ名}]({公式URL})
+- **{ビザ名}**: [{機関名} – {ページ名}]({公式URL})`}
 
 ## JSON形式で返答（JSONのみ、コードブロック不要）
 {
@@ -137,8 +233,8 @@ ${countryName.ja}のビザ・移住条件に関する記事を日本語で書い
 }`,
 
     en: `You are a visa information writer for MoveWorth, a service that helps people considering international relocation simulate taxes, living costs, and visa requirements.
-
-Write a detailed, factual article about ${countryName.en} visa and immigration requirements in English.
+${sourceBlock}
+Write a detailed, factual article about ${countryName.en} visa and immigration requirements in English.${hasSource ? " Use ONLY information found in the reference texts above. Do not include facts, figures or URLs not present in the sources." : ""}
 
 ## Title format (strictly follow. No emojis or special symbols):
 ${countryName.en} Visa & Work Permit Complete Guide 2026 | {Visa1}, {Visa2} & {Visa3}
@@ -171,12 +267,12 @@ Brief description (1–2 sentences)
 (5 numbered items)
 
 Closing sentence.
-
+${refSectionInstruction ? `\n${refSectionInstruction}` : `
 ---
 
 ### References
 Data sourced from:
-- **{Visa name}**: [{Agency} – {Page}]({official URL})
+- **{Visa name}**: [{Agency} – {Page}]({official URL})`}
 
 ## Return as JSON only (no code block):
 {
@@ -186,8 +282,8 @@ Data sourced from:
 }`,
 
     zh: `您是MoveWorth服务的签证信息撰稿人。MoveWorth帮助考虑海外移居的人模拟税务、生活成本和签证要求。
-
-请用中文撰写一篇关于${countryName.en}（${countryName.ja}）签证与移居条件的详细文章。
+${sourceBlock}
+请用中文撰写一篇关于${countryName.en}（${countryName.ja}）签证与移居条件的详细文章。${hasSource ? "仅使用上述参考资料原文中记载的信息，不得包含原文中没有的数字或手续。" : ""}
 
 ## 标题格式（必须遵守。不使用任何表情符号或特殊符号）：
 【2026年最新版】{国名中文}签证与工作许可完全指南｜{签证1}·{签证2}·{签证3}
@@ -217,11 +313,11 @@ Data sourced from:
 ### 移居前注意事项
 1. **{重要事项}**：说明
 （5条编号列表）
-
+${refSectionInstruction ? `\n${refSectionInstruction}` : `
 ---
 
 ### 参考资料
-- **{签证名称}**: [{机构} – {页面}]({官方URL})
+- **{签证名称}**: [{机构} – {页面}]({官方URL})`}
 
 ## 仅返回JSON（无代码块）：
 {
@@ -233,20 +329,48 @@ Data sourced from:
 
   const res = await openai.chat.completions.create({
     model: "gpt-4o",
-    messages: [{ role: "user", content: prompts[lang] }],  response_format: { type: "json_object" },
+    messages: [{ role: "user", content: prompts[lang] }],
+    response_format: { type: "json_object" },
     temperature: 0.2,
   });
   const parsed1 = JSON.parse(res.choices[0].message.content!);
   parsed1.content = sanitizeMoveWorthLinks(parsed1.content);
+
+  // ソース有りの場合: 参考資料セクションを自動追加
+  if (hasSource && prebuiltRefs) {
+    const refHeadings: Record<Lang, string> = {
+      ja: "### 参考資料\n本記事の情報は以下の公式資料をもとに作成しています。",
+      en: "### References\nData sourced from official government and immigration authority pages.",
+      zh: "### 参考资料\n本文信息来源于以下官方资料。",
+    };
+    parsed1.content = parsed1.content.trimEnd() + `\n\n---\n\n${refHeadings[lang]}\n${prebuiltRefs}`;
+  }
+
   return parsed1;
 }
 
 async function factCheckContent(
   content: string,
   countryName: string,
-  lang: string
+  lang: string,
+  sourceText?: string
 ): Promise<string> {
-  const prompt = `あなたは${countryName}の移住・ビザ情報に詳しい専門家です。以下の記事を、あなたの知識で精査してください。
+  // ソース有りの場合: 原文との整合チェック（知識ベース修正ではなく原文根拠チェック）
+  const prompt = sourceText
+    ? `あなたは${countryName}のビザ情報の校正者です。以下の「記事本文」を「参考資料原文」と照合し、原文に記載のない数字・要件・手続きが含まれていたら削除または「要確認」に置き換えてください。参考資料原文に記載されている情報は保持してください。
+
+ルール：
+- 「確認できない」「インターネットにアクセスできない」などのメタコメントは絶対に書かないでください
+- 修正した記事本文のみを返してください。説明・コメント・注記は一切不要です
+- 言語: ${lang}
+
+=== 参考資料原文 ===
+${sourceText.slice(0, 6000)}
+=== 参考資料原文ここまで ===
+
+=== 記事本文 ===
+${content}`
+    : `あなたは${countryName}の移住・ビザ情報に詳しい専門家です。以下の記事を、あなたの知識で精査してください。
 
 ルール：
 - あなたの学習データに基づいて、費用・期間・必要書類などの数字や事実を確認し、明らかに誤っている箇所のみ修正してください
@@ -630,23 +754,39 @@ async function run() {
   const country = await getNextCountry();
   console.log(`Generating articles for: ${country.name.en} (${country.code})`);
 
+  // --- Task 4: source grounding ---
+  console.log("Fetching country_sources for source-grounded generation...");
+  const visaSources = await getCountrySources(country.code, "visa");
+  let visaSourceCtx: { text: string; refs: string } | undefined;
+  if (visaSources.length > 0) {
+    visaSourceCtx = await buildSourceContext(visaSources);
+    console.log(
+      visaSourceCtx.text
+        ? `✅ Source context built from ${visaSources.length} URLs`
+        : `⚠️  All ${visaSources.length} source URLs failed to fetch — falling back to no-source mode`
+    );
+  } else {
+    console.log("ℹ️  No alive sources in country_sources — falling back to no-source mode");
+  }
+
   // --- Visa article (ja/en/zh) ---
   console.log("Generating visa article in 3 languages...");
   const [visaJa, visaEn, visaZh] = await Promise.all([
-    generateVisaContent(country.name, "ja"),
-    generateVisaContent(country.name, "en"),
-    generateVisaContent(country.name, "zh"),
+    generateVisaContent(country.name, "ja", visaSourceCtx),
+    generateVisaContent(country.name, "en", visaSourceCtx),
+    generateVisaContent(country.name, "zh", visaSourceCtx),
   ]);
 
-  // Fact-check pass 1
+  // Fact-check pass 1（ソース有りの場合は原文照合、なしの場合は知識ベース）
   console.log("Fact-checking visa article (pass 1)...");
+  const sourceText = visaSourceCtx?.text;
   const [checked1Ja, checked1En, checked1Zh] = await Promise.all([
-    factCheckContent(visaJa.content, country.name.ja, "ja"),
-    factCheckContent(visaEn.content, country.name.en, "en"),
-    factCheckContent(visaZh.content, country.name.en, "zh"),
+    factCheckContent(visaJa.content, country.name.ja, "ja", sourceText),
+    factCheckContent(visaEn.content, country.name.en, "en", sourceText),
+    factCheckContent(visaZh.content, country.name.en, "zh", sourceText),
   ]);
 
-  // Fact-check pass 2
+  // Fact-check pass 2（pass 2 は知識ベースで仕上げ）
   console.log("Fact-checking visa article (pass 2)...");
   const [finalJa, finalEn, finalZh] = await Promise.all([
     factCheckContent(checked1Ja, country.name.ja, "ja"),
