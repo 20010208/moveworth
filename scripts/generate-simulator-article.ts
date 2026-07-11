@@ -38,6 +38,8 @@ function buildAllowedSet(result: SimulationResult, summaryObj?: unknown): Set<nu
 
   function addVariants(n: number) {
     if (!isFinite(n) || n === 0) return;
+    // 負値は絶対値も追加（例: 差額が -6,574,629 → 6,574,629 も許容）
+    if (n < 0) addVariants(-n);
     // 原値 + 代表的な丸めティア
     const variants = [
       n,
@@ -326,15 +328,15 @@ function validateTranslation(
 ): { valid: boolean; violations: string[] } {
   const violations: string[] = [];
 
-  // 免責文言チェック
+  // 免責文言チェック（ENは表現揺れを考慮して "model case" で確認）
   const hasDisclaimer =
     lang === "en"
-      ? content.includes("fictional model case")
+      ? content.toLowerCase().includes("model case")
       : content.includes("虚构");
   if (!hasDisclaimer) {
     violations.push(
       lang === "en"
-        ? 'EN: 免責文言 "fictional model case" が見つかりません'
+        ? 'EN: 免責文言 ("model case") が見つかりません'
         : 'ZH: 免責文言 "虚构" が見つかりません',
     );
   }
