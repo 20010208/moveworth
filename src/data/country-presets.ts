@@ -17,11 +17,11 @@ export const countryPresets: CountryPreset[] = [
     name: { en: "Singapore", ja: "シンガポール", zh: "新加坡" },
     currency: "SGD",
     currencySymbol: "S$",
-    defaultTaxRate: 0.15,
+    defaultTaxRate: 0.09,
     defaultInflation: 0.03,
     referenceRent: 2500,
     referenceLivingCost: 1500,
-    notes: { en: "No capital gains tax", ja: "キャピタルゲイン税なし", zh: "无资本利得税" },
+    notes: { en: "No capital gains tax. Effective income tax rate ~8-11% for expat income SGD120k-200k (IRAS progressive scale; 15% is marginal not effective)", ja: "キャピタルゲイン税なし。IRAS累進課税の実効税率：120k〜200k SGD帯で約8〜11%（15%は最高辺税率）", zh: "无资本利得税。IRAS累进税实际有效税率：12-20万新元收入约8-11%（15%为边际税率非实际税率）" },
   },
   {
     code: "MY",

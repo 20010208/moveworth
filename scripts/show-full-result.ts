@@ -19,30 +19,46 @@ const supabase = createClient(
 );
 
 async function main() {
+  // SLUG 環境変数で指定、なければ最新のsimulator記事（is_published=falseのdraftを優先）
+  const slug = process.env.SLUG ?? "simulator-sg-couple-2026";
+
   const { data: posts } = await supabase
     .from("blog_posts")
     .select("slug, title, content, is_published")
-    .eq("category", "simulator")
-    .order("published_at", { ascending: false })
+    .eq("slug", slug)
     .limit(1);
 
-  const post = posts![0];
+  if (!posts?.length) {
+    console.error(`slug=${slug} が見つかりません`);
+    process.exit(1);
+  }
+
+  const post = posts[0];
   console.log("### ARTICLE CONTENT (raw) ###");
   console.log(post.content.ja);
 
   const { data: personas } = await supabase
     .from("simulator_personas")
-    .select("simulation_input")
+    .select("*")
     .eq("blog_post_slug", post.slug)
     .limit(1);
 
-  const simInput = personas![0].simulation_input;
-  const result = runSimulation(simInput);
+  if (!personas?.length) {
+    console.error("対応するペルソナが見つかりません");
+    process.exit(1);
+  }
+
+  const p = personas[0];
+  const { simulation_input, ...rest } = p;
+
+  console.log("\n\n### PERSONA JSON ###");
+  console.log(JSON.stringify(rest, null, 2));
 
   console.log("\n\n### SIMULATION_INPUT ###");
-  console.log(JSON.stringify(simInput, null, 2));
+  console.log(JSON.stringify(simulation_input, null, 2));
 
   console.log("\n\n### SIMULATION_RESULT (full) ###");
+  const result = runSimulation(simulation_input);
   console.log(JSON.stringify(result, null, 2));
 }
 

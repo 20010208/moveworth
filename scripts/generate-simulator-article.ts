@@ -185,27 +185,28 @@ function buildSummaryObj(persona: Persona, result: SimulationResult) {
       家賃_生活費: "MoveWorthシミュレーター国別プリセット値（referenceRent / referenceLivingCost）",
       税率_インフレ: "MoveWorthシミュレーター国別プリセット値（defaultTaxRate / defaultInflation）",
     },
+    月間内訳_注記: "月収・税額は入力年収（昇給前）÷12の値。月間貯蓄は1年目時点の値（昇給2%・インフレ率を反映したシミュレーション値）",
     月間内訳_日本: {
       月収_税引前_JPY: Math.round(input.incomeCurrent / 12),
       税額_JPY: mb.current.tax,
-      手取り月収_JPY: mb.current.income,
+      月収_税引後_JPY: Math.round(input.incomeCurrent * (1 - input.taxRateCurrent) / 12),
       家賃_JPY: mb.current.rent,
       生活費_JPY: mb.current.living,
-      月間貯蓄_JPY: mb.current.savings,
+      月間貯蓄_JPY_1年目: mb.current.savings,
     },
     月間内訳_移住後: {
       月収_税引前_現地: Math.round(input.incomeTarget / 12),
       月収_税引前_JPY換算: Math.round(input.incomeTarget / 12 * r),
       税額_現地: mb.target.tax,
       税額_JPY換算: Math.round(mb.target.tax * r),
-      手取り月収_現地: mb.target.income,
-      手取り月収_JPY換算: Math.round(mb.target.income * r),
+      月収_税引後_現地: Math.round(input.incomeTarget * (1 - input.taxRateTarget) / 12),
+      月収_税引後_JPY換算: Math.round(input.incomeTarget * (1 - input.taxRateTarget) / 12 * r),
       家賃_現地: mb.target.rent,
       家賃_JPY換算: Math.round(mb.target.rent * r),
       生活費_現地: mb.target.living,
       生活費_JPY換算: Math.round(mb.target.living * r),
-      月間貯蓄_現地: mb.target.savings,
-      月間貯蓄_JPY換算: Math.round(mb.target.savings * r),
+      月間貯蓄_現地_1年目: mb.target.savings,
+      月間貯蓄_JPY換算_1年目: Math.round(mb.target.savings * r),
     },
     資産推移_JPY換算: {
       初期貯蓄: input.currentSavings,
@@ -261,6 +262,7 @@ ${summaryJson}
 ④記事末尾に「あなたの条件で試す」CTAを設け、リンクを https://moveworthapp.com/simulate にすること。
 ⑤ペルソナ設定セクションに「現地年収はJSONの「データソース」に記載の業種参考値、家賃・生活費・税率は本シミュレーターの国別プリセット値を使用」と一文明記すること（読者が自分の条件との差分を把握できるようにするため）。
 ⑥このシミュレーションに含まれない費用として「海外医療保険・民間医療保険料、私的年金・確定拠出年金の掛金、一時帰国費用、子女教育費（インターナショナルスクール等）、ビザ取得・更新費用」がある旨を記事中に1箇所明記すること。これらを考慮すると実際の手取り資産はシミュレーション値より少なくなる可能性がある旨も添えること。
+⑦月間内訳の数値は「月収・税額 = 入力年収の単純月割り値、月間貯蓄 = シミュレーション1年目時点（昇給率2%・インフレ率を反映）の値」であることを記事内で一言明記すること。
 
 【タイトル形式】
 「シミュレーション：${persona.attribute}が${persona.country_code}に移住したら10年で資産はどうなるか」型を参考に、SEOを意識したタイトルにすること。「事例」「成功例」「体験談」「実体験」はタイトルから除外。
@@ -283,24 +285,27 @@ JSONのみ返してください（コードブロック不要）:
 
 function generateSlug(countryCode: string, attribute: string): string {
   const year = new Date().getFullYear();
-  const attrSlug = attribute
-    .toLowerCase()
-    .replace(/[^a-z0-9\s]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-  return `simulator-${countryCode.toLowerCase()}-${attrSlug}-${year}`.replace(/-{2,}/g, "-");
+  const attrMap: Record<string, string> = {
+    "30代エンジニア・単身": "eng-single",
+    "30代夫婦・共働き": "couple",
+    "40代管理職・夫婦": "mgr-couple",
+  };
+  const attrSlug = attrMap[attribute] ?? attribute.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+  return `simulator-${countryCode.toLowerCase()}-${attrSlug}-${year}`;
 }
 
 async function run() {
   console.log(`Mode: ${DRY_RUN ? "DRY-RUN (draft)" : "PUBLISH"}`);
 
-  // 未使用ペルソナを1件取得
-  const { data: personas, error: fetchErr } = await supabase
-    .from("simulator_personas")
-    .select("*")
-    .is("used_at", null)
-    .order("created_at", { ascending: true })
-    .limit(1);
+  // 未使用ペルソナを1件取得（PERSONA_IDで特定ペルソナを指定可）
+  const PERSONA_ID = process.env.PERSONA_ID;
+  let personaQuery = supabase.from("simulator_personas").select("*").is("used_at", null);
+  if (PERSONA_ID) {
+    personaQuery = personaQuery.eq("id", PERSONA_ID);
+  } else {
+    personaQuery = personaQuery.order("created_at", { ascending: true }).limit(1);
+  }
+  const { data: personas, error: fetchErr } = await personaQuery.limit(1);
 
   if (fetchErr || !personas?.length) {
     console.error("未使用ペルソナが見つかりません:", fetchErr?.message ?? "空");
