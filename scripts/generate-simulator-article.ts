@@ -30,10 +30,10 @@ const DRY_RUN = process.env.DRY_RUN !== "false";
 // ────────────────────────────────────────────────────
 
 /**
- * SimulationResultから数値を再帰的に収集し、
+ * SimulationResult と summaryObj から数値を再帰的に収集し、
  * 日本語記事で出現しうる丸め・表記バリエーションを事前展開する。
  */
-function buildAllowedSet(result: SimulationResult): Set<number> {
+function buildAllowedSet(result: SimulationResult, summaryObj?: unknown): Set<number> {
   const expanded = new Set<number>();
 
   function addVariants(n: number) {
@@ -74,6 +74,7 @@ function buildAllowedSet(result: SimulationResult): Set<number> {
   }
 
   walk(result);
+  if (summaryObj !== undefined) walk(summaryObj);
   return expanded;
 }
 
@@ -85,8 +86,9 @@ function buildAllowedSet(result: SimulationResult): Set<number> {
 function validateNumbers(
   content: string,
   result: SimulationResult,
+  summaryObj?: unknown,
 ): { valid: boolean; violations: string[] } {
-  const allowed = buildAllowedSet(result);
+  const allowed = buildAllowedSet(result, summaryObj);
   const violations: string[] = [];
 
   function check(value: number, context: string) {
@@ -149,53 +151,99 @@ interface Persona {
   simulation_input: SimulationInput;
 }
 
-function buildPrompt(persona: Persona, result: SimulationResult): string {
-  const sim = result;
-  const input = sim.input;
-  const yr5 = sim.yearlyResults[5];
-  const yr10 = sim.yearlyResults[10];
-  const mb = sim.monthlyBreakdown;
+/**
+ * プロンプト用 summaryObj を構築する。
+ * ここに含まれるすべての数値が buildAllowedSet に渡され、記事の数値突合に使用される。
+ * GPT が自力計算しなくて済むよう、月次・年次・JPY換算を全量事前展開する。
+ */
+function buildSummaryObj(persona: Persona, result: SimulationResult) {
+  const input = result.input;
+  const yr5 = result.yearlyResults[5];
+  const yr10 = result.yearlyResults[10];
+  const mb = result.monthlyBreakdown;
+  const r = input.exchangeRate;
 
-  const summaryJson = JSON.stringify({
+  const incomePreset =
+    persona.attribute.includes("管理職")
+      ? "金融業（外国人プロフェッショナル参考値）×1.5（管理職＋パートナー合算）"
+      : persona.attribute.includes("夫婦")
+      ? "IT・情報通信業（外国人プロフェッショナル参考値）×1.5（世帯合算）"
+      : "IT・情報通信業（外国人プロフェッショナル参考値）";
+
+  return {
     ペルソナ: {
       属性: persona.attribute,
       家族構成: persona.family_type,
       目標: persona.goal,
       移住先: persona.country_code,
-      日本での年収_JPY: input.incomeCurrent,
-      移住先での年収: `${input.incomeTarget} ${input.currencyTarget}`,
+      日本年収_JPY: input.incomeCurrent,
+      移住先年収_現地: input.incomeTarget,
+      移住先年収_JPY換算: Math.round(input.incomeTarget * r),
+    },
+    データソース: {
+      現地年収: incomePreset,
+      家賃_生活費: "MoveWorthシミュレーター国別プリセット値（referenceRent / referenceLivingCost）",
+      税率_インフレ: "MoveWorthシミュレーター国別プリセット値（defaultTaxRate / defaultInflation）",
     },
     月間内訳_日本: {
+      月収_税引前_JPY: Math.round(input.incomeCurrent / 12),
+      税額_JPY: mb.current.tax,
       手取り月収_JPY: mb.current.income,
       家賃_JPY: mb.current.rent,
       生活費_JPY: mb.current.living,
-      税社保_JPY: mb.current.tax,
       月間貯蓄_JPY: mb.current.savings,
     },
     月間内訳_移住後: {
-      手取り月収: `${mb.target.income} ${input.currencyTarget}`,
-      家賃: `${mb.target.rent} ${input.currencyTarget}`,
-      生活費: `${mb.target.living} ${input.currencyTarget}`,
-      税金: `${mb.target.tax} ${input.currencyTarget}`,
-      月間貯蓄: `${mb.target.savings} ${input.currencyTarget}`,
+      月収_税引前_現地: Math.round(input.incomeTarget / 12),
+      月収_税引前_JPY換算: Math.round(input.incomeTarget / 12 * r),
+      税額_現地: mb.target.tax,
+      税額_JPY換算: Math.round(mb.target.tax * r),
+      手取り月収_現地: mb.target.income,
+      手取り月収_JPY換算: Math.round(mb.target.income * r),
+      家賃_現地: mb.target.rent,
+      家賃_JPY換算: Math.round(mb.target.rent * r),
+      生活費_現地: mb.target.living,
+      生活費_JPY換算: Math.round(mb.target.living * r),
+      月間貯蓄_現地: mb.target.savings,
+      月間貯蓄_JPY換算: Math.round(mb.target.savings * r),
     },
     資産推移_JPY換算: {
       初期貯蓄: input.currentSavings,
       "5年後_日本継続": Math.round(yr5.assetCurrent),
       "5年後_移住後": Math.round(yr5.assetTargetConverted),
+      "5年後_差額": Math.round(yr5.assetTargetConverted - yr5.assetCurrent),
       "10年後_日本継続": Math.round(yr10.assetCurrent),
       "10年後_移住後": Math.round(yr10.assetTargetConverted),
-      "10年後差額_JPY": Math.round(sim.assetDifference),
+      "10年後_差額_JPY": Math.round(result.assetDifference),
     },
     年間貯蓄: {
-      日本_JPY: Math.round(sim.annualSavingsCurrent),
-      移住後_JPY換算: Math.round(sim.annualSavingsTarget * input.exchangeRate),
+      日本_JPY: Math.round(result.annualSavingsCurrent),
+      移住後_現地: Math.round(result.annualSavingsTarget),
+      移住後_JPY換算: Math.round(result.annualSavingsTarget * r),
     },
-    為替レート: `1 ${input.currencyTarget} = ${input.exchangeRate} JPY`,
-    税率: { 日本: `${(input.taxRateCurrent * 100).toFixed(0)}%`, 移住先: `${(input.taxRateTarget * 100).toFixed(0)}%` },
-    インフレ率: { 日本: `${(input.inflationCurrent * 100).toFixed(1)}%`, 移住先: `${(input.inflationTarget * 100).toFixed(1)}%` },
-    運用利回り: `${(input.investmentReturn * 100).toFixed(0)}%`,
-  }, null, 2);
+    為替: {
+      レート: r,
+      単位: `1 ${input.currencyTarget} = ${r} JPY`,
+    },
+    税率: {
+      日本_数値: input.taxRateCurrent,
+      日本_パーセント: parseFloat((input.taxRateCurrent * 100).toFixed(1)),
+      移住先_数値: input.taxRateTarget,
+      移住先_パーセント: parseFloat((input.taxRateTarget * 100).toFixed(1)),
+    },
+    インフレ率: {
+      日本_数値: input.inflationCurrent,
+      日本_パーセント: parseFloat((input.inflationCurrent * 100).toFixed(1)),
+      移住先_数値: input.inflationTarget,
+      移住先_パーセント: parseFloat((input.inflationTarget * 100).toFixed(1)),
+    },
+    運用利回り_数値: input.investmentReturn,
+    運用利回り_パーセント: parseFloat((input.investmentReturn * 100).toFixed(1)),
+  } as const;
+}
+
+function buildPrompt(persona: Persona, summaryObj: ReturnType<typeof buildSummaryObj>): string {
+  const summaryJson = JSON.stringify(summaryObj, null, 2);
 
   return `あなたはMoveWorthという海外移住シミュレーターサービスのブログライターです。
 
@@ -208,9 +256,10 @@ ${summaryJson}
 【記事の絶対条件】
 ①記事の冒頭（タイトル直下・本文最初の段落）に必ず以下の文言を含めること：
   「この記事は架空のモデルケースに対するMoveWorthシミュレーション結果です。実在の人物・事例ではありません。」
-②数値はJSONにあるものだけを使用すること。JSONにない数値を創作・推測・丸め(万単位は除く)することを禁止。
+②記事に登場するすべての数値はJSONにある値のみを使用すること。自分では一切計算しないこと（通貨換算・月割り・年割り・差し引き計算もすべて禁止）。万円表示は「JSONの値 ÷ 10000 万円」の形でのみ許容。
 ③「〇〇さん」「〇〇さんの場合」など実在人物を匂わせる表現を使わないこと。「このモデルケースでは」「シミュレーション上では」など客観的表現で統一すること。
 ④記事末尾に「あなたの条件で試す」CTAを設け、リンクを https://moveworthapp.com/simulate にすること。
+⑤ペルソナ設定セクションに「現地年収はJSONの「データソース」に記載の業種参考値、家賃・生活費・税率は本シミュレーターの国別プリセット値を使用」と一文明記すること（読者が自分の条件との差分を把握できるようにするため）。
 
 【タイトル形式】
 「シミュレーション：${persona.attribute}が${persona.country_code}に移住したら10年で資産はどうなるか」型を参考に、SEOを意識したタイトルにすること。「事例」「成功例」「体験談」「実体験」はタイトルから除外。
@@ -263,8 +312,11 @@ async function run() {
   const result = runSimulation(persona.simulation_input);
   console.log(`Simulation done: 10yr asset diff = ${Math.round(result.assetDifference).toLocaleString()} JPY`);
 
+  // summaryObj を一度だけ構築 → プロンプトと allowedSet の両方で共有
+  const summaryObj = buildSummaryObj(persona, result);
+
   // GPT-4o で記事生成
-  const prompt = buildPrompt(persona, result);
+  const prompt = buildPrompt(persona, summaryObj);
   const response = await openai.chat.completions.create({
     model: "gpt-4o",
     messages: [{ role: "user", content: prompt }],
@@ -280,7 +332,7 @@ async function run() {
   // 数値突合バリデーション（必須）
   // ────────────────────────────────────────────────────
   console.log("Validating numbers...");
-  const { valid, violations } = validateNumbers(content, result);
+  const { valid, violations } = validateNumbers(content, result, summaryObj);
 
   if (!valid) {
     console.error("❌ 数値突合失敗 — insertをスキップします");

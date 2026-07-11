@@ -1,5 +1,20 @@
+/**
+ * simulator_personas テーブルへの初期ペルソナ投入スクリプト
+ *
+ * データソース（本体プリセット参照）:
+ *   - 家賃 / 生活費 / 税率 / インフレ  : src/data/country-presets.ts (countryPresets)
+ *   - 業種別現地年収（外国人プロフェッショナル参考値）: src/data/industry-salaries.ts (INDUSTRY_SALARIES)
+ *   - 為替レート : 本スクリプト内 EXCHANGE_RATES（本体プリセットに未定義のため唯一の定義）
+ *
+ * ペルソナ構成:
+ *   ① 30代エンジニア・単身  → IT業 年収プリセット値
+ *   ② 30代夫婦・共働き      → IT業 × 1.5（パートナー含む世帯年収）
+ *   ③ 40代管理職・夫婦      → 金融業 × 1.5（管理職・高所得帯）
+ */
 import { existsSync, readFileSync } from "fs";
 import { createClient } from "@supabase/supabase-js";
+import { countryPresets } from "../src/data/country-presets";
+import { INDUSTRY_SALARIES } from "../src/data/industry-salaries";
 import type { SimulationInput } from "../src/lib/simulation/types";
 
 if (existsSync(".env.local")) {
@@ -19,99 +34,62 @@ const supabase = createClient(
 );
 
 // JPY per 1 unit of target currency (2025年近似値)
+// 本体プリセットに為替レートが存在しないため本スクリプトで管理する
 const EXCHANGE_RATES: Record<string, number> = {
-  SGD: 115, MYR: 33, THB: 4.5, AUD: 100, EUR: 165,
-  CAD: 113, AED: 42, USD: 155, GBP: 196, PHP: 2.7,
-  TWD: 4.9, CHF: 177, HKD: 20, KRW: 0.11, NZD: 93,
-  RON: 33, CZK: 6.8, PLN: 39, HUF: 0.42, SEK: 14,
-  NOK: 14, DKK: 22, BRL: 28, MXN: 7.5, IDR: 0.0095,
-  INR: 1.85,
+  JPY: 1,
+  SGD: 115, MYR: 33,  THB: 4.5, AUD: 100, EUR: 165,
+  CAD: 113, AED: 42,  USD: 155, GBP: 196, PHP: 2.7,
+  TWD: 4.9, CHF: 177, HKD: 20,  KRW: 0.11, NZD: 93,
+  RON: 33,  CZK: 6.8, PLN: 39,  HUF: 0.42, SEK: 14,
+  NOK: 14,  DKK: 22,  BRL: 28,  MXN: 7.5,  IDR: 0.0095,
+  INR: 1.85, GEL: 59, ZAR: 8.5, CNY: 21,   TRY: 4.2,
+  ARS: 0.18, COP: 0.000037, TND: 50, VND: 0.006,
 };
 
-// [currency, taxRate, inflation, refRentMonthly, refLivingMonthly]
-const COUNTRY_CONFIG: Record<string, [string, number, number, number, number]> = {
-  SG: ["SGD", 0.15, 0.030, 2500, 1500],
-  MY: ["MYR", 0.20, 0.030, 2000, 1500],
-  TH: ["THB", 0.20, 0.020, 15000, 15000],
-  AU: ["AUD", 0.30, 0.030, 2000, 1500],
-  DE: ["EUR", 0.40, 0.025, 1200, 1000],
-  PT: ["EUR", 0.25, 0.020, 1000, 800],
-  CA: ["CAD", 0.30, 0.025, 2000, 1500],
-  AE: ["AED", 0.00, 0.020, 7000, 3000],
-  US: ["USD", 0.30, 0.025, 2500, 2000],
-  GB: ["GBP", 0.28, 0.025, 1800, 1200],
-  PH: ["PHP", 0.20, 0.040, 20000, 18000],
-  TW: ["TWD", 0.18, 0.020, 20000, 15000],
-  NL: ["EUR", 0.38, 0.025, 1500, 1200],
-  FR: ["EUR", 0.35, 0.020, 1200, 1000],
-  CH: ["CHF", 0.25, 0.015, 2500, 2000],
-  KR: ["KRW", 0.28, 0.025, 800000, 800000],
-  HK: ["HKD", 0.15, 0.025, 18000, 10000],
-  NZ: ["NZD", 0.30, 0.025, 1800, 1400],
-  ES: ["EUR", 0.30, 0.025, 900, 800],
-  FI: ["EUR", 0.42, 0.025, 900, 800],
-};
+// 日本側の年収（INDUSTRY_SALARIES.JP から算出）
+const JP_SAL = INDUSTRY_SALARIES["JP"];
+// ① 単身エンジニア: JP IT参考値
+const JP_ENG_INCOME = JP_SAL.it;                        // 9,500,000 JPY
+// ② 夫婦共働き: JP IT × 1.5
+const JP_COUPLE_INCOME = Math.round(JP_SAL.it * 1.5);  // 14,250,000 JPY
+// ③ 管理職夫婦: JP finance × 1.5
+const JP_MGR_INCOME = Math.round(JP_SAL.finance * 1.5); // 16,500,000 JPY
 
-// 現地採用想定の年収（ターゲット通貨）— 0=リモートワーカー（JPY継続）
-// [エンジニア単身, 夫婦共働き, 管理職夫婦]
-const LOCAL_INCOMES: Record<string, [number, number, number]> = {
-  SG: [110000, 160000, 180000],
-  MY: [120000, 180000, 240000],
-  TH: [0, 0, 0],        // リモート
-  AU: [110000, 160000, 180000],
-  DE: [70000, 110000, 130000],
-  PT: [0, 0, 0],        // リモート（NHR狙い）
-  CA: [110000, 160000, 180000],
-  AE: [280000, 400000, 500000],
-  US: [150000, 220000, 260000],
-  GB: [65000, 95000, 120000],
-  PH: [0, 0, 0],        // リモート
-  TW: [1200000, 1800000, 2400000],
-  NL: [70000, 105000, 120000],
-  FR: [55000, 85000, 100000],
-  CH: [120000, 180000, 200000],
-  KR: [60000000, 90000000, 120000000],
-  HK: [700000, 1000000, 1400000],
-  NZ: [90000, 130000, 150000],
-  ES: [0, 0, 0],        // リモート
-  FI: [65000, 95000, 110000],
-};
+// 日本側の家賃・生活費（JP countryPreset から取得）
+const JP_PRESET = countryPresets.find(p => p.code === "JP")!;
 
 function makeSimInput(
   code: string,
   currency: string,
-  incomeJpy: number,
-  incomeTargetLocal: number,
-  savingsJpy: number,
-  rentCurrent: number,
+  jpIncome: number,
+  targetIncome: number,
+  jpSavings: number,
   rentTarget: number,
-  livingCurrent: number,
   livingTarget: number,
   taxRateTarget: number,
   inflationTarget: number,
 ): SimulationInput {
   const rate = EXCHANGE_RATES[currency] ?? 100;
-  const incomeTarget = incomeTargetLocal === 0
-    ? Math.round(incomeJpy / rate)
-    : incomeTargetLocal;
   return {
     countryFrom: "JP",
     countryTo: code,
-    incomeCurrent: incomeJpy,
-    incomeTarget,
+    incomeCurrent: jpIncome,
+    incomeTarget: targetIncome,
     currencyCurrent: "JPY",
     currencyTarget: currency,
     salaryGrowthRate: 0.02,
-    currentSavings: savingsJpy,
+    currentSavings: jpSavings,
     savingsCurrency: "JPY",
-    rentCurrent,
+    // 日本側: JP countryPreset の参照値
+    rentCurrent: JP_PRESET.referenceRent,
+    livingCostCurrent: JP_PRESET.referenceLivingCost,
+    // 移住先: 対象国 countryPreset の参照値
     rentTarget,
-    livingCostCurrent: livingCurrent,
     livingCostTarget: livingTarget,
-    taxRateCurrent: 0.28,
+    taxRateCurrent: JP_PRESET.defaultTaxRate,
     taxRateTarget,
     exchangeRate: rate,
-    inflationCurrent: 0.02,
+    inflationCurrent: JP_PRESET.defaultInflation,
     inflationTarget,
     investmentReturn: 0.05,
     simulationYears: 10,
@@ -128,50 +106,82 @@ async function seed() {
     simulation_input: SimulationInput;
   }> = [];
 
-  for (const [code, [currency, taxRate, inflation, refRent, refLiving]] of Object.entries(COUNTRY_CONFIG)) {
-    const [engInc, coupleInc, mgrInc] = LOCAL_INCOMES[code] ?? [0, 0, 0];
+  let skipped = 0;
 
-    // ペルソナ1: 30代エンジニア・単身 / 年収1000万 / 資産形成
+  for (const preset of countryPresets) {
+    const code = preset.code;
+    if (code === "JP") continue; // 移住先として日本は除外
+
+    const rate = EXCHANGE_RATES[preset.currency];
+    if (!rate) {
+      console.warn(`  SKIP ${code}: 為替レート未定義 (${preset.currency})`);
+      skipped++;
+      continue;
+    }
+
+    const sal = INDUSTRY_SALARIES[code];
+    if (!sal) {
+      console.warn(`  SKIP ${code}: industry-salaries未定義`);
+      skipped++;
+      continue;
+    }
+
+    // 現地収入（industry-salaries.ts のプリセット値を使用）
+    const engIncome    = sal.it;                        // ① IT業参考値
+    const coupleIncome = Math.round(sal.it * 1.5);     // ② IT × 1.5（世帯合算）
+    const mgrIncome    = Math.round(sal.finance * 1.5); // ③ 金融業 × 1.5（管理職帯）
+
+    // 家賃・生活費・税率・インフレ: countryPresets から取得
+    const rent    = preset.referenceRent;
+    const living  = preset.referenceLivingCost;
+    const taxRate = preset.defaultTaxRate;
+    const infl    = preset.defaultInflation;
+
+    // ペルソナ① 30代エンジニア・単身 / IT業年収 / 資産形成
     rows.push({
       country_code: code,
       attribute: "30代エンジニア・単身",
-      annual_income_jpy: 10000000,
+      annual_income_jpy: JP_ENG_INCOME,
       family_type: "単身",
       goal: "資産形成",
       simulation_input: makeSimInput(
-        code, currency, 10000000, engInc, 3000000,
-        80000, refRent, 120000, refLiving, taxRate, inflation,
+        code, preset.currency,
+        JP_ENG_INCOME, engIncome, 3_000_000,
+        rent, living, taxRate, infl,
       ),
     });
 
-    // ペルソナ2: 30代夫婦・共働き / 年収1200万（世帯）/ 資産形成
+    // ペルソナ② 30代夫婦・共働き / IT業 ×1.5 / 資産形成
     rows.push({
       country_code: code,
       attribute: "30代夫婦・共働き",
-      annual_income_jpy: 12000000,
+      annual_income_jpy: JP_COUPLE_INCOME,
       family_type: "夫婦",
       goal: "資産形成",
       simulation_input: makeSimInput(
-        code, currency, 12000000, coupleInc, 5000000,
-        100000, Math.round(refRent * 1.2), 140000, Math.round(refLiving * 1.2), taxRate, inflation,
+        code, preset.currency,
+        JP_COUPLE_INCOME, coupleIncome, 5_000_000,
+        // 夫婦は家賃を1.2倍（より広い部屋）
+        Math.round(rent * 1.2), living, taxRate, infl,
       ),
     });
 
-    // ペルソナ3: 40代管理職・夫婦 / 年収1500万 / FIRE
+    // ペルソナ③ 40代管理職・夫婦 / 金融業 ×1.5 / FIRE
     rows.push({
       country_code: code,
       attribute: "40代管理職・夫婦",
-      annual_income_jpy: 15000000,
+      annual_income_jpy: JP_MGR_INCOME,
       family_type: "夫婦",
       goal: "FIRE",
       simulation_input: makeSimInput(
-        code, currency, 15000000, mgrInc, 10000000,
-        100000, Math.round(refRent * 1.2), 150000, Math.round(refLiving * 1.3), taxRate, inflation,
+        code, preset.currency,
+        JP_MGR_INCOME, mgrIncome, 10_000_000,
+        Math.round(rent * 1.2), Math.round(living * 1.3), taxRate, infl,
       ),
     });
   }
 
-  console.log(`Inserting ${rows.length} personas...`);
+  console.log(`Inserting ${rows.length} personas (skipped: ${skipped})...`);
   const { data, error } = await supabase
     .from("simulator_personas")
     .insert(rows)
