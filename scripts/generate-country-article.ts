@@ -108,6 +108,7 @@ async function buildSourceContext(
 
 // Countries in priority order: fixed first 2, then popular destinations
 const COUNTRY_QUEUE = [
+  { code: "nz", name: { ja: "ニュージーランド", en: "New Zealand" } },
   { code: "be", name: { ja: "ベルギー", en: "Belgium" } },
   { code: "tn", name: { ja: "チュニジア", en: "Tunisia" } },
   { code: "pl", name: { ja: "ポーランド", en: "Poland" } },
@@ -838,6 +839,19 @@ async function updateExchangeRate(currency: string, code: string): Promise<void>
   console.log(`✅ Added exchange rate: ${currency} = ${rate} JPY`);
 }
 
+// factCheckContent はテキスト全体を返すため参考資料セクションが失われることがある。
+// ソース有りの場合は country_sources の refs を factCheck 後に確実に再追加する。
+function restoreRefs(content: string, refs: string | undefined, lang: Lang): string {
+  if (!refs) return content;
+  const stripped = content.replace(/\n\n---\n\n###\s*(参考資料|References|参考资料)[\s\S]*$/, "");
+  const headings: Record<Lang, string> = {
+    ja: "### 参考資料\n本記事の情報は以下の公式資料をもとに作成しています。",
+    en: "### References\nData sourced from official government and immigration authority pages.",
+    zh: "### 参考资料\n本文信息来源于以下官方资料。",
+  };
+  return stripped.trimEnd() + `\n\n---\n\n${headings[lang]}\n${refs}`;
+}
+
 async function run() {
   const country = await getNextCountry();
   console.log(`Generating articles for: ${country.name.en} (${country.code})`);
@@ -876,11 +890,17 @@ async function run() {
 
   // Fact-check pass 2（pass 2 は知識ベースで仕上げ）
   console.log("Fact-checking visa article (pass 2)...");
-  const [finalJa, finalEn, finalZh] = await Promise.all([
+  const [fcJa2, fcEn2, fcZh2] = await Promise.all([
     factCheckContent(checked1Ja, country.name.ja, "ja"),
     factCheckContent(checked1En, country.name.en, "en"),
     factCheckContent(checked1Zh, country.name.en, "zh"),
   ]);
+
+  // factCheck 後に参考文献セクションを復元（factCheck でテキスト全体が返るため削除されることがある）
+  const visaRefs = visaSourceCtx?.refs;
+  const finalJa = restoreRefs(fcJa2, visaRefs, "ja");
+  const finalEn = restoreRefs(fcEn2, visaRefs, "en");
+  const finalZh = restoreRefs(fcZh2, visaRefs, "zh");
 
   const visaSlug = `visa-${country.code}`;
   const today = new Date().toISOString().split("T")[0];
