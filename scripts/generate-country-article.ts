@@ -45,11 +45,11 @@ function stripHtml(html: string): string {
 function isSourceUseful(text: string): boolean {
   if (!text || text.length < 300) return false;
   let hits = 0;
-  if (/(?:NZD|EUR|USD|GBP|AUD|CAD|SGD|CHF)\s?\$?[\d,]+|\$[\d,]+/i.test(text)) hits++;
+  if (/(?:NZD|EUR|USD|GBP|AUD|CAD|SGD|CHF|PLN|TND|SEK|NOK)\s?\$?[\d,]+|[\d,]+\s*(?:EUR|PLN|euros?)|[$€£]\s?[\d,]+/i.test(text)) hits++;
   if (/\d+\.?\d*\s*%/.test(text)) hits++;
   if (/\d+\s*(days?|weeks?|months?|years?|hours?)/i.test(text)) hits++;
   if (/\d+\s*points?/i.test(text)) hits++;
-  if (/(require|eligib|qualif|must have|criteria|condition)[\s\S]{0,80}\d/i.test(text)) hits++;
+  if (/(require|eligib|qualif|must have|criteria|condition|permit|residence|visa)[\s\S]{0,80}\d/i.test(text)) hits++;
   return hits >= 2;
 }
 
