@@ -247,9 +247,9 @@ async function getNextCountry(): Promise<{ code: string; name: { ja: string; en:
 // 国別 税制ソース使用時の追加制約（TH: 古い移行注記の無視等）
 const COUNTRY_TAX_EXTRA_CONSTRAINTS: Partial<Record<string, Record<Lang, string>>> = {
   th: {
-    ja: "【TH税制制約】税制情報ページには2013-14年実施の旧注記が本文に残っているが、現行の税率表（パーセンテージと所得区分の表）の数値のみを使用すること。旧制度の注記はソース根拠としては使わないこと。",
-    en: "【TH tax constraint】The source page contains historical notes from 2013-14 transition. Use ONLY the current tax rate table (percentages and income brackets). Ignore the transitional/historical implementation notes.",
-    zh: "【TH税制约束】税制信息页面中包含2013-14年旧制度的历史注记。仅使用当前有效的税率表（百分比和收入级距），忽略历史过渡说明。",
+    ja: "【TH税制制約】税制情報ページには2013-14年実施の旧注記が本文に残っているが、現行の税率表（パーセンテージと所得区分の表）の数値のみを使用すること。旧制度の注記はソース根拠としては使わないこと。また、LTRビザ保有者・BOI優遇対象者向けの17%フラット税率はこの税制ソースには記載されていないため、絶対に記述しないこと。標準の累進税率のみをソース根拠として使用すること。",
+    en: "【TH tax constraint】The source page contains historical notes from 2013-14 transition. Use ONLY the current progressive tax rate table (percentages and income brackets) from the source. Ignore transitional/historical notes. Do NOT mention the 17% flat tax rate for LTR visa holders or BOI-promoted companies — that rate is NOT in this source and must not be included.",
+    zh: "【TH税制约束】税制信息页面中包含2013-14年旧制度的历史注记。仅使用当前有效的累进税率表（百分比和收入级距），忽略历史过渡说明。严禁提及LTR签证持有者或BOI优惠对象适用的17%固定税率——该税率不在本税制来源中，不得写入文章。",
   },
 };
 
