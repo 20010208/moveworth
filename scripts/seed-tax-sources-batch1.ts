@@ -171,7 +171,7 @@ async function verifyUrl(
   }
 
   // 404/410 以外で取得不可 → unverified (dead にしない)
-  const detail = r2.status ? `HTTP ${r1.status}/${r2.status} bot-block` : `${r1.detail ?? r1.status} timeout`;
+  const detail = r2.status ? `HTTP ${r1.status}/${r2.status} bot-block` : `HTTP ${r1.status} timeout`;
   return { status: "unverified", useful: false, detail };
 }
 

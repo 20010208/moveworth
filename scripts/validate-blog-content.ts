@@ -65,14 +65,14 @@ async function main() {
   const rows = posts ?? [];
   console.log(`公開記事: ${rows.length}件\n`);
 
-  const broken: Array<{ slug: string; updated_at: string; issues: string[] }> = [];
+  const broken: Array<{ slug: string; published_at: string; issues: string[] }> = [];
   const ok: string[] = [];
 
   for (const row of rows) {
     const content = row.content as ContentLike;
     const issues = diagnoseContent(row.slug, content);
     if (issues.length > 0) {
-      broken.push({ slug: row.slug, updated_at: row.updated_at, issues });
+      broken.push({ slug: row.slug, published_at: row.published_at, issues });
     } else {
       ok.push(row.slug);
     }
@@ -84,7 +84,7 @@ async function main() {
   if (broken.length > 0) {
     console.log("\n--- 異常記事一覧 ---");
     for (const b of broken) {
-      console.log(`\n[${b.slug}]  updated_at: ${b.updated_at}`);
+      console.log(`\n[${b.slug}]  published_at: ${b.published_at}`);
       for (const issue of b.issues) {
         console.log(`  ⚠️  ${issue}`);
       }
