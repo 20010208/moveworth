@@ -69,6 +69,47 @@ npx tsx scripts/generate-country-article.ts be --publish
 
 ---
 
+## 完了報告のルール
+
+**完了報告には機械的な検証結果を含めること。目視や推測での完了宣言は不可。**
+
+- DB 書き込みを伴う作業: `scripts/inspect-all-blog-posts.ts` を実行し「構造不正: 0 件」を確認
+- 本番デプロイを伴う作業: `scripts/check-published-slugs-http.ts` を実行し「○件中○件 200 OK」を確認
+- 「完了しました」「問題ありません」等の宣言は、上記スクリプトの出力を添えた場合のみ有効
+
+---
+
+## DB 書き込みバリデーション
+
+`blog_posts` への insert/update 前に必ず `assertBlogPayload()` を呼ぶこと。
+
+```ts
+import { assertBlogPayload } from "./utils/validate-blog-payload";
+assertBlogPayload({ title, description, content, locales }, slug);
+// 不正な場合は throw して書き込まない
+```
+
+対象スクリプト（実装済み）:
+- `generate-blog-post.ts`
+- `generate-simulator-article.ts`
+- `generate-country-article.ts`
+- `fix-tax-sections.ts`
+
+新しくスクリプトを追加する場合も同様に適用すること。
+
+---
+
+## tsconfig 分離
+
+- **Next.js ビルド**: `tsconfig.json`（`scripts/` を除外）
+- **scripts 型チェック**: `tsconfig.scripts.json`（`npx tsc --project tsconfig.scripts.json --noEmit`）
+- GHA `scripts-typecheck.yml` が push 時に scripts/ の型チェックを自動実行する
+
+`scripts/` の型エラーが本番ビルドを壊さないよう分離済み。
+ただし scripts/ の型チェックは GHA で引き続き検証される。
+
+---
+
 ## コミット・プッシュ
 
 スクリプト実行や記事生成後は必ず `git commit && git push` すること。

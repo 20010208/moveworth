@@ -5,6 +5,7 @@
  */
 import { existsSync, readFileSync } from "fs";
 import { createClient } from "@supabase/supabase-js";
+import { assertBlogPayload } from "./utils/validate-blog-payload";
 
 if (existsSync(".env.local")) {
   for (const line of readFileSync(".env.local", "utf-8").split("\n")) {
@@ -114,6 +115,8 @@ async function main() {
       newContent[lang] = fixed;
       console.log(`  [${lang}] 所得税セクション修正 ✓`);
     }
+
+    assertBlogPayload({ content: newContent as Record<string, string> }, slug);
 
     const { error: updateErr } = await sb
       .from("blog_posts")

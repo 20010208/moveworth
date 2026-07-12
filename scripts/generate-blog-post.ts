@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from "fs";
 import OpenAI from "openai";
 import { createClient } from "@supabase/supabase-js";
 import { sanitizeMoveWorthLinks } from "./utils/sanitize-links";
+import { assertBlogPayload } from "./utils/validate-blog-payload";
 
 // Load .env.local for local execution
 if (existsSync(".env.local")) {
@@ -193,6 +194,13 @@ async function run() {
 
   const slug = generateSlug(en.title);
   const today = new Date().toISOString().split("T")[0];
+
+  assertBlogPayload(
+    { title: { ja: ja.title, en: en.title, zh: zh.title },
+      description: { ja: ja.description, en: en.description, zh: zh.description },
+      content: { ja: ja.content, en: en.content, zh: zh.content } },
+    slug
+  );
 
   const { error } = await supabase.from("blog_posts").insert({
     slug,

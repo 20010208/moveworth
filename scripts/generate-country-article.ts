@@ -2,6 +2,7 @@ import { existsSync, readFileSync, writeFileSync } from "fs";
 import OpenAI from "openai";
 import { createClient } from "@supabase/supabase-js";
 import { sanitizeMoveWorthLinks } from "./utils/sanitize-links";
+import { assertBlogPayload } from "./utils/validate-blog-payload";
 
 if (existsSync(".env.local")) {
   for (const line of readFileSync(".env.local", "utf-8").split("\n")) {
@@ -1046,6 +1047,13 @@ async function run() {
   if (isVisaGrounded && !publishMode) {
     console.log(`📝 ${visaSlug}: source-grounded成功 → --publish なしのため draft 保存`);
   }
+
+  assertBlogPayload(
+    { title: { ja: visaJa.title, en: visaEn.title, zh: visaZh.title },
+      description: { ja: visaJa.description, en: visaEn.description, zh: visaZh.description },
+      content: { ja: finalJa, en: finalEn, zh: finalZh } },
+    visaSlug
+  );
 
   const { error: visaError } = await supabase.from("blog_posts").upsert({
     slug: visaSlug,

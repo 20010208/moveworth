@@ -4,6 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import { runSimulation } from "../src/lib/simulation/basic-calculator";
 import type { SimulationInput, SimulationResult } from "../src/lib/simulation/types";
 import { sanitizeMoveWorthLinks } from "./utils/sanitize-links";
+import { assertBlogPayload } from "./utils/validate-blog-payload";
 
 if (existsSync(".env.local")) {
   for (const line of readFileSync(".env.local", "utf-8").split("\n")) {
@@ -468,6 +469,13 @@ async function run() {
   // Supabase insert
   const slug = generateSlug(persona.country_code, persona.attribute);
   const today = new Date().toISOString().split("T")[0];
+
+  assertBlogPayload(
+    { title: { ja: titleJa, en: enArticle.title, zh: zhArticle.title },
+      description: { ja: descJa, en: enArticle.description, zh: zhArticle.description },
+      content: { ja: contentJa, en: contentEn, zh: contentZh } },
+    slug
+  );
 
   const { error: insertErr } = await supabase.from("blog_posts").insert({
     slug,
