@@ -127,7 +127,7 @@ type SourceRow = { url: string; purpose: string };
 
 async function getCountrySources(
   countryCode: string,
-  purpose: "visa" | "study"
+  purpose: "visa" | "study" | "tax"
 ): Promise<SourceRow[]> {
   try {
     const { data, error } = await supabase
@@ -271,7 +271,8 @@ async function generateVisaContent(
   countryName: { ja: string; en: string },
   lang: Lang,
   sourceCtx?: SourceContext,
-  countryCode?: string
+  countryCode?: string,
+  taxSourceCtx?: SourceContext
 ): Promise<{ title: string; description: string; content: string }> {
   const hasSource = !!sourceCtx?.text;
   const sourceBlock = hasSource
@@ -287,10 +288,31 @@ async function generateVisaContent(
     ? (COUNTRY_VISA_EXTRA_CONSTRAINTS[countryCode]?.[lang] ?? "")
     : "";
 
+  // 税制ソース
+  const hasTaxSource = !!taxSourceCtx?.text;
+  const taxBlock = hasTaxSource
+    ? `\n\n=== 税制参考資料（所得税率・控除額・税率区分は以下の数値のみを根拠にすること）===\n${taxSourceCtx!.text}\n=== 税制参考資料ここまで ===\n`
+    : "";
+  const taxExtraConstraint = (hasTaxSource && countryCode)
+    ? (COUNTRY_TAX_EXTRA_CONSTRAINTS[countryCode]?.[lang] ?? "")
+    : "";
+  // ja/en/zh でそれぞれ税制指示を切り替え
+  const taxInstruction: Record<Lang, string> = {
+    ja: hasTaxSource
+      ? `所得税率・税率閾値は税制参考資料の数値のみを使用すること。税制参考資料にない税項目は「最新の税制は${countryName.ja}の税務当局または公式情報でご確認ください」と誘導すること。${taxExtraConstraint ? `\n${taxExtraConstraint}` : ""}`
+      : "ただし所得税率・税率閾値などの税制情報は参考資料に具体的な数字の記載がある場合のみ書くこと。参考資料にない場合は「最新の税制は移住先国の税務当局または公式情報でご確認ください」と案内するにとどめること。",
+    en: hasTaxSource
+      ? `Income tax rates and brackets: use ONLY the figures from the tax reference source. For any tax items not covered in the tax source, write 'For current tax rates, please refer to the official tax authority of ${countryName.en}'.${taxExtraConstraint ? `\n${taxExtraConstraint}` : ""}`
+      : "For income tax rates and tax bracket thresholds: only write specific figures if they appear in the reference sources. If not sourced, write 'For current tax rates, please refer to the official tax authority of the destination country' instead of guessing figures.",
+    zh: hasTaxSource
+      ? `所得税率、税率区间：仅使用税制参考资料中的数字。税制参考资料未涉及的税务项目，请引导至「请参阅${countryName.en}税务机关的官方信息」。${taxExtraConstraint ? `\n${taxExtraConstraint}` : ""}`
+      : "但所得税率、税率区间等税制信息，只有在参考资料中有明确数字时才可填写；若无来源，请改为「有关当前税率，请参阅目的国税务机关的官方信息」。",
+  };
+
   const prompts: Record<Lang, string> = {
     ja: `あなたはMoveWorthというサービスのビザ情報ライターです。MoveWorthは、海外移住を考えている人向けに、税金・生活費・ビザを一括シミュレーションできるサービスです。
-${sourceBlock}
-${countryName.ja}のビザ・移住条件に関する記事を日本語で書いてください。${hasSource ? "参考資料原文に記載のあるビザについては、要件・費用・手続きを必ず原文の数値に従って書くこと。参考資料原文に記載のないビザ種別（例：ワーキングホリデー等）は知識で補完してよいが、具体的な申請費用は書かず「公式サイトでご確認ください」と案内すること。" : ""}生活費・家賃の目安は知識で補完してよい。ただし所得税率・税率閾値などの税制情報は参考資料に具体的な数字の記載がある場合のみ書くこと。参考資料にない場合は「最新の税制は移住先国の税務当局または公式情報でご確認ください」と案内するにとどめること。${extraConstraint ? `\n${extraConstraint}` : ""}
+${sourceBlock}${taxBlock}
+${countryName.ja}のビザ・移住条件に関する記事を日本語で書いてください。${hasSource ? "参考資料原文に記載のあるビザについては、要件・費用・手続きを必ず原文の数値に従って書くこと。参考資料原文に記載のないビザ種別（例：ワーキングホリデー等）は知識で補完してよいが、具体的な申請費用は書かず「公式サイトでご確認ください」と案内すること。" : ""}生活費・家賃の目安は知識で補完してよい。${taxInstruction.ja}${extraConstraint ? `\n${extraConstraint}` : ""}
 
 ## タイトル形式（必ず守ること。絵文字・記号は一切使わないこと）
 【2026年最新版】${countryName.ja}のビザ・就労許可完全ガイド｜{主要ビザ名1}・{主要ビザ名2}・{主要ビザ名3}
@@ -338,8 +360,8 @@ ${refSectionInstruction ? `\n${refSectionInstruction}` : `
 }`,
 
     en: `You are a visa information writer for MoveWorth, a service that helps people considering international relocation simulate taxes, living costs, and visa requirements.
-${sourceBlock}
-Write a detailed, factual article about ${countryName.en} visa and immigration requirements in English.${hasSource ? " For visa types covered in the reference texts: use ONLY those sources for requirements, fees, and procedures. For visa types NOT in the references (e.g. Working Holiday, partner visas): supplement from your knowledge but omit specific fee amounts and instead say 'check the official site for current fees'." : ""} General living costs and rent estimates may use your knowledge. However for income tax rates and tax bracket thresholds: only write specific figures if they appear in the reference sources. If not sourced, write 'For current tax rates, please refer to the official tax authority of the destination country' instead of guessing figures.${extraConstraint ? `\n${extraConstraint}` : ""}
+${sourceBlock}${taxBlock}
+Write a detailed, factual article about ${countryName.en} visa and immigration requirements in English.${hasSource ? " For visa types covered in the reference texts: use ONLY those sources for requirements, fees, and procedures. For visa types NOT in the references (e.g. Working Holiday, partner visas): supplement from your knowledge but omit specific fee amounts and instead say 'check the official site for current fees'." : ""} General living costs and rent estimates may use your knowledge. ${taxInstruction.en}${extraConstraint ? `\n${extraConstraint}` : ""}
 
 ## Title format (strictly follow. No emojis or special symbols):
 ${countryName.en} Visa & Work Permit Complete Guide 2026 | {Visa1}, {Visa2} & {Visa3}
@@ -387,8 +409,8 @@ Data sourced from:
 }`,
 
     zh: `您是MoveWorth服务的签证信息撰稿人。MoveWorth帮助考虑海外移居的人模拟税务、生活成本和签证要求。
-${sourceBlock}
-请用中文撰写一篇关于${countryName.en}（${countryName.ja}）签证与移居条件的详细文章。${hasSource ? "参考资料中涉及的签证类型，其要求、费用和手续必须严格依照原文数字填写。参考资料未涉及的签证类型（如打工度假签证等）可以用您的知识补充，但不得写具体申请费用，请改为引导至官方网站确认。" : ""}生活费、房租等信息可用知识补充。但所得税率、税率区间等税制信息，只有在参考资料中有明确数字时才可填写；若无来源，请改为「有关当前税率，请参阅目的国税务机关的官方信息」。${extraConstraint ? `\n${extraConstraint}` : ""}
+${sourceBlock}${taxBlock}
+请用中文撰写一篇关于${countryName.en}（${countryName.ja}）签证与移居条件的详细文章。${hasSource ? "参考资料中涉及的签证类型，其要求、费用和手续必须严格依照原文数字填写。参考资料未涉及的签证类型（如打工度假签证等）可以用您的知识补充，但不得写具体申请费用，请改为引导至官方网站确认。" : ""}生活费、房租等信息可用知识补充。${taxInstruction.zh}${extraConstraint ? `\n${extraConstraint}` : ""}
 
 ## 标题格式（必须遵守。不使用任何表情符号或特殊符号）：
 【2026年最新版】{国名中文}签证与工作许可完全指南｜{签证1}·{签证2}·{签证3}
@@ -980,12 +1002,27 @@ async function run() {
     console.log(`⚠️  No alive sources in country_sources — knowledge-based fallback (should not occur in normal flow)`);
   }
 
+  // --- Tax source grounding ---
+  let taxSourceCtx: SourceContext | undefined;
+  const taxSources = await getCountrySources(country.code, "tax");
+  if (taxSources.length > 0) {
+    const ctx = await buildSourceContext(taxSources);
+    if (ctx.isGrounded) {
+      taxSourceCtx = ctx;
+      console.log(`✅ Tax source context built from ${taxSources.length} URLs`);
+    } else {
+      console.log(`⚠️  Tax sources present (${taxSources.length}) but all SPA/unusable — tax section uses fallback instruction`);
+    }
+  } else {
+    console.log(`ℹ️  No tax sources registered for ${country.code} — tax section uses fallback instruction`);
+  }
+
   // --- Visa article (ja/en/zh) ---
   console.log("Generating visa article in 3 languages...");
   const [visaJa, visaEn, visaZh] = await Promise.all([
-    generateVisaContent(country.name, "ja", visaSourceCtx, country.code),
-    generateVisaContent(country.name, "en", visaSourceCtx, country.code),
-    generateVisaContent(country.name, "zh", visaSourceCtx, country.code),
+    generateVisaContent(country.name, "ja", visaSourceCtx, country.code, taxSourceCtx),
+    generateVisaContent(country.name, "en", visaSourceCtx, country.code, taxSourceCtx),
+    generateVisaContent(country.name, "zh", visaSourceCtx, country.code, taxSourceCtx),
   ]);
 
   // Fact-check pass 1（ソース有りの場合は原文照合、なしの場合は知識ベース）
