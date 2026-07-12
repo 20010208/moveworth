@@ -67,6 +67,26 @@ npx tsx scripts/generate-country-article.ts be --publish
 - ソースが SPA / JavaScript 必須の場合は Wayback Machine スナップショットを自動試行
 - 手動で確認済みの URL は seed スクリプトで直接登録可（`source: "manual"`）
 
+### purpose の許可値
+
+`purpose` カラムの CHECK 制約で許可されている値：
+
+| 値 | 用途 |
+|---|---|
+| `visa` | ビザ・移住手続きの一次情報 |
+| `study` | 語学学校・留学情報 |
+| `general` | その他の一般情報 |
+| `tax` | 税務当局の税率・制度ページ |
+
+**新しい `purpose` 値を追加する場合は、Supabase SQL Editor で CHECK 制約の更新が必要：**
+```sql
+ALTER TABLE country_sources
+  DROP CONSTRAINT IF EXISTS country_sources_purpose_check;
+ALTER TABLE country_sources
+  ADD CONSTRAINT country_sources_purpose_check
+  CHECK (purpose IN ('visa', 'study', 'general', 'tax', '新しい値'));
+```
+
 ---
 
 ## 完了報告のルール

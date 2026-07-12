@@ -204,6 +204,12 @@ const COUNTRY_QUEUE = [
   { code: "gh", name: { ja: "ガーナ", en: "Ghana" } },
   { code: "al", name: { ja: "アルバニア", en: "Albania" } },
   { code: "mk", name: { ja: "北マケドニア", en: "North Macedonia" } },
+  { code: "my", name: { ja: "マレーシア", en: "Malaysia" } },
+  { code: "th", name: { ja: "タイ", en: "Thailand" } },
+  { code: "au", name: { ja: "オーストラリア", en: "Australia" } },
+  { code: "us", name: { ja: "アメリカ", en: "United States" } },
+  { code: "sg", name: { ja: "シンガポール", en: "Singapore" } },
+  { code: "gb", name: { ja: "イギリス", en: "United Kingdom" } },
 ];
 
 type Lang = "ja" | "en" | "zh";
