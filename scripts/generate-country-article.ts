@@ -40,25 +40,86 @@ function stripHtml(html: string): string {
     .trim();
 }
 
+// SPA・ナビゲーション羅列のような低品質コンテンツを判定する。
+// 金額/割合/期間/ポイント数などの具体的情報が 2 種類以上含まれていれば有用とみなす。
+function isSourceUseful(text: string): boolean {
+  if (!text || text.length < 300) return false;
+  let hits = 0;
+  if (/(?:NZD|EUR|USD|GBP|AUD|CAD|SGD|CHF)\s?\$?[\d,]+|\$[\d,]+/i.test(text)) hits++;
+  if (/\d+\.?\d*\s*%/.test(text)) hits++;
+  if (/\d+\s*(days?|weeks?|months?|years?|hours?)/i.test(text)) hits++;
+  if (/\d+\s*points?/i.test(text)) hits++;
+  if (/(require|eligib|qualif|must have|criteria|condition)[\s\S]{0,80}\d/i.test(text)) hits++;
+  return hits >= 2;
+}
+
+// SPA 判定時のフォールバック: Wayback Machine から静的スナップショットを取得
+async function tryWaybackMachine(originalUrl: string): Promise<string | null> {
+  try {
+    const apiController = new AbortController();
+    const apiTimer = setTimeout(() => apiController.abort(), 6_000);
+    const apiRes = await fetch(
+      `https://archive.org/wayback/available?url=${encodeURIComponent(originalUrl)}`,
+      { signal: apiController.signal }
+    );
+    clearTimeout(apiTimer);
+    if (!apiRes.ok) return null;
+    type WaybackResp = { archived_snapshots?: { closest?: { url?: string; available?: boolean } } };
+    const data = await apiRes.json() as WaybackResp;
+    const snapshot = data.archived_snapshots?.closest;
+    if (!snapshot?.available || !snapshot.url) return null;
+
+    const wbController = new AbortController();
+    const wbTimer = setTimeout(() => wbController.abort(), SOURCE_FETCH_TIMEOUT);
+    try {
+      const wbRes = await fetch(snapshot.url, {
+        signal: wbController.signal,
+        headers: { "User-Agent": "Mozilla/5.0 (compatible; MoveWorthBot/1.0)" },
+      });
+      clearTimeout(wbTimer);
+      if (!wbRes.ok) return null;
+      const html = await wbRes.text();
+      return stripHtml(html).slice(0, MAX_CHARS_PER_SOURCE);
+    } catch {
+      clearTimeout(wbTimer);
+      return null;
+    }
+  } catch {
+    return null;
+  }
+}
+
 async function fetchPageText(url: string): Promise<string | null> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), SOURCE_FETCH_TIMEOUT);
+  let text: string | null = null;
   try {
     const res = await fetch(url, {
       signal: controller.signal,
       headers: { "User-Agent": "Mozilla/5.0 (compatible; MoveWorthBot/1.0)" },
     });
     clearTimeout(timer);
-    if (!res.ok) return null;
-    const ct = res.headers.get("content-type") ?? "";
-    if (!ct.includes("html") && !ct.includes("text")) return null;
-    const html = await res.text();
-    const text = stripHtml(html);
-    return text.slice(0, MAX_CHARS_PER_SOURCE);
+    if (res.ok) {
+      const ct = res.headers.get("content-type") ?? "";
+      if (ct.includes("html") || ct.includes("text")) {
+        text = stripHtml(await res.text()).slice(0, MAX_CHARS_PER_SOURCE);
+      }
+    }
   } catch {
     clearTimeout(timer);
-    return null;
   }
+
+  // SPA やナビゲーション羅列を検出した場合は Wayback Machine へフォールバック
+  if (!isSourceUseful(text ?? "")) {
+    console.log(`  [source] SPA/low-quality detected — trying Wayback Machine for ${url}`);
+    const wb = await tryWaybackMachine(url);
+    if (wb && isSourceUseful(wb)) {
+      console.log(`  [source] Wayback Machine snapshot used for ${url}`);
+      return wb;
+    }
+    // Wayback も取得できなければ元のテキストをそのまま返す（null も含む）
+  }
+  return text;
 }
 
 type SourceRow = { url: string; purpose: string };
@@ -82,28 +143,31 @@ async function getCountrySources(
   }
 }
 
-async function buildSourceContext(
-  sources: SourceRow[]
-): Promise<{ text: string; refs: string }> {
+interface SourceContext {
+  text: string;
+  refs: string;
+  isGrounded: boolean; // true = 有用なコンテンツが 1 件以上取得できた
+}
+
+async function buildSourceContext(sources: SourceRow[]): Promise<SourceContext> {
   const fetched: { url: string; text: string }[] = [];
   await Promise.all(
     sources.map(async (s) => {
       const text = await fetchPageText(s.url);
-      if (text && text.length > 100) fetched.push({ url: s.url, text });
+      // isSourceUseful を通過したものだけを文脈に使用
+      if (text && isSourceUseful(text)) fetched.push({ url: s.url, text });
     })
   );
 
-  if (fetched.length === 0) return { text: "", refs: "" };
+  const refs = sources.map((s) => `- ${s.url}`).join("\n");
+
+  if (fetched.length === 0) return { text: "", refs, isGrounded: false };
 
   const text = fetched
     .map((f, i) => `--- 参考資料 ${i + 1}: ${f.url} ---\n${f.text}`)
     .join("\n\n");
 
-  const refs = sources
-    .map((s) => `- ${s.url}`)
-    .join("\n");
-
-  return { text, refs };
+  return { text, refs, isGrounded: true };
 }
 
 // Countries in priority order: fixed first 2, then popular destinations
@@ -171,7 +235,7 @@ async function getNextCountry(): Promise<{ code: string; name: { ja: string; en:
 async function generateVisaContent(
   countryName: { ja: string; en: string },
   lang: Lang,
-  sourceCtx?: { text: string; refs: string }
+  sourceCtx?: SourceContext
 ): Promise<{ title: string; description: string; content: string }> {
   const hasSource = !!sourceCtx?.text;
   const sourceBlock = hasSource
@@ -186,7 +250,7 @@ async function generateVisaContent(
   const prompts: Record<Lang, string> = {
     ja: `あなたはMoveWorthというサービスのビザ情報ライターです。MoveWorthは、海外移住を考えている人向けに、税金・生活費・ビザを一括シミュレーションできるサービスです。
 ${sourceBlock}
-${countryName.ja}のビザ・移住条件に関する記事を日本語で書いてください。${hasSource ? "必ず上記参考資料原文に記載されている情報のみを使用すること。" : ""}
+${countryName.ja}のビザ・移住条件に関する記事を日本語で書いてください。${hasSource ? "参考資料原文に記載のあるビザについては、要件・費用・手続きを必ず原文の数値に従って書くこと。参考資料原文に記載のないビザ種別（例：ワーキングホリデー等）は知識で補完してよいが、具体的な申請費用は書かず「公式サイトでご確認ください」と案内すること。税率・生活費・家賃などの一般情報は知識で補完してよい。" : ""}
 
 ## タイトル形式（必ず守ること。絵文字・記号は一切使わないこと）
 【2026年最新版】${countryName.ja}のビザ・就労許可完全ガイド｜{主要ビザ名1}・{主要ビザ名2}・{主要ビザ名3}
@@ -235,7 +299,7 @@ ${refSectionInstruction ? `\n${refSectionInstruction}` : `
 
     en: `You are a visa information writer for MoveWorth, a service that helps people considering international relocation simulate taxes, living costs, and visa requirements.
 ${sourceBlock}
-Write a detailed, factual article about ${countryName.en} visa and immigration requirements in English.${hasSource ? " Use ONLY information found in the reference texts above. Do not include facts, figures or URLs not present in the sources." : ""}
+Write a detailed, factual article about ${countryName.en} visa and immigration requirements in English.${hasSource ? " For visa types covered in the reference texts: use ONLY those sources for requirements, fees, and procedures. For visa types NOT in the references (e.g. Working Holiday, partner visas): supplement from your knowledge but omit specific fee amounts and instead say 'check the official site for current fees'. For general country info (tax rates, living costs): use your knowledge." : ""}
 
 ## Title format (strictly follow. No emojis or special symbols):
 ${countryName.en} Visa & Work Permit Complete Guide 2026 | {Visa1}, {Visa2} & {Visa3}
@@ -284,7 +348,7 @@ Data sourced from:
 
     zh: `您是MoveWorth服务的签证信息撰稿人。MoveWorth帮助考虑海外移居的人模拟税务、生活成本和签证要求。
 ${sourceBlock}
-请用中文撰写一篇关于${countryName.en}（${countryName.ja}）签证与移居条件的详细文章。${hasSource ? "仅使用上述参考资料原文中记载的信息，不得包含原文中没有的数字或手续。" : ""}
+请用中文撰写一篇关于${countryName.en}（${countryName.ja}）签证与移居条件的详细文章。${hasSource ? "参考资料中涉及的签证类型，其要求、费用和手续必须严格依照原文数字填写。参考资料未涉及的签证类型（如打工度假签证等）可以用您的知识补充，但不得写具体申请费用，请改为引导至官方网站确认。税率、生活费、房租等一般国情信息可用您的知识补充。" : ""}
 
 ## 标题格式（必须遵守。不使用任何表情符号或特殊符号）：
 【2026年最新版】{国名中文}签证与工作许可完全指南｜{签证1}·{签证2}·{签证3}
@@ -358,7 +422,7 @@ async function factCheckContent(
 ): Promise<string> {
   // ソース有りの場合: 原文との整合チェック（知識ベース修正ではなく原文根拠チェック）
   const prompt = sourceText
-    ? `あなたは${countryName}のビザ情報の校正者です。以下の「記事本文」を「参考資料原文」と照合し、原文に記載のない数字・要件・手続きが含まれていたら削除または「要確認」に置き換えてください。参考資料原文に記載されている情報は保持してください。
+    ? `あなたは${countryName}のビザ情報の校正者です。以下の「記事本文」を「参考資料原文」と照合してください。参考資料原文に記載のあるビザ種別については、そのビザの要件・費用・手続きの数値が原文と異なる場合は修正してください。参考資料原文に記載のないビザ種別の記述（ワーキングホリデー等）は照合対象外のためそのまま保持してください。税率・生活費・家賃などの一般情報も照合対象外として保持してください。
 
 ルール：
 - 「確認できない」「インターネットにアクセスできない」などのメタコメントは絶対に書かないでください
@@ -859,16 +923,21 @@ async function run() {
   // --- Task 4: source grounding ---
   console.log("Fetching country_sources for source-grounded generation...");
   const visaSources = await getCountrySources(country.code, "visa");
-  let visaSourceCtx: { text: string; refs: string } | undefined;
+  let visaSourceCtx: SourceContext | undefined;
+  // sources が登録されていない場合は知識ベースモード（意図的）→ 自動公開OK
+  // sources が登録されているが有用コンテンツを取得できなかった場合 → fallback → is_published=false
+  let isVisaGrounded = visaSources.length === 0; // 登録なし → "grounded扱い" でpublish継続
+
   if (visaSources.length > 0) {
     visaSourceCtx = await buildSourceContext(visaSources);
-    console.log(
-      visaSourceCtx.text
-        ? `✅ Source context built from ${visaSources.length} URLs`
-        : `⚠️  All ${visaSources.length} source URLs failed to fetch — falling back to no-source mode`
-    );
+    if (visaSourceCtx.isGrounded) {
+      isVisaGrounded = true;
+      console.log(`✅ Source context built from ${visaSources.length} URLs`);
+    } else {
+      console.log(`⚠️  All ${visaSources.length} source URLs returned SPA/unusable content — fallback mode`);
+    }
   } else {
-    console.log("ℹ️  No alive sources in country_sources — falling back to no-source mode");
+    console.log("ℹ️  No alive sources in country_sources — knowledge-based mode");
   }
 
   // --- Visa article (ja/en/zh) ---
@@ -888,13 +957,21 @@ async function run() {
     factCheckContent(visaZh.content, country.name.en, "zh", sourceText),
   ]);
 
-  // Fact-check pass 2（pass 2 は知識ベースで仕上げ）
-  console.log("Fact-checking visa article (pass 2)...");
-  const [fcJa2, fcEn2, fcZh2] = await Promise.all([
-    factCheckContent(checked1Ja, country.name.ja, "ja"),
-    factCheckContent(checked1En, country.name.en, "en"),
-    factCheckContent(checked1Zh, country.name.en, "zh"),
-  ]);
+  // Fact-check pass 2:
+  // source-grounded 成功時はスキップ（モデルの旧訓練データが原文照合結果を上書きするのを防ぐ）
+  // 知識ベースモード時のみ pass 2 を実施
+  let fcJa2: string, fcEn2: string, fcZh2: string;
+  if (isVisaGrounded) {
+    console.log("Skipping fact-check pass 2 (source-grounded — pass 1 is authoritative)");
+    [fcJa2, fcEn2, fcZh2] = [checked1Ja, checked1En, checked1Zh];
+  } else {
+    console.log("Fact-checking visa article (pass 2)...");
+    [fcJa2, fcEn2, fcZh2] = await Promise.all([
+      factCheckContent(checked1Ja, country.name.ja, "ja"),
+      factCheckContent(checked1En, country.name.en, "en"),
+      factCheckContent(checked1Zh, country.name.en, "zh"),
+    ]);
+  }
 
   // factCheck 後に参考文献セクションを復元（factCheck でテキスト全体が返るため削除されることがある）
   const visaRefs = visaSourceCtx?.refs;
@@ -911,6 +988,13 @@ async function run() {
     .map((ext) => `/images/blog/${visaSlug}${ext}`)
     .find((p) => existsSync(`public${p}`)) ?? null;
 
+  // fallback 使用時は下書き保存 + 警告。ソース登録なし（知識ベース）は通常公開。
+  if (!isVisaGrounded) {
+    console.warn(`⚠️  [FALLBACK] ${visaSlug}: source-grounded失敗 → is_published=false で保存`);
+    // GHA annotation（Actions ログに warning バッジ表示）
+    console.log(`::warning file=scripts/generate-country-article.ts::${visaSlug} fallback使用 — source-groundedコンテンツ取得不可。is_published=false で保存。手動確認が必要です。`);
+  }
+
   const { error: visaError } = await supabase.from("blog_posts").upsert({
     slug: visaSlug,
     category: "visa",
@@ -926,14 +1010,14 @@ async function run() {
     content: { ja: finalJa, en: finalEn, zh: finalZh },
     locales: null,
     pinned: false,
-    is_published: true,
+    is_published: isVisaGrounded,
   }, { onConflict: "slug" });
 
   if (visaError) {
     console.error("Visa article insert failed:", visaError.message);
     process.exit(1);
   }
-  console.log(`✅ Visa article published: ${visaSlug}`);
+  console.log(isVisaGrounded ? `✅ Visa article published: ${visaSlug}` : `📝 Visa article saved as draft: ${visaSlug}`);
 
   // --- Study article (ja/en) ---
   console.log("Generating study article...");
