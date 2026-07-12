@@ -70,6 +70,14 @@ async function tryWaybackMachine(originalUrl: string): Promise<string | null> {
     const snapshot = data.archived_snapshots?.closest;
     if (!snapshot?.available || !snapshot.url) return null;
 
+    // スナップショット日付をURLから抽出してログ出力 (形式: /web/20241231120000/...)
+    const dateMatch = snapshot.url.match(/\/web\/(\d{4})(\d{2})(\d{2})/);
+    if (dateMatch) {
+      console.log(`  [wayback] snapshot date: ${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]} (${snapshot.url})`);
+    } else {
+      console.log(`  [wayback] snapshot URL: ${snapshot.url}`);
+    }
+
     const wbController = new AbortController();
     const wbTimer = setTimeout(() => wbController.abort(), SOURCE_FETCH_TIMEOUT);
     try {
@@ -260,6 +268,11 @@ const COUNTRY_TAX_EXTRA_CONSTRAINTS: Partial<Record<string, Record<Lang, string>
     en: "【TH tax constraint】The source page contains historical notes from 2013-14 transition. Use ONLY the current progressive tax rate table (percentages and income brackets) from the source. Ignore transitional/historical notes. Do NOT mention the 17% flat tax rate for LTR visa holders or BOI-promoted companies — that rate is NOT in this source and must not be included.",
     zh: "【TH税制约束】税制信息页面中包含2013-14年旧制度的历史注记。仅使用当前有效的累进税率表（百分比和收入级距），忽略历史过渡说明。严禁提及LTR签证持有者或BOI优惠对象适用的17%固定税率——该税率不在本税制来源中，不得写入文章。",
   },
+  au: {
+    ja: "【AU税制制約】ATOのページには複数年度の税率（2020年〜現在）が掲載されている。必ず最新年度「Resident tax rates 2025–26」の税率のみを使用すること。2023-24以前の旧年度（19%・32.5%等）は絶対に使用しないこと。",
+    en: "【AU tax constraint】The ATO page lists tax rates for multiple years (2020 to present). Use ONLY the rates from 'Resident tax rates 2025–26'. Do NOT use rates from any earlier year (2023-24 or before, which show 19%, 32.5% etc.).",
+    zh: "【AU税制约束】ATO页面列出了多个年度（2020年至今）的税率。仅使用「2025–26财年居民税率」的数据。严禁使用任何早期年度（2023-24年度及以前，如19%、32.5%等）的税率。",
+  },
 };
 
 // 国別の追加制約（ソースの性質や構成上の注意点を補足）
@@ -312,15 +325,21 @@ async function generateVisaContent(
     ? (COUNTRY_TAX_EXTRA_CONSTRAINTS[countryCode]?.[lang] ?? "")
     : "";
   // ja/en/zh でそれぞれ税制指示を切り替え
+  // cent表記→%換算の補足（"Xc for each $1" → "X%" は機械的単位換算として許可）
+  const centToPercentNote = {
+    ja: "なお、ソース原文に「Xc for each $1」のようなセント表記がある場合、X%への換算は機械的な単位換算として原文の範囲内とみなし必ず記述すること（例：「16c for each $1 over $18,200」→「16%」、「30c for each $1」→「30%」）。「公式情報でご確認ください」に置き換えることは禁止。丸め・推定・外挿は引き続き禁止。",
+    en: "IMPORTANT: if the source uses 'Xc for each $1' notation, you MUST convert it to X% — this is a mechanical unit conversion within the source's scope (e.g., '16c for each $1 over $18,200' → '16%', '30c for each $1' → '30%'). Do NOT replace these with 'please check official information'. Rounding, estimation, or extrapolation remain prohibited.",
+    zh: "重要：如来源使用「每1美元Xc」的表述，必须将其换算为X%——这属于机械性单位换算，在原文范围内（例：「每超过18,200美元的每1美元16c」→「16%」，「每1美元30c」→「30%」）。禁止用「请参阅官方信息」代替。四舍五入、估算或外推仍禁止。",
+  };
   const taxInstruction: Record<Lang, string> = {
     ja: hasTaxSource
-      ? `所得税率・税率閾値は税制参考資料の数値のみを使用すること。税制参考資料にない税項目は「最新の税制は${countryName.ja}の税務当局または公式情報でご確認ください」と誘導すること。${taxExtraConstraint ? `\n${taxExtraConstraint}` : ""}`
+      ? `所得税率・税率閾値は税制参考資料の数値のみを使用すること。税制参考資料にない税項目は「最新の税制は${countryName.ja}の税務当局または公式情報でご確認ください」と誘導すること。${centToPercentNote.ja}${taxExtraConstraint ? `\n${taxExtraConstraint}` : ""}`
       : "ただし所得税率・税率閾値などの税制情報は参考資料に具体的な数字の記載がある場合のみ書くこと。参考資料にない場合は「最新の税制は移住先国の税務当局または公式情報でご確認ください」と案内するにとどめること。",
     en: hasTaxSource
-      ? `Income tax rates and brackets: use ONLY the figures from the tax reference source. For any tax items not covered in the tax source, write 'For current tax rates, please refer to the official tax authority of ${countryName.en}'.${taxExtraConstraint ? `\n${taxExtraConstraint}` : ""}`
+      ? `Income tax rates and brackets: use ONLY the figures from the tax reference source. For any tax items not covered in the tax source, write 'For current tax rates, please refer to the official tax authority of ${countryName.en}'. ${centToPercentNote.en}${taxExtraConstraint ? `\n${taxExtraConstraint}` : ""}`
       : "For income tax rates and tax bracket thresholds: only write specific figures if they appear in the reference sources. If not sourced, write 'For current tax rates, please refer to the official tax authority of the destination country' instead of guessing figures.",
     zh: hasTaxSource
-      ? `所得税率、税率区间：仅使用税制参考资料中的数字。税制参考资料未涉及的税务项目，请引导至「请参阅${countryName.en}税务机关的官方信息」。${taxExtraConstraint ? `\n${taxExtraConstraint}` : ""}`
+      ? `所得税率、税率区间：仅使用税制参考资料中的数字。税制参考资料未涉及的税务项目，请引导至「请参阅${countryName.en}税务机关的官方信息」。${centToPercentNote.zh}${taxExtraConstraint ? `\n${taxExtraConstraint}` : ""}`
       : "但所得税率、税率区间等税制信息，只有在参考资料中有明确数字时才可填写；若无来源，请改为「有关当前税率，请参阅目的国税务机关的官方信息」。",
   };
 
@@ -516,7 +535,7 @@ ${content}`
 
 ルール：
 - あなたの学習データに基づいて、費用・期間・必要書類などの数字や事実を確認し、明らかに誤っている箇所のみ修正してください
-- 【重要】所得税率・税率閾値などの税制情報は、記事内にすでに「公式情報でご確認ください」等の誘導がある場合はそのままにしてください。具体的な数字を新たに追加しないでください
+- 【最重要】所得税率・税率閾値の数字（%・金額ともに）は、記事内にすでに記述されている場合はそのまま保持してください。削除・変更・「公式情報でご確認ください」への置き換えは禁止です。「公式情報でご確認ください」という誘導がある場合もそのままにしてください
 - 「確認できない」「インターネットにアクセスできない」などのメタコメントは絶対に書かないでください
 - 修正した記事本文のみを返してください。説明・コメント・注記は一切不要です
 - 言語: ${lang}
@@ -1057,6 +1076,21 @@ async function run() {
   if (taxSources.length > 0) {
     const ctx = await buildSourceContext(taxSources);
     if (ctx.isGrounded) {
+      // "16c for each $1 over $18,200" → "16% (16c for each $1 over $18,200)"
+      // ATO のセント表記を事前に%へ変換してから GPT に渡す
+      ctx.text = ctx.text.replace(
+        /(\d+(?:\.\d+)?)c for each \$1/g,
+        (match, n) => `${n}% (${match})`
+      );
+      // ATO ページは複数年度掲載のため、最新年度（FY2025-26）のセクションのみを抽出
+      // "Resident tax rates 2025–26" が存在する場合は次の年度セクション開始前まで切り出す
+      const latestYearMatch = ctx.text.match(
+        /Resident tax rates 2025[\s\S]*?(?=Resident tax rates 20(?!26)|Non-resident tax rates|\[FY|$)/
+      );
+      if (latestYearMatch) {
+        ctx.text = `[FY2025-26 resident tax rates from ATO source]\n${latestYearMatch[0]}`;
+        console.log(`  [tax-preprocess] ATO: extracted FY2025-26 section (${ctx.text.length} chars)`);
+      }
       taxSourceCtx = ctx;
       console.log(`✅ Tax source context built from ${taxSources.length} URLs`);
     } else {
@@ -1075,8 +1109,10 @@ async function run() {
   ]);
 
   // Fact-check pass 1（ソース有りの場合は原文照合、なしの場合は知識ベース）
+  // taxSourceCtx がある場合は tax-grounded データを knowledge-base fact-check で破壊しないよう
+  // visaSource と taxSource を結合してソース照合モードで実行する
+  const sourceText = visaSourceCtx?.text ?? (taxSourceCtx ? taxSourceCtx.text : undefined);
   console.log("Fact-checking visa article (pass 1)...");
-  const sourceText = visaSourceCtx?.text;
   const [checked1Ja, checked1En, checked1Zh] = await Promise.all([
     factCheckContent(visaJa.content, country.name.ja, "ja", sourceText),
     factCheckContent(visaEn.content, country.name.en, "en", sourceText),
@@ -1084,11 +1120,11 @@ async function run() {
   ]);
 
   // Fact-check pass 2:
-  // source-grounded 成功時はスキップ（モデルの旧訓練データが原文照合結果を上書きするのを防ぐ）
-  // 知識ベースモード時のみ pass 2 を実施
+  // source-grounded 成功時 OR tax-grounded 有り時はスキップ
+  // （モデルの旧訓練データが税率等のソース根拠数値を上書きするのを防ぐ）
   let fcJa2: string, fcEn2: string, fcZh2: string;
-  if (isVisaGrounded) {
-    console.log("Skipping fact-check pass 2 (source-grounded — pass 1 is authoritative)");
+  if (isVisaGrounded || !!taxSourceCtx) {
+    console.log(`Skipping fact-check pass 2 (${isVisaGrounded ? "visa-grounded" : "tax-grounded"} — pass 1 is authoritative)`);
     [fcJa2, fcEn2, fcZh2] = [checked1Ja, checked1En, checked1Zh];
   } else {
     console.log("Fact-checking visa article (pass 2)...");
