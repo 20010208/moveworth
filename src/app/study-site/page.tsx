@@ -151,7 +151,7 @@ const pageText = {
     monthlyLiving: "月額（家賃込）",
     simulatorBanner: "費用シミュレーターで複数の国を比較する",
     ctaTitle: "移住・留学後の資産もシミュレーション",
-    ctaDesc: "MoveWorthなら40カ国以上の移住後の資産推移を無料でシミュレーションできます。",
+    ctaDesc: "MoveWorthなら50カ国以上の移住後の資産推移を無料でシミュレーションできます。",
     ctaBtn: "MoveWorthを使う（無料）",
   },
   en: {

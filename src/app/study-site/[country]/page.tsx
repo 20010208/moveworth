@@ -42,7 +42,7 @@ const sectionLabels = {
     tips: "留学のポイント",
     japaneseInfo: "日本人向け情報",
     ctaTitle: "移住・留学後の資産をシミュレーション",
-    ctaDesc: "MoveWorthで40カ国以上の移住後の資産推移を無料でシミュレーションしてみよう",
+    ctaDesc: "MoveWorthで50カ国以上の移住後の資産推移を無料でシミュレーションしてみよう",
     ctaBtn: "MoveWorthを使う（無料）",
     free: "無料",
     to: "〜",
