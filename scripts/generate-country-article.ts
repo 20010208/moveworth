@@ -49,7 +49,7 @@ function isSourceUseful(text: string): boolean {
   if (/\d+\.?\d*\s*%/.test(text)) hits++;
   if (/\d+\s*(days?|weeks?|months?|years?|hours?)/i.test(text)) hits++;
   if (/\d+\s*points?/i.test(text)) hits++;
-  if (/(require|eligib|qualif|must have|criteria|condition|permit|residence|visa)[\s\S]{0,80}\d/i.test(text)) hits++;
+  if (/(require|eligib|qualif|must have|criteria|condition|permit|residence|visa|employ|work permit|foreign staff|national|labor|labour)[\s\S]{0,100}\d/i.test(text)) hits++;
   return hits >= 2;
 }
 
@@ -232,10 +232,31 @@ async function getNextCountry(): Promise<{ code: string; name: { ja: string; en:
   throw new Error("All countries in queue already covered.");
 }
 
+// 国別の追加制約（ソースの性質や構成上の注意点を補足）
+const COUNTRY_VISA_EXTRA_CONSTRAINTS: Partial<Record<string, Record<Lang, string>>> = {
+  tn: {
+    ja: "【TN特別制約】参考資料は「外国人雇用・労働法」に関するもので、ビザ申請手続きの一次情報ではない。" +
+        "参考資料に記載のある外国人雇用ルール（30%ルール、ANETIの事前許可等）はソースの数値に従って記述すること。" +
+        "ビザ申請手続き・申請費用・学生ビザについては参考資料に一次情報がないため、具体的な金額や日数を書かず、" +
+        "「詳細は在日チュニジア大使館または領事館にお問い合わせください」と誘導する構成にすること。" +
+        "いかなるURLも捏造・推測で書かないこと（example.com / プレースホルダー禁止）。",
+    en: "【TN special constraint】Sources cover foreign employment/labor law, NOT visa application procedures. " +
+        "Write employment rules from source (30% rule, ANETI pre-approval etc.) with exact figures. " +
+        "For visa procedures, fees, and student visas where no primary source exists: omit specific amounts/timelines " +
+        "and instead write 'Please contact the Tunisian Embassy for current details'. " +
+        "Never fabricate URLs or use placeholder domains (example.com etc.).",
+    zh: "【TN特殊限制】参考资料涉及外国人雇佣/劳动法，而非签证申请手续。" +
+        "雇佣规则（30%外籍员工上限、ANETI预先批准等）须按原文数字填写。" +
+        "签证申请手续、费用、学生签证因无一手资料，不得填写具体金额或天数，" +
+        "改为「请联系突尼斯驻当地大使馆确认最新信息」。禁止捏造URL或使用占位域名（example.com等）。",
+  },
+};
+
 async function generateVisaContent(
   countryName: { ja: string; en: string },
   lang: Lang,
-  sourceCtx?: SourceContext
+  sourceCtx?: SourceContext,
+  countryCode?: string
 ): Promise<{ title: string; description: string; content: string }> {
   const hasSource = !!sourceCtx?.text;
   const sourceBlock = hasSource
@@ -247,10 +268,14 @@ async function generateVisaContent(
     : "";
   const prebuiltRefs = sourceCtx?.refs ?? "";
 
+  const extraConstraint = countryCode
+    ? (COUNTRY_VISA_EXTRA_CONSTRAINTS[countryCode]?.[lang] ?? "")
+    : "";
+
   const prompts: Record<Lang, string> = {
     ja: `あなたはMoveWorthというサービスのビザ情報ライターです。MoveWorthは、海外移住を考えている人向けに、税金・生活費・ビザを一括シミュレーションできるサービスです。
 ${sourceBlock}
-${countryName.ja}のビザ・移住条件に関する記事を日本語で書いてください。${hasSource ? "参考資料原文に記載のあるビザについては、要件・費用・手続きを必ず原文の数値に従って書くこと。参考資料原文に記載のないビザ種別（例：ワーキングホリデー等）は知識で補完してよいが、具体的な申請費用は書かず「公式サイトでご確認ください」と案内すること。税率・生活費・家賃などの一般情報は知識で補完してよい。" : ""}
+${countryName.ja}のビザ・移住条件に関する記事を日本語で書いてください。${hasSource ? "参考資料原文に記載のあるビザについては、要件・費用・手続きを必ず原文の数値に従って書くこと。参考資料原文に記載のないビザ種別（例：ワーキングホリデー等）は知識で補完してよいが、具体的な申請費用は書かず「公式サイトでご確認ください」と案内すること。税率・生活費・家賃などの一般情報は知識で補完してよい。" : ""}${extraConstraint ? `\n${extraConstraint}` : ""}
 
 ## タイトル形式（必ず守ること。絵文字・記号は一切使わないこと）
 【2026年最新版】${countryName.ja}のビザ・就労許可完全ガイド｜{主要ビザ名1}・{主要ビザ名2}・{主要ビザ名3}
@@ -299,7 +324,7 @@ ${refSectionInstruction ? `\n${refSectionInstruction}` : `
 
     en: `You are a visa information writer for MoveWorth, a service that helps people considering international relocation simulate taxes, living costs, and visa requirements.
 ${sourceBlock}
-Write a detailed, factual article about ${countryName.en} visa and immigration requirements in English.${hasSource ? " For visa types covered in the reference texts: use ONLY those sources for requirements, fees, and procedures. For visa types NOT in the references (e.g. Working Holiday, partner visas): supplement from your knowledge but omit specific fee amounts and instead say 'check the official site for current fees'. For general country info (tax rates, living costs): use your knowledge." : ""}
+Write a detailed, factual article about ${countryName.en} visa and immigration requirements in English.${hasSource ? " For visa types covered in the reference texts: use ONLY those sources for requirements, fees, and procedures. For visa types NOT in the references (e.g. Working Holiday, partner visas): supplement from your knowledge but omit specific fee amounts and instead say 'check the official site for current fees'. For general country info (tax rates, living costs): use your knowledge." : ""}${extraConstraint ? `\n${extraConstraint}` : ""}
 
 ## Title format (strictly follow. No emojis or special symbols):
 ${countryName.en} Visa & Work Permit Complete Guide 2026 | {Visa1}, {Visa2} & {Visa3}
@@ -348,7 +373,7 @@ Data sourced from:
 
     zh: `您是MoveWorth服务的签证信息撰稿人。MoveWorth帮助考虑海外移居的人模拟税务、生活成本和签证要求。
 ${sourceBlock}
-请用中文撰写一篇关于${countryName.en}（${countryName.ja}）签证与移居条件的详细文章。${hasSource ? "参考资料中涉及的签证类型，其要求、费用和手续必须严格依照原文数字填写。参考资料未涉及的签证类型（如打工度假签证等）可以用您的知识补充，但不得写具体申请费用，请改为引导至官方网站确认。税率、生活费、房租等一般国情信息可用您的知识补充。" : ""}
+请用中文撰写一篇关于${countryName.en}（${countryName.ja}）签证与移居条件的详细文章。${hasSource ? "参考资料中涉及的签证类型，其要求、费用和手续必须严格依照原文数字填写。参考资料未涉及的签证类型（如打工度假签证等）可以用您的知识补充，但不得写具体申请费用，请改为引导至官方网站确认。税率、生活费、房租等一般国情信息可用您的知识补充。" : ""}${extraConstraint ? `\n${extraConstraint}` : ""}
 
 ## 标题格式（必须遵守。不使用任何表情符号或特殊符号）：
 【2026年最新版】{国名中文}签证与工作许可完全指南｜{签证1}·{签证2}·{签证3}
@@ -942,9 +967,9 @@ async function run() {
   // --- Visa article (ja/en/zh) ---
   console.log("Generating visa article in 3 languages...");
   const [visaJa, visaEn, visaZh] = await Promise.all([
-    generateVisaContent(country.name, "ja", visaSourceCtx),
-    generateVisaContent(country.name, "en", visaSourceCtx),
-    generateVisaContent(country.name, "zh", visaSourceCtx),
+    generateVisaContent(country.name, "ja", visaSourceCtx, country.code),
+    generateVisaContent(country.name, "en", visaSourceCtx, country.code),
+    generateVisaContent(country.name, "zh", visaSourceCtx, country.code),
   ]);
 
   // Fact-check pass 1（ソース有りの場合は原文照合、なしの場合は知識ベース）
@@ -992,6 +1017,13 @@ async function run() {
     console.warn(`⚠️  [FALLBACK] ${visaSlug}: source-grounded失敗 → is_published=false で保存`);
     // GHA annotation（Actions ログに warning バッジ表示）
     console.log(`::warning file=scripts/generate-country-article.ts::${visaSlug} fallback使用 — source-groundedコンテンツ取得不可。is_published=false で保存。手動確認が必要です。`);
+  }
+
+  // プレースホルダー URL チェック（example.com が含まれていれば is_published を強制 false にして警告）
+  const hasPlaceholderUrl = [finalJa, finalEn, finalZh].some((c) => c.includes("example.com"));
+  if (hasPlaceholderUrl) {
+    console.error(`❌ [PLACEHOLDER-URL] ${visaSlug}: "example.com" が生成コンテンツに含まれています — is_published=false に強制`);
+    isVisaGrounded = false;
   }
 
   const { error: visaError } = await supabase.from("blog_posts").upsert({
