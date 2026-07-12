@@ -924,9 +924,8 @@ async function run() {
   console.log("Fetching country_sources for source-grounded generation...");
   const visaSources = await getCountrySources(country.code, "visa");
   let visaSourceCtx: SourceContext | undefined;
-  // sources が登録されていない場合は知識ベースモード（意図的）→ 自動公開OK
-  // sources が登録されているが有用コンテンツを取得できなかった場合 → fallback → is_published=false
-  let isVisaGrounded = visaSources.length === 0; // 登録なし → "grounded扱い" でpublish継続
+  // 正のフロー: sources 登録 → 検証 → 記事生成。未登録は異常系（is_published=false）
+  let isVisaGrounded = false;
 
   if (visaSources.length > 0) {
     visaSourceCtx = await buildSourceContext(visaSources);
@@ -937,7 +936,7 @@ async function run() {
       console.log(`⚠️  All ${visaSources.length} source URLs returned SPA/unusable content — fallback mode`);
     }
   } else {
-    console.log("ℹ️  No alive sources in country_sources — knowledge-based mode");
+    console.log(`⚠️  No alive sources in country_sources — knowledge-based fallback (should not occur in normal flow)`);
   }
 
   // --- Visa article (ja/en/zh) ---
