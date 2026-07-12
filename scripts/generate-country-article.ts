@@ -215,12 +215,21 @@ const COUNTRY_QUEUE = [
 type Lang = "ja" | "en" | "zh";
 
 // CLI 引数:
-//   npx tsx generate-country-article.ts [country_code] [--publish]
-//   --publish がない場合は is_published=false（draft）で保存
-//   source-grounded かどうかに関わらず、明示的な --publish なしでは公開しない
+//   npx tsx generate-country-article.ts [country_code]
+//     → 生成して draft 保存（is_published=false）。既存公開記事は上書きしない。
+//   npx tsx generate-country-article.ts [country_code] --publish-only
+//     → 再生成なし。既存 draft の is_published を true に切り替えるだけ。
+//   ※ --publish（再生成して公開）は廃止。レビューした内容と公開内容の同一性を保証するため。
 const _args = process.argv.slice(2);
 const forceCountryCode = _args.find((a) => !a.startsWith("--")) ?? null;
-const publishMode = _args.includes("--publish");
+const publishOnly = _args.includes("--publish-only");
+
+if (_args.includes("--publish")) {
+  console.error("❌ --publish は廃止されました。");
+  console.error("   生成: npx tsx generate-country-article.ts [code]");
+  console.error("   公開: npx tsx generate-country-article.ts [code] --publish-only");
+  process.exit(1);
+}
 
 async function getNextCountry(): Promise<{ code: string; name: { ja: string; en: string } }> {
   if (forceCountryCode) {
@@ -987,6 +996,40 @@ function restoreRefs(content: string, refs: string | undefined, lang: Lang): str
 
 async function run() {
   const country = await getNextCountry();
+  const visaSlug = `visa-${country.code}`;
+
+  // --publish-only: 再生成なし、フラグ切り替えのみ
+  if (publishOnly) {
+    const { data: existing, error: fetchErr } = await supabase
+      .from("blog_posts").select("is_published").eq("slug", visaSlug).maybeSingle();
+    if (fetchErr) { console.error("DB error:", fetchErr.message); process.exit(1); }
+    if (!existing) {
+      console.error(`❌ ${visaSlug} が見つかりません。先に generate を実行してください。`);
+      process.exit(1);
+    }
+    if (existing.is_published) {
+      console.log(`ℹ️  ${visaSlug} はすでに公開済みです。`);
+      return;
+    }
+    const { error: updateErr } = await supabase
+      .from("blog_posts").update({ is_published: true }).eq("slug", visaSlug);
+    if (updateErr) { console.error("Update error:", updateErr.message); process.exit(1); }
+    console.log(`✅ ${visaSlug} → is_published: true（フラグ切り替えのみ、再生成なし）`);
+    return;
+  }
+
+  // 既存公開記事ガード: 公開中の visa 記事は上書きしない
+  {
+    const { data: existingVisa } = await supabase
+      .from("blog_posts").select("is_published").eq("slug", visaSlug).maybeSingle();
+    if (existingVisa?.is_published) {
+      console.warn(`⚠️  ${visaSlug} は現在公開中のためスキップします。`);
+      console.warn(`   再生成するには、先に Supabase で is_published=false にしてから実行してください。`);
+      console.warn(`   公開のみ切り替える場合: npx tsx generate-country-article.ts ${country.code} --publish-only`);
+      process.exit(0);
+    }
+  }
+
   console.log(`Generating articles for: ${country.name.en} (${country.code})`);
 
   // --- Task 4: source grounding ---
@@ -1062,7 +1105,6 @@ async function run() {
   const finalEn = restoreRefs(fcEn2, visaRefs, "en");
   const finalZh = restoreRefs(fcZh2, visaRefs, "zh");
 
-  const visaSlug = `visa-${country.code}`;
   const today = new Date().toISOString().split("T")[0];
 
   // public/images/blog/ に同名画像があれば自動設定
@@ -1084,11 +1126,11 @@ async function run() {
     isVisaGrounded = false;
   }
 
-  // --publish フラグがない限り is_published=false（draft）で保存する。
-  // source-grounded 成功でも --publish なしには公開しない。
-  const shouldPublish = publishMode && isVisaGrounded;
-  if (isVisaGrounded && !publishMode) {
-    console.log(`📝 ${visaSlug}: source-grounded成功 → --publish なしのため draft 保存`);
+  // 生成は常に draft 保存（is_published=false）。
+  // 公開は --publish-only（フラグ切り替えのみ）で別途実行する。
+  const shouldPublish = false;
+  if (isVisaGrounded) {
+    console.log(`📝 ${visaSlug}: source-grounded成功 → draft 保存`);
   }
 
   assertBlogPayload(

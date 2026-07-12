@@ -2,19 +2,19 @@
 
 ## 記事公開フロー（visa 記事）
 
-### 原則：明示的な承認なしに is_published: true にしない
+### 原則：公開操作は再生成を伴ってはならない
 
-`generate-country-article.ts` で生成した visa 記事は、**source-grounded 成功かどうかに関わらず**、
-デフォルトで `is_published: false`（draft）として保存する。
+**レビューされた内容とバイト単位で同一のものが公開されること。**
 
-公開するには `--publish` フラグを明示的に渡す必要がある。
+生成（draft保存）と公開（フラグ切り替え）は完全に分離された2ステップ操作。
 
 ```bash
-# draft 保存（レビュー待ち）— デフォルト
+# ステップ1: 生成（draft保存のみ）
 npx tsx scripts/generate-country-article.ts be
 
-# 公開（ユーザーの承認を得た後のみ実行）
-npx tsx scripts/generate-country-article.ts be --publish
+# ステップ2: 公開（フラグ切り替えのみ、再生成なし）
+# ユーザーの承認を得た後のみ実行
+npx tsx scripts/generate-country-article.ts be --publish-only
 ```
 
 ### 正しいフロー
@@ -22,14 +22,14 @@ npx tsx scripts/generate-country-article.ts be --publish
 1. **生成**: `generate-country-article.ts [code]` → `is_published: false` で保存
 2. **レビュー**: ja 本文を提出し、ユーザーが内容を確認
 3. **承認**: ユーザーが明示的に「公開してよい」と指示
-4. **公開**: `--publish` フラグ付きで再実行、または Supabase ダッシュボードで手動 ON
+4. **公開**: `--publish-only` で実行（再生成なし、フラグ切り替えのみ）
 
-### 違反を防ぐ注意点
+### 実装上の安全装置
 
+- `generate` 実行時、既存の公開中記事（is_published=true）は上書きしない（自動スキップ）
+- `--publish`（旧フラグ、再生成して公開）は廃止済み。実行するとエラー終了
 - Claude が自律的に `is_published: true` をセットしてはならない
 - 「source-grounded だから自動公開」は禁止。grounded であっても draft が原則
-- GHA (auto-country) で自動公開する場合は、ワークフロー定義に `--publish` を明記し、
-  事前にユーザーの承認を得ること
 
 ---
 
