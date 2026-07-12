@@ -32,8 +32,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!post) return {};
 
-  const title = post.title.ja ?? post.title.en;
-  const description = post.description.ja ?? post.description.en;
+  const title = post.title?.ja ?? post.title?.en ?? "";
+  const description = post.description?.ja ?? post.description?.en ?? "";
   const url = `${BASE_URL}/blog/${slug}`;
   const ogImage = post.thumbnail
     ? post.thumbnail.startsWith("http") ? post.thumbnail : `${BASE_URL}${post.thumbnail}`
@@ -77,8 +77,8 @@ export default async function BlogPostPage({ params }: Props) {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: (post as BlogPost).title.ja ?? (post as BlogPost).title.en,
-    description: (post as BlogPost).description.ja ?? (post as BlogPost).description.en,
+    headline: (post as BlogPost).title?.ja ?? (post as BlogPost).title?.en ?? "",
+    description: (post as BlogPost).description?.ja ?? (post as BlogPost).description?.en ?? "",
     datePublished: post.published_at,
     dateModified: post.published_at,
     author: { "@type": "Organization", name: "MoveWorth", url: BASE_URL },

@@ -14,8 +14,10 @@ export function BlogListClient({ posts }: { posts: BlogPost[] }) {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const getLabel = (obj: MultiLang) =>
-    (obj[lang as keyof typeof obj] as string | undefined) ?? obj.en;
+  const getLabel = (obj: MultiLang | null | undefined): string => {
+    if (!obj) return "";
+    return (obj[lang as keyof typeof obj] as string | undefined) ?? obj.en ?? "";
+  };
 
   const filteredPosts = posts
     .filter((p) => !p.locales || p.locales.includes(lang))

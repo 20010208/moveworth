@@ -14,8 +14,10 @@ export function BlogPostContent({ post }: { post: BlogPost }) {
   const isPaid = user?.plan === "pro" || user?.plan === "premium";
   const lang = locale as "en" | "ja" | "zh";
 
-  const getLabel = (obj: MultiLang) =>
-    (obj[lang as keyof typeof obj] as string | undefined) ?? obj.en;
+  const getLabel = (obj: MultiLang | null | undefined): string => {
+    if (!obj) return "";
+    return (obj[lang as keyof typeof obj] as string | undefined) ?? obj.en ?? "";
+  };
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -73,7 +75,8 @@ export function BlogPostContent({ post }: { post: BlogPost }) {
     );
   };
 
-  const renderContent = (text: string) => {
+  const renderContent = (text: string | undefined | null) => {
+    if (!text) return null;
     const lines = text.split("\n");
     const elements: React.ReactNode[] = [];
     let inTable = false;
