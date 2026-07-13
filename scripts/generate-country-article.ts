@@ -25,8 +25,18 @@ const supabase = createClient(
 // --- Task 4: source-grounded generation ---
 
 const SOURCE_FETCH_TIMEOUT = 8_000;
-const MAX_CHARS_PER_SOURCE = 3_000;
+const MAX_CHARS_PER_SOURCE = 3_000;     // visa / study ソース（ビザ手続き情報）
+const TAX_MAX_CHARS_PER_SOURCE = 40_000; // tax ソース専用（税率表全体を取得するため大きく設定）
 const MAX_SOURCES = 5;
+
+/** 切り詰めが発生した場合にログを出力してスライスする（観測可能性確保） */
+function sliceWithLog(text: string, url: string, maxChars: number): string {
+  if (text.length > maxChars) {
+    console.log(`  [truncated] ${url}: ${text.length.toLocaleString()} → ${maxChars.toLocaleString()} chars`);
+    return text.slice(0, maxChars);
+  }
+  return text;
+}
 
 function stripHtml(html: string): string {
   return html
@@ -54,8 +64,21 @@ function isSourceUseful(text: string): boolean {
   return hits >= 2;
 }
 
+// 税制ソース専用の有用性判定。
+// 判定対象テキストは fetchPageText が返す切り詰め済みテキストと同一（GPTへの入力と一致）。
+// 「切り詰め後のテキストに実際に複数の税率が含まれているか」を確認するため、
+// isSourceUseful のような汎用パターンではなく、2 種類以上の異なる % 値の存在を必須とする。
+// これにより「ナビゲーション内の 1 つの % でヒットしてUSEFUL判定、しかし税率表はカット済み」
+// という乖離を防ぐ。isSourceUseful にはフォールバックしない。
+function isTaxSourceUseful(text: string): boolean {
+  if (!text || text.length < 300) return false;
+  const pcts = [...text.matchAll(/(\d+\.?\d*)\s*%/g)].map(m => m[1]);
+  const unique = new Set(pcts);
+  return unique.size >= 2;
+}
+
 // SPA 判定時のフォールバック: Wayback Machine から静的スナップショットを取得
-async function tryWaybackMachine(originalUrl: string): Promise<string | null> {
+async function tryWaybackMachine(originalUrl: string, maxChars: number = MAX_CHARS_PER_SOURCE): Promise<string | null> {
   try {
     const apiController = new AbortController();
     const apiTimer = setTimeout(() => apiController.abort(), 6_000);
@@ -88,7 +111,7 @@ async function tryWaybackMachine(originalUrl: string): Promise<string | null> {
       clearTimeout(wbTimer);
       if (!wbRes.ok) return null;
       const html = await wbRes.text();
-      return stripHtml(html).slice(0, MAX_CHARS_PER_SOURCE);
+      return sliceWithLog(stripHtml(html), originalUrl + " [wayback]", maxChars);
     } catch {
       clearTimeout(wbTimer);
       return null;
@@ -98,7 +121,7 @@ async function tryWaybackMachine(originalUrl: string): Promise<string | null> {
   }
 }
 
-async function fetchPageText(url: string): Promise<string | null> {
+async function fetchPageText(url: string, maxChars: number = MAX_CHARS_PER_SOURCE): Promise<string | null> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), SOURCE_FETCH_TIMEOUT);
   let text: string | null = null;
@@ -111,7 +134,7 @@ async function fetchPageText(url: string): Promise<string | null> {
     if (res.ok) {
       const ct = res.headers.get("content-type") ?? "";
       if (ct.includes("html") || ct.includes("text")) {
-        text = stripHtml(await res.text()).slice(0, MAX_CHARS_PER_SOURCE);
+        text = sliceWithLog(stripHtml(await res.text()), url, maxChars);
       }
     }
   } catch {
@@ -121,7 +144,7 @@ async function fetchPageText(url: string): Promise<string | null> {
   // SPA やナビゲーション羅列を検出した場合は Wayback Machine へフォールバック
   if (!isSourceUseful(text ?? "")) {
     console.log(`  [source] SPA/low-quality detected — trying Wayback Machine for ${url}`);
-    const wb = await tryWaybackMachine(url);
+    const wb = await tryWaybackMachine(url, maxChars);
     if (wb && isSourceUseful(wb)) {
       console.log(`  [source] Wayback Machine snapshot used for ${url}`);
       return wb;
@@ -158,13 +181,18 @@ interface SourceContext {
   isGrounded: boolean; // true = 有用なコンテンツが 1 件以上取得できた
 }
 
-async function buildSourceContext(sources: SourceRow[]): Promise<SourceContext> {
+async function buildSourceContext(
+  sources: SourceRow[],
+  usefulCheck: (text: string) => boolean = isSourceUseful,
+  maxChars: number = MAX_CHARS_PER_SOURCE
+): Promise<SourceContext> {
   const fetched: { url: string; text: string }[] = [];
   await Promise.all(
     sources.map(async (s) => {
-      const text = await fetchPageText(s.url);
-      // isSourceUseful を通過したものだけを文脈に使用
-      if (text && isSourceUseful(text)) fetched.push({ url: s.url, text });
+      const text = await fetchPageText(s.url, maxChars);
+      // usefulCheck を通過したものだけを文脈に使用
+      // 判定対象テキスト = GPT に渡すテキスト（fetchPageText の戻り値 = 切り詰め済み）と同一
+      if (text && usefulCheck(text)) fetched.push({ url: s.url, text });
     })
   );
 
@@ -1074,7 +1102,7 @@ async function run() {
   let taxSourceCtx: SourceContext | undefined;
   const taxSources = await getCountrySources(country.code, "tax");
   if (taxSources.length > 0) {
-    const ctx = await buildSourceContext(taxSources);
+    const ctx = await buildSourceContext(taxSources, isTaxSourceUseful, TAX_MAX_CHARS_PER_SOURCE);
     if (ctx.isGrounded) {
       // "16c for each $1 over $18,200" → "16% (16c for each $1 over $18,200)"
       // ATO のセント表記を事前に%へ変換してから GPT に渡す
