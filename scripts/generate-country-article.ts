@@ -339,6 +339,14 @@ const COUNTRY_QUEUE = [
   { code: "us", name: { ja: "アメリカ", en: "United States" } },
   { code: "sg", name: { ja: "シンガポール", en: "Singapore" } },
   { code: "gb", name: { ja: "イギリス", en: "United Kingdom" } },
+  // バッチ2
+  { code: "nl", name: { ja: "オランダ", en: "Netherlands" } },
+  { code: "fr", name: { ja: "フランス", en: "France" } },
+  { code: "it", name: { ja: "イタリア", en: "Italy" } },
+  { code: "at", name: { ja: "オーストリア", en: "Austria" } },
+  { code: "ie", name: { ja: "アイルランド", en: "Ireland" } },
+  { code: "ca", name: { ja: "カナダ", en: "Canada" } },
+  { code: "kr", name: { ja: "韓国", en: "South Korea" } },
 ];
 
 type Lang = "ja" | "en" | "zh";
