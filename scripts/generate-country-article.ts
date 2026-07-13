@@ -251,6 +251,26 @@ const DOMAIN_LABEL_MAP: Record<string, string> = {
   "aade.gr": "ギリシャ独立歳入庁（AADE）",
   "mtca.gov.mt": "マルタ税関歳入庁（MTCA）",
   "u.ae": "UAE政府公式ポータル（u.ae）",
+  // Batch 4
+  "lsth.bundesfinanzministerium.de": "ドイツ連邦財務省 所得税計算補助（Lohnsteuerhilfeverein）",
+  "bundesfinanzministerium.de": "ドイツ連邦財務省（BMF）",
+  "matsne.gov.ge": "ジョージア立法府公式ポータル（matsne.gov.ge）",
+  "gov.hk": "香港政府（gov.hk）",
+  "ird.gov.hk": "香港税務局（IRD）",
+  "incometax.gov.in": "インド所得税局（IT Department）",
+  "nta.go.jp": "国税庁（NTA）",
+  "elibrary.judiciary.gov.ph": "フィリピン最高裁判所E-Library",
+  "etax.nat.gov.tw": "台湾財政部税務ポータル（eTax）",
+  "sars.gov.za": "南アフリカ歳入庁（SARS）",
+  "nra.bg": "ブルガリア国家歳入庁（NRA）",
+  "gov.br": "ブラジル連邦政府（gov.br）",
+  "receitafederal.gov.br": "ブラジル連邦歳入局（Receita Federal）",
+  "guangdong.chinatax.gov.cn": "中国広東省税務局",
+  "chinatax.gov.cn": "中国国家税務総局",
+  "micrositios.dian.gov.co": "コロンビア国税庁（DIAN）",
+  "pajak.go.id": "インドネシア税務総局（DJP）",
+  "tuyenquang.gdt.gov.vn": "ベトナム税務総局（GDT）地方ポータル",
+  "gdt.gov.vn": "ベトナム税務総局（GDT）",
 };
 
 function urlToLabel(url: string): string {
@@ -368,6 +388,21 @@ const COUNTRY_QUEUE = [
   { code: "gr", name: { ja: "ギリシャ", en: "Greece" } },
   { code: "mt", name: { ja: "マルタ", en: "Malta" } },
   { code: "ae", name: { ja: "アラブ首長国連邦", en: "United Arab Emirates" } },
+  // バッチ4
+  { code: "de", name: { ja: "ドイツ", en: "Germany" } },
+  { code: "ge", name: { ja: "ジョージア", en: "Georgia" } },
+  { code: "hk", name: { ja: "香港", en: "Hong Kong" } },
+  { code: "in", name: { ja: "インド", en: "India" } },
+  { code: "jp", name: { ja: "日本", en: "Japan" } },
+  { code: "ph", name: { ja: "フィリピン", en: "Philippines" } },
+  { code: "tw", name: { ja: "台湾", en: "Taiwan" } },
+  { code: "za", name: { ja: "南アフリカ", en: "South Africa" } },
+  { code: "br", name: { ja: "ブラジル", en: "Brazil" } },
+  { code: "cn", name: { ja: "中国", en: "China" } },
+  { code: "co", name: { ja: "コロンビア", en: "Colombia" } },
+  { code: "id", name: { ja: "インドネシア", en: "Indonesia" } },
+  { code: "vn", name: { ja: "ベトナム", en: "Vietnam" } },
+  { code: "ar", name: { ja: "アルゼンチン", en: "Argentina" } },
 ];
 
 type Lang = "ja" | "en" | "zh";
@@ -483,6 +518,82 @@ const COUNTRY_TAX_EXTRA_CONSTRAINTS: Partial<Record<string, Record<Lang, string>
     en: "【MT tax constraint】Malta's personal income tax uses 3–4 progressive brackets (e.g. 0%, 15%, 25%, 35% from the source). Different rate schedules apply to single persons, married couples, and parent computation — note this if in the source. Use only figures stated in the source. State the applicable tax year.",
     zh: "【MT税制约束】马耳他个人所得税采用3~4档累进税率（来源中列明的0%、15%、25%、35%等）。单身、已婚和有子女纳税人适用不同税率表——如来源有载明，请予注明。仅使用来源中的数值，并注明适用年度。",
   },
+  // バッチ4
+  de: {
+    ja: "【DE税制制約（知識ベース）】ドイツの所得税（Einkommensteuer）は§32a EStGに基づく計算式による累進課税。税制ソースは計算ツールのため税率値が取得できなかったため知識ベースで補完。2026年適用の主要閾値（暫定）：Grundfreibetrag（基礎控除額）€12,348以下は0%、€12,349〜€69,878は計算式による14%→42%の逓増帯（一次・二次進行帯）、€69,879〜€277,825は42%、€277,826超は45%（Reichsteuer）。2021年以降、大多数の納税者にはSolidaritätszuschlag（連帯付加税5.5%）は課されない。教会税（Kirchensteuer、州により8〜9%）は任意。「2026年暫定値・詳細はBMF（bundesfinanzministerium.de）で確認のこと」と必ず明記すること。",
+    en: "【DE tax constraint (knowledge-based)】Germany's income tax (Einkommensteuer) is based on progressive formulas under §32a EStG. Tax source was a calculator tool with no extractable rate values; use knowledge-based figures. 2026 key thresholds (provisional): Grundfreibetrag (basic allowance) up to €12,348 is 0%; €12,349–€69,878 is a formula-based progression from 14%→42% (first and second progression zones); €69,879–€277,825 is 42%; above €277,826 is 45% (Reichsteuer). The Solidaritätszuschlag (solidarity surcharge, 5.5%) was largely abolished since 2021 for most taxpayers. Church tax (Kirchensteuer, 8–9% of income tax depending on state) is optional. Always note: '2026 provisional figures — verify at bundesfinanzministerium.de'.",
+    zh: "【DE税制约束（知识库）】德国所得税（Einkommensteuer）依据§32a EStG采用公式化累进计算。税制来源为计算工具，无法提取税率数值，以知识库数据补充。2026年主要门槛（暂定）：Grundfreibetrag（基础免税额）€12,348以下为0%；€12,349〜€69,878为公式递进14%→42%（一档二档递进区间）；€69,879〜€277,825为42%；€277,826以上为45%（Reichsteuer）。2021年起绝大多数纳税人不再缴纳团结税（Solidaritätszuschlag，5.5%）。教会税（Kirchensteuer，按所得税的8~9%）可自愿选择。须注明「2026年暂定值，详情请参阅bundesfinanzministerium.de」。",
+  },
+  ge: {
+    ja: "【GE税制制約】ジョージアの個人所得税は一律20%のフラット税率（労働・事業所得）。配当・利子所得は別途5%の源泉税が適用。ソース（Tax Code of Georgia）は取得できているが税率数値の自動抽出に失敗したため、この20%フラット税率は知識ベースで補完すること。「バーチャルゾーン（IT企業）の個人所得税免除」「小規模事業者優遇（年間売上500万GEL未満は1%〜3%固定税率）」についても触れてよい。ジョージアは低税率・テリトリアル課税（外国源泉所得は原則非課税）の点が移住者に人気の理由の一つであることを説明すること。「2026年適用」と明記すること。",
+    en: "【GE tax constraint】Georgia applies a flat 20% income tax rate on employment and business income. A separate 5% withholding tax applies to dividends and interest. The source (Tax Code of Georgia) was retrieved but rate values could not be automatically extracted; use this 20% flat rate from knowledge. You may also mention: Virtual Zone status (IT company founders exempt from personal income tax on foreign-source income), and small business preferential rates (1%–3% fixed for annual turnover under 500,000 GEL). Note that Georgia's low flat rate and territorial taxation (foreign-source income generally exempt for residents) are major reasons for its popularity with digital nomads. State '2026 applicable rates'.",
+    zh: "【GE税制约束】格鲁吉亚对劳动和经营所得征收20%统一税率个人所得税。股息和利息适用5%预提税。来源（格鲁吉亚税法典）已获取，但税率数值自动提取失败，以知识库补充20%统一税率。可提及：虚拟区（IT公司创始人的境外所得可免个人所得税）和小企业优惠（年营业额50万GEL以下适用1%~3%固定税率）。说明格鲁吉亚因低税率和属地征税（居民境外所得通常免税）而受移居者青睐。须注明「2026年适用」。",
+  },
+  hk: {
+    ja: "【HK税制制約】香港の給与税（Salaries Tax）は二択構造：①累進税率（課税所得金額に応じて2%・6%・10%・14%・17%の5段階）②標準税率（Standard Rate、2024/25年度は15%）のいずれか低い方で計算。課税基盤は香港源泉所得のみ（域外所得は原則非課税、テリトリアル課税）。個人基本控除（2024/25：HK$132,000）等の控除後の「課税所得」に累進税率が適用される。ソースに記載の80%という数値は所得税率ではない（別文脈の軽減率等）ため使用しないこと。適用課税年度（2024/25）を明記し、累進税率と標準税率の両構造を説明すること。",
+    en: "【HK tax constraint】Hong Kong Salaries Tax uses a two-track system: ① Progressive rates (2%, 6%, 10%, 14%, 17% — 5 brackets based on net chargeable income) or ② Standard Rate (15% for 2024/25), whichever is lower. Only Hong Kong-sourced income is taxable (territorial taxation — foreign-sourced income is generally exempt). Progressive rates apply to net chargeable income after the basic personal allowance (HK$132,000 for 2024/25). The 80% figure in the source is NOT an income tax rate (it relates to a different context, e.g. stamp duty relief); do not use it as a tax rate. State the applicable tax year (2024/25) and explain both tracks.",
+    zh: "【HK税制约束】香港薪俸税采用双轨制：①累进税率（按应税所得净额分5档：2%、6%、10%、14%、17%）②标准税率（2024/25年度为15%），就两者中较低者征收。仅香港来源所得需纳税（属地征税，境外所得通常免税）。累进税率适用于扣除基本免税额（2024/25年度为HK$132,000）后的应税净收入。来源中的80%不是所得税率（属其他情境，如印花税减免率），不得使用。须注明适用课税年度（2024/25）并说明双轨制结构。",
+  },
+  in: {
+    ja: "【IN税制制約】インドの個人所得税は「新税制（New Tax Regime）」と「旧税制（Old Tax Regime）」の選択制。ソースに記載の新税制（2025-26年度）の標準ブラケット：₹3,00,000以下0%・₹3,00,001〜₹7,00,000超部分5%・₹7,00,001〜₹10,00,000超部分10%・₹10,00,001〜₹12,00,000超部分15%・₹12,00,001〜₹15,00,000超部分20%・₹15,00,000超30%（6段階）。税額には4%の健康・教育セス（Health & Education Cess）が加算される。ソースに37%（高所得者サーチャージ相当）・50%（最高税率・サーチャージ含む場合）・80%等が含まれる場合は文脈に合わせて使用し、標準ブラケット（30%）を超える実効税率はサーチャージ込みである旨を説明すること。適用年度（2025-26）を明記すること。",
+    en: "【IN tax constraint】India's personal income tax has two regimes: New Tax Regime and Old Tax Regime (taxpayer's choice). Use the New Tax Regime brackets from the source (2025-26): ₹0–₹3,00,000: 0%; ₹3,00,001–₹7,00,000: 5%; ₹7,00,001–₹10,00,000: 10%; ₹10,00,001–₹12,00,000: 15%; ₹12,00,001–₹15,00,000: 20%; above ₹15,00,000: 30% (6 brackets). A 4% Health & Education Cess is levied on the tax amount. If the source shows 37% or 50%, these are surcharges applicable to very high incomes — note that effective rates above 30% include surcharges. State the applicable assessment year (2025-26).",
+    zh: "【IN税制约束】印度个人所得税分「新税制（New Tax Regime）」和「旧税制（Old Tax Regime）」可选。使用来源中新税制（2025-26年度）的标准税档：₹300,000以下0%；₹300,001~₹700,000超出部分5%；₹700,001~₹1,000,000超出部分10%；₹1,000,001~₹1,200,000超出部分15%；₹1,200,001~₹1,500,000超出部分20%；₹1,500,000以上30%（共6档）。税额另加4%健康与教育附加税（Health & Education Cess）。如来源出现37%或50%，说明这些是针对高所得的附加税（surcharge），实际税率超过30%时均含附加税。须注明适用年度（2025-26）。",
+  },
+  jp: {
+    ja: "【JP税制制約】登録済みNTA英語ページ（12006.htm相当）は非居住者向け源泉徴収税率に関するものであり、居住者の総合課税累進税率表ではない。記事の主要読者（移住・在住者）に適用される所得税は以下の累進税率（国税庁・所得税法第89条に基づく知識ベース補完）：195万円以下5%・195万円超〜330万円以下10%・330万円超〜695万円以下20%・695万円超〜900万円以下23%・900万円超〜1,800万円以下33%・1,800万円超〜4,000万円以下40%・4,000万円超45%（7段階）。これに加え復興特別所得税（所得税額の2.1%）が課される。住民税（都道府県民税・市区町村民税の合計、通常約10%）も別途加算される。非居住者の源泉徴収税率（15.315%・20.42%等）はソースに記載があれば簡潔に言及可能だが、居住者向け累進税率を優先して記述すること。「2026年所得」と明記すること。",
+    en: "【JP tax constraint】The registered NTA English page (12006.htm) covers withholding tax rates for non-residents — it is NOT the progressive resident income tax table. For residents (the main audience for this article), describe the national income tax progressive rates (based on Income Tax Act Article 89): up to ¥1,950,000: 5%; ¥1,950,001–¥3,300,000: 10%; ¥3,300,001–¥6,950,000: 20%; ¥6,950,001–¥9,000,000: 23%; ¥9,000,001–¥18,000,000: 33%; ¥18,000,001–¥40,000,000: 40%; above ¥40,000,000: 45% (7 brackets). Additionally, the Special Income Tax for Reconstruction (復興特別所得税, 2.1% of income tax liability) applies. Inhabitants tax (住民税: prefectural + municipal, combined approximately 10%) is also separately levied. Non-resident withholding rates (15.315%, 20.42%) may be briefly mentioned from the source, but prioritize the resident progressive rate explanation. State '2026 income year'.",
+    zh: "【JP税制约束】已注册的NTA英文页面（12006.htm）涉及非居民预提税率，并非居民综合所得累进税率表。居民（本文主要读者）适用的国税所得税累进税率（依据所得税法第89条，知识库补充）：195万日元以下5%；195万~330万日元超出部分10%；330万~695万日元超出部分20%；695万~900万日元超出部分23%；900万~1,800万日元超出部分33%；1,800万~4,000万日元超出部分40%；4,000万日元以上45%（共7档）。另加复兴特别所得税（所得税额的2.1%）。住民税（都道府县税+市区町村税，合计通常约10%）另行征收。非居民预提税率（15.315%、20.42%等）如有来源可简要提及，但优先说明居民累进税率。须注明「2026年所得」。",
+  },
+  ph: {
+    ja: "【PH税制制約】フィリピンの個人所得税はTRAIN法（Tax Reform for Acceleration and Inclusion、共和国法10963号、2018年施行）に基づく累進税率。ソース（最高裁E-Library Wayback・NIRC Sec.24）に記載の税率表：₱250,000以下0%・₱250,001〜₱400,000超部分20%・₱400,001〜₱800,000超部分25%・₱800,001〜₱2,000,000超部分30%・₱2,000,001〜₱8,000,000超部分32%・₱8,000,000超35%（6段階）を根拠として使用すること。ソース内の1%・5%・6%・8%・10%・12%・15%等はVAT・印紙税・その他税目の税率であり、個人所得税率として使用しないこと。「TRAIN法（2018年施行）に基づく税率」であることを明記すること。",
+    en: "【PH tax constraint】Philippine personal income tax is based on the TRAIN Law (Tax Reform for Acceleration and Inclusion, Republic Act 10963, enacted 2018). Use the tax rate schedule from the source (SC E-Library Wayback, NIRC Sec.24): ₱0–₱250,000: 0%; ₱250,001–₱400,000: 20% on excess; ₱400,001–₱800,000: 25% on excess; ₱800,001–₱2,000,000: 30% on excess; ₱2,000,001–₱8,000,000: 32% on excess; above ₱8,000,000: 35% (6 brackets). The 1%, 5%, 6%, 8%, 10%, 12%, 15% figures in the source refer to VAT, documentary stamp tax, and other tax categories — do NOT use them as income tax rates. State 'based on the TRAIN Law (enacted 2018)'.",
+    zh: "【PH税制约束】菲律宾个人所得税依据TRAIN法（税收改革促进普惠法，共和国第10963号法令，2018年生效）的累进税率。使用来源（最高法院E-Library Wayback，NIRC第24条）中的税率表：₱250,000以下0%；₱250,001~₱400,000超出部分20%；₱400,001~₱800,000超出部分25%；₱800,001~₱2,000,000超出部分30%；₱2,000,001~₱8,000,000超出部分32%；₱8,000,000以上35%（共6档）。来源中1%、5%、6%、8%、10%、12%、15%等数值属增值税、印花税等其他税目，不得作为个人所得税率使用。须注明「依据TRAIN法（2018年施行）」。",
+  },
+  tw: {
+    ja: "【TW税制制約】台湾の綜合所得税（総合課税・外国人含む）の税率（ソース根拠）：NT$590,000以下5%・NT$590,001〜NT$1,330,000超部分12%・NT$1,330,001〜NT$2,660,000超部分20%・NT$2,660,001〜NT$4,980,000超部分30%・NT$4,980,000超部分40%の5段階。ソース2番目URL（etax.nat.gov.tw）に記載の8.5%・6%・21%等は特定の控除率・分離課税税率・外国人の最低課税等の別レートであり、主たる累進税率表（5段階）と混在しないこと。「外国人居住者（在台183日以上）は居住者と同一税率で全世界所得課税」「非居住者（183日未満）は分離源泉課税」の旨も説明すること。適用年度（例：2024年所得）を明記すること。",
+    en: "【TW tax constraint】Taiwan's consolidated income tax (for both residents and foreign nationals) brackets from the source: NT$0–NT$590,000: 5%; NT$590,001–NT$1,330,000: 12% on excess; NT$1,330,001–NT$2,660,000: 20% on excess; NT$2,660,001–NT$4,980,000: 30% on excess; above NT$4,980,000: 40% on excess (5 brackets). Figures such as 8.5%, 6%, 21% in the second source URL refer to specific withholding rates, deduction percentages, or alternative minimum tax — do not mix them with the main 5-bracket progressive rate table. Also explain: 'Foreign residents (183+ days in Taiwan) are taxed at the same progressive rates on worldwide income; non-residents (<183 days) are subject to flat withholding at source'. State the applicable income year (e.g. 2024 income).",
+    zh: "【TW税制约束】台湾综合所得税（适用于居民及外籍人士）来源中的税率：NT$590,000以下5%；NT$590,001~NT$1,330,000超出部分12%；NT$1,330,001~NT$2,660,000超出部分20%；NT$2,660,001~NT$4,980,000超出部分30%；NT$4,980,000以上超出部分40%（共5档）。来源第二个URL中的8.5%、6%、21%等属扣缴率、扣除率或最低税负等特定税率，不得与主要5档累进税率混用。同时说明：「外籍居民（在台183天以上）与本地居民适用相同累进税率且对全球所得征税；非居民（183天以下）适用分离预提税」。须注明适用年度（如2024年所得）。",
+  },
+  za: {
+    ja: "【ZA税制制約】南アフリカの個人所得税（2025/2026課税年度）のソース根拠税率表（7段階）：R237,100以下18%・R237,101〜R370,500は26%（超過部分）・R370,501〜R512,800は31%・R512,801〜R673,000は36%・R673,001〜R857,900は39%・R857,901〜R1,817,000は41%・R1,817,000超45%。Primary rebate（一次税額控除、2025/26年度はR17,235等）が税額から差し引かれる仕組みも説明すること。ソースに記載の15%は非居住者の配当源泉税・20%は配当分離税等の別レートである可能性があるため文脈に合わせて使用すること。「2025/2026課税年度」と明記すること。",
+    en: "【ZA tax constraint】South Africa personal income tax for 2025/2026 tax year — from source (7 brackets): R0–R237,100: 18%; R237,101–R370,500: 26% on excess; R370,501–R512,800: 31% on excess; R512,801–R673,000: 36% on excess; R673,001–R857,900: 39% on excess; R857,901–R1,817,000: 41% on excess; above R1,817,000: 45% on excess. Also explain the rebate system: the Primary Rebate (R17,235 for 2025/26 tax year) is deducted from the calculated tax. The 15% in the source likely refers to non-resident dividend withholding tax and 20% to resident dividends tax — use these figures in the appropriate context. State '2025/2026 tax year'.",
+    zh: "【ZA税制约束】南非个人所得税（2025/2026税务年度）来源税率表（7档）：R237,100以下18%；R237,101~R370,500超出部分26%；R370,501~R512,800超出部分31%；R512,801~R673,000超出部分36%；R673,001~R857,900超出部分39%；R857,901~R1,817,000超出部分41%；R1,817,000以上45%。同时说明税额抵免制度：主要抵免额（Primary Rebate，2025/26税年为R17,235）从计算税额中扣除。来源中15%可能指非居民股息预提税，20%指居民股息税，须按各自文脉使用。须注明「2025/2026税务年度」。",
+  },
+  bg: {
+    ja: "【BG税制制約（知識ベース）】ブルガリアの個人所得税は一律10%のフラット税率（ZKPO/ZDDFLに基づく）。EU圏内でも最低水準の税率の一つ。居住者（年間183日超の滞在等の要件）の全世界所得に適用。配当所得は5%の源泉税（居住者）。税制ソースの取得が失敗しているため知識ベースのみで記述し、「2026年適用の標準税率として」と明記すること。最新情報はNRA（国家歳入庁 nra.bg）で確認するよう案内すること。",
+    en: "【BG tax constraint (knowledge-based)】Bulgaria applies a flat 10% personal income tax rate (under ZKPO/ZDDFLS), one of the lowest in the EU. This applies to the worldwide income of residents (generally those staying 183+ days per year). A separate 5% withholding tax applies to dividends for residents. Tax sources were unavailable; use knowledge-based figures only. State 'applicable rate for 2026' and direct readers to verify the latest rates at NRA (National Revenue Agency, nra.bg).",
+    zh: "【BG税制约束（知识库）】保加利亚个人所得税采用10%统一税率（依据ZKPO/ZDDFLS），是欧盟最低税率之一。适用于居民（通常为年内居留183天以上者）的全球所得。股息所得另征5%预提税（居民）。税制来源获取失败，以知识库补充，须注明「2026年适用税率」，并提示读者在NRA（国家税收局，nra.bg）核实最新信息。",
+  },
+  br: {
+    ja: "【BR税制制約】ブラジルの個人所得税（IRPF）の月次源泉徴収税率（ソース根拠、2025年適用）：R$2,824.00以下0%・R$2,824.01〜R$3,751.05は7.5%・R$3,751.06〜R$4,664.68は15%・R$4,664.69〜R$5,979.26は22.5%・R$5,979.26超27.5%（5段階）。ソースに記載の0.005%・1.5%・17.5%・20%・30%等はIOF（金融取引税）・その他税目の税率であり、個人所得税率（IRPF）として使用しないこと。なお2026年税制改正により年間R$60,000（月額R$5,000）以下は段階的に事実上免税となる見込みで、ソースに記載があれば触れてよい。適用年度を明記すること。",
+    en: "【BR tax constraint】Brazil personal income tax (IRPF) monthly withholding brackets from source (2025): R$0–R$2,824.00: 0%; R$2,824.01–R$3,751.05: 7.5%; R$3,751.06–R$4,664.68: 15%; R$4,664.69–R$5,979.26: 22.5%; above R$5,979.26: 27.5% (5 brackets). Values such as 0.005%, 1.5%, 17.5%, 20%, 30% in the source refer to IOF (Financial Operations Tax) and other tax categories — do NOT use them as IRPF rates. Also note: a 2026 tax reform plan would effectively exempt annual income up to R$60,000 (R$5,000/month) — mention this if it appears in the source. State the applicable year.",
+    zh: "【BR税制约束】巴西个人所得税（IRPF）月度预扣税率（来源数据，2025年适用）：R$2,824.00以下0%；R$2,824.01~R$3,751.05为7.5%；R$3,751.06~R$4,664.68为15%；R$4,664.69~R$5,979.26为22.5%；R$5,979.26以上27.5%（共5档）。来源中0.005%、1.5%、17.5%、20%、30%等属IOF（金融交易税）等其他税目税率，不得作为IRPF税率使用。另注：2026年税改计划拟将年收入R$60,000（月均R$5,000）以下实质性免税——如来源有载明可提及。须注明适用年度。",
+  },
+  cn: {
+    ja: "【CN税制制約】中国の居住者個人所得税（総合所得）の年間課税区分（ソース補完 + 知識ベース）：¥36,000以下3%・¥36,001〜¥144,000超部分10%・¥144,001〜¥300,000超部分20%・¥300,001〜¥420,000超部分25%・¥420,001〜¥660,000超部分30%・¥660,001〜¥960,000超部分35%・¥960,000超45%（7段階）。ソース（広東省税務局）に記載の1%・1.5%は個人所得税率ではなく（分類所得・源泉税・地方付加税等の別税目の可能性）、上記7段階の主要税率表には使用しないこと。居住者（1課税年度の中国国内滞在183日以上）は全世界所得課税、非居住者は中国源泉所得のみ課税となる構造も説明すること。「2025年所得基準」と明記すること。",
+    en: "【CN tax constraint】China resident personal income tax on comprehensive income uses annual brackets (source + knowledge): ¥0–¥36,000: 3%; ¥36,001–¥144,000: 10% on excess; ¥144,001–¥300,000: 20% on excess; ¥300,001–¥420,000: 25% on excess; ¥420,001–¥660,000: 30% on excess; ¥660,001–¥960,000: 35% on excess; above ¥960,000: 45% on excess (7 brackets). The 1% and 1.5% values in the Guangdong Tax Bureau source are NOT income tax brackets (likely from classified income, withholding, or local surtax items) — do NOT include them in the main 7-bracket table. Also explain: residents (183+ days in China per tax year) are taxed on worldwide income; non-residents are taxed only on China-sourced income. State '2025 income basis'.",
+    zh: "【CN税制约束】中国居民个人所得税（综合所得）年度税率区间（来源补充+知识库）：¥36,000以下3%；¥36,001~¥144,000超出部分10%；¥144,001~¥300,000超出部分20%；¥300,001~¥420,000超出部分25%；¥420,001~¥660,000超出部分30%；¥660,001~¥960,000超出部分35%；¥960,000以上45%（共7档）。来源（广东省税务局）中的1%、1.5%并非个人所得税率（可能为分类所得、预提税或地方附加税），不得列入上述7档主要税率表。同时说明：居民纳税人（一个纳税年度在华居留183天以上）就全球所得纳税；非居民仅就中国来源所得纳税。须注明「以2025年所得为基准」。",
+  },
+  co: {
+    ja: "【CO税制制約】コロンビアの自然人個人所得税はUVT（Unidad de Valor Tributario）基準のArt.241税率表（ソース根拠：DIAN 2022年度申告ガイド）：1,090 UVT以下0%・1,090〜1,700 UVT超部分19%・1,700〜4,100 UVT超部分28%・4,100〜8,670 UVT超部分33%・8,670〜18,970 UVT超部分35%・18,970〜31,000 UVT超部分37%・31,000 UVT超39%（7段階）。ソースに記載の25%・30%・40%・50%等は配当課税・adicional（追加税率）・その他の分類所得の可能性があり、主たる累進税率表には混在しないこと。UVTの年次換算額は毎年改定されるため閾値は「X UVT相当」として記載し、具体的なCOP金額は「DIAN（dian.gov.co）で最新UVT額を確認」と案内すること。ソースの基準年（2022年税年度）を明記すること。",
+    en: "【CO tax constraint】Colombia personal income tax for natural persons uses UVT (Unidad de Valor Tributario) based brackets per Art.241 (source: DIAN 2022 income tax guide): 0–1,090 UVT: 0%; 1,090–1,700 UVT: 19% on excess; 1,700–4,100 UVT: 28% on excess; 4,100–8,670 UVT: 33% on excess; 8,670–18,970 UVT: 35% on excess; 18,970–31,000 UVT: 37% on excess; above 31,000 UVT: 39% on excess (7 brackets). Values such as 25%, 30%, 40%, 50% in the source likely refer to dividends tax, additional surtax, or classified income — do not mix them into the main progressive rate table. Since the UVT amount is updated annually, express thresholds as 'X UVT equivalent' and direct readers to verify the current UVT rate at DIAN (dian.gov.co). State the source reference year (2022 tax year).",
+    zh: "【CO税制约束】哥伦比亚自然人个人所得税依据UVT（价值税收单位）第241条税率表（来源：DIAN 2022年所得申报指南）：0~1,090 UVT：0%；1,090~1,700 UVT超出部分19%；1,700~4,100 UVT超出部分28%；4,100~8,670 UVT超出部分33%；8,670~18,970 UVT超出部分35%；18,970~31,000 UVT超出部分37%；31,000 UVT以上39%（共7档）。来源中25%、30%、40%、50%可能属股息税、附加税或分类所得，不得与主要累进税率表混用。由于UVT金额每年更新，门槛以「X UVT当量」表述，并提示读者在DIAN（dian.gov.co）核实当前UVT金额。须注明来源基准年（2022税务年度）。",
+  },
+  id: {
+    ja: "【ID税制制約】インドネシアの個人所得税（PPh21・HPP法による2022年改正後）のソース根拠税率（5段階）：Rp60,000,000以下5%・Rp60,000,001〜Rp250,000,000超部分15%・Rp250,000,001〜Rp500,000,000超部分25%・Rp500,000,001〜Rp5,000,000,000超部分30%・Rp5,000,000,000超35%。居住者（1課税年度183日以上の滞在等の要件）は全世界所得に課税。ソースに記載の税率（5%・15%・25%・30%・35%）のみを根拠として使用し、他の数値はソース文脈に従って使用すること。適用年度を明記すること。",
+    en: "【ID tax constraint】Indonesia personal income tax (PPh21, post-2022 HPP Law reform) brackets from source (5 brackets): Rp0–Rp60,000,000: 5%; Rp60,000,001–Rp250,000,000: 15% on excess; Rp250,000,001–Rp500,000,000: 25% on excess; Rp500,000,001–Rp5,000,000,000: 30% on excess; above Rp5,000,000,000: 35% on excess. Residents (generally 183+ days in Indonesia per tax year) are taxed on worldwide income. Use ONLY the 5 bracket rates (5%, 15%, 25%, 30%, 35%) from the source. State the applicable tax year.",
+    zh: "【ID税制约束】印度尼西亚个人所得税（PPh21，2022年HPP法修订后）来源税率（5档）：Rp60,000,000以下5%；Rp60,000,001~Rp250,000,000超出部分15%；Rp250,000,001~Rp500,000,000超出部分25%；Rp500,000,001~Rp5,000,000,000超出部分30%；Rp5,000,000,000以上35%。居民纳税人（通常为一个税务年度在印尼居留183天以上）就全球所得纳税。仅使用来源中的5档税率（5%、15%、25%、30%、35%）。须注明适用年度。",
+  },
+  vn: {
+    ja: "【VN税制制約】ベトナムの個人所得税（TNCN）の居住者累進税率は2026年7月1日施行の改正法により7段階から5段階に変更。新5段階：60,000,000 VND以下5%・60,000,001〜120,000,000 VND超部分15%・120,000,001〜390,000,000 VND超部分25%・390,000,001〜1,080,000,000 VND超部分32%・1,080,000,000 VND超35%。ソース（GDT Waybackスナップショット2025年4月時点）に記載の2%という数値は所得税率ではなく（2025年4月時点は施行前）、上記新5段階の税率表を記述すること。「2026年7月1日施行の新5段階累進税率」として明記し、具体的な所得区分閾値の最新情報は税務総局（gdt.gov.vn）で確認するよう案内すること。",
+    en: "【VN tax constraint】Vietnam personal income tax (TNCN) for residents was reformed effective July 1, 2026, changing from 7 brackets to 5. New 5 brackets: VND0–VND60,000,000: 5%; VND60,000,001–VND120,000,000: 15% on excess; VND120,000,001–VND390,000,000: 25% on excess; VND390,000,001–VND1,080,000,000: 32% on excess; above VND1,080,000,000: 35% on excess. The 2% figure in the source (GDT Wayback snapshot April 2025) is NOT an income tax rate (the reform had not yet taken effect in April 2025). Use the new 5-bracket schedule above, and note: 'New 5-bracket progressive rate schedule, effective July 1, 2026'. Direct readers to verify the latest income thresholds at GDT (gdt.gov.vn).",
+    zh: "【VN税制约束】越南个人所得税（TNCN）居民累进税率自2026年7月1日起由7档改为5档。新5档：VND60,000,000以下5%；VND60,000,001~VND120,000,000超出部分15%；VND120,000,001~VND390,000,000超出部分25%；VND390,000,001~VND1,080,000,000超出部分32%；VND1,080,000,000以上35%。来源（GDT Wayback，2025年4月快照）中的2%并非所得税率（2025年4月时改革尚未生效）。请使用上述新5档税率表，并注明「2026年7月1日起施行的新5档累进税率」，同时提示读者在GDT（gdt.gov.vn）核实最新收入门槛。",
+  },
+  ar: {
+    ja: "【AR税制制約（知識ベース・ソースなし）】アルゼンチンの個人所得税（Impuesto a las Ganancias）は9段階の累進税率：5%・9%・12%・15%・19%・23%・27%・31%・35%。課税閾値（MNI・GANANCIAS NO IMPONIBLES等）はインフレ連動で四半期ごとに改定（Ley 27.430・Ley 27.617等に基づくAjuste por inflación）されるため、ペソ表記の具体的な金額は「改定幅が大きい」と案内し記載しないこと。「税率は5〜35%の9段階、閾値はCPI連動で定期改定」と記述すること。税制ソースは未登録のため知識ベースのみで記述し、最新情報はAFIP（連邦歳入庁 afip.gob.ar）または ARCA（新組織名）で確認するよう案内すること。",
+    en: "【AR tax constraint (knowledge-based, no source)】Argentina's personal income tax (Impuesto a las Ganancias) uses 9 progressive brackets: 5%, 9%, 12%, 15%, 19%, 23%, 27%, 31%, 35%. Income thresholds (MNI — Mínimo No Imponible and other deductions) are indexed quarterly to inflation (under Ley 27.430, Ley 27.617 and Ajuste por inflación rules) and change significantly, so do NOT state specific peso amounts — instead note: 'Brackets are adjusted periodically by CPI; verify current thresholds at AFIP/ARCA'. Describe the rate structure as: '9 progressive brackets ranging from 5% to 35%; thresholds are inflation-indexed'. No tax source is registered; use knowledge-based figures only. Direct readers to AFIP (afip.gob.ar) or ARCA (the newly restructured agency).",
+    zh: "【AR税制约束（知识库，无来源）】阿根廷个人所得税（Impuesto a las Ganancias）采用9档累进税率：5%、9%、12%、15%、19%、23%、27%、31%、35%。收入门槛（MNI等免税额）依CPI指数每季度调整（依据Ley 27.430、Ley 27.617及通胀调整机制），变动幅度大，不得写明具体比索金额，改为「税率为5~35%的9档累进制，门槛按CPI定期调整」。无税制来源，以知识库补充，并提示读者在AFIP（afip.gob.ar）或ARCA（新重组机构）核实最新信息。",
+  },
 };
 
 // 国別の追加制約（ソースの性質や構成上の注意点を補足）
@@ -531,7 +642,8 @@ async function generateVisaContent(
   const taxBlock = hasTaxSource
     ? `\n\n=== 税制参考資料（所得税率・控除額・税率区分は以下の数値のみを根拠にすること）===\n${taxSourceCtx!.text}\n=== 税制参考資料ここまで ===\n`
     : "";
-  const taxExtraConstraint = (hasTaxSource && countryCode)
+  // hasTaxSource の有無に関わらず適用（DEやBG等ソースなし国の知識ベース制約のため）
+  const taxExtraConstraint = countryCode
     ? (COUNTRY_TAX_EXTRA_CONSTRAINTS[countryCode]?.[lang] ?? "")
     : "";
   // ja/en/zh でそれぞれ税制指示を切り替え
@@ -544,13 +656,13 @@ async function generateVisaContent(
   const taxInstruction: Record<Lang, string> = {
     ja: hasTaxSource
       ? `所得税率・税率閾値は税制参考資料の数値のみを使用すること。税制参考資料にない税項目は「最新の税制は${countryName.ja}の税務当局または公式情報でご確認ください」と誘導すること。${centToPercentNote.ja}${taxExtraConstraint ? `\n${taxExtraConstraint}` : ""}`
-      : "ただし所得税率・税率閾値などの税制情報は参考資料に具体的な数字の記載がある場合のみ書くこと。参考資料にない場合は「最新の税制は移住先国の税務当局または公式情報でご確認ください」と案内するにとどめること。",
+      : `ただし所得税率・税率閾値などの税制情報は参考資料に具体的な数字の記載がある場合のみ書くこと。参考資料にない場合は「最新の税制は移住先国の税務当局または公式情報でご確認ください」と案内するにとどめること。${taxExtraConstraint ? `\n${taxExtraConstraint}` : ""}`,
     en: hasTaxSource
       ? `Income tax rates and brackets: use ONLY the figures from the tax reference source. For any tax items not covered in the tax source, write 'For current tax rates, please refer to the official tax authority of ${countryName.en}'. ${centToPercentNote.en}${taxExtraConstraint ? `\n${taxExtraConstraint}` : ""}`
-      : "For income tax rates and tax bracket thresholds: only write specific figures if they appear in the reference sources. If not sourced, write 'For current tax rates, please refer to the official tax authority of the destination country' instead of guessing figures.",
+      : `For income tax rates and tax bracket thresholds: only write specific figures if they appear in the reference sources. If not sourced, write 'For current tax rates, please refer to the official tax authority of the destination country' instead of guessing figures.${taxExtraConstraint ? `\n${taxExtraConstraint}` : ""}`,
     zh: hasTaxSource
       ? `所得税率、税率区间：仅使用税制参考资料中的数字。税制参考资料未涉及的税务项目，请引导至「请参阅${countryName.en}税务机关的官方信息」。${centToPercentNote.zh}${taxExtraConstraint ? `\n${taxExtraConstraint}` : ""}`
-      : "但所得税率、税率区间等税制信息，只有在参考资料中有明确数字时才可填写；若无来源，请改为「有关当前税率，请参阅目的国税务机关的官方信息」。",
+      : `但所得税率、税率区间等税制信息，只有在参考资料中有明确数字时才可填写；若无来源，请改为「有关当前税率，请参阅目的国税务机关的官方信息」。${taxExtraConstraint ? `\n${taxExtraConstraint}` : ""}`,
   };
 
   const prompts: Record<Lang, string> = {
