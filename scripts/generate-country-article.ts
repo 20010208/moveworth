@@ -81,9 +81,10 @@ function isSourceUseful(text: string): boolean {
 function isTaxSourceUseful(text: string): boolean {
   if (!text || text.length < 300) return false;
   const pcts = [
-    ...text.matchAll(/(\d+\.?\d*)\s*%/g),
+    // 通常表記（20%）および欧州式小数点表記（12,50% → 正規化して 12.50 として扱う）
+    ...text.matchAll(/(\d+[.,]?\d*)\s*%/g),
     ...text.matchAll(/(\d+\.?\d*)c for each \$1/g), // ATO セント表記対応
-  ].map(m => m[1]);
+  ].map(m => m[1].replace(",", "."));              // カンマ小数点を正規化
   const unique = new Set(pcts);
   return unique.size >= 2;
 }
@@ -167,6 +168,87 @@ async function fetchPageText(url: string, maxChars: number = MAX_CHARS_PER_SOURC
 
 type SourceRow = { url: string; purpose: string };
 
+// ドメイン名から日本語の機関名ラベルを生成する（country_sources に label カラムが追加された際はそちらを優先）
+const DOMAIN_LABEL_MAP: Record<string, string> = {
+  // AU
+  "immi.homeaffairs.gov.au": "オーストラリア内務省移民局",
+  "ato.gov.au": "オーストラリア税務局（ATO）",
+  // BE
+  "dofi.ibz.be": "ベルギー外国人局（DVZ/OE）",
+  "belgium.be": "ベルギー政府公式サイト",
+  "economischmigrant.be": "ベルギー経済移民情報",
+  "diplomatice.belgium.be": "在日ベルギー大使館",
+  "japan.diplomatie.belgium.be": "在日ベルギー大使館",
+  "employment.belgium.be": "ベルギー雇用・労働省",
+  "fin.belgium.be": "ベルギー財務省",
+  // EE
+  "politsei.ee": "エストニア警察・国境警備局",
+  "workinestonia.com": "Work in Estonia",
+  "smartsettlers.ee": "Smart Settlers Estonia",
+  "emta.ee": "エストニア税務・関税庁（EMTA）",
+  // GB
+  "gov.uk": "英国政府（GOV.UK）",
+  "britishcouncil.org": "ブリティッシュ・カウンシル",
+  "visitbritain.com": "VisitBritain",
+  "universitiesuk.ac.uk": "Universities UK",
+  // TH
+  "ltr.boi.go.th": "タイ投資委員会（BOI）LTR",
+  "ewp.doe.go.th": "タイ雇用局（DOE）就労許可",
+  "thaievisa.go.th": "タイ外務省 e-Visa",
+  "www.thailandprivilege.co.th": "Thailand Privilege",
+  "thailandprivilege.co.th": "Thailand Privilege",
+  "rd.go.th": "タイ歳入局（Revenue Department）",
+  // SG
+  "mom.gov.sg": "シンガポール労働省（MOM）",
+  "edb.gov.sg": "シンガポール経済開発庁（EDB）",
+  "ica.gov.sg": "シンガポール移民局（ICA）",
+  "iras.gov.sg": "シンガポール内国歳入庁（IRAS）",
+  // US
+  "uscis.gov": "米国移民局（USCIS）",
+  "my.uscis.gov": "米国移民局（USCIS）myUSCIS",
+  "irs.gov": "米国内国歳入庁（IRS）",
+  "dhs.gov": "米国国土安全保障省（DHS）",
+  "ed.gov": "米国教育省（ED）",
+  "jp.usembassy.gov": "在日米国大使館",
+  // MY
+  "mm2h.gov.my": "マレーシア観光省 MM2H",
+  "esd.imi.gov.my": "マレーシア移民局（IMI）ESD",
+  "mdec.my": "マレーシアデジタル経済公社（MDEC）",
+  "imigresen-online.imi.gov.my": "マレーシア移民局（IMI）オンライン",
+  "imi.gov.my": "マレーシア移民局（IMI）",
+  "talentcorp.com.my": "TalentCorp Malaysia",
+  "hasil.gov.my": "マレーシア内国歳入庁（HASiL）",
+  // PL
+  "gov.pl": "ポーランド政府（GOV.PL）",
+  "udsc.gov.pl": "ポーランド外国人局（UDSC）",
+  "paih.gov.pl": "ポーランド投資・貿易庁（PAIH）",
+  "welcomepoland.pl": "Welcome to Poland",
+  "podatki.gov.pl": "ポーランド税務局",
+  // Batch 2
+  "belastingdienst.nl": "オランダ税務・関税局（Belastingdienst）",
+  "impots.gouv.fr": "フランス財務省税務局（DGFiP）",
+  "agenziaentrate.gov.it": "イタリア歳入庁（Agenzia delle Entrate）",
+  "sede.agenciatributaria.gob.es": "スペイン国税庁（AEAT）",
+  "agenciatributaria.gob.es": "スペイン国税庁（AEAT）",
+  "info.portaldasfinancas.gov.pt": "ポルトガル税務・関税局（AT）",
+  "estv.admin.ch": "スイス連邦税務局（ESTV）",
+  "bmf.gv.at": "オーストリア財務省（BMF）",
+  "revenue.ie": "アイルランド歳入庁（Revenue）",
+  "canada.ca": "カナダ歳入庁（CRA）",
+  "ird.govt.nz": "ニュージーランド内国歳入局（IRD）",
+  "in.nts.go.kr": "韓国国税庁（NTS）",
+  "nts.go.kr": "韓国国税庁（NTS）",
+};
+
+function urlToLabel(url: string): string {
+  try {
+    const hostname = new URL(url).hostname.replace(/^www\./, "");
+    return DOMAIN_LABEL_MAP[hostname] ?? DOMAIN_LABEL_MAP[`www.${hostname}`] ?? hostname;
+  } catch {
+    return url;
+  }
+}
+
 async function getCountrySources(
   countryCode: string,
   purpose: "visa" | "study" | "tax"
@@ -207,7 +289,7 @@ async function buildSourceContext(
     })
   );
 
-  const refs = sources.map((s) => `- ${s.url}`).join("\n");
+  const refs = sources.map((s) => `- [${urlToLabel(s.url)}](${s.url})`).join("\n");
 
   if (fetched.length === 0) return { text: "", refs, isGrounded: false };
 
@@ -1220,7 +1302,8 @@ async function run() {
     category: "visa",
     published_at: today,
     reading_minutes: 12,
-    thumbnail,
+    // thumbnail が null（ローカルファイルなし）の場合はカラムを含めない → 既存 Storage URL を保護
+    ...(thumbnail !== null ? { thumbnail } : {}),
     title: { ja: visaJa.title, en: visaEn.title, zh: visaZh.title },
     description: {
       ja: visaJa.description,
