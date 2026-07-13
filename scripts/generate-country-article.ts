@@ -412,10 +412,14 @@ type Lang = "ja" | "en" | "zh";
 //     → 生成して draft 保存（is_published=false）。既存公開記事は上書きしない。
 //   npx tsx generate-country-article.ts [country_code] --publish-only
 //     → 再生成なし。既存 draft の is_published を true に切り替えるだけ。
+//   npx tsx generate-country-article.ts [country_code] --force-regenerate
+//     → 公開中記事も再生成する。成功時のみコンテンツ更新（is_published/published_at を保持）。
+//     → FALLBACK（ソースなし）時は既存公開コンテンツを保護して保存をスキップ。
 //   ※ --publish（再生成して公開）は廃止。レビューした内容と公開内容の同一性を保証するため。
 const _args = process.argv.slice(2);
 const forceCountryCode = _args.find((a) => !a.startsWith("--")) ?? null;
 const publishOnly = _args.includes("--publish-only");
+const forceRegen = _args.includes("--force-regenerate");
 
 if (_args.includes("--publish")) {
   console.error("❌ --publish は廃止されました。");
@@ -1360,14 +1364,22 @@ async function run() {
   }
 
   // 既存公開記事ガード: 公開中の visa 記事は上書きしない
+  // --force-regenerate 時は通過（ただし成功時のみ上書き、FALLBACK は保存スキップ）
+  let existingIsPublished = false;
+  let existingPublishedAt: string | null = null;
   {
     const { data: existingVisa } = await supabase
-      .from("blog_posts").select("is_published").eq("slug", visaSlug).maybeSingle();
-    if (existingVisa?.is_published) {
+      .from("blog_posts").select("is_published,published_at").eq("slug", visaSlug).maybeSingle();
+    existingIsPublished = existingVisa?.is_published ?? false;
+    existingPublishedAt = existingVisa?.published_at ?? null;
+    if (existingVisa?.is_published && !forceRegen) {
       console.warn(`⚠️  ${visaSlug} は現在公開中のためスキップします。`);
-      console.warn(`   再生成するには、先に Supabase で is_published=false にしてから実行してください。`);
+      console.warn(`   再生成するには: npx tsx generate-country-article.ts ${country.code} --force-regenerate`);
       console.warn(`   公開のみ切り替える場合: npx tsx generate-country-article.ts ${country.code} --publish-only`);
       process.exit(0);
+    }
+    if (existingVisa?.is_published && forceRegen) {
+      console.log(`ℹ️  [force-regenerate] ${visaSlug} は公開中。生成成功時のみコンテンツを更新し is_published を保持します。`);
     }
   }
 
@@ -1485,12 +1497,23 @@ async function run() {
   }
 
   // 生成は常に draft 保存（is_published=false）。
-  // 公開は --publish-only（フラグ切り替えのみ）で別途実行する。
-  const shouldPublish = false;
+  // --force-regenerate + 既存公開中 + grounded成功 の場合のみ is_published=true を保持。
+  // --force-regenerate + 既存公開中 + FALLBACK の場合は保存スキップ（既存コンテンツ保護）。
+  const shouldPublish = forceRegen && existingIsPublished && isVisaGrounded;
+  // published_at: force-regen で公開中記事の場合は既存日付を保持（再生成で日付がリセットされない）
+  const upsertPublishedAt = (forceRegen && existingIsPublished && existingPublishedAt)
+    ? existingPublishedAt
+    : today;
+
   if (isVisaGrounded) {
-    console.log(`📝 ${visaSlug}: source-grounded成功 → draft 保存`);
+    console.log(`📝 ${visaSlug}: source-grounded成功 → ${shouldPublish ? "公開状態を維持して" : "draft"} 保存`);
   }
 
+  // force-regen で既存公開中かつ FALLBACK → 既存コンテンツを保護して保存スキップ
+  if (forceRegen && existingIsPublished && !isVisaGrounded) {
+    console.warn(`⚠️  [force-regenerate SKIP] ${visaSlug}: FALLBACK生成のため既存公開コンテンツを保護します。保存をスキップ。`);
+    console.warn(`   ソースURL登録後に再試行してください。`);
+  } else {
   assertBlogPayload(
     { title: { ja: visaJa.title, en: visaEn.title, zh: visaZh.title },
       description: { ja: visaJa.description, en: visaEn.description, zh: visaZh.description },
@@ -1501,7 +1524,7 @@ async function run() {
   const { error: visaError } = await supabase.from("blog_posts").upsert({
     slug: visaSlug,
     category: "visa",
-    published_at: today,
+    published_at: upsertPublishedAt,
     reading_minutes: 12,
     // thumbnail が null（ローカルファイルなし）の場合はカラムを含めない → 既存 Storage URL を保護
     ...(thumbnail !== null ? { thumbnail } : {}),
@@ -1522,6 +1545,7 @@ async function run() {
     process.exit(1);
   }
   console.log(shouldPublish ? `✅ Visa article published: ${visaSlug}` : `📝 Visa article saved as draft: ${visaSlug}`);
+  } // end: force-regen FALLBACK skip guard else
 
   // --- Study article (ja/en) ---
   console.log("Generating study article...");
