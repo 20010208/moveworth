@@ -394,6 +394,26 @@ const COUNTRY_TAX_EXTRA_CONSTRAINTS: Partial<Record<string, Record<Lang, string>
     en: "【AU tax constraint】The ATO page lists tax rates for multiple years (2020 to present). Use ONLY the rates from 'Resident tax rates 2025–26'. Do NOT use rates from any earlier year (2023-24 or before, which show 19%, 32.5% etc.).",
     zh: "【AU税制约束】ATO页面列出了多个年度（2020年至今）的税率。仅使用「2025–26财年居民税率」的数据。严禁使用任何早期年度（2023-24年度及以前，如19%、32.5%等）的税率。",
   },
+  nl: {
+    ja: "【NL税制制約】オランダのBox 1税率（ソースに記載の36.97%・49.50%等）は、所得税と国民保険料（AOW・ANW・Wlz等の sociale premies）が合算された税率である。記事中に必ず「この税率には国民保険料が含まれる」旨を明記すること。税率の適用年度（例：2025年所得）も明記すること。Box 2（配当）・Box 3（貯蓄・投資）の税率はソースにあれば簡潔に触れてよい。",
+    en: "【NL tax constraint】The Dutch Box 1 tax rates shown in the source (e.g. 36.97%, 49.50%) are combined rates that include income tax AND national insurance premiums (sociale premies: AOW, ANW, Wlz etc.). The article MUST explicitly state that these rates include national insurance premiums. Also state the applicable tax year (e.g. 2025 income). Box 2 (dividends) and Box 3 (savings/investments) rates may be briefly mentioned if in the source.",
+    zh: "【NL税制约束】来源中显示的荷兰Box 1税率（如36.97%、49.50%）是所得税与国民保险保费（sociale premies：AOW、ANW、Wlz等）合并后的税率。文章中必须明确注明「该税率包含国民保险保费」。同时须注明适用年度（如2025年所得）。如来源中有Box 2（股息）和Box 3（储蓄/投资）的税率，可简要提及。",
+  },
+  ca: {
+    ja: "【CA税制制約】カナダの所得税は連邦税と州・準州税の二層構造である。ソースには連邦税率（15%・20.5%・26%・29%・33%の5段階）と州別税率が含まれる場合があるが、記事では連邦税率の5段階のみを表形式で記載し、「州・準州税が別途加算されるため実効税率は異なる」旨の注記を必ず添えること。州別税率を全件列挙しないこと。適用年度（例：2026年所得）を明記すること。",
+    en: "【CA tax constraint】Canada uses a two-tier system of federal + provincial/territorial taxes. The source may contain both federal rates (5 brackets: 15%, 20.5%, 26%, 29%, 33%) and provincial rates. In the article, show ONLY the federal 5-bracket table and add a mandatory note that 'provincial/territorial taxes are added on top, so the effective rate varies by province'. Do NOT list all provincial rates. State the applicable tax year (e.g. 2026 income).",
+    zh: "【CA税制约束】加拿大采用联邦税+省/地区税的双层结构。来源中可能包含联邦税率（5级：15%、20.5%、26%、29%、33%）和各省税率。文章中仅展示联邦税率5级表格，并必须附注「省/地区税另行叠加，实际税率因省份而异」。不得逐一列举所有省份税率。须注明适用年度（如2026年所得）。",
+  },
+  it: {
+    ja: "【IT税制制約】イタリアのIRPEF税率は2025年（2025年所得・2026年申告）から第2税率が35%から33%に変更された。ソース原文に33%が記載されていれば新版、35%が記載されていれば旧スナップショットである。ソースに記載のある数値のみを使用すること。適用年度を必ず明記すること。",
+    en: "【IT tax constraint】Italy's IRPEF second bracket rate was reduced from 35% to 33% starting from 2025 (income year 2025, filed in 2026). If the source shows 33%, it is the current version; if it shows 35%, it is an older snapshot. Use ONLY the figures in the source. Always state the applicable tax year.",
+    zh: "【IT税制约束】意大利IRPEF第二档税率已从35%下调至33%，自2025年（2025年所得，2026年申报）起适用。若来源显示33%，为最新版本；若显示35%，则为旧快照。仅使用来源中的数值。必须注明适用年度。",
+  },
+  fr: {
+    ja: "【FR税制制約】フランスの所得税は前年所得（N-1年）に対して課税される構造である。ソースに5段階税率（0%・11%・30%・41%・45%）が記載されていれば、それをソース根拠として使用すること。「前年所得への課税」の仕組みはソースに記載があれば簡潔に触れてよい。適用年度（例：2024年所得・2025年課税等）を明記すること。",
+    en: "【FR tax constraint】France taxes income on a prior-year basis (income of year N-1 is taxed in year N). If the source lists 5 tax brackets (0%, 11%, 30%, 41%, 45%), use those figures as-is. The prior-year taxation structure may be briefly mentioned if it appears in the source. State the applicable income year (e.g. 2024 income, taxed in 2025).",
+    zh: "【FR税制约束】法国所得税按上一年度所得（N-1年）计征。若来源列出5级税率（0%、11%、30%、41%、45%），则直接引用该数据。如来源中提及上年度征税机制，可简要说明。须注明适用所得年度（如2024年所得，2025年征税）。",
+  },
 };
 
 // 国別の追加制約（ソースの性質や構成上の注意点を補足）
