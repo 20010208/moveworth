@@ -80,11 +80,15 @@ function isSourceUseful(text: string): boolean {
 // ATO 等のセント表記（"16c for each $1"）も税率として扱う（% 表記と等価）。
 function isTaxSourceUseful(text: string): boolean {
   if (!text || text.length < 300) return false;
+  // 個人所得税なし宣言（UAE等）: 政府ページが「所得税なし」を明示 → 有用
+  if (/does not levy income tax|no personal income tax|there is no.*income tax|income tax.*is not.*levied/i.test(text)) return true;
   const pcts = [
     // 通常表記（20%）および欧州式小数点表記（12,50% → 正規化して 12.50 として扱う）
     ...text.matchAll(/(\d+[.,]?\d*)\s*%/g),
-    ...text.matchAll(/(\d+\.?\d*)c for each \$1/g), // ATO セント表記対応
-  ].map(m => m[1].replace(",", "."));              // カンマ小数点を正規化
+    ...text.matchAll(/(\d+\.?\d*)c for each \$1/g),     // ATO セント表記対応
+    ...text.matchAll(/(\d+[.,]?\d*)\s*procent\b/gi),    // スウェーデン語等 "procent" 表記
+    ...text.matchAll(/(\d+[.,]?\d*)\s*prosent\b/gi),    // ノルウェー語 "prosent" 表記
+  ].map(m => m[1].replace(",", "."));                   // カンマ小数点を正規化
   const unique = new Set(pcts);
   return unique.size >= 2;
 }
@@ -238,6 +242,15 @@ const DOMAIN_LABEL_MAP: Record<string, string> = {
   "ird.govt.nz": "ニュージーランド内国歳入局（IRD）",
   "in.nts.go.kr": "韓国国税庁（NTS）",
   "nts.go.kr": "韓国国税庁（NTS）",
+  // Batch 3
+  "skatteverket.se": "スウェーデン税務庁（Skatteverket）",
+  "skatteetaten.no": "ノルウェー税務局（Skatteetaten）",
+  "skat.dk": "デンマーク税務庁（Skattestyrelsen）",
+  "portal.gov.cz": "チェコ政府ポータル（portal.gov.cz）",
+  "porezna-uprava.gov.hr": "クロアチア税務局（Porezna uprava）",
+  "aade.gr": "ギリシャ独立歳入庁（AADE）",
+  "mtca.gov.mt": "マルタ税関歳入庁（MTCA）",
+  "u.ae": "UAE政府公式ポータル（u.ae）",
 };
 
 function urlToLabel(url: string): string {
@@ -347,6 +360,14 @@ const COUNTRY_QUEUE = [
   { code: "ie", name: { ja: "アイルランド", en: "Ireland" } },
   { code: "ca", name: { ja: "カナダ", en: "Canada" } },
   { code: "kr", name: { ja: "韓国", en: "South Korea" } },
+  // バッチ3
+  { code: "se", name: { ja: "スウェーデン", en: "Sweden" } },
+  { code: "no", name: { ja: "ノルウェー", en: "Norway" } },
+  { code: "dk", name: { ja: "デンマーク", en: "Denmark" } },
+  { code: "cz", name: { ja: "チェコ", en: "Czech Republic" } },
+  { code: "gr", name: { ja: "ギリシャ", en: "Greece" } },
+  { code: "mt", name: { ja: "マルタ", en: "Malta" } },
+  { code: "ae", name: { ja: "アラブ首長国連邦", en: "United Arab Emirates" } },
 ];
 
 type Lang = "ja" | "en" | "zh";
@@ -421,6 +442,46 @@ const COUNTRY_TAX_EXTRA_CONSTRAINTS: Partial<Record<string, Record<Lang, string>
     ja: "【FR税制制約】フランスの所得税は前年所得（N-1年）に対して課税される構造である。ソースに5段階税率（0%・11%・30%・41%・45%）が記載されていれば、それをソース根拠として使用すること。「前年所得への課税」の仕組みはソースに記載があれば簡潔に触れてよい。適用年度（例：2024年所得・2025年課税等）を明記すること。",
     en: "【FR tax constraint】France taxes income on a prior-year basis (income of year N-1 is taxed in year N). If the source lists 5 tax brackets (0%, 11%, 30%, 41%, 45%), use those figures as-is. The prior-year taxation structure may be briefly mentioned if it appears in the source. State the applicable income year (e.g. 2024 income, taxed in 2025).",
     zh: "【FR税制约束】法国所得税按上一年度所得（N-1年）计征。若来源列出5级税率（0%、11%、30%、41%、45%），则直接引用该数据。如来源中提及上年度征税机制，可简要说明。须注明适用所得年度（如2024年所得，2025年征税）。",
+  },
+  se: {
+    ja: "【SE税制制約】スウェーデンの所得税は「自治体所得税（kommunal inkomstskatt）」と「国税（statlig inkomstskatt）」の二層構造である。ソースに記載の2026年自治体税平均は約32.38%（自治体により異なる）。課税所得643,000 SEK超の部分には国税20%が別途加算される。「自治体税のみ」または「国税のみ」の記載は不可。必ず両層の構造を説明し、合計税率の概算を記載すること。適用年度（例：2026年所得）を明記すること。ソース原文はスウェーデン語で「X procent」表記を使用しているが、記事では「X%」に変換して記載すること。",
+    en: "【SE tax constraint】Sweden uses a two-tier income tax system: municipal tax (kommunal inkomstskatt, approximately 32.38% average in 2026, varies by municipality) plus national tax (statlig inkomstskatt, 20% on income above approximately SEK 643,000). Never describe only one tier in isolation. Always explain both tiers and provide approximate combined rates. State the applicable tax year (e.g. 2026 income). The source uses Swedish 'procent' notation — convert to '%' in the article.",
+    zh: "【SE税制约束】瑞典采用「市政所得税（kommunal inkomstskatt，2026年平均约32.38%，因市而异）」加「国家所得税（statlig inkomstskatt，应税所得超643,000 SEK的部分加征20%）」的双层结构。不得仅描述其中一层。须同时说明两层结构并给出综合税率概算。须注明适用年度（如2026年所得）。来源使用瑞典语'procent'，文章中统一换算为'%'。",
+  },
+  no: {
+    ja: "【NO税制制約】ノルウェーの所得税は「一般所得税（alminnelig inntektsskatt、22%）」と「ブラケット税（trinnskatt）」の加算構造である。ソースに記載のブラケット税は所得水準に応じて段階的に加算され（例：1.7%・4.0%・13.7%・16.8%・17.8%等）、一般所得税22%との合算で実効税率が決まる。ブラケット税単独を所得税率として記述することは不可。「一般所得税22%にブラケット税が加算される」という構造を必ず明記し、適用年度を記載すること。",
+    en: "【NO tax constraint】Norway uses an additive income tax system: general income tax (alminnelig inntektsskatt, 22%) plus bracket tax (trinnskatt, progressive surcharge with rates such as 1.7%, 4.0%, 13.7%, 16.8%, 17.8% etc. depending on income). Do NOT present bracket tax rates in isolation as if they were the complete income tax rate. Always explain the additive structure (22% + bracket tax), and state the applicable tax year.",
+    zh: "【NO税制约束】挪威所得税采用「一般所得税（22%）」加「累进附加税（trinnskatt，按所得水平分阶：1.7%、4.0%、13.7%、16.8%、17.8%等）」的叠加结构。不得单独以累进附加税税率代表所得税率。须明确说明两者叠加关系（22%+累进附加税），并注明适用年度。",
+  },
+  dk: {
+    ja: "【DK税制制約】デンマークの所得税は国税ブラケット（基礎税率12.01%・中間税率7.5%・上位税率7.5%・追加上位税率5%等、ソース記載の数値を使用）と、自治体ごとに異なる地方税の合算で構成される。「地方税が別途加算されるため実効税率は自治体ごとに異なる」旨を必ず明記すること。適用年度（例：2026年所得）を明記すること。",
+    en: "【DK tax constraint】Denmark's income tax comprises national tax brackets (e.g. bottom bracket 12.01%, middle 7.5%, top 7.5%, additional top 5% — use the figures in the source) plus local municipal tax which varies by municipality. Always note that 'local tax is added on top, so the effective rate varies by municipality'. State the applicable tax year.",
+    zh: "【DK税制约束】丹麦所得税由国家税率阶梯（如基础12.01%、中间7.5%、上位7.5%、附加上位5%——使用来源中的数值）加上因市而异的地方税构成。须注明「地方税另行叠加，实际税率因市而异」。须注明适用年度。",
+  },
+  hr: {
+    ja: "【HR税制制約】クロアチアの所得税率は自治体（市・郡）が設定する。ソースに記載の低税率帯（15〜23%）と高税率帯（25〜33%）の範囲で各自治体が独自に設定し、未設定の自治体には標準税率20%（低所得）および30%（高所得）が適用される。「税率は自治体ごとに異なり、未設定の場合は標準税率20%/30%が適用される」旨を必ず明記すること。適用年度を明記すること。",
+    en: "【HR tax constraint】Croatia's income tax rates are set by individual municipalities. Lower bracket rates range from 15–23% and higher bracket rates from 25–33% (use the figures in the source). Municipalities that have not set their own rates default to the standard rates of 20% (lower) and 30% (higher). Always note: 'rates vary by municipality; the default standard rates are 20%/30%'. State the applicable tax year.",
+    zh: "【HR税制约束】克罗地亚所得税率由各市政当局自行设定。低税档范围15%~23%，高税档范围25%~33%（使用来源数值）。未自行设定税率的市政当局适用标准税率20%（低税档）/30%（高税档）。须注明「税率因市政当局而异，未设定者适用标准税率20%/30%」。须注明适用年度。",
+  },
+  ae: {
+    ja: "【AE税制制約】UAEは個人所得税を課していない。ソース（UAE政府公式ポータルu.ae）に「The UAE does not levy income tax on individuals」と明記されている。この事実をソース根拠として「個人所得税なし」を簡潔・明確に記載すること。VAT（5%）は消費税であり所得税とは性質が異なる旨を補足してよい。税率表の記載は不要。",
+    en: "【AE tax constraint】The UAE does not levy income tax on individuals, as explicitly stated on the UAE government official portal (u.ae). Present this as a source-grounded fact. You may briefly note that VAT of 5% applies to goods and services (it is a consumption tax, not income tax). No income tax bracket table is needed.",
+    zh: "【AE税制约束】阿联酋不对个人征收所得税，这一事实已在UAE政府官方门户网站（u.ae）明确载明。请以来源为根据，简洁明确地写明「无个人所得税」。可简要补充增值税（VAT，5%）是消费税而非所得税。无需列示税率表。",
+  },
+  cz: {
+    ja: "【CZ税制制約】チェコの個人所得税はソースに記載の税率（例：15%・23%等）を根拠として使用すること。ソースに記載の控除・免除の仕組みについても触れてよい。適用年度を明記すること。",
+    en: "【CZ tax constraint】Use the income tax rates stated in the source (e.g. 15%, 23%). You may also mention deductions or exemptions described in the source. State the applicable tax year.",
+    zh: "【CZ税制约束】使用来源中列明的个人所得税率（如15%、23%等）。可提及来源中描述的扣除和豁免机制。须注明适用年度。",
+  },
+  gr: {
+    ja: "【GR税制制約】ギリシャの所得税率はソースに記載の税率表（5段階：9%・22%・28%・36%・44%等）を根拠として使用すること。非居住者向けの特別税率や優遇税制がソースにあれば言及してよい。適用年度を明記すること。",
+    en: "【GR tax constraint】Use the income tax rate schedule stated in the source (e.g. 5 brackets: 9%, 22%, 28%, 36%, 44%). Non-resident special rates or incentive regimes may be mentioned if in the source. State the applicable tax year.",
+    zh: "【GR税制约束】使用来源中列明的个人所得税率表（如5档：9%、22%、28%、36%、44%）。如来源中有非居民特别税率或优惠税制，可予提及。须注明适用年度。",
+  },
+  mt: {
+    ja: "【MT税制制約】マルタの個人所得税は3〜4段階の累進税率（ソースに記載の0%・15%・25%・35%等）で構成される。独身者・既婚者・父母世帯で適用税率表が異なる場合はその旨を記載。ソースに記載のある税率のみを使用し、適用年度を明記すること。",
+    en: "【MT tax constraint】Malta's personal income tax uses 3–4 progressive brackets (e.g. 0%, 15%, 25%, 35% from the source). Different rate schedules apply to single persons, married couples, and parent computation — note this if in the source. Use only figures stated in the source. State the applicable tax year.",
+    zh: "【MT税制约束】马耳他个人所得税采用3~4档累进税率（来源中列明的0%、15%、25%、35%等）。单身、已婚和有子女纳税人适用不同税率表——如来源有载明，请予注明。仅使用来源中的数值，并注明适用年度。",
   },
 };
 
