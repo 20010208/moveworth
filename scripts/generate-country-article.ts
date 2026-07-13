@@ -413,9 +413,9 @@ const COUNTRY_TAX_EXTRA_CONSTRAINTS: Partial<Record<string, Record<Lang, string>
     zh: "【CA税制约束】加拿大采用联邦税+省/地区税的双层结构。来源中可能包含联邦税率（5级：15%、20.5%、26%、29%、33%）和各省税率。文章中仅展示联邦税率5级表格，并必须附注「省/地区税另行叠加，实际税率因省份而异」。不得逐一列举所有省份税率。须注明适用年度（如2026年所得）。",
   },
   it: {
-    ja: "【IT税制制約】イタリアのIRPEF税率は2025年（2025年所得・2026年申告）から第2税率が35%から33%に変更された。ソース原文に33%が記載されていれば新版、35%が記載されていれば旧スナップショットである。ソースに記載のある数値のみを使用すること。適用年度を必ず明記すること。",
-    en: "【IT tax constraint】Italy's IRPEF second bracket rate was reduced from 35% to 33% starting from 2025 (income year 2025, filed in 2026). If the source shows 33%, it is the current version; if it shows 35%, it is an older snapshot. Use ONLY the figures in the source. Always state the applicable tax year.",
-    zh: "【IT税制约束】意大利IRPEF第二档税率已从35%下调至33%，自2025年（2025年所得，2026年申报）起适用。若来源显示33%，为最新版本；若显示35%，则为旧快照。仅使用来源中的数值。必须注明适用年度。",
+    ja: "【IT税制制約】イタリアのIRPEF税率は2025年予算法（Legge n.207/2024）により第2税率が35%から33%に引き下げられた（2025年所得・2026年申告から適用）。ソースページには「ATTENZIONE: la legge ... a seconda aliquota dell'Irpef dal 35 al 33 per cento」という注記がある。この注記は法改正を確認するものであり、メイン表に35%と表示されていても、2025年度以降の適用税率は33%である。記事では2025年所得に適用される税率として23%・33%・43%の3段階を記載し、「2025年度予算法により第2税率は35%から33%に引き下げ（2025年所得・2026年申告から適用）」と明記すること。",
+    en: "【IT tax constraint】Italy's 2025 Budget Law (Legge n.207/2024) reduced the IRPEF second bracket rate from 35% to 33%, effective for income year 2025 (filed in 2026). The source page contains an ATTENZIONE note stating the law changed the second bracket 'dal 35 al 33 per cento'. Even if the main table still shows 35%, the legally applicable rate for 2025 income is 33%. Show the 2025 rates as three brackets: 23%, 33%, 43%, and explicitly note 'Under the 2025 Budget Law, the second bracket was reduced from 35% to 33% (applicable from income year 2025, filed in 2026)'.",
+    zh: "【IT税制约束】意大利2025年预算法（Legge n.207/2024）将IRPEF第二档税率从35%下调至33%，自2025年所得（2026年申报）起适用。来源页面的ATTENZIONE注记确认该法律更改了第二档税率「dal 35 al 33 per cento」。即使主表仍显示35%，2025年所得的法定税率为33%。文章应按三档（23%、33%、43%）列示2025年税率，并注明「2025年预算法将第二档税率从35%下调至33%（自2025年所得、2026年申报起适用）」。",
   },
   fr: {
     ja: "【FR税制制約】フランスの所得税は前年所得（N-1年）に対して課税される構造である。ソースに5段階税率（0%・11%・30%・41%・45%）が記載されていれば、それをソース根拠として使用すること。「前年所得への課税」の仕組みはソースに記載があれば簡潔に触れてよい。適用年度（例：2024年所得・2025年課税等）を明記すること。",
