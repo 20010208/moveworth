@@ -39,7 +39,14 @@ function sliceWithLog(text: string, url: string, maxChars: number): string {
 }
 
 function stripHtml(html: string): string {
-  return html
+  // <main> または <article> タグが存在する場合、その内容を優先的に使用する。
+  // ナビゲーション・ヘッダー・フッターを自動的に除外し、偽陽性判定を減らす。
+  // タグが存在しない場合（HaSiLなど）はHTML全体を使用する（後退安全）。
+  const mainMatch = html.match(/<main[\s\S]*?>([\s\S]*?)<\/main>/i);
+  const articleMatch = html.match(/<article[\s\S]*?>([\s\S]*?)<\/article>/i);
+  const content = mainMatch?.[1] ?? articleMatch?.[1] ?? html;
+
+  return content
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
     .replace(/<style[\s\S]*?<\/style>/gi, " ")
     .replace(/<[^>]+>/g, " ")
@@ -70,9 +77,13 @@ function isSourceUseful(text: string): boolean {
 // isSourceUseful のような汎用パターンではなく、2 種類以上の異なる % 値の存在を必須とする。
 // これにより「ナビゲーション内の 1 つの % でヒットしてUSEFUL判定、しかし税率表はカット済み」
 // という乖離を防ぐ。isSourceUseful にはフォールバックしない。
+// ATO 等のセント表記（"16c for each $1"）も税率として扱う（% 表記と等価）。
 function isTaxSourceUseful(text: string): boolean {
   if (!text || text.length < 300) return false;
-  const pcts = [...text.matchAll(/(\d+\.?\d*)\s*%/g)].map(m => m[1]);
+  const pcts = [
+    ...text.matchAll(/(\d+\.?\d*)\s*%/g),
+    ...text.matchAll(/(\d+\.?\d*)c for each \$1/g), // ATO セント表記対応
+  ].map(m => m[1]);
   const unique = new Set(pcts);
   return unique.size >= 2;
 }
