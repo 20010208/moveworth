@@ -238,7 +238,8 @@ const DOMAIN_LABEL_MAP: Record<string, string> = {
   "estv.admin.ch": "スイス連邦税務局（ESTV）",
   "bmf.gv.at": "オーストリア財務省（BMF）",
   "revenue.ie": "アイルランド歳入庁（Revenue）",
-  "canada.ca": "カナダ歳入庁（CRA）",
+  // canada.ca は purpose 別に urlToLabel() で分岐（下記）
+
   "ird.govt.nz": "ニュージーランド内国歳入局（IRD）",
   "in.nts.go.kr": "韓国国税庁（NTS）",
   "nts.go.kr": "韓国国税庁（NTS）",
@@ -275,7 +276,17 @@ const DOMAIN_LABEL_MAP: Record<string, string> = {
 
 function urlToLabel(url: string): string {
   try {
-    const hostname = new URL(url).hostname.replace(/^www\./, "");
+    const parsed = new URL(url);
+    const hostname = parsed.hostname.replace(/^www\./, "");
+    const path = parsed.pathname;
+
+    // canada.ca: path で IRCC（移民）/ CRA（税務）を分岐
+    if (hostname === "canada.ca") {
+      if (/\/revenue-agency|\/cra\b/i.test(path)) return "カナダ歳入庁（CRA）";
+      if (/\/immigration|\/refugees|\/ircc/i.test(path)) return "カナダ移民・難民・市民権省（IRCC）";
+      return "カナダ政府（canada.ca）";
+    }
+
     return DOMAIN_LABEL_MAP[hostname] ?? DOMAIN_LABEL_MAP[`www.${hostname}`] ?? hostname;
   } catch {
     return url;
@@ -344,6 +355,7 @@ const COUNTRY_QUEUE = [
   { code: "hr", name: { ja: "クロアチア", en: "Croatia" } },
   { code: "hu", name: { ja: "ハンガリー", en: "Hungary" } },
   { code: "ro", name: { ja: "ルーマニア", en: "Romania" } },
+  { code: "fi", name: { ja: "フィンランド", en: "Finland" } },
   { code: "bg", name: { ja: "ブルガリア", en: "Bulgaria" } },
   { code: "rs", name: { ja: "セルビア", en: "Serbia" } },
   { code: "me", name: { ja: "モンテネグロ", en: "Montenegro" } },
@@ -592,6 +604,21 @@ const COUNTRY_TAX_EXTRA_CONSTRAINTS: Partial<Record<string, Record<Lang, string>
     ja: "【VN税制制約】ベトナムの個人所得税（TNCN）について、登録済み税制ソース（tuyenquang.gdt.gov.vn）はニュース・お知らせページであり税率表を含まない。税務総局（gdt.gov.vn）の公式ポータルはJavaScript必須SPAのため取得不可。ソースに根拠となる税率表がないため、税制セクションには具体的な税率（%）や所得区分の閾値を一切記載しないこと。代わりに「最新の税率・所得区分は税務総局（gdt.gov.vn）または在住地の税務署でご確認ください」と案内するにとどめること。「知識ベースの推測値」で税率を補うことも禁止。",
     en: "【VN tax constraint】The registered Vietnam tax source (tuyenquang.gdt.gov.vn) is a news/announcement page and does not contain a tax rate table. The official GDT portal (gdt.gov.vn) is a JavaScript-required SPA and cannot be retrieved. Since no source-grounded rate table is available, do NOT include any specific tax rate percentages or income bracket thresholds in the tax section. Instead, only write: 'For the latest income tax rates and brackets, please consult the General Department of Taxation (gdt.gov.vn) or your local tax office.' Do NOT fill in rates from general knowledge as substitutes.",
     zh: "【VN税制约束】已注册的越南税制来源（tuyenquang.gdt.gov.vn）为新闻/公告页面，不含税率表。税务总局（gdt.gov.vn）官方门户为JavaScript必要型SPA，无法获取。由于没有来源支持的税率表，税制章节中不得写入任何具体税率（%）或收入分档门槛。仅写明：「最新税率及收入分档，请咨询税务总局（gdt.gov.vn）或当地税务局」。禁止以知识库推测值补写税率。",
+  },
+  hu: {
+    ja: "【HU税制制約（知識ベース補完：njt.jog.gov.huはハンガリー所得税法全文（690k文字）のためトークン超過・制約ベースで補完）】ハンガリーの個人所得税は15%のフラット税率（1995年CXVII法・第8条第1項：「az adóalap 15 százaléka」）。課税対象は給与所得・事業所得・配当等の全所得。特別社会保険料（TB等）が別途加算されるが税率構造はシンプル。「15%フラット税率（2026年適用）、1995年CXVII法第8条に基づく。社会保険料は別途。最新情報はhun-tax.hu等またはNAV（nav.gov.hu）で確認のこと」と明記すること。ソースはnjt.jog.gov.hu（ハンガリー公式法令DB）に登録済みだが本文が大容量のため制約ベース補完。",
+    en: "【HU tax constraint (knowledge-based: njt.jog.gov.hu is the full Hungarian income tax law at 690k chars — too large for context; constraint-based)】Hungary applies a flat 15% personal income tax rate (1995 Act CXVII, Article 8(1): 'az adóalap 15 százaléka' — '15 percent of the tax base'). Applies to employment income, business income, dividends, and other income. Social security contributions are levied in addition (but are separate from the income tax). State: '15% flat income tax rate (2026 applicable), based on 1995 Act CXVII Article 8. Social security contributions are levied separately. Verify current details at NAV (nav.gov.hu)'.",
+    zh: "【HU税制约束（知识库补充：njt.jog.gov.hu为匈牙利所得税法全文（690k字符），超出上下文限制，以约束补充）】匈牙利个人所得税采用15%统一税率（1995年第CXVII号法第8条第1款：「az adóalap 15 százaléka」——「税基的15%」）。适用于工资、经营所得、股息及其他所得。社会保险缴费另行征收（与所得税分离）。须注明：「15%统一所得税率（2026年适用），依据1995年第CXVII号法第8条。社会保险缴费另行征收。详情请参阅NAV（nav.gov.hu）」。",
+  },
+  fi: {
+    ja: "【FI税制制約（知識ベース補完：vero.fiはJS描画のため税率表取得不可）】フィンランドの国税所得税（Valtion tuloveroasteikko 2026）は以下の5段階累進表：€22,000以下は12.64%・€22,001〜€32,600の超過部分19.00%・€32,601〜€40,100の超過部分30.25%・€40,101〜€52,100の超過部分33.25%・€52,100超の超過部分37.50%。ただしこれは国税のみ。別途、各自治体が設定する地方税（kunnallisvero、全国平均約20〜24%）が全所得に対して加算されるため、実効税率は国税＋地方税の合算となり、高所得者では50%超になる場合もある。「国税に加え地方税（自治体税）が別途加算される。2026年適用のvero.fi（フィンランド税務局）公式表を参照」と必ず明記すること。",
+    en: "【FI tax constraint (knowledge-based: vero.fi is JS-rendered, rate table unavailable)】Finland national income tax (Valtion tuloveroasteikko 2026), 5 progressive brackets: €0–€22,000: 12.64%; €22,001–€32,600: 19.00% on excess; €32,601–€40,100: 30.25% on excess; €40,101–€52,100: 33.25% on excess; above €52,100: 37.50% on excess. IMPORTANT: this is state (national) tax only. Municipal income tax (kunnallisvero), averaging approximately 20–24% nationally (varies by municipality), is levied in addition on all income. Combined effective rates for higher incomes can exceed 50%. Always note: 'Municipal income tax is levied in addition to state income tax. Figures apply to 2026 (source: vero.fi — Finnish Tax Administration)'.",
+    zh: "【FI税制约束（知识库补充：vero.fi为JS渲染，税率表不可获取）】芬兰国家所得税（Valtion tuloveroasteikko 2026），5档累进税率：€22,000以下12.64%；€22,001~€32,600超出部分19.00%；€32,601~€40,100超出部分30.25%；€40,101~€52,100超出部分33.25%；€52,100以上超出部分37.50%。注意：以上仅为国家税。另须缴纳地方市政税（kunnallisvero，全国平均约20~24%，因市而异），适用于全部所得，叠加后高收入者实际税率可能超过50%。须注明「国家税基础上另加市政税（地方税），2026年适用（来源：芬兰税务局vero.fi）」。",
+  },
+  ro: {
+    ja: "【RO税制制約（知識ベース補完：legislatie.just.roはSPAで税率表取得不可）】ルーマニアの個人所得税（impozit pe venit）は10%のフラット税率（Codul Fiscal Art.64、2018年以降）。給与所得には社会保険料（CAS：年金25%＋CASS：健康保険10%、合計35%、従業員負担分）が別途源泉徴収される。所得税10%は社会保険料控除後の課税所得に適用されるため、総支給額に対する実効的な税・社会保険料負担は約40〜45%に達する場合がある。「所得税10%フラット（2026年適用）、社会保険料（CAS 25%・CASS 10%）は別途加算」と明記すること。最新の詳細はANAF（anaf.ro）またはCodul Fiscal（legislatie.just.ro）で確認するよう案内すること。",
+    en: "【RO tax constraint (knowledge-based: legislatie.just.ro is SPA, rate table unavailable)】Romania applies a flat 10% personal income tax (impozit pe venit, Codul Fiscal Article 64, in force since 2018). For employment income, social contributions are withheld in addition: CAS (pension contribution): 25%, CASS (health insurance): 10% — total 35% employee-side social contributions. Since income tax (10%) applies to income after social contribution deductions, the effective combined burden on gross income can reach approximately 40–45%. State explicitly: 'Flat 10% income tax (2026 applicable), social contributions (CAS 25% + CASS 10%) levied in addition'. Direct readers to ANAF (anaf.ro) or Codul Fiscal (legislatie.just.ro) for the latest details.",
+    zh: "【RO税制约束（知识库补充：legislatie.just.ro为SPA，税率表不可获取）】罗马尼亚个人所得税（impozit pe venit）采用10%统一税率（财政法典第64条，2018年起实施）。工资所得另须缴纳社会保险费：CAS（养老保险）25%＋CASS（医疗保险）10%，合计35%（雇员负担部分）。由于10%所得税以扣除社会保险费后的应税所得为基础，实际综合税负（含社会保险）对毛工资而言可达约40~45%。须注明「10%统一所得税（2026年适用）；另加社会保险费（CAS 25%+CASS 10%）」。提示读者参阅ANAF（anaf.ro）或财政法典（legislatie.just.ro）获取最新信息。",
   },
   ar: {
     ja: "【AR税制制約（知識ベース・ソースなし）】アルゼンチンの個人所得税（Impuesto a las Ganancias）は9段階の累進税率：5%・9%・12%・15%・19%・23%・27%・31%・35%。課税閾値（MNI・GANANCIAS NO IMPONIBLES等）はインフレ連動で四半期ごとに改定（Ley 27.430・Ley 27.617等に基づくAjuste por inflación）されるため、ペソ表記の具体的な金額は「改定幅が大きい」と案内し記載しないこと。「税率は5〜35%の9段階、閾値はCPI連動で定期改定」と記述すること。税制ソースは未登録のため知識ベースのみで記述し、最新情報はAFIP（連邦歳入庁 afip.gob.ar）または ARCA（新組織名）で確認するよう案内すること。",

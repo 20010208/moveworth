@@ -54,6 +54,9 @@ const toJPY: Record<string, number> = {
   MXN: 7.3,    // メキシコ・ペソ
   ZAR: 8.0,    // 南アフリカ・ランド
   TND: 47,     // チュニジア・ディナール
+  RON: 32,     // ルーマニア・レウ（2026年7月時点）
+  BGN: 80,     // ブルガリア・レフ（EURペッグ 1.9558、EUR≈157円）
+  HUF: 0.40,   // ハンガリー・フォリント（EUR/HUF≈395）
 };
 
 // 通貨ごとの表示設定（divisor: 表示単位の分母、unitSuffix: 単位ラベル）
@@ -97,6 +100,9 @@ const currencyConfig: Record<string, CurrencyConfig> = {
   MXN: { symbol: "MX$",  divisor: 1,       unitSuffix: { ja: "MXN",       en: "MXN",      zh: "MXN" } },
   ZAR: { symbol: "R",    divisor: 1,       unitSuffix: { ja: "ZAR",       en: "ZAR",      zh: "ZAR" } },
   TND: { symbol: "DT",   divisor: 1,       unitSuffix: { ja: "TND",       en: "TND",      zh: "TND" } },
+  RON: { symbol: "lei",  divisor: 1,       unitSuffix: { ja: "RON",       en: "RON",      zh: "RON" } },
+  BGN: { symbol: "лв",  divisor: 1,       unitSuffix: { ja: "BGN",       en: "BGN",      zh: "BGN" } },
+  HUF: { symbol: "Ft",  divisor: 10000,   unitSuffix: { ja: "万Ft",      en: "Ft10k",    zh: "万福林" } },
 };
 
 // 国籍コード → 通貨コード（countryPresetsにない国の補完）
