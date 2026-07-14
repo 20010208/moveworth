@@ -353,6 +353,13 @@ async function main() {
       if (!result) continue;
       if (!result.changed) continue;
 
+      // 参考資料セクション個数チェック（適用後に複数残る場合は書き込みを拒否）
+      const refCount = (result.patched.match(/###\s*(?:参考資料|References|参考资料)/g) ?? []).length;
+      if (refCount !== 1) {
+        console.error(`  ❌ [${post.slug}][${locale}] 参考資料セクションが${refCount}個 — スキップ（fix-duplicate-ref-sections.ts を先に実行してください）`);
+        continue;
+      }
+
       newContent[locale] = result.patched;
       articleChanged = true;
       totalChanged += result.before.length;

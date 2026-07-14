@@ -930,13 +930,15 @@ ${refSectionInstruction ? `\n${refSectionInstruction}` : `
   parsed1.content = sanitizeMoveWorthLinks(parsed1.content);
 
   // ソース有りの場合: 参考資料セクションを自動追加
+  // GPTが指示を無視して参考資料を書いた場合に備え、既存セクションを除去してから追記する
   if (hasSource && prebuiltRefs) {
     const refHeadings: Record<Lang, string> = {
       ja: "### 参考資料\n本記事の情報は以下の公式資料をもとに作成しています。",
       en: "### References\nData sourced from official government and immigration authority pages.",
       zh: "### 参考资料\n本文信息来源于以下官方资料。",
     };
-    parsed1.content = parsed1.content.trimEnd() + `\n\n---\n\n${refHeadings[lang]}\n${prebuiltRefs}`;
+    const bodyOnly = stripExistingRefSection(parsed1.content);
+    parsed1.content = bodyOnly.trimEnd() + `\n\n---\n\n${refHeadings[lang]}\n${prebuiltRefs}`;
   }
 
   return parsed1;
@@ -1450,11 +1452,19 @@ async function updateExchangeRate(currency: string, code: string): Promise<void>
   console.log(`✅ Added exchange rate: ${currency} = ${rate} JPY`);
 }
 
+// 参考資料セクションの先頭（--- セパレータ含む）より前の本文のみを返す。
+// "---\n\n### 参考資料" 形式（新フォーマット）と "### 参考資料" 形式（旧フォーマット）の両方に対応。
+function stripExistingRefSection(content: string): string {
+  const re = /\n(?:---\n\n)?###\s*(?:参考資料|References|参考资料)/;
+  const m = content.match(re);
+  return m ? content.slice(0, m.index!) : content;
+}
+
 // factCheckContent はテキスト全体を返すため参考資料セクションが失われることがある。
 // ソース有りの場合は country_sources の refs を factCheck 後に確実に再追加する。
 function restoreRefs(content: string, refs: string | undefined, lang: Lang): string {
   if (!refs) return content;
-  const stripped = content.replace(/\n\n---\n\n###\s*(参考資料|References|参考资料)[\s\S]*$/, "");
+  const stripped = stripExistingRefSection(content);
   const headings: Record<Lang, string> = {
     ja: "### 参考資料\n本記事の情報は以下の公式資料をもとに作成しています。",
     en: "### References\nData sourced from official government and immigration authority pages.",

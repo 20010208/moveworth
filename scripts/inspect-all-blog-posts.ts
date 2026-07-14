@@ -194,8 +194,36 @@ async function main() {
     console.log("\n✅ プレースホルダー本文なし（公開記事 en/zh 全チェック通過）");
   }
 
+  // 参考資料セクション個数チェック（visa-* 記事のみ・1個以外はflag）
+  // simulator・一般ブログは参考資料セクション不要のため対象外
+  const visaRows = publishedRows.filter(r => r.slug.startsWith("visa-"));
+  const refCountFindings: Array<{ slug: string; langs: { lang: string; count: number }[] }> = [];
+  for (const r of visaRows) {
+    const c = r.content as Record<string, string> | null;
+    if (!c) continue;
+    const langs: { lang: string; count: number }[] = [];
+    for (const lang of ["ja", "en", "zh"] as const) {
+      const text = c[lang];
+      if (!text || text.trim().length < 200) continue; // 実質コンテンツなしはスキップ
+      const count = (text.match(/###\s*(?:参考資料|References|参考资料)/g) ?? []).length;
+      if (count !== 1) langs.push({ lang, count });
+    }
+    if (langs.length > 0) refCountFindings.push({ slug: r.slug, langs });
+  }
+  if (refCountFindings.length > 0) {
+    console.log(`\n--- 参考資料セクション個数異常 (visa-* 公開記事・1個以外): ${refCountFindings.length} 件 ---`);
+    for (const f of refCountFindings) {
+      console.log(`\n  ❌ ${f.slug}`);
+      for (const { lang, count } of f.langs) {
+        console.log(`    [${lang}] ${count}個 (期待値: 1)`);
+      }
+    }
+  } else {
+    console.log(`\n✅ 参考資料セクション個数正常（visa-* 公開記事 ${visaRows.length}件 全ロケール 1個）`);
+  }
+
   console.log("\n=== 完了 ===");
-  process.exit(broken.length > 0 ? 1 : 0);
+  process.exit(broken.length > 0 || refCountFindings.length > 0 ? 1 : 0);
 }
 
 main().catch(console.error);
