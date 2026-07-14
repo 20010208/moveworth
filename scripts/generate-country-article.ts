@@ -170,7 +170,15 @@ async function fetchPageText(url: string, maxChars: number = MAX_CHARS_PER_SOURC
   return text;
 }
 
-type SourceRow = { url: string; purpose: string };
+type SourceRow = {
+  url: string;
+  purpose: string;
+  page_title_ja?: string | null;
+  page_title_en?: string | null;
+  page_title_zh?: string | null;
+  page_title_original?: string | null;
+  page_lang?: string | null;
+};
 
 // ドメイン名から日本語の機関名ラベルを生成する（country_sources に label カラムが追加された際はそちらを優先）
 const DOMAIN_LABEL_MAP: Record<string, string> = {
@@ -293,6 +301,69 @@ function urlToLabel(url: string): string {
   }
 }
 
+// 言語コード → 記事言語別の原語タグ文字列
+const LANG_TAG: Record<string, Record<string, string>> = {
+  ko: { ja: "韓国語", en: "Korean",  zh: "韩语" },
+  de: { ja: "ドイツ語", en: "German", zh: "德语" },
+  fr: { ja: "フランス語", en: "French", zh: "法语" },
+  nl: { ja: "オランダ語", en: "Dutch",  zh: "荷兰语" },
+  pl: { ja: "ポーランド語", en: "Polish", zh: "波兰语" },
+  cs: { ja: "チェコ語", en: "Czech",  zh: "捷克语" },
+  sv: { ja: "スウェーデン語", en: "Swedish", zh: "瑞典语" },
+  da: { ja: "デンマーク語", en: "Danish", zh: "丹麦语" },
+  no: { ja: "ノルウェー語", en: "Norwegian", zh: "挪威语" },
+  fi: { ja: "フィンランド語", en: "Finnish", zh: "芬兰语" },
+  pt: { ja: "ポルトガル語", en: "Portuguese", zh: "葡萄牙语" },
+  es: { ja: "スペイン語", en: "Spanish", zh: "西班牙语" },
+  it: { ja: "イタリア語", en: "Italian", zh: "意大利语" },
+  el: { ja: "ギリシャ語", en: "Greek", zh: "希腊语" },
+  hr: { ja: "クロアチア語", en: "Croatian", zh: "克罗地亚语" },
+  hu: { ja: "ハンガリー語", en: "Hungarian", zh: "匈牙利语" },
+  ro: { ja: "ルーマニア語", en: "Romanian", zh: "罗马尼亚语" },
+  et: { ja: "エストニア語", en: "Estonian", zh: "爱沙尼亚语" },
+  zh: { ja: "中国語", en: "Chinese", zh: "中文" },
+  ja: { ja: "日本語", en: "Japanese", zh: "日语" },
+  th: { ja: "タイ語", en: "Thai", zh: "泰语" },
+  ar: { ja: "アラビア語", en: "Arabic", zh: "阿拉伯语" },
+  vi: { ja: "ベトナム語", en: "Vietnamese", zh: "越南语" },
+  id: { ja: "インドネシア語", en: "Indonesian", zh: "印尼语" },
+  ms: { ja: "マレー語", en: "Malay", zh: "马来语" },
+  hi: { ja: "ヒンディー語", en: "Hindi", zh: "印地语" },
+  ka: { ja: "ジョージア語", en: "Georgian", zh: "格鲁吉亚语" },
+  fil: { ja: "フィリピン語", en: "Filipino", zh: "菲律宾语" },
+};
+
+// 記事言語コード（ja/en/zh）とソースの page_lang を比較し、原語タグを返す
+function langTag(sourceLang: string | null | undefined, articleLocale: string): string {
+  if (!sourceLang) return "";
+  const sl = sourceLang.toLowerCase().slice(0, 3);
+  // 記事言語と同じなら省略
+  const ARTICLE_LANG: Record<string, string> = { ja: "ja", en: "en", zh: "zh" };
+  if (sl === ARTICLE_LANG[articleLocale]) return "";
+  if (sl === "en") return ""; // 英語ソースはタグ省略（最多なので）
+  const tag = LANG_TAG[sl];
+  if (!tag) return "";
+  return articleLocale === "ja" ? `（${tag.ja}）`
+    : articleLocale === "zh" ? `（${tag.zh}）`
+    : ` (${tag.en})`;
+}
+
+/**
+ * ソース行と記事言語からリンクラベルを組み立てる。
+ * 形式: 「機関名 - 翻訳済み題名（原語タグ）」
+ * フォールバック: 翻訳済み題名 → 原題 → 機関名のみ → パスサフィックス
+ */
+function buildRefLabel(source: SourceRow, articleLocale: string = "ja"): string {
+  const institution = urlToLabel(source.url);
+  const translated = articleLocale === "ja" ? source.page_title_ja
+    : articleLocale === "en" ? source.page_title_en
+    : source.page_title_zh;
+  const titlePart = translated ?? source.page_title_original ?? null;
+  if (!titlePart) return institution;
+  const tag = langTag(source.page_lang, articleLocale);
+  return `${institution} - ${titlePart}${tag}`;
+}
+
 async function getCountrySources(
   countryCode: string,
   purpose: "visa" | "study" | "tax"
@@ -300,7 +371,7 @@ async function getCountrySources(
   try {
     const { data, error } = await supabase
       .from("country_sources")
-      .select("url, purpose")
+      .select("url, purpose, page_title_ja, page_title_en, page_title_zh, page_title_original, page_lang")
       .eq("country_code", countryCode)
       .eq("purpose", purpose)
       .eq("status", "alive")

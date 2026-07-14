@@ -23,3 +23,18 @@ create table if not exists country_sources (
 
 create index if not exists country_sources_country_code_idx on country_sources (country_code);
 create index if not exists country_sources_status_idx on country_sources (status);
+
+-- ===== ラベル改善第2弾: page_title カラム追加 =====
+-- Supabase SQL Editor で実行してください
+alter table country_sources
+  add column if not exists page_title_original text,
+  add column if not exists page_title_ja       text,
+  add column if not exists page_title_en       text,
+  add column if not exists page_title_zh       text,
+  add column if not exists page_lang           text;
+
+comment on column country_sources.page_title_original is 'ページ <title> からサイト名サフィックスを除いたテキスト（80字以内）';
+comment on column country_sources.page_title_ja       is 'page_title_original の日本語訳（GPT翻訳）';
+comment on column country_sources.page_title_en       is 'page_title_original の英語訳（GPT翻訳）';
+comment on column country_sources.page_title_zh       is 'page_title_original の中国語訳（GPT翻訳）';
+comment on column country_sources.page_lang           is 'ソースページの言語コード（BCP-47 第1セグメント, 例: en/ko/de/fr）';
