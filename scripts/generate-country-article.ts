@@ -1695,6 +1695,16 @@ async function run() {
   } // end: force-regen FALLBACK skip guard else
 
   // --- Study article (ja/en) ---
+  // study-work-{code} が既に存在する国では study-{code} を生成しない（重複・SEO共食い防止）
+  const { data: existingWorkArticle } = await supabase
+    .from("study_blog_posts")
+    .select("slug")
+    .eq("slug", `study-work-${country.code}`)
+    .maybeSingle();
+  if (existingWorkArticle) {
+    console.log(`⏭️  study-${country.code}: study-work-${country.code} が既存のためスキップ（重複防止）`);
+    // study-country-{code} は独立コンテンツのため引き続き生成する
+  } else {
   console.log("Generating study article...");
   const [studyJa, studyEn] = await Promise.all([
     generateStudyContent(country.name, "ja"),
@@ -1747,6 +1757,7 @@ async function run() {
   } else {
     console.log(`📝 Study work article saved as draft: ${studySlug}${studyHasPlaceholder ? " [PLACEHOLDER-URL detected]" : ""}`);
   }
+  } // end: study-work-{code} 重複防止ガード else
 
   // --- Country guide article (study-country-{code}) ---
   console.log("Generating country guide article...");
