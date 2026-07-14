@@ -502,7 +502,7 @@ type Lang = "ja" | "en" | "zh";
 //   npx tsx generate-country-article.ts [country_code]
 //     → 生成して draft 保存（is_published=false）。既存公開記事は上書きしない。
 //   npx tsx generate-country-article.ts [country_code] --publish-only
-//     → 再生成なし。既存 draft の is_published を true に切り替えるだけ。
+//     → 再生成なし。visa + 対応する study-{code} / study-country-{code} の is_published を true に切り替えるだけ。
 //   npx tsx generate-country-article.ts [country_code] --force-regenerate
 //     → 公開中記事も再生成する。成功時のみコンテンツ更新（is_published/published_at を保持）。
 //     → FALLBACK（ソースなし）時は既存公開コンテンツを保護して保存をスキップ。
@@ -1494,6 +1494,19 @@ async function run() {
       .from("blog_posts").update({ is_published: true }).eq("slug", visaSlug);
     if (updateErr) { console.error("Update error:", updateErr.message); process.exit(1); }
     console.log(`✅ ${visaSlug} → is_published: true（フラグ切り替えのみ、再生成なし）`);
+
+    // study 記事も同時に公開（study-{code} と study-country-{code}）
+    for (const studySlugTmp of [`study-${country.code}`, `study-country-${country.code}`]) {
+      const { error: studyPubErr } = await supabase
+        .from("study_blog_posts")
+        .update({ is_published: true })
+        .eq("slug", studySlugTmp);
+      if (studyPubErr) {
+        console.error(`  ❌ ${studySlugTmp}: ${studyPubErr.message}`);
+      } else {
+        console.log(`  ✅ ${studySlugTmp} → is_published: true`);
+      }
+    }
     return;
   }
 
@@ -1703,6 +1716,13 @@ async function run() {
 
   const studySlug = `study-${country.code}`;
 
+  // example.com プレースホルダー URL チェック（visa 側の L1626-1631 相当）
+  // プロンプトテンプレートに "official-url.example.com" の例示があるため GPT が模倣するリスクがある
+  const studyHasPlaceholder = [studyFinalJa, studyFinalEn].some((c) => c.includes("example.com"));
+  if (studyHasPlaceholder) {
+    console.error(`❌ [PLACEHOLDER-URL] ${studySlug}: "example.com" が生成コンテンツに含まれています — is_published=false に強制`);
+  }
+
   const { error: studyError } = await supabase.from("study_blog_posts").upsert({
     slug: studySlug,
     category: "work",
@@ -1711,13 +1731,13 @@ async function run() {
     title: { ja: studyJa.title, en: studyEn.title },
     description: { ja: studyJa.description, en: studyEn.description },
     content: { ja: studyFinalJa, en: studyFinalEn },
-    is_published: true,
+    is_published: false, // デフォルト draft。公開は --publish-only で手動承認
   }, { onConflict: "slug" });
 
   if (studyError) {
     console.error("Study work article insert failed:", studyError.message);
   } else {
-    console.log(`✅ Study work article published: ${studySlug}`);
+    console.log(`📝 Study work article saved as draft: ${studySlug}${studyHasPlaceholder ? " [PLACEHOLDER-URL detected]" : ""}`);
   }
 
   // --- Country guide article (study-country-{code}) ---
@@ -1729,6 +1749,11 @@ async function run() {
 
   const countryGuideSlug = `study-country-${country.code}`;
 
+  const guideHasPlaceholder = [guideJa.content, guideEn.content].some((c) => c.includes("example.com"));
+  if (guideHasPlaceholder) {
+    console.error(`❌ [PLACEHOLDER-URL] ${countryGuideSlug}: "example.com" が生成コンテンツに含まれています — is_published=false に強制`);
+  }
+
   const { error: guideError } = await supabase.from("study_blog_posts").upsert({
     slug: countryGuideSlug,
     category: "country",
@@ -1737,13 +1762,13 @@ async function run() {
     title: { ja: guideJa.title, en: guideEn.title },
     description: { ja: guideJa.description, en: guideEn.description },
     content: { ja: guideJa.content, en: guideEn.content },
-    is_published: true,
+    is_published: false, // デフォルト draft。公開は --publish-only で手動承認
   }, { onConflict: "slug" });
 
   if (guideError) {
     console.error("Country guide article insert failed:", guideError.message);
   } else {
-    console.log(`✅ Country guide article published: ${countryGuideSlug}`);
+    console.log(`📝 Country guide article saved as draft: ${countryGuideSlug}${guideHasPlaceholder ? " [PLACEHOLDER-URL detected]" : ""}`);
   }
 
   // --- Update country count text ---

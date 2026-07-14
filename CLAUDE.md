@@ -1,6 +1,6 @@
 # MoveWorth — Claude 運用ルール
 
-## 記事公開フロー（visa 記事）
+## 記事公開フロー（visa・study 共通）
 
 ### 原則：公開操作は再生成を伴ってはならない
 
@@ -10,26 +10,30 @@
 
 ```bash
 # ステップ1: 生成（draft保存のみ）
+# visa: blog_posts に is_published: false で保存
+# study: study_blog_posts に is_published: false で保存（study-{code} + study-country-{code}）
 npx tsx scripts/generate-country-article.ts be
 
 # ステップ2: 公開（フラグ切り替えのみ、再生成なし）
 # ユーザーの承認を得た後のみ実行
+# visa + 対応する study 記事の両方を公開
 npx tsx scripts/generate-country-article.ts be --publish-only
 ```
 
 ### 正しいフロー
 
-1. **生成**: `generate-country-article.ts [code]` → `is_published: false` で保存
+1. **生成**: `generate-country-article.ts [code]` → visa・study ともに `is_published: false` で保存
 2. **レビュー**: ja 本文を提出し、ユーザーが内容を確認
 3. **承認**: ユーザーが明示的に「公開してよい」と指示
 4. **公開**: `--publish-only` で実行（再生成なし、フラグ切り替えのみ）
 
 ### 実装上の安全装置
 
-- `generate` 実行時、既存の公開中記事（is_published=true）は上書きしない（自動スキップ）
+- `generate` 実行時、既存の公開中 visa 記事（is_published=true）は上書きしない（自動スキップ）
 - `--publish`（旧フラグ、再生成して公開）は廃止済み。実行するとエラー終了
 - Claude が自律的に `is_published: true` をセットしてはならない
 - 「source-grounded だから自動公開」は禁止。grounded であっても draft が原則
+- study 生成時に `example.com` が含まれていれば `is_published: false` を強制しエラー出力
 
 ---
 
