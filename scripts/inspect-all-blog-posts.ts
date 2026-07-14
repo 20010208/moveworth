@@ -24,6 +24,27 @@ const sb = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+const PLACEHOLDER_PATTERNS = [
+  /see (the )?japanese version/i,
+  /日本語版をご覧ください/,
+  /coming soon/i,
+  /under construction/i,
+  /準備中/,
+  /placeholder/i,
+  /translation (in progress|pending|not available)/i,
+];
+const PLACEHOLDER_SHORT = 200; // chars
+
+function isPlaceholderContent(text: string | null | undefined): string {
+  if (!text) return "";
+  const t = text.trim();
+  if (t.length === 0) return "空文字";
+  const pat = PLACEHOLDER_PATTERNS.find(p => p.test(t));
+  if (pat) return `定型文パターン (${t.length}字)`;
+  if (t.length < PLACEHOLDER_SHORT) return `短すぎる (${t.length}字)`;
+  return "";
+}
+
 type FieldName = "title" | "description" | "content";
 type Row = {
   slug: string;
@@ -144,6 +165,31 @@ async function main() {
     for (const r of zhOnlyWarn) {
       console.log(`  ⚠️  ${r.slug}  (${r.is_published ? "公開" : "非公開"})`);
     }
+  }
+
+  // プレースホルダー本文チェック（公開記事のみ）
+  const publishedRows = rows.filter(r => r.is_published);
+  const phFindings: Array<{ slug: string; langs: { lang: string; reason: string }[] }> = [];
+  for (const r of publishedRows) {
+    const c = r.content as Record<string, string> | null;
+    if (!c) continue;
+    const langs: { lang: string; reason: string }[] = [];
+    for (const lang of ["en", "zh"] as const) {
+      const reason = isPlaceholderContent(c[lang]);
+      if (reason) langs.push({ lang, reason });
+    }
+    if (langs.length > 0) phFindings.push({ slug: r.slug, langs });
+  }
+  if (phFindings.length > 0) {
+    console.log(`\n--- プレースホルダー本文 (公開記事・en/zh): ${phFindings.length} 件 ---`);
+    for (const f of phFindings) {
+      console.log(`\n  ⚠️  ${f.slug}`);
+      for (const { lang, reason } of f.langs) {
+        console.log(`    [${lang}] ${reason}`);
+      }
+    }
+  } else {
+    console.log("\n✅ プレースホルダー本文なし（公開記事 en/zh 全チェック通過）");
   }
 
   console.log("\n=== 完了 ===");

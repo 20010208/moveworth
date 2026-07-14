@@ -263,6 +263,7 @@ const DOMAIN_LABEL_MAP: Record<string, string> = {
   // Batch 4
   "lsth.bundesfinanzministerium.de": "ドイツ連邦財務省 所得税計算補助（Lohnsteuerhilfeverein）",
   "bundesfinanzministerium.de": "ドイツ連邦財務省（BMF）",
+  "bamf.de": "ドイツ連邦移民・難民庁（BAMF）",
   "matsne.gov.ge": "ジョージア立法府公式ポータル（matsne.gov.ge）",
   "gov.hk": "香港政府（gov.hk）",
   "ird.gov.hk": "香港税務局（IRD）",
