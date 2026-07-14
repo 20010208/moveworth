@@ -29,6 +29,16 @@ const sb = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+// 定常コンテンツ（お知らせ・使い方系）: 旧世代チェック対象外
+const AUDIT_EXEMPT_SLUGS = new Set([
+  "moveworth-how-to-use",
+  "moveworth-march-2026-update",
+  "moveworth-march-2026-update-en",
+  "moveworth-plan-guide-2026",
+  "moveworth-roadmap-features",
+  "moveworth-update-march-16-2026",
+]);
+
 // backlog で意図的 SKIP と記録されている国コード
 const INTENTIONAL_SKIP_COUNTRIES = new Set([
   "bg", "cn", "co", "fi", // visa ソース全 SPA
@@ -46,7 +56,10 @@ interface Article {
   is_published: boolean;
   published_at: string | null;
   created_at: string | null;
-  locales: Record<Lang, { title?: string; content?: string }> | null;
+  // content カラム: {ja:"...", en:"...", zh:"..."} の JSON object
+  content: Record<Lang, string> | null;
+  // locales カラム: ["ja","en","zh"] のような言語コード配列（本文ではない）
+  locales: string[] | null;
   category?: string;
 }
 
@@ -100,9 +113,9 @@ function isSimulatorArticle(slug: string): boolean {
   return /^simulator-|^simulate-/.test(slug);
 }
 
-// 架空モデルケース明記があるか
+// 架空モデルケース明記があるか（ja/en/zh で異なる表現に対応）
 function hasDisclaimerLabel(content: string): boolean {
-  return /架空モデルケース|fictional.?case|虚构案例|Fictional Case/i.test(content);
+  return /架空(?:のモデルケース|モデルケース)|fictional.{0,20}(?:model|case)|hypothetical.{0,20}(?:model|case)|虚构(?:模型案例|案例)/i.test(content);
 }
 
 // ============================================================
@@ -125,7 +138,7 @@ async function main() {
   // 全公開記事取得
   const { data: posts, error } = await sb
     .from("blog_posts")
-    .select("slug, is_published, published_at, created_at, locales, category")
+    .select("slug, is_published, published_at, created_at, content, locales, category")
     .eq("is_published", true)
     .order("slug");
   if (error) { console.error("DB error:", error.message); process.exit(1); }
@@ -138,15 +151,17 @@ async function main() {
 
   for (const article of articles) {
     const slug = article.slug;
+    // 定常コンテンツはスキップ（旧世代チェック不要）
+    if (AUDIT_EXEMPT_SLUGS.has(slug)) continue;
     const countryCode = slug.replace(/^visa-|^simulator-country-|^study-country-/, "");
     const isIntentionalSkip = INTENTIONAL_SKIP_COUNTRIES.has(countryCode);
     const hasSources = countriesWithAliveSources.has(countryCode);
 
     const issues: string[] = [];
 
-    // ja コンテンツで検査（代表言語として）
-    const jaContent = article.locales?.ja?.content ?? "";
-    const enContent = article.locales?.en?.content ?? "";
+    // content カラムから本文を取得（locales は言語コード配列なので使わない）
+    const jaContent = article.content?.ja ?? "";
+    const enContent = article.content?.en ?? "";
 
     // --- 検査1: 参考資料ラベル ---
     if (hasPlainUrl(jaContent) || hasPlainUrl(enContent)) {

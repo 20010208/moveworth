@@ -369,9 +369,11 @@ async function getCountrySources(
   purpose: "visa" | "study" | "tax"
 ): Promise<SourceRow[]> {
   try {
+    // page_title 列は SQL マイグレーション後に追加予定（dry-run 承認待ち）
+    // 現時点は url, purpose のみ SELECT（列未存在でクエリが 400 になるため）
     const { data, error } = await supabase
       .from("country_sources")
-      .select("url, purpose, page_title_ja, page_title_en, page_title_zh, page_title_original, page_lang")
+      .select("url, purpose")
       .eq("country_code", countryCode)
       .eq("purpose", purpose)
       .eq("status", "alive")
@@ -486,6 +488,11 @@ const COUNTRY_QUEUE = [
   { code: "id", name: { ja: "インドネシア", en: "Indonesia" } },
   { code: "vn", name: { ja: "ベトナム", en: "Vietnam" } },
   { code: "ar", name: { ja: "アルゼンチン", en: "Argentina" } },
+  { code: "ch", name: { ja: "スイス", en: "Switzerland" } },
+  { code: "pt", name: { ja: "ポルトガル", en: "Portugal" } },
+  { code: "es", name: { ja: "スペイン", en: "Spain" } },
+  { code: "mx", name: { ja: "メキシコ", en: "Mexico" } },
+  { code: "tr", name: { ja: "トルコ", en: "Turkey" } },
 ];
 
 type Lang = "ja" | "en" | "zh";
