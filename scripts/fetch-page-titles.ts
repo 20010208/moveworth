@@ -26,9 +26,38 @@ const sb = createClient(
 
 const DRY_RUN   = process.argv.includes("--dry-run");
 const RE_FETCH  = process.argv.includes("--re-fetch");
+const CLEANUP   = process.argv.includes("--cleanup");  // 既存ゴミタイトルを null 化
 const TIMEOUT   = 12_000;
 const CONCURRENCY = 6;
 const MAX_TITLE_LEN = 80;
+
+// ゴミタイトル: ブロック/エラーページ
+const GARBAGE_REGEX = [
+  /\bradware\b/i,
+  /\bcloudflare\b/i,
+  /\bjust a moment\b/i,
+  /\baccess denied\b/i,
+  /\b403\b.*\bforbidden\b/i,
+  /\b404\b/i,
+  /\bpage not found\b/i,
+  /\bnot found\b/i,
+  /\bsecurity check\b/i,
+  /\bcaptcha\b/i,
+  /^startseite\b/i,   // German "home page" + 国コード等の組み合わせ
+];
+// ゴミタイトル: 無情報タイトル（タイトル全体がこれのみ）
+const GARBAGE_EXACT = new Set([
+  'home', 'startseite', 'willkommen', 'welcome', 'top', 'index',
+  'トップ', 'ホーム', 'ホームページ', 'homepage', 'トップページ',
+  'メインページ', '首页', '主页', '홈',
+]);
+
+function isGarbageTitle(title: string): boolean {
+  const t = title.trim();
+  if (t.length < 3) return true;
+  if (GARBAGE_EXACT.has(t.toLowerCase())) return true;
+  return GARBAGE_REGEX.some(p => p.test(t));
+}
 
 // サイト名サフィックス除去パターン（区切り記号 + サイト名）
 // 例: "Express Entry Programs | Immigration, Refugees and Citizenship Canada"
@@ -95,7 +124,9 @@ function extractTitle(html: string): string | null {
     .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(+n))
     .replace(/\s+/g, " ").trim();
   if (decoded.length < 3) return null;
-  return stripSiteSuffix(decoded);
+  const stripped = stripSiteSuffix(decoded);
+  if (isGarbageTitle(stripped)) return null;
+  return stripped;
 }
 
 async function fetchTitleAndLang(url: string): Promise<{ title: string | null; lang: string }> {
@@ -134,6 +165,26 @@ async function pool<T, R>(items: T[], concurrency: number, fn: (item: T) => Prom
 }
 
 async function main() {
+  // --cleanup: 既存ゴミタイトルを null 化して終了
+  if (CLEANUP) {
+    const { data: titled, error: tErr } = await sb.from("country_sources")
+      .select("id, country_code, page_title_original")
+      .not("page_title_original", "is", null);
+    if (tErr) { console.error(tErr.message); process.exit(1); }
+    let cleaned = 0;
+    for (const row of titled ?? []) {
+      if (!isGarbageTitle(row.page_title_original)) continue;
+      const { error: upErr } = await sb.from("country_sources")
+        .update({ page_title_original: null, page_title_ja: null, page_title_en: null, page_title_zh: null })
+        .eq("id", row.id);
+      if (upErr) { console.warn(`⚠️ ${row.id}: ${upErr.message}`); continue; }
+      console.log(`🗑️  [${row.country_code}] "${row.page_title_original}" → null`);
+      cleaned++;
+    }
+    console.log(`\n✅ ${cleaned} 件のゴミタイトルを null 化`);
+    return;
+  }
+
   let query = sb.from("country_sources")
     .select("id, country_code, url")
     .eq("status", "alive")

@@ -200,9 +200,22 @@ function buildRefLabel(url: string, meta: SourceMeta | undefined, articleLocale:
 // 参考資料セクション区切り検出
 const REF_SECTION_RE = /(\n---\n\n###\s*(?:参考資料|References|参考资料)[^\n]*\n[^\n]*\n)([\s\S]*)$/;
 
+// 同ドメイン複数URLでラベルが衝突した場合の区別用パスサフィックス
+function pathSuffix(url: string): string {
+  try {
+    const u = new URL(url);
+    const skip = new Set(["en","ja","de","fr","ko","zh","id","th","vi","ms","pt","es","it","nl",
+      "en-us","en-gb","en-au","index","home","top","main","portal","wps","wcm","connect","bldcontentnl"]);
+    const parts = u.pathname.split("/").filter(s => s.length > 2 && !skip.has(s.toLowerCase()));
+    const seg = parts.at(-2) ?? parts.at(-1) ?? "";
+    return seg.replace(/[^a-z0-9]/gi, "-").replace(/-{2,}/g, "-").replace(/^-|-$/g, "").slice(0, 20);
+  } catch { return ""; }
+}
+
 /**
  * マークダウン本文の参考資料セクションのリンクラベルのみを更新する。
  * セクション区切り（---）・見出し・序文行は保持し、リスト行のみ差し替える。
+ * 同一ラベルになる複数URLはパスサフィックスで区別する。
  * 参考資料セクションがない場合は null を返す（変更なし）。
  */
 function patchRefsSection(
@@ -213,27 +226,40 @@ function patchRefsSection(
   const m = content.match(REF_SECTION_RE);
   if (!m) return null;
 
-  const sectionHeader = m[1]; // "---\n\n### 参考資料\n本記事の...\n"
-  const sectionBody = m[2];   // リスト部分（"- [label](url)\n..."）
-
+  const sectionHeader = m[1];
+  const sectionBody = m[2];
   const originalLines = sectionBody.split("\n");
-  const patchedLines: string[] = [];
+
+  // 1st pass: 全リンク行を収集
+  type LinkItem = { lineIdx: number; prefix: string; oldLabel: string; url: string; suffix: string; newLabel: string };
+  const links: LinkItem[] = [];
+  for (let i = 0; i < originalLines.length; i++) {
+    const lm = originalLines[i].match(/^(- )\[([^\]]*)\]\((https?:\/\/[^)]+)\)(.*)$/);
+    if (!lm) continue;
+    const [, prefix, oldLabel, url, suffix] = lm;
+    const meta = urlMetaMap.get(url);
+    links.push({ lineIdx: i, prefix, oldLabel, url, suffix, newLabel: buildRefLabel(url, meta, locale) });
+  }
+
+  // 2nd pass: 同一ラベル検出 → パスサフィックスで区別
+  const labelCount = new Map<string, number>();
+  for (const lk of links) labelCount.set(lk.newLabel, (labelCount.get(lk.newLabel) ?? 0) + 1);
+  for (const lk of links) {
+    if ((labelCount.get(lk.newLabel) ?? 0) > 1) {
+      const ps = pathSuffix(lk.url);
+      if (ps) lk.newLabel = `${lk.newLabel}（${ps}）`;
+    }
+  }
+
+  // 3rd pass: 出力ライン生成
+  const patchedLines = [...originalLines];
   const beforeLabels: string[] = [];
   const afterLabels: string[] = [];
-
-  for (const line of originalLines) {
-    const linkMatch = line.match(/^(- )\[([^\]]*)\]\((https?:\/\/[^)]+)\)(.*)$/);
-    if (!linkMatch) {
-      patchedLines.push(line);
-      continue;
-    }
-    const [, prefix, oldLabel, url, suffix] = linkMatch;
-    const meta = urlMetaMap.get(url);
-    const newLabel = buildRefLabel(url, meta, locale);
-    patchedLines.push(`${prefix}[${newLabel}](${url})${suffix}`);
-    if (oldLabel !== newLabel) {
-      beforeLabels.push(oldLabel);
-      afterLabels.push(newLabel);
+  for (const lk of links) {
+    patchedLines[lk.lineIdx] = `${lk.prefix}[${lk.newLabel}](${lk.url})${lk.suffix}`;
+    if (lk.oldLabel !== lk.newLabel) {
+      beforeLabels.push(lk.oldLabel);
+      afterLabels.push(lk.newLabel);
     }
   }
 

@@ -154,6 +154,18 @@ type SourceRow = {
   page_lang?: string | null;
 };
 
+// 同ドメイン複数URLでラベルが衝突した場合の区別用パスサフィックス
+function pathSuffix(url: string): string {
+  try {
+    const u = new URL(url);
+    const skip = new Set(["en","ja","de","fr","ko","zh","id","th","vi","ms","pt","es","it","nl",
+      "en-us","en-gb","en-au","index","home","top","main","portal","wps","wcm","connect","bldcontentnl"]);
+    const parts = u.pathname.split("/").filter(s => s.length > 2 && !skip.has(s.toLowerCase()));
+    const seg = parts.at(-2) ?? parts.at(-1) ?? "";
+    return seg.replace(/[^a-z0-9]/gi, "-").replace(/-{2,}/g, "-").replace(/^-|-$/g, "").slice(0, 20);
+  } catch { return ""; }
+}
+
 function buildRefLabel(source: SourceRow, articleLocale: string = "ja"): string {
   const institution = urlToLabel(source.url);
   const translated = articleLocale === "ja" ? source.page_title_ja
@@ -202,9 +214,25 @@ async function main() {
 
     for (const locale of ["ja", "en", "zh"]) {
       console.log(`  [${locale}]`);
-      for (const s of sources as SourceRow[]) {
+
+      // ラベルを先に全構築してからdedup
+      const items = (sources as SourceRow[]).map(s => ({
+        s,
+        label: buildRefLabel(s, locale),
+      }));
+      const labelCount = new Map<string, number>();
+      for (const { label } of items) labelCount.set(label, (labelCount.get(label) ?? 0) + 1);
+      const deduped = items.map(({ s, label }) => {
+        if ((labelCount.get(label) ?? 0) > 1) {
+          const ps = pathSuffix(s.url);
+          return { s, label: ps ? `${label}（${ps}）` : label };
+        }
+        return { s, label };
+      });
+
+      for (const { s, label } of deduped) {
         const before = urlToLabel(s.url);
-        const after  = buildRefLabel(s, locale);
+        const after  = label;
         totalCount++;
         const changed = before !== after;
         if (changed) changedCount++;
