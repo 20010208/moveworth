@@ -17,5 +17,6 @@ export type BlogPost = {
   locales: string[] | null;
   pinned: boolean;
   is_published: boolean;
+  is_promotion: boolean;
   created_at: string;
 };

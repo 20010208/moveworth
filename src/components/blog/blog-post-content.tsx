@@ -296,6 +296,11 @@ export function BlogPostContent({ post }: { post: BlogPost }) {
               <Tag className="h-3 w-3" />
               {getLabel(blogCategories[post.category as keyof typeof blogCategories])}
             </span>
+            {post.is_promotion && (
+              <span className="inline-flex items-center text-xs font-bold text-amber-700 bg-amber-100 border border-amber-300 px-2 py-0.5 rounded-full">
+                PR
+              </span>
+            )}
             <span className="text-xs text-muted flex items-center gap-1">
               <Clock className="h-3 w-3" />
               {post.reading_minutes} {t("blog.minRead")}
@@ -318,6 +323,19 @@ export function BlogPostContent({ post }: { post: BlogPost }) {
               sizes="100vw"
               priority
             />
+          </div>
+        )}
+
+        {post.is_promotion && (
+          <div className="mb-4 flex items-center gap-2 text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+            <span className="font-bold shrink-0">【PR】</span>
+            <span>
+              {lang === "zh"
+                ? "本文包含联盟广告链接。"
+                : lang === "en"
+                ? "This article contains affiliate links."
+                : "本記事にはアフィリエイトリンクが含まれます。"}
+            </span>
           </div>
         )}
 

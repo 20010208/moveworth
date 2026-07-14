@@ -130,6 +130,28 @@ assertBlogPayload({ title, description, content, locales }, slug);
 
 ---
 
+## 外部提出済み記事の変更保護リスト
+
+以下のスラグは **アフィリエイト広告主に掲載 URL として提出済み**。
+
+```
+saily-esim-review-overseas-travel-guide-2026
+nordvpn-overseas-japanese-guide-2026
+```
+
+### 適用ルール（全 Claude セッションで厳守）
+
+1. **JA 本文（特にアフィリエイトリンクの HTML・URL・パラメータ）は一切変更禁止**
+2. **一括処理（apply 系・force-regen・パッチ系）はデフォルトでこのリストを除外**
+   - `apply-ref-labels.ts` の `PROTECTED_SLUGS` 定数で実装済み
+   - 除外解除はユーザーの明示的な指示がある場合のみ
+3. **EN/ZH 本文の更新は許可。ただし：**
+   - `content.ja` には 1 バイトも触れない
+   - a8.net の URL・パラメータが JA 版と完全一致することを機械チェックしてから書き込む
+4. `is_promotion: true` フラグや PR バナー表示は許可（content 非破壊）
+
+---
+
 ## コミット・プッシュ
 
 スクリプト実行や記事生成後は必ず `git commit && git push` すること。

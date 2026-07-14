@@ -175,6 +175,8 @@ async function main() {
     if (!c) continue;
     const langs: { lang: string; reason: string }[] = [];
     for (const lang of ["en", "zh"] as const) {
+      // locales 配列にその言語が含まれる場合は一次コンテンツなので除外
+      if (r.locales && (r.locales as string[]).includes(lang)) continue;
       const reason = isPlaceholderContent(c[lang]);
       if (reason) langs.push({ lang, reason });
     }

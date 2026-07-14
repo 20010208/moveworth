@@ -31,6 +31,12 @@ const APPLY   = process.argv.includes("--apply");
 const DRY_RUN = !APPLY || process.argv.includes("--dry-run");
 const filterArgs = process.argv.slice(2).filter(a => !a.startsWith("--"));
 
+// アフィリエイト広告主に提出済み記事 — JA 本文保護のため一括 apply 対象から除外
+const PROTECTED_SLUGS = new Set([
+  "saily-esim-review-overseas-travel-guide-2026",
+  "nordvpn-overseas-japanese-guide-2026",
+]);
+
 // ===== DOMAIN_LABEL_MAP (generate-country-article.ts と同期) =====
 const DOMAIN_LABEL_MAP: Record<string, string> = {
   "immi.homeaffairs.gov.au": "オーストラリア内務省移民局",
@@ -312,9 +318,16 @@ async function main() {
   const allPosts = posts ?? [];
 
   // スラグフィルター（CLIで指定した場合）
-  const filtered = filterArgs.length > 0
+  const filtered = (filterArgs.length > 0
     ? allPosts.filter(p => filterArgs.some(f => p.slug.includes(f)))
-    : allPosts;
+    : allPosts
+  ).filter(p => {
+    if (PROTECTED_SLUGS.has(p.slug)) {
+      console.log(`  ⚠️  SKIP (protected): ${p.slug}`);
+      return false;
+    }
+    return true;
+  });
 
   console.log(`対象記事: ${filtered.length} 件 / 公開記事 ${allPosts.length} 件\n`);
 
