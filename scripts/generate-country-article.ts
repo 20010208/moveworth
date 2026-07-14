@@ -1301,14 +1301,32 @@ async function seedPersonasForCountry(
     },
   ];
 
+  // 既存ペルソナを確認し、同国×属性が既にある属性はスキップ
+  const { data: existing } = await supabase
+    .from("simulator_personas")
+    .select("attribute")
+    .eq("country_code", countryCode.toUpperCase());
+
+  const existingAttrs = new Set((existing ?? []).map((r: { attribute: string }) => r.attribute));
+  const newPersonas = personas.filter(p => !existingAttrs.has(p.attribute));
+
+  if (newPersonas.length === 0) {
+    console.log(`⏭️  [persona-seed] ${countryCode.toUpperCase()} — 全属性既存のためスキップ`);
+    return;
+  }
+  if (newPersonas.length < personas.length) {
+    const skipped = personas.filter(p => existingAttrs.has(p.attribute)).map(p => p.attribute);
+    console.log(`⚠️  [persona-seed] ${countryCode.toUpperCase()} — ${skipped.join(", ")} は既存のためスキップ`);
+  }
+
   const { error } = await supabase
     .from("simulator_personas")
-    .insert(personas);
+    .insert(newPersonas);
 
   if (error) {
     console.warn(`⚠️  [persona-seed] insert 失敗: ${error.message}`);
   } else {
-    console.log(`✅ [persona-seed] ${countryCode.toUpperCase()} — 3件 insert 完了`);
+    console.log(`✅ [persona-seed] ${countryCode.toUpperCase()} — ${newPersonas.length}件 insert 完了`);
   }
 }
 
