@@ -34,7 +34,7 @@ const EXCHANGE_RATES: Record<string, number> = {
   RON: 33,  CZK: 6.8, PLN: 39,  HUF: 0.42, SEK: 14,
   NOK: 14,  DKK: 22,  BRL: 28,  MXN: 7.5,  IDR: 0.0095,
   INR: 1.85, GEL: 59, ZAR: 8.5, CNY: 21,   TRY: 4.2,
-  ARS: 0.18, COP: 0.000037, TND: 50, VND: 0.006,
+  ARS: 0.18, COP: 0.000037, TND: 50, VND: 0.006, BGN: 80,
 };
 
 const JP_SAL = INDUSTRY_SALARIES["JP"];
