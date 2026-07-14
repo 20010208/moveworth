@@ -1723,6 +1723,14 @@ async function run() {
     console.error(`❌ [PLACEHOLDER-URL] ${studySlug}: "example.com" が生成コンテンツに含まれています — is_published=false に強制`);
   }
 
+  assertBlogPayload(
+    { title: { ja: studyJa.title, en: studyEn.title },
+      description: { ja: studyJa.description, en: studyEn.description },
+      content: { ja: studyFinalJa, en: studyFinalEn },
+      locales: ["ja", "en"] },
+    studySlug
+  );
+
   const { error: studyError } = await supabase.from("study_blog_posts").upsert({
     slug: studySlug,
     category: "work",
@@ -1753,6 +1761,14 @@ async function run() {
   if (guideHasPlaceholder) {
     console.error(`❌ [PLACEHOLDER-URL] ${countryGuideSlug}: "example.com" が生成コンテンツに含まれています — is_published=false に強制`);
   }
+
+  assertBlogPayload(
+    { title: { ja: guideJa.title, en: guideEn.title },
+      description: { ja: guideJa.description, en: guideEn.description },
+      content: { ja: guideJa.content, en: guideEn.content },
+      locales: ["ja", "en"] },
+    countryGuideSlug
+  );
 
   const { error: guideError } = await supabase.from("study_blog_posts").upsert({
     slug: countryGuideSlug,
