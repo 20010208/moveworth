@@ -429,8 +429,10 @@ async function run() {
 
   // 曜日判定: 月(1)・木(4) → 国別ガイド優先、火(2)・金(5) → 留学ガイド優先
   // 国別ガイドが尽きた場合はどの曜日も留学ガイドにフォールバック
+  // GENERATE_TYPE=country で強制的に国別ガイド、GENERATE_TYPE=guide で強制的に留学ガイド
   const dow = new Date().getDay(); // 0=Sun 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat
-  const isCountryDay = dow === 1 || dow === 4;
+  const forceType = process.env.GENERATE_TYPE; // "country" | "guide" | undefined
+  const isCountryDay = forceType === "country" || (forceType !== "guide" && (dow === 1 || dow === 4));
 
   const country = await getNextCountryGuide(existing);
   const guide = await getNextGuideTopic(existing);
