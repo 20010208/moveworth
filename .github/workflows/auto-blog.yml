@@ -2,9 +2,15 @@ name: Auto Blog Post
 
 on:
   schedule:
-    # 月・木 の 09:00 JST (00:00 UTC) に実行（週2本に削減、casestudy無効）
-    - cron: "0 0 * * 1,4"
-  workflow_dispatch: # 手動実行も可能
+    # 水曜 09:00 JST (00:00 UTC) に実行
+    # 奇数週: 移住・お金 / 偶数週: ビザ詳細情報（未実装のためスキップ）
+    - cron: "0 0 * * 3"
+  workflow_dispatch:
+    inputs:
+      force_category:
+        description: "カテゴリを強制指定 (money / lifeplan / casestudy)"
+        required: false
+        default: ""
 
 jobs:
   generate:
@@ -20,13 +26,33 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Determine category by ISO week
+        id: week
+        run: |
+          WEEK=$(date +%V)
+          REMAINDER=$((WEEK % 2))
+          if [ -n "${{ github.event.inputs.force_category }}" ]; then
+            echo "category=${{ github.event.inputs.force_category }}" >> $GITHUB_OUTPUT
+            echo "skip=false" >> $GITHUB_OUTPUT
+          elif [ "$REMAINDER" -eq 1 ]; then
+            echo "category=money" >> $GITHUB_OUTPUT
+            echo "skip=false" >> $GITHUB_OUTPUT
+          else
+            echo "category=visa-guide" >> $GITHUB_OUTPUT
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "⏭ Week $WEEK (偶数) = ビザ詳細情報 → 生成スクリプト未実装のためスキップ"
+          fi
+
       - name: Generate blog post
+        if: steps.week.outputs.skip != 'true'
         run: npx tsx scripts/generate-blog-post.ts
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           DISABLE_CASESTUDY: 'true'
+          FORCE_CATEGORY: ${{ steps.week.outputs.category }}
 
       - name: Trigger Vercel redeploy
+        if: steps.week.outputs.skip != 'true'
         run: curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"

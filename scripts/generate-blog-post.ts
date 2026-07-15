@@ -141,6 +141,12 @@ function generateSlug(enTitle: string): string {
 }
 
 async function getNextCategory(): Promise<string> {
+  // FORCE_CATEGORY 環境変数が設定されていればそれを優先
+  const forced = process.env.FORCE_CATEGORY;
+  if (forced) {
+    if (!ROTATION.includes(forced)) throw new Error(`FORCE_CATEGORY "${forced}" は ROTATION に含まれていません`);
+    return forced;
+  }
   // 既存の非visaブログ記事数から次のカテゴリを決定
   const { count } = await supabase
     .from("blog_posts")
@@ -181,7 +187,11 @@ async function run() {
     });
     return !matchesTitle && !matchesSlug;
   });
-  const candidates = unused.length > 0 ? unused : pool;
+  if (unused.length === 0) {
+    console.log(`✅ [${category}] トピック全件生成済みのためスキップ`);
+    process.exit(0);
+  }
+  const candidates = unused;
   const keyword = candidates[Math.floor(Math.random() * candidates.length)];
 
   console.log(`Generating: [${category}] ${keyword}`);

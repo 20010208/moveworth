@@ -1,13 +1,15 @@
-name: Auto Study Blog Post
+name: Publish Study Work Article (Saturday)
 
 on:
   schedule:
-    # 木曜 09:00 JST (00:00 UTC) に実行（留学ガイドのみ生成）
-    - cron: "0 0 * * 4"
-  workflow_dispatch: # 手動実行も可能
+    # 土曜 09:00 JST (00:00 UTC) に実行
+    # 5日前（月曜）公開された visa-{code} と同国の就労記事を公開
+    # 優先: study-work-{code} → フォールバック: study-{code}
+    - cron: "0 0 * * 6"
+  workflow_dispatch:
 
 jobs:
-  generate:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,13 +22,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Generate study blog post
-        run: npx tsx scripts/generate-study-blog.ts
+      - name: Publish study-work article
+        run: npx tsx scripts/publish-study-work-next.ts
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          GENERATE_TYPE: guide
 
       - name: Trigger Vercel redeploy
         run: curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"

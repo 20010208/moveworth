@@ -1,16 +1,16 @@
-name: Auto Simulator Article
+name: Auto Blog Post (Friday — Lifeplan, odd weeks)
 
 on:
   schedule:
-    # 金曜 09:00 JST (00:00 UTC) に実行（偶数週のみ）
-    # 奇数週金曜は auto-blog-friday.yml (lifeplan) が担当
+    # 金曜 09:00 JST (00:00 UTC) に実行
+    # 奇数週のみ lifeplan を生成（偶数週は simulator が動くのでスキップ）
     - cron: "0 0 * * 5"
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: "dry_run=false で実際に公開"
+      force_run:
+        description: "true にすると週番号チェックを無視して強制実行"
         required: false
-        default: "true"
+        default: "false"
 
 jobs:
   generate:
@@ -26,34 +26,32 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Check ISO week (even = simulator, odd = skip)
+      - name: Check ISO week (odd = lifeplan, even = skip)
         id: week
         run: |
           WEEK=$(date +%V)
           REMAINDER=$((WEEK % 2))
-          if [ -n "${{ github.event.inputs.dry_run }}" ]; then
+          if [ "${{ github.event.inputs.force_run }}" = "true" ]; then
             echo "skip=false" >> $GITHUB_OUTPUT
-            echo "手動実行モード (Week $WEEK)"
-          elif [ "$REMAINDER" -eq 0 ]; then
+            echo "強制実行モード (Week $WEEK)"
+          elif [ "$REMAINDER" -eq 1 ]; then
             echo "skip=false" >> $GITHUB_OUTPUT
-            echo "Week $WEEK (偶数) = シミュレーター記事生成"
+            echo "Week $WEEK (奇数) = ライフプラン生成"
           else
             echo "skip=true" >> $GITHUB_OUTPUT
-            echo "⏭ Week $WEEK (奇数) = lifeplan 週のためスキップ"
+            echo "⏭ Week $WEEK (偶数) = simulator 週のためスキップ"
           fi
 
-      - name: Generate simulator article
+      - name: Generate lifeplan article
         if: steps.week.outputs.skip != 'true'
-        run: npx tsx scripts/generate-simulator-article.ts
+        run: npx tsx scripts/generate-blog-post.ts
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          # workflow_dispatch で dry_run=true を渡した場合のみ draft、
-          # スケジュール実行（自動）は常に公開
-          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+          DISABLE_CASESTUDY: "true"
+          FORCE_CATEGORY: lifeplan
 
       - name: Trigger Vercel redeploy
         if: steps.week.outputs.skip != 'true'
-        # draft でも slug だけは発番されるので rebuild する
         run: curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"

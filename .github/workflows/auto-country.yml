@@ -2,8 +2,8 @@ name: Auto Country Article
 
 on:
   schedule:
-    # 水・日 の 09:00 JST (00:00 UTC) に実行
-    - cron: "0 0 * * 3,0"
+    # 日曜 09:00 JST (00:00 UTC) に実行（月曜公開の前日に draft 生成）
+    - cron: "0 0 * * 0"
   workflow_dispatch:
 
 jobs:
