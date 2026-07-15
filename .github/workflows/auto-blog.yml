@@ -26,25 +26,33 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Determine category by ISO week
+      - name: Determine week type by ISO week
         id: week
         run: |
           WEEK=$(date +%V)
           REMAINDER=$((WEEK % 2))
           if [ -n "${{ github.event.inputs.force_category }}" ]; then
-            echo "category=${{ github.event.inputs.force_category }}" >> $GITHUB_OUTPUT
+            # 手動指定: visa-guide なら visa-guide スクリプト、それ以外は blog-post スクリプト
+            if [ "${{ github.event.inputs.force_category }}" = "visa-guide" ]; then
+              echo "script=visa-guide" >> $GITHUB_OUTPUT
+            else
+              echo "script=blog-post" >> $GITHUB_OUTPUT
+              echo "category=${{ github.event.inputs.force_category }}" >> $GITHUB_OUTPUT
+            fi
             echo "skip=false" >> $GITHUB_OUTPUT
           elif [ "$REMAINDER" -eq 1 ]; then
+            echo "script=blog-post" >> $GITHUB_OUTPUT
             echo "category=money" >> $GITHUB_OUTPUT
             echo "skip=false" >> $GITHUB_OUTPUT
+            echo "Week $WEEK (奇数) = 移住・お金"
           else
-            echo "category=visa-guide" >> $GITHUB_OUTPUT
-            echo "skip=true" >> $GITHUB_OUTPUT
-            echo "⏭ Week $WEEK (偶数) = ビザ詳細情報 → 生成スクリプト未実装のためスキップ"
+            echo "script=visa-guide" >> $GITHUB_OUTPUT
+            echo "skip=false" >> $GITHUB_OUTPUT
+            echo "Week $WEEK (偶数) = ビザ詳細情報（visa-guide）"
           fi
 
-      - name: Generate blog post
-        if: steps.week.outputs.skip != 'true'
+      - name: Generate money/lifeplan blog post (odd weeks)
+        if: steps.week.outputs.skip != 'true' && steps.week.outputs.script == 'blog-post'
         run: npx tsx scripts/generate-blog-post.ts
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -52,6 +60,14 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           DISABLE_CASESTUDY: 'true'
           FORCE_CATEGORY: ${{ steps.week.outputs.category }}
+
+      - name: Generate visa-guide article (even weeks)
+        if: steps.week.outputs.skip != 'true' && steps.week.outputs.script == 'visa-guide'
+        run: npx tsx scripts/generate-visa-guide.ts
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
 
       - name: Trigger Vercel redeploy
         if: steps.week.outputs.skip != 'true'
