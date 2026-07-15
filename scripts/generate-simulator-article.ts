@@ -5,6 +5,7 @@ import { runSimulation } from "../src/lib/simulation/basic-calculator";
 import type { SimulationInput, SimulationResult } from "../src/lib/simulation/types";
 import { sanitizeMoveWorthLinks } from "./utils/sanitize-links";
 import { assertBlogPayload } from "./utils/validate-blog-payload";
+import { countryPresets } from "../src/data/country-presets";
 
 if (existsSync(".env.local")) {
   for (const line of readFileSync(".env.local", "utf-8").split("\n")) {
@@ -246,7 +247,7 @@ function buildSummaryObj(persona: Persona, result: SimulationResult) {
   } as const;
 }
 
-function buildPrompt(persona: Persona, summaryObj: ReturnType<typeof buildSummaryObj>): string {
+function buildPrompt(persona: Persona, summaryObj: ReturnType<typeof buildSummaryObj>, countryNameJa: string): string {
   const summaryJson = JSON.stringify(summaryObj, null, 2);
 
   return `あなたはMoveWorthという海外移住シミュレーターサービスのブログライターです。
@@ -268,7 +269,7 @@ ${summaryJson}
 ⑦月間内訳の数値は「月収・税額 = 入力年収の単純月割り値、月間貯蓄 = シミュレーション1年目時点（昇給率2%・インフレ率を反映）の値」であることを記事内で一言明記すること。
 
 【タイトル形式】
-「シミュレーション：${persona.attribute}が${persona.country_code}に移住したら10年で資産はどうなるか」型を参考に、SEOを意識したタイトルにすること。「事例」「成功例」「体験談」「実体験」はタイトルから除外。
+「シミュレーション：${persona.attribute}が${countryNameJa}に移住したら10年で資産はどうなるか」型を参考に、SEOを意識したタイトルにすること。「事例」「成功例」「体験談」「実体験」はタイトルから除外。
 
 【記事構成の目安（1500〜2500文字）】
 以下の内容を含む6セクションで構成すること。
@@ -276,7 +277,7 @@ ${summaryJson}
 見出しの文言は読者向けの自然な文で書くこと（以下のトピックラベルをそのままセクション名に使用してはいけない）：
 1. 免責・架空モデルケースの明示を含む冒頭（読者が状況をイメージできる書き出し）
 2. ペルソナ設定（収入・家族構成・目標・前提条件）
-3. 日本 vs ${persona.country_code}の月間キャッシュフロー比較
+3. 日本 vs ${countryNameJa}の月間キャッシュフロー比較
 4. 5年後・10年後の資産推移
 5. 税・生活費・為替がもたらす影響の分析
 6. 締め括りと「あなたの条件で試す」CTAへの誘導
@@ -393,7 +394,8 @@ async function run() {
   // GPT-4o 記事生成 + 数値突合バリデーション（最大3試行）
   // ────────────────────────────────────────────────────
   const MAX_ATTEMPTS = 3;
-  const prompt = buildPrompt(persona, summaryObj);
+  const countryNameJa = countryPresets.find(p => p.code === persona.country_code)?.name.ja ?? persona.country_code;
+  const prompt = buildPrompt(persona, summaryObj, countryNameJa);
   let titleJa = "";
   let descJa = "";
   let contentJa = "";
