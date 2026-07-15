@@ -418,83 +418,10 @@ async function buildSourceContext(
   return { text, refs, isGrounded: true };
 }
 
-// Countries in priority order: fixed first 2, then popular destinations
-const COUNTRY_QUEUE = [
-  { code: "nz", name: { ja: "ニュージーランド", en: "New Zealand" } },
-  { code: "be", name: { ja: "ベルギー", en: "Belgium" } },
-  { code: "tn", name: { ja: "チュニジア", en: "Tunisia" } },
-  { code: "pl", name: { ja: "ポーランド", en: "Poland" } },
-  { code: "ee", name: { ja: "エストニア", en: "Estonia" } },
-  { code: "cy", name: { ja: "キプロス", en: "Cyprus" } },
-  { code: "hr", name: { ja: "クロアチア", en: "Croatia" } },
-  { code: "hu", name: { ja: "ハンガリー", en: "Hungary" } },
-  { code: "ro", name: { ja: "ルーマニア", en: "Romania" } },
-  { code: "fi", name: { ja: "フィンランド", en: "Finland" } },
-  { code: "bg", name: { ja: "ブルガリア", en: "Bulgaria" } },
-  { code: "rs", name: { ja: "セルビア", en: "Serbia" } },
-  { code: "me", name: { ja: "モンテネグロ", en: "Montenegro" } },
-  { code: "sk", name: { ja: "スロバキア", en: "Slovakia" } },
-  { code: "si", name: { ja: "スロベニア", en: "Slovenia" } },
-  { code: "lv", name: { ja: "ラトビア", en: "Latvia" } },
-  { code: "lt", name: { ja: "リトアニア", en: "Lithuania" } },
-  { code: "ma", name: { ja: "モロッコ", en: "Morocco" } },
-  { code: "mu", name: { ja: "モーリシャス", en: "Mauritius" } },
-  { code: "ke", name: { ja: "ケニア", en: "Kenya" } },
-  { code: "cl", name: { ja: "チリ", en: "Chile" } },
-  { code: "pe", name: { ja: "ペルー", en: "Peru" } },
-  { code: "uy", name: { ja: "ウルグアイ", en: "Uruguay" } },
-  { code: "ec", name: { ja: "エクアドル", en: "Ecuador" } },
-  { code: "lk", name: { ja: "スリランカ", en: "Sri Lanka" } },
-  { code: "kh", name: { ja: "カンボジア", en: "Cambodia" } },
-  { code: "la", name: { ja: "ラオス", en: "Laos" } },
-  { code: "np", name: { ja: "ネパール", en: "Nepal" } },
-  { code: "jo", name: { ja: "ヨルダン", en: "Jordan" } },
-  { code: "gh", name: { ja: "ガーナ", en: "Ghana" } },
-  { code: "al", name: { ja: "アルバニア", en: "Albania" } },
-  { code: "mk", name: { ja: "北マケドニア", en: "North Macedonia" } },
-  { code: "my", name: { ja: "マレーシア", en: "Malaysia" } },
-  { code: "th", name: { ja: "タイ", en: "Thailand" } },
-  { code: "au", name: { ja: "オーストラリア", en: "Australia" } },
-  { code: "us", name: { ja: "アメリカ", en: "United States" } },
-  { code: "sg", name: { ja: "シンガポール", en: "Singapore" } },
-  { code: "gb", name: { ja: "イギリス", en: "United Kingdom" } },
-  // バッチ2
-  { code: "nl", name: { ja: "オランダ", en: "Netherlands" } },
-  { code: "fr", name: { ja: "フランス", en: "France" } },
-  { code: "it", name: { ja: "イタリア", en: "Italy" } },
-  { code: "at", name: { ja: "オーストリア", en: "Austria" } },
-  { code: "ie", name: { ja: "アイルランド", en: "Ireland" } },
-  { code: "ca", name: { ja: "カナダ", en: "Canada" } },
-  { code: "kr", name: { ja: "韓国", en: "South Korea" } },
-  // バッチ3
-  { code: "se", name: { ja: "スウェーデン", en: "Sweden" } },
-  { code: "no", name: { ja: "ノルウェー", en: "Norway" } },
-  { code: "dk", name: { ja: "デンマーク", en: "Denmark" } },
-  { code: "cz", name: { ja: "チェコ", en: "Czech Republic" } },
-  { code: "gr", name: { ja: "ギリシャ", en: "Greece" } },
-  { code: "mt", name: { ja: "マルタ", en: "Malta" } },
-  { code: "ae", name: { ja: "アラブ首長国連邦", en: "United Arab Emirates" } },
-  // バッチ4
-  { code: "de", name: { ja: "ドイツ", en: "Germany" } },
-  { code: "ge", name: { ja: "ジョージア", en: "Georgia" } },
-  { code: "hk", name: { ja: "香港", en: "Hong Kong" } },
-  { code: "in", name: { ja: "インド", en: "India" } },
-  { code: "jp", name: { ja: "日本", en: "Japan" } },
-  { code: "ph", name: { ja: "フィリピン", en: "Philippines" } },
-  { code: "tw", name: { ja: "台湾", en: "Taiwan" } },
-  { code: "za", name: { ja: "南アフリカ", en: "South Africa" } },
-  { code: "br", name: { ja: "ブラジル", en: "Brazil" } },
-  { code: "cn", name: { ja: "中国", en: "China" } },
-  { code: "co", name: { ja: "コロンビア", en: "Colombia" } },
-  { code: "id", name: { ja: "インドネシア", en: "Indonesia" } },
-  { code: "vn", name: { ja: "ベトナム", en: "Vietnam" } },
-  { code: "ar", name: { ja: "アルゼンチン", en: "Argentina" } },
-  { code: "ch", name: { ja: "スイス", en: "Switzerland" } },
-  { code: "pt", name: { ja: "ポルトガル", en: "Portugal" } },
-  { code: "es", name: { ja: "スペイン", en: "Spain" } },
-  { code: "mx", name: { ja: "メキシコ", en: "Mexico" } },
-  { code: "tr", name: { ja: "トルコ", en: "Turkey" } },
-];
+import { MASTER_COUNTRIES } from "../src/data/master-countries";
+
+// マスター国リスト（PRESET基準・50カ国）。src/data/master-countries.ts を唯一の真実の源とする。
+const COUNTRY_QUEUE = [...MASTER_COUNTRIES];
 
 type Lang = "ja" | "en" | "zh";
 

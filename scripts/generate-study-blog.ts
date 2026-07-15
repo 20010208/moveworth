@@ -28,53 +28,10 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-// 国別ガイドの優先リスト（人気順）
-const COUNTRY_GUIDE_QUEUE = [
-  { code: "au", name: { ja: "オーストラリア", en: "Australia" } },
-  { code: "ca", name: { ja: "カナダ", en: "Canada" } },
-  { code: "us", name: { ja: "アメリカ", en: "the United States" } },
-  { code: "gb", name: { ja: "イギリス", en: "the United Kingdom" } },
-  { code: "nz", name: { ja: "ニュージーランド", en: "New Zealand" } },
-  { code: "ie", name: { ja: "アイルランド", en: "Ireland" } },
-  { code: "sg", name: { ja: "シンガポール", en: "Singapore" } },
-  { code: "my", name: { ja: "マレーシア", en: "Malaysia" } },
-  { code: "ph", name: { ja: "フィリピン", en: "the Philippines" } },
-  { code: "de", name: { ja: "ドイツ", en: "Germany" } },
-  { code: "fr", name: { ja: "フランス", en: "France" } },
-  { code: "es", name: { ja: "スペイン", en: "Spain" } },
-  { code: "it", name: { ja: "イタリア", en: "Italy" } },
-  { code: "pt", name: { ja: "ポルトガル", en: "Portugal" } },
-  { code: "nl", name: { ja: "オランダ", en: "the Netherlands" } },
-  { code: "se", name: { ja: "スウェーデン", en: "Sweden" } },
-  { code: "no", name: { ja: "ノルウェー", en: "Norway" } },
-  { code: "dk", name: { ja: "デンマーク", en: "Denmark" } },
-  { code: "fi", name: { ja: "フィンランド", en: "Finland" } },
-  { code: "ch", name: { ja: "スイス", en: "Switzerland" } },
-  { code: "at", name: { ja: "オーストリア", en: "Austria" } },
-  { code: "gr", name: { ja: "ギリシャ", en: "Greece" } },
-  { code: "mt", name: { ja: "マルタ", en: "Malta" } },
-  { code: "kr", name: { ja: "韓国", en: "South Korea" } },
-  { code: "tw", name: { ja: "台湾", en: "Taiwan" } },
-  { code: "hk", name: { ja: "香港", en: "Hong Kong" } },
-  { code: "th", name: { ja: "タイ", en: "Thailand" } },
-  { code: "id", name: { ja: "インドネシア", en: "Indonesia" } },
-  { code: "vn", name: { ja: "ベトナム", en: "Vietnam" } },
-  { code: "in", name: { ja: "インド", en: "India" } },
-  { code: "cn", name: { ja: "中国", en: "China" } },
-  { code: "ae", name: { ja: "アラブ首長国連邦", en: "the UAE" } },
-  { code: "ge", name: { ja: "ジョージア", en: "Georgia" } },
-  { code: "za", name: { ja: "南アフリカ", en: "South Africa" } },
-  { code: "br", name: { ja: "ブラジル", en: "Brazil" } },
-  { code: "ar", name: { ja: "アルゼンチン", en: "Argentina" } },
-  { code: "mx", name: { ja: "メキシコ", en: "Mexico" } },
-  { code: "co", name: { ja: "コロンビア", en: "Colombia" } },
-  { code: "cz", name: { ja: "チェコ", en: "the Czech Republic" } },
-  { code: "jp", name: { ja: "日本", en: "Japan" } },
-  { code: "be", name: { ja: "ベルギー", en: "Belgium" } },
-  { code: "pl", name: { ja: "ポーランド", en: "Poland" } },
-  { code: "ee", name: { ja: "エストニア", en: "Estonia" } },
-  { code: "tn", name: { ja: "チュニジア", en: "Tunisia" } },
-];
+import { MASTER_COUNTRIES } from "../src/data/master-countries";
+
+// マスター国リスト（PRESET基準・50カ国）。src/data/master-countries.ts を唯一の真実の源とする。
+const COUNTRY_GUIDE_QUEUE = [...MASTER_COUNTRIES];
 
 // guide カテゴリのトピックリスト（SEO重視）
 const GUIDE_TOPICS = [
