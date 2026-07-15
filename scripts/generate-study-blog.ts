@@ -301,6 +301,12 @@ List 3-5 official sources (immigration authority, embassy, tourism board, educat
     200
   );
 
+  const hasPlaceholder = [jaFinal, enFinal].some(c => c.includes("example.com"));
+  if (hasPlaceholder) {
+    console.error(`❌ [PLACEHOLDER-URL] ${slug}: "example.com" が含まれています — 保存スキップ`);
+    return;
+  }
+
   const { error } = await supabase.from("study_blog_posts").upsert(
     {
       slug,
@@ -313,13 +319,13 @@ List 3-5 official sources (immigration authority, embassy, tourism board, educat
       },
       description: { ja: descJa.trim(), en: descEn.trim() },
       content: { ja: jaFinal, en: enFinal },
-      is_published: true,
+      is_published: false,
     },
     { onConflict: "slug" }
   );
 
   if (error) throw new Error(`Upsert failed: ${error.message}`);
-  console.log(`✅ ${slug} published`);
+  console.log(`✅ ${slug} saved as draft`);
 }
 
 async function generateGuideArticle(topic: { slug: string; title: { ja: string; en: string }; keywords: string }) {
@@ -392,6 +398,12 @@ async function generateGuideArticle(topic: { slug: string; title: { ja: string; 
     200
   );
 
+  const hasPlaceholder = [jaFinal, enFinal].some(c => c.includes("example.com"));
+  if (hasPlaceholder) {
+    console.error(`❌ [PLACEHOLDER-URL] ${topic.slug}: "example.com" が含まれています — 保存スキップ`);
+    return;
+  }
+
   const { error } = await supabase.from("study_blog_posts").upsert(
     {
       slug: topic.slug,
@@ -401,13 +413,13 @@ async function generateGuideArticle(topic: { slug: string; title: { ja: string; 
       title: topic.title,
       description: { ja: descJa.trim(), en: descEn.trim() },
       content: { ja: jaFinal, en: enFinal },
-      is_published: true,
+      is_published: false,
     },
     { onConflict: "slug" }
   );
 
   if (error) throw new Error(`Upsert failed: ${error.message}`);
-  console.log(`✅ ${topic.slug} published`);
+  console.log(`✅ ${topic.slug} saved as draft`);
 }
 
 async function run() {

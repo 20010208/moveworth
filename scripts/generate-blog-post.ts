@@ -213,7 +213,7 @@ async function run() {
     content: { ja: ja.content, en: en.content, zh: zh.content },
     locales: null,
     pinned: false,
-    is_published: true,
+    is_published: false,
   });
 
   if (error) {
