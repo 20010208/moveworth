@@ -177,6 +177,7 @@ interface VisaGuideTopic {
   countryCode: string;
   countryName: { ja: string; en: string; zh: string };
   sourceUrls: string[]; // プログラム固有 URL（country_sources に加えて常に試みる）
+  promptNote?: string;  // プロンプトに追加する特記事項（ソース信頼性・時点情報など）
 }
 
 // 生成済みの既存2件も含む（slug が既に blog_posts に存在する場合はスキップ）
@@ -201,7 +202,20 @@ const VISA_GUIDE_TOPICS: VisaGuideTopic[] = [
     },
     countryCode: "gr",
     countryName: { ja: "ギリシャ", en: "Greece", zh: "希腊" },
-    sourceUrls: ["https://migration.gov.gr/en/"],
+    sourceUrls: [
+      "https://migration.gov.gr/en/",
+      "https://newsletters.enterprisegreece.gov.gr/newsletter-articles/greece-adjusts-golden-visa-program-amid-rising-outlook-for-property-market/",
+    ],
+    promptNote: [
+      "【重要】ゴールデンビザの投資最低額は2024年3月31日施行の改定により3段階に変更された。",
+      "  ① €800,000: 高需要エリア（アテネ圏・テッサロニキ圏・ミコノス・サントリーニ・人口3,100人超の島）",
+      "  ② €400,000: 上記以外のその他地域",
+      "  ③ €250,000: 工業施設の住宅転換・歴史的建造物（特殊カテゴリのみ）",
+      "「不動産購入額が250,000ユーロ以上」という単純化した記述は絶対にしないこと。",
+      "記事本文に「2024年3月31日施行の改定に基づく」という時点情報を必ず含めること。",
+      "主要参照ソース（Enterprise Greece）はギリシャ政府系投資促進機関のニュースレターであり法令原文ではない。",
+      "投資額については「2024年3月31日施行時点の情報。最新の法令は公式機関でご確認ください」と注記すること。",
+    ].join("\n"),
   },
   {
     slug: "thailand-ltr-visa-guide-2026",
@@ -280,6 +294,12 @@ const VISA_GUIDE_TOPICS: VisaGuideTopic[] = [
   },
 ];
 
+// ─── CLI 引数 ─────────────────────────────────────────────────────────────────
+
+// --regen=<countryCode|slug>: 既存 slug があっても強制再生成し、<slug>-v2 で保存
+const regenArg = process.argv.find((a) => a.startsWith("--regen="));
+const regenTarget = regenArg ? regenArg.split("=")[1] : null;
+
 // ─── 次の未生成トピックを取得 ─────────────────────────────────────────────────
 
 async function getNextTopic(): Promise<VisaGuideTopic | null> {
@@ -306,6 +326,10 @@ function buildPrompt(topic: VisaGuideTopic, lang: Lang, ctx: SourceContext): str
     ? `\n\n=== 参考資料原文（以下のソース内容のみを根拠にすること。原文にない数字・手続き・URLは書かないこと。CAのircc費用ページに"[Error loading fee]"の文言があれば無視し費用情報は別の根拠から記述すること）===\n${ctx.text}\n=== 参考資料ここまで ===\n`
     : "";
 
+  const noteBlock = topic.promptNote
+    ? `\n\n⚠️ 生成時の特記事項（必ず遵守すること）:\n${topic.promptNote}\n`
+    : "";
+
   const refUrls = ctx.urlList.map((u) => `- ${u}`).join("\n");
 
   const grounding = hasSource
@@ -322,7 +346,7 @@ function buildPrompt(topic: VisaGuideTopic, lang: Lang, ctx: SourceContext): str
 
   if (lang === "ja") {
     return `あなたはMoveWorthというサービスのビザ情報専門ライターです。MoveWorthは海外移住を考えている人向けに、税金・生活費・ビザを一括シミュレーションできるサービスです。
-${sourceBlock}
+${sourceBlock}${noteBlock}
 ${topic.countryName.ja}の「${topic.programName.ja}」に特化した記事を日本語で書いてください。${grounding}生活費・家賃の目安は知識で補完してよい。
 
 ## タイトル形式（必ず守ること。絵文字・記号は一切使わないこと）
@@ -375,7 +399,7 @@ ${refUrls}
 
   if (lang === "en") {
     return `You are a visa information writer for MoveWorth, a service that helps people considering international relocation simulate taxes, living costs, and visa requirements.
-${sourceBlock}
+${sourceBlock}${noteBlock}
 Write a comprehensive, fact-based English article about the "${topic.programName.en}" in ${topic.countryName.en}. ${grounding} General living costs and rent estimates may use your knowledge.
 
 ## Title format (strictly follow. No emojis or special symbols):
@@ -427,7 +451,7 @@ ${refUrls}
 
   // zh
   return `您是MoveWorth服务的签证信息专业撰稿人。MoveWorth帮助考虑海外移居的人模拟税务、生活成本和签证要求。
-${sourceBlock}
+${sourceBlock}${noteBlock}
 请用中文撰写一篇关于${topic.countryName.zh}「${topic.programName.zh}」的详细文章。${grounding}生活费和房租参考可使用通用知识补充。
 
 ## 标题格式（必须严格遵守，不使用表情符号）：
@@ -524,14 +548,33 @@ function qualityCheck(
 // ─── メイン ───────────────────────────────────────────────────────────────────
 
 async function run() {
-  const topic = await getNextTopic();
+  let topic: VisaGuideTopic;
+  let slug: string;
 
-  if (!topic) {
-    console.log("✅ VISA_GUIDE_TOPICS 全件生成済みのためスキップ");
-    process.exit(0);
+  if (regenTarget) {
+    // --regen モード: countryCode または正式 slug で対象を検索
+    const matched = VISA_GUIDE_TOPICS.find(
+      (t) => t.countryCode === regenTarget || t.slug === regenTarget,
+    );
+    if (!matched) {
+      console.error(`❌ --regen 対象が見つかりません: "${regenTarget}"`);
+      console.error(`   指定可能: ${VISA_GUIDE_TOPICS.map((t) => t.countryCode).join(", ")}`);
+      process.exit(1);
+    }
+    topic = matched;
+    slug = matched.slug + "-v2";
+    console.log(`\n[--regen モード] ${matched.slug} → ${slug} で新規生成`);
+  } else {
+    const next = await getNextTopic();
+    if (!next) {
+      console.log("✅ VISA_GUIDE_TOPICS 全件生成済みのためスキップ");
+      process.exit(0);
+    }
+    topic = next;
+    slug = topic.slug;
   }
 
-  console.log(`\n生成開始: ${topic.slug}`);
+  console.log(`\n生成開始: ${slug}`);
   console.log(`  プログラム: ${topic.programName.ja}`);
 
   // ソース収集: topic 固有 URL + country_sources
@@ -552,7 +595,7 @@ async function run() {
   ]);
 
   // 品質チェック
-  qualityCheck(ja, en, topic.slug);
+  qualityCheck(ja, en, slug);
   console.log("  品質チェック: ✅");
 
   // バリデーション
@@ -562,13 +605,13 @@ async function run() {
       description: { ja: ja.description, en: en.description, zh: zh.description },
       content:     { ja: ja.content,     en: en.content,     zh: zh.content },
     },
-    topic.slug,
+    slug,
   );
 
   const today = new Date().toISOString().slice(0, 10);
 
   const { error } = await sb.from("blog_posts").insert({
-    slug: topic.slug,
+    slug,
     category: "visa-guide",
     published_at: today,
     reading_minutes: 12,
@@ -586,7 +629,7 @@ async function run() {
     process.exit(1);
   }
 
-  console.log(`\n✅ draft 保存: ${topic.slug}`);
+  console.log(`\n✅ draft 保存: ${slug}`);
   console.log(`  JA: ${ja.content.length}文字 / EN: ${en.content.length}文字 / ZH: ${zh.content.length}文字`);
 }
 
