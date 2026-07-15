@@ -222,8 +222,74 @@ async function main() {
     console.log(`\n✅ 参考資料セクション個数正常（visa-* 公開記事 ${visaRows.length}件 全ロケール 1個）`);
   }
 
+  // ─── 参考資料セクション内の生URL行検出（全公開記事）────────────────────────────
+  // `- https://...` のまま [label](url) に変換されていない行
+  const rawRefLineRe = /^-\s+https?:\/\/\S+/m;
+  const rawRefFindings: Array<{ slug: string; langs: { lang: string; lines: string[] }[] }> = [];
+  for (const r of publishedRows) {
+    const c = r.content as Record<string, string> | null;
+    if (!c) continue;
+    const langs: { lang: string; lines: string[] }[] = [];
+    for (const lang of ["ja", "en", "zh"] as const) {
+      const text = c[lang];
+      if (!text || text.trim().length < 200) continue;
+      // 参考資料セクションを抽出
+      const refIdx = text.search(/###\s*(?:参考資料|References|参考资料)/);
+      const refSection = refIdx >= 0 ? text.slice(refIdx) : "";
+      if (!refSection) continue;
+      // 生URL行 = `- https://` 形式で [label]( で始まっていない行
+      const lines = refSection.split("\n").filter(l => {
+        const t = l.trim();
+        return t.match(/^-\s+https?:\/\//) && !t.match(/^-\s+\[[^\]]+\]\(https?:/);
+      });
+      if (lines.length > 0) langs.push({ lang, lines });
+    }
+    if (langs.length > 0) rawRefFindings.push({ slug: r.slug, langs });
+  }
+  if (rawRefFindings.length > 0) {
+    console.log(`\n--- 参考資料内生URL行（未リンク化）: ${rawRefFindings.length} 件 ---`);
+    for (const f of rawRefFindings) {
+      console.log(`\n  ❌ ${f.slug}`);
+      for (const { lang, lines } of f.langs) {
+        console.log(`    [${lang}] ${lines.length}件`);
+        for (const l of lines) console.log(`      ${l.trim()}`);
+      }
+    }
+  } else {
+    console.log(`\n✅ 参考資料内生URL行なし（公開記事 ${publishedRows.length}件 全ロケール チェック通過）`);
+  }
+
+  // ─── 本文中の生シミュレーターURL検出（全公開記事）─────────────────────────────
+  // `https://moveworthapp.com/simulate` が [label](url) の外に露出している
+  const rawSimRe = /(?<![(\[])https?:\/\/moveworthapp\.com\/simulate/;
+  const rawSimFindings: Array<{ slug: string; langs: string[] }> = [];
+  for (const r of publishedRows) {
+    const c = r.content as Record<string, string> | null;
+    if (!c) continue;
+    const langs: string[] = [];
+    for (const lang of ["ja", "en", "zh"] as const) {
+      const text = c[lang];
+      if (!text) continue;
+      // 本文部分のみ（参考資料セクション以前）を検査
+      const refIdx = text.search(/###\s*(?:参考資料|References|参考资料)/);
+      const bodyText = refIdx >= 0 ? text.slice(0, refIdx) : text;
+      if (rawSimRe.test(bodyText)) langs.push(lang);
+    }
+    if (langs.length > 0) rawSimFindings.push({ slug: r.slug, langs });
+  }
+  if (rawSimFindings.length > 0) {
+    console.log(`\n--- 本文中の生シミュレーターURL（未リンク化）: ${rawSimFindings.length} 件 ---`);
+    for (const f of rawSimFindings) {
+      console.log(`  ❌ ${f.slug}  [${f.langs.join(", ")}]`);
+    }
+  } else {
+    console.log(`\n✅ 本文中の生シミュレーターURLなし（公開記事 ${publishedRows.length}件 チェック通過）`);
+  }
+
   console.log("\n=== 完了 ===");
-  process.exit(broken.length > 0 || refCountFindings.length > 0 ? 1 : 0);
+  const hasErrors = broken.length > 0 || refCountFindings.length > 0
+    || rawRefFindings.length > 0 || rawSimFindings.length > 0;
+  process.exit(hasErrors ? 1 : 0);
 }
 
 main().catch(console.error);

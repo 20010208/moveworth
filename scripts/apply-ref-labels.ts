@@ -94,6 +94,8 @@ const DOMAIN_LABEL_MAP: Record<string, string> = {
   "bmf.gv.at": "オーストリア財務省（BMF）",
   "revenue.ie": "アイルランド歳入庁（Revenue）",
   "ird.govt.nz": "ニュージーランド内国歳入局（IRD）",
+  "immigration.govt.nz": "ニュージーランド移民局（Immigration NZ）",
+  "ircc.canada.ca": "カナダ移民・難民・市民権省（IRCC）",
   "in.nts.go.kr": "韓国国税庁（NTS）",
   "nts.go.kr": "韓国国税庁（NTS）",
   "skatteverket.se": "スウェーデン税務庁（Skatteverket）",
@@ -102,8 +104,13 @@ const DOMAIN_LABEL_MAP: Record<string, string> = {
   "portal.gov.cz": "チェコ政府ポータル（portal.gov.cz）",
   "porezna-uprava.gov.hr": "クロアチア税務局（Porezna uprava）",
   "aade.gr": "ギリシャ独立歳入庁（AADE）",
+  "migration.gov.gr": "ギリシャ移民・庇護省",
+  "enterprisegreece.gov.gr": "Enterprise Greece（ギリシャ政府系投資促進機関）",
+  "newsletters.enterprisegreece.gov.gr": "Enterprise Greece（ギリシャ政府系投資促進機関）",
   "mtca.gov.mt": "マルタ税関歳入庁（MTCA）",
   "u.ae": "UAE政府公式ポータル（u.ae）",
+  "icp.gov.ae": "UAE連邦身分証明局（ICP）",
+  "gdrfad.gov.ae": "ドバイ居住外国人局（GDRFA）",
   "lsth.bundesfinanzministerium.de": "ドイツ連邦財務省 所得税計算補助（Lohnsteuerhilfeverein）",
   "bundesfinanzministerium.de": "ドイツ連邦財務省（BMF）",
   "bamf.de": "ドイツ連邦移民・難民庁（BAMF）",
@@ -121,6 +128,9 @@ const DOMAIN_LABEL_MAP: Record<string, string> = {
   "guangdong.chinatax.gov.cn": "中国広東省税務局",
   "chinatax.gov.cn": "中国国家税務総局",
   "micrositios.dian.gov.co": "コロンビア国税庁（DIAN）",
+  "cancilleria.gov.co": "コロンビア外務省（Cancillería）",
+  "investintunisia.tn": "チュニジア外国投資促進庁（FIPA）",
+  "guide.tia.gov.tn": "チュニジア投資機構（TIA）",
   "pajak.go.id": "インドネシア税務総局（DJP）",
   "tuyenquang.gdt.gov.vn": "ベトナム税務総局（GDT）地方ポータル",
   "gdt.gov.vn": "ベトナム税務総局（GDT）",
@@ -237,15 +247,25 @@ function patchRefsSection(
   const sectionBody = m[2];
   const originalLines = sectionBody.split("\n");
 
-  // 1st pass: 全リンク行を収集
+  // 1st pass: 全リンク行を収集（[label](url) 形式 + 生URL形式の両方を処理）
   type LinkItem = { lineIdx: number; prefix: string; oldLabel: string; url: string; suffix: string; newLabel: string };
   const links: LinkItem[] = [];
   for (let i = 0; i < originalLines.length; i++) {
+    // Format 1: - [label](url)
     const lm = originalLines[i].match(/^(- )\[([^\]]*)\]\((https?:\/\/[^)]+)\)(.*)$/);
-    if (!lm) continue;
-    const [, prefix, oldLabel, url, suffix] = lm;
-    const meta = urlMetaMap.get(url);
-    links.push({ lineIdx: i, prefix, oldLabel, url, suffix, newLabel: buildRefLabel(url, meta, locale) });
+    if (lm) {
+      const [, prefix, oldLabel, url, suffix] = lm;
+      const meta = urlMetaMap.get(url);
+      links.push({ lineIdx: i, prefix, oldLabel, url, suffix, newLabel: buildRefLabel(url, meta, locale) });
+      continue;
+    }
+    // Format 2: - https://... (生URL行)
+    const rm = originalLines[i].match(/^(- )(https?:\/\/\S+)\s*$/);
+    if (rm) {
+      const [, prefix, url] = rm;
+      const meta = urlMetaMap.get(url);
+      links.push({ lineIdx: i, prefix, oldLabel: url, url, suffix: "", newLabel: buildRefLabel(url, meta, locale) });
+    }
   }
 
   // 2nd pass: 同一ラベル検出 → パスサフィックスで区別
