@@ -4,11 +4,29 @@ import Link from "next/link";
 import { ArrowLeft, Clock, Tag, Share2 } from "lucide-react";
 import { studyBlogCategories } from "@/data/study-blog-posts";
 import type { StudyBlogPost } from "@/types/study-blog";
+import { useTranslation } from "@/lib/i18n";
 
 export function StudyBlogPostContent({ post }: { post: StudyBlogPost }) {
+  const { locale } = useTranslation();
+  // ja → ja、en/zh → en（zh コンテンツは未生成のため en にフォールバック）
+  const lang: "ja" | "en" = locale === "ja" ? "ja" : "en";
+  const L = <T extends { ja: string; en: string }>(obj: T): string =>
+    obj[lang] || obj.ja;
+
+  const ui = {
+    backToList: lang === "ja" ? "ブログ一覧に戻る" : "Back to Blog",
+    minRead:    lang === "ja" ? "分で読める" : "min read",
+    share:      lang === "ja" ? "シェアする" : "Share",
+    ctaTitle:   lang === "ja" ? "MoveWorth.studyで留学費用をシミュレーション" : "Simulate Your Study Abroad Costs with MoveWorth.study",
+    ctaDesc:    lang === "ja"
+      ? "国・期間・学費を入力するだけで、留学にかかる総費用の目安を無料で計算できます。"
+      : "Enter your destination, duration, and tuition to get a free estimate of your total study abroad budget.",
+    ctaButton:  lang === "ja" ? "費用をシミュレーションする" : "Start Simulation",
+  };
+
   const handleShare = async () => {
     const url = window.location.href;
-    const title = post.title.ja;
+    const title = L(post.title);
     if (navigator.share) {
       try {
         await navigator.share({ title, url });
@@ -238,37 +256,37 @@ export function StudyBlogPostContent({ post }: { post: StudyBlogPost }) {
           className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-foreground transition-colors mb-8"
         >
           <ArrowLeft className="h-4 w-4" />
-          ブログ一覧に戻る
+          {ui.backToList}
         </Link>
 
         <header className="mb-8">
           <div className="flex items-center gap-3 mb-4">
             <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary-light px-2.5 py-0.5 rounded-full">
               <Tag className="h-3 w-3" />
-              {studyBlogCategories[post.category]?.ja ?? post.category}
+              {studyBlogCategories[post.category]?.[lang] ?? post.category}
             </span>
             <span className="text-xs text-muted flex items-center gap-1">
               <Clock className="h-3 w-3" />
-              {post.reading_time} 分で読める
+              {post.reading_time} {ui.minRead}
             </span>
             <span className="text-xs text-muted">{post.date}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight mb-4">
-            {post.title.ja}
+            {L(post.title)}
           </h1>
-          <p className="text-muted text-sm">{post.description.ja}</p>
+          <p className="text-muted text-sm">{L(post.description)}</p>
         </header>
 
         {post.thumbnail && (
           <img
             src={post.thumbnail}
-            alt={post.title.ja}
+            alt={L(post.title)}
             className="w-full rounded-2xl mb-6 border border-border/40 shadow-sm h-52 object-cover md:h-auto"
           />
         )}
 
         <div className="bg-white border border-border/60 rounded-2xl p-6 sm:p-8 shadow-sm">
-          {renderContent(post.content.ja)}
+          {renderContent(L(post.content))}
         </div>
 
         <footer className="mt-8 flex items-center justify-between">
@@ -277,29 +295,29 @@ export function StudyBlogPostContent({ post }: { post: StudyBlogPost }) {
             className="text-sm font-medium text-muted hover:text-foreground transition-colors flex items-center gap-1"
           >
             <ArrowLeft className="h-4 w-4" />
-            ブログ一覧に戻る
+            {ui.backToList}
           </Link>
           <button
             onClick={handleShare}
             className="text-sm font-medium text-muted hover:text-foreground transition-colors flex items-center gap-1.5"
           >
             <Share2 className="h-4 w-4" />
-            シェアする
+            {ui.share}
           </button>
         </footer>
 
         <div className="mt-10 bg-gradient-to-r from-primary/5 to-indigo-500/5 border border-primary/20 rounded-2xl p-6 text-center">
           <h3 className="text-lg font-bold text-foreground mb-2">
-            MoveWorth.studyで留学費用をシミュレーション
+            {ui.ctaTitle}
           </h3>
           <p className="text-sm text-muted mb-4">
-            国・期間・学費を入力するだけで、留学にかかる総費用の目安を無料で計算できます。
+            {ui.ctaDesc}
           </p>
           <Link
             href="/simulate"
             className="inline-block bg-primary text-white px-6 py-2.5 rounded-xl font-semibold text-sm hover:bg-primary/90 transition-all shadow-md shadow-primary/20"
           >
-            費用をシミュレーションする
+            {ui.ctaButton}
           </Link>
         </div>
       </article>
