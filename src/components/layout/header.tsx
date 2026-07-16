@@ -14,9 +14,9 @@ export function Header() {
   const { theme, toggle: toggleTheme } = useTheme();
 
   const cycleLocale = () => {
-    if (locale === "en") setLocale("ja");
-    else if (locale === "ja") setLocale("zh");
-    else setLocale("en");
+    if (locale === "ja") setLocale("en");
+    else if (locale === "en") setLocale("zh");
+    else setLocale("ja");
   };
 
   const currentLocaleLabel = locale === "en" ? "EN" : locale === "ja" ? "JA" : "ZH";
