@@ -307,7 +307,7 @@ async function generateGuideArticle(topic: { slug: string; title: { ja: string; 
 - 事実に基づく正確な情報（2026年時点）
 - キーワード「${topic.keywords}」を自然に含める
 - FAQ を含めることでスニペット獲得を狙う
-- MoveWorth.studyへの言及を含める（リンクは必ず https://study.moveworthapp.com/simulate を使用すること）
+- MoveWorth.studyシミュレーターへのCTAをマークダウンリンク形式で本文内に含める: [MoveWorth.studyシミュレーター](https://study.moveworthapp.com/simulate)（「リンクは〜してください」等の指示文を含まない自然な文章で）
 - 記事末尾に「### 参考資料」セクションを追加し、テーマに関連する公式機関・政府・国際機関のURLを3〜5件リスト（実在する正確なURLのみ。捏造不可）
 - 記事本文のみ返すこと`;
 
@@ -330,7 +330,7 @@ async function generateGuideArticle(topic: { slug: string; title: { ja: string; 
 - Accurate, fact-based (2026)
 - Naturally include target keywords
 - FAQ section to target featured snippets
-- Include MoveWorth.study mention. Always use exact URL: https://study.moveworthapp.com/simulate
+- Include a MoveWorth.study simulator CTA using markdown link format: [MoveWorth.study Simulator](https://study.moveworthapp.com/simulate) — write it as a natural sentence, not as an instruction
 - Add a "### References" section at the end with 3-5 official/government/international organization URLs relevant to the topic. Use only real, verifiable URLs. Never fabricate.
 - Return article body only`;
 

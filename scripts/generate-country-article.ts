@@ -968,12 +968,14 @@ ${countryName.ja}への留学に関する記事を日本語で書いてくださ
 | 住居費（月額） | 約○〜○万円 |
 | 学生ビザ申請費 | 約○円 |
 
-MoveWorth.studyのシミュレーターで${countryName.ja}留学の総費用を計算してみましょう。リンクは必ず https://study.moveworthapp.com/simulate を使用してください。
-
 ### 参考資料
 本記事の情報は以下の公式資料をもとに作成しています。
 （${countryName.ja}の入国管理局・労働省・政府公式サイトなど公式機関を3〜5件。実在する正確なURLのみ。捏造不可）
-- [機関名](https://official-url.example.com)
+- [機関名](https://公式URL)
+
+## 条件
+- 費用の目安セクション内に、マークダウンリンク形式のCTAを自然な文章で1文含めること: [MoveWorth.studyシミュレーター](https://study.moveworthapp.com/simulate)
+- 上記CTAは「リンクは〜してください」等の指示文を含まない自然な案内文にすること
 
 ## JSON形式で返答（JSONのみ、コードブロック不要）
 {
@@ -1018,11 +1020,13 @@ Study & Work Rules in ${countryName.en} 2026 — Complete Guide
 | Accommodation (monthly) | approx. X–X USD |
 | Student visa fee | approx. X USD |
 
-Use the MoveWorth.study simulator to calculate total costs for studying in ${countryName.en}. Always use exact URL: https://study.moveworthapp.com/simulate
-
 ### References
 List 3-5 official sources (immigration authority, labor ministry, government site of ${countryName.en}). Real URLs only — never fabricate.
-- [Organization name](https://official-url.example.com)
+- [Organization name](https://official-url)
+
+## Requirements
+- Include a MoveWorth.study simulator CTA as a natural sentence in the Cost section, using markdown link format: [MoveWorth.study Simulator](https://study.moveworthapp.com/simulate)
+- Do NOT include instruction text like "Always use..." in the article body
 
 ## Return as JSON only (no code block):
 {
@@ -1083,12 +1087,14 @@ A: （特徴・向き不向き）
 Q3: ${countryName.ja}留学の準備はいつから始めれば良いですか？
 A: （目安期間）
 
-MoveWorth.studyのシミュレーターで${countryName.ja}留学の総費用を計算できます。リンクは必ず https://study.moveworthapp.com/simulate を使用してください。
-
 ### 参考資料
 本記事の情報は以下の公式資料をもとに作成しています。
 （${countryName.ja}の入国管理局・大使館・観光局・教育省など公式機関を3〜5件。実在する正確なURLのみ。捏造不可）
-- [機関名](https://official-url.example.com)
+- [機関名](https://公式URL)
+
+## 条件
+- FAQセクション後に、マークダウンリンク形式のCTAを自然な文章で1文含めること: [MoveWorth.studyシミュレーター](https://study.moveworthapp.com/simulate)
+- 上記CTAは「リンクは〜してください」等の指示文を含まない自然な案内文にすること
 
 ## JSON形式で返答（JSONのみ、コードブロック不要）
 {
@@ -1132,11 +1138,13 @@ A: (profile of ideal student)
 Q3: How far in advance should I start preparing?
 A: (timeline)
 
-Include mention of MoveWorth.study simulator. Always use exact URL: https://study.moveworthapp.com/simulate
-
 ### References
 List 3-5 official sources (immigration authority, embassy, tourism board, education ministry of ${countryName.en}). Real URLs only — never fabricate.
-- [Organization name](https://official-url.example.com)
+- [Organization name](https://official-url)
+
+## Requirements
+- Include a MoveWorth.study simulator CTA as a natural sentence after the FAQ section, using markdown link format: [MoveWorth.study Simulator](https://study.moveworthapp.com/simulate)
+- Do NOT include instruction text like "Always use..." in the article body
 
 ## Return as JSON only (no code block):
 {
