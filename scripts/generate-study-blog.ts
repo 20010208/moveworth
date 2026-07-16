@@ -342,8 +342,13 @@ async function generateGuideArticle(topic: { slug: string; title: { ja: string; 
     factCheck(enRaw, topic.title.en, "en"),
   ]);
 
+  const REFUSAL_JA_RE = /申し訳ありませんが[\s\S]*?\n\n(?=### 参考資料)/g;
+  const REFUSAL_EN_RE = /I'?m sorry[\s\S]*?\n\n(?=### References)/ig;
+  const jaClean = jaFinal.replace(REFUSAL_JA_RE, "").replace(REFUSAL_EN_RE, "");
+  const enClean = enFinal.replace(REFUSAL_JA_RE, "").replace(REFUSAL_EN_RE, "");
+
   const today = new Date().toISOString().slice(0, 10);
-  const wordCount = jaFinal.split(/\s+/).length;
+  const wordCount = jaClean.split(/\s+/).length;
   const readingTime = Math.max(4, Math.ceil(wordCount / 350));
 
   const descJa = await callGPT(
@@ -355,7 +360,7 @@ async function generateGuideArticle(topic: { slug: string; title: { ja: string; 
     200
   );
 
-  const hasPlaceholder = [jaFinal, enFinal].some(c => c.includes("example.com"));
+  const hasPlaceholder = [jaClean, enClean].some(c => c.includes("example.com"));
   if (hasPlaceholder) {
     console.error(`❌ [PLACEHOLDER-URL] ${topic.slug}: "example.com" が含まれています — 保存スキップ`);
     return;
@@ -369,7 +374,7 @@ async function generateGuideArticle(topic: { slug: string; title: { ja: string; 
       reading_time: readingTime,
       title: topic.title,
       description: { ja: descJa.trim(), en: descEn.trim() },
-      content: { ja: jaFinal, en: enFinal },
+      content: { ja: jaClean, en: enClean },
       is_published: false,
     },
     { onConflict: "slug" }

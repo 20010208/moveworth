@@ -1044,6 +1044,9 @@ List 3-5 official sources (immigration authority, labor ministry, government sit
   });
   const parsed2 = JSON.parse(res.choices[0].message.content!);
   parsed2.content = sanitizeMoveWorthLinks(parsed2.content);
+  parsed2.content = parsed2.content
+    .replace(/申し訳ありませんが[\s\S]*?\n\n(?=### 参考資料)/g, "")
+    .replace(/I'?m sorry[\s\S]*?\n\n(?=### References)/ig, "");
   return parsed2;
 }
 
@@ -1162,6 +1165,9 @@ List 3-5 official sources (immigration authority, embassy, tourism board, educat
   });
   const parsed3 = JSON.parse(res.choices[0].message.content!);
   parsed3.content = sanitizeMoveWorthLinks(parsed3.content, true);
+  parsed3.content = parsed3.content
+    .replace(/申し訳ありませんが[\s\S]*?\n\n(?=### 参考資料)/g, "")
+    .replace(/I'?m sorry[\s\S]*?\n\n(?=### References)/ig, "");
   return parsed3;
 }
 
