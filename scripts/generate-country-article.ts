@@ -1422,13 +1422,13 @@ async function run() {
       process.exit(1);
     }
     if (existing.is_published) {
-      console.log(`ℹ️  ${visaSlug} はすでに公開済みです。`);
-      return;
+      console.log(`ℹ️  ${visaSlug} はすでに公開済みです（study記事の公開のみ続行）`);
+    } else {
+      const { error: updateErr } = await supabase
+        .from("blog_posts").update({ is_published: true }).eq("slug", visaSlug);
+      if (updateErr) { console.error("Update error:", updateErr.message); process.exit(1); }
+      console.log(`✅ ${visaSlug} → is_published: true（フラグ切り替えのみ、再生成なし）`);
     }
-    const { error: updateErr } = await supabase
-      .from("blog_posts").update({ is_published: true }).eq("slug", visaSlug);
-    if (updateErr) { console.error("Update error:", updateErr.message); process.exit(1); }
-    console.log(`✅ ${visaSlug} → is_published: true（フラグ切り替えのみ、再生成なし）`);
 
     // study 記事も同時に公開（study-work-{code} と study-country-{code}）
     for (const studySlugTmp of [`study-work-${country.code}`, `study-country-${country.code}`]) {
