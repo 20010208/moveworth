@@ -35,6 +35,39 @@ const PLACEHOLDER_PATTERNS = [
 ];
 const PLACEHOLDER_SHORT = 200; // chars
 
+// GPT 拒否・メタテキストパターン（本文長に関わらず全文スキャン）
+const GPT_REFUSAL_PATTERNS: { pattern: RegExp; label: string }[] = [
+  { pattern: /I'm sorry,?\s+but\s+I\s+can'?t\s+assist/i,            label: "GPT拒否(EN): I'm sorry, but I can't assist" },
+  { pattern: /I'm sorry,?\s+I\s+can'?t\s+assist/i,                   label: "GPT拒否(EN): I'm sorry, I can't assist" },
+  { pattern: /I\s+cannot\s+assist\s+with\s+that/i,                   label: "GPT拒否(EN): I cannot assist with that" },
+  { pattern: /I\s+apologize,?\s+but\s+I\s+(cannot|can'?t)/i,         label: "GPT拒否(EN): I apologize, but I cannot" },
+  { pattern: /I'?m\s+unable\s+to\s+(provide|assist|help|create)/i,   label: "GPT拒否(EN): I'm unable to provide/assist" },
+  { pattern: /As an AI language model/i,                              label: "GPT拒否(EN): As an AI language model" },
+  { pattern: /As a large language model/i,                            label: "GPT拒否(EN): As a large language model" },
+  { pattern: /I don'?t have the ability to/i,                         label: "GPT拒否(EN): I don't have the ability to" },
+  { pattern: /申し訳ありませんが、実在する正確なURL/,                    label: "GPT拒否(JA): 申し訳ありませんが、実在するURL" },
+  { pattern: /申し訳ありませんが、.*?提供すること/,                      label: "GPT拒否(JA): 申し訳ありませんが、〜提供すること" },
+  { pattern: /申し訳ございませんが、.*?(?:できません|不可能)/,           label: "GPT拒否(JA): 申し訳ございませんが" },
+  { pattern: /実在する正確なURLを提供することはできません/,              label: "GPT拒否(JA): 実在するURLを提供できません" },
+  { pattern: /実際のURLを提供(できません|することはできません)/,          label: "GPT拒否(JA): 実際のURLを提供できません" },
+];
+
+function findRefusalPatterns(text: string): string[] {
+  const hits: string[] = [];
+  for (const { pattern, label } of GPT_REFUSAL_PATTERNS) {
+    const m = text.match(pattern);
+    if (m) {
+      // 前後30字のコンテキストを添付
+      const idx = text.search(pattern);
+      const start = Math.max(0, idx - 30);
+      const end = Math.min(text.length, idx + m[0].length + 30);
+      const ctx = text.slice(start, end).replace(/\n/g, " ");
+      hits.push(`${label} → 「…${ctx}…」`);
+    }
+  }
+  return hits;
+}
+
 function isPlaceholderContent(text: string | null | undefined): string {
   if (!text) return "";
   const t = text.trim();
@@ -286,9 +319,71 @@ async function main() {
     console.log(`\n✅ 本文中の生シミュレーターURLなし（公開記事 ${publishedRows.length}件 チェック通過）`);
   }
 
+  // ─── GPT 拒否・メタテキスト 全文スキャン（blog_posts 全記事・全言語）─────────
+  const refusalFindings: Array<{ slug: string; is_published: boolean; hits: { lang: string; patterns: string[] }[] }> = [];
+  for (const r of rows) {
+    const c = r.content as Record<string, string> | null;
+    if (!c) continue;
+    const hits: { lang: string; patterns: string[] }[] = [];
+    for (const lang of ["ja", "en", "zh"] as const) {
+      const text = c[lang];
+      if (!text || text.trim().length === 0) continue;
+      const patterns = findRefusalPatterns(text);
+      if (patterns.length > 0) hits.push({ lang, patterns });
+    }
+    if (hits.length > 0) refusalFindings.push({ slug: r.slug, is_published: r.is_published, hits });
+  }
+  if (refusalFindings.length > 0) {
+    console.log(`\n--- ❌ GPT拒否・メタテキスト混入（blog_posts 全記事）: ${refusalFindings.length} 件 ---`);
+    for (const f of refusalFindings) {
+      console.log(`\n  ${f.is_published ? "🔴 公開" : "🟡 draft"} ${f.slug}`);
+      for (const { lang, patterns } of f.hits) {
+        for (const p of patterns) console.log(`    [${lang}] ${p}`);
+      }
+    }
+  } else {
+    console.log(`\n✅ GPT拒否・メタテキスト混入なし（blog_posts ${rows.length}件 全言語スキャン通過）`);
+  }
+
+  // ─── study_blog_posts 拒否パターン全文スキャン ──────────────────────────────
+  console.log("\n=== study_blog_posts GPT拒否・メタテキスト スキャン ===");
+  const { data: studyData, error: studyError } = await sb
+    .from("study_blog_posts")
+    .select("slug, is_published, content")
+    .order("slug");
+  if (studyError) {
+    console.error("study_blog_posts 取得エラー:", studyError.message);
+  } else {
+    const studyRows = studyData ?? [];
+    const studyRefusalFindings: Array<{ slug: string; is_published: boolean; hits: { lang: string; patterns: string[] }[] }> = [];
+    for (const r of studyRows) {
+      const c = r.content as Record<string, string> | null;
+      if (!c) continue;
+      const hits: { lang: string; patterns: string[] }[] = [];
+      for (const lang of ["ja", "en"] as const) {
+        const text = c[lang];
+        if (!text || text.trim().length === 0) continue;
+        const patterns = findRefusalPatterns(text);
+        if (patterns.length > 0) hits.push({ lang, patterns });
+      }
+      if (hits.length > 0) studyRefusalFindings.push({ slug: r.slug, is_published: r.is_published, hits });
+    }
+    if (studyRefusalFindings.length > 0) {
+      console.log(`❌ 混入あり: ${studyRefusalFindings.length} 件`);
+      for (const f of studyRefusalFindings) {
+        console.log(`\n  ${f.is_published ? "🔴 公開" : "🟡 draft"} ${f.slug}`);
+        for (const { lang, patterns } of f.hits) {
+          for (const p of patterns) console.log(`    [${lang}] ${p}`);
+        }
+      }
+    } else {
+      console.log(`✅ GPT拒否・メタテキスト混入なし（study_blog_posts ${studyRows.length}件 全言語スキャン通過）`);
+    }
+  }
+
   console.log("\n=== 完了 ===");
   const hasErrors = broken.length > 0 || refCountFindings.length > 0
-    || rawRefFindings.length > 0 || rawSimFindings.length > 0;
+    || rawRefFindings.length > 0 || rawSimFindings.length > 0 || refusalFindings.length > 0;
   process.exit(hasErrors ? 1 : 0);
 }
 
