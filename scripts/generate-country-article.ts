@@ -1422,8 +1422,8 @@ async function run() {
     if (updateErr) { console.error("Update error:", updateErr.message); process.exit(1); }
     console.log(`✅ ${visaSlug} → is_published: true（フラグ切り替えのみ、再生成なし）`);
 
-    // study 記事も同時に公開（study-{code} と study-country-{code}）
-    for (const studySlugTmp of [`study-${country.code}`, `study-country-${country.code}`]) {
+    // study 記事も同時に公開（study-work-{code} と study-country-{code}）
+    for (const studySlugTmp of [`study-work-${country.code}`, `study-country-${country.code}`]) {
       const { error: studyPubErr } = await supabase
         .from("study_blog_posts")
         .update({ is_published: true })
@@ -1621,15 +1621,15 @@ async function run() {
   console.log(shouldPublish ? `✅ Visa article published: ${visaSlug}` : `📝 Visa article saved as draft: ${visaSlug}`);
   } // end: force-regen FALLBACK skip guard else
 
-  // --- Study article (ja/en) ---
-  // study-work-{code} が既に存在する国では study-{code} を生成しない（重複・SEO共食い防止）
+  // --- Study article (ja/en) → study-work-{code} ---
+  const studyWorkSlug = `study-work-${country.code}`;
   const { data: existingWorkArticle } = await supabase
     .from("study_blog_posts")
     .select("slug")
-    .eq("slug", `study-work-${country.code}`)
+    .eq("slug", studyWorkSlug)
     .maybeSingle();
   if (existingWorkArticle) {
-    console.log(`⏭️  study-${country.code}: study-work-${country.code} が既存のためスキップ（重複防止）`);
+    console.log(`⏭️  ${studyWorkSlug}: 既存のためスキップ`);
     // study-country-{code} は独立コンテンツのため引き続き生成する
   } else {
   console.log("Generating study article...");
@@ -1651,13 +1651,10 @@ async function run() {
     factCheckContent(studyChecked1En, country.name.en, "en"),
   ]);
 
-  const studySlug = `study-${country.code}`;
-
-  // example.com プレースホルダー URL チェック（visa 側の L1626-1631 相当）
-  // プロンプトテンプレートに "official-url.example.com" の例示があるため GPT が模倣するリスクがある
+  // example.com プレースホルダー URL チェック（visa 側と同等）
   const studyHasPlaceholder = [studyFinalJa, studyFinalEn].some((c) => c.includes("example.com"));
   if (studyHasPlaceholder) {
-    console.error(`❌ [PLACEHOLDER-URL] ${studySlug}: "example.com" が生成コンテンツに含まれています — is_published=false に強制`);
+    console.error(`❌ [PLACEHOLDER-URL] ${studyWorkSlug}: "example.com" が生成コンテンツに含まれています — is_published=false に強制`);
   }
 
   assertBlogPayload(
@@ -1665,11 +1662,11 @@ async function run() {
       description: { ja: studyJa.description, en: studyEn.description },
       content: { ja: studyFinalJa, en: studyFinalEn },
       locales: ["ja", "en"] },
-    studySlug
+    studyWorkSlug
   );
 
   const { error: studyError } = await supabase.from("study_blog_posts").upsert({
-    slug: studySlug,
+    slug: studyWorkSlug,
     category: "work",
     date: today,
     reading_time: 8,
@@ -1682,9 +1679,9 @@ async function run() {
   if (studyError) {
     console.error("Study work article insert failed:", studyError.message);
   } else {
-    console.log(`📝 Study work article saved as draft: ${studySlug}${studyHasPlaceholder ? " [PLACEHOLDER-URL detected]" : ""}`);
+    console.log(`📝 Study work article saved as draft: ${studyWorkSlug}${studyHasPlaceholder ? " [PLACEHOLDER-URL detected]" : ""}`);
   }
-  } // end: study-work-{code} 重複防止ガード else
+  } // end: 既存 study-work-{code} スキップガード else
 
   // --- Country guide article (study-country-{code}) ---
   console.log("Generating country guide article...");
