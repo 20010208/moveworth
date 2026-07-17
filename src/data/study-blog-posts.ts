@@ -8,10 +8,10 @@ export type StudyBlogPost = {
   content: { ja: string; en: string };
 };
 
-export const studyBlogCategories: Record<string, { ja: string; en: string }> = {
-  guide: { ja: "留学ガイド", en: "Study Guide" },
-  work: { ja: "アルバイト・就労", en: "Part-time Work" },
-  country: { ja: "国別情報", en: "Country Info" },
+export const studyBlogCategories: Record<string, { ja: string; en: string; zh?: string }> = {
+  guide:   { ja: "留学ガイド",     en: "Study Guide",    zh: "留学指南" },
+  work:    { ja: "アルバイト・就労", en: "Part-time Work", zh: "打工·就业" },
+  country: { ja: "国別情報",       en: "Country Info",   zh: "各国信息" },
 };
 
 export const studyBlogPosts: StudyBlogPost[] = [
