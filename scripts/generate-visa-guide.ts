@@ -196,6 +196,9 @@ const DOMAIN_LABEL_MAP_GUIDE: Record<string, string> = {
   "ircc.canada.ca": "カナダ移民・難民・市民権省（IRCC）",
   "immi.homeaffairs.gov.au": "オーストラリア内務省移民局",
   "ato.gov.au": "オーストラリア税務局（ATO）",
+  "one.gob.es": "スペイン政府公式ポータル（Plataforma ONE）",
+  "extranjeros.inclusion.gob.es": "スペイン包摂・社会保障・移住省（移民局）",
+  "inclusion.gob.es": "スペイン包摂・社会保障・移住省",
 };
 
 function urlToLabelGuide(url: string): string {
@@ -359,6 +362,19 @@ const VISA_GUIDE_TOPICS: VisaGuideTopic[] = [
     countryName: { ja: "オーストラリア", en: "Australia", zh: "澳大利亚" },
     sourceUrls: [
       "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/skilled-independent-189",
+    ],
+  },
+  {
+    slug: "spain-digital-nomad-visa-guide-2026",
+    programName: {
+      ja: "デジタルノマドビザ（Ley de Startups / 国際テレワークビザ）",
+      en: "Digital Nomad Visa (Startup Law / International Telework Visa)",
+      zh: "数字游牧签证（创业法 / 国际远程工作签证）",
+    },
+    countryCode: "es",
+    countryName: { ja: "スペイン", en: "Spain", zh: "西班牙" },
+    sourceUrls: [
+      "https://one.gob.es/en/procedures/application-digital-nomad-visa",
     ],
   },
 ];
