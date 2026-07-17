@@ -6,6 +6,7 @@
  */
 import { existsSync, readFileSync } from "fs";
 import { createClient } from "@supabase/supabase-js";
+import { buildRefsLines } from "./utils/url-label";
 if (existsSync(".env.local")) {
   for (const line of readFileSync(".env.local", "utf-8").split("\n")) {
     const t = line.trim(); if (!t || t.startsWith("#")) continue;
@@ -18,12 +19,7 @@ const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPAB
 
 const code = process.argv[2] ?? "au";
 
-// --- 注入ロジック（generate-country-article.ts と同一）---
-function simpleUrlLabel(url: string): string {
-  try { return new URL(url).hostname.replace(/^www\./, ""); }
-  catch { return url; }
-}
-
+// --- 注入ロジック（generate-study-blog.ts と同一）---
 function stripRefSection(content: string): string {
   const re = /\n(?:---\n\n)?###\s*(?:参考資料|References)/;
   const m = content.match(re);
@@ -62,9 +58,7 @@ async function main() {
   console.log(`visa sources 件数: ${urls.length}`);
   if (isGrounded) console.log(`URLs:\n  ${urls.join("\n  ")}`);
 
-  const refs = isGrounded
-    ? urls.map(u => `- [${simpleUrlLabel(u)}](${u})`).join("\n")
-    : "";
+  const refs = isGrounded ? buildRefsLines(urls) : "";
 
   // 既存 study 記事があれば末尾の参考資料セクションを差し替えてシミュレート
   const dummy = `（記事本文省略）\n\n### 参考資料\n旧GPT生成URL（差し替え対象）\n- [example.com](https://example.com)`;

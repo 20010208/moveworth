@@ -9,6 +9,7 @@ import { existsSync, readFileSync } from "fs";
 import OpenAI from "openai";
 import { createClient } from "@supabase/supabase-js";
 import { sanitizeMoveWorthLinks } from "./utils/sanitize-links";
+import { buildRefsLines } from "./utils/url-label";
 
 if (existsSync(".env.local")) {
   for (const line of readFileSync(".env.local", "utf-8").split("\n")) {
@@ -113,11 +114,6 @@ async function getVisaSourceUrls(countryCode: string): Promise<string[]> {
   return (data ?? []).map((r: { url: string }) => r.url);
 }
 
-function simpleUrlLabel(url: string): string {
-  try { return new URL(url).hostname.replace(/^www\./, ""); }
-  catch { return url; }
-}
-
 function stripStudyRefSection(content: string): string {
   const re = /\n(?:---\n\n)?###\s*(?:参考資料|References|参考资料)/;
   const m = content.match(re);
@@ -137,7 +133,7 @@ function injectStudyRefs(content: string, urls: string[], lang: "ja" | "en"): st
     ja: "### 参考資料\n本記事の情報は以下の公式資料をもとに作成しています。",
     en: "### References\nData sourced from official government and immigration authority pages.",
   };
-  const refs = urls.map((u) => `- [${simpleUrlLabel(u)}](${u})`).join("\n");
+  const refs = buildRefsLines(urls);
   return stripped.trimEnd() + `\n\n---\n\n${headings[lang]}\n${refs}`;
 }
 
