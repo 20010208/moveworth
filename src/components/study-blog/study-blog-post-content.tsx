@@ -8,20 +8,27 @@ import { useTranslation } from "@/lib/i18n";
 
 export function StudyBlogPostContent({ post }: { post: StudyBlogPost }) {
   const { locale } = useTranslation();
-  // ja → ja、en/zh → en（zh コンテンツは未生成のため en にフォールバック）
-  const lang: "ja" | "en" = locale === "ja" ? "ja" : "en";
-  const L = <T extends { ja: string; en: string }>(obj: T): string =>
-    obj[lang] || obj.ja;
+  // zh 選択時は content.zh を優先。未生成の場合は en → ja の順でフォールバック
+  const lang: "ja" | "en" | "zh" = locale === "ja" ? "ja" : locale === "zh" ? "zh" : "en";
+  const L = <T extends { ja: string; en: string; zh?: string }>(obj: T): string => {
+    if (lang === "zh") return obj.zh || obj.en || obj.ja;
+    if (lang === "en") return obj.en || obj.ja;
+    return obj.ja;
+  };
 
   const ui = {
-    backToList: lang === "ja" ? "ブログ一覧に戻る" : "Back to Blog",
-    minRead:    lang === "ja" ? "分で読める" : "min read",
-    share:      lang === "ja" ? "シェアする" : "Share",
-    ctaTitle:   lang === "ja" ? "MoveWorth.studyで留学費用をシミュレーション" : "Simulate Your Study Abroad Costs with MoveWorth.study",
+    backToList: lang === "ja" ? "ブログ一覧に戻る" : lang === "zh" ? "返回博客列表" : "Back to Blog",
+    minRead:    lang === "ja" ? "分で読める" : lang === "zh" ? "分钟阅读" : "min read",
+    share:      lang === "ja" ? "シェアする" : lang === "zh" ? "分享" : "Share",
+    ctaTitle:   lang === "ja" ? "MoveWorth.studyで留学費用をシミュレーション"
+              : lang === "zh" ? "使用MoveWorth.study模拟留学费用"
+              : "Simulate Your Study Abroad Costs with MoveWorth.study",
     ctaDesc:    lang === "ja"
       ? "国・期間・学費を入力するだけで、留学にかかる総費用の目安を無料で計算できます。"
+      : lang === "zh"
+      ? "只需输入目的地、时长和学费，即可免费计算留学总费用的参考金额。"
       : "Enter your destination, duration, and tuition to get a free estimate of your total study abroad budget.",
-    ctaButton:  lang === "ja" ? "費用をシミュレーションする" : "Start Simulation",
+    ctaButton:  lang === "ja" ? "費用をシミュレーションする" : lang === "zh" ? "开始模拟" : "Start Simulation",
   };
 
   const handleShare = async () => {
