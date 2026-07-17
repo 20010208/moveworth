@@ -102,6 +102,45 @@ async function getExistingSlugs(): Promise<Set<string>> {
   return new Set((data ?? []).map((p: { slug: string }) => p.slug));
 }
 
+// study 記事参考資料ヘルパー（purpose='visa' ソースを流用）
+async function getVisaSourceUrls(countryCode: string): Promise<string[]> {
+  const { data } = await supabase
+    .from("country_sources")
+    .select("url")
+    .eq("country_code", countryCode)
+    .eq("purpose", "visa")
+    .eq("status", "alive");
+  return (data ?? []).map((r: { url: string }) => r.url);
+}
+
+function simpleUrlLabel(url: string): string {
+  try { return new URL(url).hostname.replace(/^www\./, ""); }
+  catch { return url; }
+}
+
+function stripStudyRefSection(content: string): string {
+  const re = /\n(?:---\n\n)?###\s*(?:参考資料|References|参考资料)/;
+  const m = content.match(re);
+  return m ? content.slice(0, m.index!) : content;
+}
+
+function injectStudyRefs(content: string, urls: string[], lang: "ja" | "en"): string {
+  const stripped = stripStudyRefSection(content);
+  if (urls.length === 0) {
+    const fallbacks: Record<"ja" | "en", string> = {
+      ja: "### 参考資料\n最新の情報は各国の入国管理局・大使館の公式サイトでご確認ください。",
+      en: "### References\nFor the latest information, please refer to the official immigration authority or embassy website of your destination country.",
+    };
+    return stripped.trimEnd() + `\n\n${fallbacks[lang]}`;
+  }
+  const headings: Record<"ja" | "en", string> = {
+    ja: "### 参考資料\n本記事の情報は以下の公式資料をもとに作成しています。",
+    en: "### References\nData sourced from official government and immigration authority pages.",
+  };
+  const refs = urls.map((u) => `- [${simpleUrlLabel(u)}](${u})`).join("\n");
+  return stripped.trimEnd() + `\n\n---\n\n${headings[lang]}\n${refs}`;
+}
+
 async function getNextCountryGuide(existing: Set<string>) {
   for (const c of COUNTRY_GUIDE_QUEUE) {
     if (!existing.has(`study-country-${c.code}`)) return c;
@@ -137,6 +176,14 @@ async function factCheck(content: string, topic: string, lang: "ja" | "en"): Pro
 async function generateCountryGuideArticle(country: { code: string; name: { ja: string; en: string } }) {
   const slug = `study-country-${country.code}`;
   console.log(`\n📝 Generating country guide: ${slug}`);
+
+  // visa ソースから参考資料 URL を取得（フェッチなし）
+  const visaUrls = await getVisaSourceUrls(country.code);
+  if (visaUrls.length > 0) {
+    console.log(`  ✅ Study refs: ${visaUrls.length} visa source URL(s) found`);
+  } else {
+    console.log(`  ℹ️  Study refs: no visa sources — will use fallback text`);
+  }
 
   // SEO最適化：FAQ付き、検索意図を満たす構成
   const jaPrompt = `あなたはMoveWorth.studyのSEOライターです。「${country.name.ja}留学」を検索する日本人向けに、網羅的で検索上位を狙える記事を書いてください。
@@ -179,9 +226,7 @@ A: （目安期間）
 MoveWorth.studyのシミュレーターで${country.name.ja}留学の総費用を計算できます。リンクは必ず https://study.moveworthapp.com/simulate を使用してください。
 
 ### 参考資料
-本記事の情報は以下の公式資料をもとに作成しています。
-（${country.name.ja}の入国管理局・大使館・観光局・教育省など公式機関のサイトを3〜5件。実在する正確なURLのみ記載。ルートドメインまたは安定したセクションURLを優先。捏造URLは絶対不可）
-- [機関名](https://official-url.example.com)
+（URLはシステムから自動注入されます。このセクション内にURLを記載しないでください）
 
 ## 条件
 - 文字数: 1500〜2500文字（参考資料セクション含む）
@@ -228,8 +273,7 @@ A: (timeline)
 Include mention of MoveWorth.study cost simulator. Always use the exact URL: https://study.moveworthapp.com/simulate
 
 ### References
-List 3-5 official sources (immigration authority, embassy, tourism board, education ministry of ${country.name.en}). Use only real, verifiable URLs. Prefer root or stable section URLs. Never fabricate URLs.
-- [Organization name](https://official-url.example.com)
+(URLs are injected automatically by the system. Do not write any URLs in this section.)
 
 ## Requirements
 - Length: 1200-2000 words (including references)
@@ -240,10 +284,14 @@ List 3-5 official sources (immigration authority, embassy, tourism board, educat
   const [jaRaw, enRaw] = await Promise.all([callGPT(jaPrompt), callGPT(enPrompt)]);
 
   console.log("  Fact-checking...");
-  const [jaFinal, enFinal] = await Promise.all([
+  const [jaChecked, enChecked] = await Promise.all([
     factCheck(jaRaw, `${country.name.ja}留学ガイド`, "ja"),
     factCheck(enRaw, `Studying in ${country.name.en}`, "en"),
   ]);
+
+  // 参考資料を機械注入（GPT 生成の URL を除去して置換）
+  const jaFinal = injectStudyRefs(jaChecked, visaUrls, "ja");
+  const enFinal = injectStudyRefs(enChecked, visaUrls, "en");
 
   const today = new Date().toISOString().slice(0, 10);
   const wordCount = jaFinal.split(/\s+/).length;
