@@ -2,7 +2,8 @@ name: Auto Cross Work Rules
 
 on:
   schedule:
-    # 毎週日曜 09:00 JST (00:00 UTC) に就労ルール横断記事を再集約
+    # 毎週日曜 09:00 JST (00:00 UTC) に就労ルール横断記事を再集約（draft保存のみ）
+    # 公開は人間が npx tsx scripts/generate-cross-work-rules.ts --publish-only で手動実行
     - cron: "0 0 * * 0"
   workflow_dispatch:
 
@@ -20,11 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Re-aggregate cross work rules article
-        run: npx tsx scripts/generate-cross-work-rules.ts --auto-publish
+      - name: Re-aggregate cross work rules article (draft only)
+        run: npx tsx scripts/generate-cross-work-rules.ts
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-
-      - name: Trigger Vercel redeploy
-        run: curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"

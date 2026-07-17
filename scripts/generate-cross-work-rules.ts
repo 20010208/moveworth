@@ -5,8 +5,9 @@
  *
  * 使い方:
  *   npx tsx scripts/generate-cross-work-rules.ts              # draft 保存 (is_published=false)
- *   npx tsx scripts/generate-cross-work-rules.ts --publish-only  # フラグ切り替えのみ
- *   npx tsx scripts/generate-cross-work-rules.ts --auto-publish  # 再生成+公開 (GHA 用)
+ *   npx tsx scripts/generate-cross-work-rules.ts --publish-only  # フラグ切り替えのみ（再生成なし）
+ *
+ * GHA 週次バッチはドラフト保存のみ。公開は必ず人間が --publish-only を手動実行する。
  */
 import { existsSync, readFileSync } from "fs";
 import { createClient } from "@supabase/supabase-js";
@@ -29,7 +30,6 @@ const sb = createClient(
 );
 
 const PUBLISH_ONLY = process.argv.includes("--publish-only");
-const AUTO_PUBLISH = process.argv.includes("--auto-publish");
 const SLUG = "study-abroad-work-rules-all-countries-2026";
 
 const EXTRA_COUNTRY_NAMES: Record<string, { ja: string; en: string }> = {
@@ -233,14 +233,14 @@ async function run() {
     .from("study_blog_posts")
     .update({
       content: { ja: jaContent, en: enContent },
-      is_published: AUTO_PUBLISH,
+      is_published: false,
     })
     .eq("slug", SLUG);
 
   if (upsertErr) { console.error("❌ upsert failed:", upsertErr.message); process.exit(1); }
 
-  const status = AUTO_PUBLISH ? "公開済み" : "下書き保存";
-  console.log(`✅ ${SLUG} を${status}しました (${rows.length}カ国, JA: ${jaContent.length}字)`);
+  console.log(`✅ ${SLUG} を下書き保存しました (${rows.length}カ国, JA: ${jaContent.length}字)`);
+  console.log(`   公開するには: npx tsx scripts/generate-cross-work-rules.ts --publish-only`);
 }
 
 run().catch(e => { console.error(e); process.exit(1); });
