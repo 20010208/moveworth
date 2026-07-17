@@ -63,11 +63,13 @@ function stripHtml(html: string): string {
 function isSourceUseful(text: string): boolean {
   if (!text || text.length < 300) return false;
   let hits = 0;
-  if (/(?:NZD|EUR|USD|GBP|AUD|CAD|SGD|CHF|PLN|TND|SEK|NOK)\s?\$?[\d,]+|[\d,]+\s*(?:EUR|PLN|euros?)|[$€£]\s?[\d,]+/i.test(text)) hits++;
+  // 通貨金額: EUR/USD/GBP 等 + 数字。欧州式桁区切り（3.000 EUR → "000 EUR"）も `[\d,]+` で部分マッチ
+  if (/(?:NZD|EUR|USD|GBP|AUD|CAD|SGD|CHF|PLN|TND|SEK|NOK|HUF|RON|HRK|BGN|CZK|AED)\s?\$?[\d,]+|[\d,]+\s*(?:EUR|PLN|HUF|RON|euros?)|[$€£]\s?[\d,]+/i.test(text)) hits++;
   if (/\d+\.?\d*\s*%/.test(text)) hits++;
-  if (/\d+\s*(days?|weeks?|months?|years?|hours?)/i.test(text)) hits++;
+  // 期間: 英語に加えてハンガリー語(év/hónap/nap)・ドイツ語(Jahr/Monat)・仏語(mois)・ポーランド語(rok/miesięcy)
+  if (/\d+\s*(days?|weeks?|months?|years?|hours?|év|évig|éves|hónap|hónapig|nap|napig|Jahr|Jahre?n?|Monat|Monate?n?|Woche|dag|maand|mois|rok|lat|miesięcy)\b/i.test(text)) hits++;
   if (/\d+\s*points?/i.test(text)) hits++;
-  if (/(require|eligib|qualif|must have|criteria|condition|permit|residence|visa|employ|work permit|foreign staff|national|labor|labour)[\s\S]{0,100}\d/i.test(text)) hits++;
+  if (/(require|eligib|qualif|must have|criteria|condition|permit|residence|visa|employ|work permit|foreign staff|national|labor|labour|tartózkodás|engedély|feltétel|befektető|munkavállalás|Aufenthaltserlaubnis|verblijfsvergunning|séjour|zezwolenie)[\s\S]{0,100}\d/i.test(text)) hits++;
   return hits >= 2;
 }
 
@@ -138,6 +140,10 @@ async function tryWaybackMachine(originalUrl: string, maxChars: number = MAX_CHA
 }
 
 async function fetchPageText(url: string, maxChars: number = MAX_CHARS_PER_SOURCE): Promise<string | null> {
+  // Wayback URL は直接フェッチ時の文字制限を 2 倍（ナビゲーション等が先頭に積まれるため）
+  const isWaybackUrl = url.includes("web.archive.org");
+  const effectiveMaxChars = isWaybackUrl ? maxChars * 2 : maxChars;
+
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), SOURCE_FETCH_TIMEOUT);
   let text: string | null = null;
@@ -150,7 +156,7 @@ async function fetchPageText(url: string, maxChars: number = MAX_CHARS_PER_SOURC
     if (res.ok) {
       const ct = res.headers.get("content-type") ?? "";
       if (ct.includes("html") || ct.includes("text")) {
-        text = sliceWithLog(stripHtml(await res.text()), url, maxChars);
+        text = sliceWithLog(stripHtml(await res.text()), url, effectiveMaxChars);
       }
     }
   } catch {
@@ -158,7 +164,8 @@ async function fetchPageText(url: string, maxChars: number = MAX_CHARS_PER_SOURC
   }
 
   // SPA やナビゲーション羅列を検出した場合は Wayback Machine へフォールバック
-  if (!isSourceUseful(text ?? "")) {
+  // ただし既に Wayback URL の場合は再帰的な Wayback 取得を行わない
+  if (!isSourceUseful(text ?? "") && !isWaybackUrl) {
     console.log(`  [source] SPA/low-quality detected — trying Wayback Machine for ${url}`);
     const wb = await tryWaybackMachine(url, maxChars);
     if (wb && isSourceUseful(wb)) {
@@ -662,6 +669,23 @@ const COUNTRY_VISA_EXTRA_CONSTRAINTS: Partial<Record<string, Record<Lang, string
         "雇佣规则（30%外籍员工上限、ANETI预先批准等）须按原文数字填写。" +
         "签证申请手续、费用、学生签证因无一手资料，不得填写具体金额或天数，" +
         "改为「请联系突尼斯驻当地大使馆确认最新信息」。禁止捏造URL或使用占位域名（example.com等）。",
+  },
+  hu: {
+    ja: "【HUビザ構成制約】ソースに記載のある以下の2制度を必ず別々の項目として書き分けること（統合・省略禁止）。" +
+        "①White Card（Fehér Kártya、デジタルノマドビザ）: 月収3,000EUR以上のリモートワーカー向け。ハンガリー外の雇用主・クライアントから収入を得ていること。有効期間2年（更新可能）。" +
+        "②ゲスト投資家ビザ（Vendégbefektetői vízum）: ハンガリー国立銀行登録の不動産ファンドへの25万EUR以上の投資信託購入、またはハンガリー高等教育機関への100万EUR以上の寄付。" +
+        "【有効期間の混同注意】申請時のビザ（査証）の有効期間とその後に発行される居住許可（Guest Investor Residence Permit）の有効期間は異なる。" +
+        "ソースから正確な各期間が読み取れる場合はそれぞれ明記すること。読み取れない場合は「ビザと居住許可で有効期間が異なります。詳細は公式サイトでご確認ください」と案内し、誤った単一期間を書かないこと。",
+    en: "【HU visa constraint】The following 2 visa types from the source MUST be written as distinct, separate entries (do not merge or omit either one). " +
+        "① White Card (Fehér Kártya — Digital Nomad Residence Permit): For remote workers earning at least EUR 3,000/month from employers or clients outside Hungary. Validity: 2 years (renewable). " +
+        "② Guest Investor Visa (Vendégbefektetői vízum): Requires purchasing investment units worth at least EUR 250,000 from a Hungarian National Bank-registered real estate fund, OR donating at least EUR 1,000,000 to a public-benefit foundation supporting higher education. " +
+        "【Validity warning】The entry visa (vízum) validity and the subsequently issued Guest Investor Residence Permit validity are DIFFERENT periods and must be stated separately. " +
+        "If the source states the exact figures for each, list them separately. If not clearly stated in the source, write: 'The entry visa and residence permit have different validity periods — please check the official OIF site for exact details'.",
+    zh: "【HU签证限制】必须将以下2种签证作为独立类型分开描述（不得合并或省略任一）。" +
+        "①白卡（Fehér Kártya，数字游民居留许可）：面向月收入3,000欧元以上的远程工作者，收入来源须为匈牙利境外的雇主或客户。有效期2年（可续签）。" +
+        "②客座投资者签证（Vendégbefektetői vízum）：需购买匈牙利央行注册房地产基金的投资份额（最低25万欧元），或向支持高等教育的公益基金会捐款（最低100万欧元）。" +
+        "【有效期注意】申请时的入境签证（vízum）有效期与之后签发的客座投资者居留许可（Guest Investor Residence Permit）的有效期不同，须分别注明。" +
+        "如原文明确记载各自期限，请分别列出；如无法从原文中明确读取，则注明「入境签证与居留许可的有效期可能不同，详情请参阅OIF官方网站」，不得填写单一错误期限。",
   },
 };
 
