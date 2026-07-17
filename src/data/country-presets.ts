@@ -105,11 +105,11 @@ export const countryPresets: CountryPreset[] = [
     name: { en: "Vietnam", ja: "ベトナム", zh: "越南" },
     currency: "VND",
     currencySymbol: "₫",
-    defaultTaxRate: 0.20,
+    defaultTaxRate: 0.16,
     defaultInflation: 0.035,
     referenceRent: 15000000,
     referenceLivingCost: 9000000,
-    notes: { en: "Progressive tax rate 5-35%", ja: "累進課税 5-35%", zh: "累进税率 5-35%" },
+    notes: { en: "5-tier progressive PIT 5-35% (Law 109/2025/QH15, monthly thresholds 10M/30M/60M/100M VND)", ja: "5段階累進課税 5-35%（法律109/2025/QH15、月次閾値 1000万/3000万/6000万/1億VND）", zh: "5档累进税率5-35%（法律109/2025/QH15，月度档次1000万/3000万/6000万/1亿越南盾）" },
   },
   {
     code: "US",

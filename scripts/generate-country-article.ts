@@ -279,8 +279,9 @@ const DOMAIN_LABEL_MAP: Record<string, string> = {
   "chinatax.gov.cn": "中国国家税務総局",
   "micrositios.dian.gov.co": "コロンビア国税庁（DIAN）",
   "pajak.go.id": "インドネシア税務総局（DJP）",
-  "tuyenquang.gdt.gov.vn": "ベトナム税務総局（GDT）地方ポータル",
   "gdt.gov.vn": "ベトナム税務総局（GDT）",
+  "nif.mof.gov.vn": "ベトナム財務省 NIFポータル",
+  "xaydungchinhsach.chinhphu.vn": "ベトナム政府公式ポータル（法令解説）",
 };
 
 function urlToLabel(url: string): string {
@@ -618,9 +619,9 @@ const COUNTRY_TAX_EXTRA_CONSTRAINTS: Partial<Record<string, Record<Lang, string>
     zh: "【ID税制约束】印度尼西亚个人所得税（PPh21，2022年HPP法修订后）来源税率（5档）：Rp60,000,000以下5%；Rp60,000,001~Rp250,000,000超出部分15%；Rp250,000,001~Rp500,000,000超出部分25%；Rp500,000,001~Rp5,000,000,000超出部分30%；Rp5,000,000,000以上35%。居民纳税人（通常为一个税务年度在印尼居留183天以上）就全球所得纳税。仅使用来源中的5档税率（5%、15%、25%、30%、35%）。须注明适用年度。",
   },
   vn: {
-    ja: "【VN税制制約】ベトナムの個人所得税（TNCN）について、登録済み税制ソース（tuyenquang.gdt.gov.vn）はニュース・お知らせページであり税率表を含まない。税務総局（gdt.gov.vn）の公式ポータルはJavaScript必須SPAのため取得不可。ソースに根拠となる税率表がないため、税制セクションには具体的な税率（%）や所得区分の閾値を一切記載しないこと。代わりに「最新の税率・所得区分は税務総局（gdt.gov.vn）または在住地の税務署でご確認ください」と案内するにとどめること。「知識ベースの推測値」で税率を補うことも禁止。",
-    en: "【VN tax constraint】The registered Vietnam tax source (tuyenquang.gdt.gov.vn) is a news/announcement page and does not contain a tax rate table. The official GDT portal (gdt.gov.vn) is a JavaScript-required SPA and cannot be retrieved. Since no source-grounded rate table is available, do NOT include any specific tax rate percentages or income bracket thresholds in the tax section. Instead, only write: 'For the latest income tax rates and brackets, please consult the General Department of Taxation (gdt.gov.vn) or your local tax office.' Do NOT fill in rates from general knowledge as substitutes.",
-    zh: "【VN税制约束】已注册的越南税制来源（tuyenquang.gdt.gov.vn）为新闻/公告页面，不含税率表。税务总局（gdt.gov.vn）官方门户为JavaScript必要型SPA，无法获取。由于没有来源支持的税率表，税制章节中不得写入任何具体税率（%）或收入分档门槛。仅写明：「最新税率及收入分档，请咨询税务总局（gdt.gov.vn）或当地税务局」。禁止以知识库推测值补写税率。",
+    ja: "【VN税制制約】ベトナムの個人所得税（TNCN）は2025年12月10日可決の法律109/2025/QH15（第9条）により7段階から5段階累進課税に改正された。月次累進税率表：①1,000万VND以下5%、②1,000万〜3,000万VND超過分10%、③3,000万〜6,000万VND超過分20%、④6,000万〜1億VND超過分30%、⑤1億VND超過分35%。基礎控除：1,550万VND/月（本人）、620万VND/月（被扶養者1人）。【施行日注意】法律全体の施行は2026年7月1日。ただし給与・賃金所得への累進税率表の適用は「2026年課税年度から」（第29条第2項）＝2026年1月1日遡及適用。この二重施行日のニュアンスを記事に明記すること。これらの数値はnif.mof.gov.vn（財務省NIFポータル）のQ&Aページ（税率表掲載確認済み）を根拠とする。記事には上記の数値を記載し「法律109/2025/QH15第9条に基づく（給与所得は2026年課税年度から適用）」と明示すること。",
+    en: "【VN tax constraint】Vietnam's personal income tax (TNCN) was reformed from 7 to 5 progressive brackets under Law 109/2025/QH15 (enacted December 10, 2025), Article 9. Monthly progressive rate table: ① Up to VND 10 million: 5%; ② VND 10–30 million (excess): 10%; ③ VND 30–60 million (excess): 20%; ④ VND 60–100 million (excess): 30%; ⑤ Above VND 100 million: 35%. Personal deduction: VND 15.5 million/month (taxpayer); VND 6.2 million/month (each dependent). 【Effective date note】The law generally takes effect July 1, 2026; however the progressive rate table for salary/wage income applies 'from the 2026 tax year' (Article 29, Clause 2) = retroactive to January 1, 2026. Explicitly state this dual effective date in the article. These figures are verified against the Ministry of Finance NIF portal Q&A (nif.mof.gov.vn). Use the above rates in the article, citing 'Law 109/2025/QH15, Article 9 (applicable to salary/wage income from the 2026 tax year)'.",
+    zh: "【VN税制约束】越南个人所得税（TNCN）已依据2025年12月10日通过的第109/2025/QH15号法律第9条从7档改为5档累进征收。月度累进税率表：①不超过1,000万越南盾：5%；②1,000万~3,000万越南盾超出部分：10%；③3,000万~6,000万越南盾超出部分：20%；④6,000万~1亿越南盾超出部分：30%；⑤超过1亿越南盾：35%。个人扣除：每月1,550万越南盾（纳税人本人），每名被扶养人每月620万越南盾。【施行日注意】法律整体于2026年7月1日生效；但工资薪金所得的累进税率表按「2026年税务年度起适用」（第29条第2款），即自2026年1月1日起追溯适用。须在文章中明确注明此双重施行日。上述税率已经财政部NIF门户Q&A（nif.mof.gov.vn）确认。文章中应使用上述数据，并注明「依据第109/2025/QH15号法律第9条（工资薪金所得自2026年税务年度起适用）」。",
   },
   hu: {
     ja: "【HU税制制約（知識ベース補完：njt.jog.gov.huはハンガリー所得税法全文（690k文字）のためトークン超過・制約ベースで補完）】ハンガリーの個人所得税は15%のフラット税率（1995年CXVII法・第8条第1項：「az adóalap 15 százaléka」）。課税対象は給与所得・事業所得・配当等の全所得。特別社会保険料（TB等）が別途加算されるが税率構造はシンプル。「15%フラット税率（2026年適用）、1995年CXVII法第8条に基づく。社会保険料は別途。最新情報はhun-tax.hu等またはNAV（nav.gov.hu）で確認のこと」と明記すること。ソースはnjt.jog.gov.hu（ハンガリー公式法令DB）に登録済みだが本文が大容量のため制約ベース補完。",

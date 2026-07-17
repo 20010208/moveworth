@@ -62,11 +62,11 @@ function stripHtml(html: string): string {
 function isSourceUseful(text: string): boolean {
   if (!text || text.length < 300) return false;
   let hits = 0;
-  if (/(?:NZD|EUR|USD|GBP|AUD|CAD|SGD|CHF|AED|THB|MYR|NZD)\s?\$?[\d,]+|[\d,]+\s*(?:EUR|USD)|[$€£฿]\s?[\d,]+/i.test(text)) hits++;
+  if (/(?:NZD|EUR|USD|GBP|AUD|CAD|SGD|CHF|AED|THB|MYR|VND)\s?\$?[\d,]+|[\d,]+\s*(?:EUR|USD|VND)|[$€£฿₫]\s?[\d,]+/i.test(text)) hits++;
   if (/\d+\.?\d*\s*%/.test(text)) hits++;
   if (/\d+\s*(days?|weeks?|months?|years?|hours?)/i.test(text)) hits++;
   if (/\d+\s*points?/i.test(text)) hits++;
-  if (/(require|eligib|qualif|must have|criteria|condition|permit|residence|visa|employ|work permit|income|deposit|invest)/i.test(text)) hits++;
+  if (/(require|eligib|qualif|must have|criteria|condition|permit|residence|visa|employ|work permit|income|deposit|invest|thu[eế]|thu nh[aậ]p|nh[aậ]p c[aả]nh)/i.test(text)) hits++;
   return hits >= 2;
 }
 
@@ -199,6 +199,11 @@ const DOMAIN_LABEL_MAP_GUIDE: Record<string, string> = {
   "one.gob.es": "スペイン政府公式ポータル（Plataforma ONE）",
   "extranjeros.inclusion.gob.es": "スペイン包摂・社会保障・移住省（移民局）",
   "inclusion.gob.es": "スペイン包摂・社会保障・移住省",
+  "immigration.gov.vn": "ベトナム出入国管理局",
+  "xuatnhapcanh.gov.vn": "ベトナム出入国管理局（手続き）",
+  "evisa.gov.vn": "ベトナム電子ビザ（e-Visa）ポータル",
+  "nif.mof.gov.vn": "ベトナム財務省 NIFポータル（個人所得税）",
+  "xaydungchinhsach.chinhphu.vn": "ベトナム政府公式ポータル（法令解説）",
 };
 
 function urlToLabelGuide(url: string): string {
@@ -376,6 +381,37 @@ const VISA_GUIDE_TOPICS: VisaGuideTopic[] = [
     sourceUrls: [
       "https://one.gob.es/en/procedures/application-digital-nomad-visa",
     ],
+  },
+  {
+    slug: "vietnam-visa-guide-2026",
+    programName: {
+      ja: "ベトナム電子ビザ（e-Visa）・長期ビザ・就労許可",
+      en: "Vietnam e-Visa, Long-Stay Visa & Work Permit",
+      zh: "越南电子签证（e-Visa）、长期签证及工作许可",
+    },
+    countryCode: "vn",
+    countryName: { ja: "ベトナム", en: "Vietnam", zh: "越南" },
+    sourceUrls: [
+      "https://immigration.gov.vn",
+      "https://evisa.gov.vn",
+      "https://nif.mof.gov.vn/hoidapcstc/home/cthoidap/159079",
+    ],
+    promptNote: [
+      "【個人所得税 — 法律109/2025/QH15 第9条（5段階累進課税）】",
+      "月次課税所得（所得控除後）に対して以下の税率を適用すること：",
+      "  - 1,000万 VND 以下：5%",
+      "  - 1,000万超〜3,000万 VND：10%",
+      "  - 3,000万超〜6,000万 VND：20%",
+      "  - 6,000万超〜1億 VND：30%",
+      "  - 1億 VND 超：35%",
+      "【施行日の注意】",
+      "  - 法律全体の一般施行日：2026年7月1日（第29条第1項）",
+      "  - ただし給与・賃金に対する個人所得税の適用は「2026課税年度から」（第29条第2項）",
+      "    → 実務上は2026年1月1日の所得から遡及適用（2026年分の確定申告で適用）",
+      "  - 記事にはこの二重の施行日（法律全体 vs 給与所得への遡及適用）を正確に説明すること",
+      "【出典】nif.mof.gov.vn（ベトナム財務省NIFポータル）— 法律109/2025/QH15 第9条・第29条の条文確認済み",
+      "【禁止事項】example.com などのプレースホルダーURLを記載しない",
+    ].join("\n"),
   },
 ];
 
