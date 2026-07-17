@@ -417,6 +417,9 @@ const VISA_GUIDE_TOPICS: VisaGuideTopic[] = [
 
 // ─── CLI 引数 ─────────────────────────────────────────────────────────────────
 
+// --publish-only: 再生成なし、is_published=false の VISA_GUIDE_TOPICS slugs をすべて公開
+const PUBLISH_ONLY = process.argv.includes("--publish-only");
+
 // --regen=<countryCode|slug>: 既存 slug があっても強制再生成し、<slug>-v2 で保存
 const regenArg = process.argv.find((a) => a.startsWith("--regen="));
 const regenTarget = regenArg ? regenArg.split("=")[1] : null;
@@ -668,7 +671,34 @@ function qualityCheck(
 
 // ─── メイン ───────────────────────────────────────────────────────────────────
 
+async function publishOnly() {
+  const slugs = VISA_GUIDE_TOPICS.map((t) => t.slug);
+  const { data, error: fetchErr } = await sb
+    .from("blog_posts")
+    .select("slug, is_published")
+    .in("slug", slugs);
+  if (fetchErr) { console.error("❌ 取得失敗:", fetchErr.message); process.exit(1); }
+
+  const drafts = (data ?? []).filter((r: { slug: string; is_published: boolean }) => !r.is_published);
+  if (drafts.length === 0) {
+    console.log("✅ 公開待ちのdraftが見つかりません（全件公開済みか未生成）");
+    process.exit(0);
+  }
+
+  for (const d of drafts) {
+    const { error } = await sb
+      .from("blog_posts")
+      .update({ is_published: true })
+      .eq("slug", d.slug)
+      .eq("is_published", false);
+    if (error) { console.error(`❌ 公開失敗 ${d.slug}:`, error.message); process.exit(1); }
+    console.log(`✅ 公開: ${d.slug}`);
+  }
+}
+
 async function run() {
+  if (PUBLISH_ONLY) { await publishOnly(); return; }
+
   let topic: VisaGuideTopic;
   let slug: string;
 
