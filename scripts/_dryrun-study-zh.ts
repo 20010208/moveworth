@@ -93,10 +93,11 @@ async function main() {
     "study-prep-guide-2026",
     "study-abroad-scholarship-guide-2026",
   ];
-  const { data: samples } = await sb
+  const { data: samplesRaw } = await sb
     .from("study_blog_posts")
     .select("slug, title, content, category")
     .in("slug", TARGET_SLUGS);
+  const samples = samplesRaw ?? [];
   console.log(`\n=== study zh 生成ドライラン（${samples.length}件） ===\n`);
 
   let passed = 0;
