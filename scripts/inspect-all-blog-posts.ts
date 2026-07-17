@@ -50,6 +50,10 @@ const GPT_REFUSAL_PATTERNS: { pattern: RegExp; label: string }[] = [
   { pattern: /申し訳ございませんが、.*?(?:できません|不可能)/,           label: "GPT拒否(JA): 申し訳ございませんが" },
   { pattern: /実在する正確なURLを提供することはできません/,              label: "GPT拒否(JA): 実在するURLを提供できません" },
   { pattern: /実際のURLを提供(できません|することはできません)/,          label: "GPT拒否(JA): 実際のURLを提供できません" },
+  { pattern: /我无法(提供|访问|获取|生成)/,                              label: "GPT拒否(ZH): 我无法" },
+  { pattern: /对不起[，,]?\s*我(无法|不能)/,                             label: "GPT拒否(ZH): 对不起，我无法" },
+  { pattern: /很抱歉[，,]?\s*我(无法|不能)/,                             label: "GPT拒否(ZH): 很抱歉，我无法" },
+  { pattern: /作为(一个)?AI(语言模型|助手)/,                              label: "GPT拒否(ZH): 作为AI" },
 ];
 
 function findRefusalPatterns(text: string): string[] {
@@ -345,8 +349,8 @@ async function main() {
     console.log(`\n✅ GPT拒否・メタテキスト混入なし（blog_posts ${rows.length}件 全言語スキャン通過）`);
   }
 
-  // ─── study_blog_posts 拒否パターン全文スキャン ──────────────────────────────
-  console.log("\n=== study_blog_posts GPT拒否・メタテキスト スキャン ===");
+  // ─── study_blog_posts 機械検証（D-4 拡張版）────────────────────────────────
+  console.log("\n=== study_blog_posts 機械検証 ===");
   const { data: studyData, error: studyError } = await sb
     .from("study_blog_posts")
     .select("slug, is_published, content")
@@ -355,12 +359,64 @@ async function main() {
     console.error("study_blog_posts 取得エラー:", studyError.message);
   } else {
     const studyRows = studyData ?? [];
+    const publishedStudy = studyRows.filter(r => r.is_published);
+
+    // 1. zh 未生成チェック（公開記事のみ）
+    const zhMissing = publishedStudy.filter(r => {
+      const c = r.content as Record<string, string> | null;
+      return !c?.zh || c.zh.trim() === "";
+    });
+    if (zhMissing.length > 0) {
+      console.log(`❌ zh 未生成（公開記事）: ${zhMissing.length} 件`);
+      zhMissing.forEach(r => console.log(`  - ${r.slug}`));
+    } else {
+      console.log(`✅ zh 全生成済み（公開記事 ${publishedStudy.length}件）`);
+    }
+
+    // 2. zh 品質チェック（公開記事）：分量・JA比率・見出し数
+    const zhQcFindings: Array<{ slug: string; issues: string[] }> = [];
+    for (const r of publishedStudy) {
+      const c = r.content as Record<string, string> | null;
+      if (!c?.zh || c.zh.trim() === "") continue;
+      const zh = c.zh;
+      const ja = c.ja ?? "";
+      const issues: string[] = [];
+      if (zh.length < 300) issues.push(`短すぎ: ${zh.length}字`);
+      if (ja.length > 0 && zh.length < ja.length * 0.3) issues.push(`JA比率低: zh=${zh.length} ja=${ja.length}`);
+      const jaH = (ja.match(/^###\s/gm) ?? []).length;
+      const zhH = (zh.match(/^###\s/gm) ?? []).length;
+      if (jaH > 0 && Math.abs(jaH - zhH) > 2) issues.push(`見出し数差大: ja=${jaH} zh=${zhH}`);
+      if (issues.length > 0) zhQcFindings.push({ slug: r.slug, issues });
+    }
+    if (zhQcFindings.length > 0) {
+      console.log(`❌ zh 品質チェック失敗（公開記事）: ${zhQcFindings.length} 件`);
+      for (const f of zhQcFindings) console.log(`  ${f.slug}: ${f.issues.join(", ")}`);
+    } else {
+      console.log(`✅ zh 品質チェック通過（公開記事 ${publishedStudy.length}件）`);
+    }
+
+    // 3. example.com 混入チェック（全記事・全言語）
+    const exampleFindings: Array<{ slug: string; langs: string[] }> = [];
+    for (const r of studyRows) {
+      const c = r.content as Record<string, string> | null;
+      if (!c) continue;
+      const langs = (["ja", "en", "zh"] as const).filter(l => c[l]?.includes("example.com"));
+      if (langs.length > 0) exampleFindings.push({ slug: r.slug, langs });
+    }
+    if (exampleFindings.length > 0) {
+      console.log(`❌ example.com 混入: ${exampleFindings.length} 件`);
+      for (const f of exampleFindings) console.log(`  ${f.slug} [${f.langs.join(", ")}]`);
+    } else {
+      console.log(`✅ example.com 混入なし（study_blog_posts ${studyRows.length}件）`);
+    }
+
+    // 4. GPT拒否・メタテキスト スキャン（全言語：ja/en/zh）
     const studyRefusalFindings: Array<{ slug: string; is_published: boolean; hits: { lang: string; patterns: string[] }[] }> = [];
     for (const r of studyRows) {
       const c = r.content as Record<string, string> | null;
       if (!c) continue;
       const hits: { lang: string; patterns: string[] }[] = [];
-      for (const lang of ["ja", "en"] as const) {
+      for (const lang of ["ja", "en", "zh"] as const) {
         const text = c[lang];
         if (!text || text.trim().length === 0) continue;
         const patterns = findRefusalPatterns(text);
@@ -369,7 +425,7 @@ async function main() {
       if (hits.length > 0) studyRefusalFindings.push({ slug: r.slug, is_published: r.is_published, hits });
     }
     if (studyRefusalFindings.length > 0) {
-      console.log(`❌ 混入あり: ${studyRefusalFindings.length} 件`);
+      console.log(`❌ GPT拒否・メタテキスト混入: ${studyRefusalFindings.length} 件`);
       for (const f of studyRefusalFindings) {
         console.log(`\n  ${f.is_published ? "🔴 公開" : "🟡 draft"} ${f.slug}`);
         for (const { lang, patterns } of f.hits) {
