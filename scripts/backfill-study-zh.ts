@@ -236,10 +236,44 @@ async function verify() {
   return ng;
 }
 
+// ─── visa 非公開国から study 対象スラグを動的に取得 ────────────────────────────
+
+/**
+ * blog_posts で visa-{code} が is_published=false の国コードを取得し、
+ * 対応する study-work-{code} / study-country-{code} を publish 除外リストとして返す。
+ * ハードコードリストに依存せず、将来 visa draft が増えても自動対応。
+ */
+async function getDraftProtectedSlugs(): Promise<Set<string>> {
+  const { data, error } = await sb
+    .from("blog_posts")
+    .select("slug")
+    .like("slug", "visa-%")
+    .eq("is_published", false);
+
+  if (error || !data) return new Set();
+
+  const protected_ = new Set<string>();
+  for (const { slug } of data) {
+    // "visa-{code}" → code 抽出（例: visa-me → me）
+    const code = slug.replace(/^visa-/, "");
+    if (!code || code.includes("-")) continue; // 複合スラグは除外
+    protected_.add(`study-work-${code}`);
+    protected_.add(`study-country-${code}`);
+  }
+  return protected_;
+}
+
 // ─── publish-only モード ──────────────────────────────────────────────────────
 
 async function publishOnly() {
-  // zh 生成済みかつ is_published=false の記事を公開
+  // visa 非公開国から除外スラグを動的取得
+  const protectedSlugs = await getDraftProtectedSlugs();
+  if (protectedSlugs.size > 0) {
+    console.log(`\n⚠️  visa draft 国の study 記事を publish から除外（${protectedSlugs.size}件）:`);
+    [...protectedSlugs].sort().forEach(s => console.log(`    - ${s}`));
+  }
+
+  // zh 生成済みかつ is_published=false の記事を取得
   const { data: allRows } = await sb
     .from("study_blog_posts")
     .select("slug, content, is_published")
@@ -247,11 +281,17 @@ async function publishOnly() {
 
   const publishTargets = (allRows ?? []).filter((r) => {
     const c = r.content as Record<string, string>;
-    return c?.zh && c.zh.trim() !== "";
+    // zh 生成済み かつ protected でない
+    return c?.zh && c.zh.trim() !== "" && !protectedSlugs.has(r.slug);
   });
 
+  const protectedFound = (allRows ?? []).filter(r => protectedSlugs.has(r.slug));
+  if (protectedFound.length > 0) {
+    console.log(`  保護対象（スキップ）: ${protectedFound.map(r => r.slug).join(", ")}`);
+  }
+
   if (publishTargets.length === 0) {
-    console.log("✅ 公開待ちのdraft（zh生成済み）が見つかりません");
+    console.log("✅ 公開待ちのdraft（zh生成済み・保護対象外）が見つかりません");
     return;
   }
 
