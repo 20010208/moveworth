@@ -149,7 +149,7 @@ export const countryPresets: CountryPreset[] = [
     name: { en: "Germany", ja: "ドイツ", zh: "德国" },
     currency: "EUR",
     currencySymbol: "€",
-    defaultTaxRate: 0.35,
+    defaultTaxRate: 0.39,
     defaultInflation: 0.025,
     referenceRent: 1200,
     referenceLivingCost: 800,
