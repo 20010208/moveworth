@@ -152,7 +152,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.39,
     defaultInflation: 0.025,
     referenceRent: 1200,
-    referenceLivingCost: 800,
+    referenceLivingCost: 1349, // Eurostat HBS 2020, housing excl. (CP04), EUR/month per adult equivalent
     notes: { en: "Income tax + solidarity surcharge + social insurance", ja: "所得税+連帯付加税+社会保険", zh: "所得税+团结附加税+社会保险" },
   },
   {
@@ -174,7 +174,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.38,
     defaultInflation: 0.025,
     referenceRent: 1800,
-    referenceLivingCost: 800,
+    referenceLivingCost: 1480, // Eurostat HBS 2020, housing excl. (CP04), EUR/month per adult equivalent
     notes: { en: "30% ruling available for expats", ja: "外国人向け30%ルールあり", zh: "外籍人士可享受30%税收优惠" },
   },
   {
@@ -240,7 +240,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.30,
     defaultInflation: 0.03,
     referenceRent: 1350,
-    referenceLivingCost: 700,
+    referenceLivingCost: 890, // Eurostat HBS 2020, housing excl. (CP04), EUR/month per adult equivalent
     notes: { en: "Beckham Law available for expats: 24% flat rate for 6 years", ja: "ベッカム法：外国人向け6年間24%の一律税率", zh: "贝克汉姆法：外籍人士可享受6年24%固定税率" },
   },
   {
@@ -372,7 +372,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.38,
     defaultInflation: 0.025,
     referenceRent: 1100,
-    referenceLivingCost: 700,
+    referenceLivingCost: 1468, // Eurostat HBS 2020, housing excl. (CP04), EUR/month per adult equivalent
     notes: { en: "High tax but excellent public services. Non-EU students pay tuition", ja: "高税率だが公共サービスが充実。非EU学生は学費が必要", zh: "税率较高但公共服务完善。非欧盟学生需缴纳学费" },
   },
   {
@@ -383,7 +383,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.35,
     defaultInflation: 0.025,
     referenceRent: 1200,
-    referenceLivingCost: 900,
+    referenceLivingCost: 1631, // Eurostat HBS 2020, housing excl. (CP04), EUR/month per adult equivalent
     notes: { en: "Progressive tax 20-55%. Public universities charge nominal semester fee", ja: "累進課税20-55%。公立大学は少額のセメスター費あり", zh: "累进税率20-55%。公立大学收取少量学期费" },
   },
   {
