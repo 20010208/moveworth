@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const supabase = createServerClient();
   const { data } = await supabase
     .from("study_blog_posts")
-    .select("slug, title, description, date, thumbnail")
+    .select("slug, title, description, date, thumbnail, thumbnail_ja, thumbnail_en, thumbnail_zh")
     .eq("slug", slug)
     .single();
   if (!data) return {};
@@ -42,15 +42,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       publishedTime: post.date,
       siteName: "MoveWorth.study",
-      ...(post.thumbnail && {
-        images: [{ url: post.thumbnail, width: 1200, height: 630, alt: post.title.ja }],
+      ...((post.thumbnail_ja ?? post.thumbnail) && {
+        images: [{ url: (post.thumbnail_ja ?? post.thumbnail)!, width: 1200, height: 630, alt: post.title.ja }],
       }),
     },
     twitter: {
-      card: post.thumbnail ? "summary_large_image" : "summary",
+      card: (post.thumbnail_ja ?? post.thumbnail) ? "summary_large_image" : "summary",
       title: post.title.ja,
       description: post.description.ja,
-      ...(post.thumbnail && { images: [post.thumbnail] }),
+      ...((post.thumbnail_ja ?? post.thumbnail) && { images: [(post.thumbnail_ja ?? post.thumbnail)!] }),
     },
   };
 }

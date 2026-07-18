@@ -10,6 +10,11 @@ export function StudyBlogPostContent({ post }: { post: StudyBlogPost }) {
   const { locale } = useTranslation();
   // zh 選択時は content.zh を優先。未生成の場合は en → ja の順でフォールバック
   const lang: "ja" | "en" | "zh" = locale === "ja" ? "ja" : locale === "zh" ? "zh" : "en";
+  const resolveThumbnail = (post: StudyBlogPost): string | null | undefined => {
+    if (lang === "ja") return post.thumbnail_ja ?? post.thumbnail;
+    if (lang === "zh") return post.thumbnail_zh ?? post.thumbnail_en ?? post.thumbnail_ja ?? post.thumbnail;
+    return post.thumbnail_en ?? post.thumbnail_ja ?? post.thumbnail;
+  };
   const L = <T extends { ja: string; en: string; zh?: string }>(obj: T): string => {
     if (lang === "zh") return obj.zh || obj.en || obj.ja;
     if (lang === "en") return obj.en || obj.ja;
@@ -284,9 +289,9 @@ export function StudyBlogPostContent({ post }: { post: StudyBlogPost }) {
           <p className="text-muted text-sm">{L(post.description)}</p>
         </header>
 
-        {post.thumbnail && (
+        {resolveThumbnail(post) && (
           <img
-            src={post.thumbnail}
+            src={resolveThumbnail(post)!}
             alt={L(post.title)}
             className="w-full rounded-2xl mb-6 border border-border/40 shadow-sm h-52 object-cover md:h-auto"
           />

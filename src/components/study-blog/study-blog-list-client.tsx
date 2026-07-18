@@ -9,9 +9,17 @@ import { useTranslation } from "@/lib/i18n";
 
 export function StudyBlogListClient({ posts }: { posts: StudyBlogPost[] }) {
   const { locale } = useTranslation();
-  const lang: "ja" | "en" = locale === "ja" ? "ja" : "en";
-  const L = <T extends { ja: string; en: string }>(obj: T): string =>
-    obj[lang] || obj.ja;
+  const lang: "ja" | "en" | "zh" = locale === "ja" ? "ja" : locale === "zh" ? "zh" : "en";
+  const resolveThumbnail = (post: StudyBlogPost): string | null | undefined => {
+    if (lang === "ja") return post.thumbnail_ja ?? post.thumbnail;
+    if (lang === "zh") return post.thumbnail_zh ?? post.thumbnail_en ?? post.thumbnail_ja ?? post.thumbnail;
+    return post.thumbnail_en ?? post.thumbnail_ja ?? post.thumbnail;
+  };
+  const L = <T extends { ja: string; en: string; zh?: string }>(obj: T): string => {
+    if (lang === "zh") return obj.zh || obj.en || obj.ja;
+    if (lang === "en") return obj.en || obj.ja;
+    return obj.ja;
+  };
 
   const ui = {
     heading:  lang === "ja" ? "留学ブログ" : "Study Abroad Blog",
@@ -73,12 +81,12 @@ export function StudyBlogListClient({ posts }: { posts: StudyBlogPost[] }) {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className={`${post.thumbnail ? "flex flex-col sm:flex-row" : "flex"} bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden`}
+              className={`${resolveThumbnail(post) ? "flex flex-col sm:flex-row" : "flex"} bg-white border border-border/60 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all group overflow-hidden`}
             >
-              {post.thumbnail && (
+              {resolveThumbnail(post) && (
                 <div className="w-full overflow-hidden flex-shrink-0 sm:w-[374px]">
                   <img
-                    src={post.thumbnail}
+                    src={resolveThumbnail(post)!}
                     alt={L(post.title)}
                     className="w-full h-auto object-cover object-center"
                   />

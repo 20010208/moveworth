@@ -7,4 +7,7 @@ export type StudyBlogPost = {
   description: { ja: string; en: string; zh?: string };
   content: { ja: string; en: string; zh?: string };
   thumbnail?: string | null;
+  thumbnail_ja?: string | null;
+  thumbnail_en?: string | null;
+  thumbnail_zh?: string | null;
 };
