@@ -243,16 +243,16 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure: 300000,
   },
   PT: {
-    // リスボン・ポルト在住外国人プロフェッショナルの平均年収（EUR）2026年3月
-    manufacturing:   38000,
-    it:              55000,
-    finance:         58000,
-    service:         28000,
-    retail:          28000,
-    construction:    40000,
-    logistics:       32000,
-    media:           42000,
-    infrastructure:  45000,
+    // Eurostat SES2022 EARN_SES22_20 — gross annual EUR, all employees (NACE: C/J/K/I/G/F/H/R/D)
+    manufacturing:   15000,
+    it:              27000,
+    finance:         29000,
+    service:         13000,
+    retail:          17000,
+    construction:    15000,
+    logistics:       18000,
+    media:           21000,
+    infrastructure:  35000,
   },
   ES: {
     // Eurostat SES2022 EARN_SES22_20 — gross annual EUR, all employees (NACE: C/J/K/I/G/F/H/R/D)
@@ -279,16 +279,16 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure:  68000,
   },
   IE: {
-    // ダブリン在住外国人プロフェッショナルの平均年収（EUR）2026年3月
-    manufacturing:   62000,
-    it:             105000,
-    finance:        108000,
-    service:         42000,
-    retail:          46000,
-    construction:    65000,
-    logistics:       55000,
-    media:           72000,
-    infrastructure:  76000,
+    // Eurostat SES2022 EARN_SES22_20 — gross annual EUR, all employees (NACE: C/J/K/I/G/F/H/R/D)
+    manufacturing:   56000,
+    it:              87000,
+    finance:         78000,
+    service:         31000,
+    retail:          40000,
+    construction:    51000,
+    logistics:       48000,
+    media:           42000,
+    infrastructure:  75000,
   },
   SE: {
     // Eurostat SES2022 EARN_SES22_20 — gross annual SEK, all employees (NACE: C/J/K/I/G/F/H/R/D)
@@ -303,16 +303,16 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure: 583000,
   },
   NO: {
-    // オスロ在住外国人プロフェッショナルの平均年収（NOK）2026年3月
-    manufacturing:   900000,
-    it:             1150000,
-    finance:        1200000,
-    service:         700000,
-    retail:          720000,
-    construction:    950000,
-    logistics:       820000,
-    media:           960000,
-    infrastructure: 1100000,
+    // Eurostat SES2022 EARN_SES22_20 — gross annual NOK, all employees (NACE: C/J/K/I/G/F/H/R/D)
+    manufacturing:   676000,
+    it:              834000,
+    finance:         927000,
+    service:         419000,
+    retail:          549000,
+    construction:    626000,
+    logistics:       649000,
+    media:           511000,
+    infrastructure:  873000,
   },
   DK: {
     // Eurostat SES2022 EARN_SES22_20 — gross annual DKK, all employees (NACE: C/J/K/I/G/F/H/R/D)
@@ -423,16 +423,16 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure:  59000,
   },
   CZ: {
-    // プラハ在住外国人プロフェッショナルの平均年収（CZK）2026年3月
-    manufacturing:   800000,
-    it:             1200000,
-    finance:        1400000,
-    service:         600000,
-    retail:          580000,
-    construction:    850000,
-    logistics:       720000,
-    media:          1000000,
-    infrastructure: 1050000,
+    // Eurostat SES2022 EARN_SES22_20 — gross annual CZK, all employees (NACE: C/J/K/I/G/F/H/R/D)
+    manufacturing:   465000,
+    it:              819000,
+    finance:         712000,
+    service:         318000,
+    retail:          464000,
+    construction:    450000,
+    logistics:       447000,
+    media:           412000,
+    infrastructure:  628000,
   },
   CN: {
     // 上海・北京在住外国人プロフェッショナルの平均年収（CNY）2026年3月
@@ -495,16 +495,16 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure: 71000,
   },
   PL: {
-    // ワルシャワ在住外国人プロフェッショナルの平均年収（PLN）2026年3月
-    manufacturing:   60000,
-    it:             120000,
-    finance:        110000,
-    service:         70000,
-    retail:          50000,
-    construction:    65000,
-    logistics:       55000,
-    media:           80000,
-    infrastructure:  75000,
+    // Eurostat SES2022 EARN_SES22_20 — gross annual PLN, all employees (NACE: C/J/K/I/G/F/H/R/D)
+    manufacturing:    74000,
+    it:              143000,
+    finance:         122000,
+    service:          54000,
+    retail:           72000,
+    construction:     75000,
+    logistics:        76000,
+    media:            66000,
+    infrastructure:  100000,
   },
   TN: {
     // チュニス在住外国人プロフェッショナルの平均年収（TND）2026年3月

@@ -229,7 +229,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.28,
     defaultInflation: 0.035,
     referenceRent: 1200,
-    referenceLivingCost: 800,
+    referenceLivingCost: 600, // Eurostat HBS 2020, housing excl. (CP04), EUR/month per adult equivalent
     notes: { en: "NHR tax regime: 10% flat tax for 10 years for new residents", ja: "NHR制度：新規移住者は10年間10%の優遇税率", zh: "NHR税制：新居民可享受10年10%的优惠税率" },
   },
   {
@@ -262,7 +262,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.40,
     defaultInflation: 0.035,
     referenceRent: 2200,
-    referenceLivingCost: 1200,
+    referenceLivingCost: 1200, // Eurostat HBS 2020, housing excl. (CP04), EUR/month per adult equivalent
     notes: { en: "Income tax + USC + PRSI. Major European tech hub (Google, Meta, etc.)", ja: "所得税+USC+PRSI。欧州主要テックハブ（Google、Metaなど）", zh: "所得税+USC+PRSI。欧洲主要科技中心（Google、Meta等）" },
   },
   {
@@ -284,7 +284,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.35,
     defaultInflation: 0.035,
     referenceRent: 15000,
-    referenceLivingCost: 12000,
+    referenceLivingCost: 20900, // Eurostat HBS 2020, housing excl. (CP04), NOK/month per adult equivalent
     notes: { en: "High salaries, oil fund economy, high cost of living", ja: "高水準の給与、石油基金経済、高い生活費", zh: "高薪资，石油基金经济，生活成本高" },
   },
   {
@@ -394,7 +394,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.22,
     defaultInflation: 0.03,
     referenceRent: 18000,
-    referenceLivingCost: 12000,
+    referenceLivingCost: 10500, // Eurostat HBS 2015, housing excl. (CP04), CZK/month per adult equivalent
     notes: { en: "Flat 15% tax + 7% solidarity surcharge for high income", ja: "15%フラット税+高収入者向け7%付加税", zh: "15%固定税率+高收入者7%附加税" },
   },
   {
@@ -460,7 +460,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.29,
     defaultInflation: 0.03,
     referenceRent: 3250,
-    referenceLivingCost: 3000,
+    referenceLivingCost: 1400, // Eurostat HBS 2020, housing excl. (CP04), PLN/month per adult equivalent
     notes: { en: "Income tax 12/32% + ZUS social insurance (pension 9.76%+disability 1.5%+sickness 2.45%) + health NFZ 9%. Effective rate ~29% at PLN 120k", ja: "所得税12/32%+ZUS社会保険（年金9.76%+障害1.5%+疾病2.45%）+健康保険NFZ 9%。PLN120k実効約29%", zh: "所得税12/32%+ZUS社会保险（养老9.76%+残疾1.5%+疾病2.45%）+健康保险NFZ 9%。PLN12万实效约29%" },
   },
   {
