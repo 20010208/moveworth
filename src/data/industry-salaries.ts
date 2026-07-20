@@ -175,15 +175,16 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure:  61000,
   },
   FR: {
-    manufacturing:   48000,
-    it:              66000,
-    finance:         70000,
-    service:         36000,
-    retail:          38000,
-    construction:    48000,
-    logistics:       42000,
-    media:           54000,
-    infrastructure:  56000,
+    // Eurostat SES2022 EARN_SES22_20 — gross annual EUR, all employees (NACE: C/J/K/I/G/F/H/R/D)
+    manufacturing:   38000,
+    it:              52000,
+    finance:         51000,
+    service:         29000,
+    retail:          33000,
+    construction:    35000,
+    logistics:       33000,
+    media:           41000,
+    infrastructure:  49000,
   },
   NL: {
     // Eurostat SES2022 EARN_SES22_20 — gross annual EUR, all employees (NACE: C/J/K/I/G/F/H/R/D)
@@ -290,16 +291,16 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure:  76000,
   },
   SE: {
-    // ストックホルム在住外国人プロフェッショナルの平均年収（SEK）2026年3月
-    manufacturing:  680000,
-    it:             860000,
-    finance:        900000,
-    service:        520000,
-    retail:         540000,
-    construction:   720000,
-    logistics:      620000,
-    media:          780000,
-    infrastructure: 820000,
+    // Eurostat SES2022 EARN_SES22_20 — gross annual SEK, all employees (NACE: C/J/K/I/G/F/H/R/D)
+    manufacturing:  502000,
+    it:             624000,
+    finance:        692000,
+    service:        357000,
+    retail:         472000,
+    construction:   503000,
+    logistics:      432000,
+    media:          395000,
+    infrastructure: 583000,
   },
   NO: {
     // オスロ在住外国人プロフェッショナルの平均年収（NOK）2026年3月
@@ -314,16 +315,16 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure: 1100000,
   },
   DK: {
-    // コペンハーゲン在住外国人プロフェッショナルの平均年収（DKK）2026年3月
-    manufacturing:  500000,
-    it:             720000,
-    finance:        760000,
-    service:        400000,
-    retail:         410000,
-    construction:   530000,
-    logistics:      470000,
-    media:          600000,
-    infrastructure: 640000,
+    // Eurostat SES2022 EARN_SES22_20 — gross annual DKK, all employees (NACE: C/J/K/I/G/F/H/R/D)
+    manufacturing:  519000,
+    it:             580000,
+    finance:        612000,
+    service:        297000,
+    retail:         384000,
+    construction:   477000,
+    logistics:      483000,
+    media:          340000,
+    infrastructure: 615000,
   },
   BR: {
     // サンパウロ在住外国人プロフェッショナルの平均年収（BRL）2026年3月
@@ -362,16 +363,16 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure:  46000,
   },
   IT: {
-    // ミラノ・ローマ在住外国人プロフェッショナルの平均年収（EUR）2026年3月
-    manufacturing:   46000,
-    it:              65000,
-    finance:         72000,
-    service:         34000,
-    retail:          36000,
-    construction:    48000,
-    logistics:       42000,
-    media:           56000,
-    infrastructure:  58000,
+    // Eurostat SES2022 EARN_SES22_20 — gross annual EUR, all employees (NACE: C/J/K/I/G/F/H/R/D)
+    manufacturing:   32000,
+    it:              38000,
+    finance:         51000,
+    service:         24000,
+    retail:          29000,
+    construction:    29000,
+    logistics:       29000,
+    media:           48000,
+    infrastructure:  45000,
   },
   MT: {
     // バレッタ在住外国人プロフェッショナルの平均年収（EUR）2026年3月
@@ -482,16 +483,16 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure: 7500000,
   },
   BE: {
-    // ブリュッセル在住外国人プロフェッショナルの平均年収（EUR）2026年3月
-    manufacturing:  40000,
-    it:             60000,
-    finance:        70000,
+    // Eurostat SES2022 EARN_SES22_20 — gross annual EUR, all employees (NACE: C/J/K/I/G/F/H/R/D)
+    manufacturing:  51000,
+    it:             59000,
+    finance:        62000,
     service:        35000,
-    retail:         30000,
-    construction:   38000,
-    logistics:      35000,
-    media:          45000,
-    infrastructure: 50000,
+    retail:         44000,
+    construction:   43000,
+    logistics:      45000,
+    media:          44000,
+    infrastructure: 71000,
   },
   PL: {
     // ワルシャワ在住外国人プロフェッショナルの平均年収（PLN）2026年3月

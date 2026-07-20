@@ -163,7 +163,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.35,
     defaultInflation: 0.025,
     referenceRent: 1200,
-    referenceLivingCost: 800,
+    referenceLivingCost: 1200, // Eurostat HBS 2020, housing excl. (CP04), EUR/month per adult equivalent
     notes: { en: "Income tax + social charges", ja: "所得税+社会保障費", zh: "所得税+社会保障费" },
   },
   {
@@ -273,7 +273,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.40,
     defaultInflation: 0.02,
     referenceRent: 12000,
-    referenceLivingCost: 9000,
+    referenceLivingCost: 13600, // Eurostat HBS 2015, housing excl. (CP04), SEK/month per adult equivalent
     notes: { en: "Effective ~40% at SEK 860k IT income (municipal 32% + state 20% on high income + 7% pension contribution). High tax with comprehensive welfare", ja: "SEK 86万IT年収での実効約40%（市税32%+高収入国税20%+一般年金拠出7%）。高税率だが社会保障充実", zh: "SEK 86万IT年收入实效约40%（市税32%+高收入国税20%+一般年金缴款7%）。高税率但社会保障完善" },
   },
   {
@@ -295,7 +295,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.45,
     defaultInflation: 0.025,
     referenceRent: 12000,
-    referenceLivingCost: 8000,
+    referenceLivingCost: 11500, // Eurostat HBS 2020, housing excl. (CP04), DKK/month per adult equivalent
     notes: { en: "Very high tax, top-ranked quality of life and happiness", ja: "高税率、世界トップクラスの生活の質と幸福度", zh: "高税率，生活质量和幸福感世界顶级" },
   },
   {
@@ -328,7 +328,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.38,
     defaultInflation: 0.025,
     referenceRent: 1300,
-    referenceLivingCost: 800,
+    referenceLivingCost: 1000, // Eurostat HBS 2020/2015, housing excl. (CP04, NMW_IS), EUR/month per adult equivalent
     notes: { en: "Progressive tax 23-43% + regional/municipal taxes. Flat tax €100k/yr for new residents", ja: "累進課税23-43%+地方税。新規移住者向け年額10万ユーロの定額税制あり", zh: "累进税率23-43%+地方税。新居民可享受每年10万欧元固定税制" },
   },
   {
@@ -449,7 +449,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.50,
     defaultInflation: 0.02,
     referenceRent: 1200,
-    referenceLivingCost: 800,
+    referenceLivingCost: 1200, // Eurostat HBS 2020, housing excl. (CP04), EUR/month per adult equivalent
     notes: { en: "Top tax rate 50%", ja: "最高税率50%", zh: "最高税率50%" },
   },
   {
