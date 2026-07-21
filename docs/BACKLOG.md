@@ -86,8 +86,18 @@
 ## BL-20260722-01: 検証スクリプトのDE税率ハードコード修正
 
 - 優先度: 低
-- 状態: 未着手
+- 状態: 完了
 - 関連領域: country_presets / 検証スクリプト
 - 対象: `scripts/validate-simulator-blog.ts` / `scripts/_audit-persona-rates.ts`
-- 前提・ブロッカー: 両スクリプトにDE税率35%がハードコードされ、現行preset 39%と不一致
-- 完了条件: DE税率を現行presetと一致させるか、`countryPresets`の直接参照へ変更し、誤検出しないことを確認
+- 前提・ブロッカー: 解消。両スクリプトの手動税率表を削除
+- 完了内容: `countryPresets`の直接importへ統一し、DE 39%を含む全50カ国を動的参照。ペルソナ147件の税率乖離0件・重複0件、対象lint・型チェック通過
+- 完了条件: `countryPresets`の直接参照へ変更し、DEを含むpreset税率の同期漏れがないことを確認済み
+
+## BL-20260722-02: validate-simulator-blogのtoJPYハードコード同期廃止
+
+- 優先度: 低
+- 状態: 未着手
+- 関連領域: 為替レート / 検証スクリプト
+- 対象: `scripts/validate-simulator-blog.ts` / `src/app/study-site/simulate/page.tsx`
+- 前提・ブロッカー: validator内の`TO_JPY`複製表がRON/BGN/HUFを含まず、実画面には登録済みなのに未登録と誤検出する
+- 完了条件: 為替レート定義を共通化または実コードから安全に参照し、validatorの重複ハードコードと誤検出を解消

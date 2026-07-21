@@ -2,77 +2,75 @@
 
 最終更新: 2026-07-22
 最終担当: Codex
-タスクID: BL-20260721-02（BG / CY一次情報URLの再調査・登録）
-状態: 実装・DB反映・検証・commit完了、push待ち
+タスクID: BL-20260722-01（検証スクリプトのDE税率ハードコード修正）
+状態: 実装・検証・commit完了、push待ち
 
 ## 目的
 
-再調査でHTTP 200と本文内容を確認したBG 2件・CY 4件の政府公式ページを`country_sources`へ`purpose=visa`で登録し、DB再読込で6件全件の保存値を検証する。完了後、`docs/BACKLOG.md`のBL-20260721-02を完了へ更新する。
+`scripts/validate-simulator-blog.ts`と`scripts/_audit-persona-rates.ts`に複製された税率ハードコードを削除し、`src/data/country-presets.ts`の`countryPresets`を直接importして`defaultTaxRate`を動的参照する。DE 0.39を含む全国家でpresetとの同期漏れを防ぐ。
 
 ## 現在の状態
 
-- BGはブルガリア政府行政登録`iisda.government.bg`のVisa D・非EU市民継続滞在許可ページを採用
-- CYは新`gov.cy`ポータルのVisas・Entry/Residence手順・Visitors and family members・Immigration Permitsを採用
-- 対象6 URLは調査時にHTTP 200と手続き本文を確認済み
-- 対象6件のDB登録・再読込検証とBACKLOG更新が完了
+- 対象2スクリプトのpreset税率ハードコード削除と動的参照化が完了
+- DEは実行時に39.0%として評価され、許容閾値内の3.0pt差として判定
+- ペルソナ147件は現行presetとの税率乖離0件・重複0件
+- BACKLOG更新済み、本commit作成後はpush待ち
 
 ## 完了した作業
 
-- 作業開始手順と既存Git差分を確認
-- 既登録`country_sources`を読み取り、今回6 URLが未登録であることを確認
-- 既存seedのupsert・再読込検証方式と`country_sources`の一意制約`(country_code, url)`を確認
-- `scripts/_seed-bg-cy-visa-sources.ts`を新規作成し、対象6件だけをupsert
-- DB再読込で6/6件のURL・purpose・status・source・検証日時一致を確認
-- 既存BG/CY対象外12件の前後完全一致、BG/CY総件数12→18件を確認
-- `docs/BACKLOG.md`のBL-20260721-02を完了へ更新
+- `validate-simulator-blog.ts`: 46カ国分の旧インラインpresetを削除し、全50カ国を`countryPresets`から参照
+- `_audit-persona-rates.ts`: `CURRENT_RATES`手動表を削除し、`countryPresets`から税率Mapを動的生成
+- 対象validatorの未使用税率抽出関数を削除し、ESLint警告を解消
+- `_audit-persona-rates.ts`の強制`process.exit(0)`を自然終了へ変更し、Windows libuv assertionを解消
+- `docs/BACKLOG.md`: BL-20260722-01を完了へ更新
+- validatorの別の同期漏れ（`TO_JPY`がRON/BGN/HUFを誤検出）をBL-20260722-02として記録
 
-## 変更する主要ファイル
+## 変更した主要ファイル
 
-- `scripts/_seed-bg-cy-visa-sources.ts`（新規）
+- `scripts/validate-simulator-blog.ts`
+- `scripts/_audit-persona-rates.ts`
 - `docs/BACKLOG.md`
 - `.ai/CURRENT_HANDOFF.md`
 - `.ai/RECENT_ACTIVITY.md`
-- DB: `country_sources` 対象6件
 
 ## Git状態・未コミット変更
 
-- HEAD / origin/main: `6af6cc2`（一致）
+- HEAD / origin/main: `8fb1c8f`（一致）
+- 今回差分: 上記5ファイル
 - 開始前からの既存差分: `tsconfig.scripts.tsbuildinfo`、`tsconfig.tsbuildinfo`（今回対象外・保持）
-- 開始前からの未追跡調査スクリプト・一時ファイルは変更・削除しない
+- 開始前からの未追跡調査スクリプト・一時ファイルは変更・削除していない
 
 ## 実行済みの検証
 
-1. 対象6 URLのHTTP 200確認
-2. 各ページ本文にビザ・入国・居住許可の実手続き情報があることを確認
-3. DB既登録URLを読み取り、対象6 URLが未登録であることを確認
-4. 対象seedスクリプトのESLint: 通過（0 warning）
-5. 対象seedスクリプトの単体TypeScript型チェック: 通過
-6. DB upsert: 事前対象0件、対象6件を登録
-7. DB再読込: 6/6件の保存値一致
-8. 対象外比較: 既存BG/CY 12件不変、総件数12→18件
-9. `git diff --check`: 通過
+1. 静的assert: DE `defaultTaxRate=0.39`、preset 50カ国
+2. 静的検索: 対象2ファイルのpreset税率ハードコード0件、`countryPresets` import 2件
+3. 対象2ファイルのESLint: 通過（0 warning）
+4. 対象限定TypeScript型チェック: 通過
+5. `validate-simulator-blog.ts`: exit 0、DE 39.0%、preset 50カ国を確認
+6. `_audit-persona-rates.ts`: exit 0、147件、重複0件、税率乖離0件
+7. `git diff --check`: 通過
 
 ## 未実行の検証
 
-- Next.js全体build（DB seed・記録変更のみのため未実行）
-- 全scripts型チェック（多数の既存未追跡スクリプトを含むため未実行。今回対象は単体型チェック通過）
+- Next.js全体build（scriptsのみの変更のため未実行）
+- 全scripts型チェック（多数の既存未追跡スクリプトを含むため未実行。対象限定型チェックは通過）
 
 ## 未解決事項
 
-- なし
+- BL-20260722-02: validatorの`TO_JPY`複製表によるRON/BGN/HUF誤検出
+- validatorが報告する税率参照差11カ国は、実効税率presetと限界税率中心の参照値の比較条件差を含むため今回対象外
 
 ## 次に行う作業
 
-1. commitのHEADと対象外差分が保持されていることを確認
+1. commit結果を確認
 2. pushは別途明示許可後に実行
 
 ## 禁止事項・注意事項
 
-- 対象6 URL以外のDBレコードを変更しない
-- 記事生成・再生成・公開は行わない
+- DB書き込み・記事生成・公開は行わない
 - 既存のビルド情報差分・未追跡ファイルを変更・commitしない
 - pushは明示許可なしに実行しない
 
 ## ユーザー判断が必要な事項
 
-- commitのpush許可
+- commit後のpush許可

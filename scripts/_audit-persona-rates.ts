@@ -4,6 +4,7 @@
  */
 import { createClient } from "@supabase/supabase-js";
 import { existsSync, readFileSync } from "fs";
+import { countryPresets } from "../src/data/country-presets";
 if (existsSync(".env.local")) {
   for (const line of readFileSync(".env.local", "utf-8").split("\n")) {
     const t = line.trim(); if (!t || t.startsWith("#")) continue;
@@ -14,14 +15,9 @@ if (existsSync(".env.local")) {
 }
 const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
-// 現在のプリセット税率（country-presets.ts から手動同期）
-const CURRENT_RATES: Record<string, number> = {
-  JP:0.30,SG:0.09,MY:0.20,TH:0.20,KR:0.28,TW:0.20,HK:0.15,ID:0.20,PH:0.25,VN:0.20,
-  US:0.30,CA:0.30,GB:0.30,DE:0.35,FR:0.35,NL:0.38,CH:0.25,AU:0.30,NZ:0.28,AE:0.00,
-  PT:0.28,ES:0.30,GE:0.20,IE:0.40,SE:0.45,NO:0.35,DK:0.45,BR:0.275,CO:0.25,IT:0.38,
-  GR:0.30,MT:0.35,ZA:0.25,FI:0.38,AT:0.35,CZ:0.22,CN:0.20,IN:0.20,MX:0.25,AR:0.25,
-  BE:0.50,PL:0.29,TN:0.25,TR:0.27,RO:0.41,BG:0.21,CY:0.20,EE:0.19,HR:0.33,HU:0.34,
-};
+const currentRates = new Map(
+  countryPresets.map((preset) => [preset.code.toUpperCase(), preset.defaultTaxRate])
+);
 
 async function main() {
   const { data: all, error } = await sb.from("simulator_personas")
@@ -68,10 +64,10 @@ async function main() {
     const latest = [...rows].sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0];
     const si = latest.simulation_input as Record<string, unknown> | null;
     const seededRate = si?.taxRateTarget as number | undefined;
-    const currentRate = CURRENT_RATES[code];
-    if (seededRate === undefined) continue;
-    const gap = currentRate !== undefined ? Math.abs(seededRate - currentRate) : null;
-    const isStale = gap !== null && gap >= 0.01; // 1pt以上差があれば陳腐化
+    const currentRate = currentRates.get(code);
+    if (seededRate === undefined || currentRate === undefined) continue;
+    const gap = Math.abs(seededRate - currentRate);
+    const isStale = gap >= 0.01; // 1pt以上差があれば陳腐化
     if (isStale) {
       stale.push(latest);
       staleCount++;
@@ -101,4 +97,7 @@ async function main() {
     console.log(`陳腐化ID (最新): ${stale.map(r=>r.id).join(", ")}`);
   }
 }
-main().then(() => process.exit(0)).catch(e => { console.error(e); process.exit(1); });
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

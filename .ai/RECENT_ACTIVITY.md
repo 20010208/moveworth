@@ -7,27 +7,40 @@
 
 ## 2026-07-22 — Codex
 
+- タスクID: BL-20260722-01（検証スクリプトのDE税率ハードコード修正）
+- 状態: 実装・検証・commit完了、push待ち
+- 対象2スクリプトの全国家preset税率ハードコードを削除し、`countryPresets`直接参照へ統一。DEは0.39として動的解決
+- `validate-simulator-blog.ts`: 旧インラインpresetを削除し、全50カ国の税率・家賃・生活費・通貨を正本から参照
+- `_audit-persona-rates.ts`: 手動税率Mapを動的生成へ変更し、強制終了によるWindows libuv assertionも解消
+- 静的assert、対象ESLint、対象限定型チェック、両スクリプト実行に成功。ペルソナ147件・重複0件・税率乖離0件
+- `docs/BACKLOG.md`: BL-20260722-01を完了。別の`TO_JPY`同期漏れをBL-20260722-02へ記録
+- 指定5ファイルを`fix: replace hardcoded DE tax rate with dynamic preset reference`でcommit、push未実行
+
+---
+
+## 2026-07-22 — Codex
+
 - タスクID: BL-20260721-02（BG / CY一次情報URLの再調査・登録）
-- 状態: 実装・DB反映・検証・commit完了、push待ち
+- 状態: 実装・DB反映・検証・commit・push完了
 - BGは政府行政登録IISDAのVisa D・非EU市民継続滞在許可、CYは新`gov.cy`のvisa・entry/residence・visitor・immigration permitページを採用
 - `country_sources`: 事前0件からBG 2件・CY 4件をvisa/alive/manualで登録し、DB再読込6/6件一致
 - 既存BG/CY対象外12件の前後完全一致、BG/CY総件数12→18件を確認
 - `scripts/_seed-bg-cy-visa-sources.ts`を新規作成し、対象限定upsert・再読込・対象外不変検証を実装
 - `docs/BACKLOG.md`: BL-20260721-02を完了へ更新
-- 対象スクリプトのESLint・単体TypeScript型チェック・`git diff --check`通過。指定4ファイルを`feat: add BG/CY visa source URLs and close BL-02`でcommit、push未実行
+- 対象スクリプトのESLint・単体TypeScript型チェック・`git diff --check`通過。指定4ファイルを`feat: add BG/CY visa source URLs and close BL-02`でcommit（`8fb1c8f`）、origin/mainへpush済み
 
 ---
 
 ## 2026-07-22 — Codex
 
 - タスクID: BL-20260721-08（GB referenceRent — ONS PRMS反映）
-- 状態: 実装・DB反映・検証・commit完了、push待ち
+- 状態: 実装・DB反映・検証・commit・push完了
 - `country-presets.ts`: GB `referenceRent`を£1,500→£850へ更新。ONS PRMS最終公表のEngland全域・全物件タイプ中央値でありUK全体ではないことをコメントへ記録
 - `country_sources`: ONS PRMS公式ページ1件をGB/living_cost/manual/aliveとして登録し、再読込一致を確認
 - `simulator_personas`: 事前147件・重複0件・欠落0件を確認後、147件DELETE→147件re-seed、SKIP 0件
 - 事後監査: 147/147件、GB 3件、重複0件、欠落0件、現行preset・給与定義との不一致0件
 - GB値の静的assert、対象ファイルのESLint、対象スクリプト型チェック、`git diff --check`通過
-- 指定5ファイルを`feat(c5): update GB referenceRent from ONS PRMS and close BL-08`でcommit、push未実行
+- 指定5ファイルを`feat(c5): update GB referenceRent from ONS PRMS and close BL-08`でcommit（`6af6cc2`）、origin/mainへpush済み
 
 ---
 

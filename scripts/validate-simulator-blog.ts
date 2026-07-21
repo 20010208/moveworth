@@ -15,6 +15,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 import { existsSync, readFileSync } from "fs";
+import { countryPresets } from "../src/data/country-presets";
 
 if (existsSync(".env.local")) {
   for (const line of readFileSync(".env.local", "utf-8").split("\n")) {
@@ -33,64 +34,8 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-// ===== country_presets のインライン定義（src/data/country-presets.ts と同期） =====
-interface Preset {
-  code: string;
-  currency: string;
-  defaultTaxRate: number;
-  referenceRent: number;
-  referenceLivingCost: number;
-  defaultInflation: number;
-  notes?: { en?: string; ja?: string };
-}
-
-const PRESETS: Preset[] = [
-  { code: "JP", currency: "JPY", defaultTaxRate: 0.30, referenceRent: 80000, referenceLivingCost: 120000, defaultInflation: 0.025 },
-  { code: "SG", currency: "SGD", defaultTaxRate: 0.09, referenceRent: 2500, referenceLivingCost: 1500, defaultInflation: 0.03 },
-  { code: "MY", currency: "MYR", defaultTaxRate: 0.20, referenceRent: 2000, referenceLivingCost: 1500, defaultInflation: 0.03 },
-  { code: "TH", currency: "THB", defaultTaxRate: 0.20, referenceRent: 15000, referenceLivingCost: 15000, defaultInflation: 0.02 },
-  { code: "KR", currency: "KRW", defaultTaxRate: 0.28, referenceRent: 800000, referenceLivingCost: 800000, defaultInflation: 0.025 },
-  { code: "TW", currency: "TWD", defaultTaxRate: 0.20, referenceRent: 15000, referenceLivingCost: 15000, defaultInflation: 0.02 },
-  { code: "HK", currency: "HKD", defaultTaxRate: 0.15, referenceRent: 15000, referenceLivingCost: 8000, defaultInflation: 0.025 },
-  { code: "ID", currency: "IDR", defaultTaxRate: 0.20, referenceRent: 5000000, referenceLivingCost: 5000000, defaultInflation: 0.04 },
-  { code: "PH", currency: "PHP", defaultTaxRate: 0.25, referenceRent: 20000, referenceLivingCost: 20000, defaultInflation: 0.05 },
-  { code: "VN", currency: "VND", defaultTaxRate: 0.20, referenceRent: 8000000, referenceLivingCost: 6000000, defaultInflation: 0.035 },
-  { code: "US", currency: "USD", defaultTaxRate: 0.30, referenceRent: 2000, referenceLivingCost: 1500, defaultInflation: 0.03 },
-  { code: "CA", currency: "CAD", defaultTaxRate: 0.30, referenceRent: 2000, referenceLivingCost: 1200, defaultInflation: 0.025 },
-  { code: "GB", currency: "GBP", defaultTaxRate: 0.30, referenceRent: 1500, referenceLivingCost: 1000, defaultInflation: 0.03 },
-  { code: "DE", currency: "EUR", defaultTaxRate: 0.35, referenceRent: 1200, referenceLivingCost: 800, defaultInflation: 0.025 },
-  { code: "FR", currency: "EUR", defaultTaxRate: 0.35, referenceRent: 1200, referenceLivingCost: 800, defaultInflation: 0.025 },
-  { code: "NL", currency: "EUR", defaultTaxRate: 0.38, referenceRent: 1500, referenceLivingCost: 800, defaultInflation: 0.025 },
-  { code: "CH", currency: "CHF", defaultTaxRate: 0.25, referenceRent: 2000, referenceLivingCost: 1500, defaultInflation: 0.015 },
-  { code: "AU", currency: "AUD", defaultTaxRate: 0.30, referenceRent: 2200, referenceLivingCost: 1200, defaultInflation: 0.03 },
-  { code: "NZ", currency: "NZD", defaultTaxRate: 0.28, referenceRent: 2000, referenceLivingCost: 1000, defaultInflation: 0.03 },
-  { code: "AE", currency: "AED", defaultTaxRate: 0.00, referenceRent: 5000, referenceLivingCost: 3000, defaultInflation: 0.03 },
-  { code: "PT", currency: "EUR", defaultTaxRate: 0.28, referenceRent: 1200, referenceLivingCost: 800, defaultInflation: 0.035 },
-  { code: "ES", currency: "EUR", defaultTaxRate: 0.30, referenceRent: 1100, referenceLivingCost: 700, defaultInflation: 0.03 },
-  { code: "GE", currency: "GEL", defaultTaxRate: 0.20, referenceRent: 800, referenceLivingCost: 600, defaultInflation: 0.05 },
-  { code: "IE", currency: "EUR", defaultTaxRate: 0.40, referenceRent: 2200, referenceLivingCost: 1200, defaultInflation: 0.035 },
-  { code: "SE", currency: "SEK", defaultTaxRate: 0.45, referenceRent: 12000, referenceLivingCost: 9000, defaultInflation: 0.02 },
-  { code: "NO", currency: "NOK", defaultTaxRate: 0.35, referenceRent: 15000, referenceLivingCost: 12000, defaultInflation: 0.035 },
-  { code: "DK", currency: "DKK", defaultTaxRate: 0.45, referenceRent: 12000, referenceLivingCost: 8000, defaultInflation: 0.025 },
-  { code: "BR", currency: "BRL", defaultTaxRate: 0.275, referenceRent: 2500, referenceLivingCost: 2000, defaultInflation: 0.05 },
-  { code: "CO", currency: "COP", defaultTaxRate: 0.25, referenceRent: 1500000, referenceLivingCost: 1200000, defaultInflation: 0.07 },
-  { code: "IT", currency: "EUR", defaultTaxRate: 0.38, referenceRent: 1000, referenceLivingCost: 800, defaultInflation: 0.025 },
-  { code: "GR", currency: "EUR", defaultTaxRate: 0.30, referenceRent: 800, referenceLivingCost: 700, defaultInflation: 0.025 },
-  { code: "MT", currency: "EUR", defaultTaxRate: 0.35, referenceRent: 900, referenceLivingCost: 800, defaultInflation: 0.025 },
-  { code: "ZA", currency: "ZAR", defaultTaxRate: 0.25, referenceRent: 12000, referenceLivingCost: 10000, defaultInflation: 0.05 },
-  { code: "FI", currency: "EUR", defaultTaxRate: 0.38, referenceRent: 800, referenceLivingCost: 700, defaultInflation: 0.025 },
-  { code: "AT", currency: "EUR", defaultTaxRate: 0.35, referenceRent: 1000, referenceLivingCost: 900, defaultInflation: 0.025 },
-  { code: "CZ", currency: "CZK", defaultTaxRate: 0.22, referenceRent: 18000, referenceLivingCost: 12000, defaultInflation: 0.03 },
-  { code: "CN", currency: "CNY", defaultTaxRate: 0.20, referenceRent: 3500, referenceLivingCost: 2500, defaultInflation: 0.025 },
-  { code: "IN", currency: "INR", defaultTaxRate: 0.20, referenceRent: 20000, referenceLivingCost: 15000, defaultInflation: 0.05 },
-  { code: "MX", currency: "MXN", defaultTaxRate: 0.25, referenceRent: 10000, referenceLivingCost: 8000, defaultInflation: 0.04 },
-  { code: "AR", currency: "ARS", defaultTaxRate: 0.25, referenceRent: 300000, referenceLivingCost: 200000, defaultInflation: 0.80 },
-  { code: "BE", currency: "EUR", defaultTaxRate: 0.50, referenceRent: 1200, referenceLivingCost: 800, defaultInflation: 0.02 },
-  { code: "PL", currency: "PLN", defaultTaxRate: 0.17, referenceRent: 3250, referenceLivingCost: 3000, defaultInflation: 0.03 },
-  { code: "TN", currency: "TND", defaultTaxRate: 0.25, referenceRent: 1150, referenceLivingCost: 2000, defaultInflation: 0.05 },
-  { code: "TR", currency: "TRY", defaultTaxRate: 0.27, referenceRent: 15000, referenceLivingCost: 30000, defaultInflation: 0.15 },
-  { code: "RO", currency: "RON", defaultTaxRate: 0.35, referenceRent: 2500, referenceLivingCost: 2000, defaultInflation: 0.05 },
-];
+// country-presets.ts を唯一の正とし、税率・家賃・生活費・通貨の同期漏れを防ぐ。
+const PRESETS = countryPresets;
 
 // study-site/simulate/page.tsx の toJPY（コードから読む）
 const TO_JPY: Record<string, number> = {
@@ -158,20 +103,6 @@ const GROUNDED_TAX_RATES: Record<string, { rate: number; note: string }> = {
   AR: { rate: 0.25, note: "9-bracket 5-35%; 25% mid estimate" },
   CY: { rate: 0.35, note: "top 35%; 0% below €19,500" },
 };
-
-function extractTopRateFromArticle(contentJa: string): number | null {
-  // 税制セクションを探す
-  const taxSectionMatch = contentJa.match(/所得税[\s\S]{0,1500}/);
-  if (!taxSectionMatch) return null;
-  const section = taxSectionMatch[0];
-  // %値を全て抽出（小数点あり）
-  const percents = [...section.matchAll(/(\d+(?:\.\d+)?)\s*%/g)]
-    .map(m => parseFloat(m[1]))
-    .filter(v => v > 0 && v <= 60 && v !== 100);
-  if (percents.length === 0) return null;
-  // 最大値 = 最高税率（最高ブラケット）
-  return Math.max(...percents) / 100;
-}
 
 async function main() {
   console.log("=== validate-simulator-blog.ts ===\n");
