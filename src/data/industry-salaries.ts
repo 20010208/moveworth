@@ -18,16 +18,17 @@ export type IndustryKey = typeof INDUSTRIES[number]["key"];
 // 各国の業種別平均年収（年収・現地通貨）※外国人プロフェッショナルの平均
 export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
   JP: {
-    // 東京在住外国人プロフェッショナルの平均年収（JPY）2026年3月
-    manufacturing:  7800000,
-    it:             9500000,
-    finance:       11000000,
-    service:        5800000,
-    retail:         5500000,
-    construction:   7500000,
-    logistics:      6000000,
-    media:          8500000,
-    infrastructure: 8000000,
+    // 賃金構造基本統計 令和5年 第５－１表 — 月額×12（賞与除く）、男女計・全雇用形態
+    // 賞与除く（産業別賞与はPDF掲載のみ・取得不可）DEC-20260721-08
+    manufacturing:  3672000,
+    infrastructure: 4922400,
+    construction:   4192800,
+    retail:         3835200,
+    logistics:      3531600,
+    service:        3114000,
+    it:             4574400,
+    finance:        4720800,
+    media:          3344400,
   },
   SG: {
     manufacturing:   90000,
@@ -152,15 +153,16 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure:  82000,
   },
   GB: {
-    manufacturing:   45000,
-    it:              72000,
-    finance:         78000,
-    service:         34000,
-    retail:          36000,
-    construction:    48000,
-    logistics:       40000,
-    media:           54000,
-    infrastructure:  56000,
+    // ONS ASHE 2023 Table 16.7a — median gross annual GBP, all employees (SIC 2007 Section level)
+    manufacturing:  33469,
+    infrastructure: 49575,
+    construction:   34755,
+    retail:         24361,
+    logistics:      32343,
+    service:        15080,
+    it:             42876,
+    finance:        43987,
+    media:          23168,
   },
   DE: {
     // Eurostat SES2022 EARN_SES22_20 — gross annual EUR, all employees (NACE: C/J/K/I/G/F/H/R/D)

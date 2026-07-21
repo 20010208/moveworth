@@ -9,7 +9,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.30,
     defaultInflation: 0.025,
     referenceRent: 140000,
-    referenceLivingCost: 120000,
+    referenceLivingCost: 120000, // 家計調査はPDF専用・e-Stat APIキー未設定のため取得不可、家賃地代シェア未検証、現行値据え置き
     notes: { en: "Tax includes income tax + social insurance", ja: "所得税+社会保険料込み", zh: "含所得税和社会保险费" },
   },
   {
@@ -140,8 +140,8 @@ export const countryPresets: CountryPreset[] = [
     currencySymbol: "£",
     defaultTaxRate: 0.30,
     defaultInflation: 0.03,
-    referenceRent: 1500,
-    referenceLivingCost: 1000,
+    referenceRent: 1500, // ONS PRMS未調査・移住者向け市場家賃要確認
+    referenceLivingCost: 1400, // ONS LCF FYE2023, housing excl. (actual rent 10.04%), GBP/month per adult equivalent (AE=1.58)
     notes: { en: "Income tax + National Insurance", ja: "所得税+国民保険", zh: "所得税+国民保险" },
   },
   {
