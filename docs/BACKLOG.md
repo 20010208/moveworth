@@ -28,9 +28,10 @@
 ## BL-20260721-03: study-country-tr 中国語取りこぼし確認
 
 - 優先度: 中
-- 状態: 未着手
+- 状態: 完了
 - 関連領域: study_blog_posts
-- 前提・ブロッカー: 対象1件とされているが、DBで再確認が必要
+- 現状: `study-country-tr`のtitle.zh / description.zhを補完済み。content.zh 1127字とis_published=trueは不変、対象外112件の変更0件を確認。
+- 前提・ブロッカー: 解消済み。ユーザー承認により公開状態を維持した対象限定更新を実施。
 - 完了条件: content.zh / title.zh / description.zhの存在、公開状態不変、対象外更新0件を確認
 
 ## BL-20260721-04: 部分更新機能の汎用化

@@ -7,6 +7,18 @@
 
 ## 2026-07-21 — Codex
 
+- タスクID: BL-20260721-03
+- 状態: 完了・commit済み・push待ち
+- study_blog_posts全113件を監査し、完全ZH 112件を確認
+- ユーザー承認値でstudy-country-trのtitle.zh / description.zhのみを対象限定更新
+- 更新前後の全113件比較でcontent.zh 1127字とis_published=trueが不変、対象外112件の変更0件を確認
+- DB再読込で承認値の完全一致とassertBlogPayload相当の検証通過を確認
+- 既存のZHタイトル/description検証とZH本文検証はいずれも113/113件通過
+
+---
+
+## 2026-07-21 — Codex
+
 - タスクID: FIX-TEMP-IGNORE-PATTERN-20260721
 - 状態: 完了・commit済み・push待ち
 - `.gitignore`の2行目を `/scripts/_tmp_*.ts` へ修正
