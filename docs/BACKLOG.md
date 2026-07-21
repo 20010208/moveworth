@@ -26,10 +26,11 @@
 ## BL-20260721-02: BG / CY一次情報URLの再調査
 
 - 優先度: 低〜中
-- 状態: 保留
+- 状態: 完了
 - 関連領域: country_sources
-- 前提・ブロッカー: 既知URLが404または接続不能
-- 完了条件: 政府・官報・公式法令DB等の到達可能な本文ページを確保し登録
+- 前提・ブロッカー: 解消。BGは政府行政登録IISDA、CYは新`gov.cy` Migration Departmentルートを確認
+- 完了内容: HTTP 200と手続き本文を確認したBG 2件・CY 4件を`purpose=visa`、`status=alive`、`source=manual`で登録。DB再読込6/6件一致、既存BG/CY対象外12件不変
+- 完了条件: 政府・官報・公式法令DB等の到達可能な本文ページを確保し登録済み
 
 ## BL-20260721-03: study-country-tr 中国語取りこぼし確認
 

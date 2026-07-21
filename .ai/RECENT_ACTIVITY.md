@@ -7,6 +7,19 @@
 
 ## 2026-07-22 — Codex
 
+- タスクID: BL-20260721-02（BG / CY一次情報URLの再調査・登録）
+- 状態: 実装・DB反映・検証・commit完了、push待ち
+- BGは政府行政登録IISDAのVisa D・非EU市民継続滞在許可、CYは新`gov.cy`のvisa・entry/residence・visitor・immigration permitページを採用
+- `country_sources`: 事前0件からBG 2件・CY 4件をvisa/alive/manualで登録し、DB再読込6/6件一致
+- 既存BG/CY対象外12件の前後完全一致、BG/CY総件数12→18件を確認
+- `scripts/_seed-bg-cy-visa-sources.ts`を新規作成し、対象限定upsert・再読込・対象外不変検証を実装
+- `docs/BACKLOG.md`: BL-20260721-02を完了へ更新
+- 対象スクリプトのESLint・単体TypeScript型チェック・`git diff --check`通過。指定4ファイルを`feat: add BG/CY visa source URLs and close BL-02`でcommit、push未実行
+
+---
+
+## 2026-07-22 — Codex
+
 - タスクID: BL-20260721-08（GB referenceRent — ONS PRMS反映）
 - 状態: 実装・DB反映・検証・commit完了、push待ち
 - `country-presets.ts`: GB `referenceRent`を£1,500→£850へ更新。ONS PRMS最終公表のEngland全域・全物件タイプ中央値でありUK全体ではないことをコメントへ記録
