@@ -140,7 +140,9 @@ export const countryPresets: CountryPreset[] = [
     currencySymbol: "£",
     defaultTaxRate: 0.30,
     defaultInflation: 0.03,
-    referenceRent: 1500, // ONS PRMS未調査・移住者向け市場家賃要確認
+    // ONS PRMS 2022年10月～2023年9月、England全域、全物件タイプ中央値。
+    // PRMS廃止済み・ONS最終公表値。標本はEnglandのみ（UK全体ではない）
+    referenceRent: 850,
     referenceLivingCost: 1400, // ONS LCF FYE2023, housing excl. (actual rent 10.04%), GBP/month per adult equivalent (AE=1.58)
     notes: { en: "Income tax + National Insurance", ja: "所得税+国民保険", zh: "所得税+国民保险" },
   },

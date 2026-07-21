@@ -7,13 +7,26 @@
 
 ## 2026-07-22 — Codex
 
+- タスクID: BL-20260721-08（GB referenceRent — ONS PRMS反映）
+- 状態: 実装・DB反映・検証・commit完了、push待ち
+- `country-presets.ts`: GB `referenceRent`を£1,500→£850へ更新。ONS PRMS最終公表のEngland全域・全物件タイプ中央値でありUK全体ではないことをコメントへ記録
+- `country_sources`: ONS PRMS公式ページ1件をGB/living_cost/manual/aliveとして登録し、再読込一致を確認
+- `simulator_personas`: 事前147件・重複0件・欠落0件を確認後、147件DELETE→147件re-seed、SKIP 0件
+- 事後監査: 147/147件、GB 3件、重複0件、欠落0件、現行preset・給与定義との不一致0件
+- GB値の静的assert、対象ファイルのESLint、対象スクリプト型チェック、`git diff --check`通過
+- 指定5ファイルを`feat(c5): update GB referenceRent from ONS PRMS and close BL-08`でcommit、push未実行
+
+---
+
+## 2026-07-22 — Codex
+
 - タスクID: BL-20260721-07（DE defaultTaxRate差分の再確認）
-- 状態: 実装・検証・commit完了、push待ち
+- 状態: 実装・検証・commit・push完了
 - `country-presets.ts`: DE 39%は実効39.4%の丸め値で差分0.4ptが閾値内であること、Bundeszentralamt für Steuernをnotesへ3言語で記録。数値は不変
 - `docs/BACKLOG.md`: BL-20260721-07を完了へ更新
 - 検証スクリプト2本のDE 35%ハードコード問題をBL-20260722-01として登録
 - 対象ファイルのESLint、静的assert、`git diff --check`通過
-- 指定メッセージ`chore: add DE tax rate source comment and close BL-07`でcommit、push未実行
+- 指定メッセージ`chore: add DE tax rate source comment and close BL-07`でcommit（`eb6ca82`）、origin/mainへpush済み
 
 ---
 

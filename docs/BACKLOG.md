@@ -77,10 +77,10 @@
 ## BL-20260721-08: GB referenceRent — ONS PRMS調査
 
 - 優先度: 低
-- 状態: 未着手
+- 状態: 完了
 - 関連領域: country_presets / GB
-- 前提・ブロッカー: LCF由来の£247/月は全世帯平均（持ち家含む）で移住者実態と乖離。ONS Private Rental Market Summary Statistics（PRMS）が必要。
-- 完了条件: ONS PRMSスクリプト作成→1LDK相当中央値取得→referenceRent更新
+- 確認結果: ONS PRMS最終公表（2022年10月～2023年9月）、England全域・全物件タイプ月額中央値£850。標本はEnglandのみでUK全体ではない
+- 完了内容: GB `referenceRent`を£1,500→£850へ更新、公式URLを`country_sources`へ登録、`simulator_personas`を全件再シードしてpreset不一致0件を確認
 
 ## BL-20260722-01: 検証スクリプトのDE税率ハードコード修正
 
