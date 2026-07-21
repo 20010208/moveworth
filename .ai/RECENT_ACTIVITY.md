@@ -45,7 +45,7 @@ Claude Code（次回セッション）: C-5 Group B CA/AU/CH/NZ/KR/US
 ### 関連コミット
 
 - fcd4189: feat(c5): GB/JP 業種別年収・GB referenceLivingCost を実測値に更新
-- チェックポイント commit: 適用後作成予定
+- a177deb: chore(docs): AI開発・引き継ぎ運用ファイル一式を適用（push 保留）
 
 ---
 
