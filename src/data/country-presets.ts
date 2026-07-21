@@ -153,7 +153,7 @@ export const countryPresets: CountryPreset[] = [
     defaultInflation: 0.025,
     referenceRent: 1200,
     referenceLivingCost: 1500, // Eurostat HBS 2020, housing excl. (CP041+CP042), EUR/month per adult equivalent
-    notes: { en: "Income tax + solidarity surcharge + social insurance", ja: "所得税+連帯付加税+社会保険", zh: "所得税+团结附加税+社会保险" },
+    notes: { en: "Income tax + solidarity surcharge + social insurance; rounded from a 39.4% effective rate (0.4pt difference, within threshold). Source: Bundeszentralamt für Steuern", ja: "所得税＋連帯付加税＋社会保険、実効39.4%を丸めて採用（差分0.4pt、閾値内）、ソース: Bundeszentralamt für Steuern", zh: "所得税＋团结附加税＋社会保险，采用由39.4%有效税率四舍五入后的数值（相差0.4个百分点，在阈值内），来源：Bundeszentralamt für Steuern" },
   },
   {
     code: "FR",

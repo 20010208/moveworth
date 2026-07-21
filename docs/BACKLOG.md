@@ -68,10 +68,11 @@
 ## BL-20260721-07: DE defaultTaxRate差分の再確認
 
 - 優先度: 低
-- 状態: 保留
+- 状態: 完了
 - 関連領域: country_presets
-- 前提・ブロッカー: 実効39.4%とpreset39%の差が許容閾値内とされている
-- 完了条件: 現行ソース、算定条件、丸め方を確認し、変更要否を記録
+- 確認結果: `defaultTaxRate=0.39`は実効39.4%を丸めた値。差分0.4ptは5ptの許容閾値内
+- ソース: Bundeszentralamt für Steuern
+- 完了内容: DEのnotesへ算定条件、丸め方、差分、ソースを記録。数値変更なし
 
 ## BL-20260721-08: GB referenceRent — ONS PRMS調査
 
@@ -80,3 +81,12 @@
 - 関連領域: country_presets / GB
 - 前提・ブロッカー: LCF由来の£247/月は全世帯平均（持ち家含む）で移住者実態と乖離。ONS Private Rental Market Summary Statistics（PRMS）が必要。
 - 完了条件: ONS PRMSスクリプト作成→1LDK相当中央値取得→referenceRent更新
+
+## BL-20260722-01: 検証スクリプトのDE税率ハードコード修正
+
+- 優先度: 低
+- 状態: 未着手
+- 関連領域: country_presets / 検証スクリプト
+- 対象: `scripts/validate-simulator-blog.ts` / `scripts/_audit-persona-rates.ts`
+- 前提・ブロッカー: 両スクリプトにDE税率35%がハードコードされ、現行preset 39%と不一致
+- 完了条件: DE税率を現行presetと一致させるか、`countryPresets`の直接参照へ変更し、誤検出しないことを確認
