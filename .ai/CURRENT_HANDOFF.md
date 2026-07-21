@@ -2,86 +2,79 @@
 
 最終更新: 2026-07-21
 最終担当: Codex
-タスクID: BL-20260721-03
-状態: 完了・チェックポイントcommit済み・push待ち
+タスクID: BL-20260721-01
+状態: CA/AU/CH 実装・DB反映・検証・commit完了、push待ち
 
 ## 目的
 
-`study-country-tr`の`content.zh` / `title.zh` / `description.zh`を確認し、
-承認済みのtitle.zh / description.zhを公開状態不変で安全に補完する。
+C-5 Group BのCA/AU/CHについて、承認済みの業種別年収を反映し、生活費の取得不可理由を記録する。公式統計URLを`country_sources`へ登録し、`simulator_personas`を最新presetから再seedして汚染を検証する。
 
-## 現在の状態
+## 承認済み方針
 
-- `study_blog_posts`: 全113件、3つのZHフィールドが完全なレコード113件
-- `study-country-tr`: content.zh（1127字）、title.zh、description.zhあり
-- `study-country-tr`: is_published=true
-- ユーザー承認値でtitle.zh / description.zhのみ対象限定更新済み
-- 更新前後比較と独立再読込により、content.zh・is_published・対象外112件の不変を確認済み
-
-## 完了した作業
-
-- CLAUDE.mdセクション0の開始確認
-- 既存の本文・タイトル/description生成手順と品質検証を確認
-- DB全113件を読み取り、文字列包含54件、`-tr`終端2件、完全一致1件を区別
-- `study-work-tr`は3つのZHフィールドが揃っていることを確認
-- `study-country-tr`のtitle.zh / description.zh候補をdry-run生成
-- 既存content.zhの構造・URL・拒否パターンを機械検証
-- dry-run後もDB状態が変わっていないことを再取得で確認
-- 承認済みtitle.zh / description.zhのみを対象1件へ更新
-- 更新前後の全113件比較で対象外112件の変更0件を確認
-- DB再読込で保存値の完全一致とis_published=trueを確認
-- assertBlogPayload相当、ZHタイトル/description全件、ZH本文全件の検証を実施
+- CA: StatsCan 2025値を9業種へ反映。`it` / `media`はNAICS 51+71合算のため61,000 CADで同値
+- AU: ABS EEH May 2025値を9業種へ反映
+- CH: FSO LSE 2024のNOGA division 35と一致する`infrastructure`のみ106,000 CHFへ更新。他8業種は現行値維持
+- CA生活費: 1,200 CAD維持。SHSに帰属家賃項目がなく取得不可
+- AU生活費: 1,200 AUD維持。HESの全国成人換算係数が公開されておらず取得不可
+- CH生活費: 1,500 CHF維持。HBS詳細分類非公開のため取得不可
+- 公式給与URL3件を`country_sources`へ登録
+- `simulator_personas`は全件DELETE後、最新presetからre-seedし汚染0件を確認
 
 ## 変更した主要ファイル
 
+- `src/data/industry-salaries.ts`
+- `src/data/country-presets.ts`
+- `scripts/_seed-ca-au-ch-stats-sources.ts`
 - `.ai/CURRENT_HANDOFF.md`
 - `.ai/RECENT_ACTIVITY.md`
 - `docs/BACKLOG.md`
-- `scripts/_tmp_bl03_audit_study_tr_zh.ts`（gitignore対象の一時監査スクリプト）
-- `scripts/_tmp_bl03_apply_study_tr_zh.ts`（gitignore対象の一時更新・検証スクリプト）
+- DB: `country_sources` 3件upsert、`simulator_personas`全件DELETE→re-seed
 
-## Git状態・未コミット変更
+## 作業開始時のGit状態
 
-- 今回の記録差分: `.ai/CURRENT_HANDOFF.md`、`.ai/RECENT_ACTIVITY.md`、`docs/BACKLOG.md`
-- 今回の一時スクリプトは`.gitignore`対象
+- HEAD / origin/main: `c80c623`
 - 既存差分: `tsconfig.scripts.tsbuildinfo`、`tsconfig.tsbuildinfo`
-- 既存未追跡38項目は変更・削除・commitしていない
+- 既存未追跡38項目は変更・削除・commitしない
+- 今回対象ファイルに既存差分なし
 
 ## 実行済みの検証
 
-- DB対象: 全113件、完全ZH 112件
-- exact target: 1件（study-country-tr）
-- `-tr`終端: 2件（study-country-tr / study-work-tr）
-- study-country-tr: content.zh 1127字、title.zh 0字、description.zh 0字、is_published=true
-- content.zh品質: JA比0.818、見出し8対8、URL4対4一致、拒否パターン0、example.comなし
-- title/description dry-run: 1件成功、品質チェック通過
-- DB書き込み: 対象1件のtitle.zh / description.zhのみ
-- DB再読込: 承認値と完全一致、content.zh 1127字、is_published=true
-- 更新前後比較: 対象外112件の変更0件、対象のcontent.zh・公開状態不変
-- assertBlogPayload相当: 通過
-- ZHタイトル/description機械検証: 113/113件通過
-- ZH本文機械検証: 113/113件通過
+1. CA/AU/CH 27給与値と生活費3値の静的確認: 完全一致
+2. 対象限定TypeScript型チェック: 通過
+3. 対象4ファイルのESLint: 通過
+4. `country_sources`対象3件のDB再読込: URL・purpose・status・source・検証時刻一致
+5. `simulator_personas`: 147件DELETE→147件re-seed、SKIP 0件
+6. 独立監査: 147/147件、重複キー0件、給与・生活費・家賃・税率・物価・通貨の不一致0件
 
-## 未実行の検証
+## 現在の進捗
 
-- ブラウザでの公開ページ表示確認（今回のDB部分更新と機械検証の範囲外）
+- CA/AU/CH給与値と生活費コメントをローカル反映済み
+- 承認値27件・生活費3件の静的検証、対象限定型チェック、ESLint通過
+- `country_sources`公式給与URL3件をupsertし、DB再読込一致を確認済み
+- `simulator_personas`は147件DELETE→147件re-seed済み。独立監査で汚染0件
 
-## 未解決事項
+## 未実行・既知の検証制約
 
-- なし
+- 全scripts型チェックは、今回対象外の既存・未追跡スクリプトにあるグローバル変数・関数重複で失敗
+- 今回対象のsource seedスクリプトと一時監査スクリプトは、専用tsconfigで型チェック通過
+- push未実行
 
-## 次に行う作業
+## 終了時のGit状態
 
-1. ユーザー確認後、明示的なpush許可を待つ
+- 今回のcommit候補: `.ai/CURRENT_HANDOFF.md`、`.ai/RECENT_ACTIVITY.md`、`docs/BACKLOG.md`、`src/data/country-presets.ts`、`src/data/industry-salaries.ts`、`scripts/_seed-ca-au-ch-stats-sources.ts`
+- 開始時からの既存差分: `tsconfig.scripts.tsbuildinfo`、`tsconfig.tsbuildinfo`（内容・ハッシュ不変）
+- 開始時からの既存未追跡38項目は変更・削除していない
+- 指定6ファイルのチェックポイントcommitを作成
+- push未実行
 
 ## 禁止事項・注意事項
 
-- 追加のDB書き込みを行わない
-- 公開・publish-only・force-regenerateを実行しない
-- 対象外レコード、JA/EN、thumbnail等を更新しない
-- pushはユーザーの明示的許可なしに実行しない
+- 承認済み数値・コメント以外を変更しない
+- 記事生成・公開・force-regenerateを実行しない
+- pushは次のユーザー指示まで実行しない
+- 既存差分・未追跡ファイルを変更しない
 
 ## ユーザー判断が必要な事項
 
-- 解決済み: ユーザーがis_published=true維持でのtitle.zh / description.zh補完を承認
-- pushはチェックポイントcommit確認後の明示的許可が必要
+- commitはユーザー許可済み
+- pushは明示的なユーザー許可待ち

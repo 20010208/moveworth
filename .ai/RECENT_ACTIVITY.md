@@ -7,6 +7,20 @@
 
 ## 2026-07-21 — Codex
 
+- タスクID: BL-20260721-01（C-5 Group B CA/AU/CH）
+- 状態: 実装・DB反映・検証・commit完了、push待ち
+- `industry-salaries.ts`: CA/AU各9業種を公式2025年値へ更新、CHはFSO LSE 2024で取得可能なinfrastructureのみ106,000 CHFへ更新
+- `country-presets.ts`: CA/AU/CH生活費は現行値を維持し、取得不可理由をコメントへ記録
+- `country_sources`: StatsCan / ABS EEH / FSO LSEの給与URL3件を`purpose=salary`でupsertし、再読込一致を確認
+- `simulator_personas`: 147件DELETE→147件re-seed、独立監査で重複0件・preset不一致0件
+- 承認値27件・生活費3件の静的検証、対象限定型チェック、ESLint通過
+- 全scripts型チェックは既存・未追跡スクリプトのグローバル重複エラーにより未通過（今回対象2スクリプトは通過）
+- 指定6ファイルのチェックポイントcommitを作成、push未実行
+
+---
+
+## 2026-07-21 — Codex
+
 - タスクID: BL-20260721-03
 - 状態: 完了・commit済み・push待ち
 - study_blog_posts全113件を監査し、完全ZH 112件を確認

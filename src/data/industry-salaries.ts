@@ -142,15 +142,17 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure:  88000,
   },
   CA: {
+    // Statistics Canada 14-10-0064-01 (2025) — average weekly wage x 52, all employees
+    // it / media: NAICS 51+71合算のため同値（StatsCan表の構造上分離不可）
     manufacturing:   72000,
-    it:             105000,
-    finance:         95000,
-    service:         48000,
-    retail:          56000,
-    construction:    75000,
-    logistics:       62000,
-    media:           70000,
-    infrastructure:  82000,
+    it:              61000,
+    finance:         86000,
+    service:         32000,
+    retail:          50000,
+    construction:    79000,
+    logistics:       69000,
+    media:           61000,
+    infrastructure: 111000,
   },
   GB: {
     // ONS ASHE 2023 Table 16.7a — median gross annual GBP, all employees (SIC 2007 Section level)
@@ -201,6 +203,8 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure:  61000,
   },
   CH: {
+    // FSO LSE 2024 — NOGA section集計非公開・取得不可・現行値据え置き（infrastructure除く）
+    // infrastructure: NOGA division 35 median monthly gross wage x 12
     manufacturing:  100000,
     it:             140000,
     finance:        160000,
@@ -209,18 +213,19 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     construction:    98000,
     logistics:       86000,
     media:          108000,
-    infrastructure: 115000,
+    infrastructure: 106000,
   },
   AU: {
-    manufacturing:   85000,
-    it:             115000,
-    finance:        110000,
-    service:         65000,
-    retail:          70000,
-    construction:    95000,
-    logistics:       78000,
-    media:           82000,
-    infrastructure:  98000,
+    // ABS Employee Earnings and Hours, May 2025 — average weekly total cash earnings x 52, all employees
+    manufacturing:   90000,
+    it:             120000,
+    finance:        113000,
+    service:         43000,
+    retail:          51000,
+    construction:   102000,
+    logistics:      100000,
+    media:           52000,
+    infrastructure: 131000,
   },
   NZ: {
     manufacturing:   72000,

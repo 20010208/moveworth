@@ -130,7 +130,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.30,
     defaultInflation: 0.025,
     referenceRent: 2000,
-    referenceLivingCost: 1200,
+    referenceLivingCost: 1200, // SHS帰属家賃項目なし・取得不可・現行値据え置き
     notes: { en: "Federal + provincial tax", ja: "連邦税+州税", zh: "联邦税+省税" },
   },
   {
@@ -185,7 +185,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.25,
     defaultInflation: 0.015,
     referenceRent: 2500,
-    referenceLivingCost: 1500,
+    referenceLivingCost: 1500, // HBS詳細分類非公開・取得不可・現行値据え置き
     notes: { en: "Federal + cantonal + municipal tax", ja: "連邦税+州税+市町村税", zh: "联邦税+州税+市政税" },
   },
   {
@@ -196,7 +196,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.30,
     defaultInflation: 0.03,
     referenceRent: 2200,
-    referenceLivingCost: 1200,
+    referenceLivingCost: 1200, // HES成人換算係数非公開・取得不可・現行値据え置き
     notes: { en: "Income tax + Medicare levy", ja: "所得税+メディケア税", zh: "所得税+医疗保险税" },
   },
   {
