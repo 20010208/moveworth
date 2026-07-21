@@ -32,7 +32,7 @@ const CONFIGS: Record<string, {
 
 // 現行 referenceLivingCost（country-presets.ts の現在値）
 const CURRENT: Record<string, number> = {
-  DE:1631, AT:1631, ES:890, NL:1400, FI:1468,  // Batch 1 (AT/DE は現在同値?)
+  DE:1349, AT:1631, ES:890, NL:1480, FI:1468,
   FR:1200, IT:1000, SE:13600, DK:11500, BE:1200,
   NO:20900, IE:1200, PT:600, PL:1400, CZ:10500,
 };
