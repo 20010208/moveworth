@@ -1,3 +1,10 @@
+# Historical Archive — CHAT_HANDOVER (2026-03)
+
+> この文書は2026年3月17日時点の履歴スナップショットであり、現行仕様ではない。
+> 現在の実装・運用判断には、実コード、`CLAUDE.md`、`.ai/DECISIONS.md`、`.ai/CURRENT_HANDOFF.md` を優先すること。
+
+---
+
 # MoveWorth チャット引き継ぎファイル
 
 最終更新: 2026-03-17
