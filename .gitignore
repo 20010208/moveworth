@@ -4,4 +4,4 @@ next-env.d.ts
 .env.local
 .env*.local
 /scripts/_tmp-*.ts
-/scripts/*tmp**.ts
+/scripts/_tmp_*.ts

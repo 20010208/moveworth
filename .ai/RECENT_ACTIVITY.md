@@ -7,6 +7,18 @@
 
 ## 2026-07-21 — Codex
 
+- タスクID: FIX-TEMP-IGNORE-PATTERN-20260721
+- 状態: 完了・commit済み・push待ち
+- `.gitignore`の2行目を `/scripts/_tmp_*.ts` へ修正
+- `git check-ignore`で未追跡一時スクリプト12本を確認
+- 正式スクリプト231本の新規ignoreが0本であることを確認
+- 実文字列・UTF-8バイト列・diff checkを確認
+- 関連commit: `fix: correct temporary script ignore pattern`
+
+---
+
+## 2026-07-21 — Codex
+
 - タスクID: IGNORE-TEMP-SCRIPTS-PUSH-20260721
 - 状態: 完了・push済み
 - `.gitignore`へ一時スクリプト用の指定2パターンを追加
