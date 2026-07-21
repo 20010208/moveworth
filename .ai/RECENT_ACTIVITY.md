@@ -7,6 +7,17 @@
 
 ## 2026-07-21 — Codex
 
+- タスクID: IGNORE-TEMP-SCRIPTS-PUSH-20260721
+- 状態: 完了・push済み
+- `.gitignore`へ一時スクリプト用の指定2パターンを追加
+- 未追跡一時スクリプト12本へのignore適用とdiff checkを確認
+- `89bb7f2` と `chore: ignore temporary scripts` の2 commitsを `origin/main` へpush
+- 対象外の `tsconfig*.tsbuildinfo` 2件と未追跡38項目は保持
+
+---
+
+## 2026-07-21 — Codex
+
 - タスクID: DEPENDENCY-RECORD-CLEANUP-20260721
 - 状態: 完了・commit済み・push待ち
 - `adm-zip` / `xlsx` のmanifest・lockfile差分をコミット対象として整理
