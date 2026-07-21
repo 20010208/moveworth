@@ -339,7 +339,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.42,
     defaultInflation: 0.025,
     referenceRent: 1000,
-    referenceLivingCost: 700,
+    referenceLivingCost: 700, // Eurostat HBS 2020, housing excl. (CP041+CP042), EUR/month per adult equivalent
     notes: { en: "Effective ~42% at EUR 50k IT income (income tax 28% + EFKA social insurance ~14%). Digital nomad visa holders: 50% income tax reduction applies → effective ~28%", ja: "EUR 5万IT年収での実効約42%（所得税28%+EFKA社会保険約14%）。デジタルノマドビザ適用者は所得税50%減税→実効約28%", zh: "EUR 5万IT年收入实效约42%（所得税28%+EFKA社保约14%）。数字游民签证持有者所得税减免50%→实效约28%" },
   },
   {
@@ -526,7 +526,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.19,
     defaultInflation: 0.03,
     referenceRent: 800,
-    referenceLivingCost: 800,
+    referenceLivingCost: 600, // Eurostat HBS 2020, housing excl. (CP041+CP042), EUR/month per adult equivalent
     notes: { en: "EU member. 20% flat tax (tapered allowance) + 1.6% unemployment insurance. Digital leader, e-Residency available", ja: "EU加盟国。20%フラット（逓減基礎控除）+失業保険1.6%。デジタル先進国、e-Residency制度あり", zh: "欧盟成员国。20%固定税（递减基础扣除）+失业保险1.6%。数字先驱，提供e-Residency制度" },
   },
   {
@@ -548,7 +548,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.34,
     defaultInflation: 0.04,
     referenceRent: 220000,
-    referenceLivingCost: 280000,
+    referenceLivingCost: 142600, // Eurostat HBS 2020, housing excl. (CP041+CP042), HUF/month per adult equivalent
     notes: { en: "EU member. 15% flat income tax + social insurance 18.5% (pension 10% + health 7% + UI 1.5%). Budapest IT hub", ja: "EU加盟国。15%フラット所得税+社会保険18.5%（年金10%+健康7%+失業1.5%）。ブダペストITハブ", zh: "欧盟成员国。15%固定所得税+社保18.5%（养老金10%+医疗7%+失业1.5%）。布达佩斯IT枢纽" },
   },
 ];

@@ -351,16 +351,17 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure: 210000000,
   },
   GR: {
-    // アテネ在住外国人プロフェッショナルの平均年収（EUR）2026年3月
-    manufacturing:   36000,
-    it:              50000,
-    finance:         56000,
-    service:         26000,
-    retail:          28000,
-    construction:    38000,
-    logistics:       32000,
-    media:           42000,
-    infrastructure:  46000,
+    // Eurostat SES2022 EARN_SES22_20 — gross annual EUR, all employees (NACE: C/J/K/I/G/F/H/R/D)
+    // Eurostat country code: EL (Greece)
+    manufacturing:   18000,
+    it:              24000,
+    finance:         33000,
+    service:         15000,
+    retail:          17000,
+    construction:    17000,
+    logistics:       22000,
+    media:           15000,
+    infrastructure:  34000,
   },
   IT: {
     // Eurostat SES2022 EARN_SES22_20 — gross annual EUR, all employees (NACE: C/J/K/I/G/F/H/R/D)
@@ -567,16 +568,16 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure:  38000,
   },
   EE: {
-    // タリン在住外国人プロフェッショナルの平均年収（EUR）2026年7月
-    manufacturing:   28000,
-    it:              38000,
-    finance:         42000,
-    service:         24000,
-    retail:          22000,
-    construction:    30000,
-    logistics:       26000,
-    media:           34000,
-    infrastructure:  36000,
+    // Eurostat SES2022 EARN_SES22_20 — gross annual EUR, all employees (NACE: C/J/K/I/G/F/H/R/D)
+    manufacturing:   20000,
+    it:              37000,
+    finance:         32000,
+    service:         16000,
+    retail:          20000,
+    construction:    23000,
+    logistics:       20000,
+    media:           17000,
+    infrastructure:  25000,
   },
   HR: {
     // ザグレブ在住外国人プロフェッショナルの平均年収（EUR）2026年7月
@@ -591,15 +592,15 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure:  28000,
   },
   HU: {
-    // ブダペスト在住外国人プロフェッショナルの平均年収（HUF）2026年7月
-    manufacturing:  7000000,
-    it:            10000000,
-    finance:       11000000,
-    service:        5500000,
-    retail:         5000000,
-    construction:   7500000,
-    logistics:      6000000,
-    media:          8500000,
-    infrastructure: 9000000,
+    // Eurostat SES2022 EARN_SES22_20 — gross annual HUF, all employees (NACE: C/J/K/I/G/F/H/R/D)
+    manufacturing:  5847000,
+    it:             9382000,
+    finance:        9062000,
+    service:        3705000,
+    retail:         5319000,
+    construction:   4795000,
+    logistics:      5287000,
+    media:          5913000,
+    infrastructure: 8006000,
   },
 };
