@@ -9,15 +9,17 @@
 ## BL-20260721-01: C-5給与・生活費grounding（Group B実データ取得）
 
 - 優先度: 中
-- 状態: 進行中（CA/AU/CH完了、NZ/KR/US未着手）
+- 状態: 完了
 - 関連領域: country_presets / industry-salaries / living cost
 - 現状:
   - グループA全19カ国（パイロット5カ国 + Batch 2〜4の14カ国）は完了
   - GB/JP完了（ASHE 2023/MHLW令和5年実測値反映済み）
   - CA/AU/CH完了。CA/AUは9業種を公式統計値へ更新、CHは取得可能なinfrastructureのみ更新
   - CA/CH生活費は公式分類不足、AU生活費は成人換算係数非公開のため取得不可として現行値を維持
-  - 残りNZ/KR/USは未着手
-  - ブロッカー: KR（SSO認証）、US（BLS 403）は別ルート調査が必要。
+  - NZ/KR/US完了。Stats NZ QES 2026年3月、雇用労働部2025年6月、BLS OEWS May 2025から各9業種を更新
+  - NZ/KR生活費はCP042相当なし、US生活費はPUMD集計未実施のため取得不可として現行値を維持
+  - KRは雇用労働部PDF直接取得、USはOEWS Query System公開APIにより既知ブロッカーを解消
+  - 公式給与URLを`country_sources`へ登録し、`simulator_personas`を全件再seedして汚染0件を確認
 - 完了条件: 残り3カ国（NZ/KR/US）について9業種の実測値を一次情報から取得し、採用値・対象条件・出典・取得処理が追跡可能であること
 
 ## BL-20260721-02: BG / CY一次情報URLの再調査

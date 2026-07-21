@@ -53,7 +53,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.28,
     defaultInflation: 0.025,
     referenceRent: 800000,
-    referenceLivingCost: 800000,
+    referenceLivingCost: 800000, // CP042相当なし・取得不可・現行値据え置き
     notes: { en: "Tax includes national pension + health insurance", ja: "国民年金+健康保険込み", zh: "含国民年金和健康保险" },
   },
   {
@@ -119,7 +119,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.30,
     defaultInflation: 0.03,
     referenceRent: 2000,
-    referenceLivingCost: 1500,
+    referenceLivingCost: 1500, // PUMD集計要・未実施・現行値据え置き
     notes: { en: "Federal + state + FICA taxes", ja: "連邦税+州税+社会保障税", zh: "联邦税+州税+社会保障税" },
   },
   {
@@ -207,7 +207,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.28,
     defaultInflation: 0.03,
     referenceRent: 2000,
-    referenceLivingCost: 1000,
+    referenceLivingCost: 1000, // CP042相当なし・取得不可・現行値据え置き
     notes: { en: "No social security tax for employees", ja: "従業員の社会保障税なし", zh: "雇员无社会保障税" },
   },
   {

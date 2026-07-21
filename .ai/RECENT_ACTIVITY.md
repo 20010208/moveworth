@@ -7,6 +7,20 @@
 
 ## 2026-07-21 — Codex
 
+- タスクID: BL-20260721-01（C-5 Group B NZ/KR/US）
+- 状態: 実装・DB反映・検証・commit完了、push待ち
+- `industry-salaries.ts`: Stats NZ QES 2026年3月、雇用労働部2025年6月、BLS OEWS May 2025からNZ/KR/US各9業種を更新
+- `country-presets.ts`: NZ/KR/US生活費は現行値を維持し、取得不可・未実施理由をコメントへ記録
+- `country_sources`: Stats NZ QES / 雇用労働部 / BLS OEWSの給与URL3件を`purpose=salary`でupsertし、再読込一致を確認
+- `simulator_personas`: 147件DELETE→147件re-seed、SKIP 0件
+- 独立監査: 147/147件、重複キー0件、給与・生活費・家賃・税率・物価・通貨のpreset不一致0件、NZ/KR/US 9/9件
+- 承認値27件・生活費3件の静的assert、対象3ファイルのESLint、専用tsconfig型チェック通過
+- 指定6ファイルのチェックポイントcommitを作成、push未実行
+
+---
+
+## 2026-07-21 — Codex
+
 - タスクID: BL-20260721-01（C-5 Group B CA/AU/CH）
 - 状態: 実装・DB反映・検証・commit完了、push待ち
 - `industry-salaries.ts`: CA/AU各9業種を公式2025年値へ更新、CHはFSO LSE 2024で取得可能なinfrastructureのみ106,000 CHFへ更新
