@@ -5,6 +5,19 @@
 
 ---
 
+## 2026-07-22 — Codex
+
+- タスクID: BL-20260721-01（CH FSO LSE 2024 NOGAセクション値補完）
+- 状態: 実装・DB反映・検証・commit完了、push待ち
+- `industry-salaries.ts`: FSO LSE 2024公式XLSXのNOGAセクション別中央値月額×12からCH 8業種を更新。infrastructure 106,000 CHFは不変
+- `country_sources`: FSO公式XLSX直リンク1件をCH/salary/manual/aliveとして登録し、再読込一致を確認
+- `simulator_personas`: 事前147件・重複0件・欠落0件を確認後、147件DELETE→147件re-seed、SKIP 0件
+- 事後監査: 147/147件、CH 3件、重複0件、欠落0件、現行preset・給与定義との不一致0件
+- CH 9業種の静的assert、対象ファイルのESLint、対象スクリプト型チェック、`git diff --check`通過
+- 指定5ファイルを`feat(c5): update CH salary data from FSO LSE 2024 official XLSX`でcommit、push未実行
+
+---
+
 ## 2026-07-21 — Codex
 
 - タスクID: BL-20260721-01（US生活費・JP賞与補完）

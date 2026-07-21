@@ -14,7 +14,7 @@
 - 現状:
   - グループA全19カ国（パイロット5カ国 + Batch 2〜4の14カ国）は完了
   - GB/JP完了（ASHE 2023/MHLW令和5年実測値反映済み）
-  - CA/AU/CH完了。CA/AUは9業種を公式統計値へ更新、CHは取得可能なinfrastructureのみ更新
+  - CA/AU/CH完了。CA/AUは9業種を公式統計値へ更新。CHはFSO LSE 2024公式XLSXのNOGAセクション別中央値から9業種を反映
   - CA/CH生活費は公式分類不足、AU生活費はHES等価係数がBasic CURF限定のため取得不可として現行値を維持
   - NZ/KR/US完了。Stats NZ QES 2026年3月、雇用労働部2025年6月、BLS OEWS May 2025から各9業種を更新
   - NZ/KR生活費はCP042相当なしのため現行値を維持。US生活費はBLS CE PUMD 2024からCP041+CP042を除外し、OECD修正等価スケールで3,700 USD/月を採用

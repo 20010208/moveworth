@@ -3,9 +3,12 @@
  *
  * CA: it / mediaはNAICS 51+71合算のため同値
  *     （StatsCan表の構造上分離不可）
- * CH: FSO LSE 2024 NOGA section集計非公開・取得不可・現行値据え置き
- *     （infrastructure除く。division 35のみ取得可能）
+ * CH: FSO LSE 2024公式XLSXのNOGAセクション別中央値を使用
  * AU生活費: HES成人換算係数非公開・取得不可・現行値据え置き
+ *
+ * Usage:
+ *   npx tsx scripts/_seed-ca-au-ch-stats-sources.ts     # 3カ国
+ *   npx tsx scripts/_seed-ca-au-ch-stats-sources.ts ch  # CHのみ
  */
 import { existsSync, readFileSync } from "fs";
 import { createClient } from "@supabase/supabase-js";
@@ -49,7 +52,7 @@ const sources = [
   {
     country_code: "ch",
     purpose: "salary",
-    url: "https://www.pxweb.bfs.admin.ch/pxweb/de/px-x-0304010000_206/px-x-0304010000_206/px-x-0304010000_206.px",
+    url: "https://dam-api.bfs.admin.ch/hub/api/dam/assets/36196137/master",
     status: "alive",
     source: "manual",
     last_verified_at: verifiedAt,
@@ -57,26 +60,34 @@ const sources = [
 ] as const;
 
 async function main() {
-  console.log(`登録予定: ${sources.length}件`);
+  const requestedCountry = process.argv[2]?.toLowerCase();
+  const targetSources = requestedCountry
+    ? sources.filter((row) => row.country_code === requestedCountry)
+    : [...sources];
+  if (targetSources.length === 0) {
+    throw new Error(`対象国コードが不正です: ${requestedCountry}`);
+  }
+
+  console.log(`登録予定: ${targetSources.length}件`);
 
   const { error: upsertError } = await supabase
     .from("country_sources")
-    .upsert([...sources], { onConflict: "country_code,url" });
+    .upsert(targetSources, { onConflict: "country_code,url" });
   if (upsertError) throw new Error(`country_sources upsert失敗: ${upsertError.message}`);
 
   const { data, error: readError } = await supabase
     .from("country_sources")
     .select("country_code,url,purpose,status,source,last_verified_at")
-    .in("country_code", sources.map((row) => row.country_code))
-    .in("url", sources.map((row) => row.url))
+    .in("country_code", targetSources.map((row) => row.country_code))
+    .in("url", targetSources.map((row) => row.url))
     .order("country_code");
   if (readError) throw new Error(`country_sources再読込失敗: ${readError.message}`);
 
-  if (data?.length !== sources.length) {
-    throw new Error(`country_sources件数不一致: expected=${sources.length}, actual=${data?.length ?? 0}`);
+  if (data?.length !== targetSources.length) {
+    throw new Error(`country_sources件数不一致: expected=${targetSources.length}, actual=${data?.length ?? 0}`);
   }
 
-  for (const expected of sources) {
+  for (const expected of targetSources) {
     const actual = data.find(
       (row) => row.country_code === expected.country_code && row.url === expected.url
     );

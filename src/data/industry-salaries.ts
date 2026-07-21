@@ -205,16 +205,16 @@ export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
     infrastructure:  61000,
   },
   CH: {
-    // FSO LSE 2024 — NOGA section集計非公開・取得不可・現行値据え置き（infrastructure除く）
-    // infrastructure: NOGA division 35 median monthly gross wage x 12
-    manufacturing:  100000,
-    it:             140000,
-    finance:        160000,
-    service:         78000,
-    retail:          82000,
-    construction:    98000,
-    logistics:       86000,
-    media:          108000,
+    // FSO LSE 2024 公式XLSX — NOGAセクション別中央値月額×12（C/J/K/I/G/F/H/R/D）
+    // 13か月目給与・年間特別支給の月割含む、週40h標準化
+    manufacturing:   84000,
+    it:             114000,
+    finance:        122000,
+    service:         57000,
+    retail:          72000,
+    construction:    79000,
+    logistics:       77000,
+    media:           80000,
     infrastructure: 106000,
   },
   AU: {
