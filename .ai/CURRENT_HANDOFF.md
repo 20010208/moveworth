@@ -1,77 +1,74 @@
 # Current Handoff
 
-最終更新: 2026-07-21
+最終更新: 2026-07-22
 最終担当: Codex
-タスクID: BL-20260721-01
-状態: NZ/KR/US 実装・DB反映・検証・commit完了、push待ち
+タスクID: BL-20260721-01（US生活費・JP賞与補完）
+状態: 実装・DB反映・検証・commit完了、push待ち
 
 ## 目的
 
-C-5 Group Bの残り3カ国（NZ/KR/US）について、承認済みの公式統計ベース業種別年収を反映する。生活費は取得不可方針に従って現行値を維持し、理由をコメントへ記録する。公式統計URLを`country_sources`へ登録し、`simulator_personas`を最新presetから再seedして汚染を検証する。
+C-5の追加調査で承認されたUS生活費とJP賞与込み年収をpresetへ反映する。AU生活費は値を維持し、取得不可理由を最新の調査結果へ更新する。反映後、`simulator_personas`を全件DELETE→re-seedし、presetとの不一致・重複がないことを確認する。
 
-## 承認済み方針
+## 現在の状態
 
-- NZ: Stats NZ QES 2026年3月四半期、ANZSIC 9業種、平均週給×52を1,000 NZD単位へ丸めた値を反映
-- KR: 雇用労働部 2025年6月調査、KSIC 9業種、全労働者の月間総賃金×12を反映
-- US: BLS OEWS May 2025、NAICS 9業種、National / All Occupations / Annual mean wageを反映
-- NZ生活費: 1,000 NZD維持。CP042相当なしのため取得不可
-- KR生活費: 800,000 KRW維持。CP042相当なしのため取得不可
-- US生活費: 1,500 USD維持。PUMD集計が必要だが今回は未実施
-- 公式給与URL3件を`country_sources`へ登録
-- `simulator_personas`は全件DELETE後、最新presetからre-seedし汚染0件を確認
+- 承認済みのソース変更、DB再seed、全147件の再読込監査まで完了
+- 指定5ファイルのチェックポイントcommitを作成済み、pushは未実行
+- 次の担当はHEADと対象外差分を確認し、ユーザーの明示許可後にpushする
 
-## 今回の変更予定
+## 完了した作業
 
-- `src/data/industry-salaries.ts`
+- US `referenceLivingCost`: 1,500→3,700 USD。BLS CE PUMD 2024、CP041+CP042除外、OECD修正等価スケール（AE=1.6445）の条件をコメントへ記録
+- AU `referenceLivingCost`: 1,200 AUDを維持。HES等価係数がBasic CURF限定のため取得不可とコメントを更新
+- JP 9業種: 所定内給与額×12＋年間賞与その他特別給与額へ更新。月額2023年6月・賞与2022年暦年の時点差を記録
+- `simulator_personas`: 147件DELETE→147件re-seed、SKIP 0件
+- `docs/BACKLOG.md`: US生活費とJP賞与の完了状態へ記録を整合
+
+## 変更した主要ファイル
+
 - `src/data/country-presets.ts`
-- `scripts/_seed-nz-kr-us-stats-sources.ts`
+- `src/data/industry-salaries.ts`
+- `docs/BACKLOG.md`
 - `.ai/CURRENT_HANDOFF.md`
 - `.ai/RECENT_ACTIVITY.md`
-- `docs/BACKLOG.md`
-- DB: `country_sources` 3件upsert、`simulator_personas`全件DELETE→re-seed
+- DB: `simulator_personas`
 
-## 作業開始時のGit状態
+## Git状態・未コミット変更
 
-- HEAD / origin/main: `6c928b3`
-- 既存差分: `tsconfig.scripts.tsbuildinfo`、`tsconfig.tsbuildinfo`
-- 既存未追跡ファイル・ディレクトリは変更・削除・commitしない
-- 今回対象ファイルに既存差分なし
-
-## 現在の進捗
-
-- NZ/KR/US 27件の公式統計値と現行値比較を提示し、ユーザー承認済み
-- 公式URLと取得条件を確認済み
-- 給与27件・生活費コメント3件・公式URL登録スクリプトをローカル反映済み
-- 承認値27件と生活費3件の静的assert、対象3ファイルのESLint、専用tsconfigでの型チェック通過
-- `country_sources`公式給与URL3件をupsertし、DB再読込一致を確認済み
-- `simulator_personas`は147件DELETE→147件re-seed、SKIP 0件
-- 独立監査で147/147件、重複キー0件、preset不一致0件、NZ/KR/US 9/9件を確認済み
+- HEAD / origin/main: `1a8707c`
+- 今回の未コミット差分: 上記Markdown 3ファイルとデータ2ファイル
+- 開始時からの既存差分: `tsconfig.scripts.tsbuildinfo`、`tsconfig.tsbuildinfo`（今回対象外・変更を保持）
+- 開始時からの既存未追跡スクリプト・一時ファイルは変更・削除していない
 
 ## 実行済みの検証
 
-1. NZ/KR/US 27給与値と生活費3値の静的assert: 完全一致
-2. 対象限定TypeScript型チェック: 通過
-3. 対象3ファイルのESLint: 通過
-4. `country_sources`対象3件のDB再読込: URL・purpose・status・source・検証時刻一致
-5. `simulator_personas`: 147件DELETE→147件re-seed、SKIP 0件
-6. 独立監査: 147/147件、重複キー0件、給与・生活費・家賃・税率・物価・通貨の不一致0件
-7. `git diff --check`: 通過。一時検証ファイル残存なし
+1. US 3,700、AU 1,200、JP 9業種の静的assert: 完全一致
+2. 対象2ファイルのESLint: 通過
+3. DB事前監査: 147件、重複0件
+4. DB再seed: 147件DELETE→147件INSERT、SKIP 0件、付属汚染チェック0件
+5. DB再読込直接監査: 147/147件、ユニークキー147件、重複0件、欠落0件、現行preset・給与定義との不一致0件
+6. US再読込: 単身3,700、共働き3,700、管理職夫婦4,810（既存1.3倍ルール）
+7. `git diff --check`: 通過
 
-## 終了時のGit状態
+## 未実行の検証
 
-- 今回のcommit対象: `.ai/CURRENT_HANDOFF.md`、`.ai/RECENT_ACTIVITY.md`、`docs/BACKLOG.md`、`src/data/country-presets.ts`、`src/data/industry-salaries.ts`、`scripts/_seed-nz-kr-us-stats-sources.ts`
-- 開始時からの既存差分: `tsconfig.scripts.tsbuildinfo`、`tsconfig.tsbuildinfo`（今回対象外）
-- 開始時からの既存未追跡ファイル・ディレクトリは変更・削除していない
-- 指定6ファイルのチェックポイントcommitを作成、push未実行
+- Next.js全体のbuild（データ定義とDB seedのみのため未実行）
+- 全scripts型チェック（多数の既存未追跡スクリプトを含むため未実行）
+
+## 未解決事項
+
+- 既存の`scripts/_audit-persona-rates.ts`は手書きの`CURRENT_RATES`が現行presetと同期しておらず、18件を誤検出する。今回のDB監査は実際の`countryPresets`をimportして代替済み
+
+## 次に行う作業
+
+1. HEADと対象外差分が保持されていることを確認
+2. pushは別途明示許可後に実行
 
 ## 禁止事項・注意事項
 
-- 承認済み数値・コメント以外を変更しない
 - 記事生成・公開・force-regenerateを実行しない
-- pushは次のユーザー指示まで実行しない
-- 既存差分・未追跡ファイルを変更しない
+- 既存差分・未追跡ファイルを変更・commitしない
+- pushは明示許可なしに実行しない
 
 ## ユーザー判断が必要な事項
 
-- 実装・DB反映・検証完了後、commit対象とメッセージの指示待ち
-- pushは明示的なユーザー許可待ち
+- commitのpush許可

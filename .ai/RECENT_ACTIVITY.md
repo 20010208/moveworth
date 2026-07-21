@@ -7,6 +7,20 @@
 
 ## 2026-07-21 — Codex
 
+- タスクID: BL-20260721-01（US生活費・JP賞与補完）
+- 状態: 実装・DB反映・検証・commit完了、push待ち
+- `country-presets.ts`: US生活費を1,500→3,700 USDへ更新。AUは1,200 AUDを維持し、Basic CURF限定による取得不可コメントへ更新
+- `industry-salaries.ts`: JP 9業種を所定内給与額×12＋年間賞与その他特別給与額へ更新し、月額・賞与の時点差を記録
+- `simulator_personas`: 事前147件・重複0件を確認後、147件DELETE→147件re-seed、SKIP 0件
+- 再読込監査: 147/147件、重複0件、欠落0件、給与・生活費・家賃・税率・物価・通貨のpreset不一致0件
+- 承認値の静的assert、対象2ファイルのESLint、`git diff --check`通過
+- 既存の`_audit-persona-rates.ts`は手書き税率表が現行presetと不一致で誤検出するため、実定義との直接比較を使用
+- 指定5ファイルを`feat(c5): update US living cost and JP salary with bonus from official sources`でcommit、push未実行
+
+---
+
+## 2026-07-21 — Codex
+
 - タスクID: BL-20260721-01（C-5 Group B NZ/KR/US）
 - 状態: 実装・DB反映・検証・commit完了、push待ち
 - `industry-salaries.ts`: Stats NZ QES 2026年3月、雇用労働部2025年6月、BLS OEWS May 2025からNZ/KR/US各9業種を更新

@@ -119,7 +119,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.30,
     defaultInflation: 0.03,
     referenceRent: 2000,
-    referenceLivingCost: 1500, // PUMD集計要・未実施・現行値据え置き
+    referenceLivingCost: 3700, // BLS CE PUMD 2024、CP041+CP042除外、OECD修正等価スケール（AE=1.6445）。CE総支出にはCOICOP外項目含む
     notes: { en: "Federal + state + FICA taxes", ja: "連邦税+州税+社会保障税", zh: "联邦税+州税+社会保障税" },
   },
   {
@@ -196,7 +196,7 @@ export const countryPresets: CountryPreset[] = [
     defaultTaxRate: 0.30,
     defaultInflation: 0.03,
     referenceRent: 2200,
-    referenceLivingCost: 1200, // HES成人換算係数非公開・取得不可・現行値据え置き
+    referenceLivingCost: 1200, // HES等価係数はBasic CURF限定・取得不可・現行値据え置き
     notes: { en: "Income tax + Medicare levy", ja: "所得税+メディケア税", zh: "所得税+医疗保险税" },
   },
   {

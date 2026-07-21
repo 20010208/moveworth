@@ -18,17 +18,17 @@ export type IndustryKey = typeof INDUSTRIES[number]["key"];
 // 各国の業種別平均年収（年収・現地通貨）※外国人プロフェッショナルの平均
 export const INDUSTRY_SALARIES: Record<string, Record<IndustryKey, number>> = {
   JP: {
-    // 賃金構造基本統計 令和5年 第５－１表 — 月額×12（賞与除く）、男女計・全雇用形態
-    // 賞与除く（産業別賞与はPDF掲載のみ・取得不可）DEC-20260721-08
-    manufacturing:  3672000,
-    infrastructure: 4922400,
-    construction:   4192800,
-    retail:         3835200,
-    logistics:      3531600,
-    service:        3114000,
-    it:             4574400,
-    finance:        4720800,
-    media:          3344400,
+    // 賃金構造基本統計 令和5年 第1表 — 所定内給与額×12＋年間賞与その他特別給与額、一般労働者・男女計・学歴計・民営10人以上
+    // 月額2023年6月・賞与2022年暦年、調査仕様による時点差（DEC-20260721-08）
+    manufacturing:  4727500,
+    infrastructure: 6351800,
+    construction:   5287900,
+    retail:         4697900,
+    logistics:      4155100,
+    service:        3450900,
+    it:             5709200,
+    finance:        6252200,
+    media:          3790300,
   },
   SG: {
     manufacturing:   90000,
