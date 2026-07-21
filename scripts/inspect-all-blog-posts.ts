@@ -261,7 +261,6 @@ async function main() {
 
   // ─── 参考資料セクション内の生URL行検出（全公開記事）────────────────────────────
   // `- https://...` のまま [label](url) に変換されていない行
-  const rawRefLineRe = /^-\s+https?:\/\/\S+/m;
   const rawRefFindings: Array<{ slug: string; langs: { lang: string; lines: string[] }[] }> = [];
   for (const r of publishedRows) {
     const c = r.content as Record<string, string> | null;
@@ -351,12 +350,14 @@ async function main() {
 
   // ─── study_blog_posts 機械検証（D-4 拡張版）────────────────────────────────
   console.log("\n=== study_blog_posts 機械検証 ===");
+  let studyHasErrors = false;
   const { data: studyData, error: studyError } = await sb
     .from("study_blog_posts")
     .select("slug, is_published, content")
     .order("slug");
   if (studyError) {
     console.error("study_blog_posts 取得エラー:", studyError.message);
+    studyHasErrors = true;
   } else {
     const studyRows = studyData ?? [];
     const publishedStudy = studyRows.filter(r => r.is_published);
@@ -367,6 +368,7 @@ async function main() {
       return !c?.zh || c.zh.trim() === "";
     });
     if (zhMissing.length > 0) {
+      studyHasErrors = true;
       console.log(`❌ zh 未生成（公開記事）: ${zhMissing.length} 件`);
       zhMissing.forEach(r => console.log(`  - ${r.slug}`));
     } else {
@@ -404,6 +406,7 @@ async function main() {
       if (langs.length > 0) exampleFindings.push({ slug: r.slug, langs });
     }
     if (exampleFindings.length > 0) {
+      studyHasErrors = true;
       console.log(`❌ example.com 混入: ${exampleFindings.length} 件`);
       for (const f of exampleFindings) console.log(`  ${f.slug} [${f.langs.join(", ")}]`);
     } else {
@@ -425,6 +428,7 @@ async function main() {
       if (hits.length > 0) studyRefusalFindings.push({ slug: r.slug, is_published: r.is_published, hits });
     }
     if (studyRefusalFindings.length > 0) {
+      studyHasErrors = true;
       console.log(`❌ GPT拒否・メタテキスト混入: ${studyRefusalFindings.length} 件`);
       for (const f of studyRefusalFindings) {
         console.log(`\n  ${f.is_published ? "🔴 公開" : "🟡 draft"} ${f.slug}`);
@@ -439,7 +443,8 @@ async function main() {
 
   console.log("\n=== 完了 ===");
   const hasErrors = broken.length > 0 || refCountFindings.length > 0
-    || rawRefFindings.length > 0 || rawSimFindings.length > 0 || refusalFindings.length > 0;
+    || rawRefFindings.length > 0 || rawSimFindings.length > 0 || refusalFindings.length > 0
+    || studyHasErrors;
   process.exit(hasErrors ? 1 : 0);
 }
 

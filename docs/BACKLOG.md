@@ -61,9 +61,11 @@
 ## BL-20260721-06: study側の機械検証基盤強化
 
 - 優先度: 中
-- 状態: 未着手
+- 状態: 部分対応・継続中
 - 関連領域: study_blog_posts / scripts
-- 前提・ブロッカー: blog_posts側との検証機能差
+- 対応済み: study側のZH欠落・example.com・GPT拒否検出を終了コードへ反映。`visa-bg` JA/EN/ZHと`visa-cy` ZHの参考資料欠落を政府公式visaソースで補完
+- 継続項目: study全件のtitle/description/content構造、URL重複、生URL、参照ラベル、参考資料セクション数の横断検証
+- 前提・ブロッカー: blog_posts側との残存検証機能差
 - 完了条件: 構造、拒否パターン、URL重複、生URL、参照ラベル等を横断検証できる
 
 ## BL-20260721-07: DE defaultTaxRate差分の再確認

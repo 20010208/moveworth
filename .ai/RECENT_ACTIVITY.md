@@ -7,14 +7,27 @@
 
 ## 2026-07-22 — Codex
 
+- タスクID: BL-20260721-06（study側の機械検証基盤強化・優先2点）
+- 状態: 部分対応・DB反映・検証・commit完了、push待ち
+- `inspect-all-blog-posts.ts`: studyのZH欠落・example.com・GPT拒否検出とstudy取得失敗を終了コードへ反映
+- `visa-bg`: content.ja/en/zh、`visa-cy`: content.zhに、登録済み政府公式visaソースから参考資料セクションを対象限定で補完。`force-regenerate`不使用、公開状態trueを維持
+- DB再読込: 対象2件の計画値一致、対象外94件不変、対象外言語・title・description・公開状態不変、`assertBlogPayload` 2/2件通過
+- 横断再検証: blog 96件の構造不正0件、公開visa 51件の参考資料セクション数正常、study 113件の対象検査異常0件、exit 0
+- `docs/BACKLOG.md`: BL-20260721-06を「部分対応・継続中」へ更新。構造・URL重複・生URL・参照ラベル等は継続
+- 指定5ファイルを`fix: reflect study errors in exit code and patch visa-bg/cy reference sections`でcommit、push未実行
+
+---
+
+## 2026-07-22 — Codex
+
 - タスクID: BL-20260722-01（検証スクリプトのDE税率ハードコード修正）
-- 状態: 実装・検証・commit完了、push待ち
+- 状態: 実装・検証・commit・push完了
 - 対象2スクリプトの全国家preset税率ハードコードを削除し、`countryPresets`直接参照へ統一。DEは0.39として動的解決
 - `validate-simulator-blog.ts`: 旧インラインpresetを削除し、全50カ国の税率・家賃・生活費・通貨を正本から参照
 - `_audit-persona-rates.ts`: 手動税率Mapを動的生成へ変更し、強制終了によるWindows libuv assertionも解消
 - 静的assert、対象ESLint、対象限定型チェック、両スクリプト実行に成功。ペルソナ147件・重複0件・税率乖離0件
 - `docs/BACKLOG.md`: BL-20260722-01を完了。別の`TO_JPY`同期漏れをBL-20260722-02へ記録
-- 指定5ファイルを`fix: replace hardcoded DE tax rate with dynamic preset reference`でcommit、push未実行
+- 指定5ファイルを`fix: replace hardcoded DE tax rate with dynamic preset reference`でcommit（`335ca4b`）、origin/mainへpush済み
 
 ---
 
