@@ -5,6 +5,18 @@
 
 ---
 
+## 2026-07-21 — Codex
+
+- タスクID: DEPENDENCY-RECORD-CLEANUP-20260721
+- 状態: 完了・commit済み・push待ち
+- `adm-zip` / `xlsx` のmanifest・lockfile差分をコミット対象として整理
+- `a177deb` のpush状態表記を「push済み」へ修正
+- 2依存のインストール状態とlockfile整合、対象4ファイルのdiff checkを確認
+- 未追跡50項目は変更せず、`.gitignore`候補のみ整理
+- 関連commit: `chore: add adm-zip and xlsx dependencies for GB/JP data parsing`
+
+---
+
 ## 2026-07-21 — Claude Code
 
 - タスクID: C5-GROUP-B-GB-JP-20260721 / AI-WORKFLOW-APPLY-20260721
@@ -45,7 +57,7 @@ Claude Code（次回セッション）: C-5 Group B CA/AU/CH/NZ/KR/US
 ### 関連コミット
 
 - fcd4189: feat(c5): GB/JP 業種別年収・GB referenceLivingCost を実測値に更新
-- a177deb: chore(docs): AI開発・引き継ぎ運用ファイル一式を適用（push 保留）
+- a177deb: chore(docs): AI開発・引き継ぎ運用ファイル一式を適用（push済み）
 
 ---
 
