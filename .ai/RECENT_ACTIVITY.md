@@ -5,6 +5,20 @@
 
 ---
 
+## 2026-07-22 — Claude Code
+
+- タスクID: ADD-SUIKA-VPN-ARTICLE-20260722
+- 状態: draft投稿・検証完了、commit実施（push未実行）
+- 新規アフィリエイト記事 `suika-vpn-overseas-japanese-streaming-guide-2026`（category: money, JA/EN/ZH）を`blog_posts`へ`is_published: false`でinsert
+- `assertBlogPayload`通過、アフィリエイトリンク`<a href="https://www.suika-v2.com/?im=tu6">...`をja/en/zh各2箇所で完全一致確認、example.com・GPT拒否パターン0件
+- `inspect-all-blog-posts.ts`: blog_posts 97件（公開93・非公開4）構造不正0件、study側も異常0件
+- 料金確認のため`suika-v2.com`・`vpn.co.jp`をWebFetchで調査。`vpn.co.jp`は第三者VPN比較ポータル（一次情報でない）と判明し、価格の断片も相互不整合のため「確認不可」と判断。ユーザー承認を得てJA本文は料金なしで確定
+- `CLAUDE.md`セクション7のPROTECTED_SLUGSへ本スラグを追加
+- 指定4ファイルを`feat: add suika-vpn affiliate article draft and protect slug`でcommit予定、push未実行
+- 次: EN/ZH本文のユーザーレビュー、承認後の公開判断
+
+---
+
 ## 2026-07-22 — Codex
 
 - タスクID: BL-20260721-06（study側の機械検証基盤強化・優先2点）
