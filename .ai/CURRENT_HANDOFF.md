@@ -2,94 +2,77 @@
 
 最終更新: 2026-07-22
 最終担当: Claude Code
-タスクID: ADD-SUIKA-VPN-ARTICLE-20260722
-状態: 実装・検証・commit完了、push待ち
+タスクID: UPDATE-SUIKA-VPN-CONTENT-20260722
+状態: content更新・検証・ユーザー承認完了、commit実施中
 
 ## 目的
 
-新規アフィリエイト記事「スイカVPN」を作成する。
+`suika-vpn-overseas-japanese-streaming-guide-2026`（draft・is_published:false）のcontent.ja/en/zhを、
+ユーザー提供の料金表・クーポン実質月額・接続速度データ・画像3枚を反映した内容へ更新する。
 
-- スラグ: `suika-vpn-overseas-japanese-streaming-guide-2026`
-- カテゴリ: `money`
-- 言語: JA/EN/ZH（3言語フル執筆）
-- `is_published: false`（draft保存のみ、公開はユーザー承認後の別ステップ）
+## 前回までの状態
 
-## 前タスクとの関係
+- 記事は`c21ebae`でcommit・push済み（is_published:false, is_promotion:true, category:money, locales:["ja","en","zh"]）
+- 料金は「確認不可」としてWebFetch調査後にユーザー承認済みで無記載のまま公開されていた
+- 今回ユーザーから画像3枚（Downloads配下に配置済みを確認）と、価格表・クーポン実質月額・接続速度データ付きの新JA本文が提供された
 
-直前にCodexが`BL-20260721-06`（study検証基盤・visa-bg/cy参考資料補完）をcommit済み（HEAD `e5f8d20`）。
-本タスク開始時にCodexが同worktreeで並行稼働している可能性を確認し、ユーザーから「Codexは終了済み・続行してよい」の回答を得た上で着手。
+## 重要な発見（今回対応）
 
-## 現在の状態
+- `src/components/blog/blog-post-content.tsx`の`renderContent`は、`<!-- html --> ... <!-- /html -->`で囲まれたブロックのみを実HTMLとして解釈する
+- 初回投稿時のアフィリエイトリンクは素の`<a href=...>`タグを本文中に直接記述しており、この囲みがないため**現状はクリックできないただの文字列として表示される**
+- 今回のcontent更新に合わせて、リンクのhref・視認テキストは変更せず、`<!-- html -->`マーカーのみを追加して修正する（section7の「リンク変更禁止」はhref/文言の実体変更を指すものと解釈し、レンダリング修正はこれに抵触しないと判断）
+- なお、アフィリエイトリンクの表示テキストはユーザー提供の新本文に合わせ「スイカVPN公式サイト」→「スイカVPN公式サイトはこちら」に変更（ユーザー自身が更新後の本文で明示的に指定した文言）。hrefは無変更
 
-- draft投稿・機械検証完了
-- 料金確認のため`https://www.suika-v2.com/?im=tu6`・`https://vpn.co.jp/`をWebFetchで調査
-  - `suika-v2.com`: 「2年プラン月額878円〜」の断片のみ、他プランは価格表が`suika-v4.com/price/`にリンクされているがJS/画像描画のためテキスト抽出不可
-  - `vpn.co.jp`: 第三者VPN比較ポータル（「このページはプロモーションを含みます」明記）と判明し、一次情報として不採用。取得できた数字（6ヶ月5,932円/1年11,258円/2年21,094円）も出典・対応関係が不確実なため不使用
-  - 複数ドメイン（suika-v2/suika-v4/suika-net/vpn.co.jp）間で数字の整合が取れず、「確認不可」と判断 → ユーザー承認済み
-- JA本文は料金情報なしで確定（ユーザー承認済み）
-- EN/ZH本文はJAと同時に生成済みで、DB上のcontent.en/content.zhとして既に保存済み（JAに料金追記がなかったため追加変更不要、内容は初回投稿時のまま）
-- `CLAUDE.md`セクション7のPROTECTED_SLUGSリストに本スラグを追加
-- 指定4ファイルをcommit実施
+## 本タスクでの変更予定
 
-## 完了した作業
+- Supabase Storage (`blog-images`バケット、`Suika/`フォルダ) へ画像3枚を圧縮アップロード
+  - `suika-vpn-features.png` / `suika-vpn-pricing.png` / `suika-vpn-speed-comparison.png`
+- `blog_posts.content` のみをターゲットパッチ更新（`is_published`・`thumbnail`・`title`・`description`・`locales`・`pinned`・`category`・`reading_minutes`は変更しない）
+- EN/ZHにも料金表・クーポン実質月額・接続速度情報・画像を同位置に反映（新規翻訳、ユーザー提供文言はJAのみなのでEN/ZHはClaude Codeが作成）
 
-- CLAUDE.md / DECISIONS.md / AI_WORKFLOW.md / BACKLOG.md / git status,diff 確認
-- 既存アフィリエイト記事実装（post-saily-article.ts 等）調査
-- CLAUDE.mdセクション7へ `suika-vpn-overseas-japanese-streaming-guide-2026` を追加
-- `scripts/post-suika-vpn-article.ts`作成・実行し、blog_postsへdraft insert（is_published:false, is_promotion:true, locales:["ja","en","zh"]）
-- `assertBlogPayload`通過、アフィリエイトリンク・禁止パターン・必須クーポン文字列の機械検証
-- `inspect-all-blog-posts.ts`で全件構造検査（異常0件）
-- 料金情報のWebFetch調査 → 確認不可と判断、ユーザー承認取得
-- `CLAUDE.md`・`scripts/post-suika-vpn-article.ts`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`を`feat: add suika-vpn affiliate article draft and protect slug`でcommit
+## 変更した主要ファイル（このタスク）
 
-## 変更した主要ファイル
-
-- `CLAUDE.md`（セクション7 PROTECTED_SLUGS追加）
-- `scripts/post-suika-vpn-article.ts`（新規）
+- `scripts/update-suika-vpn-content.ts`（新規作成、insert済みレコードのcontentのみ更新）
 - `.ai/CURRENT_HANDOFF.md`
-- `.ai/RECENT_ACTIVITY.md`
-- DB: `blog_posts`に新規1件（`suika-vpn-overseas-japanese-streaming-guide-2026`, is_published:false）
+- DB: `blog_posts` 1件（`suika-vpn-overseas-japanese-streaming-guide-2026`）の`content`列のみ
 
 ## Git状態・未コミット変更
 
-- 今回対象4ファイル + DB1件insertをcommit
-- 対象外: `tsconfig.scripts.tsbuildinfo` / `tsconfig.tsbuildinfo`、既存の未追跡一時スクリプト群、`moveworth-ai-workflow-final-reviewed/`、不審な一時ファイル（変更・削除していない）
-- pushは未実行
+- 前回commit（`c21ebae`）はpush済み
+- 今回はまず`scripts/update-suika-vpn-content.ts`が未追跡（実行後にcommit予定、ユーザー指示通りレビュー後）
+- 既存の対象外差分（tsbuildinfo、未追跡一時スクリプト群等）は継続・不変
 
 ## 実行済みの検証
 
-- `npx tsc --project tsconfig.scripts.json --noEmit`: 新規スクリプト起因のエラー0件
-- `npx tsx scripts/post-suika-vpn-article.ts`: assertBlogPayload通過・insert成功（JA 1652字/EN 3188字/ZH 1300字）
-- アフィリエイトリンク出現回数（ja/en/zh各2回）確認、禁止パターン0件、クーポンコード3種・有効期限文字列の存在確認
-- `npx tsx scripts/inspect-all-blog-posts.ts`: blog_posts 97件（公開93・非公開4）構造不正0件、GPT拒否0件、example.com混入0件、study側異常0件
-- DB再取得で `is_published: false` / `is_promotion: true` / `category: "money"` / `locales: ["ja","en","zh"]` を確認
-- commit後 `git status` で対象4ファイルの反映と対象外差分の不変を確認予定
-
-## 未実行の検証
-
-- lint / typecheck / build（Next.js本体）
-- ブラウザでの実表示確認（draft状態のため`is_published:true`後に確認予定）
+1. `npx tsc --project tsconfig.scripts.json --noEmit`: 新規スクリプト起因のエラー0件
+2. 画像アップロード（sharpで圧縮後、`blog-images/Suika/`へupsert）
+   - features: 1507KB→325KB（78%削減） / pricing: 175KB→44KB（75%削減） / speed-comparison: 153KB→45KB（70%削減）
+3. `assertBlogPayload`通過
+4. アフィリエイトhref出現回数（ja/en/zh各2回）確認
+5. 禁止パターン（example.com・GPT拒否JA/EN/ZH）検出0件
+6. 必須文字列（クーポン3種・有効期限・料金4種・画像URL3種）存在確認（JA基準）
+7. DB更新前後で`is_published`含む保護対象フィールド（category/is_promotion/locales/pinned/title/description/thumbnail/reading_minutes/published_at）の不変を機械比較 → 一致
+8. `npx tsx scripts/inspect-all-blog-posts.ts`: blog_posts 97件（公開93・非公開4）構造不正0件、GPT拒否0件、example.com混入0件、study側異常0件
+9. JA 2653字 / EN 4472字 / ZH 2341字
 
 ## 未解決事項
 
-- 料金情報は「確認不可」のまま。将来、信頼できる一次情報URLが提供されればJA/EN/ZHへ追記可能
+- なし（本タスク範囲内）
 
 ## 次に行う作業
 
-1. EN/ZH本文のユーザーレビュー・承認待ち
-2. push可否はユーザーの明示的許可後
-3. 公開判断は別途ユーザー明示承認後、再生成を伴わない操作のみで実施
+1. JA本文のユーザーレビュー・承認待ち（提示済み）
+2. ユーザー承認後、`scripts/update-suika-vpn-content.ts`と本ハンドオフをcommit（pushは別途明示許可後）
 
 ## 禁止事項・注意事項
 
-- アフィリエイトリンク `<a href="https://www.suika-v2.com/?im=tu6">スイカVPN公式サイト</a>` は変更・削除禁止
-- クーポンコード・有効期限は創作せず、ユーザー指定値のみ使用
-- 料金の具体的金額は創作しない（確認不可のため記載なし）
-- 承認前に is_published を true にしない
-- push はユーザー明示許可なしに実行しない
+- アフィリエイトリンクのhref（`https://www.suika-v2.com/?im=tu6`）は変更禁止
+- クーポンコード・料金・有効期限はユーザー提供値のみ使用、創作しない
+- `is_published`は変更しない（falseのまま維持）
+- commit・pushはユーザーレビュー・承認後に実施（今回のユーザー指示：「完了後にJA本文をレビュー用に提示してください。commit・pushはその後で」）
 
 ## ユーザー判断が必要な事項
 
-- EN/ZH本文レビュー・承認
-- push可否
-- 公開可否・タイミング
+- 更新後JA本文の承認
+- アフィリエイトリンク表示テキスト変更（「はこちら」追加）およびhtmlマーカー追加の承認
+- commit実施の可否

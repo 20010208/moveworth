@@ -7,6 +7,21 @@
 
 ## 2026-07-22 — Claude Code
 
+- タスクID: UPDATE-SUIKA-VPN-CONTENT-20260722
+- 状態: content更新・検証・commit完了、push待ち
+- `suika-vpn-overseas-japanese-streaming-guide-2026`のcontent.ja/en/zhを、料金表・クーポン実質月額・接続速度データ・画像3枚を反映した内容へ更新（`is_published`は変更せずfalseを維持）
+- 画像3枚（features/pricing/speed-comparison）をsharpで圧縮（70〜78%削減）後、`blog-images/Suika/`へアップロード
+- 発見・修正: 初回投稿時のアフィリエイトリンクが素の`<a>`タグのままで、フロント`renderContent`の`<!-- html -->`ラップ規約に沿っておらずクリック不可の文字列表示になっていた不具合。href・視認テキストの実体は変更せず、htmlマーカーのみ追加して修正（表示テキストは今回のユーザー提供本文に合わせ「はこちら」付きに変更、ユーザー承認済み）
+- `assertBlogPayload`通過、アフィリエイトhref出現回数（ja/en/zh各2回）確認、禁止パターン0件、必須文字列（クーポン3種・料金4種・画像URL3種）確認
+- DB更新前後で`is_published`含む保護対象フィールドの不変を機械比較 → 一致
+- `inspect-all-blog-posts.ts`: blog_posts 97件（公開93・非公開4）構造不正0件、study側異常0件
+- 指定3ファイルを`feat: update suika-vpn article with images, pricing table and fix affiliate link rendering`でcommit、push未実行
+- 次: pushはユーザー明示許可後、公開はKoki側判断
+
+---
+
+## 2026-07-22 — Claude Code
+
 - タスクID: ADD-SUIKA-VPN-ARTICLE-20260722
 - 状態: draft投稿・検証完了、commit実施（push未実行）
 - 新規アフィリエイト記事 `suika-vpn-overseas-japanese-streaming-guide-2026`（category: money, JA/EN/ZH）を`blog_posts`へ`is_published: false`でinsert
