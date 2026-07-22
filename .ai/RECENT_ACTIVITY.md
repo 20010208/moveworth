@@ -7,6 +7,19 @@
 
 ## 2026-07-22 — Claude Code
 
+- タスクID: PUBLISH-SUIKA-VPN-ARTICLE-20260722
+- 状態: 公開・検証・commit完了、push待ち
+- `suika-vpn-overseas-japanese-streaming-guide-2026`を公開（`is_published`のみをターゲットパッチでtrueへ切り替え、再生成なし）
+- 公開前後でcontent・titleの不変を機械比較、対象外blog_posts 96件のbefore/afterスナップショット完全一致（0件変化）を確認
+- `check-published-slugs-http.ts`: 公開94件全てHTTP 200（suika-vpn含む）
+- `inspect-all-blog-posts.ts`: 97件（公開94・非公開3）構造不正0件
+- 指定3ファイルを`feat: publish suika-vpn affiliate article`でcommit、push待ち
+- URL: https://www.moveworthapp.com/blog/suika-vpn-overseas-japanese-streaming-guide-2026
+
+---
+
+## 2026-07-22 — Claude Code
+
 - タスクID: UPDATE-SUIKA-VPN-CONTENT-20260722
 - 状態: content更新・検証・commit完了、push待ち
 - `suika-vpn-overseas-japanese-streaming-guide-2026`のcontent.ja/en/zhを、料金表・クーポン実質月額・接続速度データ・画像3枚を反映した内容へ更新（`is_published`は変更せずfalseを維持）
