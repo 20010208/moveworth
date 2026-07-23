@@ -7,6 +7,20 @@
 
 ## 2026-07-22 — Claude Code
 
+- タスクID: FIX-BL-20260722-03-STUDY-PUBLISH-MISS
+- 状態: 実装・検証・本番実行完了、commit・push待ち
+- `publish-study-country-next.ts`/`publish-study-work-next.ts`の`.limit(1)`を廃止し、終端日（study-country=昨日、study-work=5日前）は維持したまま開始側のみ7日lookbackした範囲で対象visaを全件ループ処理する方式へ修正
+- `MAX_PER_RUN=10`の安全キャップを新設。1回目のdry-runで「日付範囲内の生visa件数」基準だと開局時一括公開バッチ(34件、全て既公開)を誤検知して中断することを発見し、「実際に公開が必要な未公開対象件数」基準へ再修正（ユーザーレビュー→再承認）
+- `DRY_RUN=true`環境変数での判定専用モードを追加
+- dry-run→本番実行の順で検証: 本番実行で`study-country-rs`のみ公開（is_published:false→true）、`study-country-tr`はスキップ、対象外study_blog_posts 113件は変化なしをスナップショット比較で確認
+- `docs/BACKLOG.md`: `BL-20260722-03`を完了に更新
+- `study-work-rs`は対象日範囲外のため今回`publish-study-work-next.ts`は未実行（ユーザー指示、対象0件のため不要）
+- 指定5ファイルを`fix: handle multiple visa publications on same day in study auto-publish scripts`でcommit予定
+
+---
+
+## 2026-07-22 — Claude Code
+
 - タスクID: SCHEDULE-RS-THUMBNAIL-CHECK-20260722
 - 状態: Task1・2・3完了、commit未実施
 - Task1（読取専用）: GHA全11ワークフローのスケジュール・内容を確認・報告

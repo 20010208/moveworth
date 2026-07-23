@@ -1,6 +1,6 @@
 # MoveWorth Backlog
 
-最終更新: 2026-07-22
+最終更新: 2026-07-22（BL-20260722-03完了）
 
 > 本ファイルはプロジェクト全体の未完了タスクを管理する。
 > `docs/redirect-backlog.md` はリダイレクト専用として別管理する。
@@ -107,11 +107,15 @@
 ## BL-20260722-03: 同日複数visa公開時のstudy自動公開取りこぼし
 
 - 優先度: 中
-- 状態: 未着手
+- 状態: 完了
 - 関連領域: `scripts/publish-study-country-next.ts` / `scripts/publish-study-work-next.ts`
-- 現状:
-  - 両スクリプトとも「対象日付に`is_published=true`かつ`published_at`が一致するvisa-*を`.limit(1)`で1件だけ取得」する設計
-  - 2026-07-20（月）に`visa-tr`と`visa-rs`が同日`published_at`となり、翌火曜(07-21)のGHA実行で`visa-tr`のみがクエリに乗り、`study-country-rs`は一度も処理対象にならず`is_published:false`のまま放置された（実行ログで確認済み。content自体はja/en/zh全言語生成済みで品質は問題なし）
-  - `study-work-rs`も同じ設計のため、土曜(07-25)の自動実行で同様に取りこぼされるリスクがある
-  - ユーザー判断: 今回はコード修正・手動公開とも実施せず、backlogとしてのみ記録（2026-07-22時点）
-- 完了条件: 同一日に複数visaが公開された場合でも、該当する全てのstudy-country-{code}/study-work-{code}が取りこぼされずに処理されるようクエリ・ループ設計を修正する。あわせて`study-country-rs`・`study-work-rs`の公開要否を別途判断する
+- 経緯:
+  - 両スクリプトとも「対象日付に`is_published=true`かつ`published_at`が一致するvisa-*を`.limit(1)`で1件だけ取得」する設計だった
+  - 2026-07-20（月）に`visa-tr`と`visa-rs`が同日`published_at`となり、翌火曜(07-21)のGHA実行で`visa-tr`のみがクエリに乗り、`study-country-rs`は一度も処理対象にならず`is_published:false`のまま放置されていた（実行ログで確認済み）
+- 修正内容:
+  - `.limit(1)`を廃止し、終端日は従来通り（study-country=昨日、study-work=5日前）維持したまま、開始側のみ7日lookbackした範囲で対象visaを全件取得・全件ループ処理する方式へ変更
+  - `MAX_PER_RUN=10`の安全キャップを新設。ただし判定基準は「日付範囲内の生visa件数」ではなく「実際に公開が必要な未公開対象件数」とし、開局時の一括公開バッチ等が範囲に混ざっても既に公開済みなら誤って中断しないよう調整（dry-run検証で誤検知を発見し修正済み）
+  - `DRY_RUN=true`環境変数で判定のみ確認できるモードを追加
+- 検証: dry-run→本番実行の順で確認。本番実行で`study-country-rs`のみ公開（is_published:false→true）、`study-country-tr`はスキップ、対象外study_blog_posts 113件は変化なしを確認
+- `study-work-rs`は対象日範囲外のため今回は未実行（該当visaがまだ5日経過していないため、対象日到達後に自動実行される想定）
+- 完了条件: 同一日に複数visaが公開された場合でも、該当する全てのstudy-country-{code}/study-work-{code}が取りこぼされずに処理されるようクエリ・ループ設計を修正する。あわせて`study-country-rs`・`study-work-rs`の公開要否を別途判断する → 修正完了、`study-country-rs`は公開済み、`study-work-rs`は今後のスケジュール実行で自動処理される
