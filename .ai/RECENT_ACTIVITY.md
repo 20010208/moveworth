@@ -7,6 +7,18 @@
 
 ## 2026-07-22 — Claude Code
 
+- タスクID: SCHEDULE-RS-THUMBNAIL-CHECK-20260722
+- 状態: Task1・2・3完了、commit未実施
+- Task1（読取専用）: GHA全11ワークフローのスケジュール・内容を確認・報告
+- Task2（読取専用）: `study-country-rs`/`study-work-rs`がis_published:false（content生成済み）である根本原因を特定。2026-07-20に`visa-tr`と`visa-rs`が同日公開され、`publish-study-country-next.ts`の`.limit(1)`クエリがvisa-trのみ取得しvisa-rsを取りこぼしたことを`gh run view`のログで確認。ユーザー判断により今回は修正せず`BL-20260722-03`としてBACKLOG登録のみ
+- Task3: thumbnail null かつ公開済みの記事`visa-rs`・`suika-vpn-overseas-japanese-streaming-guide-2026`へ、Storage直近アップロード画像（アップロード時刻がほぼ同時）をユーザー確認後に設定。`compress-thumbnail.ts`の`prepareCompressedThumbnail`で圧縮（2452KB→399KB, 1748KB→322KB）、`blog_posts.thumbnail`のみターゲットパッチ、is_published/title/description/content不変を機械比較確認
+- `inspect-all-blog-posts.ts`・`check-published-slugs-http.ts`: 異常0件
+- 次: ユーザーからのcommit指示待ち
+
+---
+
+## 2026-07-22 — Claude Code
+
 - タスクID: PUBLISH-SUIKA-VPN-ARTICLE-20260722
 - 状態: 公開・検証・commit完了、push待ち
 - `suika-vpn-overseas-japanese-streaming-guide-2026`を公開（`is_published`のみをターゲットパッチでtrueへ切り替え、再生成なし）

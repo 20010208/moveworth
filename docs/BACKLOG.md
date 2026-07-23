@@ -1,6 +1,6 @@
 # MoveWorth Backlog
 
-最終更新: 2026-07-21
+最終更新: 2026-07-22
 
 > 本ファイルはプロジェクト全体の未完了タスクを管理する。
 > `docs/redirect-backlog.md` はリダイレクト専用として別管理する。
@@ -103,3 +103,15 @@
 - 対象: `scripts/validate-simulator-blog.ts` / `src/app/study-site/simulate/page.tsx`
 - 前提・ブロッカー: validator内の`TO_JPY`複製表がRON/BGN/HUFを含まず、実画面には登録済みなのに未登録と誤検出する
 - 完了条件: 為替レート定義を共通化または実コードから安全に参照し、validatorの重複ハードコードと誤検出を解消
+
+## BL-20260722-03: 同日複数visa公開時のstudy自動公開取りこぼし
+
+- 優先度: 中
+- 状態: 未着手
+- 関連領域: `scripts/publish-study-country-next.ts` / `scripts/publish-study-work-next.ts`
+- 現状:
+  - 両スクリプトとも「対象日付に`is_published=true`かつ`published_at`が一致するvisa-*を`.limit(1)`で1件だけ取得」する設計
+  - 2026-07-20（月）に`visa-tr`と`visa-rs`が同日`published_at`となり、翌火曜(07-21)のGHA実行で`visa-tr`のみがクエリに乗り、`study-country-rs`は一度も処理対象にならず`is_published:false`のまま放置された（実行ログで確認済み。content自体はja/en/zh全言語生成済みで品質は問題なし）
+  - `study-work-rs`も同じ設計のため、土曜(07-25)の自動実行で同様に取りこぼされるリスクがある
+  - ユーザー判断: 今回はコード修正・手動公開とも実施せず、backlogとしてのみ記録（2026-07-22時点）
+- 完了条件: 同一日に複数visaが公開された場合でも、該当する全てのstudy-country-{code}/study-work-{code}が取りこぼされずに処理されるようクエリ・ループ設計を修正する。あわせて`study-country-rs`・`study-work-rs`の公開要否を別途判断する
