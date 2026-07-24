@@ -3,92 +3,74 @@
 最終更新: 2026-07-22
 最終担当: Claude Code
 タスクID: ADD-MIRICANVAS-ARTICLE-20260722
-状態: 内容改善（タイトル変更＋活用シーン深掘り＋FAQ追加）をDB更新済み。commit・push未実施（ユーザー指示待ち）
-
-## 追加改善（2026-07-22 2回目）
-
-- タイトルをJA/EN/ZHとも変更（新: 【PR】AIプレゼン資料を3分で作る方法！MiriCanvas完全ガイド【2026年最新版】等）
-- 「まとめ」直前に「活用シーン別の使い方」「よくある質問（FAQ）」セクションを追加（blog_posts・study_blog_posts両テーブル、全言語）
-- `scripts/update-miricanvas-content.ts`（新規）でtitle・contentのみターゲットパッチ更新
-- 実装中に検証スクリプトのバグを発見・修正：他社サービス名チェックが単語境界なしの`includes()`だったため、"MiriCanvas"内の部分文字列"Canva"を誤検知。`\b`境界付き正規表現へ修正して解消
-- 更新後の文字数: blog_posts ja 2357→3194字/en 4424→6308字/zh 1870→2508字、study_blog_posts ja 2059→2896字/en 4126→6010字/zh 1572→2210字
-- 検証: is_published不変、description不変、アフィリエイトhref出現回数不変（前後比較）、`assertBlogPayload`通過、`inspect-all-blog-posts.ts`異常0件
-- commit・publishはユーザー指示待ち（今回はDB更新のみ）
+状態: 両サイト公開・検証完了、公開分commit・push待ち
 
 ## 目的
 
-新規アフィリエイト記事「MiriCanvas」を2サイトへ作成する。
+新規アフィリエイト記事「MiriCanvas」を2サイトへ作成・公開する。
 
 - スラグ: `miricanvas-ai-presentation-guide-2026`（両テーブル共通）
 - `blog_posts`（moveworthapp.com）: category=money, is_promotion=true
-- `study_blog_posts`（study.moveworthapp.com）: category=guide
+- `study_blog_posts`（study.moveworthapp.com）: category=guide（is_promotionカラムなし）
 - 言語: JA/EN/ZH（3言語フル執筆）
-- `is_published: false`（draft保存のみ、公開はユーザー承認後の別ステップ）
-- アフィリエイトリンク: `<a href="https://abr.ge/0xaw24">MiriCanvas公式サイトはこちら</a>`（href・表示テキスト変更禁止）
+- アフィリエイトリンク: href=`https://abr.ge/0xaw24`、表示テキスト「MiriCanvas公式サイトはこちら」（変更禁止）
 
-## 事前調査で判明した重要事項
+## 経緯（要約）
 
-1. **study_blog_postsのスキーマがblog_postsと異なる**
-   - カラム: `id, slug, category, date, reading_time, title, description, content, is_published, created_at, thumbnail, thumbnail_ja, thumbnail_en, thumbnail_zh`
-   - `is_promotion`カラムが**存在しない**（blog_postsのみに存在）→ study_blog_posts側では設定不可、本文中の【PR】表記のみでPR開示を担保する
-   - `locales`カラムも存在しない、`published_at`ではなく`date`、`reading_minutes`ではなく`reading_time`
-   - `category`は`guide`/`work`/`country`の3値のみ有効（`guide`は指定通り使用可）
-2. **study-blog-post-content.tsxのレンダラーは`<!-- html -->`ブロックに非対応**（blog-post-content.tsxとは別実装）
-   - 生の`<a>`タグを埋め込んでも、study.moveworthapp.com側ではクリックできない文字列になる（dangerouslySetInnerHTMLの仕組み自体が存在しない）
-   - 対応: study_blog_posts側の本文では、href・表示テキストを変えずMarkdownリンク形式`[MiriCanvas公式サイトはこちら](https://abr.ge/0xaw24)`で実装する（blog_posts側は指示通り生HTML+`<!-- html -->`マーカーで実装）
-   - この差異はユーザーへ提示時に明記する
-3. 両テーブルとも同slugでの既存レコードなしを確認済み
-4. `CLAUDE.md`セクション7のPROTECTED_SLUGSに`miricanvas-ai-presentation-guide-2026`を追加済み（未commit）
+1. draft作成: 両テーブルへ`is_published:false`でinsert（`scripts/post-miricanvas-article.ts`）。JA/EN/ZH全言語、作成日「2026年7月22日」記載
+2. 発見事項: study_blog_postsに`is_promotion`カラムなし（BL-20260722-04としてbacklog化）／study側レンダラーは`<!-- html -->`ブロック非対応のためMarkdownリンク形式を使用（blog_posts側は生HTML+htmlマーカー）
+3. commit（`acfeb83`）: CLAUDE.md(PROTECTED_SLUGS追加)・post-miricanvas-article.ts・BACKLOG.md・CURRENT_HANDOFF.md・RECENT_ACTIVITY.md
+4. 内容改善: タイトル変更＋「活用シーン別の使い方」「よくある質問(FAQ)」追加（`scripts/update-miricanvas-content.ts`、両テーブルtitle/contentのみターゲットパッチ）
+5. commit（`db870ec`）・push
+6. 公開: 両テーブルの`is_published`をtrueへ切替（`scripts/publish-miricanvas-article.ts`、再生成なし）
 
-## 本タスクでの変更予定
+## 直近の公開結果
 
-- `scripts/post-miricanvas-article.ts`（新規）で両テーブルへdraft insert
-- `blog_posts`: slug, category:money, published_at, reading_minutes, thumbnail:null, title/description/content(ja/en/zh), locales:["ja","en","zh"], pinned:false, is_published:false, is_promotion:true
-- `study_blog_posts`: slug, category:guide, date, reading_time, title/description/content(ja/en/zh), is_published:false（thumbnail系はnull据え置き）
-- 本文に作成日「2026年7月22日」を目視確認できる形で記載
-- assertBlogPayload（locales:["ja","en","zh"]指定）を両テーブル分実行
-- アフィリエイトhref・禁止パターン・example.com混入チェック
+- `blog_posts`: is_published=true、content/title不変、対象外97件完全不変を確認
+- `study_blog_posts`: is_published=true、content/title不変、対象外114件完全不変を確認
+- HTTP確認: `https://www.moveworthapp.com/blog/miricanvas-ai-presentation-guide-2026` → 200、`https://study.moveworthapp.com/blog/miricanvas-ai-presentation-guide-2026` → 200
+- `inspect-all-blog-posts.ts`: blog_posts 98件（公開95・非公開3）、study_blog_posts 115件（公開108）、構造不正0件
 
 ## 変更した主要ファイル
 
-- `CLAUDE.md`（セクション7 PROTECTED_SLUGS追加、未commit）
-- `.ai/CURRENT_HANDOFF.md`
-- （予定）`scripts/post-miricanvas-article.ts`（新規）
-- DB（予定）: `blog_posts`・`study_blog_posts`に各1件、is_published:false
+- `CLAUDE.md`（PROTECTED_SLUGS追加、commit済み）
+- `scripts/post-miricanvas-article.ts`（commit済み）
+- `scripts/update-miricanvas-content.ts`（新規、未commit）
+- `scripts/publish-miricanvas-article.ts`（新規、未commit）
+- `docs/BACKLOG.md`（BL-20260722-04追加、commit済み）
+- DB: `blog_posts`・`study_blog_posts`各1件、is_published:true
 
 ## Git状態・未コミット変更
 
-- `CLAUDE.md`: 本タスクでの追加（未commit）
+- `db870ec`までpush済み
+- 今回の公開作業に伴う`scripts/update-miricanvas-content.ts`・`scripts/publish-miricanvas-article.ts`は未commit
 - 既存の対象外差分（tsbuildinfo、未追跡一時スクリプト群等）は継続・不変
 
 ## 実行済みの検証
 
-1. `npx tsc --project tsconfig.scripts.json --noEmit`: エラー0件
-2. `npx tsx scripts/post-miricanvas-article.ts`: assertBlogPayload通過（両テーブル）・insert成功
-   - blog_posts: JA 2357字 / EN 4424字 / ZH 1870字
-   - study_blog_posts: JA 2059字 / EN 4126字 / ZH 1572字
-3. アフィリエイトhref出現確認（両テーブル・全言語）、禁止パターン・example.com混入0件、作成日「2026年7月22日」記載確認
-4. `inspect-all-blog-posts.ts`: blog_posts 98件（公開94・非公開4）構造不正0件、study_blog_posts 115件 zh全生成済み・example.com/GPT拒否0件
-5. DB再取得で両テーブルの主要フィールド（is_published:false, category, is_promotion, locales等）確認
+- 型チェック（全新規スクリプト）: エラー0件
+- `assertBlogPayload`: draft作成時・内容改善時とも両テーブル通過
+- アフィリエイトhref出現回数不変確認（内容改善前後・公開前後）
+- 公開前後で対象外レコード（blog_posts 97件・study_blog_posts 114件）の完全不変を機械比較
+- HTTP 200確認（両サイト）
+- `inspect-all-blog-posts.ts`: 異常0件
 
 ## 未解決事項
 
 - なし（本タスク範囲内）
+- `BL-20260722-04`（study_blog_postsへのis_promotionカラム追加）はbacklogとして継続
 
 ## 次に行う作業
 
-1. JA本文（両テーブル分の差異を明記して）をユーザーにレビュー提示済み
-2. ユーザー承認後、公開判断（このセッションでは公開しない）
+1. `scripts/update-miricanvas-content.ts`・`scripts/publish-miricanvas-article.ts`・handoff類を`feat: publish miricanvas affiliate article on both sites`でcommit
+2. push
+3. ユーザーへ公開URL・確認結果を報告
 
 ## 禁止事項・注意事項
 
-- アフィリエイトリンクのhref（`https://abr.ge/0xaw24`）・表示テキストは変更・削除禁止
-- study_blog_posts側はレンダラー制約によりMarkdownリンク形式を使用（href・表示文言は同一）
-- 承認前に is_published を true にしない
-- study_blog_postsに存在しない`is_promotion`等のカラムを無理に設定しない
+- アフィリエイトリンクのhref・表示テキストは変更・削除禁止
+- push はユーザー明示許可なしに実行しない（今回は指示済み）
 
 ## ユーザー判断が必要な事項
 
-- JA本文（blog_posts版・study_blog_posts版のリンク形式差異を含む）レビュー・承認
-- study_blog_postsにis_promotionカラムがないことの了承（またはスキーマ変更要否の判断）
-- 公開可否・タイミング
+- なし（本タスクは指示通り完了）

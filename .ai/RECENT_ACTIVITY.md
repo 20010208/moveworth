@@ -7,6 +7,19 @@
 
 ## 2026-07-22 — Claude Code
 
+- タスクID: ADD-MIRICANVAS-ARTICLE-20260722（内容改善・公開）
+- 状態: 公開・検証完了、commit・push待ち
+- タイトル変更＋「活用シーン別の使い方」「よくある質問(FAQ)」を両テーブル・全言語へ追加（`scripts/update-miricanvas-content.ts`、title/contentのみターゲットパッチ、is_published不変）
+- 実装中、他社サービス名チェックの`includes()`が"MiriCanvas"内の部分文字列"Canva"を誤検知するバグを発見・`\b`境界付き正規表現へ修正
+- `scripts/publish-miricanvas-article.ts`で両テーブルの`is_published`をtrueへ切替（再生成なし）。公開前後で対象外レコード（blog_posts 97件・study_blog_posts 114件）の完全不変を機械比較
+- HTTP確認: moveworthapp.com・study.moveworthapp.com とも200
+- `inspect-all-blog-posts.ts`: blog_posts 98件（公開95）・study_blog_posts 115件（公開108）、異常0件
+- 次: 指定ファイルを`feat: publish miricanvas affiliate article on both sites`でcommit・push
+
+---
+
+## 2026-07-22 — Claude Code
+
 - タスクID: ADD-MIRICANVAS-ARTICLE-20260722
 - 状態: draft投稿・検証完了、commit予定
 - 新規アフィリエイト記事`miricanvas-ai-presentation-guide-2026`（JA/EN/ZH）を`blog_posts`（category:money, is_promotion:true）と`study_blog_posts`（category:guide）の両方へ`is_published:false`でinsert
