@@ -7,6 +7,19 @@
 
 ## 2026-07-22 — Claude Code
 
+- タスクID: SET-MIRICANVAS-THUMBNAIL-20260722
+- 状態: サムネ設定・検証完了、commit・push待ち
+- Storage上の`MiriCanvas/miricanvas-ai-presentation-guide-2026.png`（ユーザー提供済み）を`compress-thumbnail.ts`で圧縮（1700KB→354KB）
+- `blog_posts.thumbnail`、`study_blog_posts.thumbnail_ja/en/zh`をターゲットパッチ設定。is_published/title/description/content不変を機械比較で確認
+- 実ページHTMLを取得し、両サイトの`<meta property="og:image">`が新サムネイルを指していることを直接確認
+- 発見（対応不要）: study側`generateMetadata`はOGP画像として`thumbnail_ja`のみ参照する既存仕様のため、`thumbnail_en`/`thumbnail_zh`はOGPタグに反映されない（ページ内表示はlocale別に正しく機能）
+- `inspect-all-blog-posts.ts`・HTTP 200確認: 異常0件
+- 指定3ファイルを`feat: add thumbnail to miricanvas article on both sites`でcommit予定
+
+---
+
+## 2026-07-22 — Claude Code
+
 - タスクID: ADD-MIRICANVAS-ARTICLE-20260722（内容改善・公開）
 - 状態: 公開・検証完了、commit・push待ち
 - タイトル変更＋「活用シーン別の使い方」「よくある質問(FAQ)」を両テーブル・全言語へ追加（`scripts/update-miricanvas-content.ts`、title/contentのみターゲットパッチ、is_published不変）

@@ -2,75 +2,60 @@
 
 最終更新: 2026-07-22
 最終担当: Claude Code
-タスクID: ADD-MIRICANVAS-ARTICLE-20260722
-状態: 両サイト公開・検証完了、公開分commit・push待ち
+タスクID: SET-MIRICANVAS-THUMBNAIL-20260722
+状態: サムネ設定・検証完了。commit・push未実施（ユーザー指示待ち）
 
 ## 目的
 
-新規アフィリエイト記事「MiriCanvas」を2サイトへ作成・公開する。
+公開済みMiriCanvas記事（`miricanvas-ai-presentation-guide-2026`）へ、両サイトのサムネイル・OGP画像を設定する。
 
-- スラグ: `miricanvas-ai-presentation-guide-2026`（両テーブル共通）
-- `blog_posts`（moveworthapp.com）: category=money, is_promotion=true
-- `study_blog_posts`（study.moveworthapp.com）: category=guide（is_promotionカラムなし）
-- 言語: JA/EN/ZH（3言語フル執筆）
-- アフィリエイトリンク: href=`https://abr.ge/0xaw24`、表示テキスト「MiriCanvas公式サイトはこちら」（変更禁止）
+## 実施内容
 
-## 経緯（要約）
+- 画像はSupabase Storage `blog-images/MiriCanvas/miricanvas-ai-presentation-guide-2026.png` に既にアップロード済み（ユーザー提供）であることを確認
+- `scripts/utils/compress-thumbnail.ts`の`prepareCompressedThumbnail`で圧縮（1700KB→354KB）
+- `blog_posts.thumbnail`をターゲットパッチ更新
+- `study_blog_posts.thumbnail_ja / thumbnail_en / thumbnail_zh`を同一URLでターゲットパッチ更新（基本`thumbnail`列は変更せずnullのまま）
+- 両テーブルとも`is_published`・title・description・contentの不変を機械比較で確認
 
-1. draft作成: 両テーブルへ`is_published:false`でinsert（`scripts/post-miricanvas-article.ts`）。JA/EN/ZH全言語、作成日「2026年7月22日」記載
-2. 発見事項: study_blog_postsに`is_promotion`カラムなし（BL-20260722-04としてbacklog化）／study側レンダラーは`<!-- html -->`ブロック非対応のためMarkdownリンク形式を使用（blog_posts側は生HTML+htmlマーカー）
-3. commit（`acfeb83`）: CLAUDE.md(PROTECTED_SLUGS追加)・post-miricanvas-article.ts・BACKLOG.md・CURRENT_HANDOFF.md・RECENT_ACTIVITY.md
-4. 内容改善: タイトル変更＋「活用シーン別の使い方」「よくある質問(FAQ)」追加（`scripts/update-miricanvas-content.ts`、両テーブルtitle/contentのみターゲットパッチ）
-5. commit（`db870ec`）・push
-6. 公開: 両テーブルの`is_published`をtrueへ切替（`scripts/publish-miricanvas-article.ts`、再生成なし）
+## 発見事項（報告のみ・今回は対応不要）
 
-## 直近の公開結果
-
-- `blog_posts`: is_published=true、content/title不変、対象外97件完全不変を確認
-- `study_blog_posts`: is_published=true、content/title不変、対象外114件完全不変を確認
-- HTTP確認: `https://www.moveworthapp.com/blog/miricanvas-ai-presentation-guide-2026` → 200、`https://study.moveworthapp.com/blog/miricanvas-ai-presentation-guide-2026` → 200
-- `inspect-all-blog-posts.ts`: blog_posts 98件（公開95・非公開3）、study_blog_posts 115件（公開108）、構造不正0件
+- `study-site/blog/[slug]/page.tsx`の`generateMetadata`は、実装上OGP画像として`thumbnail_ja ?? thumbnail`のみを参照しており、`thumbnail_en`/`thumbnail_zh`はOGPメタタグには反映されない仕様（既存のサイト実装、今回変更していない）。ページ内表示（`resolveThumbnail`関数）はlocale別に正しく参照される
+- 今回は3列とも同一画像を設定したため実害はないが、将来的に言語別に異なる画像を設定する場合はこの制約に注意が必要
 
 ## 変更した主要ファイル
 
-- `CLAUDE.md`（PROTECTED_SLUGS追加、commit済み）
-- `scripts/post-miricanvas-article.ts`（commit済み）
-- `scripts/update-miricanvas-content.ts`（新規、未commit）
-- `scripts/publish-miricanvas-article.ts`（新規、未commit）
-- `docs/BACKLOG.md`（BL-20260722-04追加、commit済み）
-- DB: `blog_posts`・`study_blog_posts`各1件、is_published:true
+- `scripts/set-miricanvas-thumbnail.ts`（新規、未commit）
+- DB: `blog_posts`・`study_blog_posts`各1件のthumbnail系列のみ
 
 ## Git状態・未コミット変更
 
-- `db870ec`までpush済み
-- 今回の公開作業に伴う`scripts/update-miricanvas-content.ts`・`scripts/publish-miricanvas-article.ts`は未commit
+- 前回commit（`54773ee`）はpush済み
+- 今回の`scripts/set-miricanvas-thumbnail.ts`は未commit（ユーザー指示待ち）
 - 既存の対象外差分（tsbuildinfo、未追跡一時スクリプト群等）は継続・不変
 
 ## 実行済みの検証
 
-- 型チェック（全新規スクリプト）: エラー0件
-- `assertBlogPayload`: draft作成時・内容改善時とも両テーブル通過
-- アフィリエイトhref出現回数不変確認（内容改善前後・公開前後）
-- 公開前後で対象外レコード（blog_posts 97件・study_blog_posts 114件）の完全不変を機械比較
-- HTTP 200確認（両サイト）
-- `inspect-all-blog-posts.ts`: 異常0件
+1. `npx tsc --project tsconfig.scripts.json --noEmit`: エラー0件
+2. `assertBlogPayload`: 両テーブル通過
+3. 更新前後で`is_published`・title・description・content不変を機械比較（両テーブル）
+4. `inspect-all-blog-posts.ts`: blog_posts 98件（公開95）・study_blog_posts 115件（公開108）、異常0件
+5. HTTP 200確認（money・study両サイト）
+6. 実ページHTMLを取得し、`<meta property="og:image">`が新しいサムネイルURLを指していることを直接確認（両サイト）
 
 ## 未解決事項
 
 - なし（本タスク範囲内）
-- `BL-20260722-04`（study_blog_postsへのis_promotionカラム追加）はbacklogとして継続
 
 ## 次に行う作業
 
-1. `scripts/update-miricanvas-content.ts`・`scripts/publish-miricanvas-article.ts`・handoff類を`feat: publish miricanvas affiliate article on both sites`でcommit
-2. push
-3. ユーザーへ公開URL・確認結果を報告
+1. ユーザーへ変更概要を報告
+2. ユーザー指示によりcommit・push
 
 ## 禁止事項・注意事項
 
-- アフィリエイトリンクのhref・表示テキストは変更・削除禁止
-- push はユーザー明示許可なしに実行しない（今回は指示済み）
+- is_publishedは変更していない
+- push はユーザー明示許可なしに実行しない
 
 ## ユーザー判断が必要な事項
 
-- なし（本タスクは指示通り完了）
+- commit対象ファイル・メッセージの指定、push可否
