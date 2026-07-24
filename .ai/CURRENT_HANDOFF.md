@@ -3,7 +3,17 @@
 最終更新: 2026-07-22
 最終担当: Claude Code
 タスクID: ADD-MIRICANVAS-ARTICLE-20260722
-状態: JA承認済み、EN/ZH確認・BACKLOG登録完了、commit実施中
+状態: 内容改善（タイトル変更＋活用シーン深掘り＋FAQ追加）をDB更新済み。commit・push未実施（ユーザー指示待ち）
+
+## 追加改善（2026-07-22 2回目）
+
+- タイトルをJA/EN/ZHとも変更（新: 【PR】AIプレゼン資料を3分で作る方法！MiriCanvas完全ガイド【2026年最新版】等）
+- 「まとめ」直前に「活用シーン別の使い方」「よくある質問（FAQ）」セクションを追加（blog_posts・study_blog_posts両テーブル、全言語）
+- `scripts/update-miricanvas-content.ts`（新規）でtitle・contentのみターゲットパッチ更新
+- 実装中に検証スクリプトのバグを発見・修正：他社サービス名チェックが単語境界なしの`includes()`だったため、"MiriCanvas"内の部分文字列"Canva"を誤検知。`\b`境界付き正規表現へ修正して解消
+- 更新後の文字数: blog_posts ja 2357→3194字/en 4424→6308字/zh 1870→2508字、study_blog_posts ja 2059→2896字/en 4126→6010字/zh 1572→2210字
+- 検証: is_published不変、description不変、アフィリエイトhref出現回数不変（前後比較）、`assertBlogPayload`通過、`inspect-all-blog-posts.ts`異常0件
+- commit・publishはユーザー指示待ち（今回はDB更新のみ）
 
 ## 目的
 
