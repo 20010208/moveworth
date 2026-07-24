@@ -119,3 +119,11 @@
 - 検証: dry-run→本番実行の順で確認。本番実行で`study-country-rs`のみ公開（is_published:false→true）、`study-country-tr`はスキップ、対象外study_blog_posts 113件は変化なしを確認
 - `study-work-rs`は対象日範囲外のため今回は未実行（該当visaがまだ5日経過していないため、対象日到達後に自動実行される想定）
 - 完了条件: 同一日に複数visaが公開された場合でも、該当する全てのstudy-country-{code}/study-work-{code}が取りこぼされずに処理されるようクエリ・ループ設計を修正する。あわせて`study-country-rs`・`study-work-rs`の公開要否を別途判断する → 修正完了、`study-country-rs`は公開済み、`study-work-rs`は今後のスケジュール実行で自動処理される
+
+## BL-20260722-04: study_blog_postsにis_promotionカラム追加
+
+- 優先度: 低
+- 状態: 未着手
+- 関連領域: `study_blog_posts` / `src/components/study-blog/study-blog-post-content.tsx`
+- 前提・ブロッカー: `study_blog_posts`テーブルには`is_promotion`カラムが存在しない（`blog_posts`のみに存在）。MiriCanvas記事（`miricanvas-ai-presentation-guide-2026`）をstudy.moveworthapp.com側にも投稿した際、PR開示は本文内【PR】表記のみで担保し、blog_posts側のような自動PRバッジ表示ができなかった
+- 完了条件: `study_blog_posts`へ`is_promotion`カラムを追加するマイグレーションを実施し、`study-blog-post-content.tsx`に`blog-post-content.tsx`と同等のPRバッジ表示ロジックを実装する。既存記事への影響（デフォルト値等）を確認した上でユーザー承認を得て実施する

@@ -7,6 +7,20 @@
 
 ## 2026-07-22 — Claude Code
 
+- タスクID: ADD-MIRICANVAS-ARTICLE-20260722
+- 状態: draft投稿・検証完了、commit予定
+- 新規アフィリエイト記事`miricanvas-ai-presentation-guide-2026`（JA/EN/ZH）を`blog_posts`（category:money, is_promotion:true）と`study_blog_posts`（category:guide）の両方へ`is_published:false`でinsert
+- `study_blog_posts`に`is_promotion`カラムが存在しないこと、レンダラーが`<!-- html -->`ブロック非対応でMarkdownリンク`[label](url)`のみ実際にクリック可能なことを発見。href・表示テキストは両サイトで同一、リンク記法のみサイトごとに変更（ユーザー確認済み）
+- `assertBlogPayload`通過、アフィリエイトhref・example.com・GPT拒否パターン0件、作成日「2026年7月22日」記載確認
+- `inspect-all-blog-posts.ts`: blog_posts 98件・study_blog_posts 115件とも異常0件
+- `CLAUDE.md`セクション7のPROTECTED_SLUGSへ本スラグを追加
+- `docs/BACKLOG.md`: `BL-20260722-04`（study_blog_postsへのis_promotionカラム追加、優先度低）を新規登録
+- 指定5ファイルを`feat: add miricanvas affiliate article draft to both sites`でcommit予定、push未実行
+
+---
+
+## 2026-07-22 — Claude Code
+
 - タスクID: FIX-BL-20260722-03-STUDY-PUBLISH-MISS
 - 状態: 実装・検証・本番実行完了、commit・push待ち
 - `publish-study-country-next.ts`/`publish-study-work-next.ts`の`.limit(1)`を廃止し、終端日（study-country=昨日、study-work=5日前）は維持したまま開始側のみ7日lookbackした範囲で対象visaを全件ループ処理する方式へ修正

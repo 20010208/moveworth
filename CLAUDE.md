@@ -174,6 +174,7 @@ assertBlogPayload({ title, description, content, locales }, slug);
 saily-esim-review-overseas-travel-guide-2026
 nordvpn-overseas-japanese-guide-2026
 suika-vpn-overseas-japanese-streaming-guide-2026
+miricanvas-ai-presentation-guide-2026
 ```
 
 適用ルール：
