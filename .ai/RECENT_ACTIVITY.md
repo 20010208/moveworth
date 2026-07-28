@@ -5,6 +5,34 @@
 
 ---
 
+## 2026-07-28 — Claude Code
+
+- タスクID: MANUAL-WEEKLY-PUBLISH-20260728 → FIX-STUDY-COUNTRY-ME-ZH-20260728
+- 状態: 手順1〜4すべて完了、commit・push待ち
+- 今週分の手動投稿: `visa-me`の`published_at`を07-28→07-27へ修正（is_published/content/title不変）、`publish-study-country-next.ts`実行で`study-country-me`を自動検出・公開
+- 公開後の`inspect-all-blog-posts.ts`で`study-country-me`のcontent.zhが空（0文字）のまま公開されていたことを発見
+- 原因: `publish-study-country-next.ts`/`publish-study-work-next.ts`の`qualityOk()`がja/enのみ検証しzhを一切チェックしない設計ギャップ（コード確認済み）
+- 対応: `study-country-me`を一時is_published:falseへ戻し、`backfill-study-zh.ts`と同一ロジック・品質基準（プロンプト・300字閾値・拒否パターン等）で対象限定のzh生成スクリプトを作成・実行（858字生成、品質基準通過）。他にzh未生成の対象外draft2件（`study-abroad-budget-saving-guide-2026`等）を巻き込まないよう対象限定実装で回避
+- 品質確認（200字以上・拒否パターン・example.com）後に再公開、title/description/content不変・対象外114件完全不変を確認
+- `docs/BACKLOG.md`: `BL-20260722-06`（study自動公開の品質チェックにZH検証を追加、優先度中）を新規登録
+- `inspect-all-blog-posts.ts`: blog_posts 98件（公開96）・study_blog_posts 115件（公開110）、異常0件（zh未生成エラー解消）
+
+---
+
+## 2026-07-22 — Claude Code
+
+- タスクID: FIX-AUTO-PUBLISH-PIPELINE-20260722
+- 状態: 対応1・2・3実装・検証完了、commit・push待ち。対応4はBACKLOG記録のみ
+- `generate-country-article.ts`の`getNextCountry()`を`master-countries.ts`（50カ国）依存から脱却し、国連加盟193カ国を優先度1(RU/SA)・優先度2(QA/KW/IL/MA/UA/IS/LU/SI/SK/LT/LV/CL/PE/NG/KE/EG)・優先度3(残り175カ国アルファベット順)で内蔵する設計へ変更。合計193件・重複0件を機械検証
+- 「All countries in queue already covered」でのエラー終了(exit 1)を廃止し、候補枯渇時はnullを返して`run()`が正常終了(exit 0)するよう変更。GHA workflow(.yml)自体は変更せず、スクリプト側修正のみで対応
+- `visa-me`を`--force-regenerate`（ユーザー明示許可・1件限定）。GPT拒否メッセージ(35字)だった content.ja を正常なモンテネグロ内容(1224字)へ修正。fallback生成のためis_published:falseのまま維持（安全装置が正常動作）
+- 副作用としてstudy-country-meも同時再生成されたが、is_published:false不変
+- `blog_posts`対象外97件のbefore/afterスナップショット完全一致を確認
+- `docs/BACKLOG.md`: `BL-20260722-05`（RU/SAのcountry-presets追加、公的統計grounding必須のため次回対応）を新規登録
+- `inspect-all-blog-posts.ts`: blog_posts 98件・study_blog_posts 115件、異常0件
+
+---
+
 ## 2026-07-22 — Claude Code
 
 - タスクID: SWAP-SUIKA-VPN-AFFILIATE-LINK-20260722

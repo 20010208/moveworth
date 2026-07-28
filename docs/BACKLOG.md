@@ -1,6 +1,6 @@
 # MoveWorth Backlog
 
-最終更新: 2026-07-22（BL-20260722-03完了）
+最終更新: 2026-07-28（BL-20260722-06追加）
 
 > 本ファイルはプロジェクト全体の未完了タスクを管理する。
 > `docs/redirect-backlog.md` はリダイレクト専用として別管理する。
@@ -127,3 +127,20 @@
 - 関連領域: `study_blog_posts` / `src/components/study-blog/study-blog-post-content.tsx`
 - 前提・ブロッカー: `study_blog_posts`テーブルには`is_promotion`カラムが存在しない（`blog_posts`のみに存在）。MiriCanvas記事（`miricanvas-ai-presentation-guide-2026`）をstudy.moveworthapp.com側にも投稿した際、PR開示は本文内【PR】表記のみで担保し、blog_posts側のような自動PRバッジ表示ができなかった
 - 完了条件: `study_blog_posts`へ`is_promotion`カラムを追加するマイグレーションを実施し、`study-blog-post-content.tsx`に`blog-post-content.tsx`と同等のPRバッジ表示ロジックを実装する。既存記事への影響（デフォルト値等）を確認した上でユーザー承認を得て実施する
+
+## BL-20260722-05: ロシア・サウジアラビアのcountry-presets追加
+
+- 優先度: 中
+- 状態: 未着手
+- 関連領域: `src/data/country-presets.ts` / `src/data/industry-salaries.ts` / `country_sources`
+- 経緯: 自動投稿パイプラインの恒久対策（BL-20260722-03関連の派生対応）として、`generate-country-article.ts`の国選定ロジックを国連加盟193カ国ベースへ変更。優先度1（G20未登録国）としてRU（ロシア）・SA（サウジアラビア）を最優先候補に設定した
+- 前提・ブロッカー: シミュレーター（`simulator_personas`等）で使う`country-presets.ts`の数値は、既存のgrounding済み50カ国と同じ品質基準（税率・生活費・給与等を公的統計の一次情報から取得）を満たす必要があり、モデル知識のみでの補完は禁止（DEC-20260721-02）。RU/SAはまだ`country-presets.ts`・`industry-salaries.ts`・`country_sources`のいずれにも未登録
+- 完了条件: RU/SAについて、政府統計・公的統計等の一次情報から税率・生活費・給与等の実測値を取得し、`country_sources`へ登録した上で`country-presets.ts`・`industry-salaries.ts`へ反映する。反映後は`simulator_personas`の再seed・監査を実施する
+
+## BL-20260722-06: study自動公開の品質チェックにZH検証を追加
+
+- 優先度: 中
+- 状態: 未着手
+- 関連領域: `scripts/publish-study-country-next.ts` / `scripts/publish-study-work-next.ts`
+- 経緯: `visa-me`公開後、`publish-study-country-next.ts`が`study-country-me`を自動公開した際、content.zhが空（0文字）のまま公開されてしまう事象が発生した。原因は両スクリプトの`qualityOk()`がcontent.ja/enの長さ・拒否パターン・example.comのみを検証し、**zhの存在・長さを一切チェックしていない**ため（コード確認済み）。手動でis_published:falseへ戻し、`backfill-study-zh.ts`と同一ロジック・品質基準でzhを対象限定生成した上で再公開して解消した
+- 完了条件: `publish-study-country-next.ts`・`publish-study-work-next.ts`の`qualityOk()`に、`content.zh`の存在・長さ（200字以上等）・拒否パターン・example.com混入チェックを追加し、zh未生成または品質不良の記事が自動公開されないようにする

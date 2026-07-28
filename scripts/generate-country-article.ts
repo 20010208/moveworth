@@ -437,10 +437,222 @@ async function buildStudyRefs(
   return { refs, isGrounded: true };
 }
 
-import { MASTER_COUNTRIES } from "../src/data/master-countries";
+// 国連加盟国193カ国の優先順位付きキュー（master-countries.ts への依存はしない。
+// あちらは country-presets.ts と対になった「grounding済み50カ国」の管理用で、目的が異なる）。
+//
+// 優先度1: G20のうちvisa記事が未対応の国
+// 優先度2: 日本人の移住・関心需要が高いと想定される国
+// 優先度3: 残りの国連加盟国（英語名アルファベット順。既にvisa記事がある国も含むが、
+//          covered判定で自動的にスキップされるため実害はない）
+//
+// 全193カ国がカバーされた場合は getNextCountry() が null を返し、run() 側で
+// エラーではなく正常終了（exit 0）として扱う（BL-20260722対応）。
+type QueueCountry = { code: string; name: { ja: string; en: string } };
 
-// マスター国リスト（PRESET基準・50カ国）。src/data/master-countries.ts を唯一の真実の源とする。
-const COUNTRY_QUEUE = [...MASTER_COUNTRIES];
+const PRIORITY_1: QueueCountry[] = [
+  { code: "ru", name: { ja: "ロシア", en: "Russia" } },
+  { code: "sa", name: { ja: "サウジアラビア", en: "Saudi Arabia" } },
+];
+
+const PRIORITY_2: QueueCountry[] = [
+  { code: "qa", name: { ja: "カタール", en: "Qatar" } },
+  { code: "kw", name: { ja: "クウェート", en: "Kuwait" } },
+  { code: "il", name: { ja: "イスラエル", en: "Israel" } },
+  { code: "ma", name: { ja: "モロッコ", en: "Morocco" } },
+  { code: "ua", name: { ja: "ウクライナ", en: "Ukraine" } },
+  { code: "is", name: { ja: "アイスランド", en: "Iceland" } },
+  { code: "lu", name: { ja: "ルクセンブルク", en: "Luxembourg" } },
+  { code: "si", name: { ja: "スロベニア", en: "Slovenia" } },
+  { code: "sk", name: { ja: "スロバキア", en: "Slovakia" } },
+  { code: "lt", name: { ja: "リトアニア", en: "Lithuania" } },
+  { code: "lv", name: { ja: "ラトビア", en: "Latvia" } },
+  { code: "cl", name: { ja: "チリ", en: "Chile" } },
+  { code: "pe", name: { ja: "ペルー", en: "Peru" } },
+  { code: "ng", name: { ja: "ナイジェリア", en: "Nigeria" } },
+  { code: "ke", name: { ja: "ケニア", en: "Kenya" } },
+  { code: "eg", name: { ja: "エジプト", en: "Egypt" } },
+];
+
+// 優先度3: 残り175カ国（英語名アルファベット順・国連加盟193カ国 − 優先度1,2の18カ国）
+const PRIORITY_3: QueueCountry[] = [
+  { code: "af", name: { ja: "アフガニスタン", en: "Afghanistan" } },
+  { code: "al", name: { ja: "アルバニア", en: "Albania" } },
+  { code: "dz", name: { ja: "アルジェリア", en: "Algeria" } },
+  { code: "ad", name: { ja: "アンドラ", en: "Andorra" } },
+  { code: "ao", name: { ja: "アンゴラ", en: "Angola" } },
+  { code: "ag", name: { ja: "アンティグア・バーブーダ", en: "Antigua and Barbuda" } },
+  { code: "ar", name: { ja: "アルゼンチン", en: "Argentina" } },
+  { code: "am", name: { ja: "アルメニア", en: "Armenia" } },
+  { code: "au", name: { ja: "オーストラリア", en: "Australia" } },
+  { code: "at", name: { ja: "オーストリア", en: "Austria" } },
+  { code: "az", name: { ja: "アゼルバイジャン", en: "Azerbaijan" } },
+  { code: "bs", name: { ja: "バハマ", en: "the Bahamas" } },
+  { code: "bh", name: { ja: "バーレーン", en: "Bahrain" } },
+  { code: "bd", name: { ja: "バングラデシュ", en: "Bangladesh" } },
+  { code: "bb", name: { ja: "バルバドス", en: "Barbados" } },
+  { code: "by", name: { ja: "ベラルーシ", en: "Belarus" } },
+  { code: "be", name: { ja: "ベルギー", en: "Belgium" } },
+  { code: "bz", name: { ja: "ベリーズ", en: "Belize" } },
+  { code: "bj", name: { ja: "ベナン", en: "Benin" } },
+  { code: "bt", name: { ja: "ブータン", en: "Bhutan" } },
+  { code: "bo", name: { ja: "ボリビア", en: "Bolivia" } },
+  { code: "ba", name: { ja: "ボスニア・ヘルツェゴビナ", en: "Bosnia and Herzegovina" } },
+  { code: "bw", name: { ja: "ボツワナ", en: "Botswana" } },
+  { code: "br", name: { ja: "ブラジル", en: "Brazil" } },
+  { code: "bn", name: { ja: "ブルネイ", en: "Brunei" } },
+  { code: "bg", name: { ja: "ブルガリア", en: "Bulgaria" } },
+  { code: "bf", name: { ja: "ブルキナファソ", en: "Burkina Faso" } },
+  { code: "bi", name: { ja: "ブルンジ", en: "Burundi" } },
+  { code: "cv", name: { ja: "カーボベルデ", en: "Cabo Verde" } },
+  { code: "kh", name: { ja: "カンボジア", en: "Cambodia" } },
+  { code: "cm", name: { ja: "カメルーン", en: "Cameroon" } },
+  { code: "ca", name: { ja: "カナダ", en: "Canada" } },
+  { code: "cf", name: { ja: "中央アフリカ共和国", en: "the Central African Republic" } },
+  { code: "td", name: { ja: "チャド", en: "Chad" } },
+  { code: "cn", name: { ja: "中国", en: "China" } },
+  { code: "co", name: { ja: "コロンビア", en: "Colombia" } },
+  { code: "km", name: { ja: "コモロ", en: "Comoros" } },
+  { code: "cg", name: { ja: "コンゴ共和国", en: "the Republic of the Congo" } },
+  { code: "cd", name: { ja: "コンゴ民主共和国", en: "the Democratic Republic of the Congo" } },
+  { code: "cr", name: { ja: "コスタリカ", en: "Costa Rica" } },
+  { code: "hr", name: { ja: "クロアチア", en: "Croatia" } },
+  { code: "cu", name: { ja: "キューバ", en: "Cuba" } },
+  { code: "cy", name: { ja: "キプロス", en: "Cyprus" } },
+  { code: "cz", name: { ja: "チェコ", en: "the Czech Republic" } },
+  { code: "dk", name: { ja: "デンマーク", en: "Denmark" } },
+  { code: "dj", name: { ja: "ジブチ", en: "Djibouti" } },
+  { code: "dm", name: { ja: "ドミニカ国", en: "Dominica" } },
+  { code: "do", name: { ja: "ドミニカ共和国", en: "the Dominican Republic" } },
+  { code: "tl", name: { ja: "東ティモール", en: "East Timor" } },
+  { code: "ec", name: { ja: "エクアドル", en: "Ecuador" } },
+  { code: "sv", name: { ja: "エルサルバドル", en: "El Salvador" } },
+  { code: "gq", name: { ja: "赤道ギニア", en: "Equatorial Guinea" } },
+  { code: "er", name: { ja: "エリトリア", en: "Eritrea" } },
+  { code: "ee", name: { ja: "エストニア", en: "Estonia" } },
+  { code: "sz", name: { ja: "エスワティニ", en: "Eswatini" } },
+  { code: "et", name: { ja: "エチオピア", en: "Ethiopia" } },
+  { code: "fj", name: { ja: "フィジー", en: "Fiji" } },
+  { code: "fi", name: { ja: "フィンランド", en: "Finland" } },
+  { code: "fr", name: { ja: "フランス", en: "France" } },
+  { code: "ga", name: { ja: "ガボン", en: "Gabon" } },
+  { code: "gm", name: { ja: "ガンビア", en: "the Gambia" } },
+  { code: "ge", name: { ja: "ジョージア", en: "Georgia" } },
+  { code: "de", name: { ja: "ドイツ", en: "Germany" } },
+  { code: "gh", name: { ja: "ガーナ", en: "Ghana" } },
+  { code: "gr", name: { ja: "ギリシャ", en: "Greece" } },
+  { code: "gd", name: { ja: "グレナダ", en: "Grenada" } },
+  { code: "gt", name: { ja: "グアテマラ", en: "Guatemala" } },
+  { code: "gn", name: { ja: "ギニア", en: "Guinea" } },
+  { code: "gw", name: { ja: "ギニアビサウ", en: "Guinea-Bissau" } },
+  { code: "gy", name: { ja: "ガイアナ", en: "Guyana" } },
+  { code: "ht", name: { ja: "ハイチ", en: "Haiti" } },
+  { code: "hn", name: { ja: "ホンジュラス", en: "Honduras" } },
+  { code: "hu", name: { ja: "ハンガリー", en: "Hungary" } },
+  { code: "in", name: { ja: "インド", en: "India" } },
+  { code: "id", name: { ja: "インドネシア", en: "Indonesia" } },
+  { code: "ir", name: { ja: "イラン", en: "Iran" } },
+  { code: "iq", name: { ja: "イラク", en: "Iraq" } },
+  { code: "ie", name: { ja: "アイルランド", en: "Ireland" } },
+  { code: "it", name: { ja: "イタリア", en: "Italy" } },
+  { code: "ci", name: { ja: "コートジボワール", en: "Ivory Coast" } },
+  { code: "jm", name: { ja: "ジャマイカ", en: "Jamaica" } },
+  { code: "jp", name: { ja: "日本", en: "Japan" } },
+  { code: "jo", name: { ja: "ヨルダン", en: "Jordan" } },
+  { code: "kz", name: { ja: "カザフスタン", en: "Kazakhstan" } },
+  { code: "ki", name: { ja: "キリバス", en: "Kiribati" } },
+  { code: "kg", name: { ja: "キルギス", en: "Kyrgyzstan" } },
+  { code: "la", name: { ja: "ラオス", en: "Laos" } },
+  { code: "lb", name: { ja: "レバノン", en: "Lebanon" } },
+  { code: "ls", name: { ja: "レソト", en: "Lesotho" } },
+  { code: "lr", name: { ja: "リベリア", en: "Liberia" } },
+  { code: "ly", name: { ja: "リビア", en: "Libya" } },
+  { code: "li", name: { ja: "リヒテンシュタイン", en: "Liechtenstein" } },
+  { code: "mg", name: { ja: "マダガスカル", en: "Madagascar" } },
+  { code: "mw", name: { ja: "マラウイ", en: "Malawi" } },
+  { code: "my", name: { ja: "マレーシア", en: "Malaysia" } },
+  { code: "mv", name: { ja: "モルディブ", en: "Maldives" } },
+  { code: "ml", name: { ja: "マリ", en: "Mali" } },
+  { code: "mt", name: { ja: "マルタ", en: "Malta" } },
+  { code: "mh", name: { ja: "マーシャル諸島", en: "the Marshall Islands" } },
+  { code: "mr", name: { ja: "モーリタニア", en: "Mauritania" } },
+  { code: "mu", name: { ja: "モーリシャス", en: "Mauritius" } },
+  { code: "mx", name: { ja: "メキシコ", en: "Mexico" } },
+  { code: "fm", name: { ja: "ミクロネシア連邦", en: "Micronesia" } },
+  { code: "md", name: { ja: "モルドバ", en: "Moldova" } },
+  { code: "mc", name: { ja: "モナコ", en: "Monaco" } },
+  { code: "mn", name: { ja: "モンゴル", en: "Mongolia" } },
+  { code: "me", name: { ja: "モンテネグロ", en: "Montenegro" } },
+  { code: "mz", name: { ja: "モザンビーク", en: "Mozambique" } },
+  { code: "mm", name: { ja: "ミャンマー", en: "Myanmar" } },
+  { code: "na", name: { ja: "ナミビア", en: "Namibia" } },
+  { code: "nr", name: { ja: "ナウル", en: "Nauru" } },
+  { code: "np", name: { ja: "ネパール", en: "Nepal" } },
+  { code: "nl", name: { ja: "オランダ", en: "the Netherlands" } },
+  { code: "nz", name: { ja: "ニュージーランド", en: "New Zealand" } },
+  { code: "ni", name: { ja: "ニカラグア", en: "Nicaragua" } },
+  { code: "ne", name: { ja: "ニジェール", en: "Niger" } },
+  { code: "kp", name: { ja: "北朝鮮", en: "North Korea" } },
+  { code: "mk", name: { ja: "北マケドニア", en: "North Macedonia" } },
+  { code: "no", name: { ja: "ノルウェー", en: "Norway" } },
+  { code: "om", name: { ja: "オマーン", en: "Oman" } },
+  { code: "pk", name: { ja: "パキスタン", en: "Pakistan" } },
+  { code: "pw", name: { ja: "パラオ", en: "Palau" } },
+  { code: "pa", name: { ja: "パナマ", en: "Panama" } },
+  { code: "pg", name: { ja: "パプアニューギニア", en: "Papua New Guinea" } },
+  { code: "py", name: { ja: "パラグアイ", en: "Paraguay" } },
+  { code: "ph", name: { ja: "フィリピン", en: "the Philippines" } },
+  { code: "pl", name: { ja: "ポーランド", en: "Poland" } },
+  { code: "pt", name: { ja: "ポルトガル", en: "Portugal" } },
+  { code: "ro", name: { ja: "ルーマニア", en: "Romania" } },
+  { code: "rw", name: { ja: "ルワンダ", en: "Rwanda" } },
+  { code: "kn", name: { ja: "セントクリストファー・ネイビス", en: "Saint Kitts and Nevis" } },
+  { code: "lc", name: { ja: "セントルシア", en: "Saint Lucia" } },
+  { code: "vc", name: { ja: "セントビンセント・グレナディーン", en: "Saint Vincent and the Grenadines" } },
+  { code: "ws", name: { ja: "サモア", en: "Samoa" } },
+  { code: "sm", name: { ja: "サンマリノ", en: "San Marino" } },
+  { code: "st", name: { ja: "サントメ・プリンシペ", en: "Sao Tome and Principe" } },
+  { code: "sn", name: { ja: "セネガル", en: "Senegal" } },
+  { code: "rs", name: { ja: "セルビア", en: "Serbia" } },
+  { code: "sc", name: { ja: "セーシェル", en: "Seychelles" } },
+  { code: "sl", name: { ja: "シエラレオネ", en: "Sierra Leone" } },
+  { code: "sg", name: { ja: "シンガポール", en: "Singapore" } },
+  { code: "sb", name: { ja: "ソロモン諸島", en: "the Solomon Islands" } },
+  { code: "so", name: { ja: "ソマリア", en: "Somalia" } },
+  { code: "za", name: { ja: "南アフリカ", en: "South Africa" } },
+  { code: "kr", name: { ja: "韓国", en: "South Korea" } },
+  { code: "ss", name: { ja: "南スーダン", en: "South Sudan" } },
+  { code: "es", name: { ja: "スペイン", en: "Spain" } },
+  { code: "lk", name: { ja: "スリランカ", en: "Sri Lanka" } },
+  { code: "sd", name: { ja: "スーダン", en: "Sudan" } },
+  { code: "sr", name: { ja: "スリナム", en: "Suriname" } },
+  { code: "se", name: { ja: "スウェーデン", en: "Sweden" } },
+  { code: "ch", name: { ja: "スイス", en: "Switzerland" } },
+  { code: "sy", name: { ja: "シリア", en: "Syria" } },
+  { code: "tj", name: { ja: "タジキスタン", en: "Tajikistan" } },
+  { code: "tz", name: { ja: "タンザニア", en: "Tanzania" } },
+  { code: "th", name: { ja: "タイ", en: "Thailand" } },
+  { code: "tg", name: { ja: "トーゴ", en: "Togo" } },
+  { code: "to", name: { ja: "トンガ", en: "Tonga" } },
+  { code: "tt", name: { ja: "トリニダード・トバゴ", en: "Trinidad and Tobago" } },
+  { code: "tn", name: { ja: "チュニジア", en: "Tunisia" } },
+  { code: "tr", name: { ja: "トルコ", en: "Turkey" } },
+  { code: "tm", name: { ja: "トルクメニスタン", en: "Turkmenistan" } },
+  { code: "tv", name: { ja: "ツバル", en: "Tuvalu" } },
+  { code: "ug", name: { ja: "ウガンダ", en: "Uganda" } },
+  { code: "ae", name: { ja: "アラブ首長国連邦", en: "the United Arab Emirates" } },
+  { code: "gb", name: { ja: "イギリス", en: "the United Kingdom" } },
+  { code: "us", name: { ja: "アメリカ", en: "the United States" } },
+  { code: "uy", name: { ja: "ウルグアイ", en: "Uruguay" } },
+  { code: "uz", name: { ja: "ウズベキスタン", en: "Uzbekistan" } },
+  { code: "vu", name: { ja: "バヌアツ", en: "Vanuatu" } },
+  { code: "ve", name: { ja: "ベネズエラ", en: "Venezuela" } },
+  { code: "vn", name: { ja: "ベトナム", en: "Vietnam" } },
+  { code: "ye", name: { ja: "イエメン", en: "Yemen" } },
+  { code: "zm", name: { ja: "ザンビア", en: "Zambia" } },
+  { code: "zw", name: { ja: "ジンバブエ", en: "Zimbabwe" } },
+];
+
+const COUNTRY_QUEUE: QueueCountry[] = [...PRIORITY_1, ...PRIORITY_2, ...PRIORITY_3];
 
 type Lang = "ja" | "en" | "zh";
 
@@ -465,7 +677,13 @@ if (_args.includes("--publish")) {
   process.exit(1);
 }
 
-async function getNextCountry(): Promise<{ code: string; name: { ja: string; en: string } }> {
+/**
+ * 次に生成すべき国を返す。
+ * forceCountryCode指定時にキュー内に見つからない場合は依然としてエラー（利用者の入力ミスのため）。
+ * 未指定時、キュー内の全193カ国が既にvisa-{code}でカバー済みの場合は null を返す
+ * （BL-20260722対応: これはエラーではなく「現時点で生成対象なし」を意味する正常系）。
+ */
+async function getNextCountry(): Promise<{ code: string; name: { ja: string; en: string } } | null> {
   if (forceCountryCode) {
     const found = COUNTRY_QUEUE.find((c) => c.code === forceCountryCode);
     if (!found) throw new Error(`Country code "${forceCountryCode}" not found in queue.`);
@@ -484,7 +702,7 @@ async function getNextCountry(): Promise<{ code: string; name: { ja: string; en:
   for (const c of COUNTRY_QUEUE) {
     if (!covered.has(c.code)) return c;
   }
-  throw new Error("All countries in queue already covered.");
+  return null;
 }
 
 // 国別 税制ソース使用時の追加制約（TH: 古い移行注記の無視等）
@@ -1484,6 +1702,10 @@ function restoreStudyRefs(
 
 async function run() {
   const country = await getNextCountry();
+  if (!country) {
+    console.log("✅ キュー内の193カ国すべてに visa-{code} が既に存在します。生成対象なし → 正常終了します。");
+    return;
+  }
   const visaSlug = `visa-${country.code}`;
 
   // --publish-only: 再生成なし、フラグ切り替えのみ
@@ -1854,4 +2076,7 @@ async function run() {
   }
 }
 
-run();
+run().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
