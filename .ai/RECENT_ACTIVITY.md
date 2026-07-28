@@ -7,6 +7,19 @@
 
 ## 2026-07-22 — Claude Code
 
+- タスクID: SWAP-SUIKA-VPN-AFFILIATE-LINK-20260722
+- 状態: 差し替え・検証・commit完了、push待ち
+- PROTECTED_SLUGS対象`suika-vpn-overseas-japanese-streaming-guide-2026`のアフィリエイトリンクを、ユーザー明示許可によりA8正規計測リンク（素材ID:014）へJA/EN/ZH各2箇所（計6箇所）差し替え
+- 各言語本文末尾にトラッキングピクセルを1回追加（`<!-- html -->`マーカーで囲み実際に描画されるようにした）
+- 置換はbeforeテキストへの文字列置換＋末尾追加で計算した期待値とDB実値を完全一致比較する方式で実施し、意図しない本文変化がないことを構造的に担保
+- `assertBlogPayload`通過、is_published/title/description不変確認、新アンカー全言語各2回・旧href残存0件・トラッキングピクセル各1回を確認
+- `inspect-all-blog-posts.ts`・HTTP 200確認: 異常0件
+- 指定ファイル名の不一致（`update-`→実際は`swap-`）をユーザーに確認の上、実ファイルをcommit対象として`fix: replace suika-vpn affiliate link with A8 tracking link`でcommit予定
+
+---
+
+## 2026-07-22 — Claude Code
+
 - タスクID: SET-MIRICANVAS-THUMBNAIL-20260722
 - 状態: サムネ設定・検証・commit・push完了（`7f6c8eb`）
 - Storage上の`MiriCanvas/miricanvas-ai-presentation-guide-2026.png`（ユーザー提供済み）を`compress-thumbnail.ts`で圧縮（1700KB→354KB）
