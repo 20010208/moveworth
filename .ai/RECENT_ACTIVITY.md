@@ -5,6 +5,19 @@
 
 ---
 
+## 2026-07-29 — Claude Code
+
+- タスクID: BUILD-STUDY-ABROAD-RESEARCH-PIPELINE-20260728
+- 状態: 実装・型チェック・dry-run検証完了、commit・push待ち
+- `study-abroad.ts`（留学サイトシミュレーターの静的データ）が静的TSファイルでありDB自動追加不可、学費一次情報も不在という前タスクの調査結果を踏まえ、「完全自動追加」ではなく「調査結果を人間が確認・完成させる支援スクリプト」として`scripts/research-study-abroad-entry.ts`を新規実装
+- 最新draft visa（またはCLI指定コード）を対象に、`country-presets.ts`のreferenceLivingCostからlivingMin/Maxを算出し、`country_sources`(purpose=visa,study・alive)の登録済み公式ソースのみをGPTで「本文明記のみ抽出・なければTODO」プロンプトで抽出。学費・人気都市/大学等は一次情報カテゴリ不在のため常にTODO。ファイルへの書き込み・commitはしない設計
+- dry-run検証中、「取得できた項目」判定が`visa`オブジェクトの有無だけで行われ、GPTが正しくTODOを返した場合でも誤って「取得済み」と表示するバグを発見・修正
+- `.github/workflows/research-study-abroad.yml`（毎週土曜09:00 JST + workflow_dispatch）を新規実装。レポート生成時は`gh issue create`でIssue化（GitHub標準のIssue通知＝メール通知）、SendGridは任意（未設定なら自動スキップ）
+- `docs/BACKLOG.md`: `BL-20260728-01`（study-abroad.tsのDBテーブル化）・`BL-20260728-02`（学費データ一次情報調査、本パイプラインで部分対応）を新規登録
+- RO/HUの実データでdry-run・実行を検証、`study-abroad.ts`等への書き込みが発生していないことを`git status`で確認
+
+---
+
 ## 2026-07-28 — Claude Code
 
 - タスクID: MANUAL-WEEKLY-PUBLISH-20260728 → FIX-STUDY-COUNTRY-ME-ZH-20260728

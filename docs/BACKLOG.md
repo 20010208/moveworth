@@ -1,6 +1,6 @@
 # MoveWorth Backlog
 
-最終更新: 2026-07-28（BL-20260722-06追加）
+最終更新: 2026-07-28（BL-20260728-01・02追加）
 
 > 本ファイルはプロジェクト全体の未完了タスクを管理する。
 > `docs/redirect-backlog.md` はリダイレクト専用として別管理する。
@@ -144,3 +144,19 @@
 - 関連領域: `scripts/publish-study-country-next.ts` / `scripts/publish-study-work-next.ts`
 - 経緯: `visa-me`公開後、`publish-study-country-next.ts`が`study-country-me`を自動公開した際、content.zhが空（0文字）のまま公開されてしまう事象が発生した。原因は両スクリプトの`qualityOk()`がcontent.ja/enの長さ・拒否パターン・example.comのみを検証し、**zhの存在・長さを一切チェックしていない**ため（コード確認済み）。手動でis_published:falseへ戻し、`backfill-study-zh.ts`と同一ロジック・品質基準でzhを対象限定生成した上で再公開して解消した
 - 完了条件: `publish-study-country-next.ts`・`publish-study-work-next.ts`の`qualityOk()`に、`content.zh`の存在・長さ（200字以上等）・拒否パターン・example.com混入チェックを追加し、zh未生成または品質不良の記事が自動公開されないようにする
+
+## BL-20260728-01: study-abroad.tsのDBテーブル化
+
+- 優先度: 中
+- 状態: 未着手（中期対応）
+- 関連領域: `src/data/study-abroad.ts` / `src/app/study-site/simulate/page.tsx`
+- 経緯: 留学サイトのシミュレーターが参照する国データ（`studyAbroadData`）が静的TypeScriptソースファイルであるため、`simulator_personas`（移住サイト側、Supabaseテーブル）のような自動追加ができない。`scripts/research-study-abroad-entry.ts`（`BL-20260728-02`関連）で調査支援パイプラインを実装したが、最終的な追記は人手でソースファイルを編集・commitする必要がある
+- 完了条件: `study-abroad.ts`のデータを`simulator_personas`と同様にDBテーブル化し、`study-site/simulate/page.tsx`をDB参照へ移行する。移行後は研究パイプラインの出力をDB INSERTで完結できるようにし、ソースコード自動編集という高リスク操作を回避する
+
+## BL-20260728-02: 留学費用（学費）データの一次情報調査
+
+- 優先度: 中
+- 状態: 調査中（`scripts/research-study-abroad-entry.ts`により部分対応）
+- 関連領域: `src/data/study-abroad.ts` / `country_sources`
+- 経緯: `study-abroad.ts`の`costs.tuitionMin/Max`（学費）に相当する一次情報は、`country_sources`に対応するpurposeカテゴリ（教育省統計・大学連盟等）が存在せず、どの登録国についても取得できない。生活費（`livingMin/Max`）は`country-presets.ts`の`referenceLivingCost`から算出可能なため対応済み
+- 完了条件: 学費データ向けの新しい`country_sources.purpose`値（例: `education`）を定義し、教育省・大学連盟等の公式統計URLを対象国ごとに登録する。登録後は`research-study-abroad-entry.ts`が学費項目も自動抽出できるよう拡張する

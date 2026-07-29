@@ -1,0 +1,78 @@
+name: Research Study Abroad Entry
+
+on:
+  schedule:
+    # 毎週土曜 09:00 JST (00:00 UTC)
+    - cron: "0 0 * * 6"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "true にするとOpenAI抽出をスキップしソース存在確認のみ行う"
+        required: false
+        default: "false"
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run research script
+        run: npx tsx scripts/research-study-abroad-entry.ts
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+
+      - name: Check whether a report was produced
+        id: check
+        run: |
+          if [ -f "/tmp/study-abroad-research-report.md" ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "対象国なし、または既に study-abroad.ts に登録済みのためレポートは生成されませんでした。" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Append report to step summary
+        if: steps.check.outputs.exists == 'true'
+        run: cat /tmp/study-abroad-research-report.md >> "$GITHUB_STEP_SUMMARY"
+
+      # study-abroad.ts への自動書き込み・自動commitは行わない。
+      # 調査結果はGitHub Issue化し、GitHub標準のIssue通知（監視者へのメール通知）を利用する。
+      # SendGrid等の新規シークレットは未設定のため、カスタムメール送信は導入していない。
+      - name: Create GitHub Issue with research report
+        if: steps.check.outputs.exists == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          CODE=$(cat /tmp/study-abroad-research-target.txt 2>/dev/null || echo "unknown")
+          gh issue create \
+            --title "[study-abroad] ${CODE} の調査レポート（要人手確認）" \
+            --body-file /tmp/study-abroad-research-report.md \
+            --label "content"
+
+      # 任意: SendGridのシークレット（SENDGRID_API_KEY, NOTIFY_EMAIL）が設定されている場合のみ、
+      # 直接メール送信も行う。未設定の場合はスキップされる（本パイプラインの必須要件ではない）。
+      - name: Send email via SendGrid (optional, requires secrets)
+        if: steps.check.outputs.exists == 'true' && secrets.SENDGRID_API_KEY != ''
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+        run: |
+          CODE=$(cat /tmp/study-abroad-research-target.txt 2>/dev/null || echo "unknown")
+          BODY_JSON=$(node -e "console.log(JSON.stringify(require('fs').readFileSync('/tmp/study-abroad-research-report.md','utf-8')))")
+          curl -s --request POST \
+            --url https://api.sendgrid.com/v3/mail/send \
+            --header "Authorization: Bearer ${SENDGRID_API_KEY}" \
+            --header "Content-Type: application/json" \
+            --data "{\"personalizations\":[{\"to\":[{\"email\":\"${NOTIFY_EMAIL}\"}]}],\"from\":{\"email\":\"noreply@moveworthapp.com\"},\"subject\":\"[study-abroad] ${CODE} の調査レポート\",\"content\":[{\"type\":\"text/plain\",\"value\":${BODY_JSON}}]}"
