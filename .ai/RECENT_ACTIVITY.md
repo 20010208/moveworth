@@ -7,6 +7,17 @@
 
 ## 2026-07-30 — Claude Code
 
+- タスクID: ADD-METS-VIRTUAL-OFFICE-ARTICLE-20260730（画像追加・公開）
+- 状態: 画像挿入・公開・検証完了、commit予定
+- `scripts/add-images-and-publish-mets-virtual-office.ts`（新規）でStorage上の画像3枚（mets-features/mets-plan-pricing/mets-plan-comparison）を圧縮（325KB→71KB等）し、全言語contentの指定位置（導入部リンク直後・プランセクション冒頭）へ挿入
+- `is_published`を`false→true`へターゲットパッチ公開（再生成なし）。公開前後でtitle/content不変・対象外blog_posts 99件完全不変を機械比較
+- `check-published-slugs-http.ts`: 公開97件全てHTTP 200。`inspect-all-blog-posts.ts`: 全100件、異常0件
+- 指定ファイル名の不一致（`insert-mets-images-and-publish.ts`→実際は`add-images-and-publish-mets-virtual-office.ts`）をユーザーに確認の上、実ファイルをcommit対象として`feat: publish mets-virtual-office article with images`でcommit予定
+
+---
+
+## 2026-07-30 — Claude Code
+
 - タスクID: ADD-METS-VIRTUAL-OFFICE-ARTICLE-20260730
 - 状態: draft投稿・複数回の修正反映・検証完了、commit予定
 - 新規アフィリエイト記事`mets-virtual-office-overseas-japanese-guide-2026`（JA/EN/ZH、category:money）を`blog_posts`へ`is_published:false`でinsert。JA本文は当初5000字以上要件から段階的な修正でタグ除去後6000字以上まで拡充

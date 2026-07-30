@@ -3,7 +3,19 @@
 最終更新: 2026-07-30
 最終担当: Claude Code
 タスクID: ADD-METS-VIRTUAL-OFFICE-ARTICLE-20260730
-状態: 修正1〜7反映済み、追加修正（v2: 6000字補完等）反映済み、さらに修正（v3: 郵便表現強化・EN/ZHラベル翻訳）を反映・検証完了。commit・push未実施（ユーザー承認待ち）
+状態: 画像追加・公開・検証完了。commit・push未実施（ユーザー承認待ち）
+
+## 画像追加・公開（2026-07-30 5回目）
+
+`scripts/add-images-and-publish-mets-virtual-office.ts`（新規）で実施:
+1. Storage上の既存画像3枚（`Mets-Virtual-Office/mets-features.png`・`mets-plan-pricing.png`・`mets-plan-comparison.png`）を`prepareCompressedThumbnail`で圧縮（325KB→71KB / 393KB→88KB / 201KB→72KB）
+2. 全言語のcontentへ指定位置に画像を挿入（features: 導入部アフィリエイトリンク直後＝「METSバーチャルオフィスとは」系見出し直前／pricing・comparison: 「プラン別の特徴と料金」系見出し直後、この順）
+3. `is_published`を`false→true`へターゲットパッチ（再生成なし）で公開
+4. HTTP 200確認・対象外blog_posts 99件の完全不変を機械比較で確認
+
+**注**: thumbnail（OGP）設定は今回のユーザー指示に含まれていなかったため未実施（前の中断されたメッセージには含まれていたが、今回の実行版指示には無かったため対象外とした）。ユーザー確認が必要な場合はBACKLOG化または追加指示を待つ。
+
+検証: is_published/title/description/category/is_promotion/locales/pinned/thumbnail不変（content挿入時点）、公開後content/title不変、`inspect-all-blog-posts.ts`異常0件（100件、公開97）、`check-published-slugs-http.ts`全97件200
 
 ## 追加修正（2026-07-30 4回目）
 
