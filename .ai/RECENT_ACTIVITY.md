@@ -5,6 +5,19 @@
 
 ---
 
+## 2026-07-30 — Claude Code
+
+- タスクID: ADD-METS-VIRTUAL-OFFICE-ARTICLE-20260730
+- 状態: draft投稿・複数回の修正反映・検証完了、commit予定
+- 新規アフィリエイト記事`mets-virtual-office-overseas-japanese-guide-2026`（JA/EN/ZH、category:money）を`blog_posts`へ`is_published:false`でinsert。JA本文は当初5000字以上要件から段階的な修正でタグ除去後6000字以上まで拡充
+- `CLAUDE.md`セクション7のPROTECTED_SLUGSへ本スラグを追加
+- ユーザーレビューを経て複数回の修正を対象限定パッチで反映（v1〜v3）: アフィリエイトリンクのA8計測リンク差し替え・代理人条件明記・ライトプラン説明修正・銀行口座等の断定表現の是正・タイトル中立化・継続率表現の出典明記・注意事項免責追加・6000字補完・必要書類明記・郵便誤認表現の修正と強化・EN/ZHのCTAラベル翻訳
+- 全ての文字列置換は出現回数アサーション付きで実施し、is_published/title/description/category/is_promotion/locales/pinned不変とアフィリエイトhref・トラッキングピクセル不変を都度機械確認
+- `inspect-all-blog-posts.ts`: 全100件、構造不正0件
+- 指定ファイル（post-mets-virtual-office-article.ts、update-mets-virtual-office-content.ts/v2.ts/v3.ts、CLAUDE.md、handoff類）を`feat: add mets-virtual-office affiliate article draft with compliance fixes`でcommit予定
+
+---
+
 ## 2026-07-29 — Claude Code
 
 - タスクID: BUILD-STUDY-ABROAD-RESEARCH-PIPELINE-20260728

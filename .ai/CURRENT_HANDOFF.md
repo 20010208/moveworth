@@ -1,78 +1,103 @@
 # Current Handoff
 
-最終更新: 2026-07-29
+最終更新: 2026-07-30
 最終担当: Claude Code
-タスクID: BUILD-STUDY-ABROAD-RESEARCH-PIPELINE-20260728
-状態: 実装・型チェック・dry-run検証完了。commit・push未実施（ユーザー許可待ち）
+タスクID: ADD-METS-VIRTUAL-OFFICE-ARTICLE-20260730
+状態: 修正1〜7反映済み、追加修正（v2: 6000字補完等）反映済み、さらに修正（v3: 郵便表現強化・EN/ZHラベル翻訳）を反映・検証完了。commit・push未実施（ユーザー承認待ち）
+
+## 追加修正（2026-07-30 4回目）
+
+`scripts/update-mets-virtual-office-content-v3.ts`で以下2点を反映（アフィリエイトhrefは変更していない）:
+1. 郵便表現の強化：「受取不可の場合があります」→「受取できません」（全言語、断定表現へ強化）
+2. EN/ZHのCTAリンク表示テキストを翻訳：EN "Click here for the METS Virtual Office official website" / ZH "点击这里前往METS虚拟办公室官方网站"（JAは「都心格安のバーチャルオフィス【METSバーチャルオフィス】」のまま維持）
+
+検証: is_published/title/description/category/is_promotion/locales/pinned不変確認、アフィリエイトhref（全言語2箇所）・トラッキングピクセル（全言語1箇所）は変更なしを確認、`inspect-all-blog-posts.ts`異常0件
+
+## 追加修正（2026-07-30 3回目）
+
+ユーザー指摘の3点＋軽微問題を対象限定パッチで反映（アフィリエイトリンクは変更していない）:
+1. JA本文をタグ除去後6000字以上に補完（5186字→6160字）：「海外在住者がバーチャルオフィスを選ぶ際のポイント」セクションを新規追加（EN/ZHも同様に追加）
+2. 必要書類（契約者本人確認書類・代理人本人確認書類・委任状・法人契約時の履歴事項全部証明書）を「申し込み方法」セクションとFAQ Q1の両方に全言語で追記
+3. 郵便物の誤認表現を修正：「安全かつ確実に管理」「安心して預けることができます」等の断定表現を、「本人限定受取郵便・特別送達・裁判文書等は受取不可の場合がある」旨の正確な表現へ修正
+4. 軽微問題：「ネットショップラン」→「ネットショッププラン」（正式名称）に修正、PR表記に「本リンク経由での申込みにより当サイトに報酬が発生する場合があります」を冒頭・末尾の両方に追記
+
+検証: 全ての文字列置換を出現回数アサーション付きで実施（想定外の箇所は例外で検出される設計）。is_published/title/description/category/is_promotion/locales/pinned不変確認、アフィリエイトhref・トラッキングピクセルは変更なしを確認、`inspect-all-blog-posts.ts`異常0件
+
+## 追加修正（2026-07-30 2回目）
+
+ユーザー指摘の7点を`scripts/update-mets-virtual-office-content.ts`（新規）で反映:
+1. アフィリエイトリンクをA8計測リンクへ差し替え（新href・新ラベル、全言語2箇所ずつ）、トラッキングピクセルを各言語末尾に1回追加
+2. 日本在住代理人条件を導入部・申し込み方法・FAQ Q1の3箇所に追記（全言語）
+3. ライトプランの説明を「住所だけ」に修正、郵便受取・法人登記・転送不可を明記
+4. 銀行口座維持・サービス継続利用の断定表現を「金融機関/事業者の規約・審査による」旨の表現へ修正
+5. タイトルを中立表現に変更
+6. 「会員継続率98%超」→「公式サイトでは2018〜2022年の自社データとして約98%と紹介」に変更（description含む）
+7. 「注意事項・免責」セクションを追加し、JA本文をタグ除去後5000字以上に補完（5186字）
+
+検証: is_published/category/is_promotion/locales/pinned不変確認、新href全言語2箇所以上・旧href残存0・トラッキングピクセル1回・代理人記載3箇所以上を機械確認、`inspect-all-blog-posts.ts`異常0件
 
 ## 目的
 
-留学シミュレーター（`study-abroad.ts`）への国データ追加を支援する調査パイプラインを実装する。
-（前タスクの調査結果: `study-abroad.ts`は静的TSファイルであり、`simulator_personas`のような自動DB追加はできない。学費データの一次情報も不在。そのため「完全自動追加」ではなく「調査結果を人間が確認・完成させるための支援スクリプト」として実装した）
+新規アフィリエイト記事「METSバーチャルオフィス」を`blog_posts`へ作成する。
 
-## 実装内容
+- スラグ: `mets-virtual-office-overseas-japanese-guide-2026`
+- カテゴリ: money、is_promotion: true
+- 言語: JA（5000字以上）/EN/ZH
+- `is_published: false`（draft保存のみ）
+- アフィリエイトリンク: `<a href="https://vo-metsoffice.jp/" rel="nofollow">METSバーチャルオフィス公式サイトはこちら</a>`（href・表示テキスト変更禁止）
+- リスティングNGワード対応: 「METSオフィス」という略称は使わず、常に「METSバーチャルオフィス」と表記する
 
-1. `scripts/research-study-abroad-entry.ts`（新規）
-   - 対象: 最新のdraft `visa-{code}`（CLI引数で国コードを直接指定して手動実行も可能）
-   - `study-abroad.ts`に既存の場合はスキップ
-   - `country-presets.ts`の`referenceLivingCost`から`livingMin/Max`を算出（livingMin=referenceLivingCost、livingMax=referenceLivingCost×1.5の明記された係数で導出）
-   - `country_sources`（purpose IN visa,study・status=alive）の登録済み公式ソースのみ取得し、student visa要件・費用・期間等をGPTで「本文に明記されている内容のみ抽出、なければTODO」というプロンプトで抽出
-   - 学費（tuition）・人気都市・大学・overview・tips・japaneseInfoは一次情報カテゴリが存在しないため常にTODO
-   - `study-abroad.ts`への追記コードを生成するが、ファイルへの書き込み・commitは一切行わない
-   - レポート（OS一時ディレクトリへ出力）はGHA側でIssue化する想定
-2. `.github/workflows/research-study-abroad.yml`（新規）
-   - 毎週土曜09:00 JST（`0 0 * * 6`）+ `workflow_dispatch`（dry_run入力対応）
-   - レポート生成時に`gh issue create`でIssue化（GitHub標準のIssue通知＝監視者へメール通知）
-   - SendGrid経由の直接メール送信は`secrets.SENDGRID_API_KEY`が設定されている場合のみ任意実行（未設定なら自動スキップ、今回は新規シークレット追加なし）
-3. `docs/BACKLOG.md`
-   - `BL-20260728-01`（study-abroad.tsのDBテーブル化、中期対応として新規登録）
-   - `BL-20260728-02`（学費データ一次情報調査、本パイプラインで部分対応のため「調査中」として新規登録）
+## 事前確認
 
-## dry-run検証で発見・修正したバグ
+- 同slugの既存レコードなしを確認済み
+- `CLAUDE.md`セクション7のPROTECTED_SLUGSに本スラグを追加済み（未commit）
+- アフィリエイトリンクは`<!-- html -->`ブロックで囲んで実装（過去のsuika-vpn/miricanvasタスクで確立した、blog-post-content.tsxのレンダラー仕様に合わせるための必須対応）
 
-- 当初、レポートの「取得できた項目」判定が`visa`オブジェクトの有無だけで行われており、GPTが「本文に記載なし」と正しく判断してTODOセンチネルを返した場合でも「取得済み」と誤表示していた
-- 各フィールドの値が実際にTODOセンチネル文字列と一致するかどうかで判定するよう修正（RO/HUの実データで再検証し、正しくTODO判定されることを確認）
+## 本タスクでの変更予定
+
+- `scripts/post-mets-virtual-office-article.ts`（新規）でdraft insert
+- `blog_posts`: slug, category:money, published_at, reading_minutes, thumbnail:null, title/description/content(ja/en/zh), locales:["ja","en","zh"], pinned:false, is_published:false, is_promotion:true
+- 本文に作成日「2026年7月30日」を目視確認できる形で記載
+- assertBlogPayload通過確認、アフィリエイトhref出現回数（本文中+末尾で2箇所以上）確認
+- 禁止パターン・example.com混入チェック
 
 ## 変更した主要ファイル
 
-- `scripts/research-study-abroad-entry.ts`（新規、未commit）
-- `.github/workflows/research-study-abroad.yml`（新規、未commit）
-- `docs/BACKLOG.md`（`BL-20260728-01`・`02`追加）
-- `.ai/CURRENT_HANDOFF.md` / `.ai/RECENT_ACTIVITY.md`
+- `CLAUDE.md`（セクション7 PROTECTED_SLUGS追加、未commit）
+- `.ai/CURRENT_HANDOFF.md`
+- （予定）`scripts/post-mets-virtual-office-article.ts`（新規）
+- DB（予定）: `blog_posts`に1件、is_published:false
 
 ## Git状態
 
-- 前回commit（`1873298`）はpush済み
-- 今回分は全て未commit
-- `src/data/study-abroad.ts`・`src/data/country-presets.ts`は変更されていないことを`git status`で確認済み（スクリプトが書き込みを行っていないことの裏付け）
+- `CLAUDE.md`: 本タスクでの追加（未commit）
+- 既存の対象外差分（tsbuildinfo、未追跡一時スクリプト群等）は継続・不変
 
 ## 実行済みの検証
 
 1. `npx tsc --project tsconfig.scripts.json --noEmit`: エラー0件
-2. `DRY_RUN=true`で対象なし（現在draft visa無し）のケースを確認 → 正常に早期終了
-3. CLI引数で`ro`・`hu`を指定し、実際に`country_sources`から複数ソース（Wayback URL含む）を取得できることを確認
-4. `ro`で実際にOpenAI抽出まで実行 → 登録ソースに学生ビザ固有の記載がなかったため全フィールドTODOとなり、モデル知識による補完が発生していないことを確認（意図通りの安全動作）
-5. `git status`で`study-abroad.ts`等への書き込みが発生していないことを確認
+2. `npx tsx scripts/post-mets-virtual-office-article.ts`: assertBlogPayload通過・insert成功
+   - JA 5015字 / EN 10367字 / ZH 3693字（JA5000字要件を満たす。初回4488字だったため「こんな海外在住者におすすめ」セクションを追加して拡充）
+3. アフィリエイトhref出現回数（全言語2回以上）、禁止パターン・example.com混入0件、NG略称「METSオフィス」混入0件、作成日「2026年7月30日」記載を確認
+4. `inspect-all-blog-posts.ts`: blog_posts 100件（公開96・非公開4）構造不正0件
+5. DB再取得で `category:money` / `is_published:false` / `is_promotion:true` / `locales:[ja,en,zh]` を確認
 
 ## 未解決事項
 
 - なし（本タスク範囲内）
-- `BL-20260728-01`（DBテーブル化）・`BL-20260728-02`（学費データ調査）は別タスクで対応予定
 
 ## 次に行う作業
 
-1. ユーザーへ実装概要を報告済み
-2. ユーザー承認後、commit・push
+1. JA本文をユーザーにレビュー提示済み
+2. ユーザー承認後、公開判断（このセッションでは公開しない）
 
 ## 禁止事項・注意事項
 
-- `study-abroad.ts`への自動書き込み・自動commitは行っていない
-- 取得不可の数値をAIに推測させていない
-- 民間サイト・比較サイトは使用していない（`country_sources`の登録済み公式ソースのみ）
-- commit・pushはユーザー許可後
+- アフィリエイトリンクのhref・表示テキストは変更・削除禁止
+- 「METSオフィス」という略称は使用しない（「METSバーチャルオフィス」のみ使用）
+- 承認前に is_published を true にしない
 
 ## ユーザー判断が必要な事項
 
-- 実装内容の承認
-- commit・push可否
-- `secrets.SENDGRID_API_KEY`等を設定してカスタムメール送信を有効化するかどうか（未設定でもGitHub Issue通知は機能する）
+- JA本文レビュー・承認
+- 公開可否・タイミング
