@@ -3,7 +3,15 @@
 最終更新: 2026-07-30
 最終担当: Claude Code
 タスクID: ADD-METS-VIRTUAL-OFFICE-ARTICLE-20260730
-状態: 画像追加・公開・検証完了。commit・push未実施（ユーザー承認待ち）
+状態: サムネ設定・検証完了。commit・push未実施（ユーザー指示待ち）
+
+## サムネ設定（2026-07-30 6回目）
+
+- Storage上の`Mets-Virtual-Office/mets-virtual-office-overseas-japanese-guide-2026.png`（ユーザー提供済み）を`compress-thumbnail.ts`で圧縮（1954KB→377KB）
+- `blog_posts.thumbnail`をターゲットパッチ更新（is_published/title/description/content不変を確認）
+- 実ページのHTMLを取得し、`<meta property="og:image">`が新しいサムネイルURLを指していることを直接確認（公開済みのため実際に検証可能）
+- `blog_posts`にはstudy_blog_postsのような`thumbnail_ja/en/zh`列は存在せず、単一の`thumbnail`列がOGP含め全言語共通で使われる（既存仕様、今回変更なし）
+- `inspect-all-blog-posts.ts`: 全100件（公開97）構造不正0件
 
 ## 画像追加・公開（2026-07-30 5回目）
 

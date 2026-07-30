@@ -7,6 +7,17 @@
 
 ## 2026-07-30 — Claude Code
 
+- タスクID: ADD-METS-VIRTUAL-OFFICE-ARTICLE-20260730（サムネ設定）
+- 状態: サムネ設定・検証完了、commit予定
+- `scripts/set-mets-virtual-office-thumbnail.ts`（新規）でStorage上の画像（ユーザー提供済み）を圧縮（1954KB→377KB）し`blog_posts.thumbnail`を設定。is_published/title/description/content不変を確認
+- 実ページHTMLを取得し`<meta property="og:image">`が新サムネイルを指していることを直接確認（公開済みのため実際に検証可能）
+- `inspect-all-blog-posts.ts`: 全100件、異常0件
+- 指定ファイル名の不一致（`set-mets-thumbnail.ts`→実際は`set-mets-virtual-office-thumbnail.ts`）をユーザーに確認の上、実ファイルをcommit対象として`feat: add thumbnail to mets-virtual-office article`でcommit予定
+
+---
+
+## 2026-07-30 — Claude Code
+
 - タスクID: ADD-METS-VIRTUAL-OFFICE-ARTICLE-20260730（画像追加・公開）
 - 状態: 画像挿入・公開・検証完了、commit予定
 - `scripts/add-images-and-publish-mets-virtual-office.ts`（新規）でStorage上の画像3枚（mets-features/mets-plan-pricing/mets-plan-comparison）を圧縮（325KB→71KB等）し、全言語contentの指定位置（導入部リンク直後・プランセクション冒頭）へ挿入
