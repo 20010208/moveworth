@@ -5,6 +5,23 @@
 
 ---
 
+## 2026-08-01 — Claude Code（3回目）
+
+- タスクID: PRESERVE-DISTINCT-WORKFLOW-NOTIFICATIONS-20260801
+- 状態: 修正・静的検証完了、commit予定（`e4de711`の上に追加・push未実施）
+- 背景: `e4de711`に対するCodex独立再監査が再度FAILとなり、Issue通知経路の実行時問題13件が指摘された
+- `verify-country-sources.ts`: 終了コード契約（0=正常/2=dead URL検出/1他=処理失敗）を新設し、grep依存を廃止。dead URL詳細を`.tmp/country-source-health/dead-sources.json`へ機械可読出力。`--re-verify`の分岐順序バグを修正しmonthlyがaliveを含む全件を再検証するよう是正
+- `scripts/utils/github-issue-dedup.ts`（新規）・`scripts/notify-dead-sources.ts`（新規）: source単位（id優先、なければURLハッシュ）でのIssue検索・作成・コメントをfail-closedで実装
+- `check-source-content-hash.ts`: 固定タイトル1件の通知をsource単位へ変更。DB hash更新をGitHub通知成功後にのみ行うよう順序を是正（部分失敗時に未通知sourceを処理済み扱いしない）
+- `health-check-country-sources.yml`: concurrency追加（weekly/monthly/manualを直列化）、schedule判定を完全一致化、旧Issue作成ステップを`notify-dead-sources.ts`呼び出しへ置換
+- `research-study-abroad.yml`: research Issue検索の`--json title`+`.number`参照バグ（常にnull）を`--json number,title`へ修正。Issue作成の`created`出力を追加しSendGridメールの重複再送を防止
+- `.gitignore`: `.tmp/`を追加（一時レポートの誤commit防止）
+- 検証: js-yaml構文、IDE診断0件、cron無変更、schedule完全一致確認、concurrency確認、全13 run:ブロックのbash -n、対象4 TSファイルのtsc型検査0件、ローカルモックテスト（分岐ロジック・終了コード契約・dead-sources.jsonスキーマ・notifyAll()の11パターン・DB hash更新順序の4パターン）全件成功
+- 詳細は`.ai/CURRENT_HANDOFF.md`参照
+- 残存リスク: 実際のWorkflow実行を経ていないため動的動作は未確認。jqコマンド自体はローカル未インストールのためフィルタロジックの等価性のみNode.jsで確認（GHA runnerにはjqプリインストール前提）。通知機能を「完全復旧」とは表現しない
+
+---
+
 ## 2026-08-01 — Claude Code（2回目）
 
 - タスクID: HARDEN-GHA-ISSUE-NOTIFICATIONS-20260801

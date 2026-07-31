@@ -4,11 +4,17 @@ permissions:
   contents: read
   issues: write
 
+# weekly/monthly/manualが同時に走った場合の重複Issue生成リスクを抑えるため、
+# このWorkflow全体で直列化する（実行中の検証はキャンセルしない）。
+concurrency:
+  group: health-check-country-sources
+  cancel-in-progress: false
+
 on:
   schedule:
     # 週次: 毎週土曜 01:00 UTC (10:00 JST) — auto-country (水・日) と重複なし
     - cron: "0 1 * * 6"
-    # 月次: 毎月1日 02:00 UTC — unverified の再試行含む全件チェック
+    # 月次: 毎月1日 02:00 UTC — alive含む全件の再検証（--re-verify）
     - cron: "0 2 1 * *"
   workflow_dispatch:
     inputs:
@@ -31,16 +37,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # 終了コード契約（verify-country-sources.ts側と統一）:
+      #   0 = 正常・dead URLなし / 2 = 検証は正常完了・dead URLあり / 1・その他 = 処理失敗
+      # weeklyとmonthlyは github.event.schedule の完全一致で判定する（部分一致のcontains()は使わない。
+      # 週次cronの "0 1 * * 6" が月次cronの "0 2 1 * *" 等と部分一致してしまう事故を避けるため）。
       - name: Weekly — recheck dead + unverified
         id: weekly
-        if: github.event_name == 'schedule' && contains(github.event.schedule, '* * 6')
+        if: github.event_name == 'schedule' && github.event.schedule == '0 1 * * 6'
         run: |
           set +e
-          npx tsx scripts/verify-country-sources.ts --recheck-dead --recheck-unverified 2>&1 | tee /tmp/weekly-recheck.log
+          npx tsx scripts/verify-country-sources.ts --recheck-dead --recheck-unverified
           exit_code=${PIPESTATUS[0]}
-          # dead URL確定検出時のみ verify-country-sources.ts が出力するマーカー文字列で判定する
-          # （npm ci失敗・DB接続失敗等の他要因によるexit 1と区別するため。exit codeは変更しない）
-          if grep -q "件の dead URL があります" /tmp/weekly-recheck.log; then
+          if [ "$exit_code" = "2" ]; then
             echo "dead_found=true" >> "$GITHUB_OUTPUT"
           else
             echo "dead_found=false" >> "$GITHUB_OUTPUT"
@@ -50,14 +58,20 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
 
+      # 月次は alive を含む全ステータスを再検証する（--re-verify）。
+      # 過去の `--recheck-dead --recheck-unverified --re-verify` という呼び出しは、
+      # verify-country-sources.ts側の分岐順序により --re-verify が無視され、実際には
+      # dead/unverified/unknown のみが対象になっていた（aliveが再検証されない不具合）。
+      # scripts/verify-country-sources.ts の main() で --re-verify を最優先分岐に修正したため、
+      # この呼び出しのままで意図通り全件（alive含む）が対象になる。
       - name: Monthly — full re-verify (all statuses)
         id: monthly_reverify
-        if: github.event_name == 'schedule' && contains(github.event.schedule, '1 * *')
+        if: github.event_name == 'schedule' && github.event.schedule == '0 2 1 * *'
         run: |
           set +e
-          npx tsx scripts/verify-country-sources.ts --recheck-dead --recheck-unverified --re-verify 2>&1 | tee /tmp/monthly-recheck.log
+          npx tsx scripts/verify-country-sources.ts --recheck-dead --recheck-unverified --re-verify
           exit_code=${PIPESTATUS[0]}
-          if grep -q "件の dead URL があります" /tmp/monthly-recheck.log; then
+          if [ "$exit_code" = "2" ]; then
             echo "dead_found=true" >> "$GITHUB_OUTPUT"
           else
             echo "dead_found=false" >> "$GITHUB_OUTPUT"
@@ -68,7 +82,7 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
 
       - name: Monthly — content hash check (ソース更新検知)
-        if: github.event_name == 'schedule' && contains(github.event.schedule, '1 * *')
+        if: github.event_name == 'schedule' && github.event.schedule == '0 2 1 * *'
         run: npx tsx scripts/check-source-content-hash.ts
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
@@ -83,16 +97,16 @@ jobs:
           set +e
           MODE="${{ github.event.inputs.mode }}"
           if [ "$MODE" = "recheck-dead" ]; then
-            npx tsx scripts/verify-country-sources.ts --recheck-dead 2>&1 | tee /tmp/manual-recheck.log
+            npx tsx scripts/verify-country-sources.ts --recheck-dead
           elif [ "$MODE" = "recheck-unverified" ]; then
-            npx tsx scripts/verify-country-sources.ts --recheck-unverified 2>&1 | tee /tmp/manual-recheck.log
+            npx tsx scripts/verify-country-sources.ts --recheck-unverified
           elif [ "$MODE" = "recheck-all" ]; then
-            npx tsx scripts/verify-country-sources.ts --recheck-dead --recheck-unverified 2>&1 | tee /tmp/manual-recheck.log
+            npx tsx scripts/verify-country-sources.ts --recheck-dead --recheck-unverified
           elif [ "$MODE" = "re-verify" ]; then
-            npx tsx scripts/verify-country-sources.ts --re-verify 2>&1 | tee /tmp/manual-recheck.log
+            npx tsx scripts/verify-country-sources.ts --re-verify
           fi
-          exit_code=${PIPESTATUS[0]}
-          if [ -f /tmp/manual-recheck.log ] && grep -q "件の dead URL があります" /tmp/manual-recheck.log; then
+          exit_code=$?
+          if [ "$exit_code" = "2" ]; then
             echo "dead_found=true" >> "$GITHUB_OUTPUT"
           else
             echo "dead_found=false" >> "$GITHUB_OUTPUT"
@@ -102,39 +116,15 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
 
-      # dead URL確定検出時のみ実行する（npm ci失敗・DB接続失敗等の他要因による失敗では作成しない）。
-      # 同一タイトルのopen issueがあれば重複作成しない（週次・月次が同日実行される場合の重複対策）。
-      - name: Create GitHub Issue on dead URL detection
+      # dead URL確定検出時のみ実行する（npm ci失敗・DB接続失敗等の他要因による失敗では実行しない）。
+      # .tmp/country-source-health/dead-sources.json をsource単位（country_sources.id、なければ
+      # 正規化URLのハッシュ）で読み、同一sourceのopen issueがあればコメント、なければ新規作成する。
+      # 異なるsourceの通知は互いに抑止しない。GitHub API失敗はfail-closed（既存なしと誤認しない）。
+      - name: Notify dead sources
         if: |
           always() &&
           (steps.weekly.outputs.dead_found == 'true' || steps.monthly_reverify.outputs.dead_found == 'true' || steps.manual.outputs.dead_found == 'true')
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const title = '[country-sources] dead URL 検出';
-            const search = await github.rest.search.issuesAndPullRequests({
-              q: `repo:${context.repo.owner}/${context.repo.repo} type:issue state:open in:title "${title}"`,
-            });
-            const existing = search.data.items.find((i) => i.title === title);
-            if (existing) {
-              core.notice(`既存Issue #${existing.number} が open のため新規作成をskip`);
-              await core.summary.addRaw(`既存Issue #${existing.number} が open のため新規作成をskipしました。`).write();
-              return;
-            }
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title,
-              body: [
-                '## country_sources ヘルスチェックで dead URL を検出しました',
-                '',
-                '**対応手順:**',
-                '1. GitHub Actions のログで dead URL 一覧を確認',
-                '2. `scripts/verify-country-sources.ts --recheck-dead` を手動実行して詳細確認',
-                '3. 置換 URL を特定して `country_sources` を `source=manual` で更新',
-                '4. 該当記事の参考文献欄を差し替え',
-                '',
-                `Workflow run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
-              ].join('\n'),
-              labels: ['bug', 'content'],
-            });
+        run: npx tsx scripts/notify-dead-sources.ts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}

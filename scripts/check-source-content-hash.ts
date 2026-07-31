@@ -20,6 +20,12 @@
 import { existsSync, readFileSync } from "fs";
 import { createHash } from "crypto";
 import { createClient } from "@supabase/supabase-js";
+import {
+  stableSourceKey,
+  searchOpenIssueByExactTitle,
+  createIssue,
+  addIssueComment,
+} from "./utils/github-issue-dedup";
 
 if (existsSync(".env.local")) {
   for (const line of readFileSync(".env.local", "utf-8").split("\n")) {
@@ -95,50 +101,36 @@ function sha256(text: string): string {
   return createHash("sha256").update(text, "utf-8").digest("hex").slice(0, 16); // 先頭16文字で十分
 }
 
-async function findOpenIssueByExactTitle(title: string): Promise<number | null> {
-  const q = `repo:${GH_REPO} type:issue state:open in:title "${title}"`;
-  const res = await fetch(`https://api.github.com/search/issues?q=${encodeURIComponent(q)}`, {
-    headers: {
-      "Authorization": `Bearer ${GH_TOKEN}`,
-      "Accept": "application/vnd.github+json",
-      "X-GitHub-Api-Version": "2022-11-28",
-    },
-  });
-  if (!res.ok) return null;
-  const data = (await res.json()) as { items?: { number: number; title: string }[] };
-  const exact = (data.items ?? []).find((i) => i.title === title);
-  return exact ? exact.number : null;
+type ChangedSource = {
+  id: string;
+  countryCode: string;
+  purpose: string;
+  url: string;
+  oldHash: string;
+  newHash: string;
+};
+
+// source単位の安定タイトル（country_sources.id優先、なければ正規化URLのハッシュ）。
+// source Aのopen issueがsource Bの通知を抑止しないよう、対象を1件に固定するタイトルにする。
+function buildTitle(entry: ChangedSource): string {
+  return `[country-sources][${stableSourceKey(entry.id, entry.url)}] ソース更新検知`;
 }
 
-async function createGitHubIssue(title: string, body: string): Promise<void> {
-  if (!GH_TOKEN || !GH_REPO) {
-    console.warn("⚠️  GH_TOKEN / GH_REPO 未設定 — GitHub Issue 作成をスキップ");
-    console.warn(`  タイトル: ${title}`);
-    return;
-  }
-  // 重複防止: 同一タイトルのopen issueが既にあれば新規作成しない（closedは対象外）
-  const existingNumber = await findOpenIssueByExactTitle(title);
-  if (existingNumber !== null) {
-    console.log(`  既存Issue #${existingNumber} が open のためskip: ${title}`);
-    return;
-  }
-  const [owner, repo] = GH_REPO.split("/");
-  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/issues`, {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${GH_TOKEN}`,
-      "Content-Type": "application/json",
-      "Accept": "application/vnd.github+json",
-      "X-GitHub-Api-Version": "2022-11-28",
-    },
-    body: JSON.stringify({ title, body, labels: ["content", "source-updated"] }),
-  });
-  if (res.ok) {
-    const issue = await res.json() as { html_url: string };
-    console.log(`  ✅ Issue 作成: ${issue.html_url}`);
-  } else {
-    console.error(`  ❌ Issue 作成失敗: ${res.status} ${await res.text()}`);
-  }
+function buildBody(entry: ChangedSource, detectedAt: string): string {
+  return [
+    "## country_sources のソース本文に変化が検出されました",
+    "",
+    `- country: ${entry.countryCode.toUpperCase()}`,
+    `- category: ${entry.purpose}`,
+    `- URL: ${entry.url}`,
+    `- old hash: \`${entry.oldHash}\``,
+    `- new hash: \`${entry.newHash}\``,
+    `- detected at: ${detectedAt}`,
+    "",
+    "## 推奨対応",
+    "",
+    `1. \`${entry.countryCode}\`: \`npx tsx scripts/generate-country-article.ts ${entry.countryCode}\` → レビュー後 \`--publish\``,
+  ].join("\n");
 }
 
 async function main() {
@@ -169,8 +161,11 @@ async function main() {
   const rows = (sources ?? []) as SourceRow[];
   console.log(`対象: ${rows.length}件\n`);
 
-  const changed: { country_code: string; purpose: string; url: string; oldHash: string; newHash: string }[] = [];
+  const changed: ChangedSource[] = [];
   const fetchFailed: string[] = [];
+  // 変化なし・初回記録は通知不要なので即時保存してよい。
+  // 「変化あり」はGitHub通知が成功するまでDB hashを更新しない（Task 8: 通知失敗時に処理済み扱いしない）。
+  const immediateUpdates: { id: string; newHash: string }[] = [];
 
   for (const row of rows) {
     process.stdout.write(`  [${row.country_code}/${row.purpose}] ${row.url.slice(0, 60)}... `);
@@ -188,45 +183,63 @@ async function main() {
     const newHash = sha256(text);
     const oldHash = row.content_hash;
 
-    // ハッシュが変化し、かつ前回の記録がある場合のみ「変化」とみなす
     if (oldHash && oldHash !== newHash) {
       process.stdout.write(`変化検知 (${oldHash} → ${newHash})\n`);
-      changed.push({ country_code: row.country_code, purpose: row.purpose, url: row.url, oldHash, newHash });
+      changed.push({ id: row.id, countryCode: row.country_code, purpose: row.purpose, url: row.url, oldHash, newHash });
     } else {
       process.stdout.write(oldHash ? `変化なし (${newHash})\n` : `初回記録 (${newHash})\n`);
+      immediateUpdates.push({ id: row.id, newHash });
     }
+  }
 
-    // DB にハッシュを保存
+  for (const u of immediateUpdates) {
     await supabase
       .from("country_sources")
-      .update({ content_hash: newHash, content_hash_at: new Date().toISOString() })
-      .eq("id", row.id);
+      .update({ content_hash: u.newHash, content_hash_at: new Date().toISOString() })
+      .eq("id", u.id);
   }
 
   console.log(`\n変化: ${changed.length}件  fetch失敗: ${fetchFailed.length}件`);
 
-  if (changed.length > 0) {
-    // タイトルは日付・件数を含めない安定した識別キーとする（重複防止のため。日付や件数違いで量産しない）
-    const title = `[country-sources] ソース更新検知`;
-    const body = [
-      "## country_sources のソース本文に変化が検出されました",
-      "",
-      "ソースが更新された可能性があります。関連するビザ記事の内容を確認・再生成してください。",
-      "",
-      "## 変化したソース",
-      "",
-      ...changed.map((c) =>
-        `- **${c.country_code.toUpperCase()}** (${c.purpose}): \`${c.url}\`\n  - ハッシュ: \`${c.oldHash}\` → \`${c.newHash}\``
-      ),
-      "",
-      "## 推奨対応",
-      "",
-      ...changed.map((c) =>
-        `1. \`${c.country_code}\`: \`npx tsx scripts/generate-country-article.ts ${c.country_code}\` → レビュー後 \`--publish\``
-      ),
-    ].join("\n");
+  let notifySucceeded = 0;
+  const notifyFailed: string[] = [];
 
-    await createGitHubIssue(title, body);
+  if (changed.length > 0 && (!GH_TOKEN || !GH_REPO)) {
+    console.warn("⚠️  GH_TOKEN / GH_REPO 未設定 — 通知をスキップします（DB hashも更新しないため、次回実行時に再検出されます）");
+    changed.forEach((c) => notifyFailed.push(buildTitle(c)));
+  } else {
+    const cfg = { token: GH_TOKEN, repo: GH_REPO };
+    for (const entry of changed) {
+      const title = buildTitle(entry);
+      const detectedAt = new Date().toISOString();
+      try {
+        const existing = await searchOpenIssueByExactTitle(title, cfg);
+        if (existing) {
+          await addIssueComment(existing.number, buildBody(entry, detectedAt), cfg);
+          console.log(`  既存Issue #${existing.number} へコメント追加: ${title}`);
+        } else {
+          const created = await createIssue(title, buildBody(entry, detectedAt), ["content", "source-updated"], cfg);
+          console.log(`  新規Issue作成 #${created.number}: ${title}`);
+        }
+        // 通知が成功した場合にのみDB hashを更新する（Task 8: 通知前に確定保存しない）
+        await supabase
+          .from("country_sources")
+          .update({ content_hash: entry.newHash, content_hash_at: detectedAt })
+          .eq("id", entry.id);
+        notifySucceeded++;
+      } catch (e) {
+        console.error(`  ❌ 通知失敗（DB hashは更新しません・次回実行時に再検出されます）: ${title}: ${(e as Error).message}`);
+        notifyFailed.push(title);
+      }
+    }
+  }
+
+  if (changed.length > 0) {
+    console.log(`\n=== 通知結果 === 成功: ${notifySucceeded}件 / 失敗: ${notifyFailed.length}件`);
+    if (notifyFailed.length > 0) {
+      console.error("通知に失敗した対象（次回実行時に再検出されます）:");
+      notifyFailed.forEach((t) => console.error(`  - ${t}`));
+    }
   }
 
   if (fetchFailed.length > 0) {
@@ -235,6 +248,13 @@ async function main() {
   }
 
   console.log("\n=== 完了 ===");
+
+  if (notifyFailed.length > 0) {
+    process.exitCode = 1;
+  }
 }
 
-main().catch(console.error);
+main().catch((e) => {
+  console.error("❌", e instanceof Error ? e.message : e);
+  process.exitCode = 1;
+});

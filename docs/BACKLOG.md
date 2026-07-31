@@ -1,6 +1,6 @@
 # MoveWorth Backlog
 
-最終更新: 2026-08-01（BL-20260801-01・02・03追加）
+最終更新: 2026-08-01（BL-20260801-04追加）
 
 > 本ファイルはプロジェクト全体の未完了タスクを管理する。
 > `docs/redirect-backlog.md` はリダイレクト専用として別管理する。
@@ -193,6 +193,37 @@
 - 検証: js-yaml構文チェック、IDE診断エラー0件、check-source-content-hash.tsのtsc型検査エラー0件、全12 run:ブロックのbash -n構文チェック、gh issue list/GitHub Search APIの読み取り専用実行確認、ラベル参照の文字列完全一致確認
 - 残存リスク: 実際のWorkflow実行を経ていないため、動的な動作（Issue検索・作成ロジックの実挙動）は未確認。2026-08-01 09:00/10:00 JST等の次回実行結果の確認が必要
 - 完了条件（実行確認待ち）: 次回スケジュール実行で意図通りに動作すること（dead URL非検出時は誤Issueが作られない、重複Issueが作られない、SendGrid未設定時はメール送信がスキップされる）を確認する
+- **追記（2026-08-01）**: 本項目の修正（commit `e4de711`）に対するCodex独立再監査が再度FAILとなり、grep依存の判定・固定タイトル1件への集約・DB更新順序等、13件の追加問題が指摘された。詳細はBL-20260801-04を参照
+
+## BL-20260801-04: GHA Issue通知経路の構造的是正（source単位化・終了コード契約・DB更新順序）
+
+- 優先度: 高
+- 状態: 静的修正完了・実行確認待ち（**「完全復旧」ではない**）
+- 関連領域: `.github/workflows/research-study-abroad.yml` / `.github/workflows/health-check-country-sources.yml` / `scripts/verify-country-sources.ts` / `scripts/check-source-content-hash.ts` / `scripts/notify-dead-sources.ts`（新規） / `scripts/utils/github-issue-dedup.ts`（新規） / `.gitignore`
+- 経緯: BL-20260801-03の修正（commit `e4de711`、**push未実施**）に対するCodex独立再監査が再度FAILとなり、以下13件の実行時問題が指摘された
+  1. research Issue検索が`--json title`のみ取得しつつ`.number`参照（常にnull）
+  2. health-checkのschedule判定が`contains()`部分一致
+  3. dead URL判定が自然言語ログのgrep依存でDB接続失敗等と区別不能
+  4. dead URL詳細の機械可読出力がない
+  5. health-check Issueが固定タイトル1件に集約され、異なる国・URLの通知を抑止してしまう
+  6. weekly/monthly/manualの同時実行に対する排他制御がない
+  7. source content hash通知も固定タイトル1件に集約
+  8. source content hashをGitHub通知の成否に関わらず即座にDB確定保存
+  9. monthly `--re-verify`がverify-country-sources.ts側の分岐順序により無視され、aliveが再検証されていなかった
+  10. research Issueがskipされた場合もSendGridメールが毎回再送される
+  11. SendGridの期待動作が仕様として明文化されていない
+  12. 静的検証・機械テストの不足
+  13. 運用文書がpush実態・監査結果を反映していない
+- 完了内容:
+  - `verify-country-sources.ts`: 終了コード契約（0=正常/2=dead URL検出/1他=処理失敗）新設、`.tmp/country-source-health/dead-sources.json`への機械可読出力、`--re-verify`分岐順序の修正（aliveを含む全件再検証）
+  - `scripts/utils/github-issue-dedup.ts`（新規）・`scripts/notify-dead-sources.ts`（新規）: source単位（`country_sources.id`優先、なければ正規化URLのSHA-256ハッシュ）でのIssue検索・作成・コメントをfail-closedで実装
+  - `check-source-content-hash.ts`: source単位通知へ変更、DB hash更新をGitHub通知成功後にのみ実施するよう順序を是正
+  - `health-check-country-sources.yml`: concurrency追加（weekly/monthly/manual直列化）、schedule完全一致化、旧固定Issue作成ステップを`notify-dead-sources.ts`呼び出しへ置換
+  - `research-study-abroad.yml`: research Issue検索を`--json number,title`へ修正、`created`出力によるSendGridメール重複再送の防止、SendGrid期待動作のコメント明文化
+  - `.gitignore`: `/.tmp/`を追加
+- 検証: js-yaml構文、IDE診断エラー0件、cron無変更、schedule完全一致確認、concurrency確認、全13 run:ブロックのbash -n、対象4 TSファイルのtsc型検査エラー0件、ローカルモックテスト（分岐ロジック6パターン・終了コード契約4パターン・dead-sources.jsonスキーマ・notifyAll()11パターン・DB hash更新順序4パターン）全件成功
+- 残存リスク: 実際のWorkflow実行を経ていないため動的動作は未確認。jqコマンドはローカル未インストールのためフィルタロジックの等価性のみNode.jsで確認（GHA runnerにはプリインストール前提）。GitHub Actions自体はSearch→Create/Commentを完全な原子操作にはできないため、同時実行の完全排除ではなくconcurrencyによる直列化にとどまる
+- 完了条件（実行確認待ち）: push後の次回スケジュール実行で、source単位の重複防止・終了コード判定・DB更新順序・SendGrid重複防止が意図通りに動作することを確認する
 
 ## BL-20260728-02: 留学費用（学費）データの一次情報調査
 

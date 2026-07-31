@@ -2,8 +2,89 @@
 
 最終更新: 2026-08-01
 最終担当: Claude Code
-タスクID: HARDEN-GHA-ISSUE-NOTIFICATIONS-20260801
-状態: 修正・静的検証完了。commit予定（push未実施）。Codex監査（FAIL）指摘6件への対応完了、実行確認は未完了
+タスクID: PRESERVE-DISTINCT-WORKFLOW-NOTIFICATIONS-20260801
+状態: 修正・静的検証完了。commit予定（`e4de711`の上に追加、push未実施）。Codex再監査（FAIL）指摘13件への対応完了、end-to-end実行確認は未完了。**通知機能を「完全復旧」とは表現しない**（静的検証のみで実運用未確認のため）
+
+## Git履歴（重要）
+
+- `7ae0466`: origin/mainへpush済み。GitHub上でWorkflow定義がactiveとして正常認識されたことを確認済み
+- `e4de711`: commit済み・**未push**。この上に本タスクの修正commitを追加した（`e4de711`自体はamend・rebaseしていない）
+- 本タスクの新commit: `e4de711`に対するCodex独立再監査がFAILとなったため、その指摘13件に対応した追加commit（push未実施）
+
+## GHA Issue通知の構造的是正（2026-08-01 3回目）
+
+### 経緯
+`e4de711`（Issue通知の重複防止・secretスコープ縮小等）に対するCodexの独立再監査が再度FAILとなり、以下13件の実行時問題が指摘された。
+1. research Issue検索が`--json title`のみ取得しつつ`.number`を参照しており、既存Issue番号を常に取得できない設計不具合
+2. health-checkのschedule判定が`contains()`による部分一致で、weekly/monthly処理の境界が曖昧
+3. dead URL判定が自然言語ログのgrepに依存しており、ログ文言変更に弱く、DB接続失敗等の他要因の失敗と本質的に区別不能
+4. dead URL検出の詳細が機械可読な形で残らず、Workflow側が対象を個別に識別できない
+5. health-check Issueが固定タイトル1件に集約されており、異なる国・URLの通知を1件のskip判定が抑止してしまう設計
+6. 同一Workflowのweekly/monthly/manualの同時実行に対する排他制御がない
+7. source content hash通知も固定タイトル1件に集約されており、source Aのissueがsource Bの通知を抑止する設計
+8. source content hashをGitHub通知の成否に関わらず即座にDB確定保存しており、通知失敗時に次回再検出できない
+9. monthly再検証コマンドの`--re-verify`がverify-country-sources.ts側の分岐順序により無視され、実際にはalive未検証のままだった
+10. research Issueが既存open issueによりskipされた場合も、SendGridメールが毎回再送される設計
+11. SendGridの成功/失敗/skip時の期待動作が仕様として明文化されていない
+12. 静的検証・機械テストの不足
+13. 運用文書がpush実態・ラベル状況・監査結果を反映していない
+
+### 対応内容（ファイル別）
+
+**`scripts/verify-country-sources.ts`**
+- 終了コード契約を新設: `0`=正常・dead URLなし / `2`=検証正常完了・dead URLあり / `1`その他=処理失敗。`runRecheck()`・`runExtract()`双方で統一
+- dead URL検出時、`.tmp/country-source-health/dead-sources.json`へ機械可読レポート（id/countryCode/category/url/reason/checkedAt）を書き出す。検証が正常完了した経路でのみ書く（DB接続失敗等では偽造しない）。dead URLなしでも空配列を明示的に書く
+- `main()`の分岐順序を修正し、`--re-verify`を最優先分岐にして`["alive","dead","unverified","unknown"]`を対象にするよう変更。従来はmonthlyの`--recheck-dead --recheck-unverified --re-verify`呼び出しで`--re-verify`が無視され、aliveが再検証されていなかった（週次の対象範囲は無変更）
+
+**`scripts/utils/github-issue-dedup.ts`（新規）**
+- `stableSourceKey(id, url)`: `country_sources.id`優先、なければ正規化URLのSHA-256ハッシュ（8桁）でsource単位の安定キーを生成
+- `searchOpenIssueByExactTitle` / `createIssue` / `addIssueComment`: GitHub API呼び出しを共通化。非2xx・`incomplete_results=true`・不正JSONはすべてthrow（fail-closed。「検索できない」を「既存なし」と混同しない）
+
+**`scripts/notify-dead-sources.ts`（新規）**
+- dead-sources.jsonを読み、source単位（`[country-sources][source:<ID>] dead URL`または`[country-sources][url:<HASH>] dead URL`）でGitHub Issueへ通知
+- 同一sourceのopen issueがあればコメント追加、なければ新規作成。異なるsourceは互いに抑止しない
+- 通知失敗はsource単位で記録し、1件でも失敗すれば最終的に非ゼロ終了（stepを失敗させる）
+
+**`scripts/check-source-content-hash.ts`**
+- 固定タイトル1件（`[country-sources] ソース更新検知`）を廃止し、`github-issue-dedup.ts`を使ったsource単位通知（`[country-sources][source:<ID>] ソース更新検知`等）へ変更
+- DB `content_hash`更新順序を是正: 「変化なし・初回記録」は即時保存、「変化あり」は**GitHub通知が成功した場合にのみ**該当sourceのDB hashを更新。通知失敗時は更新せず次回再検出させる。他sourceの成功済み更新をロールバックしない
+- `main().catch(console.error)`を`process.exitCode = 1`を設定する形へ変更（黙って終了コード0にしない）
+
+**`.github/workflows/health-check-country-sources.yml`**
+- `concurrency: {group: health-check-country-sources, cancel-in-progress: false}`を追加し、weekly/monthly/manualを直列化
+- weekly/monthlyの`if:`条件を`contains(github.event.schedule, ...)`の部分一致から`github.event.schedule == '0 1 * * 6'` / `'0 2 1 * *'`の完全一致へ変更
+- Weekly/Monthly/Manualの各ステップの終了コード（0/2/その他）を判定し`dead_found`をstep outputへ記録（grepマーカーではなくverify-country-sources.tsの終了コードで判定）。元の終了コードはそのまま伝播させ、Workflow失敗判定は隠していない
+- 旧「Create GitHub Issue on dead URL detection」（github-script・固定タイトル1件）を削除し、`scripts/notify-dead-sources.ts`を呼ぶ「Notify dead sources」ステップへ置き換え
+
+**`.github/workflows/research-study-abroad.yml`**
+- research Issue検索を`--json number,title`＋`--limit 100`へ修正し、jqで完全一致判定（旧`--json title`+`.number`参照は常にnullになるバグだった）。検索コマンド自体の失敗は`head`等で隠さずstepを失敗させ、Issue作成へ進まないようにした
+- Issue作成ステップから`created=true/false`と`issue_url`をoutputし、SendGrid送信条件へ`steps.research_issue.outputs.created == 'true'`を追加（既存issueによりskipした場合はメールも再送しない）
+- SendGridの期待動作（未設定=skip成功／設定あり失敗=Workflow失敗／reportなし=送信なし／既存issueでskip=送信なし／新規issue作成時のみ送信）をコメントとして明文化
+
+**`.gitignore`**
+- `/.tmp/`を追加（dead-sources.json等の一時出力がcommit対象に混入しないようにするため）
+
+### 静的検証・モック検証の結果
+- YAML構文（js-yaml）: 両ファイルともOK。IDE診断エラー0件
+- cron値: 無変更（`0 0 * * 6` / `0 1 * * 6` / `0 2 1 * *`）を確認
+- schedule完全一致: `contains(github.event.schedule` の残存なしをgrep確認
+- concurrency: `health-check-country-sources.yml`に設定済みを確認
+- `if:`条件・job-level envに`secrets`直接参照が残っていないことを確認
+- 全13個の`run:`ブロックを抽出し`bash -n`で構文チェック、全件OK
+- `npx tsc --project tsconfig.scripts.json --noEmit`: 変更対象4ファイル（verify-country-sources.ts / check-source-content-hash.ts / notify-dead-sources.ts / github-issue-dedup.ts）ともエラー0件
+- ローカルモックテスト（実DB・実GitHub API・実Issueへは一切アクセスしない）:
+  - `main()`の分岐選択ロジック（monthly=alive含む全件、weekly=従来通り等）を6パターン検証、全件OK
+  - 終了コード契約（dead 0件→0、dead N件→2、例外→1）を4パターン検証、全件OK
+  - dead-sources.jsonのスキーマ（必須フィールド・空配列表現）を検証
+  - `notify-dead-sources.ts`の`notifyAll()`をfetchモックで11パターン検証（新規作成／既存へコメント／検索非2xx／rate limit／incomplete_results／不正JSON／作成失敗／コメント失敗／idなしのハッシュキー生成／異なるsourceの別Issue化／同一sourceの同一Issue化）、全件OK
+  - DB hash更新順序（全件成功／部分失敗／全件失敗／変化なし即時更新）を4パターン相当ロジックで検証、全件OK
+- jqコマンド自体はこのローカル環境（Windows/Git Bash）に未インストールのため実行できず、フィルタロジックの等価性のみNode.jsで確認した（GitHub-hosted ubuntu-latestランナーにはjqがプリインストールされている前提）
+
+### 未解決事項・残存リスク（次回Codex再監査で重点確認すべき点）
+- 実際のGitHub Actions実行を経ていないため、`notify-dead-sources.ts`・`check-source-content-hash.ts`のGitHub API呼び出し・`research-study-abroad.yml`のjq処理の実行時動作は未確認
+- `dead_found`判定は終了コードベースに変更したが、`verify-country-sources.ts`の将来的な変更で終了コード契約が崩れるリスクは残る（コード側にコメントで明記済み）
+- 同一Workflow内のconcurrency直列化はできたが、GitHub Actions自体がSearch→Create/Commentを完全な原子操作にはできない制約は残る（同時実行が完全に排除されるわけではない）
+- pushは未実施（ユーザー承認待ち）。push後の実スケジュール実行での確認が必須
 
 ## GHA Issue通知経路の是正（2026-08-01 2回目）
 

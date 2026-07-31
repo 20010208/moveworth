@@ -13,7 +13,7 @@
  *   unverified - 403/429/5xx またはタイムアウト（bot 遮断疑い）
  *   dead       - 404/410/DNS失敗など（URL 消滅と確定）
  */
-import { existsSync, readFileSync } from "fs";
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from "fs";
 import { createClient } from "@supabase/supabase-js";
 
 if (existsSync(".env.local")) {
@@ -38,6 +38,34 @@ const RECHECK_DEAD     = process.argv.includes("--recheck-dead");
 const RECHECK_UNVERIFIED = process.argv.includes("--recheck-unverified");
 const TIMEOUT_MS       = 12_000;
 const CONCURRENCY      = 5;
+
+// ===== 終了コード契約（Workflow側が自然言語ログのgrepではなくexit codeで判定するため）=====
+//   0: 正常終了・dead URLなし
+//   2: 検証処理は正常に完了したが、dead URL（確定）あり
+//   1 (デフォルトのthrow経由): DB接続・認証・起動・予期しない例外等の処理失敗
+// runRecheck() / runExtract() / manual re-verify を含む全経路でこの契約を統一する。
+const EXIT_OK = 0;
+const EXIT_DEAD_FOUND = 2;
+
+// ===== dead URL 機械可読レポート（Workflow側のIssue通知がgrepではなくこのJSONを読む）=====
+const DEAD_REPORT_DIR = ".tmp/country-source-health";
+const DEAD_REPORT_PATH = `${DEAD_REPORT_DIR}/dead-sources.json`;
+
+type DeadSourceEntry = {
+  id: string | null;
+  countryCode: string;
+  category: string;
+  url: string;
+  reason: string;
+  checkedAt: string;
+};
+
+// DB接続失敗等の処理失敗時には絶対に呼ばない（レポートを偽造しないため、
+// 検証が正常に完了した経路でのみ呼び出すこと）。dead URLがなければ空配列を書く。
+function writeDeadSourcesReport(entries: DeadSourceEntry[]): void {
+  mkdirSync(DEAD_REPORT_DIR, { recursive: true });
+  writeFileSync(DEAD_REPORT_PATH, JSON.stringify(entries, null, 2));
+}
 
 // --- User-Agent ローテーション ---
 const USER_AGENTS = [
@@ -213,17 +241,22 @@ async function runRecheck(statuses: string[]) {
 
   const rows = data ?? [];
   console.log(`対象: ${rows.length} 件\n`);
-  if (rows.length === 0) { console.log("対象なし"); return; }
+  if (rows.length === 0) {
+    console.log("対象なし");
+    // 対象0件も「検証は正常完了・dead URLなし」として扱い、空配列レポートを書く
+    writeDeadSourcesReport([]);
+    return;
+  }
 
   const now = new Date().toISOString();
-  const results: { id: string; url: string; status: EnhancedStatus; detail: string }[] = [];
+  const results: { id: string; country_code: string; purpose: string; url: string; status: EnhancedStatus; detail: string }[] = [];
 
   // recheck は順次実行（UA ローテーションで間隔を空けるため）
   for (const row of rows as Array<{ id: string; country_code: string; purpose: string; url: string }>) {
     process.stdout.write(`  [${row.country_code.toUpperCase()}] ${row.url} ... `);
     const { status, detail } = await checkUrlEnhanced(row.url);
     process.stdout.write(`${status} (${detail})\n`);
-    results.push({ id: row.id, url: row.url, status, detail });
+    results.push({ id: row.id, country_code: row.country_code, purpose: row.purpose, url: row.url, status, detail });
   }
 
   // サマリー
@@ -265,11 +298,25 @@ async function runRecheck(statuses: string[]) {
     console.log("\n[DRY RUN] DB 更新をスキップ");
   }
 
-  // GHA 通知用: dead が残っていれば exit 1
+  // 機械可読レポートを書く（検証が正常に完了した経路のみ・dead URLなしなら空配列）
+  writeDeadSourcesReport(
+    confirmed.map((r) => ({
+      id: r.id,
+      countryCode: r.country_code,
+      category: r.purpose,
+      url: r.url,
+      reason: r.detail,
+      checkedAt: now,
+    }))
+  );
+
+  // GHA 通知用: dead URLが残っていれば exit 2（検証は正常完了・dead URLあり）
   if (confirmed.length > 0) {
     console.log(`\n⚠️  ${confirmed.length} 件の dead URL があります`);
-    process.exit(1);
+    process.exitCode = EXIT_DEAD_FOUND;
+    return;
   }
+  process.exitCode = EXIT_OK;
 }
 
 // ===== 通常モード（記事から抽出 → 検証 → upsert） =====
@@ -314,6 +361,8 @@ async function runExtract() {
   console.log(`\n抽出 URL 件数: ${unique.length}\n`);
   if (unique.length === 0) {
     console.log("URL が見つかりません（参考資料セクションを確認してください）");
+    writeDeadSourcesReport([]);
+    process.exitCode = EXIT_OK;
     return;
   }
 
@@ -352,6 +401,20 @@ async function runExtract() {
   const alive     = rows.filter((r) => r.status === "alive");
   console.log(`=== 結果サマリー ===\nalive: ${alive.length}  dead: ${dead.length}`);
 
+  // 機械可読レポートを書く（検証が正常に完了した経路のみ・dead URLなしなら空配列）
+  // このパスで見つかるdeadは新規抽出候補のためDB idはまだ持たない（idはnull）
+  const now2 = new Date().toISOString();
+  writeDeadSourcesReport(
+    dead.map((r) => ({
+      id: null,
+      countryCode: r.country_code,
+      category: r.purpose,
+      url: r.url,
+      reason: "dead (extract)",
+      checkedAt: now2,
+    }))
+  );
+
   if (dead.length > 0) {
     console.log(`\n=== ❌ DEAD URL 一覧 ===`);
     dead.sort((a, b) => a.country_code.localeCompare(b.country_code));
@@ -360,14 +423,22 @@ async function runExtract() {
       if (r.country_code !== last) { console.log(`\n[${r.country_code.toUpperCase()}] (${r.purpose})`); last = r.country_code; }
       console.log(`  ${r.url}`);
     }
-    // GHA 通知用
-    process.exit(1);
+    // GHA 通知用: 検証は正常完了・dead URLあり
+    process.exitCode = EXIT_DEAD_FOUND;
+    return;
   }
+  process.exitCode = EXIT_OK;
 }
 
 // ===== エントリポイント =====
 async function main() {
-  if (RECHECK_DEAD && RECHECK_UNVERIFIED) {
+  // --re-verify は「alive を含む全ステータスの再検証」を意味する。
+  // 従来はこの分岐が存在せず、--recheck-dead --recheck-unverified --re-verify を渡しても
+  // dead/unverified/unknown のみが対象になり alive は再検証されていなかった（月次の意図と不一致）。
+  // --re-verify を最優先の分岐にすることで、他フラグの組み合わせに関わらず全件再検証を保証する。
+  if (RE_VERIFY) {
+    await runRecheck(["alive", "dead", "unverified", "unknown"]);
+  } else if (RECHECK_DEAD && RECHECK_UNVERIFIED) {
     await runRecheck(["dead", "unverified", "unknown"]);
   } else if (RECHECK_DEAD) {
     await runRecheck(["dead"]);
