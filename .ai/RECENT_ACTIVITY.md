@@ -5,6 +5,19 @@
 
 ---
 
+## 2026-08-01 — Claude Code
+
+- タスクID: FIX-GHA-STUDY-RESEARCH-HEALTHCHECK-20260801
+- 状態: 修正・静的検証完了、commit予定（push未実施）
+- 背景: 前日実施の読み取り専用監査で発見した2件のGHA不具合を、8/1 09:00 JST定期実行前に修正
+- `research-study-abroad.yml`: IDE診断で`if:`条件内の`secrets.SENDGRID_API_KEY`参照が`Unrecognized named-value: 'secrets'`エラーであることを確定。job-level envを経由する形へ変更し解消
+- `research-study-abroad.yml` / `health-check-country-sources.yml`: 両方に`permissions: {contents: read, issues: write}`を追加（`health-check-country-sources.yml`の`Resource not accessible by integration`エラーの対策）
+- 検証: js-yaml構文チェック、IDE診断エラー0件、cron=土09:00 JST一致確認、全11 run:ブロックのbash -n構文チェック、git diffで意図外の変更がないことを確認。実行・Issue作成は未実施
+- 詳細は`.ai/CURRENT_HANDOFF.md`参照
+- 残存リスク: 修正の正当性はIDE診断＋既知のGitHub Actions仕様に基づく推定であり、actionlint等の完全なオフライン機械検証は未実施。確実な確認は8/1 09:00 JSTの実スケジュール実行を待つ必要がある。pushしていないため今のところリモートには未反映
+
+---
+
 ## 2026-07-30 — Claude Code
 
 - タスクID: ADD-METS-VIRTUAL-OFFICE-ARTICLE-20260730（サムネ設定）

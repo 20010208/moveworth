@@ -1,5 +1,9 @@
 name: Research Study Abroad Entry
 
+permissions:
+  contents: read
+  issues: write
+
 on:
   schedule:
     # 毎週土曜 09:00 JST (00:00 UTC)
@@ -14,6 +18,11 @@ on:
 jobs:
   research:
     runs-on: ubuntu-latest
+    env:
+      # secretsコンテキストはif:条件式で直接参照できない（Unrecognized named-value: 'secrets'）ため、
+      # job-level envを経由してenv.SENDGRID_API_KEYとしてif:から参照する
+      SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+      NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
     steps:
       - uses: actions/checkout@v4
 
@@ -64,10 +73,7 @@ jobs:
       # 任意: SendGridのシークレット（SENDGRID_API_KEY, NOTIFY_EMAIL）が設定されている場合のみ、
       # 直接メール送信も行う。未設定の場合はスキップされる（本パイプラインの必須要件ではない）。
       - name: Send email via SendGrid (optional, requires secrets)
-        if: steps.check.outputs.exists == 'true' && secrets.SENDGRID_API_KEY != ''
-        env:
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+        if: steps.check.outputs.exists == 'true' && env.SENDGRID_API_KEY != ''
         run: |
           CODE=$(cat /tmp/study-abroad-research-target.txt 2>/dev/null || echo "unknown")
           BODY_JSON=$(node -e "console.log(JSON.stringify(require('fs').readFileSync('/tmp/study-abroad-research-report.md','utf-8')))")

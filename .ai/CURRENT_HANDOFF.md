@@ -1,9 +1,39 @@
 # Current Handoff
 
-最終更新: 2026-07-30
+最終更新: 2026-08-01
 最終担当: Claude Code
-タスクID: ADD-METS-VIRTUAL-OFFICE-ARTICLE-20260730
-状態: サムネ設定・検証完了。commit・push未実施（ユーザー指示待ち）
+タスクID: FIX-GHA-STUDY-RESEARCH-HEALTHCHECK-20260801
+状態: 修正・静的検証完了。commit済み（push未実施）。8/1 09:00 JST定期実行前の緊急修正タスク完了
+
+## GHAワークフロー修正（2026-08-01）
+
+### 目的
+2026-08-01(土)09:00 JST定期実行前に、前日の読み取り専用監査で発見した2件のGHA不具合を解消。
+
+### Task 1: research-study-abroad.ymlの0秒即失敗の原因特定・修正
+- **根拠**: VSCode IDE診断（GitHub Actions YAMLスキーマ検証）で `line 71, column 13: Unrecognized named-value: 'secrets'` を確定的に検出。原因は`if: steps.check.outputs.exists == 'true' && secrets.SENDGRID_API_KEY != ''`（71行目）—GitHub Actionsの`if:`条件式は`secrets`コンテキストを直接参照できない仕様（`env`/`with`/`run`は可、`if`は不可）
+- 全13ワークフロー中、`if:`内で`secrets.*`を直接参照していたのはこのファイルのみ（grep確認済み）。YAML構文自体はjs-yamlで解析可能なため、GitHub Actions固有のスキーマ制約であることを確認
+- **修正**: job-level `env:`（`SENDGRID_API_KEY`/`NOTIFY_EMAIL`）を新設し、該当ステップの`if:`を`env.SENDGRID_API_KEY != ''`参照へ変更。ステップ側の重複env定義は削除（job-level envで全ステップに伝播するため実質的な動作は不変）
+- Workflowの目的（土曜09:00 JST・留学国調査・GitHub Issue化・DB書き込みなし・記事公開なし）は変更していない
+
+### Task 2: 権限（permissions）の明示的付与
+- `research-study-abroad.yml` / `health-check-country-sources.yml`の両方に`permissions: {contents: read, issues: write}`を追加
+- 両ファイルとも実処理を確認した結果、`actions/checkout`（read）と`gh issue create`/`github.rest.issues.create()`（issues: write）のみで、他のGitHub API操作なし。`write-all`等の過剰権限は使用していない
+- `health-check-country-sources.yml`の直近失敗（`HttpError: Resource not accessible by integration`）はこの権限未設定が原因と推定（デフォルトのGITHUB_TOKEN権限では`issues: write`相当が不足）
+
+### Task 3: 静的検証結果
+- YAML構文: js-yamlで両ファイルとも解析成功
+- GitHub Actionsスキーマ: IDE診断で両ファイルともエラー0件（修正前は該当行でエラー検出済み）
+- cron: `0 0 * * 6`（UTC）= 2026-08-01 09:00 JST（土）であることをNode.js Dateで機械確認
+- `${{ }}`式: 両ファイル内の全式を目視確認、`if:`内に`secrets`参照は残存していないことをgrepで確認
+- シェル構文: 両ファイルの全11個の`run:`ブロックを抽出し`bash -n`で構文チェック、全件OK
+- 差分: `git diff`で意図した変更のみ（permissions追加2箇所、job-level env追加1箇所、if:条件変更1箇所、重複env削除1箇所）であることを確認。cron・DB書き込みスクリプト・Issue本文・公開ロジックは無変更
+- Workflow実際の実行・Issue作成は一切行っていない（禁止事項として遵守）
+
+### 未解決事項・残存リスク
+- IDE診断とドキュメント上の既知制約（GitHub Actions公式：secretsコンテキストはif:で不可）による推定であり、`actionlint`等の完全なオフライン機械検証はできなかった（インストール不可・インターネット経由の検証も不可）。**確実な検証は2026-08-01 09:00 JSTの実スケジュール実行を待つ必要がある**
+- `research-study-abroad.yml`が過去に一度もスケジュール実行に成功したことがない（2026-07-29作成以降、push起因の即時失敗のみ）ため、今回の修正後の初回スケジュール実行の結果を必ず確認すること
+- pushしていないため、リモート（GitHub Actions側）にはまだ修正が反映されていない。**8/1 09:00 JSTに間に合わせるにはユーザー承認によるpushが必要**
 
 ## サムネ設定（2026-07-30 6回目）
 

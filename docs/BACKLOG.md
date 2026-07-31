@@ -1,6 +1,6 @@
 # MoveWorth Backlog
 
-最終更新: 2026-07-28（BL-20260728-01・02追加）
+最終更新: 2026-08-01（BL-20260801-01・02追加）
 
 > 本ファイルはプロジェクト全体の未完了タスクを管理する。
 > `docs/redirect-backlog.md` はリダイレクト専用として別管理する。
@@ -152,6 +152,26 @@
 - 関連領域: `src/data/study-abroad.ts` / `src/app/study-site/simulate/page.tsx`
 - 経緯: 留学サイトのシミュレーターが参照する国データ（`studyAbroadData`）が静的TypeScriptソースファイルであるため、`simulator_personas`（移住サイト側、Supabaseテーブル）のような自動追加ができない。`scripts/research-study-abroad-entry.ts`（`BL-20260728-02`関連）で調査支援パイプラインを実装したが、最終的な追記は人手でソースファイルを編集・commitする必要がある
 - 完了条件: `study-abroad.ts`のデータを`simulator_personas`と同様にDBテーブル化し、`study-site/simulate/page.tsx`をDB参照へ移行する。移行後は研究パイプラインの出力をDB INSERTで完結できるようにし、ソースコード自動編集という高リスク操作を回避する
+
+## BL-20260801-01: research-study-abroad.ymlの0秒即失敗を修正
+
+- 優先度: 高
+- 状態: 完了
+- 関連領域: `.github/workflows/research-study-abroad.yml`
+- 経緯: 2026-07-29の作成以降、push起因の全実行が0秒で即失敗（"This run likely failed because of a workflow file issue"）していた。IDE診断（GitHub Actions YAMLスキーマ検証）で`if:`条件式内の`secrets.SENDGRID_API_KEY`参照が`Unrecognized named-value: 'secrets'`エラーであることを確定。GitHub Actionsの`if:`条件式は`secrets`コンテキストを直接参照できない仕様（`env`/`with`/`run`は可）が原因
+- 完了内容: job-level `env:`（`SENDGRID_API_KEY`/`NOTIFY_EMAIL`）を新設し、該当ステップの`if:`を`env.SENDGRID_API_KEY != ''`参照へ変更。あわせて`permissions: {contents: read, issues: write}`を明示的に追加（issue作成に必要な権限を既定値に依存させない）。Workflowの目的（土曜09:00 JST・留学国調査・GitHub Issue化・DB書き込みなし・記事公開なし）は変更していない
+- 検証: js-yaml構文チェック、IDE診断エラー0件、cron=土09:00 JST一致確認、run:ブロックのbash -n構文チェック、git diffで意図外の変更がないことを確認
+- 残存リスク: オフライン環境のためactionlint等の完全な機械検証はできず、IDE診断＋既知のGitHub Actions仕様に基づく判断。確実な確認は2026-08-01 09:00 JSTの実スケジュール実行を待つ必要がある
+
+## BL-20260801-02: health-check-country-sources.ymlのIssue作成権限エラーを修正
+
+- 優先度: 高
+- 状態: 完了
+- 関連領域: `.github/workflows/health-check-country-sources.yml`
+- 経緯: 直近2回（2026-07-18, 07-25）のスケジュール実行で"Create GitHub Issue on dead URL detection"ステップが`HttpError: Resource not accessible by integration`で失敗していた。`permissions:`ブロックが未設定でGITHUB_TOKENのデフォルト権限がissue作成に不足していたと推定
+- 完了内容: `permissions: {contents: read, issues: write}`を追加。実処理を確認した結果、`actions/checkout`（read）と`github.rest.issues.create()`（issues: write）以外のGitHub API操作はなく、`write-all`等の過剰権限は不要と判断
+- 検証: js-yaml構文チェック、IDE診断エラー0件、git diffで意図外の変更がないことを確認
+- 残存リスク: 確実な確認は次回スケジュール実行（2026-08-01 10:00 JST週次 / 次回月次実行）を待つ必要がある
 
 ## BL-20260728-02: 留学費用（学費）データの一次情報調査
 

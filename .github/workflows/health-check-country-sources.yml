@@ -1,5 +1,9 @@
 name: Health Check — Country Sources
 
+permissions:
+  contents: read
+  issues: write
+
 on:
   schedule:
     # 週次: 毎週土曜 01:00 UTC (10:00 JST) — auto-country (水・日) と重複なし
