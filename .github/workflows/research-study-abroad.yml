@@ -18,11 +18,6 @@ on:
 jobs:
   research:
     runs-on: ubuntu-latest
-    env:
-      # secretsコンテキストはif:条件式で直接参照できない（Unrecognized named-value: 'secrets'）ため、
-      # job-level envを経由してenv.SENDGRID_API_KEYとしてif:から参照する
-      SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-      NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
     steps:
       - uses: actions/checkout@v4
 
@@ -65,19 +60,44 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           CODE=$(cat /tmp/study-abroad-research-target.txt 2>/dev/null || echo "unknown")
-          gh issue create \
-            --title "[study-abroad] ${CODE} の調査レポート（要人手確認）" \
-            --body-file /tmp/study-abroad-research-report.md \
-            --label "content"
+          TITLE="[study-abroad] ${CODE} の調査レポート（要人手確認）"
+          # 重複防止: 同一タイトルのopen issueが既にあれば新規作成しない（closedは対象外）
+          EXISTING=$(gh issue list --state open --search "in:title \"${TITLE}\"" --json title --jq ".[] | select(.title == \"${TITLE}\") | .number" | head -n1)
+          if [ -n "$EXISTING" ]; then
+            echo "既存Issue #${EXISTING} が open のためskip: ${TITLE}" | tee -a "$GITHUB_STEP_SUMMARY"
+          else
+            gh issue create \
+              --title "$TITLE" \
+              --body-file /tmp/study-abroad-research-report.md \
+              --label "content"
+          fi
 
-      # 任意: SendGridのシークレット（SENDGRID_API_KEY, NOTIFY_EMAIL）が設定されている場合のみ、
+      # 任意: SendGridのシークレット（SENDGRID_API_KEY, NOTIFY_EMAIL）が両方設定されている場合のみ、
       # 直接メール送信も行う。未設定の場合はスキップされる（本パイプラインの必須要件ではない）。
+      # secretはこのステップと直下の送信ステップのstep-level envにのみ渡し、job全体には展開しない。
+      - name: Check email configuration
+        id: email_config
+        if: steps.check.outputs.exists == 'true'
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+        run: |
+          if [ -n "$SENDGRID_API_KEY" ] && [ -n "$NOTIFY_EMAIL" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Send email via SendGrid (optional, requires secrets)
-        if: steps.check.outputs.exists == 'true' && env.SENDGRID_API_KEY != ''
+        if: steps.check.outputs.exists == 'true' && steps.email_config.outputs.enabled == 'true'
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
         run: |
           CODE=$(cat /tmp/study-abroad-research-target.txt 2>/dev/null || echo "unknown")
           BODY_JSON=$(node -e "console.log(JSON.stringify(require('fs').readFileSync('/tmp/study-abroad-research-report.md','utf-8')))")
-          curl -s --request POST \
+          curl --fail-with-body --silent --show-error \
+            --request POST \
             --url https://api.sendgrid.com/v3/mail/send \
             --header "Authorization: Bearer ${SENDGRID_API_KEY}" \
             --header "Content-Type: application/json" \

@@ -1,6 +1,6 @@
 # MoveWorth Backlog
 
-最終更新: 2026-08-01（BL-20260801-01・02追加）
+最終更新: 2026-08-01（BL-20260801-01・02・03追加）
 
 > 本ファイルはプロジェクト全体の未完了タスクを管理する。
 > `docs/redirect-backlog.md` はリダイレクト専用として別管理する。
@@ -172,6 +172,27 @@
 - 完了内容: `permissions: {contents: read, issues: write}`を追加。実処理を確認した結果、`actions/checkout`（read）と`github.rest.issues.create()`（issues: write）以外のGitHub API操作はなく、`write-all`等の過剰権限は不要と判断
 - 検証: js-yaml構文チェック、IDE診断エラー0件、git diffで意図外の変更がないことを確認
 - 残存リスク: 確実な確認は次回スケジュール実行（2026-08-01 10:00 JST週次 / 次回月次実行）を待つ必要がある
+
+## BL-20260801-03: GHA Issue通知経路の実行時問題を是正
+
+- 優先度: 高
+- 状態: 静的修正完了・実行確認待ち
+- 関連領域: `.github/workflows/research-study-abroad.yml` / `.github/workflows/health-check-country-sources.yml` / `scripts/check-source-content-hash.ts` / GitHubラベル
+- 経緯: BL-20260801-01・02の修正（commit `7ae0466`、push・active認識済み）に対するCodex独立監査でFAILとなり、以下6件の実行時問題が指摘された
+  1. `content`/`source-updated`ラベルがリポジトリに存在しない
+  2. health-checkのIssue作成条件が`if: failure()`のみで、npm ci失敗等でも「dead URL検出」として誤ってIssueを作ろうとする
+  3. 週次・月次health-checkが同日実行された場合（2026-08-01が該当）に同一問題のIssueが重複作成されうる
+  4. SendGrid用secretがjob全体（checkout/npm ci/調査スクリプト等）へ展開されていた
+  5. `NOTIFY_EMAIL`未設定やSendGridのHTTP 4xx/5xxを検知できていなかった
+  6. push後の実態（active化・ラベル状況）が運用文書に未反映だった
+- 完了内容:
+  - ラベル`content`（#1D76DB）・`source-updated`（#0E8A16）を新規作成（既存ラベルは無変更）
+  - health-checkの3スクリプト実行ステップにidと`dead_found`出力を追加し、verify-country-sources.tsの確定マーカー文字列で判定。Issue作成条件を`dead_found=='true'`限定へ変更（Workflow失敗判定自体は変更していない）
+  - 3つのIssue作成経路（research-study-abroad.yml / health-check-country-sources.yml / check-source-content-hash.ts）全てに、同一タイトルのopen issue存在チェックによる重複防止を追加。タイトルから日付・件数を除去し安定化
+  - research-study-abroad.ymlのjob-level envからSendGrid系secretを削除し、専用のCheck email configurationステップ経由に変更。curlを`--fail-with-body`へ変更しHTTPエラーを検知可能化
+- 検証: js-yaml構文チェック、IDE診断エラー0件、check-source-content-hash.tsのtsc型検査エラー0件、全12 run:ブロックのbash -n構文チェック、gh issue list/GitHub Search APIの読み取り専用実行確認、ラベル参照の文字列完全一致確認
+- 残存リスク: 実際のWorkflow実行を経ていないため、動的な動作（Issue検索・作成ロジックの実挙動）は未確認。2026-08-01 09:00/10:00 JST等の次回実行結果の確認が必要
+- 完了条件（実行確認待ち）: 次回スケジュール実行で意図通りに動作すること（dead URL非検出時は誤Issueが作られない、重複Issueが作られない、SendGrid未設定時はメール送信がスキップされる）を確認する
 
 ## BL-20260728-02: 留学費用（学費）データの一次情報調査
 

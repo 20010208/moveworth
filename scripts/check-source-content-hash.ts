@@ -95,10 +95,31 @@ function sha256(text: string): string {
   return createHash("sha256").update(text, "utf-8").digest("hex").slice(0, 16); // 先頭16文字で十分
 }
 
+async function findOpenIssueByExactTitle(title: string): Promise<number | null> {
+  const q = `repo:${GH_REPO} type:issue state:open in:title "${title}"`;
+  const res = await fetch(`https://api.github.com/search/issues?q=${encodeURIComponent(q)}`, {
+    headers: {
+      "Authorization": `Bearer ${GH_TOKEN}`,
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+    },
+  });
+  if (!res.ok) return null;
+  const data = (await res.json()) as { items?: { number: number; title: string }[] };
+  const exact = (data.items ?? []).find((i) => i.title === title);
+  return exact ? exact.number : null;
+}
+
 async function createGitHubIssue(title: string, body: string): Promise<void> {
   if (!GH_TOKEN || !GH_REPO) {
     console.warn("⚠️  GH_TOKEN / GH_REPO 未設定 — GitHub Issue 作成をスキップ");
     console.warn(`  タイトル: ${title}`);
+    return;
+  }
+  // 重複防止: 同一タイトルのopen issueが既にあれば新規作成しない（closedは対象外）
+  const existingNumber = await findOpenIssueByExactTitle(title);
+  if (existingNumber !== null) {
+    console.log(`  既存Issue #${existingNumber} が open のためskip: ${title}`);
     return;
   }
   const [owner, repo] = GH_REPO.split("/");
@@ -185,8 +206,8 @@ async function main() {
   console.log(`\n変化: ${changed.length}件  fetch失敗: ${fetchFailed.length}件`);
 
   if (changed.length > 0) {
-    const date = new Date().toISOString().split("T")[0];
-    const title = `[country-sources] ソース更新検知 — ${date} (${changed.length}件)`;
+    // タイトルは日付・件数を含めない安定した識別キーとする（重複防止のため。日付や件数違いで量産しない）
+    const title = `[country-sources] ソース更新検知`;
     const body = [
       "## country_sources のソース本文に変化が検出されました",
       "",

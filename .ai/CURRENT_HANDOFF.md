@@ -2,8 +2,56 @@
 
 最終更新: 2026-08-01
 最終担当: Claude Code
-タスクID: FIX-GHA-STUDY-RESEARCH-HEALTHCHECK-20260801
-状態: 修正・静的検証完了。commit済み（push未実施）。8/1 09:00 JST定期実行前の緊急修正タスク完了
+タスクID: HARDEN-GHA-ISSUE-NOTIFICATIONS-20260801
+状態: 修正・静的検証完了。commit予定（push未実施）。Codex監査（FAIL）指摘6件への対応完了、実行確認は未完了
+
+## GHA Issue通知経路の是正（2026-08-01 2回目）
+
+### 経緯
+commit `7ae0466`（push済み、origin/mainに反映済み・GitHub上でWorkflow定義がactiveとして正常認識されたことを確認済み）に対するCodexの独立監査結果がFAILとなり、以下6件の実行時問題が指摘された。8/1定期実行前に最小変更で対応。
+
+### Task 1: 不足ラベルの作成
+- `gh label list`で`content`・`source-updated`が存在しないことを確認（既存はGitHubデフォルト9種のみ）
+- `gh label create`で2件作成（`content`: #1D76DB、`source-updated`: #0E8A16）。既存ラベルの削除・改名は一切行っていない
+- 作成後`gh label list`で再確認、2件とも存在を確認済み（Issue自体は作成していない）
+
+### Task 2: health-check-country-sources.ymlのIssue通知条件を限定
+- 実コード確認：`verify-country-sources.ts`はdead URL確定時のみ`console.log("...件の dead URL があります")`を出力してから`process.exit(1)`する。DB接続失敗等の他要因の例外も`main().catch()`経由で同じくexit(1)になるため、旧来の`if: failure()`だけでは区別不能だった
+- `Weekly`/`Monthly full re-verify`/`Manual dispatch`の3ステップに`id`を付与し、出力を`tee`で捕捉した上でマーカー文字列の有無により`dead_found=true/false`をstep outputへ明示的に記録（`set +e`+`PIPESTATUS[0]`で元のexit codeは変更せず維持＝Workflow全体の失敗判定は隠していない）
+- Issue作成ステップの条件を`always() && (steps.weekly.outputs.dead_found=='true' || steps.monthly_reverify.outputs.dead_found=='true' || steps.manual.outputs.dead_found=='true')`へ変更。npm ci失敗・DB接続失敗ではdead_found=falseまたはstep自体がskippedとなりIssue作成に到達しない
+- `verify-country-sources.ts`・`check-source-content-hash.ts`本体のDB更新仕様・検証ロジックは無変更
+
+### Task 3: Issue重複防止
+対象3経路すべてに、作成前に同一タイトルのopen issueを検索し、あれば新規作成をskipする最小実装を追加（closedは対象外＝ブロックしない）:
+- `research-study-abroad.yml`: `gh issue list --state open --search`で完全一致タイトルを確認（元々タイトルに日付なし）
+- `health-check-country-sources.yml`: タイトルから日付を削除し`[country-sources] dead URL 検出`で固定。`github.rest.search.issuesAndPullRequests`で完全一致確認
+- `check-source-content-hash.ts`: タイトルから日付・件数を削除し`[country-sources] ソース更新検知`で固定。GitHub Search API (`/search/issues`)への直接fetchで完全一致確認する`findOpenIssueByExactTitle()`を追加
+- いずれもstep summary/ログへ「既存Issue #番号 が open のためskip」を記録
+
+### Task 4/5: SendGrid secretのスコープ縮小・失敗検知
+- job-level envから`SENDGRID_API_KEY`/`NOTIFY_EMAIL`を削除。新設した`Check email configuration`ステップ（step-level envで両secretを受け取り、値は出力せず`enabled=true/false`のみ出力）を経由し、メール送信ステップは`steps.email_config.outputs.enabled=='true'`の場合のみ実行
+- checkout/setup-node/npm ci/調査スクリプトへはSendGrid系secretを一切渡さない
+- メール送信ステップの`curl`を`-s`単体から`--fail-with-body --silent --show-error`へ変更し、SendGrid HTTP 4xx/5xxがcurlの非0終了コード経由でWorkflow失敗として検出されるようにした（デフォルトのbash `-e`により自動的にstep失敗へ伝播）
+- APIキー・メールアドレス・Authorizationヘッダーは`-v`/`-i`等を使用していないためcurl自体はログへ出力しない（GitHub側の秘密値自動マスキングも従来通り有効）
+
+### Task 6: ラベル参照の整合性確認
+- research Issue: `--label "content"` ✓　health-check Issue: `labels: ['bug', 'content']` ✓　source content hash Issue: `labels: ["content", "source-updated"]` ✓
+- 大文字小文字・空白・ハイフンの相違なし、Task1で作成したラベル名と完全一致を確認済み
+
+### Task 8: 静的検証結果
+- YAML構文：js-yamlで両ymlとも解析成功。IDE診断エラー0件
+- `check-source-content-hash.ts`：`npx tsc --project tsconfig.scripts.json --noEmit`でファイル固有のエラー0件（出力中の他エラーは全て既存の未追跡scratchスクリプト由来で無関係、対象外）
+- `if:`条件・job-level envに`secrets`直接参照が残っていないことをgrep確認
+- 全12個の`run:`ブロックを抽出し`bash -n`で構文チェック、全件OK
+- `gh issue list --search`（読み取り専用）とGitHub Search API `/search/issues`（読み取り専用fetch）を実際に実行し、コマンド・エンドポイントが正常応答することを確認（0件=既存issueなし、Issue作成はしていない）
+- `content`/`source-updated`ラベルの存在を`gh label list`で再確認
+- cronは無変更（`0 0 * * 6` / `0 1 * * 6` / `0 2 1 * *`）
+- `git diff`で意図した変更のみであることを確認。記事公開・DB書き込み・Issue作成は実施していない
+
+### 未解決事項・残存リスク
+- `actions/github-script`内のJS（Issue検索・作成ロジック）とcheck-source-content-hash.tsのSearch API呼び出しは、実際のWorkflow実行を経ないと完全な動作確認はできない。次回スケジュール実行（8/1 09:00 JST・10:00 JST週次・次回月次）での挙動確認が必要
+- 今回のIssueタイトル安定化（日付除去）により、`check-source-content-hash.ts`は「ソース更新検知」という単一の生きたopen issueが存在する限り、対象国が異なる新たな変化があっても新規issueを作成しない設計になった。長期的には対象を区別する識別キー設計が必要になる可能性があるが、今回は重複防止を優先し最小変更とした
+- pushは未実施（ユーザー承認待ち）
 
 ## GHAワークフロー修正（2026-08-01）
 

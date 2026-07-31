@@ -5,6 +5,21 @@
 
 ---
 
+## 2026-08-01 — Claude Code（2回目）
+
+- タスクID: HARDEN-GHA-ISSUE-NOTIFICATIONS-20260801
+- 状態: 修正・静的検証完了、commit予定（push未実施）
+- 背景: commit `7ae0466`（push済み・GitHub上でactive認識を確認済み）に対するCodex独立監査がFAILとなり、Issue通知経路の実行時問題6件が指摘された
+- 不足ラベル`content`/`source-updated`を新規作成（既存ラベルは無変更、Issue作成はなし）
+- `health-check-country-sources.yml`: dead URL確定検出時のみIssue作成するよう、実スクリプトの出力マーカーを`tee`+`grep`で判定するstep outputを追加し`if:`条件を限定（npm ci失敗等では作成されない）
+- 3つのIssue作成経路（research-study-abroad.yml / health-check-country-sources.yml / check-source-content-hash.ts）全てに、同一タイトルのopen issue存在チェックによる重複防止を追加。タイトルから日付・件数を除去し安定化
+- `research-study-abroad.yml`のjob-level envからSendGrid系secretを削除し、専用の`Check email configuration`ステップ経由に変更。SendGridのcurlを`--fail-with-body`へ変更しHTTPエラーを検知可能にした
+- 検証: js-yaml構文チェック、IDE診断エラー0件、`check-source-content-hash.ts`のtsc型検査エラー0件、全12 run:ブロックのbash -n構文チェック、`gh issue list`/GitHub Search APIの読み取り専用実行確認（Issue作成はなし）、ラベル参照の文字列完全一致確認
+- 詳細は`.ai/CURRENT_HANDOFF.md`参照
+- 残存リスク: 実際のWorkflow実行（8/1 09:00/10:00 JST等）を経ないと動的な動作確認はできていない
+
+---
+
 ## 2026-08-01 — Claude Code
 
 - タスクID: FIX-GHA-STUDY-RESEARCH-HEALTHCHECK-20260801
