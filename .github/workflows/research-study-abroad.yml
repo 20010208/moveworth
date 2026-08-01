@@ -11,9 +11,10 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: "true にするとOpenAI抽出をスキップしソース存在確認のみ行う"
+        description: "true にすると、OpenAI抽出・GitHub Issue作成・SendGrid送信を含む外部書き込みを一切行わない検証モードで実行する（DB/Issue検索・重複判定・runner内レポート生成は行う）"
         required: false
-        default: "false"
+        default: false
+        type: boolean
 
 jobs:
   research:
@@ -29,22 +30,42 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # dry-run判定をここで一度だけ正規化する。scheduleイベントには inputs が存在しないため
+      # 常に false。workflow_dispatch の場合のみ inputs.dry_run（type: booleanにより
+      # 実際のbooleanとして評価される）を見る。後続の全stepはこの is_dry_run 出力のみを
+      # 参照し、判定式を重複させない。&&は短絡評価されるため、schedule実行時に
+      # inputs.dry_run へのアクセス自体は発生しない。
+      - name: Determine dry-run mode
+        id: dry_run_mode
+        run: echo "is_dry_run=${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == true }}" >> "$GITHUB_OUTPUT"
+
       - name: Run research script
-        run: npx tsx scripts/research-study-abroad-entry.ts
+        run: |
+          if [ "${{ steps.dry_run_mode.outputs.is_dry_run }}" = "true" ]; then
+            echo "DRY RUN: OpenAI extraction and all external writes are disabled." | tee -a "$GITHUB_STEP_SUMMARY"
+          fi
+          npx tsx scripts/research-study-abroad-entry.ts
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+          DRY_RUN: ${{ steps.dry_run_mode.outputs.is_dry_run }}
 
       - name: Check whether a report was produced
         id: check
         run: |
           if [ -f "/tmp/study-abroad-research-report.md" ]; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
+            if [ "${{ steps.dry_run_mode.outputs.is_dry_run }}" = "true" ]; then
+              echo "DRY RUN: A research report was generated, but GitHub Issue creation and SendGrid notification were skipped." | tee -a "$GITHUB_STEP_SUMMARY"
+            fi
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
-            echo "対象国なし、または既に study-abroad.ts に登録済みのためレポートは生成されませんでした。" >> "$GITHUB_STEP_SUMMARY"
+            if [ "${{ steps.dry_run_mode.outputs.is_dry_run }}" = "true" ]; then
+              echo "DRY RUN: No eligible unpublished visa draft was found." >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "対象国なし、または既に study-abroad.ts に登録済みのためレポートは生成されませんでした。" >> "$GITHUB_STEP_SUMMARY"
+            fi
           fi
 
       - name: Append report to step summary
@@ -55,11 +76,14 @@ jobs:
       # 調査結果はGitHub Issue化し、GitHub標準のIssue通知（監視者へのメール通知）を利用する。
       # SendGrid通知は任意。SENDGRID_API_KEYとNOTIFY_EMAILの両方が設定され、
       # 新規Issueが作成された場合のみ送信する（詳細は後続ステップのコメント参照）。
+      # dry-run時はIssue検索・重複判定までは実行するが、実際の作成（gh issue create）は
+      # 行わず、created=false のまま終える（DB状態に関わらず外部書き込みゼロを保証する）。
       - name: Create GitHub Issue with research report
         id: research_issue
         if: steps.check.outputs.exists == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          IS_DRY_RUN: ${{ steps.dry_run_mode.outputs.is_dry_run }}
         run: |
           set +e
           CODE=$(cat /tmp/study-abroad-research-target.txt 2>/dev/null || echo "unknown")
@@ -75,6 +99,7 @@ jobs:
           # 重複防止: 同一タイトルのopen issueが既にあれば新規作成しない（closedは対象外）。
           # --json number,title で番号を取得する（title のみでは .number が常にnullになるバグがあった）。
           # --limit 100 を明示し、検索コマンド自体の失敗をfail-openにしない（if !で確実に検知する）。
+          # dry-runでもこの検索・重複判定自体は実行する（PMの許可範囲）。
           if ! SEARCH_JSON="$(gh issue list --state open --search "in:title \"${TITLE}\"" --limit 100 --json number,title)"; then
             echo "既存Issue検索に失敗しました。Issue作成へ進まず失敗させます。" >&2
             echo "created=false" >> "$GITHUB_OUTPUT"
@@ -95,6 +120,9 @@ jobs:
           if [ -n "$EXISTING_NUMBER" ]; then
             echo "既存Issue #${EXISTING_NUMBER} が open のためskip: ${TITLE}" | tee -a "$GITHUB_STEP_SUMMARY"
             echo "created=false" >> "$GITHUB_OUTPUT"
+          elif [ "$IS_DRY_RUN" = "true" ]; then
+            echo "DRY RUN: 重複判定完了（既存Issueなし）。実際のIssue作成はスキップします: ${TITLE}" | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "created=false" >> "$GITHUB_OUTPUT"
           else
             if ! CREATED_URL="$(gh issue create \
               --title "$TITLE" \
@@ -109,15 +137,17 @@ jobs:
           fi
 
       # SendGridの期待動作（本Workflowの通知仕様として明文化）:
+      #   - dry-run: 新規Issueが作成されないため常にskip（created!='true'で構造的にblockされる。
+      #     is_dry_run条件は二重の安全装置として明示的にも追加している）
       #   - SendGrid未設定: 任意機能としてskipし、Workflowは成功のまま
       #   - SendGrid設定あり: 送信失敗は通知障害としてWorkflow失敗
       #   - reportなし（steps.check.outputs.exists != 'true'）: メール送信なし
       #   - 既存Issueによりcreated=falseの場合: 同じ調査結果のメールを再送しない（skip）
-      #   - 新規Issueを作成した場合（created=true）: SendGrid設定があれば送信
+      #   - 新規Issueを作成した場合（created=true、dry-run以外）: SendGrid設定があれば送信
       # secretはこのステップと直下の送信ステップのstep-level envにのみ渡し、job全体には展開しない。
       - name: Check email configuration
         id: email_config
-        if: steps.check.outputs.exists == 'true' && steps.research_issue.outputs.created == 'true'
+        if: steps.check.outputs.exists == 'true' && steps.research_issue.outputs.created == 'true' && steps.dry_run_mode.outputs.is_dry_run == 'false'
         env:
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
           NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
@@ -129,7 +159,7 @@ jobs:
           fi
 
       - name: Send email via SendGrid (optional, requires secrets)
-        if: steps.check.outputs.exists == 'true' && steps.research_issue.outputs.created == 'true' && steps.email_config.outputs.enabled == 'true'
+        if: steps.check.outputs.exists == 'true' && steps.research_issue.outputs.created == 'true' && steps.dry_run_mode.outputs.is_dry_run == 'false' && steps.email_config.outputs.enabled == 'true'
         env:
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
           NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
