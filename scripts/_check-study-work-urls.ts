@@ -40,3 +40,5 @@ async function main() {
   console.log(`\n合計: ${ok}/${all.length} 件 200 OK`);
 }
 main().catch(e => { console.error(e); process.exit(1); });
+
+export {};

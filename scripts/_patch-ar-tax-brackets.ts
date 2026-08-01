@@ -70,9 +70,9 @@ const NEW_TAX_TABLE_ZH = `**个人所得税（Ganancias：居民）**
 
 // 旧テーブルにマッチするパターン（ja/en/zh でそれぞれ異なる可能性）
 // ja のマッチ: "| 〜1,091,403 | 5%" が含まれる表全体を置換
-const OLD_JA_TABLE_RE = /\*\*個人所得税.*?(?=###|\n\n\*\*モノトリブート)/s;
-const OLD_EN_TABLE_RE = /\*\*Personal Income Tax.*?(?=###|\n\n\*\*Monotributo)/s;
-const OLD_ZH_TABLE_RE = /\*\*个人所得税.*?(?=###|\n\n\*\*Monotributo)/s;
+const OLD_JA_TABLE_RE = /\*\*個人所得税[\s\S]*?(?=###|\n\n\*\*モノトリブート)/;
+const OLD_EN_TABLE_RE = /\*\*Personal Income Tax[\s\S]*?(?=###|\n\n\*\*Monotributo)/;
+const OLD_ZH_TABLE_RE = /\*\*个人所得税[\s\S]*?(?=###|\n\n\*\*Monotributo)/;
 
 function patchContent(content: string, lang: "ja" | "en" | "zh"): { patched: string; changed: boolean } {
   const re = lang === "ja" ? OLD_JA_TABLE_RE : lang === "en" ? OLD_EN_TABLE_RE : OLD_ZH_TABLE_RE;
