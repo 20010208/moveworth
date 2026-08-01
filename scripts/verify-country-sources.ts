@@ -15,6 +15,7 @@
  */
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from "fs";
 import { createClient } from "@supabase/supabase-js";
+import { updateExactlyOneById } from "./utils/db-update";
 
 if (existsSync(".env.local")) {
   for (const line of readFileSync(".env.local", "utf-8").split("\n")) {
@@ -284,15 +285,18 @@ async function runRecheck(statuses: string[]) {
   const dbUpdateFailures: { id: string; country_code: string; url: string; message: string }[] = [];
 
   if (!DRY_RUN) {
-    // status フィールドのみ更新（country_code/purpose が必要なため DB から取得）
+    // status フィールドのみ更新（country_code/purpose が必要なため DB から取得）。
+    // 同じURLを複数国・複数sourceが共有しうるため、必ずidで更新対象を一意に特定する
+    // （urlのみでの.eq()は禁止：別sourceの行を巻き込む可能性がある）。
+    // updateExactlyOneByIdは.select("id").single()により0件更新・複数件更新もエラーとして検知する。
     for (const r of results) {
-      const { error: upErr } = await supabase
-        .from("country_sources")
-        .update({ status: r.status, last_verified_at: now })
-        .eq("url", r.url);
-      if (upErr) {
-        dbUpdateFailures.push({ id: r.id, country_code: r.country_code, url: r.url, message: upErr.message });
-        console.error(`  ❌ DB更新失敗: [${r.country_code}] ${r.url}: ${upErr.message}`);
+      const result = await updateExactlyOneById(supabase, "country_sources", r.id, {
+        status: r.status,
+        last_verified_at: now,
+      });
+      if (!result.ok) {
+        dbUpdateFailures.push({ id: r.id, country_code: r.country_code, url: r.url, message: result.message });
+        console.error(`  ❌ DB更新失敗: [${r.country_code}] id=${r.id} ${r.url}: ${result.message}`);
       }
     }
     const succeededCount = results.length - dbUpdateFailures.length;
@@ -386,8 +390,12 @@ async function runExtract() {
 
   let skipUrls = new Set<string>();
   if (!RE_VERIFY) {
-    const { data: existing } = await supabase
+    // 取得失敗を「既存aliveが0件」と誤認しないよう、必ずerrorを確認してthrowする
+    // （誤認すると、既にalive確認済みのURLまで無駄に再検証してしまう程度の実害だが、
+    //  DB取得失敗という処理障害自体を握りつぶさないため明示的に扱う）
+    const { data: existing, error: existingErr } = await supabase
       .from("country_sources").select("url").eq("status", "alive");
+    if (existingErr) throw new Error(`既存alive取得失敗: ${existingErr.message}`);
     skipUrls = new Set((existing ?? []).map((r: { url: string }) => r.url));
     if (skipUrls.size > 0)
       console.log(`既存 alive ${skipUrls.size} 件をスキップ（--re-verify で再検証）\n`);

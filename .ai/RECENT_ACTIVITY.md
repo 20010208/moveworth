@@ -5,6 +5,21 @@
 
 ---
 
+## 2026-08-01 — Claude Code（5回目）
+
+- タスクID: CLOSE-REMAINING-FAIL-OPEN-PATHS-20260801
+- 状態: 修正・静的検証完了、commit予定（`d614ede`の上に追加・push未実施）
+- 背景: `d614ede`に対するCodex独立監査が再度FAILとなり、以下5件が指摘された: (1)Search APIの不完全・矛盾応答を「既存Issueなし」と扱うfail-open (2)Supabase更新が0件/複数件でも成功扱いされる可能性 (3)verify-country-sources.tsがURL条件で複数行更新する可能性 (4)runExtract()の既存alive取得エラー未確認 (5)Issue作成レスポンスのtitle不一致を成功扱い
+- `scripts/utils/github-issue-dedup.ts`: Search APIの`total_count`を厳格検証（整数・範囲・ページ間一致・矛盾検出・Issue番号重複検出）。Issue作成レスポンスのtitleが要求と完全一致することも追加検証
+- `scripts/utils/db-update.ts`（新規）: `updateExactlyOneById()`で`.select("id").single()`により0件/複数件更新をエラー検知し、返却idの一致も確認する共通ヘルパー
+- `verify-country-sources.ts`: status更新を`.eq("url",...)`から`updateExactlyOneById()`（id条件）へ変更。`runExtract()`の既存alive取得に`error`確認を追加
+- `check-source-content-hash.ts`: 全DB更新（初回保存・変更なし更新・通知後hash更新）を`updateExactlyOneById()`経由へ変更
+- 検証: git diff --check、対象5TSファイルのtsc型検査0件、ローカルモックテスト（github-issue-dedup.tsのtotal_count/pagination/schema/title検証31パターン、notify-dead-sources.ts 11パターン、db-update.tsの実装＋fake Supabaseクライアントで12パターン、runExtractのalive取得エラー処理5パターン）すべて成功。今回yamlファイルは変更なし（cron/queue:max/type:choiceは不変）
+- 詳細は`.ai/CURRENT_HANDOFF.md`参照
+- 残存リスク: 実際のWorkflow実行・実GitHub API・実Supabaseへは未接続のため動的動作は未確認。Issue #1／#2の整理は範囲外として保留。「厳格検証済み」「完全復旧」とは表現しない
+
+---
+
 ## 2026-08-01 — Claude Code（4回目）
 
 - タスクID: COMPLETE-WORKFLOW-FAILURE-HANDLING-20260801

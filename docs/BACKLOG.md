@@ -1,6 +1,6 @@
 # MoveWorth Backlog
 
-最終更新: 2026-08-01（BL-20260801-05追加）
+最終更新: 2026-08-01（BL-20260801-06追加）
 
 > 本ファイルはプロジェクト全体の未完了タスクを管理する。
 > `docs/redirect-backlog.md` はリダイレクト専用として別管理する。
@@ -248,6 +248,27 @@
 - 検証: js-yaml構文、IDE診断エラー0件、cron無変更、全14 run:ブロックのbash -n、対象4TSファイルのtsc型検査エラー0件、ローカルモックテスト（github-issue-dedup.tsのschema/pagination 21パターン、notify-dead-sources.ts 11パターン、DB更新エラー×終了コード優先順位、exit code変換ロジック4パターン、manual modeのcase文6パターン、research-study-abroad.ymlの実run:ブロックをfake gh/jqで実行した6パターン）すべて成功
 - 残存リスク: 実際のWorkflow実行を経ていないため動的動作は未確認。`queue: max`はIDE診断ではエラー0件だが公式ドキュメントでの一次情報確認は未実施。旧版runで作成された可能性のあるIssue #1／#2の整理は範囲外として保留
 - 完了条件（実行確認待ち）: push後の次回スケジュール実行で、dead URL検出時のcontent-hash継続実行・Workflow最終failure化・DB更新エラー時の非0終了・concurrencyのpending保持・不正manual mode時の失敗が意図通りに動作することを確認する
+- **追記（2026-08-01）**: 本項目の修正（commit `d614ede`）に対するCodex独立監査が再度FAILとなり、Search APIのtotal_count/pagination不整合・Supabase更新件数未確認・verifyのURL条件更新・runExtract()取得エラー未確認等5件の追加問題が指摘された。詳細はBL-20260801-06を参照
+
+## BL-20260801-06: 残存fail-open経路の是正（Search API total_count厳格検証・Supabase正確1件更新・id条件更新）
+
+- 優先度: 高
+- 状態: 静的修正完了・実行確認待ち（**「厳格検証済み」「完全復旧」ではない**）
+- 関連領域: `scripts/utils/github-issue-dedup.ts` / `scripts/utils/db-update.ts`（新規） / `scripts/verify-country-sources.ts` / `scripts/check-source-content-hash.ts`
+- 経緯: BL-20260801-05の修正（commit `d614ede`、**push未実施**）に対するCodex独立監査が再度FAILとなり、以下5件の問題が指摘された
+  1. GitHub Search APIの不完全・矛盾した応答（`total_count`不正、ページ間不整合、Issue番号重複等）を「既存Issueなし」と扱うfail-open
+  2. Supabase更新が0件または複数件でも成功扱いされる可能性
+  3. `verify-country-sources.ts`がURL条件（`.eq("url",...)`）で複数行を更新する可能性（同一URLを共有する別source・別国の行を誤って更新しうる）
+  4. `runExtract()`の既存alive取得でSupabaseの`error`を確認していなかった
+  5. Issue作成レスポンスのtitleが要求と食い違っていても成功扱いにしていた
+- 完了内容:
+  - `github-issue-dedup.ts`: `total_count`を整数・0〜1000の範囲・ページ間一致で厳格検証。矛盾（0件なのにitemsあり、空ページの早期到達、件数超過、Issue番号のページ内/ページ間重複）をすべてthrow。全ページ完全取得後のみタイトル完全一致判定。Issue作成レスポンスのtitleが要求と完全一致することも追加検証
+  - `scripts/utils/db-update.ts`（新規）: `updateExactlyOneById()`で`.select("id").single()`により0件/複数件更新をエラー検知し、返却idの一致も確認する共通ヘルパーを新設
+  - `verify-country-sources.ts`: status更新を`updateExactlyOneById()`（id条件）へ変更し`.eq("url",...)`を廃止。`runExtract()`の既存alive取得に`error`確認を追加（取得失敗時はthrowし0件の正常ケースと区別）
+  - `check-source-content-hash.ts`: 全DB更新（初回保存・変更なし更新・通知後hash更新）を`updateExactlyOneById()`経由へ変更
+- 検証: git diff --check、対象5TSファイルのtsc型検査エラー0件、ローカルモックテスト（github-issue-dedup.tsのtotal_count/pagination/schema/title検証31パターン、notify-dead-sources.ts 11パターン、db-update.tsの実装＋fake Supabaseクライアントで12パターン、runExtractのalive取得エラー処理5パターン）すべて成功。今回yamlファイルは変更なし
+- 残存リスク: 実際のGitHub Actions実行・実GitHub API・実Supabaseへは未接続のため動的動作は未確認。`updateExactlyOneById()`はSupabaseの`.single()`挙動に依存。旧版runで作成された可能性のあるIssue #1／#2の整理は範囲外として保留
+- 完了条件（実行確認待ち）: push後の次回スケジュール実行で、Search APIの実応答に対する厳格検証・Supabase更新の正確性・id条件更新が意図通りに動作することを確認する
 
 ## BL-20260728-02: 留学費用（学費）データの一次情報調査
 

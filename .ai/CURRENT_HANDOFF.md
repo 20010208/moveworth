@@ -2,16 +2,67 @@
 
 最終更新: 2026-08-01
 最終担当: Claude Code
-タスクID: COMPLETE-WORKFLOW-FAILURE-HANDLING-20260801
-状態: 修正・静的検証完了。commit予定（`db75e51`の上に追加、push未実施）。Codex再々監査（FAIL）指摘7件への対応完了、end-to-end実行確認は未完了。**通知機能を「完全復旧」とは表現しない**（静的検証・ローカルモックのみで実運用未確認のため）
+タスクID: CLOSE-REMAINING-FAIL-OPEN-PATHS-20260801
+状態: 修正・静的検証完了。commit予定（`d614ede`の上に追加、push未実施）。Codex監査（FAIL）指摘5件への対応完了、end-to-end実行確認は未完了。**「厳格検証済み」「完全復旧」とは表現しない**（静的検証・ローカルモックのみで実運用未確認のため）
 
 ## Git履歴（重要）
 
 - `7ae0466`: origin/mainへpush済み。GitHub上でWorkflow定義がactiveとして正常認識されたことを確認済み
 - `e4de711`: commit済み・**未push**
-- `db75e51`: commit済み・**未push**（`e4de711`の上に追加。`e4de711`自体はamend・rebaseしていない）。この修正に対するCodex独立監査が**FAIL**となった
-- 本タスクの新commit: `db75e51`に対するCodex独立監査がFAILとなったため、その指摘7件に対応した追加commit（push未実施）
-- 旧版runで作成されたIssue #1／#2の整理は本タスクの範囲外・別判断として保留（今回は一切触れていない）
+- `db75e51`: commit済み・**未push**
+- `d614ede`: commit済み・**未push**（`db75e51`の上に追加。`e4de711`/`db75e51`はamend・rebaseしていない）。この修正に対するCodex独立監査が**FAIL**となった
+- 本タスクの新commit: `d614ede`に対するCodex独立監査がFAILとなったため、その指摘5件に対応した追加commit（push未実施）
+- 旧版runで作成されたIssue #1／#2の整理は本タスクの範囲外・別判断として保留（今回も一切触れていない）
+
+### Codex監査（d614ede対象）の主なFAIL理由
+1. GitHub Search APIの不完全・矛盾した応答（`total_count`不正、ページ間不整合、重複Issue番号等）を「既存Issueなし」と扱うfail-open
+2. Supabase更新が0件または複数件でも成功扱いされる可能性（`.update().eq()`だけでは実際に何件更新されたか確認していなかった）
+3. `verify-country-sources.ts`のstatus更新が`.eq("url", ...)`（URL条件）で行われており、同一URLを共有する別source・別国の行を意図せず更新する可能性
+4. `runExtract()`の既存alive取得（`select("url").eq("status","alive")`）でSupabaseの`error`を確認していなかった
+5. Issue作成APIレスポンスのtitleが要求と食い違っていても成功扱いにしていた
+6. 文書と実際のcommit状態の不一致
+
+## Fail-open経路の是正（2026-08-01 5回目）
+
+### 対応内容（ファイル別）
+
+**`scripts/utils/github-issue-dedup.ts`**
+- Search APIの`total_count`を`isValidTotalCount()`で厳格検証（0以上1000以下の整数。`Number.isInteger()`によりNaN・小数・負数・Infinityは自動的に拒否）
+- `total_count`が1ページ目と後続ページで一致することを確認（変化した場合はthrow）
+- 1ページあたりのitems件数が`per_page`（100）を超えないことを確認
+- `total_count=0`なのにitemsがある／`total_count>0`なのに空ページ（1ページ目含む）、を矛盾としてthrow
+- 取得済み件数が`total_count`を超えた場合、および全ページ取得後に件数が`total_count`と一致しない場合もthrow
+- 同一ページ内・ページ間でのIssue番号重複を検出しthrow
+- 全ページを完全に取得できた場合のみタイトル完全一致判定を実施
+- Issue作成レスポンスの`title`が要求時に渡した期待タイトルと完全一致することを追加検証。不一致はthrow（API上は2xxで成功していてもtitleが信頼できない場合は成功扱いにしない）
+
+**`scripts/utils/db-update.ts`（新規）**
+- `updateExactlyOneById()`: `country_sources`等の更新を`id`条件＋`.select("id").single()`で行い、Supabase自身に0件更新・複数件更新をエラーとして検知させる。加えて返却された`data.id`が更新対象と一致することも確認。`id`が空/未定義の場合はDB呼び出し自体を行わず処理エラーとする
+
+**`scripts/verify-country-sources.ts`**
+- `runRecheck()`のstatus更新を`updateExactlyOneById()`経由へ変更し、`.eq("url", ...)`（URL条件）を廃止。常に`.eq("id", ...)`で更新対象を一意に特定する（同一URLを共有する別source・別国の行を誤って更新しない）
+- `runExtract()`の既存alive取得（`select("url").eq("status","alive")`）に`error`確認を追加。取得失敗時はthrowし、「0件」という正常ケースと明確に区別する。エラー時はdead-sources.json書き込み・Issue通知トリガーへ進まない
+- 同ファイル内の他のSupabase呼び出し（runRecheckの初期select、runExtractのblog_posts/study_blog_posts取得、upsert）は既にerror確認済みであることを確認（変更なし・無関係な大規模リファクタリングはしていない）
+
+**`scripts/check-source-content-hash.ts`**
+- 初回hash保存・変更なし更新（immediateUpdates）、通知成功後のhash更新の両方を`updateExactlyOneById()`経由へ変更。既存の`.eq("id", ...)`という更新条件自体は元々正しかったため変更していないが、0件/複数件更新やID不一致の検知が新たに加わった
+
+### 静的検証・モック検証の結果
+- YAML構文・cron・concurrency・`workflow_dispatch`のchoice設定: 今回yamlファイルは変更しておらず、既存設定（`queue: max`・`type: choice`・cron3件）が不変であることをgrep確認
+- `git diff --check`: 空行末尾等のwhitespaceエラー0件
+- `npx tsc --project tsconfig.scripts.json --noEmit`: 対象5ファイル（verify-country-sources.ts / check-source-content-hash.ts / github-issue-dedup.ts / db-update.ts / notify-dead-sources.ts）ともエラー0件
+- ローカルモックテスト（実DB・実GitHub API・実Issue・実Workflow実行へは一切アクセスしない）:
+  - `github-issue-dedup.ts`のtotal_count厳格検証・pagination整合性・Search item schema・Issue作成タイトル検証を、実ファイルの動的import＋fetchモックで31パターン検証（正常系4：total_count=0/1/100/101・異常系：total_count=-1/0.5/NaN相当/欠落/1001、total_count=0なのにitemsあり、total_count=1なのにitems2件、2ページ目空、ページ間total_count変化、ページ間/ページ内Issue番号重複、item各フィールド欠落、PR混入、incomplete_results、非2xx/403/429、不正JSON、Issue作成の各種欠落・title不一致等）、全件OK
+  - `notify-dead-sources.ts`の`notifyAll()`を実ファイルの動的import＋fetchモックで11パターン再検証（Issue作成モックがリクエストのtitleをそのまま返すよう更新）、全件OK
+  - `db-update.ts`の`updateExactlyOneById()`を実ファイルの動的import＋fake Supabaseクライアントで検証: 正確に1件更新／error／dataなし／0件相当／複数件相当／ID不一致／source ID欠落（null/undefined/空文字、DB呼び出し自体が発生しないことも確認）／同じURLの別sourceが存在しても対象idのみ更新、全件OK
+  - `runExtract()`のalive取得error処理を同一分岐構造のロジック同値テストで検証（成功0件／成功複数件／error時throw／error時に後続段階へ進まない／正常0件とerrorケースの区別）、全件OK
+  - 前回までのDB更新エラー×終了コード優先順位（verify 5パターン・content-hash 6パターン）を再実行し、リグレッションがないことを確認
+
+### 未解決事項・残存リスク
+- 実際のGitHub Actions実行を経ていないため、動的な挙動（実際のSearch APIレスポンス形状、Supabaseの`.single()`実挙動）は未確認
+- `updateExactlyOneById()`はSupabaseの`.single()`の挙動（0件/複数件でerrorになること）に依存しており、Supabaseクライアントのバージョン変更等でこの挙動が変わった場合は追従が必要
+- 旧版runで作成された可能性のあるIssue #1／#2の整理・close判断は、本タスクの範囲外として保留（ユーザー判断が必要）
+- pushは未実施（ユーザー承認待ち）。push後の実スケジュール実行での確認が必須
 
 ### Codex監査（db75e51対象）の主なFAIL理由
 1. 月次runでdead URLがあるとcontent-hash検査がskipされる（verify-country-sources.tsがexit 2を返すと検証step自体がfailureになり、後続の暗黙のsuccess()によりcontent-hash stepがskipされていた）

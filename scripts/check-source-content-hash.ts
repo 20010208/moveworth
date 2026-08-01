@@ -26,6 +26,7 @@ import {
   createIssue,
   addIssueComment,
 } from "./utils/github-issue-dedup";
+import { updateExactlyOneById } from "./utils/db-update";
 
 if (existsSync(".env.local")) {
   for (const line of readFileSync(".env.local", "utf-8").split("\n")) {
@@ -197,13 +198,14 @@ async function main() {
   const dbFailures: { id: string; countryCode: string; url: string; message: string; phase: string }[] = [];
 
   for (const u of immediateUpdates) {
-    const { error: immErr } = await supabase
-      .from("country_sources")
-      .update({ content_hash: u.newHash, content_hash_at: new Date().toISOString() })
-      .eq("id", u.id);
-    if (immErr) {
-      dbFailures.push({ id: u.id, countryCode: u.countryCode, url: u.url, message: immErr.message, phase: "immediate-update" });
-      console.error(`  ❌ DB更新失敗（変化なし/初回記録）: [${u.countryCode}] id=${u.id} ${u.url}: ${immErr.message}`);
+    // updateExactlyOneByIdは.select("id").single()により0件更新・複数件更新もエラーとして検知する
+    const result = await updateExactlyOneById(supabase, "country_sources", u.id, {
+      content_hash: u.newHash,
+      content_hash_at: new Date().toISOString(),
+    });
+    if (!result.ok) {
+      dbFailures.push({ id: u.id, countryCode: u.countryCode, url: u.url, message: result.message, phase: "immediate-update" });
+      console.error(`  ❌ DB更新失敗（変化なし/初回記録）: [${u.countryCode}] id=${u.id} ${u.url}: ${result.message}`);
     }
   }
 
@@ -229,22 +231,23 @@ async function main() {
           const created = await createIssue(title, buildBody(entry, detectedAt), ["content", "source-updated"], cfg);
           console.log(`  新規Issue作成 #${created.number}: ${title}`);
         }
-        // 通知が成功した場合にのみDB hashを更新する（Task 8: 通知前に確定保存しない）
-        const { error: hashUpdateErr } = await supabase
-          .from("country_sources")
-          .update({ content_hash: entry.newHash, content_hash_at: detectedAt })
-          .eq("id", entry.id);
-        if (hashUpdateErr) {
+        // 通知が成功した場合にのみDB hashを更新する（通知前に確定保存しない）。
+        // updateExactlyOneByIdで0件更新・複数件更新・返却ID不一致もエラーとして検知する。
+        const updateResult = await updateExactlyOneById(supabase, "country_sources", entry.id, {
+          content_hash: entry.newHash,
+          content_hash_at: detectedAt,
+        });
+        if (!updateResult.ok) {
           // 通知は成功したがDB更新が失敗 → 成功件数へ加算せず、次回また再検出される状態を維持する
           dbFailures.push({
             id: entry.id,
             countryCode: entry.countryCode,
             url: entry.url,
-            message: hashUpdateErr.message,
+            message: updateResult.message,
             phase: "post-notify-update",
           });
           console.error(
-            `  ❌ DB hash更新失敗（通知は成功済み・次回実行時に再検出されます）: [${entry.countryCode}] id=${entry.id} ${entry.url}: ${hashUpdateErr.message}`
+            `  ❌ DB hash更新失敗（通知は成功済み・次回実行時に再検出されます）: [${entry.countryCode}] id=${entry.id} ${entry.url}: ${updateResult.message}`
           );
           continue;
         }

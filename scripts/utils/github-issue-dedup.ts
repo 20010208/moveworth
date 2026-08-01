@@ -60,6 +60,13 @@ function isNonEmptyString(v: unknown): v is string {
   return typeof v === "string" && v.length > 0;
 }
 
+// total_countは非負整数かつGitHub Search APIの上限（1000）以下であることを要求する。
+// Number.isInteger()はNaN・Infinity・小数のいずれも自動的にfalseを返すため、
+// 「NaN、小数、負数、Infiniteを拒否」の要件をこの1関数で満たす。
+function isValidTotalCount(v: unknown): v is number {
+  return typeof v === "number" && Number.isInteger(v) && v >= 0 && v <= SEARCH_MAX_ITEMS;
+}
+
 export type IssueRef = { number: number; url: string };
 
 // ===== Search API =====
@@ -90,13 +97,22 @@ const SEARCH_MAX_ITEMS = 1000; // GitHub Search APIの仕様上の上限（こ�
 const SEARCH_PER_PAGE = 100;
 
 /**
- * open issueをタイトル完全一致で検索する。API失敗・不正応答・スキーマ不正は必ずthrowする（fail-closed）。
- * per_page=100で明示的にページングし、total_countに対して取得しきれない場合や
- * GitHub Search APIの上限（1000件）に達し完全性を保証できない場合もthrowする。
+ * open issueをタイトル完全一致で検索する。API失敗・不正応答・スキーマ不正・ページング不整合は
+ * 必ずthrowする（fail-closed）。「見つからなかった」と「完全に検索できなかった」を絶対に混同しない。
+ *
+ * 各ページで検証する内容:
+ *   - total_countが0以上1000以下の整数であること（NaN・小数・負数・Infinity・欠落は拒否）
+ *   - total_countが全ページで同一であること
+ *   - itemsが配列かつ1ページあたり最大per_page(100)件であること
+ *   - total_count=0なのにitemsがある／total_count>0なのに空ページ、を矛盾として拒否
+ *   - 取得済み件数がtotal_countを超えない
+ *   - 同一ページ内・ページ間でIssue番号が重複しない
+ * 全ページ取得完了後、収集件数がtotal_countと完全一致した場合のみタイトル完全一致判定を行う。
  */
 export async function searchOpenIssueByExactTitle(title: string, cfg: GhConfig): Promise<IssueRef | null> {
   const q = `repo:${cfg.repo} type:issue state:open in:title "${title}"`;
   const collected: ValidatedSearchItem[] = [];
+  const seenNumbers = new Set<number>();
   let page = 1;
   let totalCount: number | null = null;
 
@@ -113,8 +129,10 @@ export async function searchOpenIssueByExactTitle(title: string, cfg: GhConfig):
     if (!isPlainObject(data)) {
       throw new GitHubIssueApiError("GitHub Search APIレスポンスがobjectではありません（{}等の不完全な応答を既存なしと扱わない）");
     }
-    if (typeof data.total_count !== "number") {
-      throw new GitHubIssueApiError("GitHub Search APIレスポンスにtotal_countがありません");
+    if (!isValidTotalCount(data.total_count)) {
+      throw new GitHubIssueApiError(
+        `GitHub Search APIレスポンスのtotal_countが不正です: ${JSON.stringify(data.total_count)}（0以上${SEARCH_MAX_ITEMS}以下の整数である必要があります）`
+      );
     }
     if (typeof data.incomplete_results !== "boolean") {
       throw new GitHubIssueApiError("GitHub Search APIレスポンスのincomplete_resultsがbooleanではありません");
@@ -127,19 +145,62 @@ export async function searchOpenIssueByExactTitle(title: string, cfg: GhConfig):
     if (!Array.isArray(data.items)) {
       throw new GitHubIssueApiError("GitHub Search APIレスポンスのitemsが配列ではありません（items欠落を既存なしと扱わない）");
     }
-
-    const items = data.items.map(validateSearchItem);
-    if (totalCount === null) totalCount = data.total_count;
-    collected.push(...items);
-
-    if (items.length === 0) break; // これ以上ページがない
-    if (collected.length >= totalCount) break; // 全件取得完了
-    if (collected.length >= SEARCH_MAX_ITEMS) {
+    if (data.items.length > SEARCH_PER_PAGE) {
       throw new GitHubIssueApiError(
-        `GitHub Search APIの上限（${SEARCH_MAX_ITEMS}件）に達し、検索結果の完全性を保証できません`
+        `GitHub Search APIが1ページあたり${SEARCH_PER_PAGE}件を超えるitemsを返しました: ${data.items.length}件（page=${page}）`
       );
     }
+
+    if (page === 1) {
+      totalCount = data.total_count;
+    } else if (data.total_count !== totalCount) {
+      throw new GitHubIssueApiError(
+        `GitHub Search APIのtotal_countがページ間で変化しました（page1=${totalCount}, page${page}=${data.total_count}）`
+      );
+    }
+
+    if (totalCount === 0 && data.items.length > 0) {
+      throw new GitHubIssueApiError(`total_count=0にも関わらずitemsが${data.items.length}件返されました（page=${page}）`);
+    }
+    if (data.items.length === 0 && collected.length < totalCount) {
+      throw new GitHubIssueApiError(
+        `total_count=${totalCount}に到達する前に空ページを受け取りました（取得済み${collected.length}件、page=${page}）`
+      );
+    }
+
+    const items = data.items.map(validateSearchItem);
+
+    // 同一ページ内の重複チェック
+    const pageNumbers = new Set<number>();
+    for (const it of items) {
+      if (pageNumbers.has(it.number)) {
+        throw new GitHubIssueApiError(`同一ページ内でIssue番号が重複しました: #${it.number}（page=${page}）`);
+      }
+      pageNumbers.add(it.number);
+    }
+    // ページ間の重複チェック
+    for (const it of items) {
+      if (seenNumbers.has(it.number)) {
+        throw new GitHubIssueApiError(`ページ間でIssue番号が重複しました: #${it.number}（page=${page}）`);
+      }
+      seenNumbers.add(it.number);
+    }
+
+    collected.push(...items);
+
+    if (collected.length > totalCount) {
+      throw new GitHubIssueApiError(`取得済み件数(${collected.length})がtotal_count(${totalCount})を超えました`);
+    }
+
+    if (collected.length === totalCount) break; // 全件取得完了
     page++;
+  }
+
+  // ループはcollected.length===totalCountで抜けるため、ここでの不一致は本来到達しない防御的チェック
+  if (totalCount === null || collected.length !== totalCount) {
+    throw new GitHubIssueApiError(
+      `検索結果の取得件数(${collected.length})がtotal_count(${totalCount})と一致しません`
+    );
   }
 
   const exact = collected.find((i) => i.title === title);
@@ -148,7 +209,7 @@ export async function searchOpenIssueByExactTitle(title: string, cfg: GhConfig):
 
 // ===== Issue作成API =====
 
-function validateCreatedIssue(raw: unknown): IssueRef {
+function validateCreatedIssue(raw: unknown, expectedTitle: string): IssueRef {
   if (!isPlainObject(raw)) {
     throw new GitHubIssueApiError("Issue作成レスポンスがobjectではありません");
   }
@@ -160,6 +221,13 @@ function validateCreatedIssue(raw: unknown): IssueRef {
   }
   if (typeof raw.title !== "string") {
     throw new GitHubIssueApiError("Issue作成レスポンスのtitleがstringではありません");
+  }
+  // Issue作成自体はAPI上成功（2xx）していても、返ってきたtitleが要求と食い違う場合は
+  // 呼び出し側から見て何が作成されたか信頼できないため成功扱いにしない
+  if (raw.title !== expectedTitle) {
+    throw new GitHubIssueApiError(
+      `Issue作成レスポンスのtitleが要求と一致しません: expected=${JSON.stringify(expectedTitle)} actual=${JSON.stringify(raw.title)}`
+    );
   }
   return { number: raw.number, url: raw.html_url };
 }
@@ -174,7 +242,7 @@ export async function createIssue(title: string, body: string, labels: string[],
     throw new GitHubIssueApiError(`Issue作成失敗: ${res.status} ${await res.text()}`);
   }
   const data = await parseJson(res, "Issue作成レスポンス");
-  return validateCreatedIssue(data);
+  return validateCreatedIssue(data, title);
 }
 
 // ===== コメントAPI =====
