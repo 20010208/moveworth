@@ -1,6 +1,6 @@
 # MoveWorth Backlog
 
-最終更新: 2026-08-01（BL-20260801-07追加）
+最終更新: 2026-08-01（BL-20260801-07完了・BL-20260801-08追加）
 
 > 本ファイルはプロジェクト全体の未完了タスクを管理する。
 > `docs/redirect-backlog.md` はリダイレクト専用として別管理する。
@@ -279,26 +279,39 @@
 ## BL-20260801-07: Scripts TypeCheckの既存失敗解消
 
 - 優先度: 中
-- 状態: 調査済み・修正未着手
-- 関連領域: `.github/workflows/scripts-typecheck.yml` / `tsconfig.scripts.json` / `scripts/_*.ts`（コミット済みscratchスクリプト群）
-- 背景: pushのたびに`Scripts TypeCheck`ワークフローが赤くなり、今回のGHA緊急修正一連のcommitとは無関係な既存エラーがCIのノイズになっている。2026-07-28以降のscripts変更を伴うほぼ全pushで同様に失敗しており、長期化した既存問題
-- 原因: `tsconfig.scripts.json`の`include: ["scripts/**/*.ts"]`がコミット済みのscratchスクリプトまで型検査対象に含めており、追跡済み失敗ファイル計10件は原因の異なる2種類に分かれる
-  - **9件**（`scripts/_calc-b1b2b3-correction.ts`・`scripts/_check-b4-sources.ts`・`scripts/_check-hu-cp04.ts`・`scripts/_check-pt-cz-cp041.ts`・`scripts/_check-study-work-urls.ts`・`scripts/_check-tr-mukerrer.ts`・`scripts/_fetch-b4-data.ts`・`scripts/_fetch-eurostat-hbs4.ts`・`scripts/_fetch-eurostat-ses22-v3.ts`）: いずれもimport/export文を持たず、TypeScriptがモジュールではなく単一グローバルスコープの「スクリプト」として扱うため、複数ファイルが同名変数・同名関数（`COUNTRIES`・`PPP`等）を独立に定義しており衝突エラーが発生する。run `30691286359`の実CIログで確認した主なエラーは`TS2393`（Duplicate function implementation）25件・`TS2451`（Cannot redeclare block-scoped variable）7件（ほか`_fetch-eurostat-hbs4.ts`の`TS2339`2件）
-  - **1件**（`scripts/_patch-ar-tax-brackets.ts`）: import文を2行持つ独立したモジュールであり上記のグローバルスコープ衝突には該当しない。主なCIエラーは`TS1501`（正規表現フラグがes2018未満のtargetで使用不可）3件で、原因は無関係
-  - **`TS2300`（Duplicate identifier、例: `NaceKey`）はrun `30691286359`のGitHub Actions実CIでは0件**。未追跡の`scripts/_fetch-b3-data.ts`を含むローカル全体検査でのみ確認されたため、追跡済み10ファイルによるCI失敗原因には含めない（`_fetch-b3-data.ts`はGitHubへpushされておらずCI環境に存在しないため）
-  - リポジトリ内を検索した結果、上記10件はいずれも`package.json`、Workflow、正式スクリプトから直接参照・実行・importされていない
-- 検討した案:
-  - 案A（推奨）: `tsconfig.scripts.json`の`exclude`へ`"scripts/_*.ts"`を追加。既存の`_tmp-*`/`_tmp_*`除外パターンと同じ考え方の拡張で、現行の命名規則（`_`プレフィックス=scratch）と完全一致し、1行の最小変更で完結する
-  - 案B: 追跡済みscratchスクリプトをGit管理から外す（`git rm --cached`等）。100件超の個別要否判断が必要でコスト大
-  - 案C: 各scratchスクリプトの型エラーを個別修正。将来の同種追加で再発するため根本対策にならない
-  - 案D: TypeCheckを正式script専用構成へ分離（allowlist化・ディレクトリ再編）。長期的には有効だが現時点では過剰設計
-- 完了条件:
-  - production／運用対象scriptの型検査を維持する
-  - scratch／調査用scriptによる既知エラーをCIから分離する
-  - `Scripts TypeCheck`が成功する
-  - 正式scriptを誤って検査対象外にしない（`exclude`追加後、`git ls-files scripts/*.ts`のうち非`_`プレフィックスファイルが1件も型検査対象から漏れていないことを確認する）
-- **注記（2026-08-01）**: 2026-08-01の一連の文書同期作業（`.ai/CURRENT_HANDOFF.md`／本ファイル）は、原因説明の事実誤認（TS2300の誤記載等）を訂正しただけであり、`Scripts TypeCheck`自体の修正（`tsconfig.scripts.json`への`exclude`追加）はまだ**未着手**。`Scripts TypeCheck`は現時点でも失敗し続けている
-- 詳細な調査内容（Workflow仕様・エラー一覧・各案の比較）は`.ai/CURRENT_HANDOFF.md`の「文書同期・Scripts TypeCheck読み取り専用監査」節を参照
+- 状態: **完了**
+- completed date: 2026-08-01
+- 実装commit: `5615464`（"fix: resolve scripts typecheck errors"、origin/mainへpush済み）
+- CI run: `30697986179`（event=push、head SHA=`5615464`、conclusion=`success`）
+- 関連領域: `scripts/_calc-b1b2b3-correction.ts` / `scripts/_check-b4-sources.ts` / `scripts/_check-hu-cp04.ts` / `scripts/_check-pt-cz-cp041.ts` / `scripts/_check-study-work-urls.ts` / `scripts/_check-tr-mukerrer.ts` / `scripts/_fetch-b4-data.ts` / `scripts/_fetch-eurostat-hbs4.ts` / `scripts/_fetch-eurostat-ses22-v3.ts` / `scripts/_patch-ar-tax-brackets.ts`
+- 背景: pushのたびに`Scripts TypeCheck`ワークフローが赤くなり、今回のGHA緊急修正一連のcommitとは無関係な既存エラーがCIのノイズになっていた。2026-07-28以降のscripts変更を伴うほぼ全pushで同様に失敗しており、長期化した既存問題だった
+- 原因: `tsconfig.scripts.json`の`include: ["scripts/**/*.ts"]`がコミット済みのscratchスクリプトまで型検査対象に含めており、追跡済み失敗ファイル計10件は原因の異なる2種類に分かれていた
+  - **9件**: いずれもimport/export文を持たず、TypeScriptがモジュールではなく単一グローバルスコープの「スクリプト」として扱うため、複数ファイルが同名変数・同名関数（`COUNTRIES`・`PPP`等）を独立に定義しており衝突エラーが発生していた（`TS2393`・`TS2451`。`_fetch-eurostat-hbs4.ts`の`TS2339`もこの衝突の派生）
+  - **1件**（`scripts/_patch-ar-tax-brackets.ts`）: import文を2行持つ独立したモジュールでグローバルスコープ衝突には該当せず、原因は無関係の`TS1501`（dotAll `s`フラグがES2017未満のtargetで使用不可）
+- 検討した案と採否:
+  - 案A「広域exclude」（`"scripts/_*.ts"`をtsconfigへ追加）: **不採用**。追跡済み133件を一括除外してしまい、DB更新・公開・削除・seed・migration等を実行可能な追跡済みスクリプトまで型検査対象外になるため、Codex監査で`FAIL`
+  - 案B「既知10件の個別exclude」: **不採用**。残り123件は型検査可能だったが、DB更新可能な`_patch-ar-tax-brackets.ts`を含む10件を検査対象外にする方針自体が採用されず、Codex監査で`FAIL`
+  - 案C「各scratchスクリプトの型エラーを個別修正」（**最終採用**）: 9ファイルへ`export {};`を1行追加してグローバルスコープ衝突を解消し、`_patch-ar-tax-brackets.ts`の3正規表現をES2017互換の`[\s\S]*?`へ変更（dotAll`s`フラグ削除）。`tsconfig.scripts.json`への新規exclude追加なし。追跡済み223件のうち既存exclude2件を除く**221件全てが引き続き型検査対象**のまま
+  - 案D「TypeCheckを正式script専用構成へ分離」: 見送り（現時点では過剰設計と判断、検討記録としてのみ残す）
+- 完了根拠:
+  - 追跡済み10ファイルを直接修正し、TypeCheck除外を追加しなかった
+  - GitHub Actions実run `30697986179`が`success`
+  - 旧エラー`TS2393`／`TS2451`／`TS2339`／`TS1501`のいずれも再発なし
+  - Codex最終監査は`PASS WITH NOTES`（push前必須修正なし）
+- **残存リスク（follow-upはBL-20260801-08）**: 将来新しい非module形式のscratchスクリプトが追加されるとグローバル衝突が再発しうる。未追跡scratchが存在するローカル環境では通常の`npx tsc`は引き続き失敗する。scratch専用ディレクトリや別tsconfigへの整理は将来改善として保留
+- 詳細な調査内容・修正内容は`.ai/CURRENT_HANDOFF.md`の「Scripts TypeCheck復旧の確定記録」節を参照
+
+## BL-20260801-08: Scripts TypeCheckの再発防止（将来改善・未着手）
+
+- 優先度: 低
+- 状態: 未着手
+- 関連領域: `tsconfig.scripts.json` / `scripts/`ディレクトリ構成 / 開発運用ルール
+- 背景: BL-20260801-07でCIレベルの`Scripts TypeCheck`失敗（追跡済み10ファイル）は解消したが、根本的な「非module形式のscratchスクリプトが同一グローバルスコープを共有する」という構造自体は変更していない
+- 完了条件（将来検討事項）:
+  - 新しい`scripts/_*.ts`形式のscratchスクリプトが追加された際、同種のグローバルスコープ衝突（`TS2393`/`TS2451`等）を機械的に防ぐ仕組みを検討する（例: scratchスクリプト作成時に`export {};`を含める運用ルール化、lintルール、テンプレート化等）
+  - 未追跡scratchファイルが存在するローカル環境で通常の`npx tsc --project tsconfig.scripts.json --noEmit`が失敗する運用課題への対応要否を検討する
+  - scratch専用ディレクトリまたは別tsconfigへの整理（BL-20260801-07で検討した案Dに相当）の要否を判断する
+- 前提・ブロッカー: なし。優先度は低く、次に同種のCI失敗が発生した際、または開発フロー整理のタイミングで着手を検討する
 
 ## BL-20260728-02: 留学費用（学費）データの一次情報調査
 

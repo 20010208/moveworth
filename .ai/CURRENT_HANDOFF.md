@@ -2,14 +2,44 @@
 
 最終更新: 2026-08-01
 最終担当: Claude Code
-タスクID: FIX-DOC-FACTUAL-ERRORS-20260801
-状態: GitHub Actions緊急修正の5commit（`7ae0466`〜`66b6e38`）はすべてorigin/mainへpush済み（origin/main=`66b6e38`）。**この修正コード自体に対するCodex最終判定はPASS WITH NOTES**（Workflow機能差分に問題はない）。一方、その後の**文書同期commit自体に対するCodexの差分限定監査は、これまで2回とも`FAIL`**である：
+タスクID: RECORD-TYPECHECK-RECOVERY-20260801
+状態: 実装基準のorigin/mainは`5615464`。現在のlocal HEADには、Scripts TypeCheck復旧結果を記録した文書同期commitが1件存在し、commit済み・未pushのためahead 1 / behind 0。Codexの文書差分監査はGit現在地の記述不整合2件（local HEAD／origin/mainが同一と誤記／ahead-behindを`0/0`と誤記）によりFAILとなり、今回amendで訂正する。**Scripts TypeCheck（BL-20260801-07）は実CI run `30697986179`（conclusion=success）により復旧確認が完了**しており、TypeCheck復旧・CI run・BACKLOG・Workflow・Issueに関する技術的記録には問題ない。Codex最終判定（実装commit`5615464`自体に対する監査）は`PASS WITH NOTES`（push前必須修正なし）。**「GitHub Actions全体が完全復旧」ではない**——`Research Study Abroad Entry`・`Health Check — Country Sources`の実スケジュールend-to-end確認、および旧版run（head SHA `7ae0466`）で作成されたIssue #1／#2の整理は依然として未完了。再監査で`PASS`または`PASS WITH NOTES`となった後に通常pushを予定する。
 
-1. 1回目（`21dbe45`）: Issue #1/#2の発生元表現・TypeCheck失敗ファイルの10件一括分類・Nodeバージョンの混同・参照関係の断定表現・BACKLOGのcommit件数、等の文書上の事実誤認が指摘され`FAIL`。`21dbe45`を未pushのままamendし`578c4a9`とした
-2. 2回目（`578c4a9`）: 1回目の指摘の大部分は解消されていたが、実CIには存在しない`TS2300`を追跡済み9ファイルのCIエラーとして記載していた点が残っており再度`FAIL`
-3. 今回、その`TS2300`記載を実CIログ（run `30691286359`）に基づいて訂正するamendを実施
+## Scripts TypeCheck復旧の確定記録（2026-08-01 7回目）
 
-Workflow機能コード・TypeCheck設定自体はこの一連の文書修正では**変更していない**（今回も文書修正のみ）。文書同期commitはcommit済み・**未push**（origin/main=`66b6e38`、ahead 1/behind 0。amend後の最終hashは作業完了時点のもののため本文には書かず、最終報告で示す）。TypeCheck修正自体（`tsconfig.scripts.json`の`exclude`追加等）は**未着手**。**文書同期commit自体を「PASS」「PASS WITH NOTES」とは表現しない**（現時点で確定しているのは2回のFAILのみで、今回の修正に対する監査結果はまだ出ていない）。通知機能についても**「完全復旧」とは表現しない**（実スケジュール実行によるend-to-end確認が未完了のため）
+### 修正commit
+- `5615464 fix: resolve scripts typecheck errors`（origin/mainへpush済み）
+- 修正内容は2種類に区別される:
+  - **9ファイル**（`_calc-b1b2b3-correction.ts`・`_check-b4-sources.ts`・`_check-hu-cp04.ts`・`_check-pt-cz-cp041.ts`・`_check-study-work-urls.ts`・`_check-tr-mukerrer.ts`・`_fetch-b4-data.ts`・`_fetch-eurostat-hbs4.ts`・`_fetch-eurostat-ses22-v3.ts`）: 末尾に`export {};`を1行追加し、TypeScriptが「スクリプト」として扱うグローバルスコープ上の関数・変数名衝突を解消。`_fetch-eurostat-hbs4.ts`の`TS2339`もこのグローバル衝突の派生エラーだったため、`export {};`追加のみで消滅した
+  - **`_patch-ar-tax-brackets.ts`（1ファイル）**: 3つの正規表現からdotAllの`s`フラグを削除し`.*?`を`[\s\S]*?`へ変更（ES2017互換化）。Supabase接続処理・対象slug・JA/EN/ZH本文更新ロジック等のDB更新処理自体は変更していない
+- `tsconfig.scripts.json`への新規exclude追加はなし。追跡済みスクリプトを型検査対象から除外しない直接修正方式を最終採用した
+
+### 検討の経緯（採用しなかった案）
+1. **広域exclude案**（`tsconfig.scripts.json`に`"scripts/_*.ts"`を追加）: 追跡済み133件を一括除外してしまい、DB更新・公開・削除・seed・migration等を実行可能なスクリプトまで型検査対象外になるため、Codex監査で`FAIL`
+2. **既知10件の個別exclude案**: 残り123件は型検査可能だったが、DB更新可能な`_patch-ar-tax-brackets.ts`を含む10件を検査対象外にする方針自体が採用されず、Codex監査で`FAIL`
+3. **直接修正案（最終採用）**: 上記の通り9件へ`export {};`、1件を正規表現ES2017互換化。追跡済み223件のうち既存exclude2件を除く221件全てが引き続き型検査対象。Codex最終監査は`PASS WITH NOTES`
+
+### GitHub Actions実run
+```text
+Workflow: Scripts TypeCheck
+run ID: 30697986179
+event: push
+head SHA: 56154647b34caac57d1c61950651edeff051e869
+branch: main
+status: completed
+conclusion: success
+```
+全step成功（Set up job／checkout@v4／setup-node@v4／npm ci／`TypeCheck scripts/`／post steps／Complete job）。実行コマンドは`npx tsc --project tsconfig.scripts.json --noEmit`。旧エラー`TS2393`／`TS2451`／`TS2339`／`TS1501`はいずれも再発していない。
+
+### Workflow状態
+`Scripts TypeCheck`／`Research Study Abroad Entry`／`Health Check — Country Sources`の3Workflowはすべて`state: active`かつ正しい表示名を維持。head SHA `5615464`で起動したWorkflowは`Scripts TypeCheck`の1件のみ（他の2Workflowは`on: push`トリガーを持たないため起動していない）。
+
+### 残存課題（未完了のまま）
+- `Research Study Abroad Entry`の実スケジュールend-to-end確認（次回土曜09:00 JST実行）
+- `Health Check — Country Sources`の実スケジュールend-to-end確認（次回週次/月次実行）
+- 旧版run（head SHA `7ae0466`）で作成されたIssue #1／#2の整理（今回も未操作、open状態のまま存在を確認済み）
+- 新しい`scripts/_*.ts`スクリプトが将来追加された際、同種のグローバルスコープ衝突を機械的に防ぐ仕組みは未導入（`export {};`は今回の9件へ個別追加したのみ）
+- 未追跡scratchファイルが存在するローカル環境では、通常の`npx tsc --project tsconfig.scripts.json --noEmit`が引き続き失敗する運用上の課題は残る（Git追跡済み限定のCI環境でのみクリーンになる設計のため）
 
 ## Git履歴（重要）
 

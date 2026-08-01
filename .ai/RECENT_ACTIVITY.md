@@ -5,6 +5,24 @@
 
 ---
 
+## 2026-08-01 — Claude Code（7回目）
+
+- タスクID: RECORD-TYPECHECK-RECOVERY-20260801
+- 状態: Scripts TypeCheck復旧の確定結果を文書へ記録。文書同期commit（`docs: record scripts typecheck recovery`）は作成済み・未push。Codex文書差分監査は、Git現在地の記述不整合2件（local HEAD／origin/mainが同一と誤記／ahead-behindを`0/0`と誤記。TypeCheck復旧自体の技術的記録は正確）により`FAIL`。amendで事実不整合を訂正し、再監査で`PASS`または`PASS WITH NOTES`となった場合に通常pushを予定
+- 経緯（意思決定と確定結果）:
+  1. 広域exclude案（`tsconfig.scripts.json`に`"scripts/_*.ts"`追加）→ 追跡済み133件を一括除外し、DB更新可能なスクリプトも含まれるためCodex監査で`FAIL`
+  2. 既知10件の個別exclude案（残り123件は型検査可能）→ DB更新可能な`_patch-ar-tax-brackets.ts`を含む10件を検査対象外にする方針自体が不採用となりCodex監査で`FAIL`
+  3. 直接修正案（最終採用）: 9件へ`export {};`追加、1件（`_patch-ar-tax-brackets.ts`）の正規表現をES2017互換化
+  4. commit `5615464 fix: resolve scripts typecheck errors`を作成
+  5. Codex最終監査: `PASS WITH NOTES`（push前必須修正なし）
+  6. `git push origin main`で通常push完了（fast-forward、force不使用）
+  7. push起因で自動起動した実run `30697986179`（Scripts TypeCheck、event=push、head SHA=`5615464`）を監視: status=`completed`、**conclusion=`success`**。旧エラー`TS2393`/`TS2451`/`TS2339`/`TS1501`の再発なし
+  8. 追加操作なし: rerun／retry／cancelは未実施、DB／記事／Issue／ラベル操作もなし
+- 詳細は`.ai/CURRENT_HANDOFF.md`参照
+- 残存: `Research Study Abroad Entry`・`Health Check — Country Sources`の実スケジュールend-to-end確認、Issue #1／#2の整理は未完了のまま
+
+---
+
 ## 2026-08-01 — Claude Code（6回目）
 
 - タスクID: SYNC-DOCS-AFTER-PUSH-20260801
