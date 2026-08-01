@@ -2,25 +2,100 @@
 
 最終更新: 2026-08-01
 最終担当: Claude Code
-タスクID: CLOSE-REMAINING-FAIL-OPEN-PATHS-20260801
-状態: 修正・静的検証完了。commit予定（`d614ede`の上に追加、push未実施）。Codex監査（FAIL）指摘5件への対応完了、end-to-end実行確認は未完了。**「厳格検証済み」「完全復旧」とは表現しない**（静的検証・ローカルモックのみで実運用未確認のため）
+タスクID: FIX-DOC-FACTUAL-ERRORS-20260801
+状態: GitHub Actions緊急修正の5commit（`7ae0466`〜`66b6e38`）はすべてorigin/mainへpush済み（origin/main=`66b6e38`）。**この修正コード自体に対するCodex最終判定はPASS WITH NOTES**（Workflow機能差分に問題はない）。一方、その後の**文書同期commit自体に対するCodexの差分限定監査は、これまで2回とも`FAIL`**である：
+
+1. 1回目（`21dbe45`）: Issue #1/#2の発生元表現・TypeCheck失敗ファイルの10件一括分類・Nodeバージョンの混同・参照関係の断定表現・BACKLOGのcommit件数、等の文書上の事実誤認が指摘され`FAIL`。`21dbe45`を未pushのままamendし`578c4a9`とした
+2. 2回目（`578c4a9`）: 1回目の指摘の大部分は解消されていたが、実CIには存在しない`TS2300`を追跡済み9ファイルのCIエラーとして記載していた点が残っており再度`FAIL`
+3. 今回、その`TS2300`記載を実CIログ（run `30691286359`）に基づいて訂正するamendを実施
+
+Workflow機能コード・TypeCheck設定自体はこの一連の文書修正では**変更していない**（今回も文書修正のみ）。文書同期commitはcommit済み・**未push**（origin/main=`66b6e38`、ahead 1/behind 0。amend後の最終hashは作業完了時点のもののため本文には書かず、最終報告で示す）。TypeCheck修正自体（`tsconfig.scripts.json`の`exclude`追加等）は**未着手**。**文書同期commit自体を「PASS」「PASS WITH NOTES」とは表現しない**（現時点で確定しているのは2回のFAILのみで、今回の修正に対する監査結果はまだ出ていない）。通知機能についても**「完全復旧」とは表現しない**（実スケジュール実行によるend-to-end確認が未完了のため）
 
 ## Git履歴（重要）
 
-- `7ae0466`: origin/mainへpush済み。GitHub上でWorkflow定義がactiveとして正常認識されたことを確認済み
-- `e4de711`: commit済み・**未push**
-- `db75e51`: commit済み・**未push**
-- `d614ede`: commit済み・**未push**（`db75e51`の上に追加。`e4de711`/`db75e51`はamend・rebaseしていない）。この修正に対するCodex独立監査が**FAIL**となった
-- 本タスクの新commit: `d614ede`に対するCodex独立監査がFAILとなったため、その指摘5件に対応した追加commit（push未実施）
-- 旧版runで作成されたIssue #1／#2の整理は本タスクの範囲外・別判断として保留（今回も一切触れていない）
+- `7ae0466`〜`66b6e38`（`7ae0466`→`e4de711`→`db75e51`→`d614ede`→`66b6e38`）: **すべてorigin/mainへpush済み**
+- GitHub上で`research-study-abroad.yml`（表示名: Research Study Abroad Entry）・`health-check-country-sources.yml`（表示名: Health Check — Country Sources）とも`state: active`として正常認識されていることを確認済み。ファイルパス表示への劣化なし
+- `health-check-country-sources.yml`の`concurrency: queue: max`を含む定義がGitHub側で正常に認識されていることを確認済み（ワークフローが`active`かつ表示名が正しいことが根拠。実際のpending-queue挙動そのものは複数トリガーの実発生を経ておらず未確認）
+- push自体によって`research-study-abroad.yml`・`health-check-country-sources.yml`が自動起動した事実はなし（いずれも`on: push`トリガーを持たないため）。別の既存ワークフロー`Scripts TypeCheck`（`on: push`で`scripts/**/*.ts`変更時に起動する仕様）は今回pushした4commit（`e4de711`〜`66b6e38`）で起動し失敗したが、原因はこれら4commitとは無関係な既存のコミット済みscratchスクリプト（詳細は本ファイル下部「Scripts TypeCheck読み取り専用監査」参照）
+- Issue #1／#2は、head SHA `7ae0466`で実行された旧集約通知実装の週次run（run ID `30683910156`、2026-08-01T04:25:19Z、conclusion=failure）・月次run（run ID `30685732548`、2026-08-01T05:23:15Z、conclusion=failure）によって作成された。「`7ae0466`より前」「適用前」「旧commit」ではなく、**`7ae0466`そのものに含まれていた旧集約通知実装**が原因である。整理は本タスクの範囲外・別判断として保留（今回も一切操作していない）
+- **実際のGitHub Actionsスケジュール実行によるend-to-end確認（dead URL検出→source単位Issue通知→DB更新、SendGrid通知の実動作等）はまだ完了していない**
 
-### Codex監査（d614ede対象）の主なFAIL理由
+### Codex監査（d614ede対象）の主なFAIL理由（指摘6件）
 1. GitHub Search APIの不完全・矛盾した応答（`total_count`不正、ページ間不整合、重複Issue番号等）を「既存Issueなし」と扱うfail-open
 2. Supabase更新が0件または複数件でも成功扱いされる可能性（`.update().eq()`だけでは実際に何件更新されたか確認していなかった）
 3. `verify-country-sources.ts`のstatus更新が`.eq("url", ...)`（URL条件）で行われており、同一URLを共有する別source・別国の行を意図せず更新する可能性
 4. `runExtract()`の既存alive取得（`select("url").eq("status","alive")`）でSupabaseの`error`を確認していなかった
 5. Issue作成APIレスポンスのtitleが要求と食い違っていても成功扱いにしていた
 6. 文書と実際のcommit状態の不一致
+
+この指摘6件へ対応したのが`66b6e38`（下記「Fail-open経路の是正」節）であり、その後のCodex独立監査で**PASS WITH NOTES**を得た。
+
+## 文書同期・Scripts TypeCheck読み取り専用監査（2026-08-01 6回目）
+
+### 目的
+push完了後の実際の状態を運用文書へ反映し、`research-study-abroad.yml`内の古いSendGridコメントを現在の実装へ整合させ、pushのたびに失敗している既存`Scripts TypeCheck`ワークフローの原因を読み取り専用で整理する。機能変更は行っていない。
+
+### SendGridコメント修正
+`research-study-abroad.yml`の「SendGrid等の新規シークレットは未設定のため、カスタムメール送信は導入していない」という、現行実装（`Check email configuration`・`Send email via SendGrid`の2ステップが既に存在する）と矛盾する古いコメントを、「SendGrid通知は任意。SENDGRID_API_KEYとNOTIFY_EMAILの両方が設定され、新規Issueが作成された場合のみ送信する」という趣旨へ修正した。コメントのみの変更で、`if:`条件・env・permissions・curl・Issue処理等のロジックは無変更。
+
+### Scripts TypeCheck 読み取り専用監査
+
+**Workflow仕様（`.github/workflows/scripts-typecheck.yml`）**
+- trigger: `push`および`pull_request`、いずれも`paths: ["scripts/**/*.ts", "tsconfig.scripts.json"]`に一致した場合のみ（scripts配下のTS変更時、またはtsconfig.scripts.json変更時に限定。全pushで無条件に走るわけではない）
+- 実行コマンド: `npx tsc --project tsconfig.scripts.json --noEmit`
+- Node: **2つの異なるランタイムを区別する必要がある**。(1) GitHub Actionsが各Action（`actions/checkout@v4`等）本体を実行する内部ランタイムはNode 24へ強制されている（annotationで確認、Node 20の非推奨化に伴う措置）。(2) 一方、Workflow内の`actions/setup-node@v4`が`node-version: "20"`を指定してセットアップした結果、`npx tsc --project tsconfig.scripts.json --noEmit`コマンド自体は実際には**Node 20.20.2**上で実行されている（run `30691286359`のログで`Acquiring 20.20.2 - x64`を確認）。「TypeScriptはNode 24で実行された」「Workflow指定Node 20がNode 24へ置き換えられた」という理解は誤り。TypeScript: `package.json`の`devDependencies`で`"typescript": "^5"`
+- 検査対象: `tsconfig.scripts.json`の`include: ["scripts/**/*.ts"]`により`scripts/`配下の全`.ts`ファイル（サブディレクトリ含む）が対象
+- exclude設定: `node_modules`と個別ファイル2件（`scripts/check-th-live.ts`、`scripts/check-th-wayback.ts`）のみ。`_`プレフィックス等のscratch命名規則に基づく除外は存在しない
+- pushのたびに実行されるか: **scripts配下のTS変更を伴うpushのみ**（無条件の全push起動ではない）。今回のpush（`66b6e38`まで）はscriptsを変更しているため起動し、失敗した
+
+**正確な失敗原因**
+- ローカルで`npx tsc --project tsconfig.scripts.json --noEmit`を実行すると、リポジトリに実在する未追跡scratchスクリプト（本セッションの調査用一時ファイル、約8件）も同時にコンパイル対象へ含まれてしまうため、ローカルの生エラー出力にはCI（GitHub上のコミット済み内容のみ）とは無関係なファイルが混在する。`git ls-files`で個別に追跡状態を確認し、**実際にGitHub側のCI失敗に関与する追跡済みファイルは以下10件**と特定した。ただしこの10件は原因の異なる2種類に分かれる（一律「10件すべてimport/exportなし」「10件すべてグローバルスコープ衝突」ではない）:
+  - **9件**（グローバルスコープでの名前衝突が原因）: `scripts/_calc-b1b2b3-correction.ts`・`scripts/_check-b4-sources.ts`・`scripts/_check-hu-cp04.ts`・`scripts/_check-pt-cz-cp041.ts`・`scripts/_check-study-work-urls.ts`・`scripts/_check-tr-mukerrer.ts`・`scripts/_fetch-b4-data.ts`・`scripts/_fetch-eurostat-hbs4.ts`・`scripts/_fetch-eurostat-ses22-v3.ts`
+  - **1件**（原因が異なる）: `scripts/_patch-ar-tax-brackets.ts`
+- 主なエラーコード（run `30691286359`の実CIログで確認、GitHub上のコミット済み10ファイルのみが対象）: `TS2393`（Duplicate function implementation）25件、`TS2451`（Cannot redeclare block-scoped variable、例: `COUNTRIES`/`PPP`/`NACE_TARGET`等）7件、`TS1501`（正規表現フラグがes2018未満のtargetで使用不可、`_patch-ar-tax-brackets.ts`のみ）3件。その他付随エラーとして`_fetch-eurostat-hbs4.ts`の`TS2339`（`Number`型に存在しないプロパティ参照）2件を実CIログで確認
+- `TS2300`（Duplicate identifier、例: `NaceKey`）について: **run `30691286359`のGitHub Actions実CIログでは0件**。ローカル環境で未追跡の`scripts/_fetch-b3-data.ts`（`_fetch-b4-data.ts`と同名の型`NaceKey`を独立に定義）を含めて`npx tsc`を実行した場合にのみ、この2ファイル間の衝突として`TS2300`が発生する。`_fetch-b3-data.ts`はGitHubへpushされていないためCIには存在せず、`_fetch-b4-data.ts`単独では衝突相手がなく`TS2300`は発生しない（`_fetch-b4-data.ts`の実CIエラーは`TS2393`4件・`TS2451`2件のみ）。したがって追跡済み10ファイルによるCI失敗原因には`TS2300`を含めない。**追跡済みファイルだけのCI結果と、未追跡ファイルを含むローカル検査結果を混同しないこと**
+- `Duplicate function implementation`が発生する構造（**上記9件が対象。10件全部ではない**）: この9件はいずれも先頭で`import`/`export`文を一切使用しておらず（`grep -c "^import \|^export "`で0件を確認）、TypeScriptはimport/exportのないファイルを「モジュール」ではなく「スクリプト」として扱い、トップレベル宣言をグローバルスコープへ展開する。`tsconfig.scripts.json`の`include`が`scripts/**/*.ts`全体を1つのコンパイル単位として扱うため、複数の一時調査ファイルが同名の`COUNTRIES`・`PPP`等の変数やヘルパー関数を独立に定義していると、同一グローバルスコープ内での再宣言としてエラーになる（対照として、`generate-country-article.ts`等の正式運用スクリプトは全てimport文を持ち、モジュールとして分離されている）。**残り1件`scripts/_patch-ar-tax-brackets.ts`はimport文を2行持つ独立したモジュールであり、このグローバルスコープ衝突の説明には該当しない**
+- 各ファイルのGit追跡状態: 上記10件はすべて`git ls-files`で追跡済み（committed）と確認。一方、ローカルのみに存在する同種の未追跡ファイル（`_fetch-b3-data.ts`等8件）はGitHub側のCIには影響しない
+- 正式運用scriptからの参照有無: リポジトリ内を検索した結果、対象10ファイルは`package.json`、Workflow、正式スクリプトから直接参照・実行・importされていない
+- npm scriptやWorkflowからの直接実行: `package.json`の`scripts`セクション、`.github/workflows/`配下いずれにもこれら10ファイルへの直接参照なし
+- 削除時の実運用影響: 上記の通りどこからも参照・実行されていないため、削除しても実運用パイプラインへの影響はないと判断される（ただし今回は削除等の変更は一切行っていない）
+
+**既存運用ルールとの関係**
+- `.gitignore`には`/scripts/_tmp-*.ts`と`/scripts/_tmp_*.ts`の2パターンのみ登録されており、広範な`_*.ts`パターンは存在しない
+- `.gitignore`はあくまで「今後の新規追跡」を防ぐ設定であり、**既に追跡済み（committed）のファイルには一切効果がない**ことを確認（`git ls-files`で実際に100件超の`scripts/_*.ts`が追跡済みであることからも裏付けられる）
+- `tsconfig.scripts.json`の`include`は追跡済みscratchスクリプトも区別なく含んでいる
+- 命名規則としては「`_`プレフィックス＝一時調査／scratch」という運用上の慣習が一貫して存在する（`scripts/utils/`配下の正式ユーティリティ含め、production系スクリプトに`_`プレフィックスの例は皆無）ものの、これを**機械的に強制する仕組み（tsconfig除外・lintルール等）は現状存在しない**
+
+### 修正案の比較（今回は未実施）
+
+**案A: tsconfigからscratch scriptを除外**
+- `tsconfig.scripts.json`の`exclude`へ`"scripts/_*.ts"`を追加する想定（既存の`_tmp-*`/`_tmp_*`パターンと同じ考え方の拡張）
+- 現在の命名規則（`_`プレフィックス=scratch）と完全に一致することを確認済み。正式スクリプトはすべて非`_`プレフィックスのため誤除外なし
+- 変更は1ファイル1行のみで最小
+- scratch script自体はリポジトリ・commit履歴に残ったまま、型検査の対象からのみ外れる
+
+**案B: 追跡済みscratch scriptをGit管理から外す（`git rm --cached`等）**
+- commit履歴には残るが、将来のcloneやチェックアウトでは見えなくなる。100件超のファイルを個別に「本当に将来参照不要か」判断する必要があり、判別コストが高い
+- `.gitignore`との整合も別途必要（外した後に再度誤って追跡されないようパターン追加が必要）
+- 他スクリプトからの参照は今回の10件・および確認した範囲では無しと分かっているが、全件の悉皆確認はしていない
+
+**案C: 各scratch scriptの型エラーを個別修正**
+- 対象10件それぞれの重複名を解消する作業量が発生し、かつ将来同様の一時ファイルが追加されれば同じ問題が再発する（構造的な再発防止にならない）
+- 一時調査コード（既に用途を終えたもの）に保守コストを掛ける価値は低く、production scriptの品質向上にも寄与しない
+
+**案D: TypeCheckを正式script専用構成へ分離（allowlist化・ディレクトリ再編等）**
+- 長期的な保守性は高いが、100件超のファイル移動・パス参照更新を伴う可能性があり移行コストが大きい
+- 現状は`_`プレフィックスという一貫した命名規則が既に存在するため、案Aで同等の効果を最小コストで得られる。現時点では過剰設計と判断
+
+### PM向け推奨案
+- **推奨: 案A**（`tsconfig.scripts.json`の`exclude`へ`"scripts/_*.ts"`を追加）
+- 推奨理由: 既存の命名規則（`_`プレフィックス=scratch）とすでに一致しており、正式スクリプトを誤って除外するリスクがない。1行の変更で完結し、scratchスクリプト自体はリポジトリに残せる（削除・移動を伴わない）。案Bのような個別要否判断や案Dのようなディレクトリ再編を要しない
+- 変更対象ファイル: `tsconfig.scripts.json`（1ファイルのみ）
+- 除外候補ファイル: `scripts/_*.ts`（直下のみ、サブディレクトリに`_`プレフィックスファイルは現状存在しないことを確認済み）
+- 除外してはいけない正式script: `scripts/`直下の非`_`プレフィックス全ファイル、および`scripts/utils/`配下の全ファイル（`db-update.ts`・`github-issue-dedup.ts`等）。念のため`exclude`追加後に`git ls-files scripts/*.ts scripts/**/*.ts`と`tsc`の実際の検査対象リストを突き合わせ、正式スクリプトが1件も減っていないことを確認する想定
+- 想定される副作用: scratchスクリプトの型エラーが二度と検出されなくなる（意図通り）。将来`_`プレフィックスを使わない新しい一時ファイルを作った場合はこの除外の対象外になる点は運用上の注意点として残る
+- Codex監査で確認すべき点: 除外パターンが正式スクリプトを1件も巻き込んでいないか、`_tmp-*`/`_tmp_*`との重複定義にならないか、既存の`check-th-live.ts`等の個別exclude行との整合
+- 修正後の検証方法: `npx tsc --project tsconfig.scripts.json --noEmit`がエラー0件で完走すること、`git ls-files scripts/*.ts`のうち非`_`プレフィックスファイル数と実際に型検査された件数が一致すること（除外されすぎていないか）
 
 ## Fail-open経路の是正（2026-08-01 5回目）
 
@@ -61,8 +136,8 @@
 ### 未解決事項・残存リスク
 - 実際のGitHub Actions実行を経ていないため、動的な挙動（実際のSearch APIレスポンス形状、Supabaseの`.single()`実挙動）は未確認
 - `updateExactlyOneById()`はSupabaseの`.single()`の挙動（0件/複数件でerrorになること）に依存しており、Supabaseクライアントのバージョン変更等でこの挙動が変わった場合は追従が必要
-- 旧版runで作成された可能性のあるIssue #1／#2の整理・close判断は、本タスクの範囲外として保留（ユーザー判断が必要）
-- pushは未実施（ユーザー承認待ち）。push後の実スケジュール実行での確認が必須
+- Issue #1／#2の整理・close判断は、本タスクの範囲外として保留（ユーザー判断が必要）。＊2026-08-01訂正＊: この時点では「旧版run」とだけ記していたが、実際にはhead SHA `7ae0466`で実行された旧集約通知実装の週次run（`30683910156`）・月次run（`30685732548`）が原因と特定済み（詳細は本ファイル上部参照）
+- ＊2026-08-01追記＊: このcommitを含む一連の修正は`66b6e38`まで進んだ後、2026-08-01にpush済み。ただし本箇条書き自体はpush前時点の記録であり、実スケジュール実行によるend-to-end確認はこの記述時点・現時点ともに未完了
 
 ### Codex監査（db75e51対象）の主なFAIL理由
 1. 月次runでdead URLがあるとcontent-hash検査がskipされる（verify-country-sources.tsがexit 2を返すと検証step自体がfailureになり、後続の暗黙のsuccess()によりcontent-hash stepがskipされていた）
@@ -120,8 +195,8 @@
 ### 未解決事項・残存リスク
 - 実際のGitHub Actions実行を経ていないため、動的な挙動（特に`queue: max`の実際の効果、weekly/monthly/manualの3件以上同時トリガー時の挙動）は未確認
 - GitHub Actions自体はSearch→Create/Commentを完全な原子操作にはできないため、concurrencyによる直列化があっても同時実行の完全排除ではない
-- 旧版run（過去の`if: failure()`ベースの実装）で作成された可能性のあるIssue #1／#2の整理・close判断は、本タスクの範囲外として保留（ユーザー判断が必要）
-- pushは未実施（ユーザー承認待ち）。push後の実スケジュール実行での確認が必須
+- Issue #1／#2の整理・close判断は、本タスクの範囲外として保留（ユーザー判断が必要）。＊2026-08-01訂正＊: 実際にはhead SHA `7ae0466`で実行された旧集約通知実装（`if: failure()`ベース）の週次run（`30683910156`）・月次run（`30685732548`）が原因と特定済み（詳細は本ファイル上部参照）
+- ＊2026-08-01追記＊: このcommitを含む一連の修正は`66b6e38`まで進んだ後、2026-08-01にpush済み。ただし本箇条書き自体はpush前時点の記録であり、実スケジュール実行によるend-to-end確認はこの記述時点・現時点ともに未完了
 
 ## GHA Issue通知の構造的是正（2026-08-01 3回目）
 
@@ -196,7 +271,7 @@
 - 実際のGitHub Actions実行を経ていないため、`notify-dead-sources.ts`・`check-source-content-hash.ts`のGitHub API呼び出し・`research-study-abroad.yml`のjq処理の実行時動作は未確認
 - `dead_found`判定は終了コードベースに変更したが、`verify-country-sources.ts`の将来的な変更で終了コード契約が崩れるリスクは残る（コード側にコメントで明記済み）
 - 同一Workflow内のconcurrency直列化はできたが、GitHub Actions自体がSearch→Create/Commentを完全な原子操作にはできない制約は残る（同時実行が完全に排除されるわけではない）
-- pushは未実施（ユーザー承認待ち）。push後の実スケジュール実行での確認が必須
+- ＊2026-08-01追記＊: このcommitを含む一連の修正は`66b6e38`まで進んだ後、2026-08-01にpush済み。ただし本箇条書き自体はpush前時点の記録であり、実スケジュール実行によるend-to-end確認はこの記述時点・現時点ともに未完了
 
 ## GHA Issue通知経路の是正（2026-08-01 2回目）
 
@@ -244,7 +319,7 @@ commit `7ae0466`（push済み、origin/mainに反映済み・GitHub上でWorkflo
 ### 未解決事項・残存リスク
 - `actions/github-script`内のJS（Issue検索・作成ロジック）とcheck-source-content-hash.tsのSearch API呼び出しは、実際のWorkflow実行を経ないと完全な動作確認はできない。次回スケジュール実行（8/1 09:00 JST・10:00 JST週次・次回月次）での挙動確認が必要
 - 今回のIssueタイトル安定化（日付除去）により、`check-source-content-hash.ts`は「ソース更新検知」という単一の生きたopen issueが存在する限り、対象国が異なる新たな変化があっても新規issueを作成しない設計になった。長期的には対象を区別する識別キー設計が必要になる可能性があるが、今回は重複防止を優先し最小変更とした
-- pushは未実施（ユーザー承認待ち）
+- ＊2026-08-01追記＊: このcommitを含む一連の修正は`66b6e38`まで進んだ後、2026-08-01にpush済み
 
 ## GHAワークフロー修正（2026-08-01）
 

@@ -1,6 +1,6 @@
 # MoveWorth Backlog
 
-最終更新: 2026-08-01（BL-20260801-06追加）
+最終更新: 2026-08-01（BL-20260801-07追加）
 
 > 本ファイルはプロジェクト全体の未完了タスクを管理する。
 > `docs/redirect-backlog.md` はリダイレクト専用として別管理する。
@@ -200,7 +200,7 @@
 - 優先度: 高
 - 状態: 静的修正完了・実行確認待ち（**「完全復旧」ではない**）
 - 関連領域: `.github/workflows/research-study-abroad.yml` / `.github/workflows/health-check-country-sources.yml` / `scripts/verify-country-sources.ts` / `scripts/check-source-content-hash.ts` / `scripts/notify-dead-sources.ts`（新規） / `scripts/utils/github-issue-dedup.ts`（新規） / `.gitignore`
-- 経緯: BL-20260801-03の修正（commit `e4de711`、**push未実施**）に対するCodex独立再監査が再度FAILとなり、以下13件の実行時問題が指摘された
+- 経緯: BL-20260801-03の修正（commit `e4de711`）に対するCodex独立再監査が再度FAILとなり、以下13件の実行時問題が指摘された（`e4de711`は2026-08-01にpush済み）
   1. research Issue検索が`--json title`のみ取得しつつ`.number`参照（常にnull）
   2. health-checkのschedule判定が`contains()`部分一致
   3. dead URL判定が自然言語ログのgrep依存でDB接続失敗等と区別不能
@@ -231,7 +231,7 @@
 - 優先度: 高
 - 状態: 静的修正完了・実行確認待ち（**「完全復旧」ではない**）
 - 関連領域: `.github/workflows/research-study-abroad.yml` / `.github/workflows/health-check-country-sources.yml` / `scripts/verify-country-sources.ts` / `scripts/check-source-content-hash.ts` / `scripts/utils/github-issue-dedup.ts`
-- 経緯: BL-20260801-04の修正（commit `db75e51`、**push未実施**）に対するCodex独立監査が再度FAILとなり、以下7件の問題が指摘された
+- 経緯: BL-20260801-04の修正（commit `db75e51`）に対するCodex独立監査が再度FAILとなり、以下7件の問題が指摘された（`db75e51`は2026-08-01にpush済み）
   1. 月次runでdead URLがあるとcontent-hash検査がskipされる（verify-country-sources.tsのexit 2で検証step自体がfailureになり、後続が暗黙のsuccess()でskipされていた）
   2. Supabaseの更新失敗を成功扱いしている（`upErr`警告のみで継続、または戻り値未確認のまま成功件数へ加算）
   3. concurrencyのpending runが3件以上で失われる（`cancel-in-progress: false`のみでは実質pending 1件までしか保持できない）
@@ -246,16 +246,16 @@
   - `health-check-country-sources.yml`: 検証stepの終了コード2（dead URL検出）をstep成功として扱うよう変換し、月次content-hashが暗黙skipに巻き込まれないよう修正。Workflow全体のfailure化を末尾の専用stepへ分離。`concurrency`を`queue: max`へ変更。`workflow_dispatch.inputs.mode`を`type: choice`化し、shell側でも不正値を明示的に失敗させる
   - `research-study-abroad.yml`: `command -v jq`チェックと`if ! VAR=$(...)`パターンの徹底により、gh検索失敗・jq不在・jq解析失敗のすべてをfail-closedにした
 - 検証: js-yaml構文、IDE診断エラー0件、cron無変更、全14 run:ブロックのbash -n、対象4TSファイルのtsc型検査エラー0件、ローカルモックテスト（github-issue-dedup.tsのschema/pagination 21パターン、notify-dead-sources.ts 11パターン、DB更新エラー×終了コード優先順位、exit code変換ロジック4パターン、manual modeのcase文6パターン、research-study-abroad.ymlの実run:ブロックをfake gh/jqで実行した6パターン）すべて成功
-- 残存リスク: 実際のWorkflow実行を経ていないため動的動作は未確認。`queue: max`はIDE診断ではエラー0件だが公式ドキュメントでの一次情報確認は未実施。旧版runで作成された可能性のあるIssue #1／#2の整理は範囲外として保留
+- 残存リスク: 実際のWorkflow実行を経ていないため動的動作は未確認。`queue: max`はIDE診断ではエラー0件だが公式ドキュメントでの一次情報確認は未実施。Issue #1／#2（head SHA `7ae0466`の旧集約通知実装による作成、詳細はBL-20260801-06参照）の整理は範囲外として保留
 - 完了条件（実行確認待ち）: push後の次回スケジュール実行で、dead URL検出時のcontent-hash継続実行・Workflow最終failure化・DB更新エラー時の非0終了・concurrencyのpending保持・不正manual mode時の失敗が意図通りに動作することを確認する
 - **追記（2026-08-01）**: 本項目の修正（commit `d614ede`）に対するCodex独立監査が再度FAILとなり、Search APIのtotal_count/pagination不整合・Supabase更新件数未確認・verifyのURL条件更新・runExtract()取得エラー未確認等5件の追加問題が指摘された。詳細はBL-20260801-06を参照
 
 ## BL-20260801-06: 残存fail-open経路の是正（Search API total_count厳格検証・Supabase正確1件更新・id条件更新）
 
 - 優先度: 高
-- 状態: 静的修正完了・実行確認待ち（**「厳格検証済み」「完全復旧」ではない**）
+- 状態: **コード修正・push・GitHub側Workflow認識は完了**。Codex最終判定は**PASS WITH NOTES**。定期実行によるend-to-end確認は未完了（**「厳格検証済み」「完全復旧」ではない**）
 - 関連領域: `scripts/utils/github-issue-dedup.ts` / `scripts/utils/db-update.ts`（新規） / `scripts/verify-country-sources.ts` / `scripts/check-source-content-hash.ts`
-- 経緯: BL-20260801-05の修正（commit `d614ede`、**push未実施**）に対するCodex独立監査が再度FAILとなり、以下5件の問題が指摘された
+- 経緯: BL-20260801-05の修正（commit `d614ede`）に対するCodex独立監査が再度FAILとなり、以下5件の問題が指摘された（`d614ede`は2026-08-01にpush済み）
   1. GitHub Search APIの不完全・矛盾した応答（`total_count`不正、ページ間不整合、Issue番号重複等）を「既存Issueなし」と扱うfail-open
   2. Supabase更新が0件または複数件でも成功扱いされる可能性
   3. `verify-country-sources.ts`がURL条件（`.eq("url",...)`）で複数行を更新する可能性（同一URLを共有する別source・別国の行を誤って更新しうる）
@@ -267,8 +267,38 @@
   - `verify-country-sources.ts`: status更新を`updateExactlyOneById()`（id条件）へ変更し`.eq("url",...)`を廃止。`runExtract()`の既存alive取得に`error`確認を追加（取得失敗時はthrowし0件の正常ケースと区別）
   - `check-source-content-hash.ts`: 全DB更新（初回保存・変更なし更新・通知後hash更新）を`updateExactlyOneById()`経由へ変更
 - 検証: git diff --check、対象5TSファイルのtsc型検査エラー0件、ローカルモックテスト（github-issue-dedup.tsのtotal_count/pagination/schema/title検証31パターン、notify-dead-sources.ts 11パターン、db-update.tsの実装＋fake Supabaseクライアントで12パターン、runExtractのalive取得エラー処理5パターン）すべて成功。今回yamlファイルは変更なし
-- 残存リスク: 実際のGitHub Actions実行・実GitHub API・実Supabaseへは未接続のため動的動作は未確認。`updateExactlyOneById()`はSupabaseの`.single()`挙動に依存。旧版runで作成された可能性のあるIssue #1／#2の整理は範囲外として保留
-- 完了条件（実行確認待ち）: push後の次回スケジュール実行で、Search APIの実応答に対する厳格検証・Supabase更新の正確性・id条件更新が意図通りに動作することを確認する
+- 残存リスク: `updateExactlyOneById()`はSupabaseの`.single()`挙動に依存。Issue #1／#2（head SHA `7ae0466`の旧集約通知実装による作成。週次run`30683910156`・月次run`30685732548`）の整理は範囲外として保留
+- **追記（2026-08-01）**: 本項目の修正commit `d614ede`に対するCodex独立監査で指摘された5件へ対応した追加commit`66b6e38`を作成し、`e4de711`〜`66b6e38`の**4commit**（`e4de711`／`db75e51`／`d614ede`／`66b6e38`。`7ae0466`はこの範囲に含まない、既に別途push済みのため）を`git push origin main`でorigin/mainへpush済み（fast-forward、force不使用）。push後、GitHub上で`research-study-abroad.yml`・`health-check-country-sources.yml`とも`state: active`・正しい表示名・`queue: max`定義の正常認識を確認。push自体による対象2Workflowの自動起動なし。この状態に対するCodex最終監査は**PASS WITH NOTES**
+- **状態の内訳**:
+  - コード修正・push: **完了**
+  - GitHub側Workflow認識（active・表示名・queue: max）: **完了**
+  - 定期実行によるend-to-end確認（dead URL検出→source単位Issue通知→DB更新、SendGrid実送信等）: **未完了**（次回スケジュール実行で確認予定）
+  - 旧Issue #1／#2整理: **未完了**（新Issue形式の実動作確認後に別タスクで着手）
+- 完了条件（実行確認待ち）: 次回スケジュール実行で、Search APIの実応答に対する厳格検証・Supabase更新の正確性・id条件更新が意図通りに動作することを確認する
+
+## BL-20260801-07: Scripts TypeCheckの既存失敗解消
+
+- 優先度: 中
+- 状態: 調査済み・修正未着手
+- 関連領域: `.github/workflows/scripts-typecheck.yml` / `tsconfig.scripts.json` / `scripts/_*.ts`（コミット済みscratchスクリプト群）
+- 背景: pushのたびに`Scripts TypeCheck`ワークフローが赤くなり、今回のGHA緊急修正一連のcommitとは無関係な既存エラーがCIのノイズになっている。2026-07-28以降のscripts変更を伴うほぼ全pushで同様に失敗しており、長期化した既存問題
+- 原因: `tsconfig.scripts.json`の`include: ["scripts/**/*.ts"]`がコミット済みのscratchスクリプトまで型検査対象に含めており、追跡済み失敗ファイル計10件は原因の異なる2種類に分かれる
+  - **9件**（`scripts/_calc-b1b2b3-correction.ts`・`scripts/_check-b4-sources.ts`・`scripts/_check-hu-cp04.ts`・`scripts/_check-pt-cz-cp041.ts`・`scripts/_check-study-work-urls.ts`・`scripts/_check-tr-mukerrer.ts`・`scripts/_fetch-b4-data.ts`・`scripts/_fetch-eurostat-hbs4.ts`・`scripts/_fetch-eurostat-ses22-v3.ts`）: いずれもimport/export文を持たず、TypeScriptがモジュールではなく単一グローバルスコープの「スクリプト」として扱うため、複数ファイルが同名変数・同名関数（`COUNTRIES`・`PPP`等）を独立に定義しており衝突エラーが発生する。run `30691286359`の実CIログで確認した主なエラーは`TS2393`（Duplicate function implementation）25件・`TS2451`（Cannot redeclare block-scoped variable）7件（ほか`_fetch-eurostat-hbs4.ts`の`TS2339`2件）
+  - **1件**（`scripts/_patch-ar-tax-brackets.ts`）: import文を2行持つ独立したモジュールであり上記のグローバルスコープ衝突には該当しない。主なCIエラーは`TS1501`（正規表現フラグがes2018未満のtargetで使用不可）3件で、原因は無関係
+  - **`TS2300`（Duplicate identifier、例: `NaceKey`）はrun `30691286359`のGitHub Actions実CIでは0件**。未追跡の`scripts/_fetch-b3-data.ts`を含むローカル全体検査でのみ確認されたため、追跡済み10ファイルによるCI失敗原因には含めない（`_fetch-b3-data.ts`はGitHubへpushされておらずCI環境に存在しないため）
+  - リポジトリ内を検索した結果、上記10件はいずれも`package.json`、Workflow、正式スクリプトから直接参照・実行・importされていない
+- 検討した案:
+  - 案A（推奨）: `tsconfig.scripts.json`の`exclude`へ`"scripts/_*.ts"`を追加。既存の`_tmp-*`/`_tmp_*`除外パターンと同じ考え方の拡張で、現行の命名規則（`_`プレフィックス=scratch）と完全一致し、1行の最小変更で完結する
+  - 案B: 追跡済みscratchスクリプトをGit管理から外す（`git rm --cached`等）。100件超の個別要否判断が必要でコスト大
+  - 案C: 各scratchスクリプトの型エラーを個別修正。将来の同種追加で再発するため根本対策にならない
+  - 案D: TypeCheckを正式script専用構成へ分離（allowlist化・ディレクトリ再編）。長期的には有効だが現時点では過剰設計
+- 完了条件:
+  - production／運用対象scriptの型検査を維持する
+  - scratch／調査用scriptによる既知エラーをCIから分離する
+  - `Scripts TypeCheck`が成功する
+  - 正式scriptを誤って検査対象外にしない（`exclude`追加後、`git ls-files scripts/*.ts`のうち非`_`プレフィックスファイルが1件も型検査対象から漏れていないことを確認する）
+- **注記（2026-08-01）**: 2026-08-01の一連の文書同期作業（`.ai/CURRENT_HANDOFF.md`／本ファイル）は、原因説明の事実誤認（TS2300の誤記載等）を訂正しただけであり、`Scripts TypeCheck`自体の修正（`tsconfig.scripts.json`への`exclude`追加）はまだ**未着手**。`Scripts TypeCheck`は現時点でも失敗し続けている
+- 詳細な調査内容（Workflow仕様・エラー一覧・各案の比較）は`.ai/CURRENT_HANDOFF.md`の「文書同期・Scripts TypeCheck読み取り専用監査」節を参照
 
 ## BL-20260728-02: 留学費用（学費）データの一次情報調査
 

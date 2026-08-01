@@ -53,7 +53,8 @@ jobs:
 
       # study-abroad.ts への自動書き込み・自動commitは行わない。
       # 調査結果はGitHub Issue化し、GitHub標準のIssue通知（監視者へのメール通知）を利用する。
-      # SendGrid等の新規シークレットは未設定のため、カスタムメール送信は導入していない。
+      # SendGrid通知は任意。SENDGRID_API_KEYとNOTIFY_EMAILの両方が設定され、
+      # 新規Issueが作成された場合のみ送信する（詳細は後続ステップのコメント参照）。
       - name: Create GitHub Issue with research report
         id: research_issue
         if: steps.check.outputs.exists == 'true'

@@ -5,6 +5,23 @@
 
 ---
 
+## 2026-08-01 — Claude Code（6回目）
+
+- タスクID: SYNC-DOCS-AFTER-PUSH-20260801
+- 状態: 文書同期・SendGridコメント修正commit済み・**未push**（Codex差分監査の指摘を受け同commitをamend済み。amend後hashは最終報告参照）
+- 時系列（2026-08-01）:
+  1. `e4de711`〜`66b6e38`の4commitをpush（`git push origin main`、fast-forward、force不使用）。local HEAD／origin/mainが`66b6e38`で一致（ahead/behind 0/0）
+  2. push後確認: `research-study-abroad.yml`・`health-check-country-sources.yml`とも`state: active`、表示名は正しいまま（ファイルパス表示への劣化なし）。`queue: max`を含む定義もGitHub側で正常認識
+  3. 対象2Workflowはpush自体では自動起動していない（`on: push`トリガーを持たないため）
+  4. 別の既存Workflow`Scripts TypeCheck`（`on: push`、scripts変更時起動）はこの4commitのpushで起動し失敗した（run ID `30691286359`、event=push、head SHA=`66b6e38`、conclusion=failure）。原因はこの4commitとは無関係な既存コミット済みscratchスクリプト10件（うち9件は`scripts/_calc-b1b2b3-correction.ts`等import/export文がなくグローバルスコープで名前衝突。残り1件`scripts/_patch-ar-tax-brackets.ts`はimport文を2行持つ別モジュールで、原因は正規表現フラグの非互換=`TS1501`）であることを確認。2026-07-28以降のほぼ全pushで同様に失敗しており、長期化した既存問題と判断
+  5. Issue #1・#2（いずれも`[country-sources] dead URL 検出 — 2026-08-01`という旧固定タイトル形式）は、head SHA `7ae0466`で実行された旧集約通知実装の週次run（`30683910156`）・月次run（`30685732548`）によって作成されたことを確認。今回も一切操作していない（作成・編集・コメントなし）
+  6. `research-study-abroad.yml`内の古い「SendGrid送信は導入しない」という趣旨のコメントを、現行実装（Check email configuration／Send email via SendGridの2ステップが既に存在）に合わせて修正。ロジック・env・permissions・curl等は無変更
+- 実Workflowのスケジュール実行によるend-to-end確認（dead URL検出→source単位Issue通知→DB更新、SendGrid実送信等）はまだ完了していない
+- Scripts TypeCheckの既存失敗については、案A（tsconfig.scripts.jsonの`exclude`へ`scripts/_*.ts`を追加）を最小・安全な推奨案として整理。今回は変更していない（別タスクとして扱う）
+- 詳細は`.ai/CURRENT_HANDOFF.md`参照
+
+---
+
 ## 2026-08-01 — Claude Code（5回目）
 
 - タスクID: CLOSE-REMAINING-FAIL-OPEN-PATHS-20260801
@@ -31,7 +48,7 @@
 - `research-study-abroad.yml`: jq不在・gh検索失敗・jq解析失敗のいずれもfail-closedにする（`if ! VAR=$(...)`パターンで統一）
 - 検証: js-yaml構文、IDE診断0件、cron無変更、全14 run:ブロックのbash -n、対象4TSファイルのtsc型検査0件、ローカルモックテスト多数（github-issue-dedup.tsのschema/pagination 21パターン、notify-dead-sources.ts 11パターン、DB更新エラー×終了コード優先順位、exit code変換ロジック、manual modeのcase文、research-study-abroad.ymlの実run:ブロックをfake gh/jqで実行した6パターン等）すべて成功
 - 詳細は`.ai/CURRENT_HANDOFF.md`参照
-- 残存リスク: 実際のWorkflow実行を経ていないため動的動作は未確認。`queue: max`はIDE診断ではエラー0件だが公式ドキュメントでの一次情報確認は未実施。旧版runで作成された可能性のあるIssue #1／#2の整理は範囲外として保留。通知機能を「完全復旧」とは表現しない
+- 残存リスク: 実際のWorkflow実行を経ていないため動的動作は未確認。`queue: max`はIDE診断ではエラー0件だが公式ドキュメントでの一次情報確認は未実施。Issue #1／#2（head SHA `7ae0466`の旧集約通知実装による作成、詳細後述）の整理は範囲外として保留。通知機能を「完全復旧」とは表現しない
 
 ---
 
