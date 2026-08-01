@@ -245,6 +245,7 @@ async function runRecheck(statuses: string[]) {
     console.log("対象なし");
     // 対象0件も「検証は正常完了・dead URLなし」として扱い、空配列レポートを書く
     writeDeadSourcesReport([]);
+    process.exitCode = EXIT_OK;
     return;
   }
 
@@ -278,27 +279,36 @@ async function runRecheck(statuses: string[]) {
     for (const r of confirmed) console.log(`  ${r.url}\n    → ${r.detail}`);
   }
 
+  // DB更新失敗を「警告して継続」ではなく明示的に集計する。1件でも失敗すれば
+  // 処理障害（exit 1）として扱い、dead URL検出（exit 2）より優先する。
+  const dbUpdateFailures: { id: string; country_code: string; url: string; message: string }[] = [];
+
   if (!DRY_RUN) {
-    // upsert で status + last_verified_at を更新
-    const upsertRows = results.map((r) => ({
-      url: r.url,
-      status: r.status,
-      last_verified_at: now,
-    }));
     // status フィールドのみ更新（country_code/purpose が必要なため DB から取得）
     for (const r of results) {
       const { error: upErr } = await supabase
         .from("country_sources")
         .update({ status: r.status, last_verified_at: now })
         .eq("url", r.url);
-      if (upErr) console.warn(`  ⚠️  update 失敗: ${r.url}: ${upErr.message}`);
+      if (upErr) {
+        dbUpdateFailures.push({ id: r.id, country_code: r.country_code, url: r.url, message: upErr.message });
+        console.error(`  ❌ DB更新失敗: [${r.country_code}] ${r.url}: ${upErr.message}`);
+      }
     }
-    console.log(`\n✅ ${results.length} 件を更新しました`);
+    const succeededCount = results.length - dbUpdateFailures.length;
+    console.log(
+      `\n${dbUpdateFailures.length === 0 ? "✅" : "⚠️"} DB更新: 成功 ${succeededCount}件 / 失敗 ${dbUpdateFailures.length}件`
+    );
+    if (dbUpdateFailures.length > 0) {
+      console.error("DB更新に失敗した対象（statusはDB上で未更新のまま・次回実行時に再検出される想定）:");
+      dbUpdateFailures.forEach((f) => console.error(`  - [${f.country_code}] id=${f.id} ${f.url}: ${f.message}`));
+    }
   } else {
     console.log("\n[DRY RUN] DB 更新をスキップ");
   }
 
-  // 機械可読レポートを書く（検証が正常に完了した経路のみ・dead URLなしなら空配列）
+  // 機械可読レポートを書く（検証データ自体は正常に取得できているため記録は残すが、
+  // DB更新エラー時はexit 1が優先されるため、Workflow側はこのレポートを消費しない設計にする）
   writeDeadSourcesReport(
     confirmed.map((r) => ({
       id: r.id,
@@ -310,12 +320,20 @@ async function runRecheck(statuses: string[]) {
     }))
   );
 
-  // GHA 通知用: dead URLが残っていれば exit 2（検証は正常完了・dead URLあり）
+  // DB更新エラーが1件でもあれば、dead URLの有無に関わらず処理障害として exit 1
+  if (dbUpdateFailures.length > 0) {
+    console.error(`\n❌ DB更新エラーが${dbUpdateFailures.length}件あるため処理失敗として終了します`);
+    process.exitCode = 1;
+    return;
+  }
+
+  // GHA 通知用: 全DB更新が成功し、dead URLが残っていれば exit 2（検証は正常完了・dead URLあり）
   if (confirmed.length > 0) {
     console.log(`\n⚠️  ${confirmed.length} 件の dead URL があります`);
     process.exitCode = EXIT_DEAD_FOUND;
     return;
   }
+  // 全DB更新が成功し、dead URLがない場合だけ exit 0
   process.exitCode = EXIT_OK;
 }
 

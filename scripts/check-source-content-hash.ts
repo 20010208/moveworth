@@ -165,7 +165,7 @@ async function main() {
   const fetchFailed: string[] = [];
   // 変化なし・初回記録は通知不要なので即時保存してよい。
   // 「変化あり」はGitHub通知が成功するまでDB hashを更新しない（Task 8: 通知失敗時に処理済み扱いしない）。
-  const immediateUpdates: { id: string; newHash: string }[] = [];
+  const immediateUpdates: { id: string; countryCode: string; url: string; newHash: string }[] = [];
 
   for (const row of rows) {
     process.stdout.write(`  [${row.country_code}/${row.purpose}] ${row.url.slice(0, 60)}... `);
@@ -188,15 +188,23 @@ async function main() {
       changed.push({ id: row.id, countryCode: row.country_code, purpose: row.purpose, url: row.url, oldHash, newHash });
     } else {
       process.stdout.write(oldHash ? `変化なし (${newHash})\n` : `初回記録 (${newHash})\n`);
-      immediateUpdates.push({ id: row.id, newHash });
+      immediateUpdates.push({ id: row.id, countryCode: row.country_code, url: row.url, newHash });
     }
   }
 
+  // すべてのSupabase書き込みについて戻り値のerrorを必ず確認する（黙って成功扱いしない）。
+  // 対象を識別できるid/country/urlを失敗記録に含める。エラーオブジェクト全体は出力せずmessageのみ。
+  const dbFailures: { id: string; countryCode: string; url: string; message: string; phase: string }[] = [];
+
   for (const u of immediateUpdates) {
-    await supabase
+    const { error: immErr } = await supabase
       .from("country_sources")
       .update({ content_hash: u.newHash, content_hash_at: new Date().toISOString() })
       .eq("id", u.id);
+    if (immErr) {
+      dbFailures.push({ id: u.id, countryCode: u.countryCode, url: u.url, message: immErr.message, phase: "immediate-update" });
+      console.error(`  ❌ DB更新失敗（変化なし/初回記録）: [${u.countryCode}] id=${u.id} ${u.url}: ${immErr.message}`);
+    }
   }
 
   console.log(`\n変化: ${changed.length}件  fetch失敗: ${fetchFailed.length}件`);
@@ -222,10 +230,24 @@ async function main() {
           console.log(`  新規Issue作成 #${created.number}: ${title}`);
         }
         // 通知が成功した場合にのみDB hashを更新する（Task 8: 通知前に確定保存しない）
-        await supabase
+        const { error: hashUpdateErr } = await supabase
           .from("country_sources")
           .update({ content_hash: entry.newHash, content_hash_at: detectedAt })
           .eq("id", entry.id);
+        if (hashUpdateErr) {
+          // 通知は成功したがDB更新が失敗 → 成功件数へ加算せず、次回また再検出される状態を維持する
+          dbFailures.push({
+            id: entry.id,
+            countryCode: entry.countryCode,
+            url: entry.url,
+            message: hashUpdateErr.message,
+            phase: "post-notify-update",
+          });
+          console.error(
+            `  ❌ DB hash更新失敗（通知は成功済み・次回実行時に再検出されます）: [${entry.countryCode}] id=${entry.id} ${entry.url}: ${hashUpdateErr.message}`
+          );
+          continue;
+        }
         notifySucceeded++;
       } catch (e) {
         console.error(`  ❌ 通知失敗（DB hashは更新しません・次回実行時に再検出されます）: ${title}: ${(e as Error).message}`);
@@ -242,6 +264,11 @@ async function main() {
     }
   }
 
+  if (dbFailures.length > 0) {
+    console.error(`\n=== DB更新エラー === ${dbFailures.length}件`);
+    dbFailures.forEach((f) => console.error(`  - [${f.phase}] [${f.countryCode}] id=${f.id} ${f.url}: ${f.message}`));
+  }
+
   if (fetchFailed.length > 0) {
     console.log("\nfetch失敗 URL:");
     fetchFailed.forEach((u) => console.log(`  ${u}`));
@@ -249,7 +276,8 @@ async function main() {
 
   console.log("\n=== 完了 ===");
 
-  if (notifyFailed.length > 0) {
+  // 通知失敗・DB更新失敗のいずれか1件でもあればWorkflowを失敗させる
+  if (notifyFailed.length > 0 || dbFailures.length > 0) {
     process.exitCode = 1;
   }
 }

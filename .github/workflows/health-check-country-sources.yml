@@ -5,10 +5,11 @@ permissions:
   issues: write
 
 # weekly/monthly/manualが同時に走った場合の重複Issue生成リスクを抑えるため、
-# このWorkflow全体で直列化する（実行中の検証はキャンセルしない）。
+# このWorkflow全体で直列化する。queue: maxで最大100件までpendingを保持し、
+# 3件目以降のトリガーで古いpending runが失われないようにする（cancel-in-progressは設定しない）。
 concurrency:
   group: health-check-country-sources
-  cancel-in-progress: false
+  queue: max
 
 on:
   schedule:
@@ -19,9 +20,15 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "recheck-dead | recheck-unverified | recheck-all | re-verify"
+        description: "再検証モード"
+        type: choice
         required: false
         default: "recheck-dead"
+        options:
+          - recheck-dead
+          - recheck-unverified
+          - recheck-all
+          - re-verify
 
 jobs:
   health-check:
@@ -41,19 +48,28 @@ jobs:
       #   0 = 正常・dead URLなし / 2 = 検証は正常完了・dead URLあり / 1・その他 = 処理失敗
       # weeklyとmonthlyは github.event.schedule の完全一致で判定する（部分一致のcontains()は使わない。
       # 週次cronの "0 1 * * 6" が月次cronの "0 2 1 * *" 等と部分一致してしまう事故を避けるため）。
+      #
+      # exit 2（dead URL検出）はここでstep自体を「成功」として終了させる。
+      # これにより後続のcontent-hash検査・Notify dead sourcesが暗黙のsuccess()でskipされず継続する。
+      # Workflow全体のfailure化は、両方の処理が完了した後の専用stepでのみ行う。
       - name: Weekly — recheck dead + unverified
         id: weekly
         if: github.event_name == 'schedule' && github.event.schedule == '0 1 * * 6'
         run: |
           set +e
           npx tsx scripts/verify-country-sources.ts --recheck-dead --recheck-unverified
-          exit_code=${PIPESTATUS[0]}
-          if [ "$exit_code" = "2" ]; then
+          exit_code=$?
+          set -e
+          if [ "$exit_code" -eq 0 ]; then
+            echo "dead_found=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          elif [ "$exit_code" -eq 2 ]; then
             echo "dead_found=true" >> "$GITHUB_OUTPUT"
+            exit 0
           else
             echo "dead_found=false" >> "$GITHUB_OUTPUT"
+            exit "$exit_code"
           fi
-          exit $exit_code
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -70,17 +86,25 @@ jobs:
         run: |
           set +e
           npx tsx scripts/verify-country-sources.ts --recheck-dead --recheck-unverified --re-verify
-          exit_code=${PIPESTATUS[0]}
-          if [ "$exit_code" = "2" ]; then
+          exit_code=$?
+          set -e
+          if [ "$exit_code" -eq 0 ]; then
+            echo "dead_found=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          elif [ "$exit_code" -eq 2 ]; then
             echo "dead_found=true" >> "$GITHUB_OUTPUT"
+            exit 0
           else
             echo "dead_found=false" >> "$GITHUB_OUTPUT"
+            exit "$exit_code"
           fi
-          exit $exit_code
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
 
+      # monthly_reverifyがexit 0（dead URLなし）またはexit 2→0変換（dead URLあり）の場合のみ、
+      # 暗黙のsuccess()により実行される。monthly_reverifyがDB接続失敗等の処理障害で
+      # failureになった場合は自動的にskipされる（明示的な条件追加は不要）。
       - name: Monthly — content hash check (ソース更新検知)
         if: github.event_name == 'schedule' && github.event.schedule == '0 2 1 * *'
         run: npx tsx scripts/check-source-content-hash.ts
@@ -96,22 +120,36 @@ jobs:
         run: |
           set +e
           MODE="${{ github.event.inputs.mode }}"
-          if [ "$MODE" = "recheck-dead" ]; then
-            npx tsx scripts/verify-country-sources.ts --recheck-dead
-          elif [ "$MODE" = "recheck-unverified" ]; then
-            npx tsx scripts/verify-country-sources.ts --recheck-unverified
-          elif [ "$MODE" = "recheck-all" ]; then
-            npx tsx scripts/verify-country-sources.ts --recheck-dead --recheck-unverified
-          elif [ "$MODE" = "re-verify" ]; then
-            npx tsx scripts/verify-country-sources.ts --re-verify
-          fi
+          case "$MODE" in
+            recheck-dead)
+              npx tsx scripts/verify-country-sources.ts --recheck-dead
+              ;;
+            recheck-unverified)
+              npx tsx scripts/verify-country-sources.ts --recheck-unverified
+              ;;
+            recheck-all)
+              npx tsx scripts/verify-country-sources.ts --recheck-dead --recheck-unverified
+              ;;
+            re-verify)
+              npx tsx scripts/verify-country-sources.ts --re-verify
+              ;;
+            *)
+              echo "不正なmode: '${MODE}'（recheck-dead|recheck-unverified|recheck-all|re-verifyのいずれかを指定してください）" >&2
+              exit 1
+              ;;
+          esac
           exit_code=$?
-          if [ "$exit_code" = "2" ]; then
+          set -e
+          if [ "$exit_code" -eq 0 ]; then
+            echo "dead_found=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          elif [ "$exit_code" -eq 2 ]; then
             echo "dead_found=true" >> "$GITHUB_OUTPUT"
+            exit 0
           else
             echo "dead_found=false" >> "$GITHUB_OUTPUT"
+            exit "$exit_code"
           fi
-          exit $exit_code
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -120,11 +158,22 @@ jobs:
       # .tmp/country-source-health/dead-sources.json をsource単位（country_sources.id、なければ
       # 正規化URLのハッシュ）で読み、同一sourceのopen issueがあればコメント、なければ新規作成する。
       # 異なるsourceの通知は互いに抑止しない。GitHub API失敗はfail-closed（既存なしと誤認しない）。
+      # always()により、後続のcontent-hash等が別要因で失敗していても通知は実行する。
+      # cancelledなrunでは実行しない。
       - name: Notify dead sources
         if: |
-          always() &&
+          always() && !cancelled() &&
           (steps.weekly.outputs.dead_found == 'true' || steps.monthly_reverify.outputs.dead_found == 'true' || steps.manual.outputs.dead_found == 'true')
         run: npx tsx scripts/notify-dead-sources.ts
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
+
+      # dead URL検出をWorkflow全体のfailureへ反映する最終step。
+      # Issue通知（および月次の場合はcontent-hash検査）が完了した後にのみ実行する。
+      # cancelledなrunでは不要なfailureを追加しない。dead URLがなければ実行しない。
+      - name: Fail workflow when dead URLs were detected
+        if: |
+          always() && !cancelled() &&
+          (steps.weekly.outputs.dead_found == 'true' || steps.monthly_reverify.outputs.dead_found == 'true' || steps.manual.outputs.dead_found == 'true')
+        run: exit 1

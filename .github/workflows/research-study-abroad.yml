@@ -64,33 +64,44 @@ jobs:
           CODE=$(cat /tmp/study-abroad-research-target.txt 2>/dev/null || echo "unknown")
           TITLE="[study-abroad] ${CODE} の調査レポート（要人手確認）"
 
+          # jq自体が存在しない場合はfail-closed（不在をIssue作成側へ進める理由にしない）
+          command -v jq >/dev/null 2>&1 || {
+            echo "jq is required but not found" >&2
+            echo "created=false" >> "$GITHUB_OUTPUT"
+            exit 1
+          }
+
           # 重複防止: 同一タイトルのopen issueが既にあれば新規作成しない（closedは対象外）。
           # --json number,title で番号を取得する（title のみでは .number が常にnullになるバグがあった）。
-          # --limit 100 を明示し、検索コマンド自体の失敗はheadで隠さず、失敗時はstepを失敗させて
-          # Issue作成へ進まないようにする。
-          SEARCH_JSON=$(gh issue list --state open --search "in:title \"${TITLE}\"" --limit 100 --json number,title)
-          SEARCH_EXIT=$?
-          if [ "$SEARCH_EXIT" -ne 0 ]; then
-            echo "既存Issue検索に失敗しました（exit ${SEARCH_EXIT}）。Issue作成へ進まず失敗させます。" >&2
+          # --limit 100 を明示し、検索コマンド自体の失敗をfail-openにしない（if !で確実に検知する）。
+          if ! SEARCH_JSON="$(gh issue list --state open --search "in:title \"${TITLE}\"" --limit 100 --json number,title)"; then
+            echo "既存Issue検索に失敗しました。Issue作成へ進まず失敗させます。" >&2
             echo "created=false" >> "$GITHUB_OUTPUT"
-            exit "$SEARCH_EXIT"
+            exit 1
           fi
 
-          EXISTING_NUMBER=$(echo "$SEARCH_JSON" | jq -r --arg t "$TITLE" '[.[] | select(.title == $t)][0].number // empty')
+          # jqの解析失敗（不正JSON等）を「既存Issueなしの正常な空結果」と混同しないよう、
+          # if !で確実に検知してfail-closedにする。[0]方式はfirst(empty)のようなjqのエラーを起こさない。
+          if ! EXISTING_NUMBER="$(
+            printf '%s' "$SEARCH_JSON" |
+              jq -r --arg t "$TITLE" '[.[] | select(.title == $t)][0].number // ""'
+          )"; then
+            echo "既存Issue検索結果の解析に失敗しました（jq）。Issue作成へ進まず失敗させます。" >&2
+            echo "created=false" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
 
           if [ -n "$EXISTING_NUMBER" ]; then
             echo "既存Issue #${EXISTING_NUMBER} が open のためskip: ${TITLE}" | tee -a "$GITHUB_STEP_SUMMARY"
             echo "created=false" >> "$GITHUB_OUTPUT"
           else
-            CREATED_URL=$(gh issue create \
+            if ! CREATED_URL="$(gh issue create \
               --title "$TITLE" \
               --body-file /tmp/study-abroad-research-report.md \
-              --label "content")
-            CREATE_EXIT=$?
-            if [ "$CREATE_EXIT" -ne 0 ]; then
-              echo "Issue作成に失敗しました（exit ${CREATE_EXIT}）。" >&2
+              --label "content")"; then
+              echo "Issue作成に失敗しました。" >&2
               echo "created=false" >> "$GITHUB_OUTPUT"
-              exit "$CREATE_EXIT"
+              exit 1
             fi
             echo "created=true" >> "$GITHUB_OUTPUT"
             echo "issue_url=${CREATED_URL}" >> "$GITHUB_OUTPUT"

@@ -5,6 +5,21 @@
 
 ---
 
+## 2026-08-01 — Claude Code（4回目）
+
+- タスクID: COMPLETE-WORKFLOW-FAILURE-HANDLING-20260801
+- 状態: 修正・静的検証完了、commit予定（`db75e51`の上に追加・push未実施）
+- 背景: `db75e51`に対するCodex独立監査が再度FAILとなり、以下7件が指摘された: (1)月次runでdead URLがあるとcontent-hash検査がskip (2)Supabase更新失敗を成功扱い (3)concurrencyのpending runが3件以上で失われる (4)GitHub APIレスポンスのschema検証不足 (5)researchのjq失敗時にfail-open (6)manual modeの不正値が成功no-op (7)文書がcommit状態と不一致
+- `verify-country-sources.ts`/`check-source-content-hash.ts`: DB書き込みの戻り値`error`を全箇所で確認するよう修正。DB更新失敗は成功扱いにせず、失敗があれば最終的に非0終了（dead URL検出より処理障害を優先）
+- `scripts/utils/github-issue-dedup.ts`: Search/Issue作成/コメントAPIのレスポンスに厳格なschema検証を追加（`{}`やフィールド欠落を「既存なし」と誤認しない）。`per_page=100`＋pagination対応
+- `health-check-country-sources.yml`: exit 2（dead URL検出）をstep成功として扱うよう変換し、月次content-hashが暗黙のskipに巻き込まれないよう修正。Workflow全体のfailure化は末尾の専用stepへ分離。`concurrency`を`queue: max`へ変更。`workflow_dispatch.inputs.mode`を`type: choice`化し、不正値はshell側でも明示的に失敗させる
+- `research-study-abroad.yml`: jq不在・gh検索失敗・jq解析失敗のいずれもfail-closedにする（`if ! VAR=$(...)`パターンで統一）
+- 検証: js-yaml構文、IDE診断0件、cron無変更、全14 run:ブロックのbash -n、対象4TSファイルのtsc型検査0件、ローカルモックテスト多数（github-issue-dedup.tsのschema/pagination 21パターン、notify-dead-sources.ts 11パターン、DB更新エラー×終了コード優先順位、exit code変換ロジック、manual modeのcase文、research-study-abroad.ymlの実run:ブロックをfake gh/jqで実行した6パターン等）すべて成功
+- 詳細は`.ai/CURRENT_HANDOFF.md`参照
+- 残存リスク: 実際のWorkflow実行を経ていないため動的動作は未確認。`queue: max`はIDE診断ではエラー0件だが公式ドキュメントでの一次情報確認は未実施。旧版runで作成された可能性のあるIssue #1／#2の整理は範囲外として保留。通知機能を「完全復旧」とは表現しない
+
+---
+
 ## 2026-08-01 — Claude Code（3回目）
 
 - タスクID: PRESERVE-DISTINCT-WORKFLOW-NOTIFICATIONS-20260801

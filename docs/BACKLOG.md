@@ -1,6 +1,6 @@
 # MoveWorth Backlog
 
-最終更新: 2026-08-01（BL-20260801-04追加）
+最終更新: 2026-08-01（BL-20260801-05追加）
 
 > 本ファイルはプロジェクト全体の未完了タスクを管理する。
 > `docs/redirect-backlog.md` はリダイレクト専用として別管理する。
@@ -224,6 +224,30 @@
 - 検証: js-yaml構文、IDE診断エラー0件、cron無変更、schedule完全一致確認、concurrency確認、全13 run:ブロックのbash -n、対象4 TSファイルのtsc型検査エラー0件、ローカルモックテスト（分岐ロジック6パターン・終了コード契約4パターン・dead-sources.jsonスキーマ・notifyAll()11パターン・DB hash更新順序4パターン）全件成功
 - 残存リスク: 実際のWorkflow実行を経ていないため動的動作は未確認。jqコマンドはローカル未インストールのためフィルタロジックの等価性のみNode.jsで確認（GHA runnerにはプリインストール前提）。GitHub Actions自体はSearch→Create/Commentを完全な原子操作にはできないため、同時実行の完全排除ではなくconcurrencyによる直列化にとどまる
 - 完了条件（実行確認待ち）: push後の次回スケジュール実行で、source単位の重複防止・終了コード判定・DB更新順序・SendGrid重複防止が意図通りに動作することを確認する
+- **追記（2026-08-01）**: 本項目の修正（commit `db75e51`）に対するCodex独立監査が再度FAILとなり、月次content-hash skip・Supabaseエラー未確認・concurrency pending消失等7件の追加問題が指摘された。詳細はBL-20260801-05を参照
+
+## BL-20260801-05: Workflow失敗判定の完全化（exit 2の扱い・DBエラー確認・concurrency queue・schema検証）
+
+- 優先度: 高
+- 状態: 静的修正完了・実行確認待ち（**「完全復旧」ではない**）
+- 関連領域: `.github/workflows/research-study-abroad.yml` / `.github/workflows/health-check-country-sources.yml` / `scripts/verify-country-sources.ts` / `scripts/check-source-content-hash.ts` / `scripts/utils/github-issue-dedup.ts`
+- 経緯: BL-20260801-04の修正（commit `db75e51`、**push未実施**）に対するCodex独立監査が再度FAILとなり、以下7件の問題が指摘された
+  1. 月次runでdead URLがあるとcontent-hash検査がskipされる（verify-country-sources.tsのexit 2で検証step自体がfailureになり、後続が暗黙のsuccess()でskipされていた）
+  2. Supabaseの更新失敗を成功扱いしている（`upErr`警告のみで継続、または戻り値未確認のまま成功件数へ加算）
+  3. concurrencyのpending runが3件以上で失われる（`cancel-in-progress: false`のみでは実質pending 1件までしか保持できない）
+  4. GitHub APIレスポンスのschema検証が不十分
+  5. researchのjq失敗時にfail-openとなる
+  6. manual modeの不正値が成功no-opになる
+  7. 文書が実際のcommit状態と一致していない
+- 完了内容:
+  - `verify-country-sources.ts`: DB status更新の`error`確認を追加。DB更新失敗が1件でもあれば、dead URL件数に関わらず処理障害としてexit 1を優先
+  - `check-source-content-hash.ts`: 初回hash保存・通知後hash更新の両方で`error`確認を追加。DB更新失敗は成功件数へ加算せず、次回再検出される状態を維持
+  - `scripts/utils/github-issue-dedup.ts`: Search/Issue作成/コメントAPIのレスポンスに厳格なschema検証（object形状・型・pull request混入なし等）を追加し`{}`や欠落フィールドを「既存なし」と誤認しないようにした。`per_page=100`＋total_countベースのpaginationを実装
+  - `health-check-country-sources.yml`: 検証stepの終了コード2（dead URL検出）をstep成功として扱うよう変換し、月次content-hashが暗黙skipに巻き込まれないよう修正。Workflow全体のfailure化を末尾の専用stepへ分離。`concurrency`を`queue: max`へ変更。`workflow_dispatch.inputs.mode`を`type: choice`化し、shell側でも不正値を明示的に失敗させる
+  - `research-study-abroad.yml`: `command -v jq`チェックと`if ! VAR=$(...)`パターンの徹底により、gh検索失敗・jq不在・jq解析失敗のすべてをfail-closedにした
+- 検証: js-yaml構文、IDE診断エラー0件、cron無変更、全14 run:ブロックのbash -n、対象4TSファイルのtsc型検査エラー0件、ローカルモックテスト（github-issue-dedup.tsのschema/pagination 21パターン、notify-dead-sources.ts 11パターン、DB更新エラー×終了コード優先順位、exit code変換ロジック4パターン、manual modeのcase文6パターン、research-study-abroad.ymlの実run:ブロックをfake gh/jqで実行した6パターン）すべて成功
+- 残存リスク: 実際のWorkflow実行を経ていないため動的動作は未確認。`queue: max`はIDE診断ではエラー0件だが公式ドキュメントでの一次情報確認は未実施。旧版runで作成された可能性のあるIssue #1／#2の整理は範囲外として保留
+- 完了条件（実行確認待ち）: push後の次回スケジュール実行で、dead URL検出時のcontent-hash継続実行・Workflow最終failure化・DB更新エラー時の非0終了・concurrencyのpending保持・不正manual mode時の失敗が意図通りに動作することを確認する
 
 ## BL-20260728-02: 留学費用（学費）データの一次情報調査
 

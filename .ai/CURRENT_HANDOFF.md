@@ -2,14 +2,75 @@
 
 最終更新: 2026-08-01
 最終担当: Claude Code
-タスクID: PRESERVE-DISTINCT-WORKFLOW-NOTIFICATIONS-20260801
-状態: 修正・静的検証完了。commit予定（`e4de711`の上に追加、push未実施）。Codex再監査（FAIL）指摘13件への対応完了、end-to-end実行確認は未完了。**通知機能を「完全復旧」とは表現しない**（静的検証のみで実運用未確認のため）
+タスクID: COMPLETE-WORKFLOW-FAILURE-HANDLING-20260801
+状態: 修正・静的検証完了。commit予定（`db75e51`の上に追加、push未実施）。Codex再々監査（FAIL）指摘7件への対応完了、end-to-end実行確認は未完了。**通知機能を「完全復旧」とは表現しない**（静的検証・ローカルモックのみで実運用未確認のため）
 
 ## Git履歴（重要）
 
 - `7ae0466`: origin/mainへpush済み。GitHub上でWorkflow定義がactiveとして正常認識されたことを確認済み
-- `e4de711`: commit済み・**未push**。この上に本タスクの修正commitを追加した（`e4de711`自体はamend・rebaseしていない）
-- 本タスクの新commit: `e4de711`に対するCodex独立再監査がFAILとなったため、その指摘13件に対応した追加commit（push未実施）
+- `e4de711`: commit済み・**未push**
+- `db75e51`: commit済み・**未push**（`e4de711`の上に追加。`e4de711`自体はamend・rebaseしていない）。この修正に対するCodex独立監査が**FAIL**となった
+- 本タスクの新commit: `db75e51`に対するCodex独立監査がFAILとなったため、その指摘7件に対応した追加commit（push未実施）
+- 旧版runで作成されたIssue #1／#2の整理は本タスクの範囲外・別判断として保留（今回は一切触れていない）
+
+### Codex監査（db75e51対象）の主なFAIL理由
+1. 月次runでdead URLがあるとcontent-hash検査がskipされる（verify-country-sources.tsがexit 2を返すと検証step自体がfailureになり、後続の暗黙のsuccess()によりcontent-hash stepがskipされていた）
+2. Supabaseの更新失敗を成功扱いしている（`upErr`を警告のみで継続、または戻り値のerrorを未確認のまま成功件数へ加算していた箇所が複数あった）
+3. concurrencyのpending runが3件以上で失われる（`cancel-in-progress: false`のみでは、pending保持数が実質1件までのため）
+4. GitHub APIレスポンスのschema検証が不十分（`{}`やitems欠落等の不完全な応答を「既存Issueなし」と誤認しうる余地が残っていた）
+5. researchのjq失敗時にfail-openとなる（jqの解析失敗を明示チェックしていなかった）
+6. manual modeの不正値が成功no-opになる（自由入力＋case文のdefaultなしで、不正値でも何も実行せず成功終了していた）
+7. 文書が実際のcommit状態と一致していない
+
+## GHA Workflow失敗判定の完全化（2026-08-01 4回目）
+
+### 対応内容（ファイル別）
+
+**`scripts/verify-country-sources.ts`**
+- `runRecheck()`のDB status更新ループで、戻り値の`error`を警告のみで継続していた箇所を修正。DB更新失敗を`dbUpdateFailures`として集計し、1件でもあれば dead URL件数に関わらず exit 1（処理障害優先）とする
+- 終了コード最終契約: 全DB更新成功＋dead URLなし→0／全DB更新成功＋dead URLあり→2／DB更新失敗が1件でもあれば→1
+
+**`scripts/check-source-content-hash.ts`**
+- 初回hash保存・変更なし時の更新（immediateUpdates）ループでも戻り値の`error`を確認するよう修正（従来は完全に無視していた）
+- 通知成功後のhash更新でも`error`を確認し、失敗時は成功件数へ加算しない（次回再検出される状態を維持）
+- 通知失敗・DB更新失敗いずれかが1件でもあれば`process.exitCode = 1`。失敗記録にはsource id/country/urlを含め、Supabaseのエラーオブジェクト全体やsecretはログへ出力しない（`.message`のみ）
+
+**`scripts/utils/github-issue-dedup.ts`**
+- Search APIレスポンスのスキーマを厳格検証: object形状、`incomplete_results`がboolean、`items`が配列、各itemの`number`（正の整数）・`title`（string）・`html_url`（string）・pull request混入なし、を全てthrowで保証。`{}`やitems欠落を「既存Issueなし」と扱わない
+- `per_page=100`を明示し、`total_count`に基づきページングを継続。GitHub Search APIの上限（1000件）に達し完全性を保証できない場合もthrow
+- Issue作成API・コメントAPIも2xxのみで成功扱いせず、`number`（正の整数）/`html_url`（空でない文字列）等をレスポンスから検証し、不正な場合はthrow
+
+**`.github/workflows/health-check-country-sources.yml`**
+- weekly/monthly/manualの各検証stepで、終了コード0→dead_found=false・成功／2→dead_found=true・**成功として終了**（後続処理を継続可能にする）／その他→dead_found=false・元の終了コードで失敗、という変換を実装
+- これにより月次はdead URL検出時も暗黙のsuccess()でcontent-hash stepへ進めるようになった（content-hash step自体は条件変更なし。monthly_reverifyが処理障害でfailした場合は自動的にskipされる）
+- 末尾に「Fail workflow when dead URLs were detected」stepを新設。`always() && !cancelled()`かつweekly/monthly/manualいずれかの`dead_found=='true'`の場合のみ`exit 1`し、Issue通知・content-hash完了後にWorkflow全体をfailureにする
+- `concurrency`を`cancel-in-progress: false`から`queue: max`へ変更（group名は不変）
+- `workflow_dispatch.inputs.mode`を自由入力から`type: choice`（4値: recheck-dead/recheck-unverified/recheck-all/re-verify）へ変更。Manual dispatchステップのシェル側も`case`文の`*)`で不正値を明示的に`exit 1`させる
+
+**`.github/workflows/research-study-abroad.yml`**
+- research Issue検索に`command -v jq`チェックを追加（jq不在時はfail-closedでstepを失敗させる）
+- `gh issue list`・jqのパース処理の両方を`if ! VAR=$(...); then ... exit 1; fi`パターンへ統一し、jq解析失敗を「既存Issueなしの正常な空結果」と混同しないようにした
+
+### 静的検証・モック検証の結果
+- YAML構文（js-yaml）: 両ファイルOK。IDE診断エラー0件（`queue: max`・`type: choice`を含め、追加後もエラーなし）
+- cron無変更、`if:`内`secrets`直接参照なし、`cancel-in-progress`残存なしをgrep確認
+- 全14個の`run:`ブロックを`bash -n`で構文チェック、全件OK
+- `npx tsc --project tsconfig.scripts.json --noEmit`: 対象4TSファイルともエラー0件
+- ローカルモックテスト（実DB・実GitHub API・実Issue・実Workflow実行へは一切アクセスしない）:
+  - `github-issue-dedup.ts`のschema検証・paginationを実ファイルの動的importとfetchモックで21パターン検証（Search正常/既存なし/既存あり/`{}`/items欠落/number欠落/title欠落/PR混入/incomplete_results/非2xx/rate limit/不正JSON/pagination複数page/per_page=100明示/Issue作成成功・number欠落・html_url欠落・非2xx/コメント成功・id欠落・html_url欠落・非2xx）、全件OK
+  - `notify-dead-sources.ts`の`notifyAll()`を実ファイルの動的importとfetchモックで11パターン再検証、全件OK
+  - verify-country-sources.tsのDB更新エラー×終了コード優先順位を5パターンのロジック同値テストで検証、全件OK
+  - check-source-content-hash.tsのDB更新エラー処理（初回保存/通知後更新/部分成功）を6パターンのロジック同値テストで検証、全件OK
+  - health-check-country-sources.ymlのexit 0/2/その他 → dead_found + step自身の終了コード変換ロジックを、実際のシェルスニペットと同一構造のbashスクリプトで4パターン検証、全件OK
+  - Manual dispatchの`case`文を実際のシェルロジックと同一構造で6パターン検証（4正規mode＋不正mode＋空文字mode）、全件OK
+  - research-study-abroad.ymlの「Create GitHub Issue with research report」stepの`run:`ブロックを**実ファイルからそのまま抽出**し、fakeの`gh`/`jq`実行ファイルをPATHに配置して6パターン検証（gh検索失敗／jq不在／jq解析失敗／既存Issueなし新規作成／既存Issueありskip／gh作成失敗）、全件OK
+- `queue: max`はGitHub公式ドキュメントでの一次情報確認ができていない（インターネットアクセスなし）。IDE診断ではエラー0件だったが、これは「エラーとして検出されなかった」ことの確認であり、フィールドの完全な正当性を一次情報で保証するものではない
+
+### 未解決事項・残存リスク
+- 実際のGitHub Actions実行を経ていないため、動的な挙動（特に`queue: max`の実際の効果、weekly/monthly/manualの3件以上同時トリガー時の挙動）は未確認
+- GitHub Actions自体はSearch→Create/Commentを完全な原子操作にはできないため、concurrencyによる直列化があっても同時実行の完全排除ではない
+- 旧版run（過去の`if: failure()`ベースの実装）で作成された可能性のあるIssue #1／#2の整理・close判断は、本タスクの範囲外として保留（ユーザー判断が必要）
+- pushは未実施（ユーザー承認待ち）。push後の実スケジュール実行での確認が必須
 
 ## GHA Issue通知の構造的是正（2026-08-01 3回目）
 
