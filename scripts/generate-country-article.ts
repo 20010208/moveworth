@@ -3,6 +3,13 @@ import OpenAI from "openai";
 import { createClient } from "@supabase/supabase-js";
 import { sanitizeMoveWorthLinks } from "./utils/sanitize-links";
 import { assertBlogPayload } from "./utils/validate-blog-payload";
+import { buildRefsLines } from "./utils/url-label";
+import {
+  getApprovedSources,
+  injectApprovedRefs,
+  validateStudyPublication,
+  type ApprovedSource,
+} from "./utils/study-publication-quality";
 
 if (existsSync(".env.local")) {
   for (const line of readFileSync(".env.local", "utf-8").split("\n")) {
@@ -426,15 +433,18 @@ async function buildSourceContext(
   return { text, refs, isGrounded: true };
 }
 
-// study 記事用参考資料 URL リスト（visa ソースを流用、ページフェッチなし）
-// visa ソース未登録国は isGrounded=false → 静的 fallback 文言を使用
+// study 記事用参考資料（country_sources の study/visa alive source を取得。
+// utils/study-publication-quality.ts の getApprovedSources を使用する。
+// DBクエリエラーは getApprovedSources 内で throw されるため、ここでは握り潰さず
+// 呼び出し元（run()）へそのまま伝播させる。取得順序（study優先→normalized URL昇順）・
+// 重複排除・最大5件はすべて getApprovedSources 側で決定的に処理される。
 async function buildStudyRefs(
   countryCode: string
-): Promise<{ refs: string; isGrounded: boolean }> {
-  const sources = await getCountrySources(countryCode, "visa");
-  if (sources.length === 0) return { refs: "", isGrounded: false };
-  const refs = sources.map((s) => `- [${urlToLabel(s.url)}](${s.url})`).join("\n");
-  return { refs, isGrounded: true };
+): Promise<{ refs: string; isGrounded: boolean; approvedSources: ApprovedSource[] }> {
+  const approvedSources = await getApprovedSources(supabase, countryCode);
+  if (approvedSources.length === 0) return { refs: "", isGrounded: false, approvedSources };
+  const refs = buildRefsLines(approvedSources.map((s) => s.url));
+  return { refs, isGrounded: true, approvedSources };
 }
 
 // 国連加盟国193カ国の優先順位付きキュー（master-countries.ts への依存はしない。
@@ -1193,10 +1203,9 @@ ${content}`;
 
 async function generateStudyContent(
   countryName: { ja: string; en: string },
-  lang: "ja" | "en",
-  studyRefs: { refs: string; isGrounded: boolean }
+  lang: Lang
 ): Promise<{ title: string; description: string; content: string }> {
-  const prompts: Record<"ja" | "en", string> = {
+  const prompts: Record<Lang, string> = {
     ja: `あなたはMoveWorth.studyというサービスのライターです。海外留学生向けの情報サービスです。
 
 ${countryName.ja}への留学に関する記事を日本語で書いてください。
@@ -1296,6 +1305,57 @@ Study & Work Rules in ${countryName.en} 2026 — Complete Guide
   "description": "Include weekly work hour limits, visa fees and living costs (120–150 chars)",
   "content": "Full article in the structure above (markdown, 1500–2500 chars)"
 }`,
+
+    zh: `你是MoveWorth.study的撰稿人，这是一项面向海外留学生的信息服务。
+
+请用简体中文撰写一篇关于在${countryName.en}留学期间兼职与工作规则的文章。
+
+## 标题格式（必须严格遵守）
+【国家中文名】留学期间的兼职与工作规则完整指南
+（请将“国家中文名”替换为${countryName.en}对应的规范中文译名）
+
+## 正文结构（标题必须使用 ###）
+
+[导言段落] ※无需标题。用1〜2句话概述在该国留学的情况。
+
+### 学生签证概况
+**签证类型：** （签证名称）
+**申请费用：** （费用）
+**办理时间：** （时长）
+**主要要求：**
+- （3〜4条要点）
+
+### 兼职与工作规则
+**学期中：** 每周最多○小时
+**假期中：** 每周最多○小时（或无限制等）
+**条件：** （是否需要另外取得许可等）
+
+### 注意事项
+1. （重要注意事项）
+2. （重要注意事项）
+3. （重要注意事项）
+
+### 费用参考
+| 项目 | 费用 |
+|------|------|
+| 语言学校（月费） | 约○〜○日元 |
+| 生活费（月费） | 约○〜○日元 |
+| 住宿费（月费） | 约○〜○日元 |
+| 学生签证申请费 | 约○日元 |
+
+### 参考资料
+（URL将由系统自动插入，请勿在本节内写入URL）
+
+## 条件
+- 在费用参考章节内，以自然的句子包含一个Markdown链接格式的CTA：[MoveWorth.study模拟器](https://study.moveworthapp.com/simulate)
+- 上述CTA不得包含“请点击链接”等指示性文字
+
+## 以JSON格式回复（仅JSON，无需代码块）
+{
+  "title": "【国家中文名】留学期间的兼职与工作规则完整指南",
+  "description": "包含每周工作时间上限、签证费用、生活费的元描述（120〜150字）",
+  "content": "上述结构的正文（Markdown，1500〜2500字）"
+}`,
   };
 
   const res = await openai.chat.completions.create({
@@ -1308,17 +1368,18 @@ Study & Work Rules in ${countryName.en} 2026 — Complete Guide
   parsed2.content = sanitizeMoveWorthLinks(parsed2.content);
   parsed2.content = parsed2.content
     .replace(/申し訳ありませんが[\s\S]*?\n\n(?=### 参考資料)/g, "")
-    .replace(/I'?m sorry[\s\S]*?\n\n(?=### References)/ig, "");
-  parsed2.content = restoreStudyRefs(parsed2.content, studyRefs.refs, studyRefs.isGrounded, lang);
+    .replace(/I'?m sorry[\s\S]*?\n\n(?=### References)/ig, "")
+    .replace(/我无法[\s\S]*?\n\n(?=### 参考资料)/g, "");
+  // 参考資料の機械注入はここでは行わない。fact-check がこのセクションを書き換え／消失させる
+  // 可能性があるため、fact-check完了後に呼び出し元で injectApprovedRefs を実行する。
   return parsed2;
 }
 
 async function generateCountryGuideContent(
   countryName: { ja: string; en: string },
-  lang: "ja" | "en",
-  studyRefs: { refs: string; isGrounded: boolean }
+  lang: Lang
 ): Promise<{ title: string; description: string; content: string }> {
-  const prompts: Record<"ja" | "en", string> = {
+  const prompts: Record<Lang, string> = {
     ja: `あなたはMoveWorth.studyのSEOライターです。「${countryName.ja}留学」を検索する日本人に向けた、検索上位を狙える記事を書いてください。
 
 ## タイトル形式（必ず守ること）
@@ -1416,6 +1477,56 @@ A: (timeline)
   "description": "SEO meta description 130-155 chars including keyword '${countryName.en} study abroad cost'",
   "content": "Full article (markdown, 1200-2000 chars)"
 }`,
+
+    zh: `你是MoveWorth.study的SEO撰稿人。请为搜索“${countryName.en}留学”的日本读者撰写一篇全面且有利于搜索排名的中文文章。
+
+## 标题格式（必须严格遵守）
+【国家中文名留学】费用・语言学校・签证・生活全方位解析【2026年最新版】
+（请将“国家中文名”替换为${countryName.en}对应的规范中文译名）
+
+## 正文结构（标题必须使用 ###）
+
+[导言] ※无需标题。用2〜3句话介绍${countryName.en}作为留学目的地的魅力。
+
+### 留学优点
+（4〜5条要点，包含具体数字或事例）
+
+### 费用参考【2026年版】
+（月费用表：语言学校、生活费、住宿费）
+
+### 推荐留学城市
+（3〜4个城市的特色与生活费用感）
+
+### 语言学校与大学的种类
+（选择项与特点概要）
+
+### 学生签证基本信息
+（申请要求・费用・办理时间的概要）
+
+### 生活、文化与治安
+（日本人社区、治安、饮食、气候）
+
+### 常见问题（FAQ）
+Q1: ${countryName.en}留学的费用是多少？
+A: （包含具体数字的回答）
+Q2: 适合${countryName.en}留学的人群有哪些？
+A: （特点・适合与否）
+Q3: ${countryName.en}留学的准备应从何时开始？
+A: （大致时长）
+
+### 参考资料
+（URL将由系统自动插入，请勿在本节内写入URL）
+
+## 条件
+- 在FAQ章节之后，以自然的句子包含一个Markdown链接格式的CTA：[MoveWorth.study模拟器](https://study.moveworthapp.com/simulate)
+- 上述CTA不得包含“请点击链接”等指示性文字
+
+## 以JSON格式回复（仅JSON，无需代码块）
+{
+  "title": "【国家中文名留学】费用・语言学校・签证・生活全方位解析【2026年最新版】",
+  "description": "包含关键词“${countryName.en}留学 费用”的元描述（130〜155字）",
+  "content": "上述结构的正文（Markdown，1500〜2500字）"
+}`,
   };
 
   const res = await openai.chat.completions.create({
@@ -1428,8 +1539,9 @@ A: (timeline)
   parsed3.content = sanitizeMoveWorthLinks(parsed3.content, true);
   parsed3.content = parsed3.content
     .replace(/申し訳ありませんが[\s\S]*?\n\n(?=### 参考資料)/g, "")
-    .replace(/I'?m sorry[\s\S]*?\n\n(?=### References)/ig, "");
-  parsed3.content = restoreStudyRefs(parsed3.content, studyRefs.refs, studyRefs.isGrounded, lang);
+    .replace(/I'?m sorry[\s\S]*?\n\n(?=### References)/ig, "")
+    .replace(/我无法[\s\S]*?\n\n(?=### 参考资料)/g, "");
+  // 参考資料の機械注入はfact-check完了後に呼び出し元で行う（generateStudyContentと同様）。
   return parsed3;
 }
 
@@ -1676,29 +1788,10 @@ function restoreRefs(content: string, refs: string | undefined, lang: Lang): str
   return stripped.trimEnd() + `\n\n---\n\n${headings[lang]}\n${refs}`;
 }
 
-// study 記事参考資料を機械注入する。
-// isGrounded=true: visa ソース URL を箇条書きで注入。
-// isGrounded=false: 静的 fallback 文言（大使館・公式サイトで確認を促す）。
-function restoreStudyRefs(
-  content: string,
-  refs: string,
-  isGrounded: boolean,
-  lang: "ja" | "en"
-): string {
-  const stripped = stripExistingRefSection(content);
-  if (!isGrounded) {
-    const fallbacks: Record<"ja" | "en", string> = {
-      ja: "### 参考資料\n最新の情報は各国の入国管理局・大使館の公式サイトでご確認ください。",
-      en: "### References\nFor the latest information, please refer to the official immigration authority or embassy website of your destination country.",
-    };
-    return stripped.trimEnd() + `\n\n${fallbacks[lang]}`;
-  }
-  const headings: Record<"ja" | "en", string> = {
-    ja: "### 参考資料\n本記事の情報は以下の公式資料をもとに作成しています。",
-    en: "### References\nData sourced from official government and immigration authority pages.",
-  };
-  return stripped.trimEnd() + `\n\n---\n\n${headings[lang]}\n${refs}`;
-}
+// study記事の参考資料検証・注入・グラウンディング判定は
+// scripts/utils/study-publication-quality.ts（isStudyContentGrounded, injectApprovedRefs,
+// validateStudyPublication, getApprovedSources）に共通化した。旧ローカル実装
+// （STUDY_FALLBACK_TEXT / restoreStudyRefs / ローカル版 isStudyContentGrounded）は削除。
 
 async function run() {
   const country = await getNextCountry();
@@ -1727,17 +1820,52 @@ async function run() {
     }
 
     // study 記事も同時に公開（study-work-{code} と study-country-{code}）
+    // approved source（country_sources: study優先→visa補完, status=alive）との一致を
+    // validateStudyPublication で検証した場合のみ公開する。単に fallback 文言でない
+    // というだけの判定（isStudyContentGrounded）には依存しない（Codex指摘 High）。
+    // approved source自体をDBから取得できない場合（query error）は公開処理全体をfailさせる。
+    const approvedSourcesForPublish = await getApprovedSources(supabase, country.code);
+    let studyPublishHadFailure = false;
     for (const studySlugTmp of [`study-work-${country.code}`, `study-country-${country.code}`]) {
+      const { data: studyRow, error: studyFetchErr } = await supabase
+        .from("study_blog_posts")
+        .select("title, description, content")
+        .eq("slug", studySlugTmp)
+        .maybeSingle();
+      if (studyFetchErr) {
+        console.error(`  ❌ ${studySlugTmp}: ${studyFetchErr.message}`);
+        studyPublishHadFailure = true;
+        continue;
+      }
+      if (!studyRow) {
+        console.log(`  ⏭️  ${studySlugTmp}: 記事が存在しないためスキップ`);
+        continue;
+      }
+      const publishCheck = validateStudyPublication({
+        title: (studyRow.title ?? {}) as Record<string, string>,
+        description: (studyRow.description ?? {}) as Record<string, string>,
+        content: (studyRow.content ?? {}) as Record<string, string>,
+        approvedSources: approvedSourcesForPublish,
+      });
+      if (!publishCheck.ok) {
+        console.warn(`  ⚠️  ${studySlugTmp}: 品質NGのため公開せずdraft維持 (${publishCheck.reasons.join(" / ")})`);
+        console.log(`::warning file=scripts/generate-country-article.ts::${studySlugTmp}は参考資料が不十分なため--publish-onlyでの自動公開をブロックしました。country_sources整備後に手動で公開判断してください。`);
+        studyPublishHadFailure = true;
+        continue;
+      }
       const { error: studyPubErr } = await supabase
         .from("study_blog_posts")
         .update({ is_published: true })
         .eq("slug", studySlugTmp);
       if (studyPubErr) {
         console.error(`  ❌ ${studySlugTmp}: ${studyPubErr.message}`);
+        studyPublishHadFailure = true;
       } else {
         console.log(`  ✅ ${studySlugTmp} → is_published: true`);
       }
     }
+    // 対象記事が選択されたのに品質NG／エラーだった場合は非zero exitへ反映する（Codex指摘 Critical/High）
+    if (studyPublishHadFailure) process.exitCode = 1;
     return;
   }
 
@@ -1925,15 +2053,18 @@ async function run() {
   console.log(shouldPublish ? `✅ Visa article published: ${visaSlug}` : `📝 Visa article saved as draft: ${visaSlug}`);
   } // end: force-regen FALLBACK skip guard else
 
-  // --- Study refs（visa ソースを流用）---
+  // --- Study refs（study ソースを優先し visa ソースで補完）---
+  // buildStudyRefs / getApprovedSources は country_sources クエリのerrorをthrowする
+  // （fail-closed。catchせずrun()のトップレベルcatchへ伝播させ、非zero exitにする）。
   const studyRefs = await buildStudyRefs(country.code);
   if (studyRefs.isGrounded) {
-    console.log(`✅ Study refs built from visa sources (${studyRefs.refs.split("\n").length} URLs)`);
+    console.log(`✅ Study refs built from country_sources (study優先, ${studyRefs.approvedSources.length} URLs)`);
   } else {
-    console.log(`ℹ️  No visa sources for ${country.code} — study refs will use fallback text`);
+    console.log(`ℹ️  No study/visa sources for ${country.code} — study refs will use fallback text`);
+    console.log(`::warning file=scripts/generate-country-article.ts::study-work-${country.code} / study-country-${country.code}: country_sourcesにstudy/visa sourceが0件のため、参考資料は一般的な注意書きのみになります。validateStudyPublicationにより公開はブロックされます。country_sourcesへのsource登録が必要です。`);
   }
 
-  // --- Study article (ja/en) → study-work-{code} ---
+  // --- Study article (ja/en/zh) → study-work-{code} ---
   const studyWorkSlug = `study-work-${country.code}`;
   const { data: existingWorkArticle } = await supabase
     .from("study_blog_posts")
@@ -1945,94 +2076,130 @@ async function run() {
     // study-country-{code} は独立コンテンツのため引き続き生成する
   } else {
   console.log("Generating study article...");
-  const [studyJa, studyEn] = await Promise.all([
-    generateStudyContent(country.name, "ja", studyRefs),
-    generateStudyContent(country.name, "en", studyRefs),
+  const [studyJa, studyEn, studyZh] = await Promise.all([
+    generateStudyContent(country.name, "ja"),
+    generateStudyContent(country.name, "en"),
+    generateStudyContent(country.name, "zh"),
   ]);
 
-  // Fact-check study article (2 passes)
+  // Fact-check study article (2 passes, ja/en/zh)。参考資料はまだ注入していない
+  // （fact-checkがこのセクションを書き換え／消失させる可能性があるため、注入は後段で行う）。
   console.log("Fact-checking study article (pass 1)...");
-  const [studyChecked1Ja, studyChecked1En] = await Promise.all([
+  const [studyChecked1Ja, studyChecked1En, studyChecked1Zh] = await Promise.all([
     factCheckContent(studyJa.content, country.name.ja, "ja"),
     factCheckContent(studyEn.content, country.name.en, "en"),
+    factCheckContent(studyZh.content, country.name.en, "zh"),
   ]);
 
   console.log("Fact-checking study article (pass 2)...");
-  const [studyFinalJa, studyFinalEn] = await Promise.all([
+  const [studyChecked2Ja, studyChecked2En, studyChecked2Zh] = await Promise.all([
     factCheckContent(studyChecked1Ja, country.name.ja, "ja"),
     factCheckContent(studyChecked1En, country.name.en, "en"),
+    factCheckContent(studyChecked1Zh, country.name.en, "zh"),
   ]);
 
+  // fact-check完了後に参考資料を機械注入する（Codex指摘: 注入→fact-checkの順だとrefsが消失し得る）
+  const studyFinalJa = injectApprovedRefs(studyChecked2Ja, "ja", studyRefs.isGrounded ? studyRefs.refs : null);
+  const studyFinalEn = injectApprovedRefs(studyChecked2En, "en", studyRefs.isGrounded ? studyRefs.refs : null);
+  const studyFinalZh = injectApprovedRefs(studyChecked2Zh, "zh", studyRefs.isGrounded ? studyRefs.refs : null);
+
   // example.com プレースホルダー URL チェック（visa 側と同等）
-  const studyHasPlaceholder = [studyFinalJa, studyFinalEn].some((c) => c.includes("example.com"));
+  const studyHasPlaceholder = [studyFinalJa, studyFinalEn, studyFinalZh].some((c) => c.includes("example.com"));
   if (studyHasPlaceholder) {
     console.error(`❌ [PLACEHOLDER-URL] ${studyWorkSlug}: "example.com" が生成コンテンツに含まれています — is_published=false に強制`);
   }
 
+  const studyValidation = validateStudyPublication({
+    title: { ja: studyJa.title, en: studyEn.title, zh: studyZh.title },
+    description: { ja: studyJa.description, en: studyEn.description, zh: studyZh.description },
+    content: { ja: studyFinalJa, en: studyFinalEn, zh: studyFinalZh },
+    approvedSources: studyRefs.approvedSources,
+  });
+  if (!studyValidation.ok) {
+    console.log(`ℹ️  ${studyWorkSlug}: 生成時点でapproved referenceが不十分です（公開ゲートでブロックされます）: ${studyValidation.reasons.join(" / ")}`);
+  }
+
   assertBlogPayload(
-    { title: { ja: studyJa.title, en: studyEn.title },
-      description: { ja: studyJa.description, en: studyEn.description },
-      content: { ja: studyFinalJa, en: studyFinalEn },
-      locales: ["ja", "en"] },
+    { title: { ja: studyJa.title, en: studyEn.title, zh: studyZh.title },
+      description: { ja: studyJa.description, en: studyEn.description, zh: studyZh.description },
+      content: { ja: studyFinalJa, en: studyFinalEn, zh: studyFinalZh },
+      locales: ["ja", "en", "zh"] },
     studyWorkSlug
   );
 
+  // study_blog_posts に locales カラムは存在しない（Codex指摘 Critical）。upsert payloadから除去。
   const { error: studyError } = await supabase.from("study_blog_posts").upsert({
     slug: studyWorkSlug,
     category: "work",
     date: today,
     reading_time: 8,
-    title: { ja: studyJa.title, en: studyEn.title },
-    description: { ja: studyJa.description, en: studyEn.description },
-    content: { ja: studyFinalJa, en: studyFinalEn },
-    is_published: false, // デフォルト draft。公開は --publish-only で手動承認
+    title: { ja: studyJa.title, en: studyEn.title, zh: studyZh.title },
+    description: { ja: studyJa.description, en: studyEn.description, zh: studyZh.description },
+    content: { ja: studyFinalJa, en: studyFinalEn, zh: studyFinalZh },
+    is_published: false, // デフォルト draft。公開は publish-study-work-next.ts の品質ゲート通過後のみ
   }, { onConflict: "slug" });
 
+  // DB書き込みエラーは握り潰さずthrowする（Codex指摘 Critical: 非zero exitへ反映されていなかった）
   if (studyError) {
-    console.error("Study work article insert failed:", studyError.message);
-  } else {
-    console.log(`📝 Study work article saved as draft: ${studyWorkSlug}${studyHasPlaceholder ? " [PLACEHOLDER-URL detected]" : ""}`);
+    throw new Error(`Study work article upsert failed (${studyWorkSlug}): ${studyError.message}`);
   }
+  console.log(`📝 Study work article saved as draft: ${studyWorkSlug}${studyHasPlaceholder ? " [PLACEHOLDER-URL detected]" : ""}`);
   } // end: 既存 study-work-{code} スキップガード else
 
   // --- Country guide article (study-country-{code}) ---
   console.log("Generating country guide article...");
-  const [guideJa, guideEn] = await Promise.all([
-    generateCountryGuideContent(country.name, "ja", studyRefs),
-    generateCountryGuideContent(country.name, "en", studyRefs),
+  const [guideJa, guideEn, guideZh] = await Promise.all([
+    generateCountryGuideContent(country.name, "ja"),
+    generateCountryGuideContent(country.name, "en"),
+    generateCountryGuideContent(country.name, "zh"),
   ]);
 
   const countryGuideSlug = `study-country-${country.code}`;
 
-  const guideHasPlaceholder = [guideJa.content, guideEn.content].some((c) => c.includes("example.com"));
+  const guideFinalJa = injectApprovedRefs(guideJa.content, "ja", studyRefs.isGrounded ? studyRefs.refs : null);
+  const guideFinalEn = injectApprovedRefs(guideEn.content, "en", studyRefs.isGrounded ? studyRefs.refs : null);
+  const guideFinalZh = injectApprovedRefs(guideZh.content, "zh", studyRefs.isGrounded ? studyRefs.refs : null);
+
+  const guideHasPlaceholder = [guideFinalJa, guideFinalEn, guideFinalZh].some((c) => c.includes("example.com"));
   if (guideHasPlaceholder) {
     console.error(`❌ [PLACEHOLDER-URL] ${countryGuideSlug}: "example.com" が生成コンテンツに含まれています — is_published=false に強制`);
   }
 
+  const guideValidation = validateStudyPublication({
+    title: { ja: guideJa.title, en: guideEn.title, zh: guideZh.title },
+    description: { ja: guideJa.description, en: guideEn.description, zh: guideZh.description },
+    content: { ja: guideFinalJa, en: guideFinalEn, zh: guideFinalZh },
+    approvedSources: studyRefs.approvedSources,
+  });
+  if (!guideValidation.ok) {
+    console.log(`ℹ️  ${countryGuideSlug}: 生成時点でapproved referenceが不十分です（公開ゲートでブロックされます）: ${guideValidation.reasons.join(" / ")}`);
+  }
+
   assertBlogPayload(
-    { title: { ja: guideJa.title, en: guideEn.title },
-      description: { ja: guideJa.description, en: guideEn.description },
-      content: { ja: guideJa.content, en: guideEn.content },
-      locales: ["ja", "en"] },
+    { title: { ja: guideJa.title, en: guideEn.title, zh: guideZh.title },
+      description: { ja: guideJa.description, en: guideEn.description, zh: guideZh.description },
+      content: { ja: guideFinalJa, en: guideFinalEn, zh: guideFinalZh },
+      locales: ["ja", "en", "zh"] },
     countryGuideSlug
   );
 
+  // study_blog_posts に locales カラムは存在しない（Codex指摘 Critical）。upsert payloadから除去。
   const { error: guideError } = await supabase.from("study_blog_posts").upsert({
     slug: countryGuideSlug,
     category: "country",
     date: today,
     reading_time: 7,
-    title: { ja: guideJa.title, en: guideEn.title },
-    description: { ja: guideJa.description, en: guideEn.description },
-    content: { ja: guideJa.content, en: guideEn.content },
-    is_published: false, // デフォルト draft。公開は --publish-only で手動承認
+    title: { ja: guideJa.title, en: guideEn.title, zh: guideZh.title },
+    description: { ja: guideJa.description, en: guideEn.description, zh: guideZh.description },
+    content: { ja: guideFinalJa, en: guideFinalEn, zh: guideFinalZh },
+    is_published: false, // デフォルト draft。公開は publish-study-country-next.ts の品質ゲート通過後のみ
   }, { onConflict: "slug" });
 
+  // DB書き込みエラーは握り潰さずthrowする（Codex指摘 Critical）
   if (guideError) {
-    console.error("Country guide article insert failed:", guideError.message);
-  } else {
-    console.log(`📝 Country guide article saved as draft: ${countryGuideSlug}${guideHasPlaceholder ? " [PLACEHOLDER-URL detected]" : ""}`);
+    throw new Error(`Country guide article upsert failed (${countryGuideSlug}): ${guideError.message}`);
   }
+  console.log(`📝 Country guide article saved as draft: ${countryGuideSlug}${guideHasPlaceholder ? " [PLACEHOLDER-URL detected]" : ""}`);
 
   // --- Update country count text ---
   await updateCountryCountText();
