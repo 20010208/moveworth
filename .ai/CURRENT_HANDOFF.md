@@ -1,9 +1,55 @@
 # Current Handoff
 
-最終更新: 2026-08-01
+最終更新: 2026-08-09
 最終担当: Claude Code
-タスクID: RECORD-TYPECHECK-RECOVERY-20260801
-状態: 実装基準のorigin/mainは`5615464`。現在のlocal HEADには、Scripts TypeCheck復旧結果を記録した文書同期commitが1件存在し、commit済み・未pushのためahead 1 / behind 0。Codexの文書差分監査はGit現在地の記述不整合2件（local HEAD／origin/mainが同一と誤記／ahead-behindを`0/0`と誤記）によりFAILとなり、今回amendで訂正する。**Scripts TypeCheck（BL-20260801-07）は実CI run `30697986179`（conclusion=success）により復旧確認が完了**しており、TypeCheck復旧・CI run・BACKLOG・Workflow・Issueに関する技術的記録には問題ない。Codex最終判定（実装commit`5615464`自体に対する監査）は`PASS WITH NOTES`（push前必須修正なし）。**「GitHub Actions全体が完全復旧」ではない**——`Research Study Abroad Entry`・`Health Check — Country Sources`の実スケジュールend-to-end確認、および旧版run（head SHA `7ae0466`）で作成されたIssue #1／#2の整理は依然として未完了。再監査で`PASS`または`PASS WITH NOTES`となった後に通常pushを予定する。
+タスクID: BACKLOG-SYNC-20260809
+状態: study公開グラウンディング基盤・country_sources registry Batch1/2・GR/ID記事修正・Scheduled Publish機能・HU/RU/RO予約設定まで完了済み。`docs/BACKLOG.md`をACTIVE/EXECUTION VERIFICATION/DONE・ARCHIVEの3区分へ再構成し、`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`・`.ai/DECISIONS.md`を同期するdocsのみのタスクを実施中（コード・DB・Workflow変更なし）。docs同期はローカルcommit済み・**push未実施**。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。amendでSHAが変わるたびに自己矛盾するため、作業開始時に`git rev-parse HEAD`で都度確認すること）。詳細は直下「2026-08-09時点の全体サマリー」参照。
+
+## Git状態（2026-08-09 docs同期時点）
+
+- branch: main
+- origin/main: `76ea4d2`（"feat: add scheduled study publishing"、push済み・CI成功確認済み）
+- docs同期commit（BACKLOG再構成＋CURRENT_HANDOFF/RECENT_ACTIVITY/DECISIONS更新）をローカルに作成済み
+- ahead 1 / behind 0
+- push未実施
+- 正確なlocal HEADは、本ファイルへ固定値で記載せず、作業開始時に`git rev-parse HEAD`で再確認すること（amendのたびにSHAが変わり自己参照的にstaleになるため）
+
+## 2026-08-09時点の全体サマリー（BACKLOG第1・第2パスread-only棚卸し + docs同期）
+
+### study公開グラウンディング基盤
+- commit `5b3882e fix: require grounded study article references` / `5dc7e62 fix: separate study source validation from display refs`（ともにorigin/mainへpush済み）
+- `getApprovedSources()`は承認済みregistry全件を上限なしで返し、`selectStudyReferenceSources(allSources, max=5)`は記事への機械挿入表示専用のslice。**validatorへは常に前者の戻り値をそのまま渡す**（Indiaの5件キャップバグの恒久修正）
+- country_sources registry Batch 1（13件、8ヶ国: hk/tw/ch/jp/sg/mx/in/id）・Batch 2（14件、11ヶ国: us/fr/rs/au/tr/my/ro/gr/cn/ar/pl）を登録済み（DBのみ、対応commitなし）。vn（`xuatnhapcanh.gov.vn`）はstability gate失敗により正式除外
+- `study-work-ch`/`study-work-gr`/`study-work-id`の参照URLを個別target patchで修正済み
+
+### 現在のvalidator PASS/FAIL（2026-08-09実測、確定値）
+- 公開済み`study-country-*`/`study-work-*` 103件中 **PASS 51件 / FAIL 52件**。前セッション終了時点の把握値と完全一致しドリフトなし
+- 詳細は`docs/BACKLOG.md`のBL-20260809-02参照
+
+### Vietnam（study-country-vn / study-work-vn）
+- registry追加だけでは全言語PASSにならないことを検証済み（`vnembassy-jp.org`をregistry追加してもenは`vn.emb-japan.go.jp`（第三国source）を引用したままFAILする）。registry追加＋article target patchの両方が必要。詳細は`docs/BACKLOG.md`のBL-20260809-03参照
+
+### Scheduled Publish機能
+- commit `76ea4d2 feat: add scheduled study publishing`（origin/mainへpush済み、CI成功確認済み）
+- `scheduled_publish_at`schema・専用publisher・通常publisherからの除外・concurrency・optimistic exact-one update・`published_count`即時反映・curl HTTPエラー検知・DRY_RUN分離まで実装済み
+- 予約設定済み（2026-08-09再確認・変化なし）: `study-country-hu`→2026-08-14T00:00:00Z、`study-work-ru`→2026-08-15T00:00:00Z、`study-country-ro`→2026-08-21T00:00:00Z
+- **残る確認事項はHU初回本番実行（2026-08-14 09:00 JST）のみ**。詳細は`docs/BACKLOG.md`「2. EXECUTION VERIFICATION」参照
+
+### content_hash bug（新規発見・現在進行形）
+- `country_sources.content_hash`/`content_hash_at`列が本番に未適用であることを実`SELECT`で確認（`column country_sources.content_hash does not exist`）
+- 毎月1日の`Health Check — Country Sources`の「Monthly — content hash check」stepは現状**確実に失敗する**。BL-20260801-06の実装バグではなく、別の既知課題（BL-20260809-01）として区別すること
+
+### Study publication retry semantics（経路別、DECISIONSへ記録）
+- **Scheduled Publication**（`scripts/publish-scheduled-study.ts`）: 予約日時到達時にvalidator FAILとなっても`scheduled_publish_at`はクリアされず保持される。翌日以降の日次実行でも候補クエリに該当し続けるため、**Scheduled Publisherが毎日自動的に再評価する**設計（実コードで確認済み）。source改善でPASSに転じれば自動publishされる
+- **通常/manual publication**（既存の週次Country/Work publisher、`--publish-only`等）: 独立した自動retry機構はなく、人による明示的な再検証・publish操作が必要
+- 「MoveWorthではautomatic retryを一律禁止」という表現は誤り（Scheduled Publicationには意図的な日次自動再評価semanticsが存在する）。正確な仕様は`DEC-20260809-01: Study publication retry semanticsを経路別に分離する`として`.ai/DECISIONS.md`に記録済み
+- 注意: Issue auto-close（BL-20260809-12）は未実装のため、Scheduled retryで後日PASS→publishしても対応するblocked Issueは自動closeされない
+
+### 次のアクション候補
+1. BL-20260809-01（content_hash migration）: 優先度高、ユーザー承認のうえmigration作成・適用
+2. BL-20260809-02（validator debt 52件）: 段階的target patch、次回はまず対象国選定から
+3. 2026-08-14: HU初回scheduled publish本番実行の確認
+4. BL-20260809-03（Vietnam）: registry追加＋article target patch
 
 ## Scripts TypeCheck復旧の確定記録（2026-08-01 7回目）
 

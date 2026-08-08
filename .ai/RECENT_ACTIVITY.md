@@ -1,7 +1,24 @@
 # Recent AI Activity
 
-保持期間: 直近3日間
-最終整理: 2026-07-21
+保持期間ポリシー: 目安3日間〜1週間。ただし実運用では肥大化時に随時アーカイブする方針とし、機械的な期限超過削除は行わない（履歴喪失を避けるため）。大規模な整理が必要になった場合は`.ai/archive/`等へ移動し、本ファイルには要約と参照リンクのみ残す
+最終整理: 2026-08-09（保持期間ポリシー文言を実態に合わせて修正。古いエントリの削除は今回行っていない）
+
+---
+
+## 2026-08-09 — Claude Code（BACKLOG棚卸し・docs同期）
+
+- タスクID: BACKLOG-AUDIT-AND-SYNC-20260809
+- 状態: 完了（read-only棚卸し2ラウンド→docs同期commit）
+- 第1パス（read-only）: `docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`・`.ai/DECISIONS.md`が2026-08-01時点で止まっており、直近セッション（study公開グラウンディング基盤・registry Batch1/2・GR/ID記事修正・Vietnam調査・Scheduled Publish機能・HU/RU/RO予約設定）を一切反映していないことを確認。git log実測でcommit `5b3882e`/`5dc7e62`/`76ea4d2`がBACKLOG類に未記載であることを確認
+- 第2パス（read-only）: 第1パスで挙げた不足項目14件を実コード・実DB（SELECT限定）で個別確認。主な発見:
+  - `country_sources.content_hash`/`content_hash_at`列が本番に存在しない（新規発見の既知バグ、月次content-hash checkが確実に失敗する）
+  - 公開済みstudy記事103件の実validator再測定でPASS 51/FAIL 52を確定
+  - 既存Country/Work publisher（`publish-study-country.yml`/`publish-study-work.yml`）にblocked-only無条件deployが依然残存（Scheduled Publisherのみ修正済み）
+  - guideカテゴリZH欠落3件＋work横断ガイド1件の計4件を実測
+  - RU registry alive1件のみ・ME registryは3件存在するがarticle reference mismatchでFAILのまま、等
+- docs同期: `docs/BACKLOG.md`をACTIVE（High/Medium/Low）/EXECUTION VERIFICATION/DONE・ARCHIVEの3区分へ全面再構成（24件の既存項目＋新規14件）。`.ai/CURRENT_HANDOFF.md`の最新状態サマリーを更新。`.ai/DECISIONS.md`へ`DEC-20260809-01`（Study publication retry semanticsを経路別に整理。Scheduled Publishではquality block後も予約日時を保持して日次再評価し、後日PASSすれば自動publish可能。通常/manual publicationには独立したautomatic retry機構を設けず、明示的な再検証・publish操作を維持する）を追記
+- 変更対象はdocsのみ（`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`・`.ai/DECISIONS.md`）。コード変更・DB変更・Workflow実行は一切なし
+- commit実施、**push未実施**（コミットSHAは本エントリ作成後に確定するため`.ai/CURRENT_HANDOFF.md`参照）
 
 ---
 
