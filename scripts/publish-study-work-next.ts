@@ -82,7 +82,7 @@ async function classify(code: string): Promise<Classification> {
   const workSlug = `study-work-${code}`;
   const { data: workData, error: workErr } = await sb
     .from("study_blog_posts")
-    .select("slug, is_published, title, description, content")
+    .select("slug, is_published, title, description, content, scheduled_publish_at")
     .eq("slug", workSlug)
     .single();
 
@@ -92,6 +92,12 @@ async function classify(code: string): Promise<Classification> {
   if (workData) {
     if (workData.is_published) {
       console.log(`    ⏭ ${workSlug}: 既に公開済み → スキップ`);
+      return { kind: "skip" };
+    }
+    // scheduled_publish_atが設定されている記事は publish-scheduled-study.ts の専管対象。
+    // 予定日時前に通常publisherから誤って公開してしまう事故を防ぐため一律スキップする。
+    if (workData.scheduled_publish_at !== null) {
+      console.log(`    ⏭ ${workSlug}: 予約publisher管理下（scheduled_publish_at=${workData.scheduled_publish_at}） → 通常publisher対象外`);
       return { kind: "skip" };
     }
     return {
@@ -106,7 +112,7 @@ async function classify(code: string): Promise<Classification> {
   const newSlug = `study-${code}`;
   const { data: newData, error: newErr } = await sb
     .from("study_blog_posts")
-    .select("slug, is_published, title, description, content")
+    .select("slug, is_published, title, description, content, scheduled_publish_at")
     .eq("slug", newSlug)
     .single();
 
@@ -116,6 +122,10 @@ async function classify(code: string): Promise<Classification> {
   if (newData) {
     if (newData.is_published) {
       console.log(`    ⏭ ${newSlug}: 既に公開済み → スキップ`);
+      return { kind: "skip" };
+    }
+    if (newData.scheduled_publish_at !== null) {
+      console.log(`    ⏭ ${newSlug}: 予約publisher管理下（scheduled_publish_at=${newData.scheduled_publish_at}） → 通常publisher対象外`);
       return { kind: "skip" };
     }
     return {

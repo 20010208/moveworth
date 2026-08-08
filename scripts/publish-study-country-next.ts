@@ -132,7 +132,7 @@ async function main() {
 
     const { data: sc, error: scErr } = await sb
       .from("study_blog_posts")
-      .select("slug, is_published, title, description, content")
+      .select("slug, is_published, title, description, content, scheduled_publish_at")
       .eq("slug", targetSlug)
       .single();
 
@@ -149,6 +149,14 @@ async function main() {
     }
     if (sc.is_published) {
       console.log(`  ⏭ ${v.slug} (${v.published_at}) → ${targetSlug}: 既に公開済み → スキップ`);
+      skippedCount++;
+      continue;
+    }
+    // scheduled_publish_atが設定されている記事は publish-scheduled-study.ts の専管対象。
+    // 対応visa記事のpublished_atが偶然このlookback windowに入っても、予定日時前に
+    // 通常publisherから誤って公開してしまう事故を防ぐため、ここでは一律スキップする。
+    if (sc.scheduled_publish_at !== null) {
+      console.log(`  ⏭ ${v.slug} (${v.published_at}) → ${targetSlug}: 予約publisher管理下（scheduled_publish_at=${sc.scheduled_publish_at}） → 通常publisher対象外`);
       skippedCount++;
       continue;
     }

@@ -1830,6 +1830,14 @@ async function run() {
     // validateStudyPublication で検証した場合のみ公開する。単に fallback 文言でない
     // というだけの判定（isStudyContentGrounded）には依存しない（Codex指摘 High）。
     // approved source自体をDBから取得できない場合（query error）は公開処理全体をfailさせる。
+    //
+    // manual publish（--publish-only）と予約publisher（publish-scheduled-study.ts）の関係:
+    // このブロックは scheduled_publish_at を一切参照しない。すなわち管理者が明示的に
+    // --publish-only を実行した場合、対象記事に未来のscheduled_publish_atが設定されていても
+    // validator PASSであれば即時公開でき、予約をoverrideできる（意図した設計）。
+    // 一方、自動実行される通常publisher（publish-study-country-next.ts /
+    // publish-study-work-next.ts）は scheduled_publish_at が非NULLの記事を候補から除外する。
+    // 「予定時刻に到達したものだけを自動公開する」役割は publish-scheduled-study.ts のみが担う。
     const approvedSourcesForPublish = await getApprovedSources(supabase, country.code);
     let studyPublishHadFailure = false;
     for (const studySlugTmp of [`study-work-${country.code}`, `study-country-${country.code}`]) {

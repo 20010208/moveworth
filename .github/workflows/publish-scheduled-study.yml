@@ -1,0 +1,50 @@
+name: Publish Scheduled Study Articles (Daily)
+
+on:
+  schedule:
+    # 毎日 00:00 UTC (09:00 JST / 08:00 Malaysia) に実行
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+# schedule/workflow_dispatchの重複実行や同一Workflowの二重起動を直列化する。
+# DB側のoptimistic conditional update（scripts/publish-scheduled-study.ts）と合わせた
+# 二重防御であり、こちらだけに依存しない。
+concurrency:
+  group: publish-scheduled-study
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Publish scheduled study articles
+        id: publish
+        run: npx tsx scripts/publish-scheduled-study.ts
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GH_TOKEN: ${{ github.token }}
+
+      # 予約記事を1件以上publishした場合のみdeployする（blocked-onlyでの不要deployを防ぐ）。
+      # published_count はpublisher stepが実publish成功のたびに都度 $GITHUB_OUTPUT へ書き込む
+      # ため、途中のcandidateでpublisher step自体がfailure終了しても、それまでに成功した
+      # 件数は残る。always()により、publisher stepがfailureでもこのstepは評価・実行される
+      # （publisher failureをdeployのために握り潰すわけではなく、job全体はpublisher step自体の
+      # 失敗によりfailedのまま維持される。deployだけは独立して実行する）。
+      - name: Trigger Vercel redeploy
+        if: always() && steps.publish.outputs.published_count > 0
+        run: |
+          curl --fail-with-body --silent --show-error -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"
