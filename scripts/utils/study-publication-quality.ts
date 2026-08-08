@@ -148,12 +148,18 @@ export function findRefSection(content: string, lang: Lang): RefSection | null {
 // ─── country_sources からのapproved source取得（fail-closed） ────────────────
 
 /**
- * country_code の study/visa alive source を取得する。
+ * country_code の study/visa alive source を **全件** 取得する（上限なし）。
  * - Supabaseクエリがerrorを返した場合は必ずthrowする（[]へのフォールバックは禁止。
  *   「DB障害」と「正常に0件」を呼び出し側が区別できるようにするため）。
  * - 取得順序はDB応答順に依存させない: study優先 → normalized URL昇順で決定的にソートしてから
  *   重複排除する（同一URLがstudy/visa双方にある場合はstudy側の行を優先して残す）。
- * - 重複排除後、最大5件まで返す。
+ *
+ * 重要: この関数の戻り値は「publication validatorが判定に使うapproved registry全体」である。
+ * 5件等への上限は一切適用しない（Codex指摘: 上限で切られた集合をvalidatorにも流用すると、
+ * registryにaliveで正式登録済みのURLが辞書順で6件目以降になっただけで「未承認」と誤判定される
+ * ＝ registryを増やすほど再発する構造的バグになる）。
+ * 記事へ機械挿入する参考資料用に件数を絞りたい場合は、この関数の戻り値に対して
+ * 別途 selectStudyReferenceSources() を適用すること。
  */
 export async function getApprovedSources(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -193,7 +199,21 @@ export async function getApprovedSources(
     deduped.push(r);
   }
 
-  return deduped.slice(0, 5);
+  return deduped;
+}
+
+/**
+ * 記事へ機械挿入する参考資料表示用に、approved registry全体（getApprovedSourcesの戻り値。
+ * study優先→normalized URL昇順→raw URL辞書順で既に決定的にソート済み）から先頭max件を選ぶ。
+ * 単なる配列slice（pure function）であり、DBアクセスは行わない。
+ *
+ * 呼び出し側はこの関数の戻り値を publication validator（validateStudyPublication）へ
+ * 渡してはならない。validatorには必ず getApprovedSources() の全件を渡すこと
+ * （表示用に絞った集合を承認判定に流用すると、registryにaliveで正式登録済みのURLが
+ * 辞書順で max件目以降になっただけで「未承認」と誤判定されるため）。
+ */
+export function selectStudyReferenceSources(allSources: ApprovedSource[], max = 5): ApprovedSource[] {
+  return allSources.slice(0, max);
 }
 
 // ─── 参考資料セクションの機械注入 ──────────────────────────────────────────────

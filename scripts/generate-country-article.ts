@@ -6,6 +6,7 @@ import { assertBlogPayload } from "./utils/validate-blog-payload";
 import { buildRefsLines } from "./utils/url-label";
 import {
   getApprovedSources,
+  selectStudyReferenceSources,
   injectApprovedRefs,
   validateStudyPublication,
   type ApprovedSource,
@@ -437,13 +438,18 @@ async function buildSourceContext(
 // utils/study-publication-quality.ts の getApprovedSources を使用する。
 // DBクエリエラーは getApprovedSources 内で throw されるため、ここでは握り潰さず
 // 呼び出し元（run()）へそのまま伝播させる。取得順序（study優先→normalized URL昇順）・
-// 重複排除・最大5件はすべて getApprovedSources 側で決定的に処理される。
+// 重複排除はすべて getApprovedSources 側で決定的に処理される。
+//
+// approvedSources（戻り値）は上限なしの全件であり、これをそのまま publication validator へ
+// 渡すこと（Codex指摘: registry全体をvalidatorに使わせるため）。記事へ機械挿入する参考資料
+// markdown（refs）だけは selectStudyReferenceSources() で表示用に最大5件へ絞る。
 async function buildStudyRefs(
   countryCode: string
 ): Promise<{ refs: string; isGrounded: boolean; approvedSources: ApprovedSource[] }> {
   const approvedSources = await getApprovedSources(supabase, countryCode);
   if (approvedSources.length === 0) return { refs: "", isGrounded: false, approvedSources };
-  const refs = buildRefsLines(approvedSources.map((s) => s.url));
+  const displaySources = selectStudyReferenceSources(approvedSources, 5);
+  const refs = buildRefsLines(displaySources.map((s) => s.url));
   return { refs, isGrounded: true, approvedSources };
 }
 
@@ -2058,7 +2064,7 @@ async function run() {
   // （fail-closed。catchせずrun()のトップレベルcatchへ伝播させ、非zero exitにする）。
   const studyRefs = await buildStudyRefs(country.code);
   if (studyRefs.isGrounded) {
-    console.log(`✅ Study refs built from country_sources (study優先, ${studyRefs.approvedSources.length} URLs)`);
+    console.log(`✅ Study refs built from country_sources (approved registry ${studyRefs.approvedSources.length}件 / 表示挿入は最大5件)`);
   } else {
     console.log(`ℹ️  No study/visa sources for ${country.code} — study refs will use fallback text`);
     console.log(`::warning file=scripts/generate-country-article.ts::study-work-${country.code} / study-country-${country.code}: country_sourcesにstudy/visa sourceが0件のため、参考資料は一般的な注意書きのみになります。validateStudyPublicationにより公開はブロックされます。country_sourcesへのsource登録が必要です。`);
