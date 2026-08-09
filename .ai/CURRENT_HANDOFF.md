@@ -1,18 +1,43 @@
 # Current Handoff
 
-最終更新: 2026-08-09
+最終更新: 2026-08-10
 最終担当: Claude Code
-タスクID: CLOSE-CONTENT-HASH-BACKLOG-20260809
-状態: `BL-20260809-01`（country_sources content_hash/content_hash_at schema mismatch）は本番migration適用・PostgREST reload・初回baseline実行まで完了しDONE化。`docs/BACKLOG.md`のActive Highから当該項目を除去しDONE/ARCHIVEへ移動、新規`BL-20260809-15`（content hash coverage hardening、Low）を追加するdocs同期を実施中（コード・DB・Workflow変更なし）。次に未確認なのは2026-09-01の月次Health Check E2Eと2026-08-14のHU初回scheduled publishの2点のみ。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。amendでSHAが変わるたびに自己矛盾するため、作業開始時に`git rev-parse HEAD`で都度確認すること）。詳細は直下「2026-08-09時点の全体サマリー」参照。
+タスクID: SYNC-STUDY-VALIDATOR-BATCH1-20260810
+状態: `BL-20260809-02`（Published Study validator debt）のBatch 1（1A+1B、計14記事）がproduction applyまで完了（PASS 51→65、FAIL 52→38）。CAS RPC（`study_blog_posts_cas_update_content`）はmigration適用・PostgREST reload・OpenAPI認識まで確認済みでproduction稼働中。BL-20260809-02自体はActive Highのまま維持（残りFAIL 38件が未着手のため）。今回は`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`のdocs同期のみ（`.ai/DECISIONS.md`は変更なし、コード・DB・Workflow変更なし）。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。amendでSHAが変わるたびに自己矛盾するため、作業開始時に`git rev-parse HEAD`で都度確認すること）。詳細は直下「2026-08-10時点の追記」参照。
 
-## Git状態（2026-08-09 content_hash backlog close docs同期時点）
+## Git状態（2026-08-10 study validator batch1 docs同期時点）
 
 - branch: main
-- origin/main: `166ce56`（"fix: add country source content hash columns"、push済み）
-- BL-20260809-01 closeのdocs同期commit（BACKLOG BL-20260809-01 DONE化＋BL-20260809-15追加＋CURRENT_HANDOFF/RECENT_ACTIVITY更新）をローカル作成済み
-- ahead 1 / behind 0
-- push未実施（pushは別途承認待ち）
+- origin/main: `9b789458`（"feat: add safe study article reference patching"、push済み・Scripts TypeCheck成功確認済み）
+- 今回のdocs同期作業開始時点でHEAD = origin/main、ahead 0 / behind 0
 - 正確なlocal HEADは、本ファイルへ固定値で記載せず、作業開始時に`git rev-parse HEAD`で再確認すること（amendのたびにSHAが変わり自己参照的にstaleになるため）
+
+## 2026-08-10時点の追記: Study validator debt Batch 1完了
+
+### CAS RPC production状態
+- commit `9b7894586a08b1abff71cf269650a8fd76bd8d20 feat: add safe study article reference patching`
+- migration `supabase/add_study_content_cas_rpc.sql`: production適用済み、`NOTIFY pgrst, 'reload schema';`実施済み、PostgREST OpenAPI上で`/rpc/study_blog_posts_cas_update_content`の登録を確認済み（read-only GET、RPC自体は未呼び出しでの確認）
+- RPC: `study_blog_posts_cas_update_content(p_id uuid, p_expected_content jsonb, p_new_content jsonb) returns table(id uuid)`。`content`列専用CAS、`SECURITY INVOKER`、service_role限定EXECUTE
+
+### Batch1A/1B production適用結果
+- Batch1A（7件: study-work-me / study-country-gb / study-country-bg / study-country-de / study-country-be / study-country-nl / study-work-nl）: 7/7成功、db_updated=7
+- Batch1B（7件: study-work-co / study-work-ph / study-country-vn / study-country-at / study-work-at / study-country-dk / study-work-dk）: 7/7成功、db_updated=7
+- 合計14記事、CAS failures=0、RPC errors=0、unexpected exceptions=0、**new FAIL=0**、`country_sources` write=0
+
+### 現在のvalidator PASS/FAIL（2026-08-10測定、Batch1適用後の確定値。上の「2026-08-09時点の全体サマリー」内の51/52という数値は古い。以後はこちらを参照）
+- 公開済み`study-country-*`/`study-work-*` 103件中 **PASS 65件 / FAIL 38件**（country: PASS 36/FAIL 15、work: PASS 29/FAIL 23）
+- 詳細は`docs/BACKLOG.md`のBL-20260809-02参照
+
+### Vietnam前提の訂正（下の「Vietnam」節の記述は古い前提のため本節で訂正する）
+- `study-country-vn`は**registry新規追加なし**でDONE化した（旧前提「`vnembassy-jp.org`をregistryへ追加した上でenをtarget patchする、両方揃って初めて完了」は誤りだったため訂正）。実際にはja/en/zh全言語が`https://xuatnhapcanh.gov.vn`のbare rootを引用しており、registryには同domainの承認済みsub-pathと`immigration.gov.vn`が既に存在していたため、article target patchのみで解消した
+- `study-work-vn`は引き続き未着手（FAILのまま）。詳細はBL-20260809-03参照
+
+### 次のアクション候補（更新版、2026-08-10）
+1. BL-20260809-02（残りFAIL 38件）: current production上で再分類（Quick Wins/confidence再評価）→ Batch2選定 → dry-run → 監査 → production apply、の順で段階的に進める（即時apply不可）
+2. 2026-08-14: HU初回scheduled publish本番実行の確認
+3. 2026-09-01: content hash含む月次Health Check E2E確認
+4. BL-20260809-03（`study-work-vn`）: 残存FAILの解消（article target patch、またはregistry追加+patch）
+5. BL-20260809-15（content hash coverage hardening）: Low、binary source戦略・retry robustness改善の方針検討
 
 ## 2026-08-09時点の全体サマリー（BACKLOG第1・第2パスread-only棚卸し + docs同期）
 

@@ -5,6 +5,22 @@
 
 ---
 
+## 2026-08-10 — Claude Code（Study validator debt Batch 1 production適用・docs同期）
+
+- タスクID: SYNC-STUDY-VALIDATOR-BATCH1-20260810
+- 状態: 完了（safe CAS RPC実装→Codex監査→push→production migration適用→PostgREST reload→RPC OpenAPI認識確認→Batch1A/1B dry-run→apply→docs同期）
+- safe CAS RPC実装（`study_blog_posts_cas_update_content`、`supabase/add_study_content_cas_rpc.sql`）と宣言的patch script（`scripts/patch-study-validator-debt-batch1.ts`）をCodex複数ラウンド監査（High/Medium/Low指摘を全て解消）を経てcommit・push（`9b7894586a08b1abff71cf269650a8fd76bd8d20`）。push起因の`Scripts TypeCheck`run（`31307467229`）はconclusion=success
+- ユーザーがSupabase SQL Editorでmigration適用＋`NOTIFY pgrst, 'reload schema';`実施。read-onlyでPostgREST OpenAPI schemaにRPCが登録されていることを確認（RPC自体は未呼び出し）
+- Batch1A（7件: study-work-me/study-country-gb/study-country-bg/study-country-de/study-country-be/study-country-nl/study-work-nl）: dry-run 7/7成功確認後、production apply実行、7/7成功・db_updated=7
+- Batch1B（7件: study-work-co/study-work-ph/study-country-vn/study-country-at/study-work-at/study-country-dk/study-work-dk）: dry-run 7/7成功確認後、production apply実行、7/7成功・db_updated=7
+- 結果: PASS 51→65、FAIL 52→38（country: 28/23→36/15、work: 23/29→29/23）。new FAIL=0、country_sources write=0（registry新規追加なしで全14件解消）
+- `docs/BACKLOG.md`: BL-20260809-02の現状値・Batch1 milestoneを更新（Active Highのまま維持、残りFAIL 38件は未着手）。BL-20260809-03（Vietnam）を`study-country-vn`=DONE（registry追加不要と判明、旧前提を訂正）・`study-work-vn`=継続へ更新。BL-20260809-04（Registry Batch3）を「current validator debtのblocker」ではなく「grounding source breadth improvement」として位置づけを訂正（RS/CN work側source不足という記載も誤りと判明し訂正）。BL-20260809-09（Montenegro reference mismatch）は`study-work-me`がBatch1A適用で解消済みのためDONE / ARCHIVEへ移動。新規「6. Study validator debt Batch 1（CAS RPC）恒久記録」セクションを追加。BL-20260809-09の移動によりActive件数はHigh1/Medium9/Low12/Total22（Medium 10→9、Total 23→22）。`.ai/CURRENT_HANDOFF.md`を同期
+- Codexの客観診断（Batch1前52件: URL mismatch only=44、reference sectionあり/URL0件=8、その他=0）はhistorical diagnosisとして記録し、残り38件への単純適用はしていない
+- 変更対象はdocsのみ（`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`）。`.ai/DECISIONS.md`は今回変更なし。コード・DB write・Workflow・Issue操作は今回のdocs同期ラウンドでは実施していない（Batch1 apply自体は前段のタスクで実施済み）
+- commit実施、**push未実施**
+
+---
+
 ## 2026-08-09 — Claude Code（content_hash schema migration・初回baseline・BL-20260809-01クローズ）
 
 - タスクID: CLOSE-CONTENT-HASH-BACKLOG-20260809

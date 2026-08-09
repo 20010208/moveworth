@@ -1,6 +1,6 @@
 # MoveWorth Backlog
 
-最終更新: 2026-08-09（BACKLOG第1・第2パスread-only棚卸しを反映し、ACTIVE / EXECUTION VERIFICATION / DONE・ARCHIVE の3区分へ全面再構成）
+最終更新: 2026-08-10（BL-20260809-02のBatch1結果反映、BL-20260809-09 DONE化）
 
 > 本ファイルはプロジェクト全体の未完了タスクを管理する。
 > `docs/redirect-backlog.md` はリダイレクト専用として別管理する。
@@ -13,40 +13,51 @@
 
 ### High
 
-#### BL-20260809-02: Published Study validator debt（現状値の確定記録）
+#### BL-20260809-02: Published Study validator debt（Batch 1完了・現状値更新）
 
 - 優先度: 高
-- 状態: 一部対応中（GR/ID 2件は前セッションで対応済み、残り52件は未着手）
-- 関連領域: `study_blog_posts` / `scripts/utils/study-publication-quality.ts`
-- 現状: 公開済み`study-country-*`/`study-work-*` 103件に実`validateStudyPublication()`を再実行した結果、**PASS 51件 / FAIL 52件**（2026-08-09測定、確定値）。前セッション終了時点の把握値（country 28 PASS/23 FAIL、work 23 PASS/29 FAIL、合計51/52）と完全一致しドリフトなしを確認
-- 対応方針: **一括修正は禁止**。国ごとに「registry拡充 → validator再計測 → 残存記事のみtarget patch」の順で段階的に対応する
-- 完了条件: 段階的にFAIL件数を削減する（一度に全件へ手を付けない）。次回作業時はまず52件の内訳（対象国・FAIL理由）を再取得してから着手国を選定する
+- 状態: 対応中（Batch 1完了、残りFAIL 38件は未着手）
+- 関連領域: `study_blog_posts` / `scripts/utils/study-publication-quality.ts` / `scripts/patch-study-validator-debt-batch1.ts` / `supabase/add_study_content_cas_rpc.sql`
+- 現状（2026-08-10測定、Batch1A/1B production適用後の確定値）: 公開済み`study-country-*`/`study-work-*` 103件中 **PASS 65件 / FAIL 38件**（country: PASS 36/FAIL 15、work: PASS 29/FAIL 23）
+- **Batch 1 milestone（完了）**:
+  - Batch1A（7件: `study-work-me` / `study-country-gb` / `study-country-bg` / `study-country-de` / `study-country-be` / `study-country-nl` / `study-work-nl`）: production apply完了（commit `9b789458`のCAS RPC経由、7/7成功）
+  - Batch1B（7件: `study-work-co` / `study-work-ph` / `study-country-vn` / `study-country-at` / `study-work-at` / `study-country-dk` / `study-work-dk`）: production apply完了（7/7成功）
+  - 合計14記事修正、CAS failures=0、RPC errors=0、unexpected exceptions=0、**new FAIL=0**（対象外記事へのregression皆無）、`country_sources` write=0（registry新規追加なしで全14件解消）
+  - 期待改善値（PASS 51→65、FAIL 52→38）と実績が完全一致
+- **historical diagnosis（Batch1着手前の52件、Codexによる客観診断）**: URL mismatch only=44件、reference sectionはあるがURL0件=8件、metadata/content-length起因=0件、approved source自体0件=0件。**この内訳はBatch1前の52件時点のスナップショットであり、残り38件への単純な差し引き適用はしない**（次バッチ前に38件を再診断する）
+- **registry不要という結論の範囲**: 「Batch1着手前のpublished FAIL 52件について、validator上、新規registry追加がPASS化の必須条件である記事は0件だった」という事実のみを指す。「今後country_sources拡充が不要」「Study grounding課題が全て解決した」という意味ではない（BL-20260809-04参照、registry breadth課題は別途残る）
+- 対応方針: **一括修正は禁止**。Batch1の分析結果（着手前FAIL52件のうち、新規registry追加がPASS化の必須条件だった記事は0件）により、「registry拡充→再計測→patch」というregistry-first方針は残りFAILの標準手順としない。**registry拡充はcurrent validator debt解消の必須first stepではない**（registryが不要という意味ではなく、source breadth改善はBL-20260809-04として別途継続する）。残りFAIL 38件は以下の順で段階的に対応する:
+  1. current production上で再分類（failure reason / confidence / minimal fixを再評価）
+  2. article patch / structural fix / registry improvement / source researchのうち必要な手段を記事ごとに選択
+  3. Quick Wins選定 → Batch2設計 → DRY_RUN → independent audit → production apply
+- 完了条件: 段階的にFAIL件数を削減する（一度に全件へ手を付けない）
+- 次のアクション: 残りFAIL 38件をcurrent production上で再分類（Quick Wins/confidence再評価）→ Batch2選定 → dry-run → 監査 → production apply、の順で段階的に進める（Batch2の即時applyは行わない）
 
 ---
 
 ### Medium
 
-#### BL-20260809-03: Vietnam grounding（study-country-vn / study-work-vn）
+#### BL-20260809-03: Vietnam grounding（study-country-vn DONE / study-work-vn継続）
 
 - 優先度: 中
+- 状態: 部分完了（`study-country-vn`はDONE、`study-work-vn`は未着手のためActive Mediumを維持）
 - 関連領域: `country_sources` / `study_blog_posts`
-- 既知事項:
-  - `xuatnhapcanh.gov.vn`はstability gate（独立GET 3/3）で失敗し、registry Batch 2から正式除外済み。そのままの状態で再登録しない
-  - `vnembassy-jp.org`（ベトナム在日大使館公式）がregistry追加候補
-  - `study-country-vn`はja/zhが既に`vnembassy-jp.org`相当を引用しているのに対し、enは日本側大使館`vn.emb-japan.go.jp`（第三国source）を引用しており、修正が必要
-  - registry追加だけでは全言語PASSにならないことを検証済み（registry追加のみ→ja/zh PASSだがen FAIL。article target patch併用で初めて全言語PASS）
-- 完了条件: `vnembassy-jp.org`をregistryへ追加した上で、`study-country-vn`のen参照セクションを`vnembassy-jp.org`へtarget patchする（両方が揃って初めて完了）。`study-work-vn`は別途FAIL理由を確認して対応
+- **`study-country-vn`（2026-08-10 DONE、Batch1B適用）**: 旧来の前提（「registryへ`vnembassy-jp.org`を追加した上でenをtarget patchする、両方揃って初めて完了」）は**訂正**する。実際にはja/en/zh全言語が`https://xuatnhapcanh.gov.vn`の**bare root**を引用しており、registryには同domainの承認済みsub-path（`.../en/tin-tuc/procedures-temporary-residence-cards-...`）と`https://immigration.gov.vn/`が既に存在していたため、**article reference target patchのみ（registry新規追加なし）で3言語ともPASS化**した。`vnembassy-jp.org`の登録は行っていない（`country_sources`のvnエントリは既存5件のまま、総数388件不変を確認済み）
+  - `xuatnhapcanh.gov.vn`はstability gate（独立GET 3/3失敗歴）があるためregistryへの新規追加候補としては引き続き慎重に扱う。ただし今回は**既存の承認済みsub-pathをそのまま引用する**方式のため、この不安定性は今回のpatchには影響していない
+- **`study-work-vn`（未着手、継続）**: 2026-08-10時点でFAILのまま。approvedCount=2（`immigration.gov.vn`・`xuatnhapcanh.gov.vn`sub-path、study-country-vnと共通）だが、ja/en/zhとも`vietnamtourism.gov.vn`・`molisa.gov.vn`（労働省、work記事としては最も文脈適合的）・`vn.emb-japan.go.jp`（第三国source）・`ilo.org`・`moet.gov.vn`を引用しており、既存registryのいずれとも一致しない。study-country-vnと同型のarticle target patch（既存承認済みURLへの置換）で解消できる見込みだが、work記事の文脈上は`molisa.gov.vn`（ベトナム労働省）の新規registry登録の方が内容的に適切な可能性があり、次バッチ選定時に判断する
+- 完了条件: `study-work-vn`のFAIL解消（article target patchまたはregistry追加+patch、次バッチで判断）
 
-#### BL-20260809-04: Registry Batch 3候補
+#### BL-20260809-04: Registry Batch 3候補（grounding source breadth improvement）
 
 - 優先度: 中
 - 関連領域: `country_sources`
-- 残存FAIL国・理由別記録:
-  - DE / MT: 既知候補URLがCloudflare 403でブロック
+- **位置づけの訂正（2026-08-10）**: Batch1の分析で、着手前のpublished FAIL 52件は**全件がalive+study/visa approved sourceを1件以上既に保有**しており、新規registry追加はBatch1の解消に不要だったことが判明した。したがって本項目は「current validator debtのblocker」ではなく、**将来の記事生成・編集品質向上のためのgrounding source breadth改善**として位置づける
+- 残存事項（理由別記録、2026-08-10時点で要再確認）:
+  - DE / MT: 既知候補URLがCloudflare 403でブロック（ただしDE/MTとも既存registryに複数の承認済みsourceが既にあり、現在のvalidator FAILはarticle側の引用不一致＝BL-20260809-02側のB分類が原因。Cloudflare 403の候補URLはあくまで「追加候補」であり必須ではない）
   - ME / IE: 既知候補URLが404または接続失敗
-  - RS / CN: country側は解消済みだがwork側の候補source不足
-  - VN: 上記BL-20260809-03参照（xuatnhapcanh.gov.vn stability gate失敗）
-- 完了条件: 各国について代替の公式URLを調査し、HTTP到達性・本文一致を確認したうえでユーザー承認を得てbatch登録する
+  - RS / CN: 以前「work側の候補source不足」と記録していたが、Batch1診断でRS（approvedCount=1）・CN（approvedCount=6）ともwork側にも既存approved sourceがあり、現在のFAILはarticle側の引用不一致であることが判明。**この行は訂正**（source不足ではなく記事参照ミスマッチ）
+  - VN: BL-20260809-03参照。`study-country-vn`はregistry追加不要でDONE、`study-work-vn`は継続
+- 完了条件: 各国について代替の公式URLを調査し、HTTP到達性・本文一致を確認したうえでユーザー承認を得てbatch登録する（現在のvalidator debtの解消条件ではなく、任意のsource breadth拡充として扱う）
 
 #### BL-20260809-05: Existing Country publisher blocked-only deploy
 
@@ -76,14 +87,6 @@
 - 関連領域: `country_sources`
 - 現状（2026-08-09実測）: RUのalive source合計1件のみ（`https://studyinrussia.ru/en/`、purpose=study）。purpose=visaの登録は0件。学生ビザに直接対応する公式sourceが不足
 - 完了条件: ロシア外務省・移民局等、学生ビザ手続きの公式一次情報を調査・HTTP確認のうえregistry登録する
-
-#### BL-20260809-09: Montenegro reference mismatch
-
-- 優先度: 中
-- 関連領域: `country_sources` / `study_blog_posts`
-- 現状: MEはalive source 3件（study×2: `ucg.ac.me`大学サイト・`gov.me/en/mps`、visa×1: `gov.me/en/mup`）が既に存在し、source空白ではない。しかし`study-work-me`のvalidator再実行では依然FAIL（content.enの参照URLがこの3件のいずれとも一致しない）
-- 対応方針: source不足ではなく**記事reference mismatch**として扱う（GR/ID修正と同型）
-- 完了条件: `study-work-me`のen参照セクションを既存registry済みURLへtarget patchする
 
 #### BL-20260809-10: alive source verification interval
 
@@ -271,6 +274,7 @@
 | BL-20260801-06 | 残存fail-open経路の是正 | **実装DONE**（コード修正・push・GitHub側Workflow認識・Codex PASS WITH NOTES）。定期実行によるend-to-end確認のみ「2. EXECUTION VERIFICATION」へ分離 |
 | BL-20260801-07 | Scripts TypeCheckの既存失敗解消 | 完了（CI run `30697986179` success） |
 | BL-20260809-01 | country_sources content_hash / content_hash_at schema mismatch | **完了**（2026-08-09）。migration commit `166ce56017f903ca65ca30238872e467b13c2766`（origin/mainへpush済み、Codex最終判定PASS WITH NOTES）。本番Supabaseへmigration適用成功、`NOTIFY pgrst, 'reload schema';`によるPostgRESTスキーマキャッシュ反映完了、`content_hash`/`content_hash_at`のSELECT成功を確認。migration直後はnon-null 0/0（backfillなしを確認）。初回baseline実行（`check-source-content-hash.ts`単体、1回のみ）: alive 361件中337件成功・fetch失敗24件・changed 0件・Issue作成0件・Issueコメント0件・DB failure 0件。content_hash/content_hash_at片側NULL異常0件（ペア整合性確認済み）。残る24件のcoverage gapはBL-20260809-15として別途分離記録 |
+| BL-20260809-09 | Montenegro reference mismatch | **完了**（2026-08-10）。`study-work-me`のBatch1A production apply（commit `9b7894586a08b1abff71cf269650a8fd76bd8d20`のCAS RPC経由）でen参照セクションを`https://www.gov.me/en/ministry-of-interior`→`https://www.gov.me/en/mup`（既存registry済みURL）へtarget patch。registry変更0、CAS成功、post-update validator PASS、new FAIL 0を確認。`study-work-me`は現在PASS |
 
 ---
 
@@ -310,4 +314,20 @@
 - registry整備実績:
   - Batch 1: 13件登録（hk/tw/ch/jp/sg/mx/in/id、8ヶ国）— DBのみの変更、対応commitなし
   - Batch 2: 14件登録（us/fr/rs/au/tr/my/ro/gr/cn/ar/pl、11ヶ国）— DBのみの変更、対応commitなし。vn（`xuatnhapcanh.gov.vn`）はstability gate失敗により正式除外（BL-20260809-03/04参照）
-- 現状のvalidator PASS/FAIL: BL-20260809-02参照（103件中PASS 51 / FAIL 52、2026-08-09測定）
+- 現状のvalidator PASS/FAIL: BL-20260809-02参照（103件中PASS 65 / FAIL 38、2026-08-10測定、Batch1A/1B production適用後）
+
+---
+
+## 6. Study validator debt Batch 1（CAS RPC）恒久記録
+
+- 実装commit: `9b7894586a08b1abff71cf269650a8fd76bd8d20 feat: add safe study article reference patching`（origin/mainへpush済み、Codex最終判定PASS WITH NOTES、Scripts TypeCheck run成功確認済み）
+- migration: `supabase/add_study_content_cas_rpc.sql`（production適用済み、PostgREST schema reload実施済み、OpenAPI上でRPC認識を確認済み）
+- 実装済み機能:
+  - RPC `study_blog_posts_cas_update_content(p_id uuid, p_expected_content jsonb, p_new_content jsonb) returns table(id uuid)`: `content`列専用のcompare-and-swap。id一致・`is_published=true`・content全体が期待値と完全一致する場合のみatomic UPDATE
+  - `SECURITY INVOKER`・`search_path`固定・`REVOKE ALL FROM PUBLIC/anon/authenticated` + `GRANT EXECUTE TO service_role`のみ
+  - `scripts/patch-study-validator-debt-batch1.ts`: 宣言的patch plan（Batch1A/1B計14件）、物理URL occurrence guard（token位置ベース、Set重複排除に依存しない）、normalized-equivalent重複検知、DRY_RUNデフォルト＋`--apply`+`ALLOW_PRODUCTION_STUDY_PATCH=1`の二重guard、APPLY時fail-fast（最初の異常でSTOP、成功済みは保持、以降はnot_attempted）、`db_updated`カウンタ（CAS成功確定後は例外が起きても巻き戻らない設計）、post-update full verification（content deep-equal・validator PASS・非content列不変・planned URL状態）
+- **Batch1A production適用（2026-08-10）**: 7件（`study-work-me` / `study-country-gb` / `study-country-bg` / `study-country-de` / `study-country-be` / `study-country-nl` / `study-work-nl`）、7/7成功、db_updated=7、CAS failures=0、new FAIL=0
+- **Batch1B production適用（2026-08-10）**: 7件（`study-work-co` / `study-work-ph` / `study-country-vn` / `study-country-at` / `study-work-at` / `study-country-dk` / `study-work-dk`）、7/7成功、db_updated=7、CAS failures=0、new FAIL=0
+- 合計14記事修正、`country_sources` write=0（registry新規追加なしで全件解消）
+- production PASS/FAIL推移: 51/52 → 65/38（country 28/23→36/15、work 23/29→29/23）、予測値と完全一致
+- 残りFAIL 38件はBL-20260809-02参照（次バッチは再分類から開始）
