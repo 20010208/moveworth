@@ -13,15 +13,6 @@
 
 ### High
 
-#### BL-20260809-01: country_sources content hash schema mismatch
-
-- 優先度: 高
-- 状態: 未着手（**現在進行形の既知バグ**）
-- 関連領域: `scripts/check-source-content-hash.ts` / `country_sources` / `.github/workflows/health-check-country-sources.yml`
-- 現状: `check-source-content-hash.ts`が`content_hash`・`content_hash_at`列を要求しているが、本番`country_sources`にはこれらの列が存在しない。2026-08-09の実`SELECT`で`column country_sources.content_hash does not exist`を確認済み。`scheduled_publish_at`と異なり、独立した`supabase/*.sql`migrationファイルが作られておらず、コード内コメントのSQLのみで適用状況の追跡もされていない
-- 影響: 毎月1日02:00 UTCの`Health Check — Country Sources`ワークフロー「Monthly — content hash check」stepが、実行されるたびに確実に失敗する（`process.exit(1)`）
-- 完了条件: `supabase/add_content_hash.sql`等として正式なmigrationファイルを作成しユーザー承認のうえ本番Supabaseへ手動適用、適用後に実`SELECT`で列存在とPostgRESTスキーマキャッシュ反映（`NOTIFY pgrst, 'reload schema';`）を確認する
-
 #### BL-20260809-02: Published Study validator debt（現状値の確定記録）
 
 - 優先度: 高
@@ -208,6 +199,21 @@
 - 関連領域: `tsconfig.scripts.json` / `scripts/`ディレクトリ構成
 - 完了条件（将来検討事項）: 新しい非module形式のscratchスクリプトが追加された際の同種のグローバルスコープ衝突を機械的に防ぐ仕組みを検討する
 
+#### BL-20260809-15: Content hash coverage hardening
+
+- 優先度: 低
+- 状態: 未着手
+- 関連領域: `scripts/check-source-content-hash.ts`
+- 現状（2026-08-09初回baseline実測）: alive 361件中337件（93.4%）がbaseline化、24件（6.6%）が未カバー。24件は概ね以下2種に分かれる（URLパターンからの推定、スクリプト自体が失敗理由の詳細を記録しない設計のため確証ではない）:
+  - binary source: PDF / XLSX / ZIP / FileDown等のdownload endpoint（例: `ar/tax`, `mx/tax`, `my/visa`のPDF、`ch/salary`のdam-api asset、`nz/salary`のZIP、`kr/salary`のFileDown.do）
+  - HTML取得失敗: anti-bot/Cloudflare・JS要求・timeout/network instability等（例: `mt/tax`×2はCloudflare既知課題と一致、`vn/visa`はstability gate既知不安定sourceと一致、他多数は個別要因不明）
+- 課題: `check-source-content-hash.ts`の`fetchPageText()`はcontent-typeに`html`/`text`を含まない場合`return null`する設計（74〜75行目）のため、binary sourceは構造的にcontent hash監視の対象外になる。またHTML取得は単発GET＋Wayback fallback 1回のみで、`verify-country-sources.ts`のようなUA rotation＋3回リトライは実装されていない
+- 将来検討（1つのbacklog内で検討）:
+  1. binary source向けのcontent hash戦略（raw bytesハッシュ、`Last-Modified`/`Content-Length`等のmetadata監視への切替等）
+  2. HTML取得失敗source向けのretry robustness改善（`verify-country-sources.ts`のUA rotation/retryロジックの再利用検討）
+- 注記: BL-20260809-01（schema mismatch）とは分離した別課題。記事公開品質のblockerではないためLow
+- 完了条件: 上記1・2いずれかの方針を決定し、必要なら実装する
+
 ---
 
 ## 2. EXECUTION VERIFICATION
@@ -234,8 +240,14 @@
 ### Health Check recurring E2E
 
 - BL-20260801-06の実装（Search API厳格検証・Supabase正確1件更新・id条件更新）はDONE、Codex最終判定PASS WITH NOTES
-- 残るのは週次（土10:00 JST）・月次（毎月1日02:00 UTC）スケジュール実行による本番end-to-end確認のみ
-- **既知の注意事項**: monthly runの「content hash check」stepは、BL-20260809-01（content_hash列が本番に未適用）により**現時点では確実に失敗する**。次回end-to-end確認でこの失敗が観測されても、BL-20260801-06自体の新規回帰ではなく、BL-20260809-01の既知バグであると認識すること
+- content_hash schema migration＝DONE、初回baseline実行＝DONE（2026-08-09。alive 361件中337件成功、fetch失敗24件、changed 0件、Issue作成/コメント0件、DB failure 0件。詳細は「3. DONE / ARCHIVE」のBL-20260809-01参照）
+- 残るのは**次回monthly scheduled実行（2026-09-01 02:00 UTC）による本番end-to-end確認のみ**
+- 確認対象:
+  - full re-verify（`--recheck-dead --recheck-unverified --re-verify`）によるstatus更新
+  - status更新後のaliveのみを対象としたcontent hash check
+  - 既にbaseline化済みの337件が正しくchange detectionの対象になること（変化があれば初めてIssue通知経路が実際に動作する）
+  - 現在hash NULLの24件（alive）が、fetch成功時に「初回記録」経路でbaseline化されること（`changed`扱いにならないこと）
+  - fetch失敗が継続するsourceはNULLを維持し、次月以降も自然にリトライされること
 
 ---
 
@@ -258,6 +270,7 @@
 | BL-20260801-03〜05 | GHA Issue通知経路の是正（3段階の中間saga） | BL-20260801-06へsupersededされた中間状態のため要約のみ保持。技術的な誤りはないが最新状態を代表しない。詳細経緯は`.ai/CURRENT_HANDOFF.md`参照 |
 | BL-20260801-06 | 残存fail-open経路の是正 | **実装DONE**（コード修正・push・GitHub側Workflow認識・Codex PASS WITH NOTES）。定期実行によるend-to-end確認のみ「2. EXECUTION VERIFICATION」へ分離 |
 | BL-20260801-07 | Scripts TypeCheckの既存失敗解消 | 完了（CI run `30697986179` success） |
+| BL-20260809-01 | country_sources content_hash / content_hash_at schema mismatch | **完了**（2026-08-09）。migration commit `166ce56017f903ca65ca30238872e467b13c2766`（origin/mainへpush済み、Codex最終判定PASS WITH NOTES）。本番Supabaseへmigration適用成功、`NOTIFY pgrst, 'reload schema';`によるPostgRESTスキーマキャッシュ反映完了、`content_hash`/`content_hash_at`のSELECT成功を確認。migration直後はnon-null 0/0（backfillなしを確認）。初回baseline実行（`check-source-content-hash.ts`単体、1回のみ）: alive 361件中337件成功・fetch失敗24件・changed 0件・Issue作成0件・Issueコメント0件・DB failure 0件。content_hash/content_hash_at片側NULL異常0件（ペア整合性確認済み）。残る24件のcoverage gapはBL-20260809-15として別途分離記録 |
 
 ---
 

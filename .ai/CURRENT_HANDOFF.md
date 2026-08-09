@@ -2,16 +2,16 @@
 
 最終更新: 2026-08-09
 最終担当: Claude Code
-タスクID: BACKLOG-SYNC-20260809
-状態: study公開グラウンディング基盤・country_sources registry Batch1/2・GR/ID記事修正・Scheduled Publish機能・HU/RU/RO予約設定まで完了済み。`docs/BACKLOG.md`をACTIVE/EXECUTION VERIFICATION/DONE・ARCHIVEの3区分へ再構成し、`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`・`.ai/DECISIONS.md`を同期するdocsのみのタスクを実施中（コード・DB・Workflow変更なし）。docs同期はローカルcommit済み・**push未実施**。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。amendでSHAが変わるたびに自己矛盾するため、作業開始時に`git rev-parse HEAD`で都度確認すること）。詳細は直下「2026-08-09時点の全体サマリー」参照。
+タスクID: CLOSE-CONTENT-HASH-BACKLOG-20260809
+状態: `BL-20260809-01`（country_sources content_hash/content_hash_at schema mismatch）は本番migration適用・PostgREST reload・初回baseline実行まで完了しDONE化。`docs/BACKLOG.md`のActive Highから当該項目を除去しDONE/ARCHIVEへ移動、新規`BL-20260809-15`（content hash coverage hardening、Low）を追加するdocs同期を実施中（コード・DB・Workflow変更なし）。次に未確認なのは2026-09-01の月次Health Check E2Eと2026-08-14のHU初回scheduled publishの2点のみ。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。amendでSHAが変わるたびに自己矛盾するため、作業開始時に`git rev-parse HEAD`で都度確認すること）。詳細は直下「2026-08-09時点の全体サマリー」参照。
 
-## Git状態（2026-08-09 docs同期時点）
+## Git状態（2026-08-09 content_hash backlog close docs同期時点）
 
 - branch: main
-- origin/main: `76ea4d2`（"feat: add scheduled study publishing"、push済み・CI成功確認済み）
-- docs同期commit（BACKLOG再構成＋CURRENT_HANDOFF/RECENT_ACTIVITY/DECISIONS更新）をローカルに作成済み
+- origin/main: `166ce56`（"fix: add country source content hash columns"、push済み）
+- BL-20260809-01 closeのdocs同期commit（BACKLOG BL-20260809-01 DONE化＋BL-20260809-15追加＋CURRENT_HANDOFF/RECENT_ACTIVITY更新）をローカル作成済み
 - ahead 1 / behind 0
-- push未実施
+- push未実施（pushは別途承認待ち）
 - 正確なlocal HEADは、本ファイルへ固定値で記載せず、作業開始時に`git rev-parse HEAD`で再確認すること（amendのたびにSHAが変わり自己参照的にstaleになるため）
 
 ## 2026-08-09時点の全体サマリー（BACKLOG第1・第2パスread-only棚卸し + docs同期）
@@ -35,9 +35,13 @@
 - 予約設定済み（2026-08-09再確認・変化なし）: `study-country-hu`→2026-08-14T00:00:00Z、`study-work-ru`→2026-08-15T00:00:00Z、`study-country-ro`→2026-08-21T00:00:00Z
 - **残る確認事項はHU初回本番実行（2026-08-14 09:00 JST）のみ**。詳細は`docs/BACKLOG.md`「2. EXECUTION VERIFICATION」参照
 
-### content_hash bug（新規発見・現在進行形）
-- `country_sources.content_hash`/`content_hash_at`列が本番に未適用であることを実`SELECT`で確認（`column country_sources.content_hash does not exist`）
-- 毎月1日の`Health Check — Country Sources`の「Monthly — content hash check」stepは現状**確実に失敗する**。BL-20260801-06の実装バグではなく、別の既知課題（BL-20260809-01）として区別すること
+### content_hash schema mismatch（BL-20260809-01、2026-08-09に解消・DONE）
+- migration commit `166ce56017f903ca65ca30238872e467b13c2766`（"fix: add country source content hash columns"、origin/mainへpush済み、Codex最終判定PASS WITH NOTES）
+- 本番Supabaseへmigration適用成功、`NOTIFY pgrst, 'reload schema';`によるPostgRESTスキーマキャッシュ反映完了、`content_hash`/`content_hash_at`のSELECT成功を確認（migration直後はnon-null 0/0、backfillなしを確認）
+- 初回baseline実行（`check-source-content-hash.ts`単体、1回のみ）: alive 361件中**337件成功**・fetch失敗**24件**・changed **0件**・Issue作成**0件**・Issueコメント**0件**・DB failure **0件**。content_hash/content_hash_at片側NULL異常0件
+- 実行時、ローカルwrapperの10分ハードタイムアウトで`exit 143`（SIGTERM）となったが、ログは`=== 完了 ===`まで到達しており、事後SELECTでDB内容が完全に整合することを確認済み。GitHub Actionsには同種の10分制限は存在せず（`timeout-minutes`未指定、既定360分）、本番Workflowへの影響はないと判断
+- 残る24件のcoverage gap（binary source・HTML取得失敗）は`BL-20260809-15`（Low）として分離記録。BL-20260809-01自体はこの24件を理由にOPENへ戻さない
+- 次に未確認なのは**2026-09-01 02:00 UTCの月次scheduled実行によるE2E確認のみ**（詳細は`docs/BACKLOG.md`「2. EXECUTION VERIFICATION」参照）
 
 ### Study publication retry semantics（経路別、DECISIONSへ記録）
 - **Scheduled Publication**（`scripts/publish-scheduled-study.ts`）: 予約日時到達時にvalidator FAILとなっても`scheduled_publish_at`はクリアされず保持される。翌日以降の日次実行でも候補クエリに該当し続けるため、**Scheduled Publisherが毎日自動的に再評価する**設計（実コードで確認済み）。source改善でPASSに転じれば自動publishされる
@@ -46,10 +50,11 @@
 - 注意: Issue auto-close（BL-20260809-12）は未実装のため、Scheduled retryで後日PASS→publishしても対応するblocked Issueは自動closeされない
 
 ### 次のアクション候補
-1. BL-20260809-01（content_hash migration）: 優先度高、ユーザー承認のうえmigration作成・適用
-2. BL-20260809-02（validator debt 52件）: 段階的target patch、次回はまず対象国選定から
-3. 2026-08-14: HU初回scheduled publish本番実行の確認
+1. BL-20260809-02（validator debt 52件）: 段階的target patch、次回はまず対象国選定から
+2. 2026-08-14: HU初回scheduled publish本番実行の確認
+3. 2026-09-01: content hash含む月次Health Check E2E確認（BL-20260809-01のDONE後の実行確認）
 4. BL-20260809-03（Vietnam）: registry追加＋article target patch
+5. BL-20260809-15（content hash coverage hardening）: Low、binary source戦略・retry robustness改善の方針検討
 
 ## Scripts TypeCheck復旧の確定記録（2026-08-01 7回目）
 

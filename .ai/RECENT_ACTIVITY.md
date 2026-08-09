@@ -5,6 +5,21 @@
 
 ---
 
+## 2026-08-09 — Claude Code（content_hash schema migration・初回baseline・BL-20260809-01クローズ）
+
+- タスクID: CLOSE-CONTENT-HASH-BACKLOG-20260809
+- 状態: 完了（read-only設計監査→migration commit→push→本番適用→baseline実行→残課題監査→docs同期）
+- `supabase/add_content_hash.sql`（content_hash/content_hash_at追加、default/index/backfillなし）をcommit・push（`166ce56017f903ca65ca30238872e467b13c2766`、Codex最終判定PASS WITH NOTES）
+- ユーザーがSupabase SQL Editorで本番migration適用＋`NOTIFY pgrst, 'reload schema';`実施。read-onlyでSELECT成功・non-null 0/0（backfillなし）を確認
+- 初回content hash baseline（`check-source-content-hash.ts`単体、1回のみ実行、Health Check Workflow全体のdispatchはせず）: alive 361件中337件成功・fetch失敗24件・changed 0件・Issue作成/コメント0件・DB failure 0件・hash/hash_at片側NULL異常0件を事後SELECTで確認
+- 実行時、ローカルwrapperの10分ハードタイムアウトで`exit 143`（SIGTERM）となったが、保存ログは`=== 完了 ===`まで到達しており事後DB確認と完全整合。GitHub Actions側に同種の10分制限はなく（`timeout-minutes`未指定、既定360分）、production failureではないと判断（BACKLOG化なし）
+- `docs/BACKLOG.md`: `BL-20260809-01`をActive HighからDONE/ARCHIVEへ移動。残る24件のcoverage gap（binary source・HTML取得失敗）を新規`BL-20260809-15`（Low）として分離記録。Active件数はHigh 1/Medium 10/Low 12/Total 23。`.ai/CURRENT_HANDOFF.md`を同期
+- 次に未確認: 2026-08-14 HU初回scheduled publish、2026-09-01 月次Health Check E2E（content hashを含む）
+- 変更対象はdocsのみ（`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`）。`.ai/DECISIONS.md`は今回変更なし
+- commit実施、**push未実施**
+
+---
+
 ## 2026-08-09 — Claude Code（BACKLOG棚卸し・docs同期）
 
 - タスクID: BACKLOG-AUDIT-AND-SYNC-20260809
