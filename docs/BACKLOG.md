@@ -1,6 +1,6 @@
 # MoveWorth Backlog
 
-最終更新: 2026-08-10（BL-20260809-02のBatch2結果反映）
+最終更新: 2026-08-10（BL-20260809-02のBatch3結果反映）
 
 > 本ファイルはプロジェクト全体の未完了タスクを管理する。
 > `docs/redirect-backlog.md` はリダイレクト専用として別管理する。
@@ -13,13 +13,13 @@
 
 ### High
 
-#### BL-20260809-02: Published Study validator debt（Batch 1・Batch 2完了・現状値更新）
+#### BL-20260809-02: Published Study validator debt（Batch 1・Batch 2・Batch 3完了・現状値更新）
 
 - 優先度: 高
-- 状態: 対応中（Batch 1・Batch 2完了、残りFAIL 35件は未着手）
-- 関連領域: `study_blog_posts` / `scripts/utils/study-publication-quality.ts` / `scripts/patch-study-validator-debt-batch1.ts` / `scripts/patch-study-validator-debt-batch2.ts` / `supabase/add_study_content_cas_rpc.sql`
-- 現状（2026-08-10測定、Batch2 production適用後の確定値）: 公開済み`study-country-*`/`study-work-*` 103件中 **PASS 68件 / FAIL 35件**（country: PASS 37/FAIL 14、work: PASS 31/FAIL 21）
-- **実績履歴（Batch1前 → Batch1後 → Batch2後）**: PASS 51 → 65 → 68、FAIL 52 → 38 → 35（country: 28/23 → 36/15 → 37/14、work: 23/29 → 29/23 → 31/21）
+- 状態: 対応中（Batch 1・Batch 2・Batch 3完了、残りFAIL 30件は未着手）
+- 関連領域: `study_blog_posts` / `scripts/utils/study-publication-quality.ts` / `scripts/patch-study-validator-debt-batch1.ts` / `scripts/patch-study-validator-debt-batch2.ts` / `scripts/patch-study-validator-debt-batch3.ts` / `supabase/add_study_content_cas_rpc.sql`
+- 現状（2026-08-10測定、Batch3 production適用後の確定値）: 公開済み`study-country-*`/`study-work-*` 103件中 **PASS 73件 / FAIL 30件**（country: PASS 42/FAIL 9、work: PASS 31/FAIL 21）
+- **実績履歴（Batch1前 → Batch1後 → Batch2後 → Batch3後）**: PASS 51 → 65 → 68 → 73、FAIL 52 → 38 → 35 → 30（country: 28/23 → 36/15 → 37/14 → 42/9、work: 23/29 → 29/23 → 31/21 → 31/21）
 - **Batch 1 milestone（完了）**:
   - Batch1A（7件: `study-work-me` / `study-country-gb` / `study-country-bg` / `study-country-de` / `study-country-be` / `study-country-nl` / `study-work-nl`）: production apply完了（commit `9b789458`のCAS RPC経由、7/7成功）
   - Batch1B（7件: `study-work-co` / `study-work-ph` / `study-country-vn` / `study-country-at` / `study-work-at` / `study-country-dk` / `study-work-dk`）: production apply完了（7/7成功）
@@ -29,14 +29,21 @@
   - 対象3件（`study-work-ae` / `study-work-de` / `study-country-za`）、production apply 3/3成功、CAS failures=0、RPC errors=0、unexpected exceptions=0、**new FAIL=0**、`country_sources` write=0、対象外article write=0
   - 期待改善値（PASS 65→68、FAIL 38→35）と実績が完全一致
   - **候補選定経緯**: 残りFAIL 38件の再分類でQ1/HIGH候補として12件を提案したが、Codexのcontextual-fit監査により「validator AFTER PASSだけではeditorial quality / grounding qualityを保証しない」と判定され、production適用可能と認定されたのはURL-only deterministic patchとして問題のない3件のみだった。残り9件（`study-country-ae` / `study-work-cy` / `study-country-ie` / `study-work-ie` / `study-country-it` / `study-work-no` / `study-country-pt` / `study-work-pt` / `study-work-se`）はBatch2から除外——これは「patch失敗」ではなく、**production適用前の監査で除外した未対応候補**であり、reference labelとnew source実体の不一致・study/work文脈へのsource scope不一致・jurisdiction mismatch・source範囲が狭すぎる等、editorial judgmentが必要なため見送られたもの
+- **Batch 3 milestone（完了）**: 詳細は「8. Study validator debt Batch 3 恒久記録」参照
+  - 対象5件（`study-country-ie` / `study-country-it` / `study-country-pt` / `study-country-pl` / `study-country-mt`、全てcountry記事）、production apply 5/5成功、CAS failures=0、RPC errors=0、unexpected exceptions=0、**new FAIL=0**、`country_sources` write=0、対象外article write=0
+  - 期待改善値（PASS 68→73、FAIL 35→30）と実績が完全一致
+  - **候補選定経緯**: 残りFAIL 35件の再分類でClaudeが最初にL1/HIGH候補として提案したのは10件だったが、Codexのcontextual-fit独立監査で「10件中6件がstrict claim-level fit / jurisdiction基準を満たさず、そのまま実装するとeditorial groundingを弱める可能性がある」（Medium 1件）と判定された。Codexが最終的にL1/HIGHとして承認したのは、Claude案10件のうち4件（`study-country-ie` / `study-country-it` / `study-country-pt` / `study-country-pl`）に加え、Claude案ではL3（source research要）としていた`study-country-mt`を「Identitàはmigration/visa/residenceを所管する現行government organizationであり、Identity Maltaからのorganization/URL更新として決定的」との理由でL1/HIGHへ昇格させた計5件のみだった
+  - Claude案からCodexが除外した6件（`study-country-ae` / `study-work-ie` / `study-work-hu` / `study-work-gb` / `study-work-bg` / `study-work-cn`）は**production適用前の独立監査で除外された未対応候補**であり、「patch失敗」「CAS失敗」「production apply失敗」ではない。主な除外理由: `study-country-ae`はGDRFAがDubai管轄でUAE全体authorityのようなlabelは不正確、`study-work-ie`は一般immigration rootが学生就労条件の直接根拠として広すぎる、`study-work-hu`はStudy in Hungary rootよりspecific student-work pageが望ましい、`study-work-gb`はbrowse pageが学生就労条件を直接支えない、`study-work-bg`はMFA rootが学生就労ruleの直接根拠として弱い、`study-work-cn`はNIA rootが学生就労claimを直接支えるには広すぎる
+- **validator PASSだけでは不十分という原則（Batch2から継続・Batch3で深化）**: 「validator AFTER PASSだけではeditorial / grounding qualityを保証しない」という原則を維持。Batch3ではさらに、official domainの一致・category的な近似・同一organizationであることだけでもL1/HIGHとは限らず、claim-level fit（記事の具体的主張を承認済みsourceが直接裏付けているか）・source specificity（source内容が広すぎ／狭すぎないか）・jurisdiction（管轄一致）の個別確認が必要であることが明確になった。ただし、これをもって「validatorは信用できない」と過剰一般化はしない（validatorはあくまでregistry一致の機械的ゲートとして正しく機能しており、editorial品質は別レイヤーの人間・Codex監査で補完する設計）
 - **historical diagnosis（Batch1着手前の52件、Codexによる客観診断）**: URL mismatch only=44件、reference sectionはあるがURL0件=8件、metadata/content-length起因=0件、approved source自体0件=0件。この内訳はBatch1前の52件時点のスナップショットであり、以後のバッチ選定には単純な差し引きではなくcurrent production上の再診断を用いている
-- **registry不要という結論の範囲**: 「現時点までのvalidator PASS化に、新規registry追加が明確に必須と判断された記事は0件」という限定的な事実のみを指す。「今後country_sources拡充が不要」「Study grounding課題・editorial品質課題が全て解決した」という意味ではない（BL-20260809-04参照、registry breadth課題は別途残る。またBatch2監査が示した通り、registry上にsourceが存在すること自体はeditorial適合性を保証しない）
-- 対応方針: **一括修正は禁止**。「registry拡充→再計測→patch」というregistry-first方針は残りFAILの標準手順としない（registryが不要という意味ではなく、source breadth改善はBL-20260809-04として別途継続する）。Batch2監査により、URL置換のみでは不十分な記事群（reference label不一致・source scope不一致・jurisdiction mismatch・structural欠損・内容異常）が相当数残ることが判明したため、残りFAIL 35件は以下の順で段階的に対応する:
-  1. current production上でQ2（editorial/context review要）・S（structural fix要、6件既知）・X（個別調査要、1件既知）を品質基準込みで再設計
-  2. 必要に応じてregistry/source breadth改善（BL-20260809-04）
-  3. 次バッチ候補を独立監査 → DRY_RUN → production apply
+- **registry不要という結論の範囲**: 「現時点までのvalidator PASS化に、新規registry追加が明確に必須と判断された記事は0件」という限定的な事実のみを指す。「今後country_sources拡充が不要」「Study grounding課題・editorial品質課題が全て解決した」という意味ではない（BL-20260809-04参照、registry breadth課題は別途残る。またBatch2・Batch3監査が示した通り、registry上にsourceが存在すること自体はeditorial適合性を保証しない）
+- 対応方針: **一括修正は禁止**。「registry拡充→再計測→patch」というregistry-first方針は残りFAILの標準手順としない（registryが不要という意味ではなく、source breadth改善はBL-20260809-04として別途継続する）。Batch2・Batch3監査により、URL/full-line置換だけでは不十分な記事群（reference label不一致・source scope不一致・jurisdiction mismatch・claim-level fit不足・structural欠損・内容異常）が相当数残ることが判明したため、残りFAIL 30件は以下の順で段階的に対応する:
+  1. current production上でL2（19件、claim-level fit/label/source specificity/jurisdictionの再評価が必要）・L3（4件、source research要）・S（structural fix要、6件）・X（個別調査要、1件）を品質基準込みで再設計
+  2. 必要に応じてregistry/source breadth改善（BL-20260809-04、特にwork記事のspecific claim source拡充との関連性が高まった）
+  3. 次バッチ候補を独立監査（contextual-fit + code）→ DRY_RUN → production apply
 - 完了条件: 段階的にFAIL件数を削減する（一度に全件へ手を付けない）
-- 次のアクション: 残りFAIL 35件をcurrent production上で再確認する。うち既知の分類として、構造的欠損（reference section内URL0件）を持つ6件（`study-work-es` / `study-work-it` / `study-work-th` / `study-country-tn` / `study-work-tn` / `study-work-za`）はstructural fix設計が必要、内容異常1件（`study-work-ge`、Georgia国記事のENに米国政府sourceが混入）はmanual investigation対象。残りはeditorial/context review（reference label・source内容・claim-level fit・jurisdictionを含めた再設計）が必要な候補として次フェーズで扱う。次バッチの即時applyは行わない
+- **remaining FAIL30の分類（2026-08-10、Batch3後）**: L2=19件（label-aware/full-line patchだけでは決定できず、claim-level fit・source scope・jurisdiction・organization framingのeditorial/context reviewが必要。特にwork記事ではgeneral immigration root/general visa portal/work permit page/student visa browse page等が学生の在学中就労claimを直接支えているかを厳しく評価する）、L3=4件（`study-work-mt` / `study-country-no` / `study-country-se` / `study-work-rs`、現registry/sourceだけではHIGH-confidence article-only patch設計の確信が持てずsource research/breadth改善を先行検討。ただしregistry追加が絶対必須と断定はしない）、S=6件（`study-work-es` / `study-work-it` / `study-work-th` / `study-country-tn` / `study-work-tn` / `study-work-za`、reference section内URL0件等のstructural issue、単純swap対象外）、X=1件（`study-work-ge`、Georgia国記事ENへの米国政府source混入というcontent anomaly、manual investigation対象）。合計L2 19+L3 4+S 6+X 1=30
+- 次のアクション: remaining FAIL30をcurrent production上で再確認 → L2 19件のclaim-level fit/label/source specificity/jurisdiction再評価 → specific official sourceが必要なwork記事についてBL-20260809-04との関係整理 → L3 4件のsource research → S6 structural fix設計 → X1 manual investigation → 次のsmall deterministic candidate set作成 → Claude設計 → Codex独立contextual-fit監査 → script実装 → Codex code audit → DRY_RUN → production apply、の順で段階的に進める。件数を埋めるために無理に次バッチへ候補を追加しない方針を維持する
 
 ---
 
@@ -62,6 +69,7 @@
   - ME / IE: 既知候補URLが404または接続失敗
   - RS / CN: 以前「work側の候補source不足」と記録していたが、Batch1診断でRS（approvedCount=1）・CN（approvedCount=6）ともwork側にも既存approved sourceがあり、現在のFAILはarticle側の引用不一致であることが判明。**この行は訂正**（source不足ではなく記事参照ミスマッチ）
   - VN: BL-20260809-03参照。`study-country-vn`はregistry追加不要でDONE、`study-work-vn`は継続
+- **Batch3監査による関連性の高まり（2026-08-10）**: Batch3のCodex独立監査で、`study-work-ie`/`study-work-hu`/`study-work-gb`/`study-work-bg`/`study-work-cn`等について、general immigration root/general domain源ではなく、学生の在学中就労claimを直接支えるspecific claim sourceの方が編集品質上望ましいことが再確認された。現時点でregistry追加が必須と断定するものではないが、work記事向けのsource breadth改善（BL-20260809-04）との関連性が高まったため付記する
 - 完了条件: 各国について代替の公式URLを調査し、HTTP到達性・本文一致を確認したうえでユーザー承認を得てbatch登録する（現在のvalidator debtの解消条件ではなく、任意のsource breadth拡充として扱う）
 
 #### BL-20260809-05: Existing Country publisher blocked-only deploy
@@ -319,7 +327,7 @@
 - registry整備実績:
   - Batch 1: 13件登録（hk/tw/ch/jp/sg/mx/in/id、8ヶ国）— DBのみの変更、対応commitなし
   - Batch 2: 14件登録（us/fr/rs/au/tr/my/ro/gr/cn/ar/pl、11ヶ国）— DBのみの変更、対応commitなし。vn（`xuatnhapcanh.gov.vn`）はstability gate失敗により正式除外（BL-20260809-03/04参照）
-- 現状のvalidator PASS/FAIL: BL-20260809-02参照（103件中PASS 68 / FAIL 35、2026-08-10測定、Batch2 production適用後）
+- 現状のvalidator PASS/FAIL: BL-20260809-02参照（103件中PASS 73 / FAIL 30、2026-08-10測定、Batch3 production適用後）
 
 ---
 
@@ -353,4 +361,26 @@
 - `country_sources` write=0（総数388件、apply前後で不変を確認）、対象外article write=0（script対象は3件のみで構成、CAS呼び出しも3回のみ実行）
 - production PASS/FAIL推移: 65/38 → 68/35（country 36/15→37/14、work 29/23→31/21）、予測値と完全一致
 - Batch1（14件）との累計: validator debt修正累計 **17件 DONE**（Batch1着手前のPASS 51 → 現在PASS 68、改善 +17件と一致）
-- 残りFAIL 35件はBL-20260809-02参照（Q2 editorial review・S6 structural fix・X1 manual investigationの3種の設計課題が既知）
+- Batch2後の残りFAIL 35件はBatch3以降の対応経緯を含めBL-20260809-02参照。**Batch3の詳細は「8. Study validator debt Batch 3 恒久記録」参照**
+
+---
+
+## 8. Study validator debt Batch 3 恒久記録
+
+- 新規script: `scripts/patch-study-validator-debt-batch3.ts`（Batch1/Batch2 scriptは無変更、独立ファイルとして同一のproduction safety architectureをexact full-line replacement向けに再実装）
+- commit: `1a3bf5f2c5892fe7baa815ae91f0c137e78b6a31 feat: add safe study validator batch3 patch`（origin/mainへpush済み、Codex code audit PASS WITH NOTES [Critical/High/Medium=0]、Scripts TypeCheck run `31364652680` conclusion=success）
+- **Batch2との設計上の違い**: Batch1/Batch2はURL tokenのみの置換だったが、Batch3はexact reference full-line replacement（label + URLを1行単位で同時更新）を採用。old exact reference lineの物理occurrence guardはtrailing spaces・全角spaceを含む実physical line一致（trimしない）で判定し、Reference section外（prefix/suffix）が完全不変であることも個別に検証する
+- **候補選定経緯**: 残りFAIL 35件の再分類でClaudeが最初にL1/HIGH候補として提案したのは10件（`study-country-ae` / `study-country-ie` / `study-work-ie` / `study-country-it` / `study-work-hu` / `study-work-gb` / `study-country-pt` / `study-country-pl` / `study-work-bg` / `study-work-cn`）。Codexのcontextual-fit独立監査により「10件中6件がstrict claim-level fit / jurisdiction基準を満たさず、そのまま実装するとeditorial groundingを弱める可能性がある」（Medium 1件）と判定され、10件案はそのまま採用されなかった
+- Codexが最終的にL1/HIGHとして承認したのは以下5件のみ:
+  - `study-country-ie`（旧INIS→Immigration Service Delivery/irishimmigration.ieへの公式改称に整合、jurisdiction整合）
+  - `study-country-it`（東京大使館ラベル→national official visa portal、country全体へのjurisdiction整合、study visa context適合）
+  - `study-country-pt`（Portugal MFA official visa portal、country/study visa referenceとして適切、jurisdiction問題なし）
+  - `study-country-pl`（Office for Foreigners/UDSC、current official authorityでarrival/stay/residenceを所管、country visa contextに適合）
+  - `study-country-mt`（Claude案ではL3だったが、IdentitàがIdentity Maltaからのorganization/URL更新として決定的と判断されCodex監査でL1/HIGHへ昇格）
+- 除外6件（`study-country-ae` / `study-work-ie` / `study-work-hu` / `study-work-gb` / `study-work-bg` / `study-work-cn`）は**production適用前の独立監査で除外された未対応候補**であり、「patch失敗」「CAS失敗」「production apply失敗」ではない（詳細はBL-20260809-02本体参照）
+- production適用結果（2026-08-10）: 5/5成功、requested=5・success=5・failed=0・not_attempted=0・db_updated=5・exit=0。CAS failures=0、RPC errors=0、unexpected exceptions=0。planned-state 13/13 PASS、non-target language invariant PASS、Reference section外 invariant PASS、non-content14列 invariant PASS
+- FAIL set比較: apply直前35件 → apply後30件。removed=5（`study-country-ie`/`study-country-it`/`study-country-pt`/`study-country-pl`/`study-country-mt`ちょうど5件）、unexpected removed=0、new FAIL=0
+- `country_sources` write=0（総数388件、apply前後で不変を確認）、対象外article write=0（script対象は5件のみで構成、CAS呼び出しも5回のみ実行）
+- production PASS/FAIL推移: 68/35 → 73/30（country 37/14→42/9、work 31/21→31/21、work記事は今回対象0件のため不変）、予測値と完全一致
+- Batch1（14件）+ Batch2（3件）との累計: validator debt修正累計 **22件 DONE**（Batch1着手前のPASS 51 → 現在PASS 73、改善 +22件と算術一致）
+- 残りFAIL 30件（L2 19・L3 4・S 6・X 1）はBL-20260809-02参照

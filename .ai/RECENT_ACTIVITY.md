@@ -5,6 +5,25 @@
 
 ---
 
+## 2026-08-10 — Claude Code（Study validator debt Batch 3 production適用・docs同期）
+
+- タスクID: SYNC-STUDY-VALIDATOR-BATCH3-20260810
+- 状態: 完了（残りFAIL35件の再分類→Claude初期10候補案→Codex contextual-fit監査→5件へ縮小（study-country-mtをL3→L1昇格含む）→Batch3 script実装→DRY_RUN→Codex code audit→commit→push→CI success→production直前DRY_RUN→production apply→docs同期）
+- 残りFAIL35件の再分類で、ClaudeはL1/HIGH候補として当初10件（`study-country-ae` / `study-country-ie` / `study-work-ie` / `study-country-it` / `study-work-hu` / `study-work-gb` / `study-country-pt` / `study-country-pl` / `study-work-bg` / `study-work-cn`）を提案した。Codexのcontextual-fit独立監査により「10件中6件がstrict claim-level fit / jurisdiction基準を満たさず、そのまま実装するとeditorial groundingを弱める可能性がある」（Medium 1件）と判定され、10件案はそのまま採用されなかった。この「Codex Medium判定」は**Batch3 scriptへの指摘ではなく、初期10候補案に対するcontextual-fit監査の指摘**である点に注意（scriptそのものへのcode audit結果は別途PASS WITH NOTES、下記参照）。Codexが最終的にproduction適用可能と認定したのは、Claude案4件（`study-country-ie`/`study-country-it`/`study-country-pt`/`study-country-pl`）に加え、Claude案ではL3（source research要）だった`study-country-mt`をL1/HIGHへ昇格させた計5件のみ
+- Claude案から除外された6件（`study-country-ae` / `study-work-ie` / `study-work-hu` / `study-work-gb` / `study-work-bg` / `study-work-cn`）は**production適用前の独立監査で除外された未対応候補**（「patch失敗」ではない）。主な理由: `study-country-ae`はGDRFAがDubai管轄限定でUAE全体authority的labelは不正確、`study-work-ie`は一般immigration rootが学生就労条件の直接根拠として広すぎる、`study-work-hu`はStudy in Hungary rootよりspecific student-work pageが望ましい、`study-work-gb`はbrowse pageが学生就労条件を直接支えない、`study-work-bg`はMFA rootが学生就労ruleの直接根拠として弱い、`study-work-cn`はNIA rootが学生就労claimを直接支えるには広すぎる
+- Batch3 script実装: `scripts/patch-study-validator-debt-batch3.ts`（新規、Batch1/2 scriptは無変更、同一production safety architectureをexact reference full-line replacement向けに再実装）。DRY_RUN 5/5成功
+- Codex code audit: PASS WITH NOTES（Critical=0、High=0、Medium=0、commit-safe=yes、production apply-safe design=yes）
+- commit `1a3bf5f2c5892fe7baa815ae91f0c137e78b6a31 feat: add safe study validator batch3 patch`（1ファイルのみ）→ push成功。push起因の`Scripts TypeCheck`run（`31364652680`）はconclusion=success
+- production直前DRY_RUN: baseline再計測（103/68/35、country37/14、work31/21、ドリフトなし）→対象5件current state確認（is_published=true/scheduled_publish_at=null/validator=FAIL）→approved source drift無し確認→DRY_RUN 5/5成功、db_updated=0
+- production apply: 5/5成功、CAS failures=0、RPC errors=0、unexpected exceptions=0、db_updated=5、planned-state 13/13 PASS
+- 結果: PASS 68→73、FAIL 35→30（country: 37/14→42/9、work: 31/21→31/21、work記事は今回対象0件のため不変）。new FAIL=0、unexpected removed FAIL=0、`country_sources` write=0（総数388件不変）、対象外article write=0。Batch1+Batch2の17件は引き続き17/17 PASS（非回帰確認済み）
+- `docs/BACKLOG.md`: BL-20260809-02の現状値をPASS73/FAIL30へ更新（Active Highのまま維持、残りFAIL30件は未着手）。Batch3 milestone・候補選定経緯（10→5縮小、study-country-mtのL3→L1昇格、除外6件は「patch失敗」ではなく監査除外である旨）を記録。remaining30の分類（L2=19・L3=4・S=6・X=1）を明記。新規「8. Study validator debt Batch 3 恒久記録」セクションを追加。BL-20260809-03/04/09はstatus変更なし（VNは今回未着手、Registry Batch3位置づけ不変——ただしwork記事のspecific claim source拡充との関連性が高まった旨を追記、Montenegro DONEのまま）。Active件数はHigh1/Medium9/Low12/Total22で不変（今回はBACKLOG項目間の移動なし、機械再集計で確認済み）。`.ai/CURRENT_HANDOFF.md`を同期
+- 「validator PASSだけでは不十分」という原則がBatch2に続きBatch3でさらに深化した: official domain一致・category的近似・同一organizationであることだけでもL1/HIGHとは限らず、claim-level fit・source specificity・jurisdictionの個別確認が必要（ただし「validatorは信用できない」への過剰一般化はしない旨もBACKLOGへ明記）
+- 変更対象はdocsのみ（`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`）。`.ai/DECISIONS.md`は今回変更なし。コード・DB write・Workflow・Issue操作は今回のdocs同期ラウンドでは実施していない（Batch3 script実装・apply自体は前段のタスクで実施済み）
+- commit実施、**push未実施**
+
+---
+
 ## 2026-08-10 — Claude Code（Study validator debt Batch 2 production適用・docs同期）
 
 - タスクID: SYNC-STUDY-VALIDATOR-BATCH2-20260810
