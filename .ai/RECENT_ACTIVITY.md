@@ -5,6 +5,24 @@
 
 ---
 
+## 2026-08-10 — Claude Code（Study validator debt Batch 2 production適用・docs同期）
+
+- タスクID: SYNC-STUDY-VALIDATOR-BATCH2-20260810
+- 状態: 完了（残りFAIL38件の再分類→Claude初期12候補案→Codex contextual-fit監査→3件へ縮小→Batch2 script実装→DRY_RUN→Codex code audit→commit→push→CI success→production直前DRY_RUN→production apply→docs同期）
+- 残りFAIL38件の再分類で、ClaudeはQ1/HIGH候補として当初12件を提案した。しかしCodexのcontextual-fit監査により「validator AFTER PASSだけではeditorial quality / grounding qualityを保証しない」と判定され、12件案をそのままproduction実装へ進めるのはFAIL判定となった。この「Codex FAIL」は**Batch2 scriptへのFAILではなく、初期12候補案に対するcontextual-fit監査のFAIL**である点に注意（scriptそのものへのcode audit結果は別途PASS WITH NOTES、下記参照）。Codexが最終的にproduction適用可能と認定したのは`study-work-ae`/`study-work-de`/`study-country-za`の3件のみ
+- Batch2 script実装: `scripts/patch-study-validator-debt-batch2.ts`（新規、Batch1 scriptは無変更、同一production safety architectureを再実装）。DRY_RUN 3/3成功
+- Codex code audit: PASS WITH NOTES（Critical=0、High=0、Medium=0、commit-safe=yes）
+- commit `739d4ea5c0dc96cb8b93459878c22bb1ed86bc9c feat: add safe study validator batch2 patch`（1ファイルのみ）→ push成功。push起因の`Scripts TypeCheck`run（`31335509330`）はconclusion=success
+- production直前DRY_RUN: baseline再計測（103/65/38、country36/15、work29/23、ドリフトなし）→対象3件current state確認（is_published=true/scheduled_publish_at=null/validator=FAIL）→approved source drift無し確認→DRY_RUN 3/3成功、db_updated=0
+- production apply: 3/3成功、CAS failures=0、RPC errors=0、unexpected exceptions=0、db_updated=3
+- 結果: PASS 65→68、FAIL 38→35（country: 36/15→37/14、work: 29/23→31/21）。new FAIL=0、unexpected removed FAIL=0、`country_sources` write=0（総数388件不変）、対象外article write=0。Batch1の14件は引き続き14/14 PASS（非回帰確認済み）
+- `docs/BACKLOG.md`: BL-20260809-02の現状値をPASS68/FAIL35へ更新（Active Highのまま維持、残りFAIL35件は未着手）。Batch2 milestone・候補選定経緯（12→3縮小、除外9件は「patch失敗」ではなく監査除外である旨）を記録。新規「7. Study validator debt Batch 2 恒久記録」セクションを追加。BL-20260809-03/04/09はstatus変更なし（VNは今回未着手、Registry Batch3位置づけ不変、Montenegro DONEのまま）。Active件数はHigh1/Medium9/Low12/Total22で不変（今回はBACKLOG項目間の移動なし、機械再集計で確認済み）。`.ai/CURRENT_HANDOFF.md`を同期
+- 「registry不要」の結論は「現時点までのvalidator PASS化に新規registry追加が明確に必須と判断された記事は0件」という限定的事実のみを指す（grounding/editorial品質十分という意味ではない旨をBACKLOGへ明記。Batch2監査自体がregistry上にsourceが存在するだけではeditorial適合性を保証しない実例となった）
+- 変更対象はdocsのみ（`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`）。`.ai/DECISIONS.md`は今回変更なし。コード・DB write・Workflow・Issue操作は今回のdocs同期ラウンドでは実施していない（Batch2 script実装・apply自体は前段のタスクで実施済み）
+- commit実施、**push未実施**
+
+---
+
 ## 2026-08-10 — Claude Code（Study validator debt Batch 1 production適用・docs同期）
 
 - タスクID: SYNC-STUDY-VALIDATOR-BATCH1-20260810

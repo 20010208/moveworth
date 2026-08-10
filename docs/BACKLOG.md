@@ -1,6 +1,6 @@
 # MoveWorth Backlog
 
-最終更新: 2026-08-10（BL-20260809-02のBatch1結果反映、BL-20260809-09 DONE化）
+最終更新: 2026-08-10（BL-20260809-02のBatch2結果反映）
 
 > 本ファイルはプロジェクト全体の未完了タスクを管理する。
 > `docs/redirect-backlog.md` はリダイレクト専用として別管理する。
@@ -13,25 +13,30 @@
 
 ### High
 
-#### BL-20260809-02: Published Study validator debt（Batch 1完了・現状値更新）
+#### BL-20260809-02: Published Study validator debt（Batch 1・Batch 2完了・現状値更新）
 
 - 優先度: 高
-- 状態: 対応中（Batch 1完了、残りFAIL 38件は未着手）
-- 関連領域: `study_blog_posts` / `scripts/utils/study-publication-quality.ts` / `scripts/patch-study-validator-debt-batch1.ts` / `supabase/add_study_content_cas_rpc.sql`
-- 現状（2026-08-10測定、Batch1A/1B production適用後の確定値）: 公開済み`study-country-*`/`study-work-*` 103件中 **PASS 65件 / FAIL 38件**（country: PASS 36/FAIL 15、work: PASS 29/FAIL 23）
+- 状態: 対応中（Batch 1・Batch 2完了、残りFAIL 35件は未着手）
+- 関連領域: `study_blog_posts` / `scripts/utils/study-publication-quality.ts` / `scripts/patch-study-validator-debt-batch1.ts` / `scripts/patch-study-validator-debt-batch2.ts` / `supabase/add_study_content_cas_rpc.sql`
+- 現状（2026-08-10測定、Batch2 production適用後の確定値）: 公開済み`study-country-*`/`study-work-*` 103件中 **PASS 68件 / FAIL 35件**（country: PASS 37/FAIL 14、work: PASS 31/FAIL 21）
+- **実績履歴（Batch1前 → Batch1後 → Batch2後）**: PASS 51 → 65 → 68、FAIL 52 → 38 → 35（country: 28/23 → 36/15 → 37/14、work: 23/29 → 29/23 → 31/21）
 - **Batch 1 milestone（完了）**:
   - Batch1A（7件: `study-work-me` / `study-country-gb` / `study-country-bg` / `study-country-de` / `study-country-be` / `study-country-nl` / `study-work-nl`）: production apply完了（commit `9b789458`のCAS RPC経由、7/7成功）
   - Batch1B（7件: `study-work-co` / `study-work-ph` / `study-country-vn` / `study-country-at` / `study-work-at` / `study-country-dk` / `study-work-dk`）: production apply完了（7/7成功）
-  - 合計14記事修正、CAS failures=0、RPC errors=0、unexpected exceptions=0、**new FAIL=0**（対象外記事へのregression皆無）、`country_sources` write=0（registry新規追加なしで全14件解消）
+  - 合計14記事修正、CAS failures=0、RPC errors=0、unexpected exceptions=0、**new FAIL=0**、`country_sources` write=0（registry新規追加なしで全14件解消）
   - 期待改善値（PASS 51→65、FAIL 52→38）と実績が完全一致
-- **historical diagnosis（Batch1着手前の52件、Codexによる客観診断）**: URL mismatch only=44件、reference sectionはあるがURL0件=8件、metadata/content-length起因=0件、approved source自体0件=0件。**この内訳はBatch1前の52件時点のスナップショットであり、残り38件への単純な差し引き適用はしない**（次バッチ前に38件を再診断する）
-- **registry不要という結論の範囲**: 「Batch1着手前のpublished FAIL 52件について、validator上、新規registry追加がPASS化の必須条件である記事は0件だった」という事実のみを指す。「今後country_sources拡充が不要」「Study grounding課題が全て解決した」という意味ではない（BL-20260809-04参照、registry breadth課題は別途残る）
-- 対応方針: **一括修正は禁止**。Batch1の分析結果（着手前FAIL52件のうち、新規registry追加がPASS化の必須条件だった記事は0件）により、「registry拡充→再計測→patch」というregistry-first方針は残りFAILの標準手順としない。**registry拡充はcurrent validator debt解消の必須first stepではない**（registryが不要という意味ではなく、source breadth改善はBL-20260809-04として別途継続する）。残りFAIL 38件は以下の順で段階的に対応する:
-  1. current production上で再分類（failure reason / confidence / minimal fixを再評価）
-  2. article patch / structural fix / registry improvement / source researchのうち必要な手段を記事ごとに選択
-  3. Quick Wins選定 → Batch2設計 → DRY_RUN → independent audit → production apply
+- **Batch 2 milestone（完了）**: 詳細は「7. Study validator debt Batch 2 恒久記録」参照
+  - 対象3件（`study-work-ae` / `study-work-de` / `study-country-za`）、production apply 3/3成功、CAS failures=0、RPC errors=0、unexpected exceptions=0、**new FAIL=0**、`country_sources` write=0、対象外article write=0
+  - 期待改善値（PASS 65→68、FAIL 38→35）と実績が完全一致
+  - **候補選定経緯**: 残りFAIL 38件の再分類でQ1/HIGH候補として12件を提案したが、Codexのcontextual-fit監査により「validator AFTER PASSだけではeditorial quality / grounding qualityを保証しない」と判定され、production適用可能と認定されたのはURL-only deterministic patchとして問題のない3件のみだった。残り9件（`study-country-ae` / `study-work-cy` / `study-country-ie` / `study-work-ie` / `study-country-it` / `study-work-no` / `study-country-pt` / `study-work-pt` / `study-work-se`）はBatch2から除外——これは「patch失敗」ではなく、**production適用前の監査で除外した未対応候補**であり、reference labelとnew source実体の不一致・study/work文脈へのsource scope不一致・jurisdiction mismatch・source範囲が狭すぎる等、editorial judgmentが必要なため見送られたもの
+- **historical diagnosis（Batch1着手前の52件、Codexによる客観診断）**: URL mismatch only=44件、reference sectionはあるがURL0件=8件、metadata/content-length起因=0件、approved source自体0件=0件。この内訳はBatch1前の52件時点のスナップショットであり、以後のバッチ選定には単純な差し引きではなくcurrent production上の再診断を用いている
+- **registry不要という結論の範囲**: 「現時点までのvalidator PASS化に、新規registry追加が明確に必須と判断された記事は0件」という限定的な事実のみを指す。「今後country_sources拡充が不要」「Study grounding課題・editorial品質課題が全て解決した」という意味ではない（BL-20260809-04参照、registry breadth課題は別途残る。またBatch2監査が示した通り、registry上にsourceが存在すること自体はeditorial適合性を保証しない）
+- 対応方針: **一括修正は禁止**。「registry拡充→再計測→patch」というregistry-first方針は残りFAILの標準手順としない（registryが不要という意味ではなく、source breadth改善はBL-20260809-04として別途継続する）。Batch2監査により、URL置換のみでは不十分な記事群（reference label不一致・source scope不一致・jurisdiction mismatch・structural欠損・内容異常）が相当数残ることが判明したため、残りFAIL 35件は以下の順で段階的に対応する:
+  1. current production上でQ2（editorial/context review要）・S（structural fix要、6件既知）・X（個別調査要、1件既知）を品質基準込みで再設計
+  2. 必要に応じてregistry/source breadth改善（BL-20260809-04）
+  3. 次バッチ候補を独立監査 → DRY_RUN → production apply
 - 完了条件: 段階的にFAIL件数を削減する（一度に全件へ手を付けない）
-- 次のアクション: 残りFAIL 38件をcurrent production上で再分類（Quick Wins/confidence再評価）→ Batch2選定 → dry-run → 監査 → production apply、の順で段階的に進める（Batch2の即時applyは行わない）
+- 次のアクション: 残りFAIL 35件をcurrent production上で再確認する。うち既知の分類として、構造的欠損（reference section内URL0件）を持つ6件（`study-work-es` / `study-work-it` / `study-work-th` / `study-country-tn` / `study-work-tn` / `study-work-za`）はstructural fix設計が必要、内容異常1件（`study-work-ge`、Georgia国記事のENに米国政府sourceが混入）はmanual investigation対象。残りはeditorial/context review（reference label・source内容・claim-level fit・jurisdictionを含めた再設計）が必要な候補として次フェーズで扱う。次バッチの即時applyは行わない
 
 ---
 
@@ -314,7 +319,7 @@
 - registry整備実績:
   - Batch 1: 13件登録（hk/tw/ch/jp/sg/mx/in/id、8ヶ国）— DBのみの変更、対応commitなし
   - Batch 2: 14件登録（us/fr/rs/au/tr/my/ro/gr/cn/ar/pl、11ヶ国）— DBのみの変更、対応commitなし。vn（`xuatnhapcanh.gov.vn`）はstability gate失敗により正式除外（BL-20260809-03/04参照）
-- 現状のvalidator PASS/FAIL: BL-20260809-02参照（103件中PASS 65 / FAIL 38、2026-08-10測定、Batch1A/1B production適用後）
+- 現状のvalidator PASS/FAIL: BL-20260809-02参照（103件中PASS 68 / FAIL 35、2026-08-10測定、Batch2 production適用後）
 
 ---
 
@@ -330,4 +335,22 @@
 - **Batch1B production適用（2026-08-10）**: 7件（`study-work-co` / `study-work-ph` / `study-country-vn` / `study-country-at` / `study-work-at` / `study-country-dk` / `study-work-dk`）、7/7成功、db_updated=7、CAS failures=0、new FAIL=0
 - 合計14記事修正、`country_sources` write=0（registry新規追加なしで全件解消）
 - production PASS/FAIL推移: 51/52 → 65/38（country 28/23→36/15、work 23/29→29/23）、予測値と完全一致
-- 残りFAIL 38件はBL-20260809-02参照（次バッチは再分類から開始）
+- Batch1後の残りFAIL 38件はBatch2以降の対応経緯を含めBL-20260809-02参照。**Batch2の詳細は「7. Study validator debt Batch 2 恒久記録」参照**
+
+---
+
+## 7. Study validator debt Batch 2 恒久記録
+
+- 新規script: `scripts/patch-study-validator-debt-batch2.ts`（Batch1 scriptは無変更、独立ファイルとして同一のproduction safety architectureを再実装）
+- commit: `739d4ea5c0dc96cb8b93459878c22bb1ed86bc9c feat: add safe study validator batch2 patch`（origin/mainへpush済み、Codex code audit PASS WITH NOTES [Critical/High/Medium=0]、Scripts TypeCheck run `31335509330` conclusion=success）
+- **候補選定経緯**: 残りFAIL 38件の再分類でClaudeが最初にQ1/HIGH候補として提案したのは12件。しかしCodexのcontextual-fit監査により、validator AFTER PASSだけではeditorial quality / grounding qualityを保証しないと判定され、12件案をそのままproduction実装へ進めるのは不適切と判断された。Codexがreference URLのみのdeterministic patchとしてproduction適用可能と最終認定したのは以下3件のみ:
+  - `study-work-ae`
+  - `study-work-de`
+  - `study-country-za`
+- 除外9件（`study-country-ae` / `study-work-cy` / `study-country-ie` / `study-work-ie` / `study-country-it` / `study-work-no` / `study-country-pt` / `study-work-pt` / `study-work-se`）は**production適用前の監査で除外した未対応候補**であり、「patch失敗」ではない。主な除外理由: reference labelとnew source実体の不一致、study/work文脈へのsource scope不一致、jurisdiction mismatch、specific sourceが狭すぎる、editorial judgmentが必要
+- production適用結果（2026-08-10）: 3/3成功、requested=3・success=3・failed=0・not_attempted=0・db_updated=3・exit=0。CAS failures=0、RPC errors=0、unexpected exceptions=0
+- FAIL set比較: apply直前38件 → apply後35件。removed=3（`study-work-ae`/`study-work-de`/`study-country-za`ちょうど3件）、unexpected removed=0、new FAIL=0
+- `country_sources` write=0（総数388件、apply前後で不変を確認）、対象外article write=0（script対象は3件のみで構成、CAS呼び出しも3回のみ実行）
+- production PASS/FAIL推移: 65/38 → 68/35（country 36/15→37/14、work 29/23→31/21）、予測値と完全一致
+- Batch1（14件）との累計: validator debt修正累計 **17件 DONE**（Batch1着手前のPASS 51 → 現在PASS 68、改善 +17件と一致）
+- 残りFAIL 35件はBL-20260809-02参照（Q2 editorial review・S6 structural fix・X1 manual investigationの3種の設計課題が既知）

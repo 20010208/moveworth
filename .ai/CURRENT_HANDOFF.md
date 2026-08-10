@@ -2,15 +2,39 @@
 
 最終更新: 2026-08-10
 最終担当: Claude Code
-タスクID: SYNC-STUDY-VALIDATOR-BATCH1-20260810
-状態: `BL-20260809-02`（Published Study validator debt）のBatch 1（1A+1B、計14記事）がproduction applyまで完了（PASS 51→65、FAIL 52→38）。CAS RPC（`study_blog_posts_cas_update_content`）はmigration適用・PostgREST reload・OpenAPI認識まで確認済みでproduction稼働中。BL-20260809-02自体はActive Highのまま維持（残りFAIL 38件が未着手のため）。今回は`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`のdocs同期のみ（`.ai/DECISIONS.md`は変更なし、コード・DB・Workflow変更なし）。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。amendでSHAが変わるたびに自己矛盾するため、作業開始時に`git rev-parse HEAD`で都度確認すること）。詳細は直下「2026-08-10時点の追記」参照。
+タスクID: SYNC-STUDY-VALIDATOR-BATCH2-20260810
+状態: `BL-20260809-02`（Published Study validator debt）のBatch 1（14記事）・Batch 2（3記事、`study-work-ae`/`study-work-de`/`study-country-za`）ともproduction applyまで完了（PASS 51→65→68、FAIL 52→38→35）。CAS RPC（`study_blog_posts_cas_update_content`）はmigration適用・PostgREST reload・OpenAPI認識まで確認済みでproduction稼働中。Batch2は当初Claudeが提案したQ1/HIGH候補12件をCodexのcontextual-fit監査が精査し、production適用可能と最終認定したのは3件のみ（残り9件は「patch失敗」ではなく監査で除外した未対応候補）。BL-20260809-02自体はActive Highのまま維持（残りFAIL 35件が未着手のため）。今回は`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`のdocs同期のみ（`.ai/DECISIONS.md`は変更なし、コード・DB・Workflow変更なし）。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。amendでSHAが変わるたびに自己矛盾するため、作業開始時に`git rev-parse HEAD`で都度確認すること）。詳細は直下「2026-08-10時点の追記」参照。
 
-## Git状態（2026-08-10 study validator batch1 docs同期時点）
+## Git状態（2026-08-10 study validator batch2 docs同期時点）
 
 - branch: main
-- origin/main: `9b789458`（"feat: add safe study article reference patching"、push済み・Scripts TypeCheck成功確認済み）
+- origin/main: `739d4ea5`（"feat: add safe study validator batch2 patch"、push済み・Scripts TypeCheck成功確認済み）
 - 今回のdocs同期作業開始時点でHEAD = origin/main、ahead 0 / behind 0
 - 正確なlocal HEADは、本ファイルへ固定値で記載せず、作業開始時に`git rev-parse HEAD`で再確認すること（amendのたびにSHAが変わり自己参照的にstaleになるため）
+
+## 2026-08-10時点の追記2: Study validator debt Batch 2完了
+
+### Batch2候補選定の経緯
+- 残りFAIL 38件の再分類でClaudeが最初にQ1/HIGH候補として提案したのは12件
+- Codexのcontextual-fit監査により「validator AFTER PASSだけではeditorial quality / grounding qualityを保証しない」と判定され、12件案をそのままproduction実装へ進めるのは不適切と判断された
+- Codexがreference URLのみのdeterministic patchとしてproduction適用可能と最終認定したのは以下3件のみ: `study-work-ae` / `study-work-de` / `study-country-za`
+- 除外9件（`study-country-ae` / `study-work-cy` / `study-country-ie` / `study-work-ie` / `study-country-it` / `study-work-no` / `study-country-pt` / `study-work-pt` / `study-work-se`）は**production適用前の監査で除外した未対応候補**（「patch失敗」ではない）。主な除外理由: reference labelとnew source実体の不一致、study/work文脈へのsource scope不一致、jurisdiction mismatch、source範囲が狭すぎる、editorial judgmentが必要
+
+### Batch2 script・commit・production適用
+- 新規script: `scripts/patch-study-validator-debt-batch2.ts`（Batch1 scriptは無変更）
+- commit `739d4ea5c0dc96cb8b93459878c22bb1ed86bc9c feat: add safe study validator batch2 patch`（Codex code audit PASS WITH NOTES [Critical/High/Medium=0]、push済み、Scripts TypeCheck run `31335509330` success）
+- production apply（2026-08-10）: 3/3成功、CAS failures=0、RPC errors=0、unexpected exceptions=0、new FAIL=0、unexpected removed FAIL=0、`country_sources` write=0、対象外article write=0
+
+### 現在のvalidator PASS/FAIL（2026-08-10測定、Batch2適用後の確定値。以下「Batch 1完了」節の65/38という数値は古い。以後はこちらを参照）
+- 公開済み`study-country-*`/`study-work-*` 103件中 **PASS 68件 / FAIL 35件**（country: PASS 37/FAIL 14、work: PASS 31/FAIL 21）
+- Batch1（14件）+ Batch2（3件） = validator debt修正累計 **17件 DONE**（Batch1着手前PASS 51 → 現在PASS 68、改善+17件と一致）
+- 詳細は`docs/BACKLOG.md`のBL-20260809-02・「7. Study validator debt Batch 2 恒久記録」参照
+
+### remaining FAIL35の次アクション
+- Q2（editorial/context reviewが必要、reference label・source内容・claim-level fit・jurisdictionを含めた再設計）
+- S6（structural fix必要: `study-work-es` / `study-work-it` / `study-work-th` / `study-country-tn` / `study-work-tn` / `study-work-za`、reference section内URL0件）
+- X1（`study-work-ge`、Georgia国記事ENに米国政府source混入という内容異常、manual investigation対象）
+- 次のnext actionは、remaining FAIL35をcurrent production上で再確認 → Q2のfull-line/label-aware patch設計 → S6 structural fix設計 → X1 manual investigation → 必要に応じてregistry/source breadth改善 → 次batch候補を独立監査 → DRY_RUN → production apply、の順
 
 ## 2026-08-10時点の追記: Study validator debt Batch 1完了
 
