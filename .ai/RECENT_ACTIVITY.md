@@ -5,6 +5,26 @@
 
 ---
 
+## 2026-08-11 — Claude Code（study-country-cz専用patch: source registry追加＋article CAS patch production適用・docs同期）
+
+- タスクID: SYNC-STUDY-VALIDATOR-CZ-20260811
+- 状態: 完了（read-only contextual-fit audit→PM承認→CZ source registry INSERT→article body/reference exact design→script実装→DRY_RUN→Codex code audit（2ラウンドでMedium計5件解消）→commit→push→CI success→production preflight→production APPLY（source registry）→production preflight→production APPLY（article CAS patch）→post-write verification→validator recount→docs同期）
+- **Step 1（source registry）**: `study-country-cz`はBatch3後のremaining FAIL30件のうちL2（19件、claim-level fit/editorial review要）に分類されていた。read-only contextual-fit auditの結果、Czech Ministry of the Interior運営のOfficial Information Portal for Foreigners（long-term study visaページ）がcandidate sourceとして適切と判断。新規script`scripts/add-study-source-cz-long-term-visa.ts`（default DRY_RUN + `--apply`/`ALLOW_PRODUCTION_COUNTRY_SOURCE_INSERT=1`二重gate）でduplicate/source/article precondition確認後、production INSERT 1件成功（`country_sources` 388→389、id `2fde05f2-5bcf-46d3-ac0a-df4a2cafed4a`）
+- **Step 2（article patch design）**: 初回contextual-fit auditではJA/ZH本文の「通常1年」claimがsourceの「maximum 1 year」と矛盾すると誤判定したが、PM指摘により訂正——validity（有効期間、maximum 1 year）とprocessing（申請処理期間、60 days）は別概念であり、「1年」という概念自体はsourceと矛盾しない。真の是正対象はfee（約1万円→2,500 CZK）とvalidity wording precision（通常1年→最大1年）のみと再設計し、EN-onlyスコープ案は不採用（JA/ZH validator failureが残りFAIL削減にならないため）とした
+- **Step 3（article patch実装）**: 新規script`scripts/patch-study-country-cz-validator.ts`（Batch1-3のURL-only architectureとは別のCZ専用script、body substring置換+Reference full-line置換の計7箇所exact mutation、round-trip invariantによる7箇所以外差分ゼロ保証）
+- Codex code audit: 初回FAIL（Medium3件: duplicate registry guardのSOURCE_ID限定scope・CAS ambiguous mutation state未実装・post-CAS approved source再取得不足）→修正→再監査FAIL（Medium2件: SOURCE_ID exact-one/ID guard不足・ambiguous recovery wrong-ID誤降格リスク）→修正→最終監査**PASS WITH NOTES**（Critical/High/Medium=0、Lowのみ）
+- commit `587cd4fcb2ca1c105c0b640fd249d6da0ed21933 feat: add safe cz study validator patch`（1ファイルのみ、738 insertions）→ push成功。push起因の`Scripts TypeCheck`run（`31485337014`）はconclusion=success
+- production直前DRY_RUN（都度re-run）: source registry precondition（SOURCE_ID exact-one・CZ registry-wide raw exact/normalized=1/1・approved match=1）→official source live fetch（validity/fee/processing個別確認）→article precondition→BEFORE validator=FAIL（3 reasons）→exact 7箇所occurrence guard PASS→hypothetical AFTER=PASS（reasons=0）、drift常に0
+- production apply（2026-08-11）: CAS 1/1成功（mutation_state=confirmed、db_updated=true）、retry=0、rollback=0、direct update=0、country_sources write=0（登録済み1件のまま不変）
+- post-write verification: fresh article content deep-equal（7箇所以外の差分0を確認）、fresh approved source再取得によるcandidate match=1、fresh validator=**PASS**（reasons=0）、non-content14列invariant PASS、content SHA-256をpre/post両方で独立計算し変化を確認
+- 結果: PASS 73→74、FAIL 30→29（country: 42/9→43/8、work: 31/21→31/21、work記事は今回対象外のため不変）。fresh production recountでexact 29 FAIL slugsを再確認し、BACKLOG記載のL3(4)/S(6)/X(1)=11件が全て残存、L2が19→18（`study-country-cz`解消分）であることを算術一致で確認。**`study-work-cz`（`study-country-cz`とは別記事）はFAILのまま残存**（L2 18件に含まれる、対象外だったため）
+- **validator debt cumulative fixes = 23**（Batch1 14 + Batch2 3 + Batch3 5 + CZ dedicated patch 1 = 23、Batch1着手前PASS 51 → 現在PASS 74の改善+23件と算術一致）
+- `docs/BACKLOG.md`: BL-20260809-02の現状値をPASS74/FAIL29へ更新（Active Highのまま維持、残りFAIL29件は未着手）。新規「9. study-country-cz validator debt 恒久記録」セクションを追加。BL-20260809-04はCZに紐づく既存記述がなかったため今回変更なし（他country候補DE/MT/ME/IE/RS/CN/VNの位置づけも不変）。`.ai/CURRENT_HANDOFF.md`を同期
+- 変更対象はdocsのみ（`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`）。`.ai/DECISIONS.md`は今回変更なし。コード・DB write・Workflow・Issue操作は今回のdocs同期ラウンドでは実施していない（source registry INSERT・article CAS patch自体は前段のタスクで実施済み）
+- 本ラウンドは**commit未実施、push未実施**（docs更新のみ。次フェーズ: Codex docs diff audit→PM commit承認→commit→PM push承認→push）
+
+---
+
 ## 2026-08-10 — Claude Code（Study validator debt Batch 3 production適用・docs同期）
 
 - タスクID: SYNC-STUDY-VALIDATOR-BATCH3-20260810

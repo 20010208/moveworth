@@ -1,16 +1,47 @@
 # Current Handoff
 
-最終更新: 2026-08-10
+最終更新: 2026-08-11
 最終担当: Claude Code
-タスクID: SYNC-STUDY-VALIDATOR-BATCH3-20260810
-状態: `BL-20260809-02`（Published Study validator debt）のBatch 1（14記事）・Batch 2（3記事）・Batch 3（5記事、`study-country-ie`/`study-country-it`/`study-country-pt`/`study-country-pl`/`study-country-mt`、全てcountry記事）ともproduction applyまで完了（PASS 51→65→68→73、FAIL 52→38→35→30）。CAS RPC（`study_blog_posts_cas_update_content`）はmigration適用・PostgREST reload・OpenAPI認識まで確認済みでproduction稼働中。Batch3は当初Claudeが提案したL1/HIGH候補10件をCodexのcontextual-fit独立監査が精査し（Medium 1件：10件中6件がclaim-level fit/jurisdiction基準を満たさない）、production適用可能と最終認定したのは5件のみ（Claude案4件＋Claude案ではL3だった`study-country-mt`をCodexがL1へ昇格）。BL-20260809-02自体はActive Highのまま維持（残りFAIL 30件が未着手のため）。今回は`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`のdocs同期のみ（`.ai/DECISIONS.md`は変更なし、コード・DB・Workflow変更なし）。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。amendでSHAが変わるたびに自己矛盾するため、作業開始時に`git rev-parse HEAD`で都度確認すること）。詳細は直下「2026-08-10時点の追記3」参照。
+タスクID: SYNC-STUDY-VALIDATOR-CZ-20260811
+状態: `BL-20260809-02`（Published Study validator debt）のBatch 1（14記事）・Batch 2（3記事）・Batch 3（5記事）に続き、`study-country-cz`専用patch（country_sources登録1件＋article CAS patch1件）もproduction applyまで完了（PASS 51→65→68→73→74、FAIL 52→38→35→30→29）。`country_sources`は候補source登録によりCZ以外は不変のまま388→389（総数のみ増加、既存registryの改変なし）。CAS RPC（`study_blog_posts_cas_update_content`）は既存稼働のまま今回も使用（migration追加なし）。`study-country-cz`はvalidity（maximum 1 year）とprocessing（60 days）を混同しない設計原則のもと、JA/ZH本文のfee/validity precision correction 2箇所×2言語＋JA/EN/ZH Reference差し替え3言語、計exactly 7箇所のみのtarget patchで解消。BL-20260809-02自体はActive Highのまま維持（残りFAIL 29件が未着手のため。**`study-country-cz`とは別記事の`study-work-cz`はFAILのまま残存**）。今回は`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`のdocs同期のみ（`.ai/DECISIONS.md`は変更なし、コード・DB・Workflow変更なし）。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。amendでSHAが変わるたびに自己矛盾するため、作業開始時に`git rev-parse HEAD`で都度確認すること）。CZへの再APPLYは禁止（productionは既にconfirmed成功済み）。user-owned worktree noise（本ファイル管理外の52件程度の未追跡ファイル群）には触れないこと。次は残りFAIL29から次targetをfresh triageするフェーズ。詳細は直下「2026-08-11時点の追記4」参照。
 
-## Git状態（2026-08-10 study validator batch3 docs同期時点）
+## Git状態（2026-08-11 study-country-cz専用patch docs同期時点）
 
 - branch: main
-- origin/main: `1a3bf5f2`（"feat: add safe study validator batch3 patch"、push済み・Scripts TypeCheck成功確認済み）
+- origin/main: `587cd4fc`（"feat: add safe cz study validator patch"、push済み・Scripts TypeCheck成功確認済み）
 - 今回のdocs同期作業開始時点でHEAD = origin/main、ahead 0 / behind 0
 - 正確なlocal HEADは、本ファイルへ固定値で記載せず、作業開始時に`git rev-parse HEAD`で再確認すること（amendのたびにSHAが変わり自己参照的にstaleになるため）
+
+## 2026-08-11時点の追記4: study-country-cz validator debt専用patch完了
+
+### 背景・contextual-fit audit
+- `study-country-cz`はBatch3後のremaining FAIL30件のうちL2（19件、claim-level fit/label/source specificity/jurisdictionのeditorial reviewが必要な分類）に含まれていた
+- read-only contextual-fit auditの結果、candidate official source（Czech Ministry of the Interior運営のOfficial Information Portal for Foreigners、long-term study visaページ）はEN本文のclaim（long-term student visa/CZK 2,500/60日処理/enrolment/funds/insurance）を直接supportする一方、JA/ZH本文には「約1万円」という手数料表記と「通常1年」という有効期間表記があり、official source（fee=2,500 CZK、validity=maximum 1 year）とprecisionが異なっていた
+- **重要な設計原則**: 「1年」という概念自体はsourceのvalidity（maximum 1 year）と矛盾しない。validity（有効期間）とprocessing（申請処理期間=60 days）は別概念であり混同しない。今回はJA/ZHのwording precision是正（通常1年→最大1年、約1万円→2,500 CZK）のみを行い、存在しないprocessing claimを新規追加することはしていない
+
+### Step 1: country_sources source registry追加
+- 新規script: `scripts/add-study-source-cz-long-term-visa.ts`（default DRY_RUN + `--apply`/`ALLOW_PRODUCTION_COUNTRY_SOURCE_INSERT=1`二重gate、write path=`country_sources.insert()`exactly1箇所のみ）
+- production INSERT: 1件成功。`country_sources` 388→389、id `2fde05f2-5bcf-46d3-ac0a-df4a2cafed4a`、country_code=cz、purpose=visa、status=alive、url=`https://ipc.gov.cz/en/visa-and-residence-permit-types/third-country-nationals/long-term-visa/long-term-visa-for-the-purpose-of-studies/`
+
+### Step 2: article validator patch
+- 新規script: `scripts/patch-study-country-cz-validator.ts`（default DRY_RUN + `--apply`/`ALLOW_PRODUCTION_STUDY_PATCH=1`二重gate、write path=`study_blog_posts_cas_update_content()`RPC経由のみ）
+- commit `587cd4fcb2ca1c105c0b640fd249d6da0ed21933 feat: add safe cz study validator patch`（origin/mainへpush済み、Codex code audit最終判定PASS WITH NOTES [Critical/High/Medium=0]、Scripts TypeCheck run `31485337014` conclusion=success）
+- exact mutation scope＝7箇所のみ（JA/ZH body fee・validity各2箇所＋JA/EN/ZH Reference各1行）。EN bodyは無変更
+- production apply（2026-08-11）: CAS 1/1成功（mutation_state=confirmed、db_updated=true）、retry=0、rollback=0、direct update=0、country_sources write=0（登録済み1件のまま不変）
+- post-write verification: content deep-equal（7箇所以外の差分0）、fresh validator=PASS（reasons=0）、non-content14列 invariant PASS
+
+### 現在のvalidator PASS/FAIL（2026-08-11測定、CZ専用patch適用後の確定値。以下「追記3」節の73/30という数値は古い。以後はこちらを参照）
+- 公開済み`study-country-*`/`study-work-*` 103件中 **PASS 74件 / FAIL 29件**（country: PASS 43/FAIL 8、work: PASS 31/FAIL 21、work記事は今回対象外のため不変）
+- Batch1（14件）+ Batch2（3件）+ Batch3（5件）+ CZ dedicated patch（1件） = validator debt修正累計 **23件 DONE**（Batch1着手前PASS 51 → 現在PASS 74、改善+23件と算術一致）
+- 詳細は`docs/BACKLOG.md`のBL-20260809-02・「9. study-country-cz validator debt 恒久記録」参照
+
+### remaining FAIL29の分類・次アクション
+- L2=18件（Batch3後の19件から`study-country-cz`が解消され18件に減少。label-aware/full-line patchだけでは決定できず、claim-level fit・source scope・jurisdiction・organization framingのeditorial/context reviewが必要）
+- L3=4件（`study-work-mt` / `study-country-no` / `study-country-se` / `study-work-rs`、変更なし）
+- S=6件（`study-work-es` / `study-work-it` / `study-work-th` / `study-country-tn` / `study-work-tn` / `study-work-za`、変更なし）
+- X=1件（`study-work-ge`、変更なし）
+- **注意**: `study-work-cz`（`study-country-cz`とは別記事）はL2 18件に含まれFAILのまま残存。今回のdedicated patchはcountry記事のみが対象でwork記事は対象外
+- 次のnext actionは、remaining FAIL29をcurrent production上で再確認 → L2 18件のclaim-level fit/label/source specificity/jurisdiction再評価（`study-work-cz`含む）→ L3 4件のsource research → S6 structural fix設計 → X1 manual investigation → 次のsmall deterministic candidate set作成 → Claude設計 → Codex独立contextual-fit監査 → script実装 → Codex code audit → DRY_RUN → production apply、の順。**`study-country-cz`への再APPLYは禁止**（既にconfirmed成功済み）
 
 ## 2026-08-10時点の追記3: Study validator debt Batch 3完了
 
