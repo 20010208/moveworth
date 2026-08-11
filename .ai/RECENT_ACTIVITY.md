@@ -5,6 +5,27 @@
 
 ---
 
+## 2026-08-12 — Claude Code（study-work-rs専用patch: 既存approved source再利用によるarticle CAS patch production適用・docs同期）
+
+- タスクID: SYNC-STUDY-VALIDATOR-RS-20260812
+- 状態: 完了（remaining FAIL28 fresh triage→`study-work-rs`選定（backup `study-country-ae`）→Option A citation-quality design audit→script実装→Codex code audit（Medium2件+Low5件解消）→commit→push→CI success→production preflight→PM明示のproduction APPLY承認（1回目no-op）→PM明示の新規APPLY承認（2回目成功）→post-write verification→Codex post-write audit→docs同期）
+- **triage**: remaining FAIL28件をfresh validator reason matrixで再triage。JA/ZHが既にapproved source引用済みでENのみmismatchという最小scope候補として`study-work-rs`（score 15/15、country_sources行が国全体でexact1件のみで曖昧性ゼロ）を選定。`study-country-ae`（score 14/15）をbackupとして記録
+- **Option A citation-quality design audit**: 新規source registry INSERTを行わず、既存approved root source `https://www.mup.gov.rs`（SOURCE_ID `bbbff58e-ea90-404c-94c9-c1c9f96dd9de`、既存登録済み、country_code=rsで唯一のalive行）をEN Referenceへ再利用。OLD候補（`http://www.mfa.gov.rs/en/consular-affairs/entry-serbia/visa-requirements`）はfresh確認でHTTP 404（dead link）と判明し、citation-quality gate上「死んだリンク→稼働中かつ主題に直結する公式情報への更新」という明確な改善と判定
+- **script実装**: 新規script`scripts/patch-study-work-rs-validator.ts`（IE/CZ scriptの安全patternを再利用、exact mutation scope=EN Reference 1行のみ、body変更0）
+- Codex code audit: 初回FAIL（Medium2件: RS registry total exact1がpre-CAS hard gateでない・official redirect safetyでscheme/port/credentials制限が不足）+ Low5件（timeout未covering body read・streaming byte limit未実装・candidate-after非hard-gate・post-CAS source verification不足・structured summary不足）→全件hardening実装→Codex re-audit**PASS**（Medium0、Low6件は許容）
+- commit `4a74f0c5a2a57b99cef1ea3eb9f5f510d7108fe2 feat: add safe rs work validator patch`（1ファイルのみ、1094 insertions）→ push成功。push起因の`Scripts TypeCheck`run（`31513715667`）はconclusion=success
+- production直前DRY_RUN（都度re-run）: SOURCE_ID exact-one・RS registry-wide raw exact/normalized=1/1・approved match=1→official source（root+外国人向け情報topical subpage）live fetch→OLD（mfa.gov.rs）が引き続きHTTP 404であることを再確認→article precondition（category=work含む・content SHA hard gate含む）→BEFORE validator=FAIL（reason exactly1・exact文字列一致）→OLD/NEW whole-content・candidate-before(1/0/1)全hard gate PASS→hypothetical AFTER=PASS（reasons=0）、drift常に0
+- **1回目のPM authorization**（`cmd /d /s /c "set ALLOW_PRODUCTION_STUDY_PATCH=1&& ... --apply"`）はBash execution environment経由でcmd.exeが対話モードのbannerのみを出力し、patch script自体（tsx/node）が起動した形跡なし（startup log 0、JSON summary 0）に終わった。fresh DB read-only検証によりCAS 0・DB write 0・content SHA不変・OLD=1/NEW=0のままであることを確定し、retry/rollbackは一切行わずそのauthorizationは消費済みとして終了
+- **2回目の別個の新規PM authorization**（`env ALLOW_PRODUCTION_STUDY_PATCH=1 ./node_modules/.bin/tsx.cmd scripts/patch-study-work-rs-validator.ts --apply`、cmd/c非経由・exactly1 invocation）: CAS 1/1成功（mutation_state=confirmed、db_updated=true）、retry=0、rollback=0、direct update=0、country_sources write=0
+- post-write independent verification: content SHA BEFORE `ca06a04d450a365c8737e0ec6ca382b59c315c5af341207bde02db393d117764` → AFTER `912d0f6f39b3ab5220588d4cab4b7c1b118b94c78960a433f5b8eaa99b0c7aed`（expected content deep-equal=true、独立算出hashと完全一致）、fresh approved source再取得によるcandidate match=1/1/1、fresh validator=**PASS**（reasons=0）、non-content14列invariant PASS、RS registry/country_sources総数不変（389）、Codex independent post-write audit**PASS**（DB_STATE_CONFIRMED=Yes、PRODUCTION_PATCH_CONFIRMED=Yes、EXACT_MUTATION_CONFIRMED=Yes）
+- 結果: PASS 75→76、FAIL 28→27（country: 43/8→43/8不変、work: 32/20→33/19）。fresh production recountでexact 27 FAIL slugsを再確認し、`study-work-rs`が正しく除去され追加0件であることを確認
+- **validator debt cumulative fixes = 25**（Batch1 14 + Batch2 3 + Batch3 5 + CZ dedicated patch 1 + IE dedicated patch 1 + RS dedicated patch 1 = 25、Batch1着手前PASS 51 → 現在PASS 76の改善+25件と算術一致）
+- `docs/BACKLOG.md`: BL-20260809-02の現状値をPASS76/FAIL27へ更新（Active Highのまま維持、残りFAIL27件は未着手）。remaining classification（L2=17・L3=3・S=6・X=1）を更新。`.ai/CURRENT_HANDOFF.md`を同期
+- 変更対象はdocsのみ（`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`）。`.ai/DECISIONS.md`は今回変更なし。コード・DB write・Workflow・Issue操作は今回のdocs同期ラウンドでは実施していない（script実装・production APPLY自体は前段のタスクで実施済み）
+- 本ラウンドは**commit未実施、push未実施**（docs更新のみ。次フェーズ: Codex docs commit-integrity audit→PM push承認→push→remaining FAIL27 fresh triage）
+
+---
+
 ## 2026-08-11 — Claude Code（study-work-ie専用patch: 既存approved source再利用によるarticle CAS patch production適用・docs同期）
 
 - タスクID: SYNC-STUDY-VALIDATOR-IE-20260811

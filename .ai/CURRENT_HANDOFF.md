@@ -1,16 +1,50 @@
 # Current Handoff
 
-最終更新: 2026-08-11
+最終更新: 2026-08-12
 最終担当: Claude Code
-タスクID: SYNC-STUDY-VALIDATOR-IE-20260811
-状態: `BL-20260809-02`（Published Study validator debt）のBatch 1（14記事）・Batch 2（3記事）・Batch 3（5記事）・`study-country-cz`専用patchに続き、`study-work-ie`専用patch（既存approved source再利用のOption A、EN Reference exactly1行のみ）もproduction applyまで完了（PASS 51→65→68→73→74→75、FAIL 52→38→35→30→29→28）。今回はcountry_sources INSERTなし（既存approved root `https://www.irishimmigration.ie/` をそのまま再利用、389→389で不変）。CAS RPC（`study_blog_posts_cas_update_content`）は既存稼働のまま今回も使用。`study-work-ie`はJA/ZHが既にapproved source引用済みでENだけmismatchという単純明快なscopeであり、Batch3で`study-country-ie`に対しCodexが承認済みの表現（「Immigration Service Delivery (Ireland)」＋`irishimmigration.ie`）をEN Referenceへそのまま再利用してexactly1行だけ置換した。BL-20260809-02自体はActive Highのまま維持（残りFAIL 28件が未着手のため）。今回は`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`のdocs同期のみ（`.ai/DECISIONS.md`は変更なし、コード・DB・Workflow変更なし）。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。amendでSHAが変わるたびに自己矛盾するため、作業開始時に`git rev-parse HEAD`で都度確認すること）。IEへの再APPLYは禁止（productionは既にconfirmed成功済み）。user-owned worktree noise（本ファイル管理外の52件程度の未追跡ファイル群）には触れないこと。次は残りFAIL28から次targetをfresh triageするフェーズ。詳細は直下「2026-08-11時点の追記5」参照。
+タスクID: SYNC-STUDY-VALIDATOR-RS-20260812
+状態: `BL-20260809-02`（Published Study validator debt）のBatch 1（14記事）・Batch 2（3記事）・Batch 3（5記事）・`study-country-cz`専用patch・`study-work-ie`専用patchに続き、`study-work-rs`専用patch（既存approved source再利用のOption A、EN Reference exactly1行のみ）もproduction applyまで完了（PASS 51→65→68→73→74→75→76、FAIL 52→38→35→30→29→28→27）。今回もcountry_sources INSERTなし（既存approved root `https://www.mup.gov.rs` をそのまま再利用、389→389で不変）。CAS RPC（`study_blog_posts_cas_update_content`）は既存稼働のまま今回も使用。`study-work-rs`はJA/ZHが既にapproved source（mup.gov.rs、セルビア内務省）引用済みでENだけmismatchという単純明快なscopeであり、OLD（`http://www.mfa.gov.rs/en/consular-affairs/entry-serbia/visa-requirements`、design audit時点でHTTP 404 dead link確認済み）をNEW（`Ministry of Interior of the Republic of Serbia`／mup.gov.rs）へexactly1行だけ置換した。なお最初のPM authorization（`cmd /d /s /c "..."`経由）は現在のBash execution environmentでscript自体が起動せずno-op（write0）に終わり、そのauthorizationは消費済みとして終了。別の新規PM authorization（`env ALLOW_PRODUCTION_STUDY_PATCH=1 ./node_modules/.bin/tsx.cmd ... --apply`、cmd/c非経由）でexactly1回実行し成功した。BL-20260809-02自体はActive Highのまま維持（残りFAIL 27件が未着手のため）。今回は`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`のdocs同期のみ（`.ai/DECISIONS.md`は変更なし、コード・DB・Workflow変更なし）。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。amendでSHAが変わるたびに自己矛盾するため、作業開始時に`git rev-parse HEAD`で都度確認すること）。RSへの再APPLYは禁止（productionは既にconfirmed成功済み）。user-owned worktree noise（本ファイル管理外の52件程度の未追跡ファイル群）には触れないこと。次は残りFAIL27から次targetをfresh triageするフェーズ（過去のbackup/rank指定を自動的に次targetへ昇格しない）。詳細は直下「2026-08-12時点の追記6」参照。
 
-## Git状態（2026-08-11 study-work-ie専用patch docs同期時点）
+## Git状態（2026-08-12 study-work-rs専用patch docs同期時点）
 
 - branch: main
-- origin/main: `bfc8db07`（"feat: add safe ie work validator patch"、push済み・Scripts TypeCheck run `31499128653` success確認済み）
+- origin/main: `4a74f0c5`（"feat: add safe rs work validator patch"、push済み・Scripts TypeCheck run `31513715667` success確認済み）
 - 今回のdocs同期作業開始時点でHEAD = origin/main、ahead 0 / behind 0
 - 正確なlocal HEADは、本ファイルへ固定値で記載せず、作業開始時に`git rev-parse HEAD`で再確認すること（amendのたびにSHAが変わり自己参照的にstaleになるため）
+
+## 2026-08-12時点の追記6: study-work-rs validator debt専用patch完了
+
+### 背景・triage
+- `study-work-rs`はIE patch後のremaining FAIL28件のfresh再triageの結果、JA/ZHは既に`https://www.mup.gov.rs`（セルビア内務省、country_sourcesにcountry_code=rsで唯一のalive行）をReferenceで引用しapproved match済みで、validator reasonはEN Reference mismatch 1件のみという最小scopeの候補と判明。同じ形状の`study-country-ae`と並びTOP2候補だったが、RSはregistry行が国全体でexact1件のみ（曖昧性ゼロ）という点でbackupのAEよりも安全側と判断しNEXT_TARGETに選定
+- Option A（既存approved root source再利用）を採用: 新規source registry INSERTは行わず、`mup.gov.rs`（SOURCE_ID `bbbff58e-ea90-404c-94c9-c1c9f96dd9de`、既存登録済み）をそのままEN Referenceへ追加
+- Citation-quality design audit: OLD（`http://www.mfa.gov.rs/en/consular-affairs/entry-serbia/visa-requirements`、セルビア外務省consular affairsページ）はfresh確認でHTTP 404（dead link）と判明。同EN Reference内の他2行（Ministry of Education→301 redirect先で稼働中、Ministry of Labor→稼働中）はいずれも生きているため対象外とし、死んだリンクのみをexactly1行置換する設計としたことで、citation品質を悪化させないことを確認（validator対策のためだけの改悪ではない）
+
+### safe patch script・Codex監査・commit・push・CI
+- 新規script: `scripts/patch-study-work-rs-validator.ts`（default DRY_RUN + `--apply`/`ALLOW_PRODUCTION_STUDY_PATCH=1`二重gate、write path=`study_blog_posts_cas_update_content()`RPC経由のみ、IE/CZ scriptの安全patternを再利用。IEより安全側へ追加強化: 未知CLI引数のfail closed、BEFORE content SHA hard gate）
+- Codex code audit初回: Medium2件（RS registry total exact1がpre-CAS hard gateでない／official redirect safetyでscheme・port・credentials制限が不足）+ Low5件（timeout未covering body read／streaming byte limit未実装／candidate-after非hard-gate／post-CAS source verification不足／structured summary不足）を検出 → 全件hardening実装 → Codex re-audit PASS（Medium0、Low6件は許容）
+- commit `4a74f0c5a2a57b99cef1ea3eb9f5f510d7108fe2 feat: add safe rs work validator patch`（1ファイルのみ、1094 insertions）→ push成功。push起因の`Scripts TypeCheck`run（`31513715667`）はconclusion=success
+- target script SHA-256: `020e3bd6462aefd503df604ff73fed0f8a9a0fea30ca554839dd4b07114e0785`
+
+### production APPLY・post-write verification
+- production直前fresh preflight: baseline再計測（103/75/28、country43/8、work32/20、ドリフトなし）→対象1件current state確認（is_published=true/scheduled_publish_at=null/content SHA一致/validator=FAIL reason exactly1）→official source（root + 外国人向け情報topical subpage）fresh live確認→OLD（mfa.gov.rs）が引き続きHTTP 404であることを再確認（citation-quality assumption維持確認）→approved source drift無し確認→DRY_RUN成功、db_updated=0
+- 1回目のPM authorization（`cmd /d /s /c "set ALLOW_PRODUCTION_STUDY_PATCH=1&& ... --apply"`）はBash execution environment経由でcmd.exeが対話モードのbannerのみを出力してscript自体が起動せず終了（startup log 0、JSON summary 0、CAS 0、DB write 0、content SHA不変、OLD=1/NEW=0のまま）。fresh DB read-onlyでwrite0を確定し、retry/rollbackは一切行わずそのauthorizationを終了扱いとした
+- 2回目の別個の新規PM authorization（`env ALLOW_PRODUCTION_STUDY_PATCH=1 ./node_modules/.bin/tsx.cmd scripts/patch-study-work-rs-validator.ts --apply`、cmd/c非経由）をexactly1回実行し成功。CAS 1/1成功（mutation_state=confirmed、db_updated=true）、retry=0、rollback=0、direct update=0、country_sources write=0
+- exact mutation scope＝1箇所のみ（EN Reference:「Serbian Ministry of Foreign Affairs」→「Ministry of Interior of the Republic of Serbia」）。JA/EN/ZH body・JA/ZH Referenceは無変更
+- content SHA-256: BEFORE `ca06a04d450a365c8737e0ec6ca382b59c315c5af341207bde02db393d117764` → AFTER `912d0f6f39b3ab5220588d4cab4b7c1b118b94c78960a433f5b8eaa99b0c7aed`
+- post-write independent verification: content deep-equal（1箇所以外の差分0を確認）、fresh approved source再取得によるcandidate match=1/1/1、fresh validator=PASS（reasons=0）、non-content14列 invariant PASS、RS registry/country_sources総数不変（389）、Codex independent post-write audit PASS（DB_STATE_CONFIRMED=Yes、PRODUCTION_PATCH_CONFIRMED=Yes、EXACT_MUTATION_CONFIRMED=Yes）
+
+### 現在のvalidator PASS/FAIL（2026-08-12測定、RS専用patch適用後の確定値。以下「追記5」節の75/28という数値は古い。以後はこちらを参照）
+- 公開済み`study-country-*`/`study-work-*` 103件中 **PASS 76件 / FAIL 27件**（country: PASS 43/FAIL 8、work: PASS 33/FAIL 19）
+- Batch1（14件）+ Batch2（3件）+ Batch3（5件）+ CZ dedicated patch（1件）+ IE dedicated patch（1件）+ RS dedicated patch（1件） = validator debt修正累計 **25件 DONE**（Batch1着手前PASS 51 → 現在PASS 76、改善+25件と算術一致）
+- 詳細は`docs/BACKLOG.md`のBL-20260809-02参照
+
+### remaining FAIL27の分類・次アクション
+- L2=17件（`study-work-rs`が解消されFAIL27全体構成は維持。claim-level fit/label/source specificity/jurisdictionのeditorial/context reviewが必要）
+- L3=3件（`study-work-mt` / `study-country-no` / `study-country-se`、`study-work-rs`が解消され4件から3件に減少）
+- S=6件（`study-work-es` / `study-work-it` / `study-work-th` / `study-country-tn` / `study-work-tn` / `study-work-za`、変更なし）
+- X=1件（`study-work-ge`、変更なし）
+- 上記classificationはhistorical分類の引き算であり、**次target選定前には必ずfresh read-only triageを再実行すること**（過去のbackup/rank指定を無条件に次targetへ昇格しない。実際に前回のfresh triageでもAE/RSの2件がTOP2として再評価され、historical L2/L3境界とは独立に選定された経緯がある）
+- 次のnext actionは、remaining FAIL27をcurrent production上でfresh再triage → 各slugのvalidator reason matrix・source registry state・修正規模を比較 → next target 1件・backup 1件選定 → deep design audit → Codex独立contextual-fit監査 → script実装 → Codex code audit → DRY_RUN → production apply、の順。**`study-work-rs`への再APPLYは禁止**（既にconfirmed成功済み）
 
 ## 2026-08-11時点の追記5: study-work-ie validator debt専用patch完了
 
