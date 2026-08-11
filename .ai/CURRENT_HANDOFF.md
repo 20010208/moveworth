@@ -2,15 +2,47 @@
 
 最終更新: 2026-08-11
 最終担当: Claude Code
-タスクID: SYNC-STUDY-VALIDATOR-CZ-20260811
-状態: `BL-20260809-02`（Published Study validator debt）のBatch 1（14記事）・Batch 2（3記事）・Batch 3（5記事）に続き、`study-country-cz`専用patch（country_sources登録1件＋article CAS patch1件）もproduction applyまで完了（PASS 51→65→68→73→74、FAIL 52→38→35→30→29）。`country_sources`は候補source登録によりCZ以外は不変のまま388→389（総数のみ増加、既存registryの改変なし）。CAS RPC（`study_blog_posts_cas_update_content`）は既存稼働のまま今回も使用（migration追加なし）。`study-country-cz`はvalidity（maximum 1 year）とprocessing（60 days）を混同しない設計原則のもと、JA/ZH本文のfee/validity precision correction 2箇所×2言語＋JA/EN/ZH Reference差し替え3言語、計exactly 7箇所のみのtarget patchで解消。BL-20260809-02自体はActive Highのまま維持（残りFAIL 29件が未着手のため。**`study-country-cz`とは別記事の`study-work-cz`はFAILのまま残存**）。今回は`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`のdocs同期のみ（`.ai/DECISIONS.md`は変更なし、コード・DB・Workflow変更なし）。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。amendでSHAが変わるたびに自己矛盾するため、作業開始時に`git rev-parse HEAD`で都度確認すること）。CZへの再APPLYは禁止（productionは既にconfirmed成功済み）。user-owned worktree noise（本ファイル管理外の52件程度の未追跡ファイル群）には触れないこと。次は残りFAIL29から次targetをfresh triageするフェーズ。詳細は直下「2026-08-11時点の追記4」参照。
+タスクID: SYNC-STUDY-VALIDATOR-IE-20260811
+状態: `BL-20260809-02`（Published Study validator debt）のBatch 1（14記事）・Batch 2（3記事）・Batch 3（5記事）・`study-country-cz`専用patchに続き、`study-work-ie`専用patch（既存approved source再利用のOption A、EN Reference exactly1行のみ）もproduction applyまで完了（PASS 51→65→68→73→74→75、FAIL 52→38→35→30→29→28）。今回はcountry_sources INSERTなし（既存approved root `https://www.irishimmigration.ie/` をそのまま再利用、389→389で不変）。CAS RPC（`study_blog_posts_cas_update_content`）は既存稼働のまま今回も使用。`study-work-ie`はJA/ZHが既にapproved source引用済みでENだけmismatchという単純明快なscopeであり、Batch3で`study-country-ie`に対しCodexが承認済みの表現（「Immigration Service Delivery (Ireland)」＋`irishimmigration.ie`）をEN Referenceへそのまま再利用してexactly1行だけ置換した。BL-20260809-02自体はActive Highのまま維持（残りFAIL 28件が未着手のため）。今回は`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`のdocs同期のみ（`.ai/DECISIONS.md`は変更なし、コード・DB・Workflow変更なし）。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。amendでSHAが変わるたびに自己矛盾するため、作業開始時に`git rev-parse HEAD`で都度確認すること）。IEへの再APPLYは禁止（productionは既にconfirmed成功済み）。user-owned worktree noise（本ファイル管理外の52件程度の未追跡ファイル群）には触れないこと。次は残りFAIL28から次targetをfresh triageするフェーズ。詳細は直下「2026-08-11時点の追記5」参照。
 
-## Git状態（2026-08-11 study-country-cz専用patch docs同期時点）
+## Git状態（2026-08-11 study-work-ie専用patch docs同期時点）
 
 - branch: main
-- origin/main: `587cd4fc`（"feat: add safe cz study validator patch"、push済み・Scripts TypeCheck成功確認済み）
+- origin/main: `bfc8db07`（"feat: add safe ie work validator patch"、push済み・Scripts TypeCheck run `31499128653` success確認済み）
 - 今回のdocs同期作業開始時点でHEAD = origin/main、ahead 0 / behind 0
 - 正確なlocal HEADは、本ファイルへ固定値で記載せず、作業開始時に`git rev-parse HEAD`で再確認すること（amendのたびにSHAが変わり自己参照的にstaleになるため）
+
+## 2026-08-11時点の追記5: study-work-ie validator debt専用patch完了
+
+### 背景・triage
+- `study-work-ie`はCZ patch後のremaining FAIL29件のうちL2（18件）に含まれていた。fresh lightweight triageの結果、JA/ZHは既に`https://www.irishimmigration.ie/`をReferenceで引用しapproved match済みで、validator reasonはEN Reference mismatch 1件のみという最小scopeの候補と判明
+- Option A（既存approved root source再利用）を採用: 新規source registry INSERTは行わず、`irishimmigration.ie`（SOURCE_ID `d6e4a7fe-eb76-4f34-af17-9d4c8758c18e`、既存登録済み）をそのままEN Referenceへ追加。NEW labelはBatch3で`study-country-ie`のEN Referenceに対しCodexが既に承認済みの表現「Immigration Service Delivery (Ireland)」を再利用（precedent reuse、新規editorial判断を最小化）
+- FAQ subpage（`.../frequently-asked-questions-for-students/`）はcountry_sourcesへ登録せず、Stamp 2週20時間/40時間就労ルールというbody claimがofficial pageと矛盾しないことを確認するためのread-only factual safety guardとしてのみ使用（body変更は0のまま）
+
+### safe patch script・commit・push・CI
+- 新規script: `scripts/patch-study-work-ie-validator.ts`（default DRY_RUN + `--apply`/`ALLOW_PRODUCTION_STUDY_PATCH=1`二重gate、write path=`study_blog_posts_cas_update_content()`RPC経由のみ、CZ scriptの安全patternを再利用）
+- Codex code audit: 初回FAIL（Medium4件: category hard gate欠落・validator BEFORE exact reason hard gate欠落・OLD/NEW whole-content hard gate欠落・candidate-before 1/0/1 hard gate欠落）→ 4件修正 → target code再監査PASS（Medium0）→ Git scope-only re-audit（`tsconfig.scripts.tsbuildinfo`のbaseline drift原因調査、TypeScript incremental cache更新のみと判明・material変更なし）PASS WITH NOTES → commit integrity audit PASS
+- commit `bfc8db0791c1e0877bea400d163e05ca4cb74a83 feat: add safe ie work validator patch`（1ファイルのみ、820 insertions）→ push成功。push起因の`Scripts TypeCheck`run（`31499128653`）はconclusion=success
+- target script SHA-256: `b9c34417bed960cb0e8008111da79aa05ce245138643f5c18b405ebaab65073d`
+
+### production APPLY・post-write verification
+- production直前fresh preflight: baseline再計測（103/74/29、country43/8、work31/21、ドリフトなし）→対象1件current state確認（is_published=true/scheduled_publish_at=null/validator=FAIL reason exactly1）→official source（root + FAQ）fresh live確認→approved source drift無し確認→DRY_RUN成功、db_updated=0
+- production apply（2026-08-11）: CAS 1/1成功（mutation_state=confirmed、db_updated=true）、retry=0、rollback=0、direct update=0、country_sources write=0
+- exact mutation scope＝1箇所のみ（EN Reference: 「Irish Naturalisation and Immigration Service (INIS)」→「Immigration Service Delivery (Ireland)」）。JA/EN/ZH body・JA/ZH Referenceは無変更
+- content SHA-256: BEFORE `d488a7cbfdee9cbd03f9ef6281506d5eb88bb92d267f49ee7db08ba42dd3f078` → AFTER `a3a682694be41f4bd73bbd2f77c278b0fa954202757a06e7ff92a7ac01204f83`
+- post-write independent verification: content deep-equal（1箇所以外の差分0を確認）、fresh approved source再取得によるcandidate match=1、fresh validator=PASS（reasons=0）、non-content14列 invariant PASS、Codex independent post-write audit PASS WITH NOTES（DB_STATE_CONFIRMED=Yes、PRODUCTION_PATCH_CONFIRMED=Yes）
+
+### 現在のvalidator PASS/FAIL（2026-08-11測定、IE専用patch適用後の確定値。以下「追記4」節の74/29という数値は古い。以後はこちらを参照）
+- 公開済み`study-country-*`/`study-work-*` 103件中 **PASS 75件 / FAIL 28件**（country: PASS 43/FAIL 8、work: PASS 32/FAIL 20）
+- Batch1（14件）+ Batch2（3件）+ Batch3（5件）+ CZ dedicated patch（1件）+ IE dedicated patch（1件） = validator debt修正累計 **24件 DONE**（Batch1着手前PASS 51 → 現在PASS 75、改善+24件と算術一致）
+- 詳細は`docs/BACKLOG.md`のBL-20260809-02参照
+
+### remaining FAIL28の分類・次アクション
+- L2=17件（CZ patch後の18件から`study-work-ie`が解消され17件に減少。claim-level fit/label/source specificity/jurisdictionのeditorial/context reviewが必要）
+- L3=4件（`study-work-mt` / `study-country-no` / `study-country-se` / `study-work-rs`、変更なし）
+- S=6件（`study-work-es` / `study-work-it` / `study-work-th` / `study-country-tn` / `study-work-tn` / `study-work-za`、変更なし）
+- X=1件（`study-work-ge`、変更なし）
+- 次のnext actionは、remaining FAIL28をcurrent production上で再確認 → L2 17件のclaim-level fit/label/source specificity/jurisdiction再評価 → L3 4件のsource research → S6 structural fix設計 → X1 manual investigation → 次のsmall deterministic candidate set作成 → Claude設計 → Codex独立contextual-fit監査 → script実装 → Codex code audit → DRY_RUN → production apply、の順。**`study-work-ie`への再APPLYは禁止**（既にconfirmed成功済み）
 
 ## 2026-08-11時点の追記4: study-country-cz validator debt専用patch完了
 

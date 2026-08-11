@@ -5,6 +5,27 @@
 
 ---
 
+## 2026-08-11 — Claude Code（study-work-ie専用patch: 既存approved source再利用によるarticle CAS patch production適用・docs同期）
+
+- タスクID: SYNC-STUDY-VALIDATOR-IE-20260811
+- 状態: 完了（remaining FAIL29 fresh triage→`study-work-ie`選定（backup `study-work-bg`）→Option A deep design audit→script実装→Codex code audit（Medium4件解消）→Git scope-only audit（tsbuildinfo drift原因調査）→commit→push→CI success→production preflight→PM明示のproduction APPLY承認→production APPLY→post-write verification→Codex post-write audit→docs同期）
+- **triage**: remaining FAIL29件をlightweight triage（validator reasons・approved source count・Reference section状態をDB直接取得）。JA/ZHが既にapproved source引用済みでENのみmismatchという最小scope候補として`study-work-ie`（score 24/25）を選定。`study-country-ae`はBatch3既指摘のjurisdiction-label精度問題を引き継ぐ懸念があり除外、backupとして`study-work-bg`（score 20/25）を記録
+- **Option A設計**: 新規source registry INSERTを行わず、既存approved root source `https://www.irishimmigration.ie/`（SOURCE_ID `d6e4a7fe-eb76-4f34-af17-9d4c8758c18e`、既存登録済み）をEN Referenceへ再利用。NEW labelはBatch3で`study-country-ie`のEN Referenceに対しCodexが既承認済みの表現「Immigration Service Delivery (Ireland)」をそのまま再利用（precedent reuse）。FAQ subpage（`.../frequently-asked-questions-for-students/`）はcountry_sourcesへ登録せず、Stamp 2週20時間/40時間就労ルールというbody claimがofficial pageと矛盾しないことを確認するread-only factual safety guardとしてのみ使用
+- **script実装**: 新規script`scripts/patch-study-work-ie-validator.ts`（CZ scriptの安全patternを再利用、exact mutation scope=EN Reference 1行のみ、body変更0）
+- Codex code audit: 初回FAIL（Medium4件: article `category==="work"` hard gate欠落・validator BEFORE exact reason hard gate欠落・OLD/NEW whole-content hard gate欠落・candidate-before 1/0/1 hard gate欠落）→4件修正→target code再監査**PASS**（Medium0）
+- Git scope-only audit: `tsconfig.scripts.tsbuildinfo`のaccepted baseline比payload driftをCodexが指摘。read-only root-cause調査の結果、ローカル環境に存在するuntracked scratch scripts（`scripts/_*.ts`、183件）が`tsc --noEmit --project tsconfig.scripts.json`のincremental cacheへ巻き込まれたことによるTypeScript build metadata更新のみと判明（source/config本体の変更なし、semanticDiagnosticsPerFileの8件が本セッション既報告の無関係scratchファイルの型エラーと完全一致することで裏付け）。BASELINE_ACCEPTABLE=Yesと判定、Codex Git scope-only re-audit**PASS WITH NOTES**
+- commit `bfc8db0791c1e0877bea400d163e05ca4cb74a83 feat: add safe ie work validator patch`（1ファイルのみ、820 insertions）→ push成功。push起因の`Scripts TypeCheck`run（`31499128653`）はconclusion=success
+- production直前DRY_RUN（都度re-run）: SOURCE_ID exact-one・IE registry-wide raw exact/normalized=1/1・approved match=1→official source（root+FAQ）live fetch→article precondition（category=work含む）→BEFORE validator=FAIL（reason exactly1・exact文字列一致）→OLD/NEW whole-content・candidate-before(1/0/1)全hard gate PASS→hypothetical AFTER=PASS（reasons=0）、drift常に0
+- production apply（2026-08-11、PM明示承認・exactly1 invocation）: CAS 1/1成功（mutation_state=confirmed、db_updated=true）、retry=0、rollback=0、direct update=0、country_sources write=0
+- post-write independent verification: content SHA BEFORE `d488a7cbfdee9cbd03f9ef6281506d5eb88bb92d267f49ee7db08ba42dd3f078` → AFTER `a3a682694be41f4bd73bbd2f77c278b0fa954202757a06e7ff92a7ac01204f83`（expected content deep-equal=true、独立算出hashと完全一致）、fresh approved source再取得によるcandidate match=1、fresh validator=**PASS**（reasons=0）、non-content14列invariant PASS、Codex independent post-write audit**PASS WITH NOTES**（DB_STATE_CONFIRMED=Yes、PRODUCTION_PATCH_CONFIRMED=Yes）
+- 結果: PASS 74→75、FAIL 29→28（country: 43/8→43/8不変、work: 31/21→32/20）。fresh production recountでexact 28 FAIL slugsを再確認し、L3(4)/S(6)/X(1)=11件が全て残存、L2が18→17（`study-work-ie`解消分）であることを算術一致で確認
+- **validator debt cumulative fixes = 24**（Batch1 14 + Batch2 3 + Batch3 5 + CZ dedicated patch 1 + IE dedicated patch 1 = 24、Batch1着手前PASS 51 → 現在PASS 75の改善+24件と算術一致）
+- `docs/BACKLOG.md`: BL-20260809-02の現状値をPASS75/FAIL28へ更新（Active Highのまま維持、残りFAIL28件は未着手）。remaining classification（L2=17・L3=4・S=6・X=1）を完全slug一覧付きで更新。`.ai/CURRENT_HANDOFF.md`を同期
+- 変更対象はdocsのみ（`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`）。`.ai/DECISIONS.md`は今回変更なし。コード・DB write・Workflow・Issue操作は今回のdocs同期ラウンドでは実施していない（script実装・production APPLY自体は前段のタスクで実施済み）
+- 本ラウンドは**commit未実施、push未実施**（docs更新のみ。次フェーズ: Codex docs diff audit→PM commit承認→commit→PM push承認→push）
+
+---
+
 ## 2026-08-11 — Claude Code（study-country-cz専用patch: source registry追加＋article CAS patch production適用・docs同期）
 
 - タスクID: SYNC-STUDY-VALIDATOR-CZ-20260811
