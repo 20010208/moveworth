@@ -21,7 +21,7 @@
 - 結果: PASS 76→77、FAIL 27→26（country: 43/8→44/7、work: 33/19→33/19不変）。fresh production recountでexact 26 FAIL slugsを再確認し、`study-country-ae`が正しく除去され追加0件であることを確認
 - **validator debt cumulative fixes = 26**（Batch1 14 + Batch2 3 + Batch3 5 + CZ dedicated patch 1 + IE dedicated patch 1 + RS dedicated patch 1 + AE dedicated patch 1 = 26、Batch1着手前PASS 51 → 現在PASS 77の改善+26件と算術一致。original debt 52件のうち26件解消＝50%進捗）
 - **disk gate方針改定**: 本フェーズ途中で「C: free >=10GB」から「C: free >=5GB」へPM方針変更（10GB未満はLow noteのみ、blocker外）
-- `docs/BACKLOG.md`: BL-20260809-02の現状値をPASS77/FAIL26へ更新（Active Highのまま維持、残りFAIL26件は未着手）。remaining classification（L2=17・L3=3・S=6・X=1）を更新。`.ai/CURRENT_HANDOFF.md`を同期
+- `docs/BACKLOG.md`: BL-20260809-02の現状値をPASS77/FAIL26へ更新（Active Highのまま維持、残りFAIL26件は未着手）。remaining classification（L2=16・L3=3・S=6・X=1）を更新。`.ai/CURRENT_HANDOFF.md`を同期
 - 変更対象はdocsのみ（`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`）。`.ai/DECISIONS.md`は今回変更なし。コード・DB write・Workflow・Issue操作は今回のdocs同期ラウンドでは実施していない（script実装・production APPLY自体は前段のタスクで実施済み）
 - 本ラウンドは**commit未実施、push未実施**（docs更新のみ。次フェーズ: Codex docs commit-integrity audit→PM push承認→push→remaining FAIL26 fresh triage）
 
