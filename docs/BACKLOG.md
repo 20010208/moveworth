@@ -1,6 +1,6 @@
 # MoveWorth Backlog
 
-最終更新: 2026-08-12（BL-20260809-02、study-work-rs専用patch結果反映）
+最終更新: 2026-08-12（BL-20260809-02、study-country-ae専用patch結果反映）
 
 > 本ファイルはプロジェクト全体の未完了タスクを管理する。
 > `docs/redirect-backlog.md` はリダイレクト専用として別管理する。
@@ -13,13 +13,13 @@
 
 ### High
 
-#### BL-20260809-02: Published Study validator debt（Batch 1・Batch 2・Batch 3・study-country-cz・study-work-ie・study-work-rs専用patch完了・現状値更新）
+#### BL-20260809-02: Published Study validator debt（Batch 1・Batch 2・Batch 3・study-country-cz・study-work-ie・study-work-rs・study-country-ae専用patch完了・現状値更新）
 
 - 優先度: 高
-- 状態: 対応中（Batch 1・Batch 2・Batch 3・study-country-cz・study-work-ie・study-work-rs専用patch完了、残りFAIL 27件は未着手）
-- 関連領域: `study_blog_posts` / `country_sources` / `scripts/utils/study-publication-quality.ts` / `scripts/patch-study-validator-debt-batch1.ts` / `scripts/patch-study-validator-debt-batch2.ts` / `scripts/patch-study-validator-debt-batch3.ts` / `scripts/add-study-source-cz-long-term-visa.ts` / `scripts/patch-study-country-cz-validator.ts` / `scripts/patch-study-work-ie-validator.ts` / `scripts/patch-study-work-rs-validator.ts` / `supabase/add_study_content_cas_rpc.sql`
-- 現状（2026-08-12測定、study-work-rs専用patch production適用後の確定値）: 公開済み`study-country-*`/`study-work-*` 103件中 **PASS 76件 / FAIL 27件**（country: PASS 43/FAIL 8、work: PASS 33/FAIL 19）
-- **実績履歴（Batch1前 → Batch1後 → Batch2後 → Batch3後 → CZ専用patch後 → IE専用patch後 → RS専用patch後）**: PASS 51 → 65 → 68 → 73 → 74 → 75 → 76、FAIL 52 → 38 → 35 → 30 → 29 → 28 → 27（country: 28/23 → 36/15 → 37/14 → 42/9 → 43/8 → 43/8 → 43/8、work: 23/29 → 29/23 → 31/21 → 31/21 → 31/21 → 32/20 → 33/19）
+- 状態: 対応中（Batch 1・Batch 2・Batch 3・study-country-cz・study-work-ie・study-work-rs・study-country-ae専用patch完了、残りFAIL 26件は未着手）
+- 関連領域: `study_blog_posts` / `country_sources` / `scripts/utils/study-publication-quality.ts` / `scripts/patch-study-validator-debt-batch1.ts` / `scripts/patch-study-validator-debt-batch2.ts` / `scripts/patch-study-validator-debt-batch3.ts` / `scripts/add-study-source-cz-long-term-visa.ts` / `scripts/patch-study-country-cz-validator.ts` / `scripts/patch-study-work-ie-validator.ts` / `scripts/patch-study-work-rs-validator.ts` / `scripts/patch-study-country-ae-validator.ts` / `supabase/add_study_content_cas_rpc.sql`
+- 現状（2026-08-12測定、study-country-ae専用patch production適用後の確定値）: 公開済み`study-country-*`/`study-work-*` 103件中 **PASS 77件 / FAIL 26件**（country: PASS 44/FAIL 7、work: PASS 33/FAIL 19）
+- **実績履歴（Batch1前 → Batch1後 → Batch2後 → Batch3後 → CZ専用patch後 → IE専用patch後 → RS専用patch後 → AE専用patch後）**: PASS 51 → 65 → 68 → 73 → 74 → 75 → 76 → 77、FAIL 52 → 38 → 35 → 30 → 29 → 28 → 27 → 26（country: 28/23 → 36/15 → 37/14 → 42/9 → 43/8 → 43/8 → 43/8 → 44/7、work: 23/29 → 29/23 → 31/21 → 31/21 → 31/21 → 32/20 → 33/19 → 33/19）
 - **Batch 1 milestone（完了）**:
   - Batch1A（7件: `study-work-me` / `study-country-gb` / `study-country-bg` / `study-country-de` / `study-country-be` / `study-country-nl` / `study-work-nl`）: production apply完了（commit `9b789458`のCAS RPC経由、7/7成功）
   - Batch1B（7件: `study-work-co` / `study-work-ph` / `study-country-vn` / `study-country-at` / `study-work-at` / `study-country-dk` / `study-work-dk`）: production apply完了（7/7成功）
@@ -50,21 +50,28 @@
   - 1回目のPM authorization（`cmd /d /s /c "..."`）はBash execution environment上でscript自体が起動せずno-op（write0）に終わり、そのauthorizationは消費済みとして終了。別の新規PM authorization（`env ALLOW_PRODUCTION_STUDY_PATCH=1 ... --apply`、cmd/c非経由）でexactly1回実行し成功
   - production apply: CAS 1/1成功（mutation_state=confirmed）、retry=0、rollback=0、direct update=0、対象外article write=0
   - 期待改善値（PASS 75→76、FAIL 28→27、work 32/20→33/19）と実績が完全一致
+- **`study-country-ae`専用patch milestone（完了、2026-08-12）**: 詳細は「12. study-country-ae validator debt 恒久記録」参照
+  - Citation-quality design audit: JA/ZHが既に引用しているGDRFA（`gdrfad.gov.ae`）はDubai首長国限定機関でUAE全体を扱う記事のcitationとしてはjurisdiction不正確化リスクがあったため、ENへは新規に別のapproved visa candidate（ICP、`https://icp.gov.ae/en/`、UAE連邦のFederal Authority for Identity, Citizenship, Customs & Port Security）を採用。JA/ZHのGDRFA citationは無変更のまま維持
+  - Option A設計: 新規source registry INSERTなし、既存approved visa source（ICP）をEN Referenceへ採用。exact mutation scope＝EN Reference行exactly1箇所のみ（`Visit Abu Dhabi`→ICP、JA/EN/ZH body・JA/ZH Referenceは無変更）
+  - `country_sources`への新規登録は行わず、389→389で不変（AE country_code行は5のまま不変）
+  - Codex code audit初回でMedium5件（AFTER SHA非hard-gate／inverse SHA非hard-gate／global post-recount未実装／AE registry total exact5非hard-gate／AE approved visa exact4非hard-gate）を検出、全件修正の上で再監査PASS
+  - production apply: CAS 1/1成功（mutation_state=confirmed）、retry=0、rollback=0、direct update=0、country_sources write=0、対象外article write=0。script内global post-recountでtotal103/PASS77/FAIL26/country44-7/work33-19/sources389を確認、production fresh FAIL26との差分0
+  - 期待改善値（PASS 76→77、FAIL 27→26、country 43/8→44/7）と実績が完全一致
 - **validator PASSだけでは不十分という原則（Batch2から継続・Batch3で深化）**: 「validator AFTER PASSだけではeditorial / grounding qualityを保証しない」という原則を維持。Batch3ではさらに、official domainの一致・category的な近似・同一organizationであることだけでもL1/HIGHとは限らず、claim-level fit（記事の具体的主張を承認済みsourceが直接裏付けているか）・source specificity（source内容が広すぎ／狭すぎないか）・jurisdiction（管轄一致）の個別確認が必要であることが明確になった。ただし、これをもって「validatorは信用できない」と過剰一般化はしない（validatorはあくまでregistry一致の機械的ゲートとして正しく機能しており、editorial品質は別レイヤーの人間・Codex監査で補完する設計）
 - **historical diagnosis（Batch1着手前の52件、Codexによる客観診断）**: URL mismatch only=44件、reference sectionはあるがURL0件=8件、metadata/content-length起因=0件、approved source自体0件=0件。この内訳はBatch1前の52件時点のスナップショットであり、以後のバッチ選定には単純な差し引きではなくcurrent production上の再診断を用いている
 - **registry不要という結論の範囲**: 「Batch1・Batch2・Batch3のvalidator PASS化には、新規registry追加が明確に必須と判断された記事は0件だった」という**Batch1〜3時点までの限定的な事実**（historical statement）を指す。その後の`study-country-cz`専用patchでは candidate official source を`country_sources`へ新規1件追加（388→389、id `2fde05f2-5bcf-46d3-ac0a-df4a2cafed4a`、詳細は「9. study-country-cz validator debt 恒久記録」参照）した上でPASS化しており、**現時点の累計registry追加件数は0件ではない**。「今後country_sources拡充が一律不要」「他countryについても新規sourceが不要」「Study grounding課題・editorial品質課題が全て解決した」という意味ではない（BL-20260809-04参照、registry breadth課題は別途残り、必要性は個別に評価する。またBatch2・Batch3監査が示した通り、registry上にsourceが存在すること自体はeditorial適合性を保証しない）
-- 対応方針: **一括修正は禁止**。「registry拡充→再計測→patch」というregistry-first方針は残りFAILの標準手順としない（registryが不要という意味ではなく、source breadth改善はBL-20260809-04として別途継続する）。Batch2・Batch3監査により、URL/full-line置換だけでは不十分な記事群（reference label不一致・source scope不一致・jurisdiction mismatch・claim-level fit不足・structural欠損・内容異常）が相当数残ることが判明したため、残りFAIL 27件は以下の順で段階的に対応する:
+- 対応方針: **一括修正は禁止**。「registry拡充→再計測→patch」というregistry-first方針は残りFAILの標準手順としない（registryが不要という意味ではなく、source breadth改善はBL-20260809-04として別途継続する）。Batch2・Batch3監査により、URL/full-line置換だけでは不十分な記事群（reference label不一致・source scope不一致・jurisdiction mismatch・claim-level fit不足・structural欠損・内容異常）が相当数残ることが判明したため、残りFAIL 26件は以下の順で段階的に対応する:
   1. current production上でfresh read-only triageを再実行（historical L2/L3/S/X分類をそのまま次target選定に使わない。各slugのvalidator reason matrix・source registry state・修正規模を比較して候補選定する）
   2. 必要に応じてregistry/source breadth改善（BL-20260809-04、特にwork記事のspecific claim source拡充との関連性が高まった）
   3. 次バッチ候補を独立監査（contextual-fit + code）→ DRY_RUN → production apply
 - 完了条件: 段階的にFAIL件数を削減する（一度に全件へ手を付けない）
-- **remaining FAIL27のhistorical分類（2026-08-12、study-work-rs専用patch後。fresh production recountでexact 27 slugsを確認済み、production FAIL setとの差分0を機械的に検証済み。ただし下記L2/L3/S/X区分は過去の分類の単純な引き算であり、次target選定前には必ずfresh read-only triageを再実行すること）**:
-  - L2=17件（label-aware/full-line patchだけでは決定できず、claim-level fit・source scope・jurisdiction・organization framingのeditorial/context reviewが必要。特にwork記事ではgeneral immigration root/general visa portal/work permit page/student visa browse page等が学生の在学中就労claimを直接支えているかを厳しく評価する）: `study-country-ae` / `study-country-br` / `study-country-es` / `study-country-ge` / `study-country-th` / `study-work-bg` / `study-work-br` / `study-work-cn` / `study-work-cy` / `study-work-cz` / `study-work-gb` / `study-work-hu` / `study-work-kr` / `study-work-no` / `study-work-pt` / `study-work-se` / `study-work-vn`（17件、duplicate 0）
-  - L3=3件（`study-work-mt` / `study-country-no` / `study-country-se`、`study-work-rs`が解消され4件から3件に減少。現registry/sourceだけではHIGH-confidence article-only patch設計の確信が持てずsource research/breadth改善を先行検討。ただしregistry追加が絶対必須と断定はしない）
+- **remaining FAIL26のhistorical分類（2026-08-12、study-country-ae専用patch後。fresh production recountでexact 26 slugsを確認済み、production FAIL setとの差分0を機械的に検証済み。ただし下記L2/L3/S/X区分は過去の分類の単純な引き算であり、次target選定前には必ずfresh read-only triageを再実行すること）**:
+  - L2=16件（label-aware/full-line patchだけでは決定できず、claim-level fit・source scope・jurisdiction・organization framingのeditorial/context reviewが必要。特にwork記事ではgeneral immigration root/general visa portal/work permit page/student visa browse page等が学生の在学中就労claimを直接支えているかを厳しく評価する。`study-country-ae`が解消され17件から16件に減少）: `study-country-br` / `study-country-es` / `study-country-ge` / `study-country-th` / `study-work-bg` / `study-work-br` / `study-work-cn` / `study-work-cy` / `study-work-cz` / `study-work-gb` / `study-work-hu` / `study-work-kr` / `study-work-no` / `study-work-pt` / `study-work-se` / `study-work-vn`（16件、duplicate 0）
+  - L3=3件（`study-work-mt` / `study-country-no` / `study-country-se`、変更なし。現registry/sourceだけではHIGH-confidence article-only patch設計の確信が持てずsource research/breadth改善を先行検討。ただしregistry追加が絶対必須と断定はしない）
   - S=6件（`study-work-es` / `study-work-it` / `study-work-th` / `study-country-tn` / `study-work-tn` / `study-work-za`、reference section内URL0件等のstructural issue、単純swap対象外）
   - X=1件（`study-work-ge`、Georgia国記事ENへの米国政府source混入というcontent anomaly、manual investigation対象）
-  - 合計L2 17+L3 3+S 6+X 1=27（4分類間でのslug重複=0、production fresh FAIL27との差分=0）。**注意**: `study-work-cz`（`study-country-cz`とは別記事）はL2 17件に含まれ引き続きFAILのまま残存。`study-work-ie`・`study-work-rs`はいずれも解消済み
-- 次のアクション: remaining FAIL27をcurrent production上でfresh read-only triage（前回のtriageでも`study-country-ae`・`study-work-rs`がhistorical L2/L3境界とは独立にTOP2候補として再評価された経緯があるため、historical分類だけで次targetを機械的に決めない）→ 各slugのvalidator reason matrix・source registry state・修正規模比較 → next target 1件・backup 1件選定 → specific official sourceが必要なwork記事についてBL-20260809-04との関係整理 → deep design audit → Claude設計 → Codex独立contextual-fit監査 → script実装 → Codex code audit → DRY_RUN → production apply、の順で段階的に進める。件数を埋めるために無理に次バッチへ候補を追加しない方針を維持する
+  - 合計L2 16+L3 3+S 6+X 1=26（4分類間でのslug重複=0、production fresh FAIL26との差分=0）。**注意**: `study-work-cz`（`study-country-cz`とは別記事）はL2 16件に含まれ引き続きFAILのまま残存。`study-work-ie`・`study-work-rs`・`study-country-ae`はいずれも解消済み
+- 次のアクション: remaining FAIL26をcurrent production上でfresh read-only triage（前回のtriageでも`study-country-ae`・`study-work-rs`がhistorical L2/L3境界とは独立にTOP2候補として再評価された経緯があるため、historical分類だけで次targetを機械的に決めない）→ 各slugのvalidator reason matrix・source registry state・修正規模比較 → next target 1件・backup 1件選定 → specific official sourceが必要なwork記事についてBL-20260809-04との関係整理 → deep design audit → Claude設計 → Codex独立contextual-fit監査 → script実装 → Codex code audit → DRY_RUN → production apply、の順で段階的に進める。件数を埋めるために無理に次バッチへ候補を追加しない方針を維持する
 
 ---
 
@@ -348,7 +355,7 @@
 - registry整備実績:
   - Batch 1: 13件登録（hk/tw/ch/jp/sg/mx/in/id、8ヶ国）— DBのみの変更、対応commitなし
   - Batch 2: 14件登録（us/fr/rs/au/tr/my/ro/gr/cn/ar/pl、11ヶ国）— DBのみの変更、対応commitなし。vn（`xuatnhapcanh.gov.vn`）はstability gate失敗により正式除外（BL-20260809-03/04参照）
-- 現状のvalidator PASS/FAIL: BL-20260809-02参照（103件中PASS 76 / FAIL 27、2026-08-12測定、study-work-rs専用patch production適用後）
+- 現状のvalidator PASS/FAIL: BL-20260809-02参照（103件中PASS 77 / FAIL 26、2026-08-12測定、study-country-ae専用patch production適用後）
 
 ---
 
@@ -455,4 +462,22 @@
   - post-write independent verification: content SHA-256 BEFORE `ca06a04d450a365c8737e0ec6ca382b59c315c5af341207bde02db393d117764` → AFTER `912d0f6f39b3ab5220588d4cab4b7c1b118b94c78960a433f5b8eaa99b0c7aed`（1箇所以外の差分0を確認）、fresh approved source再取得によるcandidate match=1/1/1、fresh validator=PASS（reasons=0）、non-content14列 invariant PASS、RS registry/country_sources総数不変（389）、Codex independent post-write audit PASS（DB_STATE_CONFIRMED=Yes、PRODUCTION_PATCH_CONFIRMED=Yes、EXACT_MUTATION_CONFIRMED=Yes）
 - production PASS/FAIL推移: 75/28 → 76/27（country 43/8→43/8不変、work 32/20→33/19）、予測値と完全一致
 - Batch1（14件）+ Batch2（3件）+ Batch3（5件）+ CZ dedicated patch（1件）+ IE dedicated patch（1件）+ RS dedicated patch（1件）との累計: validator debt修正累計 **25件 DONE**（Batch1着手前のPASS 51 → 現在PASS 76、改善 +25件と算術一致）
-- 残りFAIL 27件（historical分類: L2 17・L3 3・S 6・X 1。次target選定前には必ずfresh read-only triageを再実行すること）はBL-20260809-02参照
+- 残りFAIL 27件はstudy-country-ae専用patch以降の対応経緯を含めBL-20260809-02参照。**study-country-ae専用patchの詳細は「12. study-country-ae validator debt 恒久記録」参照**
+
+---
+
+## 12. study-country-ae validator debt 恒久記録
+
+- 背景: `study-country-ae`はRS patch後のremaining FAIL27件のfresh read-only triage（validator reasons・source registry state・修正規模をDB直接取得して全件比較）の結果、JA/ZHは既に`https://www.gdrfad.gov.ae`（GDRFA、Dubai首長国政府機関）をReferenceで引用しapproved match済みで、validator failure reasonがEN Reference mismatch 1件のみという最小scopeの候補と判明し、次targetとして選定した（同形状の`study-work-bg`をbackupとして選定）
+- **Citation-quality design audit（重要）**: GDRFA-DubaiはDubai首長国限定の政府機関であり、UAE全体を扱う`study-country-ae`記事のEN citationとして新規追加するにはjurisdiction不正確化のリスクがあった。fresh official evidence確認の結果、AE approved visa candidate4件中、ICP（`https://icp.gov.ae/en/`、Federal Authority for Identity, Citizenship, Customs & Port Security）がUAE連邦全体を管轄しvisa/residency permit/entry permitを中核業務とする機関であることを確認し、GDRFAをそのまま再利用せずICPをEN citationとして新規選定した。JA/ZHの既存GDRFA citationはそのまま維持し変更しない（pre-existing editorial wording debtの是正は本patchのscope外）
+- **Option A設計判断**: 新規source registry INSERTは行わず、既存approved visa source（SOURCE_ID `46892e57-ccd8-40b0-bb7e-d018190542e8`、`https://icp.gov.ae/en/`）をそのままEN Referenceへ採用。OLD行は既存EN Reference3行のうちfresh official確認で観光専用サイト（visa/immigration公式情報を一切提供しない）と判明した`Visit Abu Dhabi`を選定（他2行は教育・外交領域で固有の引用価値を持つため保持）
+- **Step: article validator patch**（新規script `scripts/patch-study-country-ae-validator.ts`、default DRY_RUN + `--apply`/`ALLOW_PRODUCTION_STUDY_PATCH=1`二重gate、write path=`study_blog_posts_cas_update_content()`RPC経由のみ、IE/RS scriptの安全patternを再利用）
+  - commit `e249d9c1bd0dbf54b9de243ac4ac81331258e3b0 feat: add safe ae country validator patch`（origin/mainへpush済み、Codex code audit最終判定PASS WITH NOTES [Critical/High/Medium=0、Low8件]、Scripts TypeCheck run `31582221499` conclusion=success）
+  - Codex code audit初回でMedium5件（M1: candidate AFTER SHAがhard gateでない／M2: inverse reconstructed SHAのhard gateがない／M3: successful APPLY後のglobal production post-recountが未実装／M4: AE registry total exact5がpre-CAS hard gateでない／M5: AE approved visa exact4がpre-CAS hard gateでない）を検出し、全件修正（AFTER SHA/inverse SHA hard gate追加、global post-recount実装、AE total5/approved4 hard gate追加）の上で再監査PASS
+  - exact mutation scope＝1箇所のみ（EN Reference行: 「Visit Abu Dhabi」→「Federal Authority for Identity, Citizenship, Customs & Port Security (ICP)」）。JA/EN/ZH bodyおよびJA/ZH Referenceは無変更
+  - production apply（2026-08-12、PM明示承認・exactly1 invocation、`env ALLOW_PRODUCTION_STUDY_PATCH=1 ... --apply`）: CAS 1/1成功（mutation_state=confirmed、db_updated=true）、retry=0、rollback=0、direct update=0、country_sources write=0（389のまま不変、新規registry追加なし）、対象外article write=0
+  - content SHA-256: BEFORE `14962c23b2a677b36bc90ae66ff193ff582eb3057ec1964b0218ed770c4c613f` → AFTER `d7f2d57cb020d4d6f55f34d8031adf2fbacf1211175750c869ded552c500d06c`（1箇所以外の差分0を確認）
+  - post-write independent verification: content deep-equal（1箇所以外の差分0）、AFTER SHA/inverse SHA両方exact一致、fresh approved source再取得によるcandidate match=JA0/EN1/ZH0、fresh validator=PASS（reasons=0）、non-content14列 invariant PASS、AE registry/country_sources総数不変（5／389）、script内global post-recount（total103/PASS77/FAIL26/country44-7/work33-19/sources389/removed=study-country-aeのみ/added=0）success=true、Claude独立post-write検証・public site表示確認（ICP citation表示・Visit Abu Dhabi消失を確認）済み、Codex independent post-write audit PASS（PRODUCTION_INTEGRITY=Pass、AE_FIX_INTEGRITY=Pass、NO_REGRESSION=Yes）
+- production PASS/FAIL推移: 76/27 → 77/26（country 43/8→44/7、work 33/19→33/19不変）、予測値と完全一致
+- Batch1（14件）+ Batch2（3件）+ Batch3（5件）+ CZ dedicated patch（1件）+ IE dedicated patch（1件）+ RS dedicated patch（1件）+ AE dedicated patch（1件）との累計: validator debt修正累計 **26件 DONE**（Batch1着手前のPASS 51 → 現在PASS 77、改善 +26件と算術一致）
+- 残りFAIL 26件（historical分類: L2 16・L3 3・S 6・X 1。次target選定前には必ずfresh read-only triageを再実行すること）はBL-20260809-02参照

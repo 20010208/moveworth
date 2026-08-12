@@ -5,6 +5,28 @@
 
 ---
 
+## 2026-08-12 — Claude Code（study-country-ae専用patch: UAE連邦ICP source採用によるarticle CAS patch production適用・docs同期）
+
+- タスクID: SYNC-STUDY-VALIDATOR-AE-20260812
+- 状態: 完了（whole-system read-only health audit PASS→remaining FAIL27 fresh triage→`study-country-ae`選定（backup `study-work-bg`）→citation-quality design audit（GDRFA-Dubai jurisdiction懸念によりICP採用）→script実装→Codex code audit（Medium5件解消）→commit→push→CI success→production preflight→PM明示のproduction APPLY承認→production APPLY→post-write verification→Codex post-write audit→docs同期）
+- **whole-system health audit**: 25件のvalidator debt修正・source registry・CAS/production operations・docs syncを横断的にread-only点検。Low2件のみ（TH normalized duplicate source row/実害なし、C: free<20GB）でPASS WITH NOTES、blocking issueなしを確認
+- **triage**: remaining FAIL27件をfresh validator reason matrixで再triage。JA/ZHが既にapproved source（GDRFA-Dubai）引用済みでENのみmismatchという最小scope候補として`study-country-ae`（reason count=1）を選定。`study-work-bg`（reason count=2）をbackupとして記録
+- **citation-quality design audit（重要）**: triageで候補になったGDRFA-Dubaiをそのまま採用せず、AE approved visa candidate4件をfresh official evidence比較。GDRFAはDubai首長国限定機関でjurisdiction不正確化リスクがあると判断し、UAE連邦全体を管轄するICP（Federal Authority for Identity, Citizenship, Customs & Port Security）をEN citationとして選定。OLD候補も「Visit Abu Dhabi」（観光専用サイト、visa/immigration情報なし）をfresh確認の上で選定
+- **script実装**: 新規script`scripts/patch-study-country-ae-validator.ts`（IE/RS scriptの安全patternを再利用、exact mutation scope=EN Reference 1行のみ、body変更0、JA/ZHのGDRFA citationは無変更）
+- Codex code audit: 初回FAIL（Medium5件: M1 candidate AFTER SHA非hard-gate／M2 inverse SHA非hard-gate／M3 successful APPLY後のglobal production post-recount未実装／M4 AE registry total exact5非hard-gate／M5 AE approved visa exact4非hard-gate）→全件修正（AFTER SHA/inverse SHA hard gate追加、global post-recount実装、AE5/approved4 hard gate追加）→Codex re-audit**PASS**（Medium0、Low8件は許容）
+- commit `e249d9c1bd0dbf54b9de243ac4ac81331258e3b0 feat: add safe ae country validator patch`（1ファイルのみ、1343 insertions）→ push成功。push起因の`Scripts TypeCheck`run（`31582221499`）はconclusion=success
+- production直前DRY_RUN（都度re-run）: SOURCE_ID exact-one・AE registry-wide raw exact/normalized=1/1・approved match=1→AE total exact5・approved visa exact4確認→official source（ICP root、federal identity+visa/residency topical marker単一fetch）live fetch→article precondition（category=country含む・content SHA hard gate含む）→BEFORE validator=FAIL（reason exactly1・exact文字列一致）→OLD/NEW whole-content・candidate-before(0/0/0)全hard gate PASS→hypothetical AFTER=PASS（reasons=0）→candidate AFTER SHA/inverse SHA両方exact一致、drift常に0
+- production apply（2026-08-12、PM明示承認・exactly1 invocation、`env ALLOW_PRODUCTION_STUDY_PATCH=1 ... --apply`、cmd/c非経由）: CAS 1/1成功（mutation_state=confirmed、db_updated=true）、retry=0、rollback=0、direct update=0、country_sources write=0。script内global post-recount（M3実装分）も成功: total103/PASS77/FAIL26/country44-7/work33-19/sources389/removed=`study-country-ae`のみ/added=0
+- post-write independent verification: content SHA BEFORE `14962c23b2a677b36bc90ae66ff193ff582eb3057ec1964b0218ed770c4c613f` → AFTER `d7f2d57cb020d4d6f55f34d8031adf2fbacf1211175750c869ded552c500d06c`（expected content deep-equal=true、独立算出hashと完全一致）、fresh approved source再取得によるcandidate match=JA0/EN1/ZH0、fresh validator=**PASS**（reasons=0）、non-content14列invariant PASS、AE registry/country_sources総数不変（5／389）、public site表示確認（ICP citation表示・Visit Abu Dhabi消失を確認）、Codex independent post-write audit**PASS**（PRODUCTION_INTEGRITY=Pass、AE_FIX_INTEGRITY=Pass、NO_REGRESSION=Yes）
+- 結果: PASS 76→77、FAIL 27→26（country: 43/8→44/7、work: 33/19→33/19不変）。fresh production recountでexact 26 FAIL slugsを再確認し、`study-country-ae`が正しく除去され追加0件であることを確認
+- **validator debt cumulative fixes = 26**（Batch1 14 + Batch2 3 + Batch3 5 + CZ dedicated patch 1 + IE dedicated patch 1 + RS dedicated patch 1 + AE dedicated patch 1 = 26、Batch1着手前PASS 51 → 現在PASS 77の改善+26件と算術一致。original debt 52件のうち26件解消＝50%進捗）
+- **disk gate方針改定**: 本フェーズ途中で「C: free >=10GB」から「C: free >=5GB」へPM方針変更（10GB未満はLow noteのみ、blocker外）
+- `docs/BACKLOG.md`: BL-20260809-02の現状値をPASS77/FAIL26へ更新（Active Highのまま維持、残りFAIL26件は未着手）。remaining classification（L2=17・L3=3・S=6・X=1）を更新。`.ai/CURRENT_HANDOFF.md`を同期
+- 変更対象はdocsのみ（`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`）。`.ai/DECISIONS.md`は今回変更なし。コード・DB write・Workflow・Issue操作は今回のdocs同期ラウンドでは実施していない（script実装・production APPLY自体は前段のタスクで実施済み）
+- 本ラウンドは**commit未実施、push未実施**（docs更新のみ。次フェーズ: Codex docs commit-integrity audit→PM push承認→push→remaining FAIL26 fresh triage）
+
+---
+
 ## 2026-08-12 — Claude Code（study-work-rs専用patch: 既存approved source再利用によるarticle CAS patch production適用・docs同期）
 
 - タスクID: SYNC-STUDY-VALIDATOR-RS-20260812
