@@ -1,16 +1,60 @@
 # Current Handoff
 
-最終更新: 2026-08-12
+最終更新: 2026-08-15
 最終担当: Claude Code
-タスクID: SYNC-STUDY-VALIDATOR-AE-20260812
-状態: `BL-20260809-02`（Published Study validator debt）のBatch 1（14記事）・Batch 2（3記事）・Batch 3（5記事）・`study-country-cz`専用patch・`study-work-ie`専用patch・`study-work-rs`専用patchに続き、`study-country-ae`専用patch（既存approved source再利用のOption A、EN Reference exactly1行のみ）もproduction applyまで完了（PASS 51→65→68→73→74→75→76→77、FAIL 52→38→35→30→29→28→27→26）。今回もcountry_sources INSERTなし（既存approved visa candidate`https://icp.gov.ae/en/`をそのまま再利用、389→389で不変）。CAS RPC（`study_blog_posts_cas_update_content`）は既存稼働のまま今回も使用。`study-country-ae`はJA/ZHが既に別のapproved source（gdrfad.gov.ae、Dubai首長国のGDRFA）を引用してapproved match済みだったが、GDRFAはDubai限定機関でUAE全体を扱う記事のcitationとしてはjurisdiction不正確化リスクがあったため、ENへは**JA/ZHとは別の新規approved source**（ICP、UAE連邦のFederal Authority for Identity, Citizenship, Customs & Port Security）を採用し、OLD（`Visit Abu Dhabi`、観光専用サイトでvisa/immigration公式情報なし）をexactly1行だけ置換した（JA/ZHのGDRFA citationは無変更のまま維持、editorial wording debtの是正は今回のscope外）。BL-20260809-02自体はActive Highのまま維持（残りFAIL 26件が未着手のため）。今回は`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`のdocs同期のみ（`.ai/DECISIONS.md`は変更なし、コード・DB・Workflow変更なし）。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。amendでSHAが変わるたびに自己矛盾するため、作業開始時に`git rev-parse HEAD`で都度確認すること）。AEへの再APPLYは禁止（productionは既にconfirmed成功済み）。user-owned worktree noise（本ファイル管理外の52件程度の未追跡ファイル群）には触れないこと。**現行disk policy: C: free >=5GBで作業継続可、<5GBでBLOCK（10GB未満はLow noteのみ、旧>=10GB方針は廃止済み）**。次は残りFAIL26から次targetをfresh triageするフェーズ（過去のbackup/rank指定を自動的に次targetへ昇格しない）。詳細は直下「2026-08-12時点の追記7」参照。
+タスクID: SYNC-STUDY-VALIDATOR-BG-20260815
+状態: `BL-20260809-02`（Published Study validator debt）は、Batch1〜3・CZ・IE・RS・AE専用patchに続き、`study-work-bg`専用patch（既存approved source再利用のOption A、JA/ZH Reference各exactly1行）もproduction applyまで完了（validator debt修正累計27件 DONE）。現行authoritative production baseline: 公開済み総件数103→**105**件（監査窓内に`study-country-hu`・`study-work-ru`の計2件がscheduled publication metadata付きで新たに公開状態となったため+2。BG patchとは無関係、具体的publisher actorは未確認）、**PASS 80件 / FAIL 25件**（country: PASS45/FAIL7、work: PASS35/FAIL18）、country_sources389で不変。今回もcountry_sources INSERTなし（既存approved study candidate`https://www.mfa.bg/en`をそのまま再利用）。CAS RPC（`study_blog_posts_cas_update_content`）は既存稼働のまま今回も使用。production APPLY実行時、script自身のglobal post-recount hard gateは旧baseline（103/78/25）とfresh実測（105/80/25）の不一致によりexit=1で終了したが、対象記事個別のpost-write検証（content SHA・JA/ZH OLD0/NEW1・EN不変・candidate occurrence1/1/1・validator PASS・非content列不変）はすべて完全PASSしており、Codex independent post-write auditにより`EXPECTATION_DRIFT_ONLY`（stale global expectationによる誤exit、BG fix自体は確定成功＝`BG_FIX_CONFIRMED=Yes`）と分類・確認済み。今回のdocs同期では新規tool `scripts/check-study-production-baseline.ts`（authoritative shared validator semanticsを完全再利用したbounded read-only production baseline checker、commit `90304b33bcbdb03a1c1d6af7793a35f371e144b9`）の存在も記録する。BL-20260809-02自体はActive Highのまま維持（残りFAIL25件が未着手のため）。今回は`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`のdocs同期のみ（`.ai/DECISIONS.md`は変更なし、コード・DB・Workflow変更なし）。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。作業開始時に`git rev-parse HEAD`で都度確認すること）。BGへの再APPLYは禁止（productionは既にconfirmed成功済み）。user-owned worktree noiseには触れないこと。**現行disk policy: C: free >=5GBで作業継続可、<5GBでBLOCK**。次は残りFAIL25から次targetをfresh triageするフェーズ（過去のbackup/rank指定を自動的に次targetへ昇格しない）。詳細は直下「2026-08-15時点の追記8」参照。
 
-## Git状態（2026-08-12 study-country-ae専用patch docs同期時点）
+## Git状態（2026-08-15 study-work-bg専用patch docs同期時点）
 
 - branch: main
-- origin/main: `e249d9c1`（"feat: add safe ae country validator patch"、push済み・Scripts TypeCheck run `31582221499` success確認済み）
+- origin/main: `90304b33bcbdb03a1c1d6af7793a35f371e144b9`（"chore: add bounded study production baseline checker"、push済み・Scripts TypeCheck run `31749799977` success確認済み）
 - 今回のdocs同期作業開始時点でHEAD = origin/main、ahead 0 / behind 0
 - 正確なlocal HEADは、本ファイルへ固定値で記載せず、作業開始時に`git rev-parse HEAD`で再確認すること（amendのたびにSHAが変わり自己参照的にstaleになるため）
+
+## 2026-08-15時点の追記8: study-work-bg validator debt専用patch完了（production）＋bounded baseline checker導入
+
+### 背景・triage
+- `study-work-bg`はRS/AE patch後のremaining FAIL27件のfresh read-only triageの結果、ENは既に`https://www.mfa.bg/en`（Bulgarian Ministry of Foreign Affairs、country_sourcesにpurpose=study/status=aliveで登録済み）をReferenceで引用しapproved match済みで、validator reasonはJA/ZH Reference mismatch 2件のみ（reason count=2、当時のFAIL27件中最小）という最小scopeの候補と判明し、NEXT_TARGETに選定した
+- JA/ZHの既存Reference行は「ブルガリア入国管理局」（`https://www.mvr.bg/en`）を引用していたが、country_sources上このURLはstatus=**unverified**のため未承認のまま（root causeはofficial性の欠如ではなくvalidator承認semantics上の未昇格）
+
+### citation-quality design audit
+- ENが既に引用している承認済みsource（Bulgarian Ministry of Foreign Affairs、`mfa.bg/en`）をJA/ZHへ再利用するOption Aを採用。JA/ZHラベルもregistry記録のpage_title（外務省／外交部）に準拠する形へ統一し、EN「Bulgarian Ministry of Foreign Affairs」との組織一貫性を確保
+- fresh official evidence確認（`https://www.mfa.bg/en`）でMinistry of Foreign Affairs／Bulgaria／visa・consular topical relevanceを確認。同siteはRadware/WAFによるblock pageを間欠的に返す既知のriskがあったため、safe patch scriptにblock-page marker検出によるfail-closed機構を実装した
+
+### safe patch script・Codex監査・commit・push・CI
+- 新規script: `scripts/patch-study-work-bg-validator.ts`（default DRY_RUN + `--apply`/`ALLOW_PRODUCTION_STUDY_PATCH=1`二重gate、write path=`study_blog_posts_cas_update_content()`RPC経由のみ、IE/RS/AE scriptの安全patternを再利用。IE/RS/AEとの違いとしてEN 1行のみでなくJA/ZH各exactly1行という2言語mutation shapeを採用）
+- Codex code audit初回でPASS（Critical/High/Medium=0）
+- commit `ee62624d90e4461891383b58b87a25891d3d5bc8 feat: add safe bg work validator patch` → push成功。push起因の`Scripts TypeCheck`run（`31606219968`）conclusion=success
+- target script SHA-256: `5133ebe9fd6d0f90a66fafc0e027f0cdf7481b68389af099ed67945667ba72ef`
+
+### production preflight中のmeasurement bug是正とbounded baseline checker導入
+- production preflight中、Claude自身が用いた簡易ad-hoc検証scriptの`extractUrls`実装がmarkdown link形式のみに対応しHTMLアンカー・生URL fallbackを欠いていたため、`study-work-dk`の実際は「label (url)」形式で書かれたReference行を誤って未承認と判定し、実在しない"production baseline drift"（103/76/27）を一時的に誤検知した。authoritative shared utility（`scripts/utils/study-publication-quality.ts`の`extractUrls`/`getApprovedSources`/`validateStudyPublication`）を直接importして再検証した結果、DKは一貫してPASSでありbaselineは103/77/26のまま安定していたことを確認した（`INVALID_MEASUREMENT`として訂正、Codex correction audit PASS）
+- 同時に、authoritative validator semanticsをfull reuseしつつ約58分間の無期限silent hang（旧ad-hoc checkerで実際に発生）を構造的に再発不能にする新規tool `scripts/check-study-production-baseline.ts`を実装。per-query10秒timeout（custom fetch wrapper経由で`getApprovedSources`内部呼び出しも含む全リクエストへ透過適用）・soft55秒/hard60秒の独立watchdog・country lookup最大5並列bounded worker pool・retry0・write0/CAS0設計。Codex code re-audit（H1/M1/M2/M3是正含む）PASS → commit `90304b33bcbdb03a1c1d6af7793a35f371e144b9 chore: add bounded study production baseline checker` → push成功、`Scripts TypeCheck`run `31749799977` conclusion=success
+- target script SHA-256: `5bfae252b5262b69006fc61702d36fbb5a5270cceb02552f455d46867e1a54f8`
+
+### production preflight（Phase A/Phase B）・production APPLY
+- Phase A（bounded checker exactly1回実行）: fresh authoritative baseline = total103/PASS77/FAIL26/country44-7/work33-19/sources389/evaluated103/exceptions0/DK PASS/BG FAIL、FAIL26 exact set一致。Codex独立audit PASS
+- Phase B（BGスクリプトdefault non-apply exactly1回実行）: BEFORE SHA一致・BEFORE validator FAIL exact2reasons・registry total7/approved4一致・selected source（mfa.bg/en）一致・official verification PASS・mutation exact2（JA1/ZH1/EN0）・AFTER SHA一致・inverse SHA一致・candidate validator PASS reasons0。Codex独立production preflight audit PASS WITH NOTES
+- production apply（2026-08-15、PM明示承認・exactly1 invocation、`ALLOW_PRODUCTION_STUDY_PATCH=1 ... --apply`）: CAS 1/1成功（mutation_state=confirmed、db_updated=true）、retry=0、rollback=0、direct update=0、country_sources write=0
+- exact mutation scope＝2箇所のみ（JA Reference:「ブルガリア入国管理局」→「ブルガリア外務省」、ZH Reference:「保加利亚入境管理局」→「保加利亚外交部」、いずれも`https://www.mfa.bg/en`）。EN body・JA/ZH bodyの他部分は無変更
+- content SHA-256: BEFORE `0a96e27f4e2c238b240341a15daeb84916774723dad500761bd096a13a11303d` → AFTER `113588396d6833f00c31645b0006a7794547449b883095daee7f353704e1dc2f`
+- post-write target-level verification: content deep-equal・SHA一致・JA/ZH OLD0/NEW1・EN不変・candidate occurrence(JA1/EN1/ZH1)・fresh validator=PASS（reasons=0）・非content列不変・source registry不変、すべて完全PASS
+- **script自身のglobal post-recount hard gateはexit=1で終了**（scriptにhardcodeされていた旧baseline期待値total103・PASS78・FAIL25に対し、fresh実測が105/80/25だったため）。原因はBG mutationの失敗ではなく、Phase A時点で固定していた「total103」という期待値が、APPLY実行までの監査窓内に外部で新たに2件（`study-country-hu`・`study-work-ru`、いずれもscheduled publication metadata付きでPASS）が公開されたことによりstaleになったため。Codex independent post-write auditはこの結果を`APPLY_RESULT_CLASSIFICATION = EXPECTATION_DRIFT_ONLY`と分類し、`BG_FIX_CONFIRMED = Yes`（DB write確定・target-level検証全PASS・FAIL25 exact一致）を確認した。ロールバック・retry・second CAS・second APPLYは一切実施していない
+- **重要な留保**: `study-country-hu`・`study-work-ru`を公開したactor（cron／他agent／人間のいずれか）は独立に証明されていない。「scheduled publication metadataを持つ2件のPASS記事が監査窓内に公開状態となった」事実のみを記録し、具体的なpublisherを断定しない
+
+### 現在のvalidator PASS/FAIL（2026-08-15測定、BG専用patch適用後＋監査窓内の外部公開2件を含む確定値。以下「追記7」節の103/77/26という数値は古い。以後はこちらを参照）
+- 公開済み`study-country-*`/`study-work-*` 105件中 **PASS 80件 / FAIL 25件**（country: PASS 45/FAIL 7、work: PASS 35/FAIL 18）
+- Batch1（14件）+ Batch2（3件）+ Batch3（5件）+ CZ dedicated patch（1件）+ IE dedicated patch（1件）+ RS dedicated patch（1件）+ AE dedicated patch（1件）+ BG dedicated patch（1件） = validator debt修正累計 **27件 DONE**（Batch1着手前PASS 51 → 現在PASS 80。ただし総件数が103→105へ外部要因で増加しているため単純な「+27」比較は成立しない点に注意。着手前original debt 52件のうち27件解消＝約51.9%進捗）
+- 詳細は`docs/BACKLOG.md`のBL-20260809-02参照
+
+### remaining FAIL25の分類・次アクション
+- L2=15件（`study-work-bg`がL2から解消され16件→15件に減少）: `study-country-br` / `study-country-es` / `study-country-ge` / `study-country-th` / `study-work-br` / `study-work-cn` / `study-work-cy` / `study-work-cz` / `study-work-gb` / `study-work-hu` / `study-work-kr` / `study-work-no` / `study-work-pt` / `study-work-se` / `study-work-vn`（15件）
+- L3=3件（`study-work-mt` / `study-country-no` / `study-country-se`、変更なし）
+- S=6件（`study-work-es` / `study-work-it` / `study-work-th` / `study-country-tn` / `study-work-tn` / `study-work-za`、変更なし）
+- X=1件（`study-work-ge`、変更なし）
+- 上記classificationはhistorical分類の引き算であり、**次target選定前には必ずfresh read-only triageを再実行すること**。新たに公開された`study-country-hu`・`study-work-ru`はいずれもPASSでありFAIL25には含まれない（`study-work-hu`はFAILのまま残存する別記事であり混同しないこと）
+- 次のnext actionは、remaining FAIL25をcurrent production上でfresh再triage → 各slugのvalidator reason matrix・source registry state・修正規模を比較 → next target 1件・backup 1件選定 → deep design audit → Codex独立contextual-fit監査 → script実装 → Codex code audit → DRY_RUN → production apply、の順。**`study-work-bg`への再APPLYは禁止**（既にconfirmed成功済み）
 
 ## 2026-08-12時点の追記7: study-country-ae validator debt専用patch完了
 

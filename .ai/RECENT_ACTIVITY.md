@@ -5,6 +5,26 @@
 
 ---
 
+## 2026-08-15 — Claude Code（study-work-bg専用patch: Bulgarian MFA source採用によるJA/ZH article CAS patch production適用・bounded baseline checker導入・docs同期）
+
+- タスクID: SYNC-STUDY-VALIDATOR-BG-20260815
+- 状態: 完了（fresh triageで`study-work-bg`選定→citation-quality design audit（既存approved mfa.bg/en再利用、mvr.bg/enはunverifiedのため不採用）→script実装（JA/ZH各exactly1行mutation）→Codex code audit PASS→commit→push→CI success→production preflight中にmeasurement bug発覚・是正→bounded baseline checker新規実装・commit・push・CI success→Phase A/Phase B preflight→PM明示のproduction APPLY承認→production APPLY→Codex independent post-write audit→docs同期）
+- **measurement bug是正**: production preflight中、Claudeのad-hoc検証scriptの`extractUrls`簡易実装がmarkdown link形式のみ対応でHTML anchor/生URL fallbackを欠き、`study-work-dk`（label (url)形式のReference行）を誤ってFAIL判定し実在しない"103/76/27 drift"を誤検知。authoritative shared utility（`scripts/utils/study-publication-quality.ts`）を直接importして再検証し、DKは一貫してPASS・baseline は103/77/26のまま安定していたことを確認（`INVALID_MEASUREMENT`、Codex correction audit PASS）
+- **bounded baseline checker新規実装**: 過去に約58分間無期限hangしたad-hoc checkerの構造的欠陥（timeout機構皆無・heartbeatゼロ）を是正するため、`scripts/check-study-production-baseline.ts`を新規実装。authoritative`getApprovedSources`/`validateStudyPublication`を無改変import、custom fetch wrapperによる全リクエスト共通10秒timeout、独立したsoft55秒/hard60秒watchdog、country lookup最大5並列bounded pool、retry0/write0/CAS0設計。Codex design audit→実装→code audit（H1 hard watchdog保証・M1 counter同期・M2 worker全settlement・M3 runtime row-shape gatesの4件是正）→re-audit PASS→typecheck exactly1回（checker起因エラー0、既存untracked scratch script由来26件のみ）→commit `90304b33bcbdb03a1c1d6af7793a35f371e144b9`→push→CI（`Scripts TypeCheck`run `31749799977`）success
+- **script実装**: 新規script`scripts/patch-study-work-bg-validator.ts`（IE/RS/AE scriptの安全patternを再利用、exact mutation scope=JA Reference1行+ZH Reference1行のみ、EN body変更0）。commit `ee62624d90e4461891383b58b87a25891d3d5bc8`→push→CI（`Scripts TypeCheck`run `31606219968`）success。Codex code audit初回PASS（Critical/High/Medium=0）
+- **Phase A**（bounded checker exactly1回実行）: fresh baseline=103/77/26、country44-7、work33-19、sources389、evaluated103、exceptions0、FAIL26 exact一致、DK PASS/BG FAIL確認。Codex独立audit PASS
+- **Phase B**（BGスクリプトdefault non-apply exactly1回実行）: BEFORE SHA・validator・registry・selected source・official verification・mutation model・AFTER SHA・inverse SHA・candidate validatorすべてexact一致でPASS。Codex独立production preflight audit PASS WITH NOTES
+- production apply（2026-08-15、PM明示承認・exactly1 invocation）: CAS 1/1成功（mutation_state=confirmed、db_updated=true）、retry=0、rollback=0、direct update=0、country_sources write=0
+- content SHA BEFORE `0a96e27f4e2c238b240341a15daeb84916774723dad500761bd096a13a11303d` → AFTER `113588396d6833f00c31645b0006a7794547449b883095daee7f353704e1dc2f`（対象記事個別のpost-write検証はすべて完全PASS）
+- **script自身のglobal post-recount hard gateはexit=1で終了**（hardcodeされていた旧baseline期待値total103/PASS78/FAIL25 対 fresh実測105/80/25の不一致）。原因はBG mutation失敗ではなく、監査窓内に外部で新たに2件（`study-country-hu`・`study-work-ru`、scheduled publication metadata付きでPASS）が公開されたことによるstale expectation。Codex independent post-write auditが`APPLY_RESULT_CLASSIFICATION = EXPECTATION_DRIFT_ONLY`・`BG_FIX_CONFIRMED = Yes`と確認。この2件の具体的publisher actor（cron/他agent/人間）は独立に証明されておらず断定しない
+- 結果: PASS 77→80、FAIL 26→25（country: 44/7→45/7、work: 33/19→35/18）。総件数は外部公開2件により103→105
+- **validator debt cumulative fixes = 27**（Batch1 14 + Batch2 3 + Batch3 5 + CZ dedicated patch 1 + IE dedicated patch 1 + RS dedicated patch 1 + AE dedicated patch 1 + BG dedicated patch 1 = 27、Batch1着手前PASS 51 → 現在PASS 80。original debt 52件のうち27件解消＝約51.9%進捗）
+- `docs/BACKLOG.md`: BL-20260809-02の現状値をPASS80/FAIL25へ更新（Active Highのまま維持、残りFAIL25件は未着手）。remaining classification（L2=15・L3=3・S=6・X=1）を更新。`.ai/CURRENT_HANDOFF.md`を同期
+- 変更対象はdocsのみ（`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`）。`.ai/DECISIONS.md`は今回変更なし。コード・DB write・Workflow・Issue操作は今回のdocs同期ラウンドでは実施していない
+- 本ラウンドは**commit未実施、push未実施**（docs更新のみ。次フェーズ: Codex docs/commit-integrity audit→PM push承認→push→remaining FAIL25 fresh triage）
+
+---
+
 ## 2026-08-12 — Claude Code（study-country-ae専用patch: UAE連邦ICP source採用によるarticle CAS patch production適用・docs同期）
 
 - タスクID: SYNC-STUDY-VALIDATOR-AE-20260812
