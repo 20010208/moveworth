@@ -1,16 +1,54 @@
 # Current Handoff
 
-最終更新: 2026-08-15
+最終更新: 2026-08-18
 最終担当: Claude Code
-タスクID: SYNC-STUDY-VALIDATOR-BG-20260815
-状態: `BL-20260809-02`（Published Study validator debt）は、Batch1〜3・CZ・IE・RS・AE専用patchに続き、`study-work-bg`専用patch（既存approved source再利用のOption A、JA/ZH Reference各exactly1行）もproduction applyまで完了（validator debt修正累計27件 DONE）。現行authoritative production baseline: 公開済み総件数103→**105**件（監査窓内に`study-country-hu`・`study-work-ru`の計2件がscheduled publication metadata付きで新たに公開状態となったため+2。BG patchとは無関係、具体的publisher actorは未確認）、**PASS 80件 / FAIL 25件**（country: PASS45/FAIL7、work: PASS35/FAIL18）、country_sources389で不変。今回もcountry_sources INSERTなし（既存approved study candidate`https://www.mfa.bg/en`をそのまま再利用）。CAS RPC（`study_blog_posts_cas_update_content`）は既存稼働のまま今回も使用。production APPLY実行時、script自身のglobal post-recount hard gateは旧baseline（103/78/25）とfresh実測（105/80/25）の不一致によりexit=1で終了したが、対象記事個別のpost-write検証（content SHA・JA/ZH OLD0/NEW1・EN不変・candidate occurrence1/1/1・validator PASS・非content列不変）はすべて完全PASSしており、Codex independent post-write auditにより`EXPECTATION_DRIFT_ONLY`（stale global expectationによる誤exit、BG fix自体は確定成功＝`BG_FIX_CONFIRMED=Yes`）と分類・確認済み。今回のdocs同期では新規tool `scripts/check-study-production-baseline.ts`（authoritative shared validator semanticsを完全再利用したbounded read-only production baseline checker、commit `90304b33bcbdb03a1c1d6af7793a35f371e144b9`）の存在も記録する。BL-20260809-02自体はActive Highのまま維持（残りFAIL25件が未着手のため）。今回は`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`のdocs同期のみ（`.ai/DECISIONS.md`は変更なし、コード・DB・Workflow変更なし）。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。作業開始時に`git rev-parse HEAD`で都度確認すること）。BGへの再APPLYは禁止（productionは既にconfirmed成功済み）。user-owned worktree noiseには触れないこと。**現行disk policy: C: free >=5GBで作業継続可、<5GBでBLOCK**。次は残りFAIL25から次targetをfresh triageするフェーズ（過去のbackup/rank指定を自動的に次targetへ昇格しない）。詳細は直下「2026-08-15時点の追記8」参照。
+タスクID: SYNC-STUDY-VALIDATOR-GE-20260818
+状態: `BL-20260809-02`（Published Study validator debt）は、Batch1〜3・CZ・IE・RS・AE・BG専用patchに続き、`study-country-ge`専用patch（JA/EN/ZH Reference各exactly1行、承認済みsource`https://sda.gov.ge/en/products/migration-residence-permits/`採用）もproduction applyまで完了（validator debt修正累計28件 DONE）。現行authoritative production baseline: 公開済み総件数**105**件（BG時点の外部公開2件を含み、GE専用patchによる総件数増減なし）、**PASS 81件 / FAIL 24件**（country: PASS46/FAIL6、work: PASS35/FAIL18）、country_sources389で不変、validatorExceptions0。今回もcountry_sources INSERTなし（既存approved source再利用）。CAS RPC（`study_blog_posts_cas_update_content`）は既存稼働のまま今回も使用、CAS 1/1成功（confirmed、recovery不要）。`scripts/check-study-production-baseline.ts`によるfresh global reconfirmationで`study-country-ge`のみがFAIL→PASSへ変化し他の意図しないdriftが一切ないことを確認済み（`PASS_EXACT_GE_ONLY`）。**重要な区別**: formally closedなのは`study-country-ge`のみであり、`study-work-ge`（別記事、ENへの米国政府source混入という別種の内容異常）は引き続きFAILのまま残存している。BL-20260809-02自体はActive Highのまま維持（残りFAIL24件が未着手のため）。今回は`docs/BACKLOG.md`・`.ai/CURRENT_HANDOFF.md`・`.ai/RECENT_ACTIVITY.md`のdocs同期のみ（`.ai/DECISIONS.md`は変更なし、コード・DB・Workflow変更なし）。Git状態は下記「Git状態」節参照（本ファイル自身に現在のlocal HEAD SHAは固定値で書かない。作業開始時に`git rev-parse HEAD`で都度確認すること）。GEへの再APPLYは禁止（productionは既にconfirmed成功済み）。user-owned worktree noiseには触れないこと。**現行disk policy: C: free >=5GBで作業継続可、<5GBでBLOCK**。次は残りFAIL24から次targetをfresh triageするフェーズ（過去のbackup/rank指定を自動的に次targetへ昇格しない。今回は次target未選定）。詳細は直下「2026-08-18時点の追記9」参照。
 
-## Git状態（2026-08-15 study-work-bg専用patch docs同期時点）
+## Git状態（2026-08-18 study-country-ge専用patch docs同期時点）
 
 - branch: main
-- origin/main: `90304b33bcbdb03a1c1d6af7793a35f371e144b9`（"chore: add bounded study production baseline checker"、push済み・Scripts TypeCheck run `31749799977` success確認済み）
+- origin/main: `eb1b08ed4c4390de4cc8e1b7c33ca917896e9ff2`（"chore: freeze ge audited after sha"、push済み・Scripts TypeCheck run `32044365804` success確認済み）
 - 今回のdocs同期作業開始時点でHEAD = origin/main、ahead 0 / behind 0
 - 正確なlocal HEADは、本ファイルへ固定値で記載せず、作業開始時に`git rev-parse HEAD`で再確認すること（amendのたびにSHAが変わり自己参照的にstaleになるため）
+
+## 2026-08-18時点の追記9: study-country-ge validator debt専用patch完了（production）＋global baseline reconfirmation
+
+### 背景・fresh reconfirmation
+- `study-country-ge`はBG patch後のremaining FAIL25件のうちの1件。過去2回（約58分・約4分）のad-hoc per-article triage queryが原因不明のままhangした経緯があり、`tsx -e`によるauthoritative utilityのrelative import解決自体が間欠的に有意な遅延を示すことをlocal-only検証で特定した。この教訓を反映し、専用bounded recon helper `scripts/check-study-country-ge-target.ts`を新規実装（dynamic importをhard watchdog登録後に配置しIMPORT_WATCHDOG_COVERAGEを確保、production request上限2）。commit `950545b7b570f3b5e53102edbf128df812f6ac9b`→push→CI success→production実行exactly1回でfresh evidence確定: target id `ff7c5720-7405-4547-913a-bf622ac65730`、content SHA `86b1c241c4fbe74c8e5767b74d6cd0abd982aa9405239ac511fccb99c06b4641`、validator FAIL 3reasons（JA/EN/ZHすべてapproved source mismatch）、approved source`https://sda.gov.ge/en/products/migration-residence-permits/`（**bare domain`sda.gov.ge`は非承認、具体的path付きURLのみ承認済み**）
+
+### citation-quality design audit・label grounding
+- JA/EN/ZHすべてがGeorgia National Tourism Administration（`https://gnta.ge`、観光専用機関）を引用しており承認済みsourceと不一致という3言語同時mismatchパターン（BGと同型だが3言語すべてが対象という点で規模が異なる）
+- NEW labelはtracked precedent `src/data/blog-posts.ts`（`visa-ge`記事、同一SDA URLを既に引用済み）の実際の文字列をfresh確認の上そのままground。ZHは簡体字`格鲁吉亚`（design audit prompt内の候補文字列に日中混在の誤字があったが、実ファイル確認により訂正して採用）
+
+### safe patch script・Codex監査（2ラウンド）・commit・push・CI
+- 新規script: `scripts/patch-study-country-ge-validator.ts`（IE/RS/AE/BG scriptの安全patternを再利用、exact mutation scope=JA/EN/ZH Reference各exactly1行のみ、body変更0）
+- Codex code audit初回: Medium4件（M1 audited AFTER SHA APPLY hard gate未実装／M2 timeout・request bound・CAS ambiguity recovery不足／M3 OLD候補行のMarkdown list-item shape hard gate不足／M4 post-write selected SDA approved membership exact1 hard gate不足）→全件是正
+- Codex code re-audit（2回目）: 残存Medium2件（M5 recovery row classificationがfull identity gate前に行われる懸念／M6 post-write exception時のmutation-state evidence保持不足）→是正（`activeSummary`参照保持によるtop-level catchでのevidence非喪失、recovery rowのfull identity gate追加）→最終Codex re-audit **PASS**（Critical/High/Medium=0）
+- commit `8e52b2634feb8804dc0eeef84cd55046c743a183 feat: add safe ge country validator patch`（AFTER SHA=null状態でcommit）→ local safe TypeCheck exactly1回（`--incremental false`、GE patch起因エラー0、既存untracked scratch script由来26件のみ）→production dry-run exactly1回実行でcandidate AFTER SHA `41f681fc6e1e7154665a5203796e3754021275a279495197563c4694d76a6ad9`をfresh確定→Codex dry-run evidence audit PASS→AFTER SHA freeze専用commit `eb1b08ed4c4390de4cc8e1b7c33ca917896e9ff2 chore: freeze ge audited after sha`→push→CI（`Scripts TypeCheck`run `32044365804`）success
+
+### production APPLY・post-write verification
+- production apply（2026-08-17、PM明示承認・exactly1 invocation、env-scoped `ALLOW_PRODUCTION_STUDY_PATCH=1 ... --apply`）: CAS 1/1成功（mutation_state=confirmed、db_updated=true）、retry=0、rollback=0、direct update=0、recovery SELECT=0（CAS即成功のため不要）、country_sources write=0、production request総数6/6（max内）
+- exact mutation scope＝3箇所のみ（JA/EN/ZH Reference行、いずれも`https://gnta.ge`→`https://sda.gov.ge/en/products/migration-residence-permits/`）。body・他Reference行は無変更
+- content SHA-256: BEFORE `86b1c241c4fbe74c8e5767b74d6cd0abd982aa9405239ac511fccb99c06b4641` → AFTER `41f681fc6e1e7154665a5203796e3754021275a279495197563c4694d76a6ad9`（runtime candidate AFTER SHA・frozen audited SHA・post-write実測SHAの3値が完全一致）
+- post-write independent verification（script内部）: content deep-equal・post SHA一致・JA/EN/ZH OLD0/NEW1・selected SDA approved match exact1・fresh validator=PASS（reasons=0）・非content列不変、すべて完全PASS。Codex independent APPLY execution/post-write evidence audit PASS WITH NOTES
+
+### authoritative post-GE global baseline reconfirmation
+- `scripts/check-study-production-baseline.ts`exactly1回実行: total105/PASS81/FAIL24/country46-6/work35-18/sources389/evaluated105/exceptions0
+- fresh FAIL24 set＝BG後FAIL25から`study-country-ge`のみを除去した集合と完全一致（他の意図しないFAIL追加・削除0件、work側totals完全不変、DK/BGとも引き続きPASS）。`GLOBAL_BASELINE_RESULT = PASS_EXACT_GE_ONLY`。Codex independent global-baseline / closure evidence audit PASS WITH NOTES、`GE_REMEDIATION_FORMALLY_CLOSABLE = Yes`
+
+### 現在のvalidator PASS/FAIL（2026-08-18測定、GE専用patch適用後の確定値。以下「追記8」節の80/25という数値は古い。以後はこちらを参照）
+- 公開済み`study-country-*`/`study-work-*` 105件中 **PASS 81件 / FAIL 24件**（country: PASS 46/FAIL 6、work: PASS 35/FAIL 18）
+- Batch1（14件）+ Batch2（3件）+ Batch3（5件）+ CZ dedicated patch（1件）+ IE dedicated patch（1件）+ RS dedicated patch（1件）+ AE dedicated patch（1件）+ BG dedicated patch（1件）+ GE dedicated patch（1件） = validator debt修正累計 **28件 DONE**（Batch1着手前PASS 51 → 現在PASS 81。original debt 52件のうち28件解消＝53.85%進捗）
+- 詳細は`docs/BACKLOG.md`のBL-20260809-02・「14. study-country-ge validator debt 恒久記録」参照
+
+### remaining FAIL24の分類・次アクション
+- L2=14件（`study-country-ge`がL2から解消され15件→14件に減少）: `study-country-br` / `study-country-es` / `study-country-th` / `study-work-br` / `study-work-cn` / `study-work-cy` / `study-work-cz` / `study-work-gb` / `study-work-hu` / `study-work-kr` / `study-work-no` / `study-work-pt` / `study-work-se` / `study-work-vn`（14件）
+- L3=3件（`study-work-mt` / `study-country-no` / `study-country-se`、変更なし）
+- S=6件（`study-work-es` / `study-work-it` / `study-work-th` / `study-country-tn` / `study-work-tn` / `study-work-za`、変更なし）
+- X=1件（`study-work-ge`、変更なし。`study-country-ge`とは別記事であり混同しないこと）
+- 上記classificationはhistorical分類の引き算であり、**次target選定前には必ずfresh read-only triageを再実行すること**
+- 次のnext actionは、remaining FAIL24をcurrent production上でfresh再triage → 各slugのvalidator reason matrix・source registry state・修正規模を比較 → next target 1件・backup 1件選定 → deep design audit → Codex独立contextual-fit監査 → script実装 → Codex code audit → DRY_RUN → production apply、の順。**`study-country-ge`への再APPLYは禁止**（既にconfirmed成功済み）
 
 ## 2026-08-15時点の追記8: study-work-bg validator debt専用patch完了（production）＋bounded baseline checker導入
 
