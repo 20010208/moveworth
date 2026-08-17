@@ -236,7 +236,7 @@ const EXPECTED_CONTENT_SHA = "86b1c241c4fbe74c8e5767b74d6cd0abd982aa9405239ac511
 
 // M1是正: dry-run独立監査後にfreezeするexpected AFTER SHA。今回は意図的にnullのまま。
 // CLI/env経由でのoverride経路は存在しない（単なるmodule-scope定数）。
-const AUDITED_AFTER_CONTENT_SHA: string | null = null;
+const AUDITED_AFTER_CONTENT_SHA: string | null = "41f681fc6e1e7154665a5203796e3754021275a279495197563c4694d76a6ad9";
 
 // 置換対象URL（Reference section内でこのURLを引用する行を各言語exactly1件探す）
 const OLD_URL = "https://gnta.ge";
