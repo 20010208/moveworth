@@ -222,7 +222,7 @@ const EXPECTED_CONTENT_SHA = "39771061074e9449f23f834af08842057ddaf9880447065b73
 // dry-run独立監査後にfreezeするexpected AFTER SHA。今回は意図的にnullのまま。
 // CLI/env経由でのoverride経路は存在しない（単なるmodule-scope定数）。
 // 絶対に推測値・placeholder・all-zero・空文字列を入れない。
-const AUDITED_AFTER_CONTENT_SHA: string | null = null;
+const AUDITED_AFTER_CONTENT_SHA: string | null = "33aebc3925b64a81a14c3fbb2b63c5a5914df8d7636ef3e563525f83dfde7318";
 
 // 置換対象URL（Reference section内でこのURLを引用する行を各言語exactly1件探す）。
 // GEとは異なり、在日スペイン大使館ページは言語別pathで異なるURLを持つ
