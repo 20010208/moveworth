@@ -260,7 +260,7 @@ const EXPECTED_CONTENT_SHA = "a94ed1d3b6f472489bf9411c5a028dd9cffd734fe63fb89a70
 // recon/designフェーズでは確認済みだが、本phase単独ではsource-freezeしない。ES/GE
 // precedentと同一のpre-freeze lifecycle）。CLI/env経由でのoverride経路は存在しない
 // （単なるmodule-scope定数）。絶対に推測値・placeholder・all-zero・空文字列を入れない。
-const AUDITED_AFTER_CONTENT_SHA: string | null = null;
+const AUDITED_AFTER_CONTENT_SHA: string | null = "6c1c9714b902560cb323931f524cfbf4514a28cec1fa137254b39675bb8e4da6";
 
 // 置換対象URL（Reference section内でこのURLを引用する行を各言語exactly1件探す）。
 // ESと同様、JA/ZHは同一のURL（Ministério da Justiça一般移民案内ページ）を、ENのみ
